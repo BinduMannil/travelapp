@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Google Maps",
+    "purpose": "Navigation, transit directions, opening hours, offline areas",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id585027354",
+    "android_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps",
+    "display_order": 1,
+    "notes": "Download the Tokyo area for offline use before you arrive. Transit directions are surprisingly accurate and include platform exits."
+  },
+  {
+    "name": "Google Translate",
+    "purpose": "Menu & sign translation (camera mode), voice conversations",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id414706506",
+    "android_url": "https://play.google.com/store/apps/details?id=com.google.android.apps.translate",
+    "display_order": 2,
+    "notes": "Download Japanese offline. Camera mode reads kanji menus in real time; conversation mode handles spoken exchanges."
+  },
+  {
+    "name": "Suica (Apple Wallet) / Mobile Suica",
+    "purpose": "Tap-to-pay for trains, buses, convenience stores",
+    "free": true,
+    "ios_url": "https://www.jreast.co.jp/e/pass/suica.html",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.co.jreast.suicamb",
+    "display_order": 3,
+    "notes": "On iPhone 8 or later, add a Suica inside Apple Wallet and top up with Apple Pay. Saves the hassle of buying a physical card."
+  },
+  {
+    "name": "Japan Travel by NAVITIME",
+    "purpose": "Offline train timetables, JR Pass route planner, station exit guide",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id787273307",
+    "android_url": "https://play.google.com/store/apps/details?id=com.navitime.inbound.local.app.ios",
+    "display_order": 4,
+    "notes": "Tourist-focused. Free tier is generous; premium unlocks offline maps. Excellent for Shinkansen planning."
+  },
+  {
+    "name": "GO — Japan's #1 Taxi App",
+    "purpose": "Hailing licensed taxis in Tokyo and 40+ other cities",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1084922215",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.co.mobilitytechnologies.gopartner",
+    "display_order": 5,
+    "notes": "Uber in Tokyo is very limited; GO is the reliable default. Pays the metered fare, not surge."
+  },
+  {
+    "name": "LINE",
+    "purpose": "Messaging (the dominant app in Japan), some business bookings",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id443904275",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.naver.line.android",
+    "display_order": 6,
+    "notes": "Many small businesses, tour operators, and locals prefer LINE over email. Useful for coordinating with guides or homestays."
+  },
+  {
+    "name": "Tabelog",
+    "purpose": "Real local restaurant reviews and ratings",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id336990989",
+    "android_url": "https://play.google.com/store/apps/details?id=com.kakaku.tabelog",
+    "display_order": 7,
+    "notes": "A 3.5+ on Tabelog is strong; 3.8+ is excellent. Skews pickier than Google. Some reservations require a Japanese phone number."
+  },
+  {
+    "name": "NERV Disaster Prevention",
+    "purpose": "Earthquake early warnings, tsunami & typhoon alerts (English UI)",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1494879122",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.gehirn.nerv.disaster.prevention",
+    "display_order": 8,
+    "notes": "Fast, clean, English-friendly version of the national JMA alerts. Install before you land."
+  },
+  {
+    "name": "Japan Official Travel App (JNTO)",
+    "purpose": "Free Wi-Fi finder, ATM locator, tax-free shop map",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1048217333",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.or.jnto.japanofficialtravelapp",
+    "display_order": 9,
+    "notes": "Decent offline basics. The Wi-Fi finder and tax-free map are the killer features."
+  },
+  {
+    "name": "Ecbo Cloak",
+    "purpose": "Book luggage storage at cafés, shops, and hotels city-wide",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1209090170",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.ecbo.cloak",
+    "display_order": 10,
+    "notes": "Often cheaper and easier than coin lockers, which fill up at popular stations by mid-morning."
+  },
+  {
+    "name": "Yamato Takuhaibin",
+    "purpose": "Forward heavy luggage between hotels overnight",
+    "free": true,
+    "ios_url": null,
+    "android_url": null,
+    "display_order": 11,
+    "notes": "Not an app per se — ask at your hotel front desk or a konbini. Typical suitcase forwarding is ¥2,000-¥2,500 and saves you lugging suitcases on crowded trains."
+  }
+]

@@ -8,6 +8,9 @@
 import tokyoClimateJson from "@/db/seed/tokyo/seasonal_climate.json";
 import tokyoPriceItemsJson from "@/db/seed/tokyo/price_items.json";
 import tokyoCityJson from "@/db/seed/tokyo/city.json";
+import tokyoAppsJson from "@/db/seed/tokyo/must_have_apps.json";
+import tokyoTransitJson from "@/db/seed/tokyo/transit_options.json";
+import tokyoInterCityJson from "@/db/seed/tokyo/inter_city_routes.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -122,6 +125,58 @@ const COUNTRY_VISA_RULES: Record<string, VisaRuleset> = {
   japan: japanVisaRulesJson as VisaRuleset,
 };
 
+export type MustHaveApp = {
+  name: string;
+  purpose: string;
+  free: boolean;
+  ios_url: string | null;
+  android_url: string | null;
+  display_order: number;
+  notes?: string;
+};
+
+export type TransitOption = {
+  mode: string;
+  name: string;
+  recommended: boolean;
+  payment_methods: string[];
+  price_note: string;
+  pros: string[];
+  cons: string[];
+  url: string | null;
+  display_order: number;
+};
+
+export type InterCityMode = {
+  mode: string;
+  name: string;
+  duration_minutes: number;
+  price_min_minor: number;
+  price_max_minor: number;
+  currency: string;
+  notes?: string;
+  booking_url: string | null;
+};
+
+export type InterCityRoute = {
+  dest_name: string;
+  dest_slug: string;
+  in_same_country: boolean;
+  options: InterCityMode[];
+};
+
+const MUST_HAVE_APPS: Record<string, MustHaveApp[]> = {
+  tokyo: tokyoAppsJson as MustHaveApp[],
+};
+
+const TRANSIT_OPTIONS: Record<string, TransitOption[]> = {
+  tokyo: tokyoTransitJson as TransitOption[],
+};
+
+const INTER_CITY_ROUTES: Record<string, InterCityRoute[]> = {
+  tokyo: tokyoInterCityJson as InterCityRoute[],
+};
+
 // Map from city slug → country slug so city pages can look up country-level
 // content (languages, tipping, visa) without a DB round-trip.
 const CITY_TO_COUNTRY: Record<string, string> = { tokyo: "japan" };
@@ -162,4 +217,20 @@ export function getCountryTipping(
 
 export function getVisaRuleset(countrySlug: string): VisaRuleset | null {
   return COUNTRY_VISA_RULES[countrySlug] ?? null;
+}
+
+export function getMustHaveApps(citySlug: string): MustHaveApp[] {
+  return [...(MUST_HAVE_APPS[citySlug] ?? [])].sort(
+    (a, b) => a.display_order - b.display_order,
+  );
+}
+
+export function getTransitOptions(citySlug: string): TransitOption[] {
+  return [...(TRANSIT_OPTIONS[citySlug] ?? [])].sort(
+    (a, b) => a.display_order - b.display_order,
+  );
+}
+
+export function getInterCityRoutes(citySlug: string): InterCityRoute[] {
+  return INTER_CITY_ROUTES[citySlug] ?? [];
 }

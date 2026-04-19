@@ -1,0 +1,106 @@
+[
+  {
+    "mode": "metro",
+    "name": "Tokyo Metro + Toei subway",
+    "recommended": true,
+    "payment_methods": ["suica", "pasmo", "ic_card", "cash_single_ticket"],
+    "price_note": "¥180-¥330 per ride (distance-based). 24/48/72-hour Tokyo Subway Ticket: ¥800/¥1,200/¥1,500 for tourists.",
+    "pros": [
+      "Dense network covering every central neighborhood",
+      "Trains every 2-5 minutes at rush, 5-10 minutes off-peak",
+      "Station signs and announcements in English, Chinese, Korean"
+    ],
+    "cons": [
+      "Closes around 00:00-01:00; no night service",
+      "Transfers between Tokyo Metro and Toei usually cost extra unless you hold the combined pass"
+    ],
+    "url": "https://www.tokyometro.jp/en/",
+    "display_order": 1
+  },
+  {
+    "mode": "jr",
+    "name": "JR East lines (Yamanote, Chuo, Sobu)",
+    "recommended": true,
+    "payment_methods": ["suica", "pasmo", "ic_card", "cash_single_ticket"],
+    "price_note": "¥150-¥320 per ride. The Yamanote loop is the tourist backbone — one full loop takes ~60 minutes.",
+    "pros": [
+      "Runs to most major districts (Shinjuku, Shibuya, Ueno, Tokyo, Akihabara)",
+      "More frequent and longer-running hours than the subway",
+      "Connects directly to Shinkansen and airport express trains"
+    ],
+    "cons": [
+      "Fares stack separately from subway unless transferring through a single IC tap",
+      "Rush hour (7:30-9:30, 17:30-19:30) is genuinely packed"
+    ],
+    "url": "https://www.jreast.co.jp/e/",
+    "display_order": 2
+  },
+  {
+    "mode": "taxi",
+    "name": "Taxi",
+    "recommended": false,
+    "payment_methods": ["cash", "visa", "mastercard", "amex", "apple_pay", "suica"],
+    "price_note": "¥500 base for first 1.096 km, then ¥100 per 255 m. 22:00-05:00 surcharge of +20%. Short cross-district rides ¥1,000-¥2,500.",
+    "pros": [
+      "Drivers are licensed, meter-only, polite; rear doors open automatically",
+      "Reliable late-night when trains stop",
+      "Apps (GO, S.RIDE, DiDi) work well and accept cards"
+    ],
+    "cons": [
+      "Expensive vs. transit and walking",
+      "Traffic is heavy around Shibuya/Shinjuku on weekends"
+    ],
+    "url": "https://go.mo-t.com/en",
+    "display_order": 3
+  },
+  {
+    "mode": "bus",
+    "name": "City bus (Toei Bus)",
+    "recommended": false,
+    "payment_methods": ["suica", "pasmo", "ic_card", "cash"],
+    "price_note": "Flat ¥210 adult / ¥110 child in central Tokyo.",
+    "pros": [
+      "Reaches areas the subway misses (inner Roppongi, waterfront)",
+      "Pay-on-entry is simple with IC card tap"
+    ],
+    "cons": [
+      "Slower than the subway and less English signage",
+      "Rarely needed by tourists"
+    ],
+    "url": "https://www.kotsu.metro.tokyo.jp/eng/services/bus.html",
+    "display_order": 4
+  },
+  {
+    "mode": "bike",
+    "name": "Bike share (HELLO CYCLING / docomo)",
+    "recommended": false,
+    "payment_methods": ["visa", "mastercard", "amex"],
+    "price_note": "¥165 per 30 min with ¥1,800/day cap (HELLO CYCLING).",
+    "pros": [
+      "Fun for riverside or park routes (Arakawa, Sumida, Imperial Palace)",
+      "Docking stations at most convenience stores and many hotels"
+    ],
+    "cons": [
+      "Riding on sidewalks is technically restricted; busy areas are stressful",
+      "Helmets are recommended but often not provided"
+    ],
+    "url": "https://www.hellocycling.jp/app/",
+    "display_order": 5
+  },
+  {
+    "mode": "walk",
+    "name": "On foot",
+    "recommended": true,
+    "payment_methods": [],
+    "price_note": "Free.",
+    "pros": [
+      "Central Tokyo is dense and walkable — neighborhoods unfold best on foot",
+      "Sidewalks, crossings, and signage are excellent"
+    ],
+    "cons": [
+      "Summer heat (July-August) and humidity can be brutal — plan rest stops"
+    ],
+    "url": null,
+    "display_order": 6
+  }
+]
