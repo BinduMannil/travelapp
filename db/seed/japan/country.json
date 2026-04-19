@@ -1,0 +1,11 @@
+{
+  "slug": "japan",
+  "name": "Japan",
+  "iso2": "JP",
+  "iso3": "JPN",
+  "default_currency": "JPY",
+  "default_timezone": "Asia/Tokyo",
+  "primary_languages": ["Japanese"],
+  "summary": "An East Asian archipelago of 14,000+ islands with a dense rail network, deep culinary traditions, and four distinct seasons.",
+  "hero_image_url": null
+}
