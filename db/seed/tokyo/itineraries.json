@@ -1,0 +1,149 @@
+[
+  {
+    "slug": "first-timer-3-days",
+    "name": "First-timer · 3 days",
+    "days": 3,
+    "trip_type_slugs": ["cultural", "solo", "couple"],
+    "best_for": ["Short stopover", "First visit", "Couples"],
+    "pace": "Moderate",
+    "summary": "The essentials in three full days — old Tokyo, the skyline, pop culture, and one unforgettable dinner.",
+    "sections": [
+      {
+        "day": 1,
+        "title": "Day 1 · Old Tokyo + Skyline",
+        "blocks": [
+          { "time": "08:00", "title": "Sensō-ji at dawn",         "note": "Beat the crowds to Kaminarimon and the main hall.",         "attraction_slug": "senso-ji" },
+          { "time": "10:30", "title": "Nakamise-dōri snacks",      "note": "Ningyō-yaki, agemanjū, matcha soft-serve.",                 "attraction_slug": "senso-ji" },
+          { "time": "13:00", "title": "Walk to Skytree",            "note": "15-min river walk across Sumida.",                          "attraction_slug": "tokyo-skytree" },
+          { "time": "14:00", "title": "Tokyo Skytree observation",  "note": "Timed-entry ticket booked ahead.",                          "attraction_slug": "tokyo-skytree" },
+          { "time": "18:00", "title": "Dinner — Gonpachi Nishi-Azabu","note": "The 'Kill Bill' restaurant; 2F tatami.",                  "restaurant_slug": "gonpachi-nishi-azabu" }
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Day 2 · Harajuku → Shibuya",
+        "blocks": [
+          { "time": "09:00", "title": "Meiji Jingū forest walk",    "note": "Quiet forest, sake barrels, torii gates.",                  "attraction_slug": "meiji-jingu" },
+          { "time": "11:00", "title": "Harajuku Takeshita + Ura",   "note": "Crêperies on the main drag; design shops on the side streets.","neighborhood_slug": "harajuku" },
+          { "time": "13:00", "title": "Lunch — AFURI Ebisu",        "note": "Yuzu shio ramen; vegan option on same menu.",               "restaurant_slug": "afuri-ebisu" },
+          { "time": "16:00", "title": "Shibuya Sky sunset",         "note": "Open-air observation deck. Book the 17:30-18:00 slot.",     "neighborhood_slug": "shibuya" },
+          { "time": "19:30", "title": "Shibuya Scramble at night",  "note": "Do the crossing, then a Center-Gai bar.",                   "attraction_slug": "shibuya-crossing" }
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Day 3 · Art + Ginza splurge",
+        "blocks": [
+          { "time": "09:30", "title": "teamLab Planets Toyosu",     "note": "Barefoot digital art; 75 minutes.",                         "attraction_slug": "teamlab-planets" },
+          { "time": "12:30", "title": "Tsukiji Outer Market",       "note": "Tamagoyaki skewer, scallop, uni bowl.",                     "attraction_slug": "tsukiji-outer-market" },
+          { "time": "15:00", "title": "Ginza stroll",               "note": "Weekends are pedestrianised. Itoya for stationery.",        "neighborhood_slug": "ginza" },
+          { "time": "19:00", "title": "Dinner — Sukiyabashi Jiro Roppongi","note": "Book 30 days ahead. Suit up.",                        "restaurant_slug": "sukiyabashi-jiro-roppongi" }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "first-timer-5-days",
+    "name": "First-timer · 5 days",
+    "days": 5,
+    "trip_type_slugs": ["cultural", "solo", "couple", "family"],
+    "best_for": ["Typical first trip", "Couples", "Friends"],
+    "pace": "Moderate",
+    "summary": "Five days covers the classics plus a day trip. Add Kyoto or Hakone on day 4 or 5 via Shinkansen.",
+    "sections": [
+      { "day": 1, "title": "Day 1 · Asakusa + Skytree", "blocks": [
+        { "time": "08:00", "title": "Sensō-ji at dawn",    "attraction_slug": "senso-ji" },
+        { "time": "13:00", "title": "Tokyo Skytree",       "attraction_slug": "tokyo-skytree" },
+        { "time": "18:00", "title": "Gonpachi dinner",     "restaurant_slug": "gonpachi-nishi-azabu" }
+      ]},
+      { "day": 2, "title": "Day 2 · Harajuku + Shibuya", "blocks": [
+        { "time": "09:00", "title": "Meiji Jingū",         "attraction_slug": "meiji-jingu" },
+        { "time": "12:30", "title": "AFURI lunch",          "restaurant_slug": "afuri-ebisu" },
+        { "time": "16:00", "title": "Shibuya Sky sunset",   "neighborhood_slug": "shibuya" },
+        { "time": "19:30", "title": "Ichiran late-night ramen","restaurant_slug": "ichiran-shibuya" }
+      ]},
+      { "day": 3, "title": "Day 3 · Museums + Ueno", "blocks": [
+        { "time": "10:00", "title": "Tokyo National Museum", "attraction_slug": "tokyo-national-museum" },
+        { "time": "14:00", "title": "Akihabara retro crawl", "attraction_slug": "akihabara-electric-town" },
+        { "time": "19:00", "title": "Tempura Kondo (book ahead)", "restaurant_slug": "tempura-kondo" }
+      ]},
+      { "day": 4, "title": "Day 4 · Day trip — Hakone or Kamakura", "blocks": [
+        { "time": "08:00", "title": "Depart on Romancecar (Hakone) or Yokosuka line (Kamakura)", "note": "See Nearby cities for routes & prices." },
+        { "time": "19:00", "title": "Back to Tokyo", "note": "Dinner in your base neighborhood." }
+      ]},
+      { "day": 5, "title": "Day 5 · teamLab + Ginza send-off", "blocks": [
+        { "time": "09:30", "title": "teamLab Planets", "attraction_slug": "teamlab-planets" },
+        { "time": "12:30", "title": "Tsukiji brunch", "attraction_slug": "tsukiji-outer-market" },
+        { "time": "15:00", "title": "Ginza + Kabukiza single act",   "neighborhood_slug": "ginza" },
+        { "time": "20:00", "title": "NARISAWA farewell dinner",      "restaurant_slug": "narisawa" }
+      ]}
+    ]
+  },
+  {
+    "slug": "food-crawl-4-days",
+    "name": "Food crawl · 4 days",
+    "days": 4,
+    "trip_type_slugs": ["food", "solo", "couple"],
+    "best_for": ["Foodies", "Couples", "Solo food travellers"],
+    "pace": "Intense",
+    "summary": "Four days from ¥100 konbini coffee to ¥45,000 kaiseki. Bring elastic waistbands.",
+    "sections": [
+      { "day": 1, "title": "Day 1 · Markets + Ramen", "blocks": [
+        { "time": "06:00", "title": "Tsukiji at dawn",     "attraction_slug": "tsukiji-outer-market" },
+        { "time": "09:30", "title": "Sushi Dai queue",      "restaurant_slug": "sushi-dai" },
+        { "time": "14:00", "title": "Ichiran for afternoon ramen", "restaurant_slug": "ichiran-shibuya" },
+        { "time": "19:30", "title": "Izakaya — Gonpachi",   "restaurant_slug": "gonpachi-nishi-azabu" }
+      ]},
+      { "day": 2, "title": "Day 2 · Michelin starters", "blocks": [
+        { "time": "12:00", "title": "Tempura Kondo lunch (much cheaper)", "restaurant_slug": "tempura-kondo" },
+        { "time": "15:00", "title": "Depachika stroll at Mitsukoshi Ginza", "note": "Ginza's basement food hall is world-class; sample and snack.","neighborhood_slug": "ginza" },
+        { "time": "19:30", "title": "Tsuta ramen (Bib Gourmand)", "restaurant_slug": "tsuta" }
+      ]},
+      { "day": 3, "title": "Day 3 · Budget + Vegan", "blocks": [
+        { "time": "07:00", "title": "T's Tantan vegan ramen", "restaurant_slug": "ts-tantan-tokyo-station" },
+        { "time": "13:00", "title": "Tonkatsu Maisen",       "restaurant_slug": "tonkatsu-maisen-aoyama" },
+        { "time": "19:00", "title": "Ain Soph. Journey dinner","restaurant_slug": "ain-soph-journey" }
+      ]},
+      { "day": 4, "title": "Day 4 · The big nights", "blocks": [
+        { "time": "12:00", "title": "Sukiyabashi Jiro Roppongi lunch", "restaurant_slug": "sukiyabashi-jiro-roppongi" },
+        { "time": "19:00", "title": "NARISAWA dinner",                  "restaurant_slug": "narisawa" }
+      ]}
+    ]
+  },
+  {
+    "slug": "family-5-days",
+    "name": "Family (with kids) · 5 days",
+    "days": 5,
+    "trip_type_slugs": ["family"],
+    "best_for": ["Parents with kids 5-12", "Multi-generation trips"],
+    "pace": "Gentle",
+    "summary": "Shorter walking days, kid-friendly food, and breathing room in the afternoon. Skip tight reservations; add Disneyland or DisneySea if you're staying longer.",
+    "sections": [
+      { "day": 1, "title": "Day 1 · Arrival + Odaiba", "blocks": [
+        { "time": "14:00", "title": "Odaiba Gundam + DiverCity", "neighborhood_slug": "odaiba" },
+        { "time": "17:00", "title": "Rainbow Bridge sunset from Odaiba Beach", "neighborhood_slug": "odaiba" },
+        { "time": "18:30", "title": "Aqua City food court dinner" }
+      ]},
+      { "day": 2, "title": "Day 2 · Sensō-ji + river cruise", "blocks": [
+        { "time": "09:00", "title": "Sensō-ji + Nakamise snacks", "attraction_slug": "senso-ji" },
+        { "time": "13:00", "title": "Sumida River cruise to Hamarikyū" },
+        { "time": "17:00", "title": "Hotel downtime / onsen at Onyado Nono" }
+      ]},
+      { "day": 3, "title": "Day 3 · Ghibli Museum + Inokashira Park", "blocks": [
+        { "time": "10:00", "title": "Ghibli Museum (book T-10 days)",    "attraction_slug": "ghibli-museum" },
+        { "time": "14:00", "title": "Inokashira Park swan boats" },
+        { "time": "18:30", "title": "CoCo Ichibanya curry",              "restaurant_slug": "coco-ichibanya-shinjuku" }
+      ]},
+      { "day": 4, "title": "Day 4 · Ueno zoo + museums", "blocks": [
+        { "time": "10:00", "title": "Ueno Zoo pandas" },
+        { "time": "13:00", "title": "Tokyo National Museum",             "attraction_slug": "tokyo-national-museum" },
+        { "time": "18:00", "title": "Maisen tonkatsu dinner",            "restaurant_slug": "tonkatsu-maisen-aoyama" }
+      ]},
+      { "day": 5, "title": "Day 5 · teamLab + Shinjuku Gyoen picnic", "blocks": [
+        { "time": "09:30", "title": "teamLab Planets",            "attraction_slug": "teamlab-planets" },
+        { "time": "13:00", "title": "Shinjuku Gyoen picnic",      "attraction_slug": "shinjuku-gyoen" },
+        { "time": "17:00", "title": "Hotel Gracery Godzilla photo + departure","note": "Drop bags, shinkansen or flight home.","neighborhood_slug": "shinjuku" }
+      ]}
+    ]
+  }
+]

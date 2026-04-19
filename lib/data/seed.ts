@@ -22,6 +22,7 @@ import japanCalendarJson from "@/db/seed/japan/calendar.json";
 import japanGoodToKnowJson from "@/db/seed/japan/good_to_know.json";
 import tokyoNeighborhoodsJson from "@/db/seed/tokyo/neighborhoods.json";
 import tokyoHotelsJson from "@/db/seed/tokyo/hotels.json";
+import tokyoItinerariesJson from "@/db/seed/tokyo/itineraries.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -801,3 +802,50 @@ export const HOTEL_TIER_ORDER: HotelTier[] = [
   "luxury",
   "luxury_ryokan",
 ];
+
+// ---------------------------------------------------------------------------
+// Itinerary templates
+// ---------------------------------------------------------------------------
+
+export type ItineraryBlock = {
+  time: string;
+  title: string;
+  note?: string;
+  attraction_slug?: string;
+  restaurant_slug?: string;
+  neighborhood_slug?: string;
+};
+
+export type ItinerarySection = {
+  day: number;
+  title: string;
+  blocks: ItineraryBlock[];
+};
+
+export type ItineraryTemplate = {
+  slug: string;
+  name: string;
+  days: number;
+  trip_type_slugs: string[];
+  best_for: string[];
+  pace: string;
+  summary: string;
+  sections: ItinerarySection[];
+};
+
+const ITINERARIES: Record<string, ItineraryTemplate[]> = {
+  tokyo: tokyoItinerariesJson as ItineraryTemplate[],
+};
+
+export function getItineraries(citySlug: string): ItineraryTemplate[] {
+  return [...(ITINERARIES[citySlug] ?? [])].sort((a, b) => a.days - b.days);
+}
+
+export function getItinerary(
+  citySlug: string,
+  templateSlug: string,
+): ItineraryTemplate | null {
+  return (
+    ITINERARIES[citySlug]?.find((t) => t.slug === templateSlug) ?? null
+  );
+}

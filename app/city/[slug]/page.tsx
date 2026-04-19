@@ -27,7 +27,7 @@ const SECTIONS: Section[] = [
   { slug: "good-to-know", label: "Good to know", ready: true },
   { slug: "calendar", label: "Holidays & festivals", ready: true },
   { slug: "packing", label: "Packing list", ready: true },
-  { slug: "itinerary", label: "Itineraries" },
+  { slug: "itinerary", label: "Itineraries", ready: true },
 ];
 
 export default async function CityPage({
