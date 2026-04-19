@@ -13,6 +13,9 @@ import tokyoTransitJson from "@/db/seed/tokyo/transit_options.json";
 import tokyoInterCityJson from "@/db/seed/tokyo/inter_city_routes.json";
 import tokyoAttractionsJson from "@/db/seed/tokyo/attractions.json";
 import tokyoRestaurantsJson from "@/db/seed/tokyo/restaurants.json";
+import tokyoArrivalJson from "@/db/seed/tokyo/arrival.json";
+import japanPaymentsJson from "@/db/seed/japan/payments.json";
+import japanConnectivityJson from "@/db/seed/japan/connectivity.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -403,3 +406,126 @@ export const DIETARY_LABELS: Record<string, string> = {
   kosher: "Kosher",
   gluten_free: "Gluten-free",
 };
+
+// ---------------------------------------------------------------------------
+// Payments, arrival, connectivity
+// ---------------------------------------------------------------------------
+
+export type PaymentMethod = {
+  key: string;
+  label: string;
+  accepted_level: "ubiquitous" | "common" | "limited" | "rare";
+  notes?: string;
+};
+
+export type AcceptanceLevel = "yes" | "often" | "sometimes" | "rare";
+
+export type PaymentVenue = {
+  key: string;
+  label: string;
+  accepts: Record<string, AcceptanceLevel>;
+};
+
+export type PaymentsPayload = {
+  summary: string;
+  pricing_currency: string;
+  methods: PaymentMethod[];
+  venues: PaymentVenue[];
+  atm_notes: string;
+  tax_refund_note: string;
+};
+
+export type AirportTransfer = {
+  mode: string;
+  name: string;
+  duration_minutes: number;
+  price_min_minor: number;
+  price_max_minor: number;
+  currency: string;
+  first_last_service: string;
+  notes?: string;
+  url?: string | null;
+};
+
+export type AirportGroup = {
+  from_airport: string;
+  airport_name: string;
+  options: AirportTransfer[];
+};
+
+export type LuggageService = {
+  kind: string;
+  provider: string;
+  coverage: string;
+  price_from_minor: number;
+  currency: string;
+  notes?: string;
+  url?: string | null;
+};
+
+export type AtmExchangeRow = {
+  type: "atm" | "exchange";
+  name: string;
+  foreign_card_ok: boolean | null;
+  hours: string;
+  notes?: string;
+  url?: string | null;
+};
+
+export type ArrivalPayload = {
+  airport_transfers: AirportGroup[];
+  luggage_services: LuggageService[];
+  atm_exchange: AtmExchangeRow[];
+};
+
+export type PowerInfo = {
+  plug_types: string[];
+  voltage: number;
+  frequency: string;
+  converter_needed_from: string[];
+  notes?: string;
+};
+
+export type ConnectivityOption = {
+  option: "esim" | "physical_sim" | "pocket_wifi" | "public_wifi";
+  kind: string;
+  provider: string;
+  plan_label: string;
+  price_minor: number;
+  currency: string;
+  pros: string[];
+  cons: string[];
+  url?: string | null;
+};
+
+export type ConnectivityPayload = {
+  power: PowerInfo;
+  connectivity: ConnectivityOption[];
+  vpn_note: string;
+};
+
+const COUNTRY_PAYMENTS: Record<string, PaymentsPayload> = {
+  japan: japanPaymentsJson as PaymentsPayload,
+};
+
+const CITY_ARRIVAL: Record<string, ArrivalPayload> = {
+  tokyo: tokyoArrivalJson as ArrivalPayload,
+};
+
+const COUNTRY_CONNECTIVITY: Record<string, ConnectivityPayload> = {
+  japan: japanConnectivityJson as ConnectivityPayload,
+};
+
+export function getCountryPayments(countrySlug: string): PaymentsPayload | null {
+  return COUNTRY_PAYMENTS[countrySlug] ?? null;
+}
+
+export function getCityArrival(citySlug: string): ArrivalPayload | null {
+  return CITY_ARRIVAL[citySlug] ?? null;
+}
+
+export function getCountryConnectivity(
+  countrySlug: string,
+): ConnectivityPayload | null {
+  return COUNTRY_CONNECTIVITY[countrySlug] ?? null;
+}

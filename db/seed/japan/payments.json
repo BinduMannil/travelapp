@@ -1,0 +1,30 @@
+{
+  "summary": "Japan is cash-friendlier than most developed countries, but card acceptance in Tokyo has risen sharply since 2020. IC cards (Suica / PASMO) tap-to-pay at almost every train, bus, and convenience store, and Apple Pay with a Suica in your Wallet is the smoothest tourist setup.",
+  "pricing_currency": "JPY",
+  "methods": [
+    { "key": "cash_jpy",  "label": "Cash (JPY)",                        "accepted_level": "ubiquitous", "notes": "Still the only option at many small izakaya, family-run ramen shops, temples, and rural inns." },
+    { "key": "suica_ic",  "label": "Suica / PASMO (IC card)",            "accepted_level": "ubiquitous", "notes": "Transit everywhere; also taps at 7-Eleven, Family Mart, Lawson, most vending machines, and many restaurants." },
+    { "key": "visa",      "label": "Visa credit / debit",                "accepted_level": "common",     "notes": "Most hotels, chains, and department stores. Tap-to-pay is rolling out fast." },
+    { "key": "mastercard","label": "Mastercard",                         "accepted_level": "common",     "notes": "Same coverage as Visa." },
+    { "key": "amex",      "label": "American Express",                   "accepted_level": "limited",    "notes": "Hotels and big department stores yes; small shops often not." },
+    { "key": "jcb",       "label": "JCB",                                "accepted_level": "common",     "notes": "Domestic card brand — widely accepted. Discover + Diners can piggyback on JCB acceptance." },
+    { "key": "apple_pay", "label": "Apple Pay (with Suica or Visa)",     "accepted_level": "common",     "notes": "If your iPhone Wallet has a Suica, you get the broadest coverage; Apple Pay with a Visa works at card-enabled terminals only." },
+    { "key": "google_pay","label": "Google Pay",                         "accepted_level": "limited",    "notes": "Tap-to-pay only works where the card network is tap-enabled — still narrower than Suica." },
+    { "key": "paypay",    "label": "PayPay (QR)",                        "accepted_level": "common",     "notes": "Dominant domestic QR-pay. You can load funds with an international card but most tourists skip it." },
+    { "key": "alipay",    "label": "Alipay / WeChat Pay",                "accepted_level": "limited",    "notes": "Common at shops courting Chinese tourists, especially around Ginza and Shinjuku." },
+    { "key": "wise",      "label": "Wise / Revolut card",                "accepted_level": "common",     "notes": "Works anywhere Visa/Mastercard is accepted; often the cheapest FX." }
+  ],
+  "venues": [
+    { "key": "convenience",      "label": "Convenience store (konbini)",     "accepts": {"cash_jpy":"yes","suica_ic":"yes","visa":"yes","mastercard":"yes","amex":"yes","jcb":"yes","apple_pay":"yes","google_pay":"yes","paypay":"yes","alipay":"yes","wise":"yes"} },
+    { "key": "ramen_small",      "label": "Ramen shop / small restaurant",   "accepts": {"cash_jpy":"yes","suica_ic":"often","visa":"sometimes","mastercard":"sometimes","amex":"rare","jcb":"sometimes","apple_pay":"sometimes","google_pay":"rare","paypay":"often","alipay":"rare","wise":"sometimes"} },
+    { "key": "fine_dining",      "label": "Fine-dining / Michelin",          "accepts": {"cash_jpy":"yes","suica_ic":"rare","visa":"yes","mastercard":"yes","amex":"yes","jcb":"yes","apple_pay":"yes","google_pay":"yes","paypay":"rare","alipay":"rare","wise":"yes"} },
+    { "key": "taxi",             "label": "Taxi",                             "accepts": {"cash_jpy":"yes","suica_ic":"yes","visa":"yes","mastercard":"yes","amex":"often","jcb":"yes","apple_pay":"yes","google_pay":"often","paypay":"yes","alipay":"sometimes","wise":"yes"} },
+    { "key": "transit",          "label": "Train / subway / bus",             "accepts": {"cash_jpy":"yes","suica_ic":"yes","visa":"rare","mastercard":"rare","amex":"rare","jcb":"rare","apple_pay":"rare","google_pay":"rare","paypay":"rare","alipay":"rare","wise":"rare"} },
+    { "key": "temple_shrine",    "label": "Temple / shrine (donations, omamori)", "accepts": {"cash_jpy":"yes","suica_ic":"rare","visa":"rare","mastercard":"rare","amex":"rare","jcb":"rare","apple_pay":"rare","google_pay":"rare","paypay":"sometimes","alipay":"rare","wise":"rare"} },
+    { "key": "department_store", "label": "Department store",                 "accepts": {"cash_jpy":"yes","suica_ic":"yes","visa":"yes","mastercard":"yes","amex":"yes","jcb":"yes","apple_pay":"yes","google_pay":"yes","paypay":"yes","alipay":"yes","wise":"yes"} },
+    { "key": "vending_machine",  "label": "Vending machine",                  "accepts": {"cash_jpy":"yes","suica_ic":"yes","visa":"rare","mastercard":"rare","amex":"rare","jcb":"rare","apple_pay":"rare","google_pay":"rare","paypay":"rare","alipay":"rare","wise":"rare"} },
+    { "key": "street_market",    "label": "Street market / yatai",            "accepts": {"cash_jpy":"yes","suica_ic":"rare","visa":"rare","mastercard":"rare","amex":"rare","jcb":"rare","apple_pay":"rare","google_pay":"rare","paypay":"sometimes","alipay":"rare","wise":"rare"} }
+  ],
+  "atm_notes": "7-Eleven (Seven Bank) ATMs accept Visa/Mastercard/Amex/UnionPay from foreign cards and have an English menu — there's one in most konbini. Japan Post ATMs also work. Most other ATMs reject foreign cards. Daily withdrawal limits are often set by your home bank, not the ATM.",
+  "tax_refund_note": "Visitors on a short-stay visa can shop tax-free at stores displaying the 'Japan. Tax-free Shop' sign, with a minimum ¥5,500 per store per day. Bring your passport. From 2026 the system moves to a refund-on-departure model — check the latest process at the airport."
+}
