@@ -23,6 +23,9 @@ import japanGoodToKnowJson from "@/db/seed/japan/good_to_know.json";
 import tokyoNeighborhoodsJson from "@/db/seed/tokyo/neighborhoods.json";
 import tokyoHotelsJson from "@/db/seed/tokyo/hotels.json";
 import tokyoItinerariesJson from "@/db/seed/tokyo/itineraries.json";
+import tokyoWellnessJson from "@/db/seed/tokyo/wellness.json";
+import japanCuisineJson from "@/db/seed/japan/cuisine.json";
+import japanFamousForJson from "@/db/seed/japan/famous_for.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -849,3 +852,110 @@ export function getItinerary(
     ITINERARIES[citySlug]?.find((t) => t.slug === templateSlug) ?? null
   );
 }
+
+// ---------------------------------------------------------------------------
+// Cuisine / Famous-for (country-level) + Wellness (city-level)
+// ---------------------------------------------------------------------------
+
+export type Dish = {
+  slug: string;
+  name: string;
+  romaji: string;
+  native_script: string;
+  origin: string;
+  originated_here: boolean;
+  made_of: string;
+  similar_to: string[];
+  vegan_version: boolean;
+  vegan_notes: string | null;
+  must_try_form: string;
+  where_in_tokyo?: string[];
+};
+
+export type CuisinePayload = {
+  summary: string;
+  dishes: Dish[];
+};
+
+export type FamousItem = {
+  name: string;
+  why: string;
+  where_to_buy?: string;
+};
+
+export type FamousCategory = {
+  slug: string;
+  label: string;
+  items: FamousItem[];
+};
+
+export type FamousForPayload = {
+  summary: string;
+  categories: FamousCategory[];
+};
+
+export type WellnessVenueType =
+  | "urban_onsen"
+  | "mountain_onsen"
+  | "sento"
+  | "head_spa"
+  | "massage";
+
+export type WellnessVenue = {
+  slug: string;
+  name: string;
+  type: WellnessVenueType;
+  neighborhood: string;
+  price_min_minor: number;
+  price_max_minor: number;
+  currency: string;
+  hours: string;
+  tattoo_policy: string;
+  features: string[];
+  url: string | null;
+  display_order: number;
+};
+
+export type WellnessPayload = {
+  summary: string;
+  etiquette_points: string[];
+  venues: WellnessVenue[];
+};
+
+const COUNTRY_CUISINE: Record<string, CuisinePayload> = {
+  japan: japanCuisineJson as CuisinePayload,
+};
+
+const COUNTRY_FAMOUS_FOR: Record<string, FamousForPayload> = {
+  japan: japanFamousForJson as FamousForPayload,
+};
+
+const CITY_WELLNESS: Record<string, WellnessPayload> = {
+  tokyo: tokyoWellnessJson as WellnessPayload,
+};
+
+export function getCountryCuisine(
+  countrySlug: string,
+): CuisinePayload | null {
+  return COUNTRY_CUISINE[countrySlug] ?? null;
+}
+
+export function getCountryFamousFor(
+  countrySlug: string,
+): FamousForPayload | null {
+  return COUNTRY_FAMOUS_FOR[countrySlug] ?? null;
+}
+
+export function getCityWellness(
+  citySlug: string,
+): WellnessPayload | null {
+  return CITY_WELLNESS[citySlug] ?? null;
+}
+
+export const WELLNESS_TYPE_LABEL: Record<WellnessVenueType, string> = {
+  urban_onsen: "Urban onsen",
+  mountain_onsen: "Mountain onsen",
+  sento: "Sentō (local bathhouse)",
+  head_spa: "Head spa",
+  massage: "Massage",
+};

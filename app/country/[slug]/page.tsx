@@ -9,6 +9,8 @@ type Section = { slug: string; label: string; ready?: boolean };
 
 const SECTIONS: Section[] = [
   { slug: "languages", label: "Languages spoken", ready: true },
+  { slug: "cuisine", label: "Must-try cuisine", ready: true },
+  { slug: "famous-for", label: "Famous for", ready: true },
   { slug: "visa", label: "Visa requirements" },
   { slug: "health-safety", label: "Health & safety" },
   { slug: "customs", label: "Customs & duty-free" },

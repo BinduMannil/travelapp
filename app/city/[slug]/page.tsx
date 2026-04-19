@@ -28,6 +28,7 @@ const SECTIONS: Section[] = [
   { slug: "calendar", label: "Holidays & festivals", ready: true },
   { slug: "packing", label: "Packing list", ready: true },
   { slug: "itinerary", label: "Itineraries", ready: true },
+  { slug: "wellness", label: "Wellness & onsen", ready: true },
 ];
 
 export default async function CityPage({
