@@ -24,8 +24,8 @@ const SECTIONS: Section[] = [
   { slug: "arrival", label: "Arrival & logistics", ready: true },
   { slug: "connectivity", label: "Connectivity", ready: true },
   { slug: "culture", label: "People & language", ready: true },
-  { slug: "good-to-know", label: "Good to know" },
-  { slug: "calendar", label: "Holidays & festivals" },
+  { slug: "good-to-know", label: "Good to know", ready: true },
+  { slug: "calendar", label: "Holidays & festivals", ready: true },
   { slug: "packing", label: "Packing list", ready: true },
   { slug: "itinerary", label: "Itineraries" },
 ];

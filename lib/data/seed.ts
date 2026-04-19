@@ -18,6 +18,8 @@ import japanPaymentsJson from "@/db/seed/japan/payments.json";
 import japanConnectivityJson from "@/db/seed/japan/connectivity.json";
 import japanHealthSafetyJson from "@/db/seed/japan/health_safety.json";
 import japanCultureJson from "@/db/seed/japan/culture.json";
+import japanCalendarJson from "@/db/seed/japan/calendar.json";
+import japanGoodToKnowJson from "@/db/seed/japan/good_to_know.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -642,3 +644,69 @@ export function getCountryCulture(
 ): CulturePayload | null {
   return COUNTRY_CULTURE[countrySlug] ?? null;
 }
+
+// ---------------------------------------------------------------------------
+// Calendar (holidays + festivals) and good-to-know
+// ---------------------------------------------------------------------------
+
+export type Holiday = {
+  date: string;
+  name: string;
+  impact: "major" | "moderate" | "low";
+  notes?: string;
+};
+
+export type Festival = {
+  name: string;
+  start_date: string;
+  end_date: string;
+  category: string;
+  body: string;
+  price_impact: "major" | "moderate" | "low";
+  url?: string | null;
+};
+
+export type CalendarPayload = {
+  holidays: Holiday[];
+  festivals: Festival[];
+};
+
+export type GoodToKnowEntry = {
+  category: string;
+  title: string;
+  body: string;
+};
+
+const COUNTRY_CALENDAR: Record<string, CalendarPayload> = {
+  japan: japanCalendarJson as CalendarPayload,
+};
+
+const COUNTRY_GOOD_TO_KNOW: Record<string, GoodToKnowEntry[]> = {
+  japan: japanGoodToKnowJson as GoodToKnowEntry[],
+};
+
+export function getCountryCalendar(
+  countrySlug: string,
+): CalendarPayload | null {
+  return COUNTRY_CALENDAR[countrySlug] ?? null;
+}
+
+export function getCountryGoodToKnow(
+  countrySlug: string,
+): GoodToKnowEntry[] {
+  return COUNTRY_GOOD_TO_KNOW[countrySlug] ?? [];
+}
+
+export const GOOD_TO_KNOW_CATEGORY_LABEL: Record<string, string> = {
+  etiquette: "Etiquette",
+  onsen: "Onsen",
+  toilets: "Toilets",
+  trash: "Trash & recycling",
+  smoking: "Smoking",
+  shopping: "Shopping & tax-free",
+  addresses: "Addresses",
+  transit: "Transit quirks",
+  legal: "Legal & visa",
+  kids: "With kids",
+  accessibility: "Accessibility",
+};
