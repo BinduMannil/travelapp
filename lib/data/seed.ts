@@ -16,6 +16,8 @@ import tokyoRestaurantsJson from "@/db/seed/tokyo/restaurants.json";
 import tokyoArrivalJson from "@/db/seed/tokyo/arrival.json";
 import japanPaymentsJson from "@/db/seed/japan/payments.json";
 import japanConnectivityJson from "@/db/seed/japan/connectivity.json";
+import japanHealthSafetyJson from "@/db/seed/japan/health_safety.json";
+import japanCultureJson from "@/db/seed/japan/culture.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -528,4 +530,115 @@ export function getCountryConnectivity(
   countrySlug: string,
 ): ConnectivityPayload | null {
   return COUNTRY_CONNECTIVITY[countrySlug] ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// Health & safety and culture (country-level)
+// ---------------------------------------------------------------------------
+
+export type EmergencyNumber = {
+  label: string;
+  number: string;
+  notes?: string;
+};
+
+export type Hazard = {
+  type: string;
+  title: string;
+  body: string;
+  what_to_do: string;
+};
+
+export type ProhibitedMeds = {
+  summary: string;
+  watchlist: string[];
+  allowed_without_cert: string;
+  yakkan_shoumei_note: string;
+  source_url: string;
+};
+
+export type Pharmacy = {
+  name: string;
+  hours: string;
+  notes?: string;
+  url?: string | null;
+};
+
+export type Embassy = {
+  country: string;
+  address: string;
+  phone: string;
+  after_hours_phone?: string;
+  url?: string;
+};
+
+export type LgbtqInfo = {
+  country_legal_status: string;
+  city_tolerance: string;
+  tolerance_score: number;
+  safe_neighborhoods: string[];
+  resources: Array<{ label: string; url: string }>;
+};
+
+export type DietaryCard = {
+  diet: string;
+  label: string;
+  jp_text: string;
+  en_gloss: string;
+};
+
+export type HealthSafetyPayload = {
+  reviewed_at: string;
+  overview: string;
+  emergency_numbers: EmergencyNumber[];
+  hazards: Hazard[];
+  prohibited_meds: ProhibitedMeds;
+  pharmacies: Pharmacy[];
+  tap_water: string;
+  embassies: Embassy[];
+  lgbtq: LgbtqInfo;
+  dietary_cards: DietaryCard[];
+  solo_notes: string;
+};
+
+export type CultureTrait = { title: string; body: string };
+
+export type DressCode = {
+  context: string;
+  label: string;
+  requirement: "casual" | "smart_casual" | "modest" | "formal" | "nude";
+  notes: string;
+};
+
+export type Phrase = {
+  category: string;
+  ja: string;
+  romaji: string;
+  en: string;
+};
+
+export type CulturePayload = {
+  people: { summary: string; traits: CultureTrait[] };
+  dress_codes: DressCode[];
+  phrasebook: Phrase[];
+};
+
+const COUNTRY_HEALTH_SAFETY: Record<string, HealthSafetyPayload> = {
+  japan: japanHealthSafetyJson as HealthSafetyPayload,
+};
+
+const COUNTRY_CULTURE: Record<string, CulturePayload> = {
+  japan: japanCultureJson as CulturePayload,
+};
+
+export function getCountryHealthSafety(
+  countrySlug: string,
+): HealthSafetyPayload | null {
+  return COUNTRY_HEALTH_SAFETY[countrySlug] ?? null;
+}
+
+export function getCountryCulture(
+  countrySlug: string,
+): CulturePayload | null {
+  return COUNTRY_CULTURE[countrySlug] ?? null;
 }

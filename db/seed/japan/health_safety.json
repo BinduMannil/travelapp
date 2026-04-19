@@ -1,0 +1,92 @@
+{
+  "reviewed_at": "2026-04-19",
+  "overview": "Japan is one of the safest destinations in the world for travellers. The biggest health-safety topics to know are prescription-drug rules (surprisingly strict), natural hazards (earthquakes and typhoons), and summer heat. Street crime is rare but petty scams do exist around some nightlife districts.",
+  "emergency_numbers": [
+    { "label": "Police",      "number": "110", "notes": "English-speaking operators available on request." },
+    { "label": "Fire / ambulance", "number": "119", "notes": "Ambulances are free." },
+    { "label": "Coast guard", "number": "118" },
+    { "label": "Japan Helpline (24/7 English)", "number": "0570-000-911", "notes": "General information, medical and legal triage." }
+  ],
+  "hazards": [
+    {
+      "type": "earthquake",
+      "title": "Earthquakes",
+      "body": "Small quakes are felt several times a month. Larger ones are rare but possible. Buildings in Japan are engineered for this.",
+      "what_to_do": "If you feel shaking, drop, cover under a sturdy table, and hold on. Do not run outside during the shake — falling debris is the bigger risk. Afterwards, leave gas and electricity alone and wait for the NERV Disaster Prevention app or local PA announcements."
+    },
+    {
+      "type": "typhoon",
+      "title": "Typhoons",
+      "body": "Typhoon season peaks August-October. A typical typhoon shuts trains and flights for 12-24 hours.",
+      "what_to_do": "Track on NERV or the JMA app. If a strong typhoon is forecast, buy food and water a day ahead, charge devices, and keep plans flexible. Airlines usually waive rebooking fees 24-48 hours ahead."
+    },
+    {
+      "type": "tsunami",
+      "title": "Tsunami",
+      "body": "Coastal risk after a large offshore earthquake. Central Tokyo is inland; seaside towns are the higher risk.",
+      "what_to_do": "After a strong quake near the coast, head for higher ground immediately — follow signs with a wave icon. Do not wait for sirens."
+    },
+    {
+      "type": "heatstroke",
+      "title": "Summer heat",
+      "body": "July-August highs regularly reach 33-37 °C with 70%+ humidity.",
+      "what_to_do": "Carry water, use a cooling towel, plan indoor breaks every 90 minutes, and slow down. Konbini sell ice-cold Pocari Sweat and ¥100 hand fans. Ambulances respond to heatstroke in minutes."
+    },
+    {
+      "type": "crime",
+      "title": "Crime & scams",
+      "body": "Street theft is rare; violent crime against tourists is very rare. Be cautious of touts in Roppongi and Kabukicho who lure visitors into overpriced bars — walk past, don't follow.",
+      "what_to_do": "Stick to venues you looked up in advance. If your wallet or phone is lost, go to the nearest kōban (neighborhood police box) — Japan has one of the world's best lost-and-found rates."
+    }
+  ],
+  "prohibited_meds": {
+    "summary": "Japan restricts several common Western medications. Pseudoephedrine (Sudafed, Vicks inhalers, some Claritin-D), Adderall, and some cough syrups are entirely banned — bringing them in, even with a prescription, can result in confiscation and legal trouble.",
+    "watchlist": [
+      "Pseudoephedrine (Sudafed, Vicks inhalers)",
+      "Dextroamphetamine / Amphetamine (Adderall)",
+      "Methylphenidate (Ritalin) — requires advance certificate",
+      "Codeine above 10% concentration",
+      "CBD products not made from approved extract"
+    ],
+    "allowed_without_cert": "Up to 1 month supply of most OTC and prescription medicines (2 months for prescriptions if not on the watchlist).",
+    "yakkan_shoumei_note": "If you need a larger supply, insulin injectors, CPAP, or any watchlist drug, apply for a Yakkan Shoumei import certificate at least 2-3 weeks before travel. It's free.",
+    "source_url": "https://www.mhlw.go.jp/english/topics/importduty/index.html"
+  },
+  "pharmacies": [
+    { "name": "Matsumoto Kiyoshi", "hours": "10:00-22:00 typical", "notes": "Largest drugstore chain; many have prescription counters.", "url": null },
+    { "name": "Welcia / Tomod's",   "hours": "Varies",             "notes": "Stocks Western-brand OTC pain relievers (Tylenol, Advil).", "url": null },
+    { "name": "AMDA International Medical Information Center", "hours": "Weekdays 09:00-17:00", "notes": "English-speaking hotline to find English-friendly clinics. Phone: 03-6233-9266.", "url": "https://eng.amda-imic.com/" }
+  ],
+  "tap_water": "Tap water is safe throughout Japan. Public drinking fountains are common in parks and stations. Refill bottles at konbini ice machines or temple water pavilions.",
+  "embassies": [
+    { "country": "United States",      "address": "1-10-5 Akasaka, Minato-ku",       "phone": "03-3224-5000", "after_hours_phone": "03-3224-5000 (ext 0)", "url": "https://jp.usembassy.gov/" },
+    { "country": "United Kingdom",     "address": "1 Ichiban-cho, Chiyoda-ku",        "phone": "03-5211-1100", "after_hours_phone": "03-5211-1100",         "url": "https://www.gov.uk/world/organisations/british-embassy-tokyo" },
+    { "country": "Canada",             "address": "7-3-38 Akasaka, Minato-ku",        "phone": "03-5412-6200", "after_hours_phone": "+1-613-996-8885",      "url": "https://www.canadainternational.gc.ca/japan-japon/" },
+    { "country": "Australia",          "address": "2-1-14 Mita, Minato-ku",           "phone": "03-5232-4111", "after_hours_phone": "+61-2-6261-3305",      "url": "https://japan.embassy.gov.au/" },
+    { "country": "Germany",            "address": "4-5-10 Minami-Azabu, Minato-ku",   "phone": "03-5791-7700", "after_hours_phone": "03-5791-7700",         "url": "https://japan.diplo.de/" },
+    { "country": "France",             "address": "4-11-44 Minami-Azabu, Minato-ku",  "phone": "03-5798-6000", "after_hours_phone": "03-5798-6000",         "url": "https://jp.ambafrance.org/" },
+    { "country": "India",              "address": "2-2-11 Kudan-Minami, Chiyoda-ku",  "phone": "03-3262-2391", "after_hours_phone": "03-3262-2391",         "url": "https://www.indembassy-tokyo.gov.in/" },
+    { "country": "China",              "address": "3-4-33 Moto-Azabu, Minato-ku",     "phone": "03-3403-3388", "after_hours_phone": "03-3403-3388",         "url": "http://jp.china-embassy.gov.cn/" },
+    { "country": "Singapore",          "address": "5-12-3 Roppongi, Minato-ku",       "phone": "03-3586-9111", "after_hours_phone": "03-3586-9111",         "url": "https://www.mfa.gov.sg/tokyo/" },
+    { "country": "South Korea",        "address": "1-2-5 Minami-Azabu, Minato-ku",    "phone": "03-3452-7611", "after_hours_phone": "03-3452-7611",         "url": "https://overseas.mofa.go.kr/jp-en/" }
+  ],
+  "lgbtq": {
+    "country_legal_status": "Same-sex relationships are legal. Same-sex marriage is not yet recognised nationally, but many Tokyo wards and 300+ municipalities issue 'partnership certificates' with limited rights.",
+    "city_tolerance": "Tokyo is one of the most LGBTQ-comfortable cities in East Asia. Public displays of affection from any couple are uncommon across the board — keep things low-key in general.",
+    "tolerance_score": 4,
+    "safe_neighborhoods": ["Shinjuku Ni-chome (Asia's densest queer nightlife district)", "Shibuya", "Ni-chome side streets toward Shinjuku-Sanchome"],
+    "resources": [
+      { "label": "Tokyo Rainbow Pride (Yoyogi Park, late April)", "url": "https://tokyorainbowpride.com/en/" },
+      { "label": "OCCUR (advocacy group, helpline)",              "url": "https://www.occur.or.jp/" },
+      { "label": "Stonewall Japan (expat network, online)",        "url": "https://stonewalljapan.org/" }
+    ]
+  },
+  "dietary_cards": [
+    { "diet": "vegan",       "label": "Vegan (no animal products)",                  "jp_text": "私はヴィーガンです。肉、魚、卵、乳製品、だし(魚介スープ)を食べられません。料理に使われていないか確認していただけますか？", "en_gloss": "I am vegan. I cannot eat meat, fish, eggs, dairy, or dashi (fish broth). Could you please check none of these are used in the dish?" },
+    { "diet": "vegetarian",  "label": "Vegetarian (no meat or fish)",                "jp_text": "私はベジタリアンです。肉と魚を食べられません。だし(魚介スープ)も含まれていないか確認してください。",           "en_gloss": "I am vegetarian. I cannot eat meat or fish. Please also check there is no dashi (fish broth)." },
+    { "diet": "halal",       "label": "Halal (no pork / no alcohol in cooking)",     "jp_text": "私はイスラム教徒です。豚肉、豚由来の調味料(例: とんこつ)、みりん、料理酒などのアルコールを食べられません。",         "en_gloss": "I am Muslim. I cannot eat pork, pork-derived ingredients (e.g. tonkotsu broth), mirin, or cooking alcohol." },
+    { "diet": "gluten_free", "label": "Gluten-free (celiac / wheat allergy)",         "jp_text": "小麦とグルテンのアレルギーがあります。醤油やうどん、ラーメン、天ぷらなど小麦を含む食品は食べられません。",           "en_gloss": "I have a wheat/gluten allergy. I cannot eat soy sauce, udon, ramen, tempura, or any food containing wheat." },
+    { "diet": "peanut",      "label": "Peanut allergy",                              "jp_text": "ピーナッツアレルギーがあります。ピーナッツや落花生を使わない料理をお願いします。",                               "en_gloss": "I have a peanut allergy. Please serve me food with no peanuts." }
+  ],
+  "solo_notes": "Solo travel is extremely comfortable for all genders. Late-night return via train or taxi from entertainment districts like Shibuya, Shinjuku, Roppongi is routine. The only area where solo travellers sometimes report harassment is on very crowded rush-hour trains; women-only cars are marked pink on some lines during peak hours."
+}
