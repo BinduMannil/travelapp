@@ -11,6 +11,7 @@ import tokyoCityJson from "@/db/seed/tokyo/city.json";
 import tokyoAppsJson from "@/db/seed/tokyo/must_have_apps.json";
 import tokyoTransitJson from "@/db/seed/tokyo/transit_options.json";
 import tokyoInterCityJson from "@/db/seed/tokyo/inter_city_routes.json";
+import tokyoAttractionsJson from "@/db/seed/tokyo/attractions.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -177,6 +178,45 @@ const INTER_CITY_ROUTES: Record<string, InterCityRoute[]> = {
   tokyo: tokyoInterCityJson as InterCityRoute[],
 };
 
+export type AttractionAccessibility = {
+  wheelchair_accessible: boolean;
+  stroller_accessible: boolean;
+  hearing_loop: boolean;
+  notes?: string | null;
+};
+
+export type Attraction = {
+  slug: string;
+  name: string;
+  neighborhood: string;
+  category: string;
+  significance: string[];
+  importance: number;
+  tags: string[];
+  trip_type_slugs: string[];
+  cost_adult_minor: number;
+  cost_child_minor: number;
+  currency: string;
+  duration_minutes: number;
+  indoor: boolean;
+  accessibility: AttractionAccessibility;
+  kid_friendly: boolean;
+  lgbtq_friendly: boolean;
+  photography_allowed: boolean;
+  dress_code: string | null;
+  dress_notes: string | null;
+  best_time_notes?: string | null;
+  summary: string;
+  description: string;
+  official_url: string | null;
+  reseller_urls: Record<string, string>;
+  source: string;
+};
+
+const ATTRACTIONS: Record<string, Attraction[]> = {
+  tokyo: tokyoAttractionsJson as Attraction[],
+};
+
 // Map from city slug → country slug so city pages can look up country-level
 // content (languages, tipping, visa) without a DB round-trip.
 const CITY_TO_COUNTRY: Record<string, string> = { tokyo: "japan" };
@@ -234,3 +274,32 @@ export function getTransitOptions(citySlug: string): TransitOption[] {
 export function getInterCityRoutes(citySlug: string): InterCityRoute[] {
   return INTER_CITY_ROUTES[citySlug] ?? [];
 }
+
+export function getAttractions(citySlug: string): Attraction[] {
+  return [...(ATTRACTIONS[citySlug] ?? [])].sort(
+    (a, b) => b.importance - a.importance || a.name.localeCompare(b.name),
+  );
+}
+
+export function getAttraction(
+  citySlug: string,
+  attractionSlug: string,
+): Attraction | null {
+  return (
+    ATTRACTIONS[citySlug]?.find((a) => a.slug === attractionSlug) ?? null
+  );
+}
+
+export const ATTRACTION_CATEGORIES: ReadonlyArray<{
+  slug: string;
+  label: string;
+}> = [
+  { slug: "religious", label: "Shrines & temples" },
+  { slug: "landmark", label: "Landmarks" },
+  { slug: "art", label: "Art & immersive" },
+  { slug: "food", label: "Food & markets" },
+  { slug: "park", label: "Parks & gardens" },
+  { slug: "museum", label: "Museums" },
+  { slug: "nature", label: "Nature & hikes" },
+  { slug: "district", label: "Districts" },
+];

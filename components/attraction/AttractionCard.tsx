@@ -1,0 +1,108 @@
+import Link from "next/link";
+import type { Attraction } from "@/lib/data/seed";
+import { PriceDisplay } from "@/lib/currency/context";
+
+function formatDuration(minutes: number) {
+  if (minutes < 60) return `${minutes}m`;
+  const h = Math.floor(minutes / 60);
+  const m = minutes % 60;
+  return m === 0 ? `${h}h` : `${h}h ${m}m`;
+}
+
+const SIGNIFICANCE_LABEL: Record<string, string> = {
+  historic: "Historic",
+  religious: "Religious",
+  nature: "Nature",
+  scenic: "Scenic",
+  architectural: "Architectural",
+  cultural: "Cultural",
+  activity: "Activity",
+  culinary: "Culinary",
+  shopping: "Shopping",
+};
+
+export function AttractionCard({
+  citySlug,
+  attraction,
+}: {
+  citySlug: string;
+  attraction: Attraction;
+}) {
+  const importanceStars = "★".repeat(attraction.importance);
+
+  return (
+    <Link
+      href={`/city/${citySlug}/attractions/${attraction.slug}`}
+      className="block rounded-lg border border-slate-200 bg-white p-4 hover:border-brand-500 hover:bg-brand-50"
+    >
+      <header className="flex items-baseline justify-between gap-3">
+        <h2 className="text-lg font-semibold">{attraction.name}</h2>
+        <span
+          className="text-xs text-amber-600"
+          title={`Importance ${attraction.importance}/5`}
+          aria-label={`Importance ${attraction.importance} of 5`}
+        >
+          {importanceStars}
+        </span>
+      </header>
+      <div className="mt-1 text-xs text-slate-500">
+        {attraction.neighborhood}
+      </div>
+      <p className="mt-2 text-sm text-slate-700">{attraction.summary}</p>
+
+      <div className="mt-3 flex flex-wrap gap-1 text-xs">
+        {attraction.significance.slice(0, 3).map((s) => (
+          <span
+            key={s}
+            className="rounded bg-slate-100 px-2 py-0.5 text-slate-700"
+          >
+            {SIGNIFICANCE_LABEL[s] ?? s}
+          </span>
+        ))}
+      </div>
+
+      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
+        <div>
+          <dt className="inline font-medium text-slate-500">Time: </dt>
+          <dd className="inline">{formatDuration(attraction.duration_minutes)}</dd>
+        </div>
+        <div>
+          <dt className="inline font-medium text-slate-500">Cost: </dt>
+          <dd className="inline tabular-nums">
+            {attraction.cost_adult_minor === 0 ? (
+              "Free"
+            ) : (
+              <PriceDisplay
+                amountMinor={attraction.cost_adult_minor}
+                currency={attraction.currency}
+              />
+            )}
+          </dd>
+        </div>
+      </dl>
+
+      <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
+        {attraction.kid_friendly && (
+          <span className="rounded bg-emerald-50 px-1.5 py-0.5 text-emerald-800">
+            Kid-friendly
+          </span>
+        )}
+        {attraction.accessibility.wheelchair_accessible && (
+          <span className="rounded bg-sky-50 px-1.5 py-0.5 text-sky-800">
+            Wheelchair
+          </span>
+        )}
+        {attraction.indoor && (
+          <span className="rounded bg-indigo-50 px-1.5 py-0.5 text-indigo-800">
+            Indoor
+          </span>
+        )}
+        {!attraction.photography_allowed && (
+          <span className="rounded bg-rose-50 px-1.5 py-0.5 text-rose-800">
+            No photos
+          </span>
+        )}
+      </div>
+    </Link>
+  );
+}

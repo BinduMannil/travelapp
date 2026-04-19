@@ -15,7 +15,7 @@ const SECTIONS: Section[] = [
   { slug: "apps", label: "Must-have apps", ready: true },
   { slug: "transit", label: "Getting around", ready: true },
   { slug: "nearby", label: "Nearby cities", ready: true },
-  { slug: "attractions", label: "Attractions" },
+  { slug: "attractions", label: "Attractions", ready: true },
   { slug: "restaurants", label: "Restaurants" },
   { slug: "neighborhoods", label: "Neighborhoods" },
   { slug: "hotels", label: "Where to stay" },
