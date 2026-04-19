@@ -20,6 +20,8 @@ import japanHealthSafetyJson from "@/db/seed/japan/health_safety.json";
 import japanCultureJson from "@/db/seed/japan/culture.json";
 import japanCalendarJson from "@/db/seed/japan/calendar.json";
 import japanGoodToKnowJson from "@/db/seed/japan/good_to_know.json";
+import tokyoNeighborhoodsJson from "@/db/seed/tokyo/neighborhoods.json";
+import tokyoHotelsJson from "@/db/seed/tokyo/hotels.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -710,3 +712,92 @@ export const GOOD_TO_KNOW_CATEGORY_LABEL: Record<string, string> = {
   kids: "With kids",
   accessibility: "Accessibility",
 };
+
+// ---------------------------------------------------------------------------
+// Neighborhoods and hotels
+// ---------------------------------------------------------------------------
+
+export type Neighborhood = {
+  slug: string;
+  name: string;
+  vibe: string[];
+  best_for: string[];
+  summary: string;
+  description: string;
+  transit_hubs: string[];
+  display_order: number;
+};
+
+export type HotelTier =
+  | "capsule"
+  | "hostel"
+  | "business"
+  | "mid_range"
+  | "ryokan_style"
+  | "luxury"
+  | "luxury_ryokan";
+
+export type Hotel = {
+  slug: string;
+  name: string;
+  tier: HotelTier;
+  neighborhood: string;
+  price_night_min_minor: number;
+  price_night_max_minor: number;
+  currency: string;
+  booking_url: string;
+  kid_friendly: boolean;
+  wheelchair_accessible: boolean;
+  lgbtq_friendly: boolean;
+  notes?: string;
+  display_order: number;
+};
+
+const NEIGHBORHOODS: Record<string, Neighborhood[]> = {
+  tokyo: tokyoNeighborhoodsJson as Neighborhood[],
+};
+
+const HOTELS: Record<string, Hotel[]> = {
+  tokyo: tokyoHotelsJson as Hotel[],
+};
+
+export function getNeighborhoods(citySlug: string): Neighborhood[] {
+  return [...(NEIGHBORHOODS[citySlug] ?? [])].sort(
+    (a, b) => a.display_order - b.display_order,
+  );
+}
+
+export function getNeighborhood(
+  citySlug: string,
+  neighborhoodSlug: string,
+): Neighborhood | null {
+  return (
+    NEIGHBORHOODS[citySlug]?.find((n) => n.slug === neighborhoodSlug) ?? null
+  );
+}
+
+export function getHotels(citySlug: string): Hotel[] {
+  return [...(HOTELS[citySlug] ?? [])].sort(
+    (a, b) => a.price_night_min_minor - b.price_night_min_minor,
+  );
+}
+
+export const HOTEL_TIER_LABEL: Record<HotelTier, string> = {
+  capsule: "Capsule",
+  hostel: "Hostel",
+  business: "Business hotel",
+  mid_range: "Mid-range",
+  ryokan_style: "Ryokan-style business",
+  luxury: "Luxury",
+  luxury_ryokan: "Luxury ryokan",
+};
+
+export const HOTEL_TIER_ORDER: HotelTier[] = [
+  "hostel",
+  "capsule",
+  "business",
+  "ryokan_style",
+  "mid_range",
+  "luxury",
+  "luxury_ryokan",
+];
