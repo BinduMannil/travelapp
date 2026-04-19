@@ -12,6 +12,7 @@ import tokyoAppsJson from "@/db/seed/tokyo/must_have_apps.json";
 import tokyoTransitJson from "@/db/seed/tokyo/transit_options.json";
 import tokyoInterCityJson from "@/db/seed/tokyo/inter_city_routes.json";
 import tokyoAttractionsJson from "@/db/seed/tokyo/attractions.json";
+import tokyoRestaurantsJson from "@/db/seed/tokyo/restaurants.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -217,6 +218,58 @@ const ATTRACTIONS: Record<string, Attraction[]> = {
   tokyo: tokyoAttractionsJson as Attraction[],
 };
 
+export type PriceBand = "$" | "$$" | "$$$" | "$$$$" | "$$$$$";
+
+export type Restaurant = {
+  slug: string;
+  name: string;
+  neighborhood: string;
+  cuisine: string[];
+  price_band: PriceBand;
+  avg_price_per_person_minor: number;
+  currency: string;
+  signature_dishes: string[];
+  reservation_required: boolean;
+  reservations_lead_time_days: number;
+  reservation_url: string | null;
+  opening_hours: string;
+  closed_days: string[];
+  google_rating: number;
+  google_review_count: number;
+  tabelog_score: number | null;
+  michelin_stars: number;
+  bib_gourmand: boolean;
+  dietary: string[];
+  lgbtq_friendly: boolean;
+  kid_friendly: boolean;
+  wheelchair_accessible: boolean;
+  notes?: string | null;
+  source: string;
+};
+
+const RESTAURANTS: Record<string, Restaurant[]> = {
+  tokyo: tokyoRestaurantsJson as Restaurant[],
+};
+
+// Composite popularity score used as the default sort. Blends normalised
+// Google rating with log-scaled review count, Tabelog score (when present),
+// and a small boost for Michelin / Bib Gourmand. Aims for a stable 0-10 scale.
+export function popularityScore(r: Restaurant): number {
+  const googleComponent = ((r.google_rating - 3.0) / 2.0) * 4; // 0-4 for ratings 3.0-5.0
+  const reviewsComponent = Math.min(
+    3,
+    Math.log10(Math.max(1, r.google_review_count)) * 0.7,
+  );
+  const tabelogComponent = r.tabelog_score
+    ? ((r.tabelog_score - 3.0) / 1.5) * 2
+    : 0;
+  const accoladeComponent = r.michelin_stars * 0.6 + (r.bib_gourmand ? 0.4 : 0);
+  return Math.max(
+    0,
+    Math.min(10, googleComponent + reviewsComponent + tabelogComponent + accoladeComponent),
+  );
+}
+
 // Map from city slug → country slug so city pages can look up country-level
 // content (languages, tipping, visa) without a DB round-trip.
 const CITY_TO_COUNTRY: Record<string, string> = { tokyo: "japan" };
@@ -303,3 +356,50 @@ export const ATTRACTION_CATEGORIES: ReadonlyArray<{
   { slug: "nature", label: "Nature & hikes" },
   { slug: "district", label: "Districts" },
 ];
+
+export function getRestaurants(citySlug: string): Restaurant[] {
+  return [...(RESTAURANTS[citySlug] ?? [])].sort(
+    (a, b) => popularityScore(b) - popularityScore(a),
+  );
+}
+
+export function getRestaurant(
+  citySlug: string,
+  restaurantSlug: string,
+): Restaurant | null {
+  return (
+    RESTAURANTS[citySlug]?.find((r) => r.slug === restaurantSlug) ?? null
+  );
+}
+
+export const CUISINE_LABELS: Record<string, string> = {
+  sushi: "Sushi",
+  ramen: "Ramen",
+  tonkotsu: "Tonkotsu ramen",
+  shio: "Shio ramen",
+  shoyu: "Shoyu ramen",
+  tantanmen: "Tantanmen",
+  tempura: "Tempura",
+  tonkatsu: "Tonkatsu",
+  kaiseki: "Kaiseki",
+  izakaya: "Izakaya",
+  curry: "Curry",
+  seafood: "Seafood",
+  vegan: "Vegan",
+  cafe: "Café",
+  brunch: "Brunch",
+  edomae: "Edomae sushi",
+  japanese: "Japanese",
+  innovative: "Innovative",
+  michelin: "Michelin",
+};
+
+export const DIETARY_LABELS: Record<string, string> = {
+  vegan: "Vegan",
+  vegetarian: "Vegetarian",
+  vegetarian_options: "Vegetarian options",
+  vegetarian_on_request: "Vegetarian on request",
+  halal: "Halal",
+  kosher: "Kosher",
+  gluten_free: "Gluten-free",
+};
