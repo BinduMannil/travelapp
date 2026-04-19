@@ -5,9 +5,11 @@ const CITIES: Record<string, { name: string; country: string; countrySlug: strin
   tokyo: { name: "Tokyo", country: "Japan", countrySlug: "japan" },
 };
 
-const SECTIONS = [
-  { slug: "weather", label: "Weather & seasons" },
-  { slug: "costs", label: "Daily costs" },
+type Section = { slug: string; label: string; ready?: boolean };
+
+const SECTIONS: Section[] = [
+  { slug: "weather", label: "Weather & seasons", ready: true },
+  { slug: "costs", label: "Daily costs", ready: true },
   { slug: "attractions", label: "Attractions" },
   { slug: "restaurants", label: "Restaurants" },
   { slug: "neighborhoods", label: "Neighborhoods" },
@@ -66,7 +68,9 @@ export default async function CityPage({
             className="rounded-lg border border-slate-200 p-4 hover:border-brand-500 hover:bg-brand-50"
           >
             <div className="font-medium">{s.label}</div>
-            <div className="text-xs text-slate-500">Coming soon</div>
+            <div className="text-xs text-slate-500">
+              {s.ready ? "Available" : "Coming soon"}
+            </div>
           </Link>
         ))}
       </section>

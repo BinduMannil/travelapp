@@ -1,0 +1,14 @@
+[
+  { "month": 1,  "avg_high_c": 10.0, "avg_low_c": 1.2,  "precip_mm": 52.3,  "humidity_pct": 51, "season_label": "off",      "cost_index": 0.90, "notes": "Cold and dry. Low prices, clear skies, minimal snow in central Tokyo." },
+  { "month": 2,  "avg_high_c": 10.9, "avg_low_c": 2.1,  "precip_mm": 56.1,  "humidity_pct": 52, "season_label": "off",      "cost_index": 0.92, "notes": "Coldest month on average. Good for plum blossoms late in month." },
+  { "month": 3,  "avg_high_c": 13.9, "avg_low_c": 4.7,  "precip_mm": 117.5, "humidity_pct": 57, "season_label": "peak",     "cost_index": 1.20, "notes": "Cherry-blossom season begins late March. Book accommodation months ahead." },
+  { "month": 4,  "avg_high_c": 19.3, "avg_low_c": 10.1, "precip_mm": 124.5, "humidity_pct": 62, "season_label": "peak",     "cost_index": 1.25, "notes": "Peak sakura and Golden Week ramps up at end of month. Very high demand." },
+  { "month": 5,  "avg_high_c": 23.0, "avg_low_c": 14.7, "precip_mm": 137.8, "humidity_pct": 68, "season_label": "shoulder", "cost_index": 1.05, "notes": "Pleasant temps, Golden Week early May is a domestic travel spike." },
+  { "month": 6,  "avg_high_c": 25.5, "avg_low_c": 18.5, "precip_mm": 167.7, "humidity_pct": 75, "season_label": "off",      "cost_index": 0.88, "notes": "Rainy season (tsuyu). Lower prices and fewer crowds; pack a compact umbrella." },
+  { "month": 7,  "avg_high_c": 29.2, "avg_low_c": 22.4, "precip_mm": 153.5, "humidity_pct": 77, "season_label": "shoulder", "cost_index": 1.00, "notes": "Hot and humid; fireworks festivals (hanabi) start late July." },
+  { "month": 8,  "avg_high_c": 30.8, "avg_low_c": 23.5, "precip_mm": 168.2, "humidity_pct": 75, "season_label": "shoulder", "cost_index": 1.05, "notes": "Hottest month; Obon (mid-August) is a major domestic travel period." },
+  { "month": 9,  "avg_high_c": 26.9, "avg_low_c": 20.3, "precip_mm": 209.9, "humidity_pct": 75, "season_label": "off",      "cost_index": 0.92, "notes": "Typhoon season. Check advisories; otherwise fewer crowds." },
+  { "month": 10, "avg_high_c": 21.5, "avg_low_c": 14.8, "precip_mm": 197.8, "humidity_pct": 71, "season_label": "peak",     "cost_index": 1.15, "notes": "Autumn colors build through the month. Pleasant highs and dry-ish late month." },
+  { "month": 11, "avg_high_c": 16.3, "avg_low_c": 8.8,  "precip_mm": 92.5,  "humidity_pct": 64, "season_label": "peak",     "cost_index": 1.15, "notes": "Peak autumn foliage mid-late November. Crisp, mostly sunny days." },
+  { "month": 12, "avg_high_c": 12.0, "avg_low_c": 3.8,  "precip_mm": 51.0,  "humidity_pct": 56, "season_label": "shoulder", "cost_index": 1.05, "notes": "Illuminations and year-end holidays; many small businesses close Dec 29-Jan 3." }
+]

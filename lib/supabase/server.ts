@@ -1,6 +1,8 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+type CookieRecord = { name: string; value: string; options: CookieOptions };
+
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -12,13 +14,9 @@ export async function createClient() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: CookieRecord[]) {
           try {
-            cookiesToSet.forEach(({ name, value, options }: {
-              name: string;
-              value: string;
-              options: CookieOptions;
-            }) => {
+            cookiesToSet.forEach(({ name, value, options }) => {
               cookieStore.set(name, value, options);
             });
           } catch {
