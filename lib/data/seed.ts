@@ -9,6 +9,9 @@ import tokyoClimateJson from "@/db/seed/tokyo/seasonal_climate.json";
 import tokyoPriceItemsJson from "@/db/seed/tokyo/price_items.json";
 import tokyoCityJson from "@/db/seed/tokyo/city.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
+import japanLanguagesJson from "@/db/seed/japan/languages.json";
+import japanTippingJson from "@/db/seed/japan/tipping.json";
+import japanVisaRulesJson from "@/db/seed/japan/visa_rules.json";
 
 export type ClimateRow = {
   month: number;
@@ -30,6 +33,59 @@ export type PriceItem = {
   notes?: string;
 };
 
+export type LanguageRow = {
+  name: string;
+  iso_639_3: string;
+  role:
+    | "official"
+    | "national"
+    | "widely_spoken"
+    | "regional"
+    | "minority"
+    | "immigrant"
+    | "sign";
+  speakers_pct: number;
+  script?: string;
+  endangered?: boolean;
+  notes?: string;
+};
+
+export type EnglishProficiency = {
+  band: string;
+  score: number;
+  source: string;
+  notes?: string;
+};
+
+export type TippingRule = {
+  context: string;
+  expected: boolean;
+  amount_guidance: string;
+  notes?: string;
+};
+
+export type VisaRequirement =
+  | "visa_free"
+  | "visa_required"
+  | "evisa_or_visa"
+  | "visa_waiver_registration";
+
+export type VisaRule = {
+  citizenship: string;
+  name: string;
+  requirement: VisaRequirement;
+  max_stay_days?: number;
+  evisa_url?: string;
+  notes?: string;
+};
+
+export type VisaRuleset = {
+  reviewed_at: string;
+  disclaimer: string;
+  official_source: string;
+  rules: VisaRule[];
+};
+
 export type CitySeed = typeof tokyoCityJson;
 export type CountrySeed = typeof japanCountryJson;
 
@@ -44,12 +100,42 @@ const PRICE_ITEMS: Record<string, PriceItem[]> = {
   tokyo: tokyoPriceItemsJson as PriceItem[],
 };
 
+type CountryLanguagesPayload = {
+  languages: LanguageRow[];
+  english_proficiency: EnglishProficiency;
+};
+
+const COUNTRY_LANGUAGES: Record<string, CountryLanguagesPayload> = {
+  japan: japanLanguagesJson as CountryLanguagesPayload,
+};
+
+type CountryTippingPayload = {
+  summary: string;
+  rules: TippingRule[];
+};
+
+const COUNTRY_TIPPING: Record<string, CountryTippingPayload> = {
+  japan: japanTippingJson as CountryTippingPayload,
+};
+
+const COUNTRY_VISA_RULES: Record<string, VisaRuleset> = {
+  japan: japanVisaRulesJson as VisaRuleset,
+};
+
+// Map from city slug → country slug so city pages can look up country-level
+// content (languages, tipping, visa) without a DB round-trip.
+const CITY_TO_COUNTRY: Record<string, string> = { tokyo: "japan" };
+
 export function getCity(slug: string): CitySeed | null {
   return CITIES[slug] ?? null;
 }
 
 export function getCountry(slug: string): CountrySeed | null {
   return COUNTRIES[slug] ?? null;
+}
+
+export function getCountryForCity(citySlug: string): string | null {
+  return CITY_TO_COUNTRY[citySlug] ?? null;
 }
 
 export function getClimate(citySlug: string): ClimateRow[] {
@@ -60,4 +146,20 @@ export function getPriceItems(citySlug: string): PriceItem[] {
   return [...(PRICE_ITEMS[citySlug] ?? [])].sort(
     (a, b) => a.display_order - b.display_order,
   );
+}
+
+export function getCountryLanguages(
+  countrySlug: string,
+): CountryLanguagesPayload | null {
+  return COUNTRY_LANGUAGES[countrySlug] ?? null;
+}
+
+export function getCountryTipping(
+  countrySlug: string,
+): CountryTippingPayload | null {
+  return COUNTRY_TIPPING[countrySlug] ?? null;
+}
+
+export function getVisaRuleset(countrySlug: string): VisaRuleset | null {
+  return COUNTRY_VISA_RULES[countrySlug] ?? null;
 }

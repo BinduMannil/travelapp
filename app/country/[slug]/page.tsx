@@ -5,7 +5,10 @@ const COUNTRIES: Record<string, { name: string; primaryCity: string }> = {
   japan: { name: "Japan", primaryCity: "tokyo" },
 };
 
-const SECTIONS = [
+type Section = { slug: string; label: string; ready?: boolean };
+
+const SECTIONS: Section[] = [
+  { slug: "languages", label: "Languages spoken", ready: true },
   { slug: "visa", label: "Visa requirements" },
   { slug: "health-safety", label: "Health & safety" },
   { slug: "customs", label: "Customs & duty-free" },
@@ -13,7 +16,6 @@ const SECTIONS = [
   { slug: "calendar", label: "Festivals & events" },
   { slug: "tipping", label: "Tipping culture" },
   { slug: "costs", label: "Cost of living" },
-  { slug: "languages", label: "Languages spoken" },
   { slug: "good-to-know", label: "Good to know" },
   { slug: "connectivity", label: "Connectivity & SIM" },
   { slug: "power", label: "Plugs & power" },
@@ -60,7 +62,9 @@ export default async function CountryPage({
             className="rounded-lg border border-slate-200 p-4 hover:border-brand-500 hover:bg-brand-50"
           >
             <div className="font-medium">{s.label}</div>
-            <div className="text-xs text-slate-500">Coming soon</div>
+            <div className="text-xs text-slate-500">
+              {s.ready ? "Available" : "Coming soon"}
+            </div>
           </Link>
         ))}
       </section>

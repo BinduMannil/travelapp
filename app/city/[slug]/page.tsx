@@ -10,6 +10,8 @@ type Section = { slug: string; label: string; ready?: boolean };
 const SECTIONS: Section[] = [
   { slug: "weather", label: "Weather & seasons", ready: true },
   { slug: "costs", label: "Daily costs", ready: true },
+  { slug: "tipping", label: "Tipping", ready: true },
+  { slug: "visa", label: "Visa for you", ready: true },
   { slug: "attractions", label: "Attractions" },
   { slug: "restaurants", label: "Restaurants" },
   { slug: "neighborhoods", label: "Neighborhoods" },
@@ -17,9 +19,7 @@ const SECTIONS: Section[] = [
   { slug: "nearby", label: "Nearby cities" },
   { slug: "hotels", label: "Where to stay" },
   { slug: "apps", label: "Must-have apps" },
-  { slug: "tipping", label: "Tipping" },
   { slug: "payments", label: "Payments & cards" },
-  { slug: "visa", label: "Visa for you" },
   { slug: "health-safety", label: "Health & safety" },
   { slug: "arrival", label: "Arrival & logistics" },
   { slug: "connectivity", label: "Connectivity" },

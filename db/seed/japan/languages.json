@@ -1,0 +1,21 @@
+{
+  "languages": [
+    { "name": "Japanese",              "iso_639_3": "jpn", "role": "official",       "speakers_pct": 99.0, "script": "Kanji / Hiragana / Katakana", "notes": "Standard Japanese (Hyōjungo) based on the Tokyo dialect; taught in all schools and used by all media." },
+    { "name": "Ryukyuan languages",    "iso_639_3": "ryu", "role": "regional",       "speakers_pct": 1.0,  "script": "Latin / Kanji",                "endangered": true, "notes": "A group of six related languages in Okinawa and Amami (Okinawan, Kunigami, Miyako, Yaeyama, Yonaguni, Amami). UNESCO lists all as endangered." },
+    { "name": "Ainu",                  "iso_639_3": "ain", "role": "minority",       "speakers_pct": 0.01, "script": "Katakana / Latin",             "endangered": true, "notes": "Indigenous language of Hokkaido; critically endangered with fewer than 100 fluent native speakers. Active revitalisation efforts." },
+    { "name": "English",               "iso_639_3": "eng", "role": "widely_spoken",  "speakers_pct": 8.0,  "script": "Latin",                        "notes": "Spoken by a minority; more common in central Tokyo, major hotels, international business, and younger residents." },
+    { "name": "Mandarin Chinese",      "iso_639_3": "cmn", "role": "immigrant",      "speakers_pct": 0.8,  "script": "Hanzi",                        "notes": "Largest resident foreign-language community; concentrated in Tokyo, Osaka, Yokohama." },
+    { "name": "Korean",                "iso_639_3": "kor", "role": "immigrant",      "speakers_pct": 0.35, "script": "Hangul",                       "notes": "Includes Zainichi Koreans (multi-generational residents) and recent migrants." },
+    { "name": "Vietnamese",            "iso_639_3": "vie", "role": "immigrant",      "speakers_pct": 0.4,  "script": "Latin",                        "notes": "Fast-growing community via technical intern and specified-skilled-worker programs." },
+    { "name": "Portuguese",            "iso_639_3": "por", "role": "immigrant",      "speakers_pct": 0.15, "script": "Latin",                        "notes": "Brazilian Portuguese, concentrated in factory towns of Aichi, Shizuoka, Gunma." },
+    { "name": "Tagalog / Filipino",    "iso_639_3": "tgl", "role": "immigrant",      "speakers_pct": 0.2,  "script": "Latin",                        "notes": "Largely in service industries and healthcare." },
+    { "name": "Nepali",                "iso_639_3": "nep", "role": "immigrant",      "speakers_pct": 0.1,  "script": "Devanagari",                   "notes": "Large community in and around Tokyo; second-largest non-Japanese school-age population in several wards." },
+    { "name": "Japanese Sign Language","iso_639_3": "jsl", "role": "sign",           "speakers_pct": 0.25, "script": "—",                            "notes": "Native sign language of the Japanese Deaf community; recognised in law and used by ~320,000 people." }
+  ],
+  "english_proficiency": {
+    "band": "Low",
+    "score": 454,
+    "source": "EF English Proficiency Index 2024",
+    "notes": "Tokyo scores higher than the national average; big hotels, major museums, Shinkansen announcements, and Google Translate's camera mode cover most gaps for visitors."
+  }
+}

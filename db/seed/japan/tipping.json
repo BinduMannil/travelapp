@@ -1,0 +1,13 @@
+{
+  "summary": "Japan is a no-tipping culture. Good service is the baseline expectation, not a reward. Leaving money on a table or pressing cash into a staff member's hand is usually refused and can cause awkwardness.",
+  "rules": [
+    { "context": "restaurant",       "expected": false, "amount_guidance": "No tip.",                   "notes": "Mid- and upper-tier restaurants add a 10% service charge (サービス料) to the bill; this is not a tip and is split into the restaurant's revenue." },
+    { "context": "casual_dining",    "expected": false, "amount_guidance": "No tip.",                   "notes": "Ramen shops, izakaya, conveyor-belt sushi, chains — pay at the front register, no table payment, no tip." },
+    { "context": "taxi",             "expected": false, "amount_guidance": "No tip. Pay the meter.",    "notes": "Drivers wear white gloves and often refuse rounded-up change. Large bills are fine." },
+    { "context": "hotel",            "expected": false, "amount_guidance": "No tip for staff.",         "notes": "Ryokan (traditional inn) is the one exception — some guests leave ¥1,000-¥3,000 in an envelope (心づけ, kokorozuke) for the personal attendant on arrival, inside a clean envelope. Modern hotels do not expect this." },
+    { "context": "tour_guide",       "expected": false, "amount_guidance": "Gift or thank-you note.",   "notes": "Tipping a guide directly can feel transactional. A small gift from your home country or a genuine thank-you after a full-day private tour is appreciated." },
+    { "context": "bar",              "expected": false, "amount_guidance": "No tip.",                   "notes": "Some high-end bars charge お通し (otoshi) — a small compulsory seating charge / amuse-bouche of ¥400-¥1,000 per person. It is not a tip." },
+    { "context": "spa_salon",        "expected": false, "amount_guidance": "No tip.",                   "notes": "Service charge is usually already included." },
+    { "context": "delivery",         "expected": false, "amount_guidance": "No tip.",                   "notes": "Uber Eats/Wolt drivers do not expect tips; the app lets you add one but it is rare." }
+  ]
+}
