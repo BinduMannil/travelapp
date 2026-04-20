@@ -26,76 +26,90 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
   const active = route.options.find((o) => o.mode === activeMode);
 
   return (
-    <article className="rounded-lg border border-washi-200 p-5">
-      <header className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="text-xl font-semibold">{route.dest_name}</h2>
+    <article className="rounded-2xl border border-washi-200 bg-white p-6 shadow-sm">
+      {/* Title row — destination + single subtle visa note */}
+      <header className="flex items-center justify-between gap-3">
+        <h2 className="text-xl font-semibold text-sumi-900">
+          {route.dest_name}
+        </h2>
         {route.in_same_country && (
-          <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs text-emerald-900">
-            No extra visa — same country
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-matcha-700">
+            No extra visa
           </span>
         )}
       </header>
 
-      <div className="mt-3 flex flex-wrap gap-1 text-xs">
-        {route.options.map((o) => (
-          <button
-            key={o.mode + o.name}
-            type="button"
-            onClick={() => setActiveMode(o.mode)}
-            className={`rounded-full border px-3 py-1 ${
-              activeMode === o.mode
-                ? "border-brand-500 bg-brand-50 text-brand-800"
-                : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300"
-            }`}
-          >
-            {MODE_LABEL[o.mode] ?? o.mode}
-          </button>
-        ))}
-      </div>
+      {/* Mode tabs — only when there's more than one option */}
+      {route.options.length > 1 && (
+        <div className="mt-4 flex flex-wrap gap-1 text-xs">
+          {route.options.map((o) => (
+            <button
+              key={o.mode + o.name}
+              type="button"
+              onClick={() => setActiveMode(o.mode)}
+              className={`rounded-full border px-2.5 py-0.5 transition ${
+                activeMode === o.mode
+                  ? "border-enji-400 bg-enji-50 text-enji-700"
+                  : "border-washi-300 bg-white text-sumi-700 hover:border-enji-300"
+              }`}
+            >
+              {MODE_LABEL[o.mode] ?? o.mode}
+            </button>
+          ))}
+        </div>
+      )}
 
       {active && (
-        <div className="mt-4 space-y-2 text-sm">
-          <div className="font-medium text-sumi-900">{active.name}</div>
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sumi-800">
+        <>
+          {/* Primary: time + price, big and scannable */}
+          <div className="mt-5 grid grid-cols-2 gap-4">
             <div>
-              <span className="text-sumi-700">Time: </span>
-              <span className="font-medium">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                Time
+              </div>
+              <div className="mt-0.5 text-xl font-semibold tabular-nums text-sumi-900">
                 {formatDuration(active.duration_minutes)}
-              </span>
+              </div>
             </div>
             <div>
-              <span className="text-sumi-700">Typical price: </span>
-              <span className="font-medium tabular-nums">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                Typical fare
+              </div>
+              <div className="mt-0.5 text-xl font-semibold tabular-nums text-sumi-900">
                 <PriceDisplay
                   amountMinor={active.price_min_minor}
                   currency={active.currency}
                 />
                 {active.price_max_minor > active.price_min_minor && (
-                  <>
+                  <span className="text-sm font-normal text-sumi-700">
                     {" – "}
                     <PriceDisplay
                       amountMinor={active.price_max_minor}
                       currency={active.currency}
                     />
-                  </>
+                  </span>
                 )}
-              </span>
+              </div>
             </div>
           </div>
-          {active.notes && (
-            <p className="text-sumi-700">{active.notes}</p>
-          )}
+
+          {/* Secondary: operator + optional note as one quiet line */}
+          <div className="mt-4 text-xs text-sumi-700">
+            {active.name}
+            {active.notes && <span> · {active.notes}</span>}
+          </div>
+
           {active.booking_url && (
             <a
               href={active.booking_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block text-brand-600 underline"
+              className="mt-4 inline-block text-xs font-semibold text-enji-600 hover:underline"
             >
               Book →
             </a>
           )}
-        </div>
+        </>
       )}
     </article>
   );
