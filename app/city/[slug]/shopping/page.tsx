@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityShopping } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
+import { ShoppingBubbleHero } from "@/components/shopping/ShoppingBubbleHero";
 import { ShoppingCategoryCover } from "@/components/shopping/ShoppingCategoryCover";
 
 const CATEGORY_PALETTE: Record<
@@ -52,7 +53,23 @@ export default async function ShoppingPage({
         subtitle="買 物"
         lede={`Japan rewards the specialist. Twelve floors of stationery, a block of vintage denim, a basement dedicated to depachika sweets.`}
         palette="kintsugi"
+        size="sm"
       />
+
+      {/* Bubble hero — vertical orbit of the category bubbles, Bali-reference
+          aesthetic. Tap any bubble to focus it; tap the centre to scroll to
+          the full category block below. */}
+      <ShoppingBubbleHero
+        items={data.categories.map((c) => ({
+          slug: c.slug,
+          title: c.title,
+          subtitle: `${c.picks.length} ${c.picks.length === 1 ? "pick" : "picks"}`,
+          kanji: c.kanji,
+          palette: CATEGORY_PALETTE[c.slug] ?? "aizome",
+          images: c.hero_image_urls ?? [],
+        }))}
+      />
+
       <div className="mx-auto max-w-5xl px-6 py-12">
 <nav className="mt-6 flex flex-wrap gap-2 text-xs">
         {data.categories.map((c) => (
