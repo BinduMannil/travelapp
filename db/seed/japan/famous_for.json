@@ -5,50 +5,190 @@
       "slug": "craft",
       "label": "Traditional craft",
       "items": [
-        { "name": "Japanese kitchen knives",        "why": "Sakai and Seki have forged blades for 600+ years. Tōkyō knife shops like Kappabashi Kitchen Town will engrave your name on the blade.", "where_to_buy": "Kappabashi (Tokyo), Sakai (Osaka), Seki (Gifu)." },
-        { "name": "Washi paper",                    "why": "UNESCO-listed handmade paper, made from kōzo mulberry bark. Used for shōji screens, origami, and luxury stationery.", "where_to_buy": "Ozu Washi (Nihonbashi), Kamiji Kakimoto (Kyoto)." },
-        { "name": "Ceramics (Arita / Kutani / Mashiko)", "why": "Each region has a 400-year porcelain or pottery tradition. Arita is painterly blue-and-white; Kutani is colourful gold-leaf overglaze.", "where_to_buy": "Department store galleries in Ginza and Shinjuku; annual Mashiko Pottery Fair in November." },
-        { "name": "Kintsugi (golden joinery)",     "why": "Broken pottery repaired with lacquer dusted in gold — the crack becomes the feature. A philosophy as much as a craft.", "where_to_buy": "Workshops in Tokyo teach one-day introductory classes." },
-        { "name": "Japanese textiles + kimono",    "why": "Nishijin-ori brocades, Yuzen dye techniques, indigo aizome. Modern makers are reworking them into everyday clothing.", "where_to_buy": "Nishijin Textile Center (Kyoto), Itchiku Kubota Museum (Hakone)." }
+        {
+          "name": "Japanese kitchen knives",
+          "why": "Sakai and Seki have forged blades for 600+ years. Tōkyō knife shops like Kappabashi Kitchen Town will engrave your name on the blade.",
+          "where_to_buy": "Kappabashi (Tokyo), Sakai (Osaka), Seki (Gifu).",
+          "kanji": "刃",
+          "palette": "sumi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg"
+        },
+        {
+          "name": "Washi paper",
+          "why": "UNESCO-listed handmade paper, made from kōzo mulberry bark. Used for shōji screens, origami, and luxury stationery.",
+          "where_to_buy": "Ozu Washi (Nihonbashi), Kamiji Kakimoto (Kyoto).",
+          "kanji": "紙",
+          "palette": "kintsugi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Various_kinds_of_washi.jpg"
+        },
+        {
+          "name": "Ceramics (Arita / Kutani / Mashiko)",
+          "why": "Each region has a 400-year porcelain or pottery tradition. Arita is painterly blue-and-white; Kutani is colourful gold-leaf overglaze.",
+          "where_to_buy": "Department store galleries in Ginza and Shinjuku; annual Mashiko Pottery Fair in November.",
+          "kanji": "陶",
+          "palette": "aizome",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Arita_porcelain_-_19th_century.jpg"
+        },
+        {
+          "name": "Kintsugi (golden joinery)",
+          "why": "Broken pottery repaired with lacquer dusted in gold — the crack becomes the feature. A philosophy as much as a craft.",
+          "where_to_buy": "Workshops in Tokyo teach one-day introductory classes.",
+          "kanji": "継",
+          "palette": "kintsugi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tea_bowl_fixed_in_the_Kintsugi_method.jpg"
+        },
+        {
+          "name": "Japanese textiles + kimono",
+          "why": "Nishijin-ori brocades, Yuzen dye techniques, indigo aizome. Modern makers are reworking them into everyday clothing.",
+          "where_to_buy": "Nishijin Textile Center (Kyoto), Itchiku Kubota Museum (Hakone).",
+          "kanji": "織",
+          "palette": "ume",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Furisode_kimono.jpg"
+        }
       ]
     },
     {
       "slug": "food_drink",
       "label": "Food & drink exports",
       "items": [
-        { "name": "Japanese whisky",               "why": "Yamazaki, Hakushu, and Nikka built world-beating distilleries from Scottish templates. Stocks are tight — allocations sell out at retail.", "where_to_buy": "Dedicated whisky bars (Zoetrope, Shot Bar Zoetrope) or department-store liquor floors." },
-        { "name": "Soy sauce, miso, sake",         "why": "Each prefecture has its own fermented pantry. Small-batch shoyu brewers age soy in cedar barrels for two years.", "where_to_buy": "Akomeya Tokyo in Ginza; breweries across Chiba and Nagano." },
-        { "name": "Green tea (sencha, gyokuro, hōjicha)", "why": "Shizuoka and Uji in Kyoto grow the most celebrated leaves. Gyokuro is shaded for three weeks before harvest.", "where_to_buy": "Ippodo (Kyoto and Tokyo branches), Lupicia." },
-        { "name": "Wagashi (traditional confections)", "why": "Seasonal sweets made with bean paste, kanten, rice flour. Higashi (dry sweets) pair with matcha; namagashi (fresh) are sculpted seasonally.", "where_to_buy": "Toraya in Akasaka (400 years old)." }
+        {
+          "name": "Japanese whisky",
+          "why": "Yamazaki, Hakushu, and Nikka built world-beating distilleries from Scottish templates. Stocks are tight — allocations sell out at retail.",
+          "where_to_buy": "Dedicated whisky bars (Zoetrope, Shot Bar Zoetrope) or department-store liquor floors.",
+          "kanji": "酒",
+          "palette": "kintsugi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yamazaki_Distillery_Pot_Stills.jpg"
+        },
+        {
+          "name": "Soy sauce, miso, sake",
+          "why": "Each prefecture has its own fermented pantry. Small-batch shoyu brewers age soy in cedar barrels for two years.",
+          "where_to_buy": "Akomeya Tokyo in Ginza; breweries across Chiba and Nagano.",
+          "kanji": "醤",
+          "palette": "enji",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Soy_sauce_2.jpg"
+        },
+        {
+          "name": "Green tea (sencha, gyokuro, hōjicha)",
+          "why": "Shizuoka and Uji in Kyoto grow the most celebrated leaves. Gyokuro is shaded for three weeks before harvest.",
+          "where_to_buy": "Ippodo (Kyoto and Tokyo branches), Lupicia.",
+          "kanji": "茶",
+          "palette": "matcha",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sencha_Japanese_green_tea.jpg"
+        },
+        {
+          "name": "Wagashi (traditional confections)",
+          "why": "Seasonal sweets made with bean paste, kanten, rice flour. Higashi (dry sweets) pair with matcha; namagashi (fresh) are sculpted seasonally.",
+          "where_to_buy": "Toraya in Akasaka (400 years old).",
+          "kanji": "菓",
+          "palette": "sakura",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wagashi_assortment.jpg"
+        }
       ]
     },
     {
       "slug": "pop_culture",
       "label": "Pop culture & entertainment",
       "items": [
-        { "name": "Anime & manga",                 "why": "Over half of global animation output. Studio Ghibli, Toei, Madhouse, Mappa. Weekly manga print runs dwarf English-language book sales.", "where_to_buy": "Animate Ikebukuro, Mandarake Complex Akihabara, Tokyo Character Street in Tokyo Station." },
-        { "name": "Video games",                   "why": "Nintendo, PlayStation, Sega, Capcom, Square Enix. Tokyo Game Show every autumn draws 250k visitors.", "where_to_buy": "Super Potato (retro), Pokemon Centers, Square Enix Café." },
-        { "name": "J-pop, city pop, and jazz kissa", "why": "A deep musical lineage from 1970s city pop (Tatsuro Yamashita) to global acts like Hikaru Utada, YOASOBI, and a live-house scene in Shimokitazawa.", "where_to_buy": "Tower Records Shibuya, Disk Union, Jazz kissa cafés in Kichijoji and Yoyogi." }
+        {
+          "name": "Anime & manga",
+          "why": "Over half of global animation output. Studio Ghibli, Toei, Madhouse, Mappa. Weekly manga print runs dwarf English-language book sales.",
+          "where_to_buy": "Animate Ikebukuro, Mandarake Complex Akihabara, Tokyo Character Street in Tokyo Station.",
+          "kanji": "漫",
+          "palette": "ume",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg"
+        },
+        {
+          "name": "Video games",
+          "why": "Nintendo, PlayStation, Sega, Capcom, Square Enix. Tokyo Game Show every autumn draws 250k visitors.",
+          "where_to_buy": "Super Potato (retro), Pokemon Centers, Square Enix Café.",
+          "kanji": "遊",
+          "palette": "aizome",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo_Switch_Console.jpg"
+        },
+        {
+          "name": "J-pop, city pop, and jazz kissa",
+          "why": "A deep musical lineage from 1970s city pop (Tatsuro Yamashita) to global acts like Hikaru Utada, YOASOBI, and a live-house scene in Shimokitazawa.",
+          "where_to_buy": "Tower Records Shibuya, Disk Union, Jazz kissa cafés in Kichijoji and Yoyogi.",
+          "kanji": "音",
+          "palette": "sumi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Vinyl_records_in_a_jazz_kissa.jpg"
+        }
       ]
     },
     {
       "slug": "design_tech",
       "label": "Design & technology",
       "items": [
-        { "name": "Stationery",                    "why": "Pilot, Tombow, Kokuyo, Midori, Sailor. Pens are tuned to fractional tip sizes; the paper is buttery.", "where_to_buy": "Itoya in Ginza (12 floors of pens and paper), Sekaido in Shinjuku." },
-        { "name": "Denim",                         "why": "Kojima (Okayama prefecture) revived selvedge denim when the rest of the world abandoned it. Kapital, Momotaro, Iron Heart.", "where_to_buy": "Okura (Daikanyama), denim floors of Beams and United Arrows." },
-        { "name": "Rail engineering",              "why": "Shinkansen averages 27-second lateness per year. Maglev on the Chūō line prototype hits 600 km/h.", "where_to_buy": "The Railway Museum in Saitama; Kyoto Railway Museum." },
-        { "name": "Consumer electronics & audio",  "why": "Sony, Panasonic, Nintendo define the high street; audiophile brands like Audio-Technica, Stax, and Luxman ship globally.", "where_to_buy": "Yodobashi Akiba (nine floors), BIC Camera." }
+        {
+          "name": "Stationery",
+          "why": "Pilot, Tombow, Kokuyo, Midori, Sailor. Pens are tuned to fractional tip sizes; the paper is buttery.",
+          "where_to_buy": "Itoya in Ginza (12 floors of pens and paper), Sekaido in Shinjuku.",
+          "kanji": "筆",
+          "palette": "matcha",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg"
+        },
+        {
+          "name": "Denim",
+          "why": "Kojima (Okayama prefecture) revived selvedge denim when the rest of the world abandoned it. Kapital, Momotaro, Iron Heart.",
+          "where_to_buy": "Okura (Daikanyama), denim floors of Beams and United Arrows.",
+          "kanji": "藍",
+          "palette": "aizome",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kojima_Jeans_Street.jpg"
+        },
+        {
+          "name": "Rail engineering",
+          "why": "Shinkansen averages 27-second lateness per year. Maglev on the Chūō line prototype hits 600 km/h.",
+          "where_to_buy": "The Railway Museum in Saitama; Kyoto Railway Museum.",
+          "kanji": "鉄",
+          "palette": "enji",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shinkansen_E5_at_Tokyo_Station.jpg"
+        },
+        {
+          "name": "Consumer electronics & audio",
+          "why": "Sony, Panasonic, Nintendo define the high street; audiophile brands like Audio-Technica, Stax, and Luxman ship globally.",
+          "where_to_buy": "Yodobashi Akiba (nine floors), BIC Camera.",
+          "kanji": "電",
+          "palette": "sumi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg"
+        }
       ]
     },
     {
       "slug": "art_philosophy",
       "label": "Art, wellness & philosophy",
       "items": [
-        { "name": "Ikebana (flower arrangement)",  "why": "Three major schools — Ikenobō, Ohara, Sōgetsu — approach arrangement as a spatial, minimalist art.", "where_to_buy": "Sōgetsu Kaikan in Akasaka offers English classes." },
-        { "name": "Origami",                       "why": "From children's cranes (senbazuru wishes) to Robert Lang's computational folds. Japan is the living archive.", "where_to_buy": "Origami Kaikan in Yushima; museum shops nationwide." },
-        { "name": "Shodō (calligraphy)",           "why": "Practiced for concentration, not decoration. Many studios host 60-minute English-taught sessions for visitors.", "where_to_buy": "Various studios offer hotel-arranged classes." },
-        { "name": "Omotenashi (hospitality)",     "why": "The register of host-guest relationship you will experience at every ryokan, good restaurant, and department store elevator operator.", "where_to_buy": "Ryokan stays are the clearest introduction." }
+        {
+          "name": "Ikebana (flower arrangement)",
+          "why": "Three major schools — Ikenobō, Ohara, Sōgetsu — approach arrangement as a spatial, minimalist art.",
+          "where_to_buy": "Sōgetsu Kaikan in Akasaka offers English classes.",
+          "kanji": "華",
+          "palette": "sakura",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ikebana_arrangement_at_Sogetsu.jpg"
+        },
+        {
+          "name": "Origami",
+          "why": "From children's cranes (senbazuru wishes) to Robert Lang's computational folds. Japan is the living archive.",
+          "where_to_buy": "Origami Kaikan in Yushima; museum shops nationwide.",
+          "kanji": "折",
+          "palette": "ume",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Origami_cranes.jpg"
+        },
+        {
+          "name": "Shodō (calligraphy)",
+          "why": "Practiced for concentration, not decoration. Many studios host 60-minute English-taught sessions for visitors.",
+          "where_to_buy": "Various studios offer hotel-arranged classes.",
+          "kanji": "書",
+          "palette": "sumi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_calligraphy.jpg"
+        },
+        {
+          "name": "Omotenashi (hospitality)",
+          "why": "The register of host-guest relationship you will experience at every ryokan, good restaurant, and department store elevator operator.",
+          "where_to_buy": "Ryokan stays are the clearest introduction.",
+          "kanji": "心",
+          "palette": "kintsugi",
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ryokan_okami_serving_tea.jpg"
+        }
       ]
     }
   ]

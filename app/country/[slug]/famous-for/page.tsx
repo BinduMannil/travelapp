@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCountry, getCountryFamousFor } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
+import { FamousCard } from "@/components/famous/FamousCard";
 
 export function generateMetadata(): Metadata {
   return {
@@ -50,7 +50,10 @@ export default async function FamousForPage({
         ))}
       </nav>
 
-      <div className="mt-6 space-y-10">
+      <p className="mt-6 text-[11px] uppercase tracking-[0.25em] text-sumi-700">
+        Tap any card for where to find it.
+      </p>
+      <div className="mt-4 space-y-10">
         {data.categories.map((c) => (
           <section key={c.slug} id={`cat-${c.slug}`} className="scroll-mt-16">
             <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
@@ -58,18 +61,7 @@ export default async function FamousForPage({
             </h2>
             <div className="mt-3 grid gap-4 md:grid-cols-2">
               {c.items.map((it) => (
-                <article
-                  key={it.name}
-                  className="rounded-lg border border-washi-200 p-4"
-                >
-                  <h3 className="font-semibold">{it.name}</h3>
-                  <p className="mt-1 text-sm text-sumi-800">{it.why}</p>
-                  {it.where_to_buy && (
-                    <p className="mt-2 text-xs text-sumi-700">
-                      <strong>Where:</strong> {it.where_to_buy}
-                    </p>
-                  )}
-                </article>
+                <FamousCard key={it.name} item={it} />
               ))}
             </div>
           </section>

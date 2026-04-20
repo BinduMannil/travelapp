@@ -897,6 +897,18 @@ export type FamousItem = {
   name: string;
   why: string;
   where_to_buy?: string;
+  hero_image_url?: string;
+  kanji?: string;
+  palette?:
+    | "enji"
+    | "aizome"
+    | "sakura"
+    | "matcha"
+    | "kintsugi"
+    | "sumi"
+    | "ume"
+    | "ocean"
+    | "forest";
 };
 
 export type FamousCategory = {
