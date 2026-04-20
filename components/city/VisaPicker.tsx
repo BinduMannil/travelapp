@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import type { VisaRule } from "@/lib/data/seed";
 import { formatLongDate } from "@/lib/legal/constants";
 
-const LS_KEY = "travelapp:citizenship";
+const LS_CITIZENSHIP = "travelapp:citizenship";
+const LS_RESIDENCE = "travelapp:residence";
 
 const REQUIREMENT_COPY: Record<
   VisaRule["requirement"],
@@ -44,40 +45,71 @@ export function VisaPicker({
     [rules],
   );
   const [citizenship, setCitizenship] = useState<string>("");
+  const [residence, setResidence] = useState<string>("");
 
   useEffect(() => {
-    const stored = window.localStorage.getItem(LS_KEY);
-    if (stored && sorted.some((r) => r.citizenship === stored)) {
-      setCitizenship(stored);
-    }
+    const c = window.localStorage.getItem(LS_CITIZENSHIP);
+    if (c && sorted.some((r) => r.citizenship === c)) setCitizenship(c);
+    const r = window.localStorage.getItem(LS_RESIDENCE);
+    if (r) setResidence(r);
   }, [sorted]);
 
   const rule = sorted.find((r) => r.citizenship === citizenship);
+  const residenceDiffers = residence && residence !== citizenship;
 
-  function handleChange(value: string) {
+  function handleCitizenship(value: string) {
     setCitizenship(value);
-    if (value) window.localStorage.setItem(LS_KEY, value);
+    if (value) window.localStorage.setItem(LS_CITIZENSHIP, value);
+  }
+
+  function handleResidence(value: string) {
+    setResidence(value);
+    if (value) window.localStorage.setItem(LS_RESIDENCE, value);
+    else window.localStorage.removeItem(LS_RESIDENCE);
   }
 
   return (
     <div>
-      <label className="block">
-        <span className="text-sm font-medium text-sumi-800">
-          Your citizenship
-        </span>
-        <select
-          value={citizenship}
-          onChange={(e) => handleChange(e.target.value)}
-          className="mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2"
-        >
-          <option value="">Select your passport country…</option>
-          {sorted.map((r) => (
-            <option key={r.citizenship} value={r.citizenship}>
-              {r.name}
-            </option>
-          ))}
-        </select>
-      </label>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block">
+          <span className="text-sm font-medium text-sumi-800">
+            Your citizenship
+          </span>
+          <select
+            value={citizenship}
+            onChange={(e) => handleCitizenship(e.target.value)}
+            className="mt-2 w-full rounded-md border border-washi-300 bg-white px-3 py-2"
+          >
+            <option value="">Select your passport country…</option>
+            {sorted.map((r) => (
+              <option key={r.citizenship} value={r.citizenship}>
+                {r.name}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="block">
+          <span className="text-sm font-medium text-sumi-800">
+            Where you live{" "}
+            <span className="text-xs font-normal text-sumi-700">
+              (optional)
+            </span>
+          </span>
+          <select
+            value={residence}
+            onChange={(e) => handleResidence(e.target.value)}
+            className="mt-2 w-full rounded-md border border-washi-300 bg-white px-3 py-2"
+          >
+            <option value="">Same as my passport country</option>
+            {sorted.map((r) => (
+              <option key={r.citizenship} value={r.citizenship}>
+                {r.name}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
 
       {rule ? (
         <article
@@ -109,9 +141,18 @@ export function VisaPicker({
               Apply for an eVisa →
             </a>
           )}
+          {residenceDiffers && (
+            <div className="mt-4 rounded-md border border-sumi-900/15 bg-white/60 p-3 text-sm">
+              <strong>Note on residence.</strong> Japan&rsquo;s tourist-visa
+              rules are based on <em>citizenship</em>, so the result above
+              applies regardless of where you live. Some waivers, eVisa
+              eligibility, and fingerprinting exemptions can depend on
+              residence — verify with the official source before you travel.
+            </div>
+          )}
         </article>
       ) : (
-        <p className="mt-6 rounded-lg border border-dashed border-slate-300 p-5 text-sm text-sumi-700">
+        <p className="mt-6 rounded-lg border border-dashed border-washi-300 p-5 text-sm text-sumi-700">
           Pick your passport country above to see your specific requirement.
         </p>
       )}
@@ -133,3 +174,4 @@ export function VisaPicker({
     </div>
   );
 }
+
