@@ -14,11 +14,11 @@ export const LEGAL = {
   // Consumer-facing product / app name
   brand: "Journee",
   // TODO: replace with production domain once live
-  productUrl: "https://journee.app",
-  // Inbox addresses — create on your domain and forward wherever you like
-  supportEmail: "hello@journee.app",
-  legalEmail: "legal@journee.app",
-  privacyEmail: "privacy@journee.app",
+  productUrl: "https://journee-app.com",
+  // Single inbox for now; forward internally if/when we split support/legal/privacy.
+  supportEmail: "info@journee-app.com",
+  legalEmail: "info@journee-app.com",
+  privacyEmail: "info@journee-app.com",
   // Governing law (UAE standard for an FZ-LLC is the free-zone courts or ADGM/DIFC common-law courts)
   governingLaw:
     "Laws of the United Arab Emirates, with exclusive jurisdiction in the courts of the Dubai International Financial Centre (DIFC).",
