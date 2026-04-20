@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { LEGAL } from "@/lib/legal/constants";
+import { LEGAL, formatReviewedAt } from "@/lib/legal/constants";
 import { PARTNERS } from "@/lib/affiliates/partners";
 
 export const metadata: Metadata = {
@@ -36,14 +36,14 @@ export default function AffiliateDisclosurePage() {
         </Link>{" "}
         · Legal · Affiliate Disclosure
       </nav>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
+      <h1 className="mt-4 text-4xl font-semibold tracking-tight text-sumi-900">
         Affiliate Disclosure
       </h1>
       <p className="mt-3 text-sm text-sumi-700">
-        Last reviewed: {LEGAL.reviewedAt}
+        Last reviewed: {formatReviewedAt()}
       </p>
 
-      <div className="prose mt-8 max-w-none text-sumi-900 [&_h2]:font-display [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:leading-relaxed [&_p]:text-sm [&_li]:text-sm [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-1">
+      <div className="prose mt-8 max-w-none text-sumi-900 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:leading-relaxed [&_p]:text-sm [&_li]:text-sm [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-1">
         <h2>How we make money</h2>
         <p>
           {LEGAL.brand} is free to read. To cover the cost of building it,
