@@ -23,7 +23,11 @@ export default async function RootLayout({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <html lang="en" className={`${montserrat.variable} ${notoSerifJp.variable}`}>
+    <html
+      lang="en"
+      className={`${montserrat.variable} ${notoSerifJp.variable}`}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">
         <PreferencesProvider rates={rates} defaultCurrency="JPY">
           <header className="sticky top-0 z-30 border-b border-sumi-100/60 bg-washi-50/85 backdrop-blur">
