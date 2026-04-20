@@ -29,9 +29,10 @@ export const LEGAL = {
 
 /**
  * Render an ISO date as "20 April 2026". Falls back to the raw string
- * if the date can't be parsed.
+ * if the date can't be parsed. The single source of truth for human-
+ * facing dates anywhere in the app.
  */
-export function formatReviewedAt(iso: string = LEGAL.reviewedAt): string {
+export function formatLongDate(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
   return d.toLocaleDateString("en-GB", {
@@ -39,4 +40,8 @@ export function formatReviewedAt(iso: string = LEGAL.reviewedAt): string {
     month: "long",
     year: "numeric",
   });
+}
+
+export function formatReviewedAt(iso: string = LEGAL.reviewedAt): string {
+  return formatLongDate(iso);
 }

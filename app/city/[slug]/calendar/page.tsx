@@ -21,10 +21,10 @@ const IMPACT_LABEL: Record<string, string> = {
 };
 
 function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
+  return new Date(iso).toLocaleDateString("en-GB", {
     day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 }
 

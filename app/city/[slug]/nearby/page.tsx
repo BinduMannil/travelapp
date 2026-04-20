@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getInterCityRoutes } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
+import { formatLongDate } from "@/lib/legal/constants";
 import {
   CurrencyProvider,
   CurrencySelector,
@@ -76,7 +77,7 @@ export default async function NearbyPage({
         <div className="mt-6 flex items-center justify-between">
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
           <span className="text-xs text-sumi-700">
-            Rates as of {snapshot.date}
+            Rates as of {formatLongDate(snapshot.date)}
           </span>
         </div>
 

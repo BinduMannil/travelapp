@@ -7,6 +7,7 @@ import {
   WELLNESS_TYPE_LABEL,
 } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
+import { formatLongDate } from "@/lib/legal/constants";
 import {
   CurrencyProvider,
   CurrencySelector,
@@ -93,7 +94,7 @@ export default async function WellnessPage({
       >
         <div className="mt-6 flex items-center justify-between">
           <span className="text-xs text-sumi-700">
-            Rates as of {snapshot.date}
+            Rates as of {formatLongDate(snapshot.date)}
           </span>
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>

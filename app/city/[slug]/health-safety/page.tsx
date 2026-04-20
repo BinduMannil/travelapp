@@ -9,6 +9,7 @@ import {
   getCountryHealthSafety,
 } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
+import { formatLongDate } from "@/lib/legal/constants";
 
 export function generateMetadata(): Metadata {
   return {
@@ -292,7 +293,7 @@ export default async function HealthSafetyPage({
       <AffiliateDisclosure />
 
       <p className="mt-6 text-xs text-sumi-700">
-        Reviewed: {data.reviewed_at}. Visa, medication, and LGBTQ+ policies
+        Reviewed: {formatLongDate(data.reviewed_at)}. Visa, medication, and LGBTQ+ policies
         change — verify critical items with an official source before you
         travel.
       </p>

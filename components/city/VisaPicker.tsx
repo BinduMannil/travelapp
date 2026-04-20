@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import type { VisaRule } from "@/lib/data/seed";
+import { formatLongDate } from "@/lib/legal/constants";
 
 const LS_KEY = "travelapp:citizenship";
 
@@ -117,7 +118,7 @@ export function VisaPicker({
 
       <div className="mt-6 rounded-md bg-washi-100 p-4 text-sm text-sumi-800">
         <div>
-          Rules last reviewed: <strong>{reviewedAt}</strong>
+          Rules last reviewed: <strong>{formatLongDate(reviewedAt)}</strong>
         </div>
         <div className="mt-1">{disclaimer}</div>
         <a

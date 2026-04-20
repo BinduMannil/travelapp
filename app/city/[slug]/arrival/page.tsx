@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityArrival } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
+import { formatLongDate } from "@/lib/legal/constants";
 import {
   CurrencyProvider,
   CurrencySelector,
@@ -97,7 +98,7 @@ export default async function ArrivalPage({
       >
         <div className="mt-6 flex items-center justify-between">
           <span className="text-xs text-sumi-700">
-            Rates as of {snapshot.date}
+            Rates as of {formatLongDate(snapshot.date)}
           </span>
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
