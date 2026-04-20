@@ -99,34 +99,29 @@ export default async function ConnectivityPage({
               key={o.provider}
               className="rounded-2xl border border-washi-200 bg-white p-5 shadow-sm"
             >
-              <header className="flex flex-wrap items-start justify-between gap-4">
+              <header className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sumi-700">
                       {OPTION_LABEL[o.option] ?? o.option}
                     </span>
-                    <span className="rounded-full border border-washi-300 bg-washi-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-sumi-700">
+                    <span className="rounded-full border border-washi-300 bg-washi-100 px-2 py-0.5 text-[10px] font-medium text-sumi-700">
                       {o.kind}
                     </span>
                   </div>
-                  <h2 className="mt-2 font-display text-xl font-semibold leading-tight text-sumi-900">
-                    {o.provider}
+                  <h2 className="mt-1.5 !font-sans text-base font-semibold leading-snug tracking-tight text-sumi-900">
+                    {o.provider}{" "}
+                    <span className="font-normal text-sumi-700">
+                      · {o.plan_label}
+                    </span>
                   </h2>
-                  <div className="mt-1 text-sm text-sumi-700">
-                    {o.plan_label}
-                  </div>
                 </div>
                 {o.price_minor > 0 && (
-                  <div className="text-right">
-                    <div className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
-                      From
-                    </div>
-                    <div className="mt-0.5 text-base font-semibold tabular-nums text-sumi-900">
-                      <PriceDisplay
-                        amountMinor={o.price_minor}
-                        currency={o.currency}
-                      />
-                    </div>
+                  <div className="shrink-0 rounded-full bg-washi-100 px-3 py-1 text-sm font-semibold tabular-nums text-sumi-900">
+                    <PriceDisplay
+                      amountMinor={o.price_minor}
+                      currency={o.currency}
+                    />
                   </div>
                 )}
               </header>
