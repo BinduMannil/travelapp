@@ -212,6 +212,31 @@ export function HotelCta({
   );
 }
 
+export function PrivateStayCta({
+  city = "Tokyo",
+  source,
+}: {
+  city?: string;
+  source?: string;
+} = {}) {
+  return (
+    <Card
+      kanji="宅"
+      eyebrow="Private stays"
+      title={`Apartments & homes in ${city}`}
+      body="Airbnb-style stays — machiya townhouses, serviced apartments, whole homes. Better for groups, families, or stays of a week+."
+      button="Browse stays"
+      href={`https://www.airbnb.com/s/${encodeURIComponent(city)}/homes`}
+      // No Airbnb affiliate programme in 2026; outbound link only. Swap
+      // to Vrbo or Plum Guide (both have affiliate programmes) once you
+      // have a preferred partner.
+      partner="booking"
+      source={source}
+      accent="matcha"
+    />
+  );
+}
+
 export function AirportTransferCta({
   city = "Tokyo",
   source,

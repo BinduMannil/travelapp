@@ -18,7 +18,8 @@ export const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  // Variable font — omit `weight` so every weight along the wght axis
+  // is available. Adding `axes` requires this for next/font.
   style: ["normal", "italic"],
   axes: ["SOFT", "opsz"],
 });

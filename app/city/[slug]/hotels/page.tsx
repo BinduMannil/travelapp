@@ -16,7 +16,7 @@ import {
 } from "@/lib/preferences/context";
 import { CoverTile, hotelCover } from "@/components/common/CoverTile";
 import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
-import { HotelCta } from "@/components/affiliate/AffiliateCtas";
+import { HotelCta, PrivateStayCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -45,14 +45,48 @@ const DISPLAY_CURRENCIES = [
   "CHF",
 ];
 
-const TIER_HINT: Record<HotelTier, string> = {
-  hostel: "Dorm beds and private twins in shared buildings. ¥3,500-¥9,000/night.",
-  capsule: "Tidy pod beds with shared showers. ¥4,000-¥7,000/night.",
-  business: "Compact, clean, quiet. The ¥8,000-¥22,000 sweet spot.",
-  ryokan_style: "Dormy Inn / Onyado Nono — business hotels with real onsen baths. ¥16,000-¥35,000.",
-  mid_range: "Boutique, design, or reliable international chains. ¥20,000-¥50,000.",
-  luxury: "International luxury towers. ¥50,000-¥160,000.",
-  luxury_ryokan: "Traditional tatami + kaiseki at the top end. ¥100,000+.",
+// Tier blurbs with structured price ranges in JPY minor units so the
+// band can render in whatever currency the user has picked.
+const TIER_HINT: Record<
+  HotelTier,
+  { blurb: string; minMinor: number; maxMinor: number | null }
+> = {
+  hostel: {
+    blurb: "Dorm beds and private twins in shared buildings.",
+    minMinor: 3500,
+    maxMinor: 9000,
+  },
+  capsule: {
+    blurb: "Tidy pod beds with shared showers.",
+    minMinor: 4000,
+    maxMinor: 7000,
+  },
+  business: {
+    blurb: "Compact, clean, quiet. The sweet spot for most travellers.",
+    minMinor: 8000,
+    maxMinor: 22000,
+  },
+  ryokan_style: {
+    blurb:
+      "Dormy Inn / Onyado Nono — business hotels with real onsen baths.",
+    minMinor: 16000,
+    maxMinor: 35000,
+  },
+  mid_range: {
+    blurb: "Boutique, design, or reliable international chains.",
+    minMinor: 20000,
+    maxMinor: 50000,
+  },
+  luxury: {
+    blurb: "International luxury towers.",
+    minMinor: 50000,
+    maxMinor: 160000,
+  },
+  luxury_ryokan: {
+    blurb: "Traditional tatami + kaiseki at the top end.",
+    minMinor: 100000,
+    maxMinor: null,
+  },
 };
 
 export default async function HotelsPage({
@@ -137,7 +171,25 @@ export default async function HotelsPage({
         {activeTier && (
           <p className="mt-4 rounded-lg border border-washi-200 bg-washi-100 p-3 text-sm text-sumi-800">
             <strong>{HOTEL_TIER_LABEL[activeTier]}:</strong>{" "}
-            {TIER_HINT[activeTier]}
+            {TIER_HINT[activeTier].blurb}{" "}
+            <span className="tabular-nums">
+              <PriceDisplay
+                amountMinor={TIER_HINT[activeTier].minMinor}
+                currency="JPY"
+              />
+              {TIER_HINT[activeTier].maxMinor !== null ? (
+                <>
+                  {" – "}
+                  <PriceDisplay
+                    amountMinor={TIER_HINT[activeTier].maxMinor!}
+                    currency="JPY"
+                  />
+                </>
+              ) : (
+                "+"
+              )}{" "}
+              / night.
+            </span>
           </p>
         )}
 
@@ -222,8 +274,9 @@ export default async function HotelsPage({
         per person per night.
       </p>
 
-      <div className="mt-8">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
         <HotelCta city={city.name} source="hotels-bottom" />
+        <PrivateStayCta city={city.name} source="hotels-bottom" />
       </div>
       <AffiliateDisclosure />
     </div>

@@ -12,10 +12,10 @@ import {
   CurrencySelector,
 } from "@/lib/preferences/context";
 import { AttractionCard } from "@/components/attraction/AttractionCard";
+import { AttractionHeroCarousel } from "@/components/attraction/AttractionHeroCarousel";
 import { CategoryTabs } from "@/components/attraction/CategoryTabs";
 import { ToursCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
-import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -69,20 +69,18 @@ export default async function AttractionsPage({
   const snapshot = await getFxSnapshot("JPY");
   const rates = snapshotToRates(snapshot);
 
+  const heroLede =
+    "Hand-picked shortlist ranked by importance. Tap a card for dress code, accessibility, and tickets.";
+  // Rank by importance desc, fall back to seed order.
+  const featured = [...all].sort((a, b) => b.importance - a.importance);
+
   return (
     <main>
-      <PageHero
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: city.name, href: `/city/${slug}` },
-          { label: "Attractions" },
-        ]}
-        kanji="観"
-        eyebrow="Attractions"
-        title={`Attractions`}
-        subtitle="名 所"
-        lede={`Hand-picked shortlist ranked by importance. Category tabs filter the grid; tap a card for dress code, accessibility, and tickets.`}
-        palette="enji"
+      <AttractionHeroCarousel
+        citySlug={slug}
+        cityName={city.name}
+        attractions={featured}
+        lede={heroLede}
       />
       <div className="mx-auto max-w-6xl px-6 py-12">
 <CurrencyProvider
