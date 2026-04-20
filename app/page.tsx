@@ -2,26 +2,35 @@ import Link from "next/link";
 import { PreferencesPanel } from "@/components/home/PreferencesPanel";
 import { CoverTile } from "@/components/common/CoverTile";
 
-const HERO_STRIP: Array<{
+type Palette =
+  | "rose"
+  | "amber"
+  | "emerald"
+  | "sky"
+  | "indigo"
+  | "violet"
+  | "fuchsia"
+  | "teal"
+  | "slate"
+  | "orange";
+
+const NEARBY_STACK: Array<{
   label: string;
   sublabel: string;
-  href: string;
-  palette:
-    | "rose"
-    | "amber"
-    | "emerald"
-    | "sky"
-    | "indigo"
-    | "violet"
-    | "fuchsia"
-    | "teal";
+  palette: Palette;
   icon: string;
 }> = [
-  { label: "1 city", sublabel: "Tokyo, deep", href: "/city/tokyo", palette: "indigo", icon: "🗼" },
-  { label: "12 attractions", sublabel: "Ranked", href: "/city/tokyo/attractions", palette: "amber", icon: "⛩️" },
-  { label: "Michelin food", sublabel: "+ ¥1,300 ramen", href: "/city/tokyo/restaurants", palette: "rose", icon: "🍣" },
-  { label: "Onsen etiquette", sublabel: "10 venues", href: "/city/tokyo/wellness", palette: "teal", icon: "♨️" },
-  { label: "Your vibe", sublabel: "Pack accordingly", href: "/city/tokyo/packing", palette: "fuchsia", icon: "🎒" },
+  { label: "Kyoto", sublabel: "2h 20m · Shinkansen", palette: "amber", icon: "⛩️" },
+  { label: "Osaka", sublabel: "2h 45m · Shinkansen", palette: "orange", icon: "🐙" },
+  { label: "Hakone", sublabel: "1h 25m · Romancecar", palette: "teal", icon: "🗻" },
+  { label: "Nikko", sublabel: "1h 55m · Tobu SPACIA", palette: "emerald", icon: "🏯" },
+];
+
+const STATS: Array<{ value: string; label: string; sublabel: string; href: string }> = [
+  { value: "12", label: "Attractions", sublabel: "Ranked by importance", href: "/city/tokyo/attractions" },
+  { value: "12", label: "Restaurants", sublabel: "Google + Tabelog + Michelin", href: "/city/tokyo/restaurants" },
+  { value: "10", label: "Onsen venues", sublabel: "With tattoo policies", href: "/city/tokyo/wellness" },
+  { value: "35", label: "Visa passports", sublabel: "Official + stay limits", href: "/city/tokyo/visa" },
 ];
 
 const PILOT_FEATURES: Array<{ label: string; icon: string; href: string }> = [
@@ -44,7 +53,7 @@ const TIMELINE: Array<{
   icon: string;
 }> = [
   {
-    days: "Day 1",
+    days: "Day 01",
     title: "Old Tokyo",
     body: "Sensō-ji at dawn, Nakamise snacks, river walk to Skytree. Closed out with Gonpachi.",
     href: "/city/tokyo/itinerary/first-timer-3-days",
@@ -52,7 +61,7 @@ const TIMELINE: Array<{
     icon: "⛩️",
   },
   {
-    days: "Day 2",
+    days: "Day 02",
     title: "Harajuku → Shibuya",
     body: "Meiji Jingū forest, Ura-Harajuku indie shops, AFURI ramen, Shibuya Sky at sunset.",
     href: "/city/tokyo/itinerary/first-timer-3-days",
@@ -60,7 +69,7 @@ const TIMELINE: Array<{
     icon: "🏙️",
   },
   {
-    days: "Day 3",
+    days: "Day 03",
     title: "Art + Ginza",
     body: "teamLab Planets, Tsukiji late morning, Ginza Chūō-dōri stroll, Michelin dinner.",
     href: "/city/tokyo/itinerary/first-timer-3-days",
@@ -105,87 +114,127 @@ const COUNTRY_FEATURES: Array<{ label: string; icon: string; href: string; hint:
 export default function HomePage() {
   return (
     <main className="bg-slate-50">
-      {/* HERO ---------------------------------------------------------- */}
+      {/* HERO — split layout: type + CTA on left, nearby photo stack on right */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-20 bg-slate-950" />
         <div
-          className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-600/70 via-fuchsia-600/60 to-rose-500/70"
+          className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-600/75 via-fuchsia-600/60 to-rose-500/70"
           aria-hidden
         />
         <div
           className="absolute inset-0 -z-10 opacity-40 mix-blend-overlay"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 18% 20%, rgba(255,255,255,.5), transparent 45%), radial-gradient(circle at 82% 10%, rgba(255,200,100,.4), transparent 50%), radial-gradient(circle at 60% 90%, rgba(255,100,180,.3), transparent 50%)",
+              "radial-gradient(circle at 18% 22%, rgba(255,255,255,.55), transparent 45%), radial-gradient(circle at 82% 10%, rgba(255,200,100,.45), transparent 50%), radial-gradient(circle at 60% 90%, rgba(255,100,180,.35), transparent 50%)",
           }}
           aria-hidden
         />
 
-        <div className="mx-auto max-w-7xl px-6 pb-10 pt-16 text-white sm:pb-16 sm:pt-24">
-          <p className="text-xs uppercase tracking-[0.35em] text-white/70">
-            Travel companion · Tokyo pilot
-          </p>
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-16 pt-20 text-white sm:pt-24 lg:grid-cols-[1.2fr_1fr] lg:gap-8 lg:pb-20">
+          {/* Left: type + CTA */}
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] text-white/70">
+              Travel companion · Tokyo pilot
+            </p>
+            <h1 className="mt-4 text-[clamp(3rem,11vw,8rem)] font-bold leading-[0.95] tracking-tight">
+              <span className="bg-gradient-to-r from-white via-amber-100 to-pink-100 bg-clip-text text-transparent">
+                TOKYO.
+              </span>
+            </h1>
+            <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/85 sm:text-xl">
+              Seasons, visas for your passport, transit passes, tipping,
+              must-try dishes, onsen etiquette, packing tuned to your dates —
+              ranked by people who&rsquo;ve actually been.
+            </p>
 
-          <h1 className="mt-4 text-[clamp(3rem,12vw,9rem)] font-bold leading-[0.95] tracking-tight">
-            <span className="bg-gradient-to-r from-white via-amber-100 to-pink-100 bg-clip-text text-transparent">
-              TOKYO.
-            </span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
-            Seasons, visas for your passport, transit passes, tipping, must-try
-            dishes, onsen etiquette, packing tuned to your dates — ranked by
-            people who&rsquo;ve actually been.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/city/tokyo"
-              className="rounded-full bg-white px-6 py-3 font-medium text-slate-900 shadow-xl shadow-black/20 transition hover:bg-slate-100"
-            >
-              Explore Tokyo →
-            </Link>
-            <Link
-              href="/country/japan"
-              className="rounded-full border border-white/40 px-6 py-3 font-medium text-white backdrop-blur transition hover:bg-white/10"
-            >
-              About Japan
-            </Link>
-          </div>
-        </div>
-
-        {/* portrait photo strip — mirrors the inspiration's horizontal vertical-card row */}
-        <div className="mx-auto max-w-7xl px-6 pb-14">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
-            {HERO_STRIP.map((s) => (
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                key={s.label}
-                href={s.href}
-                className="group relative block overflow-hidden rounded-2xl ring-1 ring-white/15 transition hover:-translate-y-0.5 hover:ring-white/60"
+                href="/city/tokyo"
+                className="rounded-full bg-white px-6 py-3 font-medium text-slate-900 shadow-xl shadow-black/20 transition hover:bg-slate-100"
               >
-                <CoverTile
-                  palette={s.palette}
-                  icon={s.icon}
-                  aspect="3/2"
-                  className="rounded-2xl sm:!aspect-[3/4]"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-3">
-                  <div className="text-sm font-semibold text-white">
-                    {s.label}
-                  </div>
-                  <div className="text-xs text-white/80">{s.sublabel}</div>
-                </div>
+                Explore Tokyo →
               </Link>
-            ))}
+              <Link
+                href="/country/japan"
+                className="rounded-full border border-white/40 px-6 py-3 font-medium text-white backdrop-blur transition hover:bg-white/10"
+              >
+                About Japan
+              </Link>
+            </div>
+          </div>
+
+          {/* Right: nearby destinations photo stack */}
+          <div className="relative">
+            <div className="flex items-center justify-between border-b border-white/15 pb-3 text-xs uppercase tracking-[0.25em] text-white/60">
+              <span>Nearby · on the same visa</span>
+              <span className="tabular-nums">
+                01<span className="text-white/30">/04</span>
+              </span>
+            </div>
+            <div className="relative mt-5">
+              {NEARBY_STACK.map((d, i) => (
+                <Link
+                  key={d.label}
+                  href="/city/tokyo/nearby"
+                  className="group absolute left-0 top-0 block aspect-[3/4] w-[62%] overflow-hidden rounded-2xl ring-1 ring-white/20 shadow-2xl shadow-black/30 transition hover:-translate-y-1"
+                  style={{
+                    transform: `translateX(${i * 28}%) translateY(${i * 10}px) rotate(${(i - 1.5) * 2}deg)`,
+                    zIndex: NEARBY_STACK.length - i,
+                  }}
+                >
+                  <CoverTile
+                    palette={d.palette}
+                    icon={d.icon}
+                    aspect="3/2"
+                    className="!aspect-[3/4]"
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4">
+                    <div className="text-xs uppercase tracking-widest text-white/70">
+                      Same-visa day trip
+                    </div>
+                    <div className="mt-1 text-xl font-semibold text-white">
+                      {d.label}
+                    </div>
+                    <div className="text-xs text-white/75">{d.sublabel}</div>
+                  </div>
+                </Link>
+              ))}
+              {/* Spacer to size the stacked cards' container */}
+              <div className="invisible aspect-[3/4] w-[62%]" />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* PREFERENCES --------------------------------------------------- */}
-      <section className="mx-auto -mt-8 max-w-6xl px-6">
+      {/* STATS CHIPS — glassmorphism pills that bridge the hero and body */}
+      <section className="relative z-10 mx-auto -mt-12 max-w-6xl px-6">
+        <div className="grid gap-3 rounded-3xl border border-white/40 bg-white/70 p-4 shadow-xl backdrop-blur sm:grid-cols-2 sm:p-5 lg:grid-cols-4">
+          {STATS.map((s) => (
+            <Link
+              key={s.label}
+              href={s.href}
+              className="group flex items-center gap-4 rounded-2xl px-3 py-2 transition hover:bg-white/90"
+            >
+              <span className="tabular-nums text-3xl font-semibold bg-gradient-to-br from-indigo-600 to-fuchsia-500 bg-clip-text text-transparent">
+                {s.value}
+              </span>
+              <div>
+                <div className="text-sm font-semibold text-slate-900">
+                  {s.label}
+                </div>
+                <div className="text-xs text-slate-600">{s.sublabel}</div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* PREFERENCES — glassy panel */}
+      <section className="mx-auto mt-8 max-w-6xl px-6">
         <PreferencesPanel />
       </section>
 
-      {/* TIMELINE — "What a trip here looks like" --------------------- */}
+      {/* TIMELINE — numbered dark storytelling section */}
       <section className="bg-slate-950 py-20 text-white">
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-end justify-between gap-6 border-b border-white/10 pb-6">
@@ -208,11 +257,13 @@ export default function HomePage() {
           <ol className="mt-10 grid gap-8 md:grid-cols-3">
             {TIMELINE.map((t) => (
               <li key={t.days} className="group">
-                <CoverTile palette={t.palette} icon={t.icon} aspect="4/3" />
-                <div className="mt-4 text-xs uppercase tracking-[0.2em] text-white/60">
-                  {t.days}
+                <div className="relative overflow-hidden rounded-2xl">
+                  <CoverTile palette={t.palette} icon={t.icon} aspect="4/3" />
+                  <span className="absolute right-4 top-4 rounded-full bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-md">
+                    {t.days}
+                  </span>
                 </div>
-                <h3 className="mt-1 text-xl font-semibold">{t.title}</h3>
+                <h3 className="mt-4 text-xl font-semibold">{t.title}</h3>
                 <p className="mt-2 text-sm text-white/75">{t.body}</p>
                 <Link
                   href={t.href}
@@ -226,7 +277,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FEATURE TILES — "Jump straight in" --------------------------- */}
+      {/* FEATURE TILES — "Jump straight in" */}
       <section className="mx-auto max-w-6xl px-6 py-20">
         <header className="flex items-baseline justify-between">
           <div>
@@ -260,7 +311,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* WHAT'S INCLUDED ---------------------------------------------- */}
+      {/* WHAT'S INCLUDED */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -288,7 +339,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ABOUT JAPAN --------------------------------------------------- */}
+      {/* ABOUT JAPAN */}
       <section className="bg-slate-50 py-20">
         <div className="mx-auto max-w-6xl px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
