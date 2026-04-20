@@ -97,7 +97,7 @@ export function RestaurantFilters({
         ))}
       </FilterRow>
 
-      <FilterRow label="Reservations">
+      <FilterRow label="Booking">
         <Pill
           active={!active.reservations}
           onClick={() => toggle("reservations", null)}
@@ -124,7 +124,7 @@ function FilterRow({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="w-20 shrink-0 text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+      <span className="w-24 shrink-0 text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
         {label}
       </span>
       <div className="flex flex-wrap gap-1.5">{children}</div>
