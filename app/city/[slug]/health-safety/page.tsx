@@ -8,6 +8,7 @@ import {
   getCountryForCity,
   getCountryHealthSafety,
 } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -31,23 +32,22 @@ export default async function HealthSafetyPage({
   if (!data) notFound();
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Health &amp; safety
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Health &amp; safety in {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">{data.overview}</p>
-
-      <section className="mt-8 rounded-lg border border-rose-200 bg-rose-50 p-5">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Health & safety" },
+        ]}
+        kanji="守"
+        eyebrow="Health & safety"
+        title={`Safe travel starts here`}
+        subtitle="安 全"
+        lede={`Emergency numbers, hazards, medications, embassies, LGBTQ+ context, and printable dietary cards.`}
+        palette="enji"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<section className="mt-8 rounded-lg border border-rose-200 bg-rose-50 p-5">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-rose-900">
           Emergency numbers
         </h2>
@@ -296,6 +296,7 @@ export default async function HealthSafetyPage({
         change — verify critical items with an official source before you
         travel.
       </p>
+    </div>
     </main>
   );
 }

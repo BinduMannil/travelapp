@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getItineraries } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -23,27 +24,22 @@ export default async function ItineraryListPage({
   const templates = getItineraries(slug);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Itinerary templates
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Pick a starting itinerary
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Start from one of these hand-picked plans, then customise. A full
-        drag-and-drop builder (save your own trips, add cities) is in the
-        works.
-      </p>
-
-      <section className="mt-8 grid gap-4 sm:grid-cols-2">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Itinerary templates" },
+        ]}
+        kanji="道"
+        eyebrow="Itineraries"
+        title={`Pick a starting itinerary`}
+        subtitle="旅 程"
+        lede={`Start from one of these hand-picked plans, then customise.`}
+        palette="matcha"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<section className="mt-8 grid gap-4 sm:grid-cols-2">
         {templates.map((t) => (
           <Link
             key={t.slug}
@@ -73,6 +69,7 @@ export default async function ItineraryListPage({
           </Link>
         ))}
       </section>
+    </div>
     </main>
   );
 }

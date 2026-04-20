@@ -3,7 +3,16 @@ import type { ReactNode } from "react";
 
 type Crumb = { label: string; href?: string };
 
-type Palette = "sumi" | "enji" | "aizome" | "matcha" | "ume";
+type Palette =
+  | "sumi"
+  | "enji"
+  | "aizome"
+  | "matcha"
+  | "ume"
+  | "kintsugi"
+  | "sakura"
+  | "ocean"
+  | "forest";
 
 const GRADIENTS: Record<Palette, string> = {
   sumi: "from-enji-700/40 via-sumi-900 to-aizome-900/80",
@@ -11,6 +20,10 @@ const GRADIENTS: Record<Palette, string> = {
   aizome: "from-aizome-500/60 via-aizome-900 to-sumi-900",
   matcha: "from-matcha-600/60 via-matcha-700 to-sumi-900",
   ume: "from-sakura-400/50 via-enji-700 to-sumi-900",
+  kintsugi: "from-kintsugi-500/50 via-enji-700 to-sumi-900",
+  sakura: "from-sakura-300/60 via-enji-700 to-sumi-900",
+  ocean: "from-aizome-400/60 via-aizome-700 to-sumi-900",
+  forest: "from-matcha-500/60 via-matcha-700 to-aizome-900",
 };
 
 /**

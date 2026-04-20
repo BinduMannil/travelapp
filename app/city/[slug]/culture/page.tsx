@@ -7,6 +7,7 @@ import {
   getCountryForCity,
   getCountryLanguages,
 } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 const DRESS_LABEL: Record<string, string> = {
   casual: "Casual",
@@ -68,22 +69,22 @@ export default async function CulturePage({
   }
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · People &amp; language
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        People &amp; language
-      </h1>
-
-      <section className="mt-6">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "People & language" },
+        ]}
+        kanji="和"
+        eyebrow="People & language"
+        title={`People, language & manners`}
+        subtitle="文 化"
+        lede={`What to expect from the local register, how to read dress codes, and a pocket phrasebook you can actually use.`}
+        palette="ume"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+<section className="mt-6">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
           What to expect
         </h2>
@@ -181,6 +182,7 @@ export default async function CulturePage({
           )}
         </div>
       </section>
+    </div>
     </main>
   );
 }

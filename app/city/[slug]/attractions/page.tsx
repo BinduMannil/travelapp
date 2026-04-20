@@ -15,6 +15,7 @@ import { AttractionCard } from "@/components/attraction/AttractionCard";
 import { CategoryTabs } from "@/components/attraction/CategoryTabs";
 import { ToursCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -69,26 +70,22 @@ export default async function AttractionsPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Attractions
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Attractions in {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Curated shortlist, ranked by importance. Tap a card for full details,
-        dress code, accessibility notes, and how to get tickets.
-      </p>
-
-      <CurrencyProvider
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Attractions" },
+        ]}
+        kanji="観"
+        eyebrow="Attractions"
+        title={`Attractions`}
+        subtitle="名 所"
+        lede={`Hand-picked shortlist ranked by importance. Category tabs filter the grid; tap a card for dress code, accessibility, and tickets.`}
+        palette="enji"
+      />
+      <div className="mx-auto max-w-6xl px-6 py-12">
+<CurrencyProvider
         rates={rates}
         defaultCurrency={city.default_currency ?? "JPY"}
       >
@@ -118,6 +115,7 @@ export default async function AttractionsPage({
         <ToursCta city={city.name} source="attractions-bottom" />
       </div>
       <AffiliateDisclosure />
+    </div>
     </main>
   );
 }

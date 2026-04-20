@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityHiddenGems } from "@/lib/data/seed";
 import { CoverTile } from "@/components/common/CoverTile";
+import { PageHero } from "@/components/layout/PageHero";
 
 const CATEGORY_PALETTE: Record<
   string,
@@ -50,23 +51,22 @@ export default async function HiddenGemsPage({
   if (!city || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:text-enji-600">
-          {city.name}
-        </Link>{" "}
-        · Hidden gems
-      </nav>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
-        Hidden gems
-      </h1>
-      <p className="mt-3 max-w-2xl text-sumi-700">{data.summary}</p>
-
-      <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Hidden gems" },
+        ]}
+        kanji="秘"
+        eyebrow="Hidden gems"
+        title={`Hidden gems`}
+        subtitle="秘 境"
+        lede={`The alleys, bars, shrines, and shops locals drag you to on your second trip.`}
+        palette="ume"
+      />
+      <div className="mx-auto max-w-6xl px-6 py-12">
+<section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {data.picks.map((g) => {
           const palette = CATEGORY_PALETTE[g.category] ?? "aizome";
           const kanji = CATEGORY_KANJI[g.category] ?? "秘";
@@ -102,6 +102,7 @@ export default async function HiddenGemsPage({
           );
         })}
       </section>
+    </div>
     </main>
   );
 }

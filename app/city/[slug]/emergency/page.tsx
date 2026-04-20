@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityEmergency } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -22,22 +23,22 @@ export default async function EmergencyPage({
   if (!city || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:text-enji-600">
-          {city.name}
-        </Link>{" "}
-        · Emergency quick-card
-      </nav>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
-        {data.headline}
-      </h1>
-
-      <section className="mt-8 rounded-2xl border-2 border-enji-600 bg-enji-50 p-6 shadow-sm">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Emergency quick-card" },
+        ]}
+        kanji="急"
+        eyebrow="Emergency quick-card"
+        title={`If it goes wrong, start here`}
+        subtitle="緊 急"
+        lede={`Tap-to-call numbers, step-by-step scenarios, and the single photo on your phone that solves most stress.`}
+        palette="enji"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+<section className="mt-8 rounded-2xl border-2 border-enji-600 bg-enji-50 p-6 shadow-sm">
         <div className="text-xs font-semibold uppercase tracking-[0.25em] text-enji-700">
           Save these numbers offline
         </div>
@@ -106,6 +107,7 @@ export default async function EmergencyPage({
       <p className="mt-10 rounded-2xl border-2 border-dashed border-enji-400 bg-enji-50/60 p-5 text-sm text-sumi-900">
         {data.final_note}
       </p>
+    </div>
     </main>
   );
 }

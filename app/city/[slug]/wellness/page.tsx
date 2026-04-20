@@ -16,6 +16,7 @@ import { CoverTile, wellnessCover } from "@/components/common/CoverTile";
 import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
 import { ToursCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -60,23 +61,22 @@ export default async function WellnessPage({
   );
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Wellness &amp; onsen
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Wellness &amp; bathing in {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">{data.summary}</p>
-
-      <section className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Wellness & onsen" },
+        ]}
+        kanji="湯"
+        eyebrow="Wellness & onsen"
+        title={`Where to actually bathe`}
+        subtitle="温 泉"
+        lede={`Onsen, sentō, head spa, shiatsu — with tattoo policies and etiquette in one place.`}
+        palette="enji"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<section className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Bath etiquette — the short version
         </h2>
@@ -173,6 +173,7 @@ export default async function WellnessPage({
         <ToursCta city={city.name} source="wellness-bottom" />
       </div>
       <AffiliateDisclosure />
+    </div>
     </main>
   );
 }

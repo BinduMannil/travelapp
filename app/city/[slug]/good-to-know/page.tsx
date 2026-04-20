@@ -9,6 +9,7 @@ import {
   getCountryGoodToKnow,
   GOOD_TO_KNOW_CATEGORY_LABEL,
 } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -45,24 +46,22 @@ export default async function GoodToKnowPage({
   });
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Good to know
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">Good to know</h1>
-      <p className="mt-3 text-slate-600">
-        Small but useful things that will either save you from a faux pas or
-        a wasted afternoon. Skim once before you fly.
-      </p>
-
-      <nav className="mt-6 flex flex-wrap gap-2 text-xs">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Good to know" },
+        ]}
+        kanji="知"
+        eyebrow="Good to know"
+        title={`Good to know`}
+        subtitle="心 得"
+        lede={`The small things that keep a trip smooth — etiquette, toilets, trash rules, escalator sides, tax-free shopping, visa extensions.`}
+        palette="sumi"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+<nav className="mt-6 flex flex-wrap gap-2 text-xs">
         {orderedCategories.map((c) => (
           <a
             key={c}
@@ -101,6 +100,7 @@ export default async function GoodToKnowPage({
         <InsuranceCta source="good-to-know-bottom" />
       </div>
       <AffiliateDisclosure />
+    </div>
     </main>
   );
 }

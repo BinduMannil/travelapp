@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityNightlife } from "@/lib/data/seed";
 import { CoverTile } from "@/components/common/CoverTile";
+import { PageHero } from "@/components/layout/PageHero";
 
 const SCENE_PALETTE: Record<
   string,
@@ -37,23 +38,22 @@ export default async function NightlifePage({
   if (!city || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:text-enji-600">
-          {city.name}
-        </Link>{" "}
-        · Nightlife
-      </nav>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
-        After dark in {city.name}
-      </h1>
-      <p className="mt-3 max-w-2xl text-sumi-700">{data.summary}</p>
-
-      <section className="mt-10 space-y-6">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Nightlife" },
+        ]}
+        kanji="宵"
+        eyebrow="Nightlife"
+        title={`After dark`}
+        subtitle="夜 遊"
+        lede={`Layered nights: 18:00 izakaya → 22:00 jazz kissa → 02:00 Golden Gai. First train home is 04:45. Pace yourself.`}
+        palette="sumi"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<section className="mt-10 space-y-6">
         {data.scenes.map((s) => (
           <article
             key={s.slug}
@@ -84,6 +84,7 @@ export default async function NightlifePage({
           </article>
         ))}
       </section>
+    </div>
     </main>
   );
 }

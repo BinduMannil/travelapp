@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityShopping } from "@/lib/data/seed";
 import { CoverTile } from "@/components/common/CoverTile";
+import { PageHero } from "@/components/layout/PageHero";
 
 const CATEGORY_PALETTE: Record<
   string,
@@ -37,23 +38,22 @@ export default async function ShoppingPage({
   if (!city || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:text-enji-600">
-          {city.name}
-        </Link>{" "}
-        · Shopping
-      </nav>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
-        Shopping in {city.name}
-      </h1>
-      <p className="mt-3 max-w-2xl text-sumi-700">{data.summary}</p>
-
-      <nav className="mt-6 flex flex-wrap gap-2 text-xs">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Shopping" },
+        ]}
+        kanji="買"
+        eyebrow="Shopping"
+        title={`Shopping in Tokyo`}
+        subtitle="買 物"
+        lede={`Japan rewards the specialist. Twelve floors of stationery, a block of vintage denim, a basement dedicated to depachika sweets.`}
+        palette="kintsugi"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<nav className="mt-6 flex flex-wrap gap-2 text-xs">
         {data.categories.map((c) => (
           <a
             key={c.slug}
@@ -118,6 +118,7 @@ export default async function ShoppingPage({
         </div>
         <p className="mt-2">{data.tax_free_note}</p>
       </aside>
+    </div>
     </main>
   );
 }

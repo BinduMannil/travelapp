@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCountry, getCountryFamousFor } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -22,23 +23,22 @@ export default async function FamousForPage({
   if (!country || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/country/${slug}`} className="hover:underline">
-          {country.name}
-        </Link>{" "}
-        · Famous for
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        What {country.name} is famous for
-      </h1>
-      <p className="mt-3 text-slate-600">{data.summary}</p>
-
-      <nav className="mt-6 flex flex-wrap gap-2 text-xs">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: country.name, href: `/country/${slug}` },
+          { label: "Famous for" },
+        ]}
+        kanji="和"
+        eyebrow="Famous for"
+        title={`Famous for`}
+        subtitle="和 流"
+        lede={`Beyond food — the things craftspeople, chefs, and designers fly in to buy.`}
+        palette="kintsugi"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<nav className="mt-6 flex flex-wrap gap-2 text-xs">
         {data.categories.map((c) => (
           <a
             key={c.slug}
@@ -75,6 +75,7 @@ export default async function FamousForPage({
           </section>
         ))}
       </div>
+    </div>
     </main>
   );
 }

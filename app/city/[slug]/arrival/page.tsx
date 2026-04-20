@@ -15,6 +15,7 @@ import {
   LuggageCta,
 } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -69,29 +70,26 @@ export default async function ArrivalPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Arrival &amp; logistics
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Getting into {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Airport transfers, bag drop, and first-hour cash. Prices switch into
-        your home currency.
-      </p>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Arrival & logistics" },
+        ]}
+        kanji="着"
+        eyebrow="Arrival & logistics"
+        title={`Getting into ${city.name}`}
+        subtitle="到 着"
+        lede="Airport transfers, bag drop, and first-hour cash. Prices switch into your home currency."
+        palette="sumi"
+      />
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        <FlightCta source="arrival-top" />
-        <AirportTransferCta city={city.name} source="arrival-top" />
-      </div>
+      <div className="mx-auto max-w-5xl px-6 py-12">
+        <div className="grid gap-3 sm:grid-cols-2">
+          <FlightCta source="arrival-top" />
+          <AirportTransferCta city={city.name} source="arrival-top" />
+        </div>
 
       <CurrencyProvider
         rates={rates}
@@ -258,6 +256,7 @@ export default async function ArrivalPage({
         <CarRentalCta source="arrival-bottom" />
       </div>
       <AffiliateDisclosure />
+      </div>
     </main>
   );
 }

@@ -6,6 +6,7 @@ import {
   getCountryCalendar,
   getCountryForCity,
 } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 const IMPACT_STYLES: Record<string, string> = {
   major: "bg-rose-50 text-rose-900 border-rose-200",
@@ -54,28 +55,22 @@ export default async function CalendarPage({
   if (!data) notFound();
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Holidays &amp; festivals
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        When to go &mdash; and when to avoid
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Public holidays spike domestic travel; festivals spike international
-        travel. Both move the needle on flight, hotel, and restaurant
-        availability. Plan around the red dots if you want value; plan into
-        them if you want the spectacle.
-      </p>
-
-      <section className="mt-8">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Holidays & festivals" },
+        ]}
+        kanji="祭"
+        eyebrow="Holidays & festivals"
+        title={`When to go — and when to avoid`}
+        subtitle="暦"
+        lede={`Public holidays spike domestic travel; festivals spike international travel. Plan around the red dots if you want value; plan into them if you want the spectacle.`}
+        palette="enji"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<section className="mt-8">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Public holidays
         </h2>
@@ -138,6 +133,7 @@ export default async function CalendarPage({
           ))}
         </div>
       </section>
+    </div>
     </main>
   );
 }

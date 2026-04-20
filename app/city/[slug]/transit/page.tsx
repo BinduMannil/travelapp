@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getTransitOptions } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 const PAYMENT_LABELS: Record<string, string> = {
   suica: "Suica",
@@ -44,27 +44,22 @@ export default async function TransitPage({
   const options = getTransitOptions(slug);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Getting around
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Getting around {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        An IC card (Suica or PASMO) works on almost every train, subway, and
-        bus — and at most convenience stores. Get one in the first hour after
-        you land; it is by far the most versatile payment method.
-      </p>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Getting around" },
+        ]}
+        kanji="交"
+        eyebrow="Getting around"
+        title={`Getting around ${city.name}`}
+        subtitle="交 通"
+        lede="An IC card (Suica or PASMO) works on almost every train, subway, and bus — and at most convenience stores. Get one in the first hour after you land; it is by far the most versatile payment method."
+        palette="sumi"
+      />
 
-      <section className="mt-8 space-y-4">
+      <section className="mx-auto max-w-5xl space-y-4 px-6 py-12">
         {options.map((o) => (
           <article
             key={o.mode}

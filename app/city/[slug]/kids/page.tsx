@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityKids } from "@/lib/data/seed";
 import { CoverTile } from "@/components/common/CoverTile";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -27,23 +28,22 @@ export default async function KidsPage({
   if (!city || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:text-enji-600">
-          {city.name}
-        </Link>{" "}
-        · With kids
-      </nav>
-      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
-        {city.name} with kids
-      </h1>
-      <p className="mt-3 max-w-2xl text-sumi-700">{data.summary}</p>
-
-      <section className="mt-8 rounded-2xl border border-washi-200 bg-washi-100/60 p-5">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "With kids" },
+        ]}
+        kanji="幼"
+        eyebrow="With kids"
+        title={`Tokyo with kids`}
+        subtitle="家 族"
+        lede={`Family-friendly picks beyond the usual — Disney, Ghibli, parks, rainy-day indoor saviours.`}
+        palette="ume"
+      />
+      <div className="mx-auto max-w-6xl px-6 py-12">
+<section className="mt-8 rounded-2xl border border-washi-200 bg-washi-100/60 p-5">
         <div className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Family travel tips
         </div>
@@ -96,6 +96,7 @@ export default async function KidsPage({
           </article>
         ))}
       </section>
+    </div>
     </main>
   );
 }

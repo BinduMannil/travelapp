@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCountry, getCountryLanguages } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 const ROLE_LABELS: Record<string, string> = {
   official: "Official",
@@ -46,26 +47,22 @@ export default async function LanguagesPage({
   );
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/country/${slug}`} className="hover:underline">
-          {country.name}
-        </Link>{" "}
-        · Languages
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Languages of {country.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Ranked by share of speakers, including official, regional, immigrant,
-        and sign languages.
-      </p>
-
-      <section className="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-5">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: country.name, href: `/country/${slug}` },
+          { label: "Languages" },
+        ]}
+        kanji="語"
+        eyebrow="Languages"
+        title={`Languages spoken`}
+        subtitle="言 語"
+        lede={`Ranked by share of speakers, including official, regional, immigrant, and sign languages. English proficiency band included.`}
+        palette="aizome"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+<section className="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-5">
         <div className="flex items-center justify-between">
           <div>
             <div className="text-sm uppercase tracking-wide text-slate-500">
@@ -142,6 +139,7 @@ export default async function LanguagesPage({
         not sum to 100% — bilingualism is common. Immigrant-community figures
         reflect the size of recent non-citizen populations.
       </p>
+    </div>
     </main>
   );
 }

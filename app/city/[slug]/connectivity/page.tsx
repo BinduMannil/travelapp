@@ -15,6 +15,7 @@ import {
 import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
 import { EsimCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
 
 const DISPLAY_CURRENCIES = [
   "USD",
@@ -65,20 +66,22 @@ export default async function ConnectivityPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Connectivity &amp; power
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">Staying online</h1>
-
-      <div className="mt-6">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Connectivity" },
+        ]}
+        kanji="信"
+        eyebrow="Connectivity & power"
+        title={`Staying online`}
+        subtitle="通 信"
+        lede={`eSIM, pocket Wi-Fi, plug types, and VPN notes — everything you need to arrive connected.`}
+        palette="matcha"
+      />
+      <div className="mx-auto max-w-5xl px-6 py-12">
+<div className="mt-6">
         <EsimCta source="connectivity-top" />
       </div>
 
@@ -193,6 +196,7 @@ export default async function ConnectivityPage({
       </section>
 
       <AffiliateDisclosure />
+    </div>
     </main>
   );
 }

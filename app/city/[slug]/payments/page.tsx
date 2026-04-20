@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FxCardCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
 import {
   getCity,
   getCountryForCity,
@@ -53,26 +54,23 @@ export default async function PaymentsPage({
   if (!payments) notFound();
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Payments &amp; cards
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Paying in {city.name}
-      </h1>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Payments & cards" },
+        ]}
+        kanji="現"
+        eyebrow="Payments & cards"
+        title={`Paying in ${city.name}`}
+        subtitle="支 払"
+        lede={payments.summary}
+        palette="enji"
+      />
 
-      <p className="mt-4 rounded-lg border border-brand-200 bg-brand-50 p-4 text-brand-900">
-        {payments.summary}
-      </p>
-
-      <section className="mt-8">
+      <div className="mx-auto max-w-6xl px-6 py-12">
+      <section className="mt-0">
         <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
           Acceptance by method
         </h2>
@@ -167,6 +165,7 @@ export default async function PaymentsPage({
         <FxCardCta source="payments-bottom" />
       </div>
       <AffiliateDisclosure />
+      </div>
     </main>
   );
 }

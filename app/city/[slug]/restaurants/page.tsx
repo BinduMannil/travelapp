@@ -15,6 +15,7 @@ import {
 } from "@/lib/preferences/context";
 import { RestaurantCard } from "@/components/restaurant/RestaurantCard";
 import { RestaurantFilters } from "@/components/restaurant/RestaurantFilters";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -117,28 +118,22 @@ export default async function RestaurantsPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main className="mx-auto max-w-6xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Restaurants
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Restaurants in {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Ranked by a composite of Google star rating (weighted by review
-        volume), Tabelog score where available, plus Michelin and Bib
-        Gourmand recognition. Tap a card for menu highlights, reservation
-        leads, and dietary notes.
-      </p>
-
-      <CurrencyProvider
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Restaurants" },
+        ]}
+        kanji="食"
+        eyebrow="Restaurants"
+        title={`Restaurants`}
+        subtitle="名 店"
+        lede={`Ranked by a composite of Google star rating, Tabelog score, and Michelin / Bib Gourmand recognition. Filter by price, cuisine, dietary, walk-in.`}
+        palette="kintsugi"
+      />
+      <div className="mx-auto max-w-6xl px-6 py-12">
+<CurrencyProvider
         rates={rates}
         defaultCurrency={city.default_currency ?? "JPY"}
       >
@@ -172,6 +167,7 @@ export default async function RestaurantsPage({
           </p>
         )}
       </CurrencyProvider>
+    </div>
     </main>
   );
 }

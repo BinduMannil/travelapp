@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCountry, getCountryCuisine } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -22,23 +23,22 @@ export default async function CuisinePage({
   if (!country || !data) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/country/${slug}`} className="hover:underline">
-          {country.name}
-        </Link>{" "}
-        · Must-try cuisine
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Must-try dishes in {country.name}
-      </h1>
-      <p className="mt-3 text-slate-600">{data.summary}</p>
-
-      <section className="mt-8 space-y-5">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: country.name, href: `/country/${slug}` },
+          { label: "Must-try cuisine" },
+        ]}
+        kanji="食"
+        eyebrow="Must-try cuisine"
+        title={`Must-try dishes`}
+        subtitle="食 文 化"
+        lede={`The dishes you should actively seek out — ingredients, origin, global equivalents, and vegan availability.`}
+        palette="enji"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+<section className="mt-8 space-y-5">
         {data.dishes.map((d) => (
           <article
             key={d.slug}
@@ -109,6 +109,7 @@ export default async function CuisinePage({
           </article>
         ))}
       </section>
+    </div>
     </main>
   );
 }

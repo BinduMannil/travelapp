@@ -10,6 +10,7 @@ import {
 import { NearbyRouteCard } from "@/components/city/NearbyRouteCard";
 import { CarRentalCta, FlightCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -52,24 +53,22 @@ export default async function NearbyPage({
   const foreign = routes.filter((r) => !r.in_same_country);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Nearby cities
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">From {city.name}</h1>
-      <p className="mt-3 text-slate-600">
-        Every practical way to reach popular neighbouring destinations —
-        switch between modes to compare time and cost. Domestic trips need no
-        extra visa beyond what you have for {city.name}.
-      </p>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Nearby cities" },
+        ]}
+        kanji="遠"
+        eyebrow="Nearby cities"
+        title={`From ${city.name}`}
+        subtitle="遠 足"
+        lede={`Every practical way to reach popular neighbouring destinations — switch between modes to compare time and cost. Domestic trips need no extra visa beyond what you have for ${city.name}.`}
+        palette="matcha"
+      />
 
+      <div className="mx-auto max-w-5xl px-6 py-12">
       <CurrencyProvider
         rates={rates}
         defaultCurrency={city.default_currency ?? "JPY"}
@@ -113,6 +112,7 @@ export default async function NearbyPage({
         <CarRentalCta source="nearby-bottom" />
       </div>
       <AffiliateDisclosure />
+      </div>
     </main>
   );
 }
