@@ -1,0 +1,41 @@
+{
+  "source": "Japan Ministry of Justice, Immigration Services Agency — foreign residents by nationality (end-2024 snapshot). Tokyo figures from the Tokyo Metropolitan Government bureau of general affairs.",
+  "reviewed_at": "2026-04-20",
+  "country": {
+    "name": "Japan",
+    "total": 3410000,
+    "total_label": "3.41 M foreign residents",
+    "percent_of_population": 2.75,
+    "slices": [
+      { "label": "China", "value": 25.3 },
+      { "label": "Vietnam", "value": 17.1 },
+      { "label": "South Korea", "value": 12.2 },
+      { "label": "Philippines", "value": 9.7 },
+      { "label": "Brazil", "value": 6.3 },
+      { "label": "Nepal", "value": 5.2 },
+      { "label": "Indonesia", "value": 4.1 },
+      { "label": "Myanmar", "value": 2.9 },
+      { "label": "United States", "value": 2.1 },
+      { "label": "Taiwan", "value": 2.0 },
+      { "label": "Other", "value": 13.1 }
+    ]
+  },
+  "city": {
+    "name": "Tokyo",
+    "total": 593000,
+    "total_label": "593 k foreign residents",
+    "percent_of_population": 4.3,
+    "slices": [
+      { "label": "China", "value": 39.1 },
+      { "label": "South Korea", "value": 13.6 },
+      { "label": "Vietnam", "value": 7.8 },
+      { "label": "Nepal", "value": 6.2 },
+      { "label": "Philippines", "value": 5.7 },
+      { "label": "United States", "value": 3.3 },
+      { "label": "India", "value": 2.7 },
+      { "label": "Myanmar", "value": 2.1 },
+      { "label": "Taiwan", "value": 1.9 },
+      { "label": "Other", "value": 17.6 }
+    ]
+  }
+}

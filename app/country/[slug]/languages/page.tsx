@@ -1,8 +1,12 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { getCountry, getCountryLanguages } from "@/lib/data/seed";
+import {
+  getCountry,
+  getCountryLanguages,
+  getCountryResidents,
+} from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
+import { ResidentsPies } from "@/components/demographics/ResidentsPies";
 
 const ROLE_LABELS: Record<string, string> = {
   official: "Official",
@@ -40,6 +44,7 @@ export default async function LanguagesPage({
   const { slug } = await params;
   const country = getCountry(slug);
   const payload = getCountryLanguages(slug);
+  const residents = getCountryResidents(slug);
   if (!country || !payload) notFound();
 
   const languages = [...payload.languages].sort(
@@ -85,6 +90,14 @@ export default async function LanguagesPage({
           </p>
         )}
       </section>
+
+      {residents && (
+        <ResidentsPies
+          country={residents.country}
+          city={residents.city}
+          source={residents.source}
+        />
+      )}
 
       <section className="mt-8 space-y-3">
         {languages.map((lang) => (

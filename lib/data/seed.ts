@@ -32,6 +32,7 @@ import tokyoEmergencyJson from "@/db/seed/tokyo/emergency.json";
 import japanCuisineJson from "@/db/seed/japan/cuisine.json";
 import japanFamousForJson from "@/db/seed/japan/famous_for.json";
 import japanBeveragesJson from "@/db/seed/japan/beverages.json";
+import japanResidentsJson from "@/db/seed/japan/residents.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -1006,6 +1007,35 @@ export function getCountryBeverages(
   countrySlug: string,
 ): BeveragesPayload | null {
   return COUNTRY_BEVERAGES[countrySlug] ?? null;
+}
+
+// ---------------------------------------------------------------------------
+// Foreign-resident composition (country + city pies)
+// ---------------------------------------------------------------------------
+
+export type ResidentSlice = { label: string; value: number };
+export type ResidentScope = {
+  name: string;
+  total: number;
+  total_label: string;
+  percent_of_population: number;
+  slices: ResidentSlice[];
+};
+export type ResidentsPayload = {
+  source: string;
+  reviewed_at: string;
+  country: ResidentScope;
+  city: ResidentScope;
+};
+
+const COUNTRY_RESIDENTS: Record<string, ResidentsPayload> = {
+  japan: japanResidentsJson as ResidentsPayload,
+};
+
+export function getCountryResidents(
+  countrySlug: string,
+): ResidentsPayload | null {
+  return COUNTRY_RESIDENTS[countrySlug] ?? null;
 }
 
 const CITY_WELLNESS: Record<string, WellnessPayload> = {
