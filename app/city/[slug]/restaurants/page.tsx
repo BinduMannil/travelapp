@@ -141,7 +141,7 @@ export default async function RestaurantsPage({
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
-        <section className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+        <section className="mt-4 rounded-lg border border-washi-200 bg-washi-100 p-4">
           <RestaurantFilters
             priceBands={priceBands}
             cuisines={cuisines}
@@ -162,7 +162,7 @@ export default async function RestaurantsPage({
         </section>
 
         {filtered.length === 0 && (
-          <p className="mt-8 rounded-lg border border-dashed border-slate-300 p-6 text-center text-slate-500">
+          <p className="mt-8 rounded-lg border border-dashed border-slate-300 p-6 text-center text-sumi-700">
             No restaurants match those filters. Try loosening one.
           </p>
         )}

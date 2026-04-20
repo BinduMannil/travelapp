@@ -14,6 +14,8 @@ import {
   ToursCta,
 } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { PageHero } from "@/components/layout/PageHero";
+import { attractionCover } from "@/components/common/CoverTile";
 
 const SIGNIFICANCE_LABEL: Record<string, string> = {
   historic: "Historic",
@@ -89,43 +91,48 @@ export default async function AttractionDetailPage({
 
   const snapshot = await getFxSnapshot("JPY");
   const rates = snapshotToRates(snapshot);
+  const cover = attractionCover(a.category);
+
+  const heroPalette = (
+    cover.palette === "enji" ||
+    cover.palette === "aizome" ||
+    cover.palette === "matcha" ||
+    cover.palette === "sumi" ||
+    cover.palette === "ume" ||
+    cover.palette === "kintsugi" ||
+    cover.palette === "sakura" ||
+    cover.palette === "ocean" ||
+    cover.palette === "forest"
+      ? cover.palette
+      : "sumi"
+  ) as "enji" | "aizome" | "matcha" | "sumi" | "ume" | "kintsugi" | "sakura" | "ocean" | "forest";
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}/attractions`} className="hover:underline">
-          Attractions
-        </Link>{" "}
-        · {a.name}
-      </nav>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Attractions", href: `/city/${slug}/attractions` },
+          { label: a.name },
+        ]}
+        kanji={cover.kanji}
+        eyebrow={`${a.neighborhood} · ${"★".repeat(a.importance)}${" ".repeat(0)}`}
+        title={a.name}
+        subtitle={a.significance
+          .slice(0, 3)
+          .map((s) => SIGNIFICANCE_LABEL[s] ?? s)
+          .join(" · ")}
+        lede={a.summary}
+        palette={heroPalette}
+      />
 
-      <header className="mt-3 flex flex-wrap items-baseline justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-semibold">{a.name}</h1>
-          <div className="mt-1 text-sm text-slate-500">
-            {a.neighborhood} · {"★".repeat(a.importance)}
-            <span className="text-slate-300">
-              {"★".repeat(5 - a.importance)}
-            </span>
-          </div>
-        </div>
-      </header>
-
-      <p className="mt-4 text-lg text-slate-700">{a.summary}</p>
-
-      <div className="mt-4 flex flex-wrap gap-1 text-xs">
+      <div className="mx-auto max-w-4xl px-6 py-12">
+      <div className="flex flex-wrap gap-1 text-xs">
         {a.significance.map((s) => (
           <span
             key={s}
-            className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-700"
+            className="rounded-full bg-washi-100 px-2.5 py-1 text-sumi-700"
           >
             {SIGNIFICANCE_LABEL[s] ?? s}
           </span>
@@ -140,7 +147,7 @@ export default async function AttractionDetailPage({
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
-        <section className="mt-4 grid grid-cols-1 gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm sm:grid-cols-4">
+        <section className="mt-4 grid grid-cols-1 gap-3 rounded-lg border border-washi-200 bg-washi-100 p-4 text-sm sm:grid-cols-4">
           <Fact label="Adult ticket">
             {a.cost_adult_minor === 0 ? (
               "Free"
@@ -164,13 +171,13 @@ export default async function AttractionDetailPage({
         </section>
 
         <section className="mt-6 space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             About
           </h2>
-          <p className="leading-relaxed text-slate-800">{a.description}</p>
+          <p className="leading-relaxed text-sumi-900">{a.description}</p>
           {a.best_time_notes && (
             <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
-              <div className="text-xs font-semibold uppercase tracking-wide">
+              <div className="text-xs font-semibold uppercase tracking-[0.25em]">
                 Best time to visit
               </div>
               <p className="mt-1 text-sm">{a.best_time_notes}</p>
@@ -180,29 +187,29 @@ export default async function AttractionDetailPage({
 
         <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Dress code
             </h3>
-            <p className="mt-2 text-sm text-slate-800">
+            <p className="mt-2 text-sm text-sumi-900">
               {a.dress_code ? DRESS_LABEL[a.dress_code] ?? a.dress_code : "—"}
             </p>
             {a.dress_notes && (
-              <p className="mt-1 text-xs text-slate-600">{a.dress_notes}</p>
+              <p className="mt-1 text-xs text-sumi-700">{a.dress_notes}</p>
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Photography
             </h3>
-            <p className="mt-2 text-sm text-slate-800">
+            <p className="mt-2 text-sm text-sumi-900">
               {a.photography_allowed ? "Allowed" : "Restricted"}
             </p>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Accessibility
             </h3>
-            <ul className="mt-2 space-y-1 text-sm text-slate-800">
+            <ul className="mt-2 space-y-1 text-sm text-sumi-900">
               <li>
                 Wheelchair:{" "}
                 {a.accessibility.wheelchair_accessible ? "Yes" : "Limited"}
@@ -216,16 +223,16 @@ export default async function AttractionDetailPage({
               </li>
             </ul>
             {a.accessibility.notes && (
-              <p className="mt-1 text-xs text-slate-600">
+              <p className="mt-1 text-xs text-sumi-700">
                 {a.accessibility.notes}
               </p>
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Inclusive
             </h3>
-            <ul className="mt-2 space-y-1 text-sm text-slate-800">
+            <ul className="mt-2 space-y-1 text-sm text-sumi-900">
               <li>Kids welcome: {a.kid_friendly ? "Yes" : "Not ideal"}</li>
               <li>
                 LGBTQ+ friendly: {a.lgbtq_friendly ? "Yes" : "Check locally"}
@@ -234,8 +241,8 @@ export default async function AttractionDetailPage({
           </div>
         </section>
 
-        <section className="mt-8 rounded-lg border border-slate-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <section className="mt-8 rounded-lg border border-washi-200 p-5">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Tickets &amp; booking
           </h3>
           <div className="mt-3 flex flex-wrap gap-2 text-sm">
@@ -255,14 +262,14 @@ export default async function AttractionDetailPage({
                 href={url}
                 partner="auto"
                 source={`attraction/${a.slug}`}
-                className="rounded-md border border-slate-300 bg-white px-4 py-2 text-slate-900 hover:bg-slate-50"
+                className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sumi-900 hover:bg-washi-100"
               >
                 {RESELLER_LABEL[k] ?? k} →
               </AffiliateLink>
             ))}
           </div>
           {Object.keys(a.reseller_urls).length > 0 && (
-            <p className="mt-3 text-xs text-slate-500">
+            <p className="mt-3 text-xs text-sumi-700">
               Reseller links may include affiliate tags — clicking does not
               change the price you pay.
             </p>
@@ -273,6 +280,7 @@ export default async function AttractionDetailPage({
           <ToursCta city={city.name} source={`attraction/${a.slug}`} />
         </div>
       </CurrencyProvider>
+      </div>
     </main>
   );
 }
@@ -286,7 +294,7 @@ function Fact({
 }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-wide text-slate-500">
+      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
         {label}
       </div>
       <div className="mt-0.5 font-semibold tabular-nums">{children}</div>

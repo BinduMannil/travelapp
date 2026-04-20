@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -15,6 +14,7 @@ import {
   CurrencySelector,
   PriceDisplay,
 } from "@/lib/preferences/context";
+import { PageHero } from "@/components/layout/PageHero";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -73,48 +73,39 @@ export default async function RestaurantDetailPage({
   const rates = snapshotToRates(snapshot);
   const score = popularityScore(r).toFixed(1);
 
+  const eyebrowBits = [
+    r.neighborhood,
+    r.price_band,
+    r.michelin_stars > 0 ? `${"★".repeat(r.michelin_stars)} Michelin` : null,
+    r.bib_gourmand ? "Bib Gourmand" : null,
+  ].filter(Boolean) as string[];
+
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}/restaurants`} className="hover:underline">
-          Restaurants
-        </Link>{" "}
-        · {r.name}
-      </nav>
-
-      <header className="mt-3 flex flex-wrap items-baseline justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-semibold">{r.name}</h1>
-          <div className="mt-1 text-sm text-slate-500">
-            {r.neighborhood} · {r.price_band}
-            {r.michelin_stars > 0 && (
-              <span className="ml-2 text-amber-600">
-                {"★".repeat(r.michelin_stars)} Michelin
-              </span>
-            )}
-            {r.bib_gourmand && (
-              <span className="ml-2 text-emerald-700">Bib Gourmand</span>
-            )}
-          </div>
-        </div>
-        <span className="rounded bg-brand-100 px-2.5 py-1 text-sm font-semibold text-brand-800">
-          {score} / 10
-        </span>
-      </header>
-
-      <div className="mt-3 flex flex-wrap gap-1 text-xs">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Restaurants", href: `/city/${slug}/restaurants` },
+          { label: r.name },
+        ]}
+        kanji="食"
+        eyebrow={eyebrowBits.join(" · ")}
+        title={r.name}
+        subtitle={r.cuisine.map((c) => CUISINE_LABELS[c] ?? c).join(" · ")}
+        lede={
+          r.signature_dishes.length
+            ? `Known for ${r.signature_dishes.slice(0, 2).join(" and ")}. Popularity ${score} / 10.`
+            : `Popularity ${score} / 10.`
+        }
+        palette="enji"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+      <div className="flex flex-wrap gap-1 text-xs">
         {r.cuisine.map((c) => (
           <span
             key={c}
-            className="rounded-full bg-slate-100 px-2.5 py-1 text-slate-700"
+            className="rounded-full bg-washi-100 px-2.5 py-1 text-sumi-800"
           >
             {CUISINE_LABELS[c] ?? c}
           </span>
@@ -129,7 +120,7 @@ export default async function RestaurantDetailPage({
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
-        <section className="mt-4 grid grid-cols-2 gap-3 rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm sm:grid-cols-4">
+        <section className="mt-4 grid grid-cols-2 gap-3 rounded-lg border border-washi-200 bg-washi-100 p-4 text-sm sm:grid-cols-4">
           <Fact label="Per person">
             <PriceDisplay
               amountMinor={r.avg_price_per_person_minor}
@@ -153,10 +144,10 @@ export default async function RestaurantDetailPage({
         </section>
 
         <section className="mt-6">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Signature dishes
           </h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-slate-800">
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sumi-900">
             {r.signature_dishes.map((d) => (
               <li key={d}>{d}</li>
             ))}
@@ -165,7 +156,7 @@ export default async function RestaurantDetailPage({
 
         {r.notes && (
           <section className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
-            <div className="text-xs font-semibold uppercase tracking-wide">
+            <div className="text-xs font-semibold uppercase tracking-[0.25em]">
               Good to know
             </div>
             <p className="mt-1 text-sm leading-relaxed">{r.notes}</p>
@@ -174,12 +165,12 @@ export default async function RestaurantDetailPage({
 
         <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Hours
             </h3>
-            <p className="mt-2 text-sm text-slate-800">{r.opening_hours}</p>
+            <p className="mt-2 text-sm text-sumi-900">{r.opening_hours}</p>
             {r.closed_days.length > 0 && (
-              <p className="mt-1 text-xs text-slate-600">
+              <p className="mt-1 text-xs text-sumi-700">
                 Closed:{" "}
                 {r.closed_days
                   .map((d) => DAY_LABEL[d] ?? d)
@@ -188,11 +179,11 @@ export default async function RestaurantDetailPage({
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Dietary
             </h3>
             {r.dietary.length === 0 ? (
-              <p className="mt-2 text-sm text-slate-600">
+              <p className="mt-2 text-sm text-sumi-700">
                 No specific dietary labels. Ask when ordering.
               </p>
             ) : (
@@ -209,20 +200,20 @@ export default async function RestaurantDetailPage({
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Accessibility
             </h3>
-            <p className="mt-2 text-sm text-slate-800">
+            <p className="mt-2 text-sm text-sumi-900">
               {r.wheelchair_accessible
                 ? "Wheelchair accessible"
                 : "Not wheelchair accessible"}
             </p>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Inclusive
             </h3>
-            <ul className="mt-2 space-y-1 text-sm text-slate-800">
+            <ul className="mt-2 space-y-1 text-sm text-sumi-900">
               <li>Kids welcome: {r.kid_friendly ? "Yes" : "Not ideal"}</li>
               <li>LGBTQ+ friendly: {r.lgbtq_friendly ? "Yes" : "Check locally"}</li>
             </ul>
@@ -230,8 +221,8 @@ export default async function RestaurantDetailPage({
         </section>
 
         {r.reservation_url && (
-          <section className="mt-8 rounded-lg border border-slate-200 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <section className="mt-8 rounded-lg border border-washi-200 p-5">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Book
             </h3>
             <a
@@ -243,7 +234,7 @@ export default async function RestaurantDetailPage({
               Reservation page →
             </a>
             {r.reservations_lead_time_days >= 30 && (
-              <p className="mt-3 text-xs text-slate-500">
+              <p className="mt-3 text-xs text-sumi-700">
                 Tables typically open {r.reservations_lead_time_days} days
                 before the reservation date.
               </p>
@@ -251,6 +242,7 @@ export default async function RestaurantDetailPage({
           </section>
         )}
       </CurrencyProvider>
+      </div>
     </main>
   );
 }
@@ -264,7 +256,7 @@ function Fact({
 }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-wide text-slate-500">
+      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
         {label}
       </div>
       <div className="mt-0.5 font-semibold tabular-nums">{children}</div>

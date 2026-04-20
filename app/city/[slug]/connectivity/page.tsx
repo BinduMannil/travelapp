@@ -97,17 +97,17 @@ export default async function ConnectivityPage({
           {payload.connectivity.map((o) => (
             <article
               key={o.provider}
-              className="rounded-lg border border-slate-200 p-5"
+              className="rounded-lg border border-washi-200 p-5"
             >
               <header className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>
-                  <div className="text-xs uppercase tracking-wide text-slate-500">
+                  <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                     {OPTION_LABEL[o.option] ?? o.option} · {o.kind}
                   </div>
                   <h2 className="mt-0.5 text-xl font-semibold">
                     {o.provider}
                   </h2>
-                  <div className="text-sm text-slate-600">{o.plan_label}</div>
+                  <div className="text-sm text-sumi-700">{o.plan_label}</div>
                 </div>
                 {o.price_minor > 0 && (
                   <div className="text-sm tabular-nums">
@@ -121,20 +121,20 @@ export default async function ConnectivityPage({
 
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+                  <div className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-700">
                     Pros
                   </div>
-                  <ul className="mt-1 space-y-1 text-sm text-slate-700">
+                  <ul className="mt-1 space-y-1 text-sm text-sumi-800">
                     {o.pros.map((p, i) => (
                       <li key={i}>· {p}</li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-rose-700">
+                  <div className="text-xs font-semibold uppercase tracking-[0.25em] text-rose-700">
                     Cons
                   </div>
-                  <ul className="mt-1 space-y-1 text-sm text-slate-700">
+                  <ul className="mt-1 space-y-1 text-sm text-sumi-800">
                     {o.cons.map((c, i) => (
                       <li key={i}>· {c}</li>
                     ))}
@@ -158,40 +158,40 @@ export default async function ConnectivityPage({
       </CurrencyProvider>
 
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
-        <article className="rounded-lg border border-slate-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <article className="rounded-lg border border-washi-200 p-5">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Plugs &amp; power
           </h3>
           <div className="mt-2 space-y-1 text-sm">
             <div>
-              <span className="text-slate-500">Plug types: </span>
+              <span className="text-sumi-700">Plug types: </span>
               {payload.power.plug_types.join(", ")}
             </div>
             <div>
-              <span className="text-slate-500">Voltage: </span>
+              <span className="text-sumi-700">Voltage: </span>
               {payload.power.voltage} V
             </div>
             <div>
-              <span className="text-slate-500">Frequency: </span>
+              <span className="text-sumi-700">Frequency: </span>
               {payload.power.frequency}
             </div>
           </div>
           {payload.power.converter_needed_from.length > 0 && (
-            <p className="mt-3 text-xs text-slate-600">
+            <p className="mt-3 text-xs text-sumi-700">
               Plug adapter needed if travelling from:{" "}
               {payload.power.converter_needed_from.join(", ")}.
             </p>
           )}
           {payload.power.notes && (
-            <p className="mt-2 text-sm text-slate-700">{payload.power.notes}</p>
+            <p className="mt-2 text-sm text-sumi-800">{payload.power.notes}</p>
           )}
         </article>
 
-        <article className="rounded-lg border border-slate-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <article className="rounded-lg border border-washi-200 p-5">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             VPN
           </h3>
-          <p className="mt-2 text-sm text-slate-700">{payload.vpn_note}</p>
+          <p className="mt-2 text-sm text-sumi-800">{payload.vpn_note}</p>
         </article>
       </section>
 

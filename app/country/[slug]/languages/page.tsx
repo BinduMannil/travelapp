@@ -20,7 +20,7 @@ const ROLE_STYLES: Record<string, string> = {
   widely_spoken: "bg-sky-100 text-sky-900",
   regional: "bg-emerald-100 text-emerald-900",
   minority: "bg-amber-100 text-amber-900",
-  immigrant: "bg-slate-100 text-slate-800",
+  immigrant: "bg-washi-100 text-sumi-900",
   sign: "bg-fuchsia-100 text-fuchsia-900",
 };
 
@@ -62,25 +62,25 @@ export default async function LanguagesPage({
         palette="aizome"
       />
       <div className="mx-auto max-w-4xl px-6 py-12">
-<section className="mt-8 rounded-lg border border-slate-200 bg-slate-50 p-5">
+<section className="mt-8 rounded-lg border border-washi-200 bg-washi-100 p-5">
         <div className="flex items-center justify-between">
           <div>
-            <div className="text-sm uppercase tracking-wide text-slate-500">
+            <div className="text-sm uppercase tracking-[0.25em] text-sumi-700">
               English proficiency
             </div>
             <div className="mt-1 text-2xl font-semibold">
               {payload.english_proficiency.band}
-              <span className="ml-2 text-base font-normal text-slate-500">
+              <span className="ml-2 text-base font-normal text-sumi-700">
                 ({payload.english_proficiency.score} / 800)
               </span>
             </div>
           </div>
-          <div className="text-xs text-slate-500">
+          <div className="text-xs text-sumi-700">
             Source: {payload.english_proficiency.source}
           </div>
         </div>
         {payload.english_proficiency.notes && (
-          <p className="mt-3 text-sm text-slate-700">
+          <p className="mt-3 text-sm text-sumi-800">
             {payload.english_proficiency.notes}
           </p>
         )}
@@ -90,7 +90,7 @@ export default async function LanguagesPage({
         {languages.map((lang) => (
           <article
             key={lang.iso_639_3}
-            className="rounded-lg border border-slate-200 p-4"
+            className="rounded-lg border border-washi-200 p-4"
           >
             <header className="flex flex-wrap items-baseline justify-between gap-3">
               <h2 className="text-xl font-semibold">
@@ -107,12 +107,12 @@ export default async function LanguagesPage({
                 >
                   {ROLE_LABELS[lang.role] ?? lang.role}
                 </span>
-                <span className="tabular-nums text-slate-700">
+                <span className="tabular-nums text-sumi-800">
                   {formatPct(lang.speakers_pct)}
                 </span>
               </div>
             </header>
-            <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-slate-100">
+            <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-washi-100">
               <div
                 className="h-full bg-brand-500"
                 style={{
@@ -121,12 +121,12 @@ export default async function LanguagesPage({
               />
             </div>
             {lang.script && (
-              <div className="mt-2 text-xs text-slate-500">
+              <div className="mt-2 text-xs text-sumi-700">
                 Script: {lang.script}
               </div>
             )}
             {lang.notes && (
-              <p className="mt-3 text-sm leading-relaxed text-slate-700">
+              <p className="mt-3 text-sm leading-relaxed text-sumi-800">
                 {lang.notes}
               </p>
             )}
@@ -134,7 +134,7 @@ export default async function LanguagesPage({
         ))}
       </section>
 
-      <p className="mt-10 text-xs text-slate-500">
+      <p className="mt-10 text-xs text-sumi-700">
         Percentages are approximate shares of the resident population and do
         not sum to 100% — bilingualism is common. Immigrant-community figures
         reflect the size of recent non-citizen populations.

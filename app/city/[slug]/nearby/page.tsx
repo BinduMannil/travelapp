@@ -75,14 +75,14 @@ export default async function NearbyPage({
       >
         <div className="mt-6 flex items-center justify-between">
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-sumi-700">
             Rates as of {snapshot.date}
           </span>
         </div>
 
         {domestic.length > 0 && (
           <section className="mt-6">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Within Japan · same visa
             </h2>
             <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -95,7 +95,7 @@ export default async function NearbyPage({
 
         {foreign.length > 0 && (
           <section className="mt-8">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               International · check visa first
             </h2>
             <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">

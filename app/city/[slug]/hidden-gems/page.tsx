@@ -82,7 +82,7 @@ export default async function HiddenGemsPage({
                 badge={g.neighborhood}
               />
               <div className="p-5">
-                <div className="text-xs uppercase tracking-wide text-sumi-700">
+                <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                   {g.category}
                 </div>
                 <h2 className="mt-1 font-display text-lg font-semibold text-sumi-900">

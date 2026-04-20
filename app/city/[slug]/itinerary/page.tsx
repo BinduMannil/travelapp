@@ -44,15 +44,15 @@ export default async function ItineraryListPage({
           <Link
             key={t.slug}
             href={`/city/${slug}/itinerary/${t.slug}`}
-            className="block rounded-lg border border-slate-200 bg-white p-5 hover:border-brand-500 hover:bg-brand-50"
+            className="block rounded-lg border border-washi-200 bg-white p-5 hover:border-brand-500 hover:bg-brand-50"
           >
             <header className="flex items-baseline justify-between gap-3">
               <h2 className="text-lg font-semibold">{t.name}</h2>
-              <span className="rounded bg-slate-100 px-2 py-0.5 text-xs text-slate-700">
+              <span className="rounded bg-washi-100 px-2 py-0.5 text-xs text-sumi-800">
                 {t.days} days
               </span>
             </header>
-            <p className="mt-2 text-sm text-slate-700">{t.summary}</p>
+            <p className="mt-2 text-sm text-sumi-800">{t.summary}</p>
             <div className="mt-3 flex flex-wrap gap-1 text-xs">
               {t.trip_type_slugs.map((s) => (
                 <span
@@ -63,7 +63,7 @@ export default async function ItineraryListPage({
                 </span>
               ))}
             </div>
-            <p className="mt-3 text-xs text-slate-500">
+            <p className="mt-3 text-xs text-sumi-700">
               Pace: {t.pace} · Best for: {t.best_for.join(", ")}
             </p>
           </Link>

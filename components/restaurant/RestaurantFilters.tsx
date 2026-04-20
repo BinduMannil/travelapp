@@ -54,7 +54,7 @@ export function RestaurantFilters({
             onClick={() => toggle("price", b.band)}
           >
             {b.band}
-            <span className="ml-1 text-xs text-slate-500">{b.count}</span>
+            <span className="ml-1 text-xs text-sumi-700">{b.count}</span>
           </Pill>
         ))}
       </FilterRow>
@@ -73,7 +73,7 @@ export function RestaurantFilters({
             onClick={() => toggle("cuisine", c.slug)}
           >
             {c.label}
-            <span className="ml-1 text-xs text-slate-500">{c.count}</span>
+            <span className="ml-1 text-xs text-sumi-700">{c.count}</span>
           </Pill>
         ))}
       </FilterRow>
@@ -92,7 +92,7 @@ export function RestaurantFilters({
             onClick={() => toggle("diet", d.slug)}
           >
             {d.label}
-            <span className="ml-1 text-xs text-slate-500">{d.count}</span>
+            <span className="ml-1 text-xs text-sumi-700">{d.count}</span>
           </Pill>
         ))}
       </FilterRow>
@@ -124,7 +124,7 @@ function FilterRow({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className="w-20 shrink-0 text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <span className="w-20 shrink-0 text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
         {label}
       </span>
       <div className="flex flex-wrap gap-1.5">{children}</div>
@@ -149,7 +149,7 @@ function Pill({
         "rounded-full border px-3 py-1 text-sm",
         active
           ? "border-brand-500 bg-brand-50 text-brand-800"
-          : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+          : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300",
       )}
     >
       {children}

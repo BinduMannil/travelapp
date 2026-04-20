@@ -43,7 +43,7 @@ export default async function FamousForPage({
           <a
             key={c.slug}
             href={`#cat-${c.slug}`}
-            className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:border-brand-500 hover:text-brand-700"
+            className="rounded-full border border-washi-200 bg-white px-3 py-1 text-sumi-800 hover:border-brand-500 hover:text-brand-700"
           >
             {c.label}
           </a>
@@ -53,19 +53,19 @@ export default async function FamousForPage({
       <div className="mt-6 space-y-10">
         {data.categories.map((c) => (
           <section key={c.slug} id={`cat-${c.slug}`} className="scroll-mt-16">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               {c.label}
             </h2>
             <div className="mt-3 grid gap-4 md:grid-cols-2">
               {c.items.map((it) => (
                 <article
                   key={it.name}
-                  className="rounded-lg border border-slate-200 p-4"
+                  className="rounded-lg border border-washi-200 p-4"
                 >
                   <h3 className="font-semibold">{it.name}</h3>
-                  <p className="mt-1 text-sm text-slate-700">{it.why}</p>
+                  <p className="mt-1 text-sm text-sumi-800">{it.why}</p>
                   {it.where_to_buy && (
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-sumi-700">
                       <strong>Where:</strong> {it.where_to_buy}
                     </p>
                   )}

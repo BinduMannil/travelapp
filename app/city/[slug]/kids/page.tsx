@@ -70,7 +70,7 @@ export default async function KidsPage({
               badge={p.age_range}
             />
             <div className="flex flex-1 flex-col p-5">
-              <div className="text-xs uppercase tracking-wide text-sumi-700">
+              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                 {p.neighborhood} · {p.price_band}
               </div>
               <h2 className="mt-1 font-display text-lg font-semibold text-sumi-900">

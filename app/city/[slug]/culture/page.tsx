@@ -85,39 +85,39 @@ export default async function CulturePage({
       />
       <div className="mx-auto max-w-4xl px-6 py-12">
 <section className="mt-6">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           What to expect
         </h2>
-        <p className="mt-2 text-slate-700">{culture.people.summary}</p>
+        <p className="mt-2 text-sumi-800">{culture.people.summary}</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {culture.people.traits.map((t) => (
             <article
               key={t.title}
-              className="rounded-lg border border-slate-200 p-4"
+              className="rounded-lg border border-washi-200 p-4"
             >
               <h3 className="font-semibold">{t.title}</h3>
-              <p className="mt-1 text-sm text-slate-700">{t.body}</p>
+              <p className="mt-1 text-sm text-sumi-800">{t.body}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Dress code by context
         </h2>
         <div className="mt-3 space-y-2">
           {culture.dress_codes.map((d) => (
             <article
               key={d.context}
-              className="flex flex-col rounded-lg border border-slate-200 p-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
+              className="flex flex-col rounded-lg border border-washi-200 p-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
             >
               <div>
-                <div className="text-xs uppercase tracking-wide text-slate-500">
+                <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                   {DRESS_LABEL[d.requirement] ?? d.requirement}
                 </div>
                 <div className="font-semibold">{d.label}</div>
-                <p className="mt-1 text-sm text-slate-700">{d.notes}</p>
+                <p className="mt-1 text-sm text-sumi-800">{d.notes}</p>
               </div>
             </article>
           ))}
@@ -125,17 +125,17 @@ export default async function CulturePage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Languages you will hear
         </h2>
         <div className="mt-3 flex flex-wrap gap-2">
           {topLanguages.map((l) => (
             <span
               key={l.iso_639_3}
-              className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-800"
+              className="rounded-full bg-washi-100 px-3 py-1 text-sm text-sumi-900"
             >
               {l.name}{" "}
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-sumi-700">
                 {l.speakers_pct.toFixed(1)}%
               </span>
             </span>
@@ -150,28 +150,28 @@ export default async function CulturePage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Phrasebook
         </h2>
         <div className="mt-3 space-y-6">
           {PHRASE_CATEGORY_ORDER.filter((c) => phrasesByCategory.has(c)).map(
             (cat) => (
               <div key={cat}>
-                <h3 className="text-sm font-semibold text-slate-900">
+                <h3 className="text-sm font-semibold text-sumi-900">
                   {PHRASE_CATEGORY_LABEL[cat] ?? cat}
                 </h3>
-                <div className="mt-2 overflow-hidden rounded-lg border border-slate-200">
+                <div className="mt-2 overflow-hidden rounded-lg border border-washi-200">
                   <table className="min-w-full divide-y divide-slate-200 text-sm">
                     <tbody className="divide-y divide-slate-100">
                       {(phrasesByCategory.get(cat) ?? []).map((p) => (
                         <tr key={p.romaji}>
-                          <td className="px-4 py-2 font-medium text-slate-900">
+                          <td className="px-4 py-2 font-medium text-sumi-900">
                             {p.ja}
                           </td>
-                          <td className="px-4 py-2 text-slate-700">
+                          <td className="px-4 py-2 text-sumi-800">
                             <em>{p.romaji}</em>
                           </td>
-                          <td className="px-4 py-2 text-slate-600">{p.en}</td>
+                          <td className="px-4 py-2 text-sumi-700">{p.en}</td>
                         </tr>
                       ))}
                     </tbody>

@@ -49,7 +49,7 @@ export default async function EmergencyPage({
               href={`tel:${n.number.replace(/\s|-/g, "")}`}
               className="block rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md"
             >
-              <div className="text-xs uppercase tracking-wide text-sumi-700">
+              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                 {n.label}
               </div>
               <div className="mt-1 font-display text-3xl font-bold tabular-nums text-enji-700">

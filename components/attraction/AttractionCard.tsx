@@ -35,7 +35,7 @@ export function AttractionCard({
   return (
     <Link
       href={`/city/${citySlug}/attractions/${attraction.slug}`}
-      className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg"
+      className="group block overflow-hidden rounded-2xl border border-washi-200 bg-white transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg"
     >
       <CoverTile
         palette={cover.palette}
@@ -54,26 +54,26 @@ export function AttractionCard({
             {importanceStars}
           </span>
         </header>
-        <p className="mt-2 text-sm text-slate-700">{attraction.summary}</p>
+        <p className="mt-2 text-sm text-sumi-800">{attraction.summary}</p>
 
       <div className="mt-3 flex flex-wrap gap-1 text-xs">
         {attraction.significance.slice(0, 3).map((s) => (
           <span
             key={s}
-            className="rounded bg-slate-100 px-2 py-0.5 text-slate-700"
+            className="rounded bg-washi-100 px-2 py-0.5 text-sumi-800"
           >
             {SIGNIFICANCE_LABEL[s] ?? s}
           </span>
         ))}
       </div>
 
-      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
+      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-sumi-700">
         <div>
-          <dt className="inline font-medium text-slate-500">Time: </dt>
+          <dt className="inline font-medium text-sumi-700">Time: </dt>
           <dd className="inline">{formatDuration(attraction.duration_minutes)}</dd>
         </div>
         <div>
-          <dt className="inline font-medium text-slate-500">Cost: </dt>
+          <dt className="inline font-medium text-sumi-700">Cost: </dt>
           <dd className="inline tabular-nums">
             {attraction.cost_adult_minor === 0 ? (
               "Free"

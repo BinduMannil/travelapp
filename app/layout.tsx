@@ -11,11 +11,11 @@ import { LEGAL } from "@/lib/legal/constants";
 
 export const metadata: Metadata = {
   title: {
-    default: "Travel companion",
-    template: "%s — Travel companion",
+    default: "Journee",
+    template: "%s — Journee",
   },
   description:
-    "Everything about a country and city for travelers: seasons, costs, visas, attractions, restaurants, transit, packing, and more.",
+    "Journee — editorial travel companion. Seasons, costs, visas, attractions, restaurants, transit, packing, and more.",
 };
 
 export default async function RootLayout({
@@ -42,7 +42,7 @@ export default async function RootLayout({
                     旅
                   </span>
                   <span className="font-display text-base font-semibold tracking-tight text-sumi-900">
-                    Travel companion
+                    {LEGAL.brand}
                   </span>
                 </Link>
                 <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">

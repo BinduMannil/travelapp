@@ -17,7 +17,7 @@ export function RestaurantCard({
   return (
     <Link
       href={`/city/${citySlug}/restaurants/${restaurant.slug}`}
-      className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg"
+      className="group block overflow-hidden rounded-2xl border border-washi-200 bg-white transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg"
     >
       <CoverTile
         palette={cover.palette}
@@ -32,7 +32,7 @@ export function RestaurantCard({
             {score} / 10
           </span>
         </header>
-        <div className="mt-1 text-xs text-slate-500">
+        <div className="mt-1 text-xs text-sumi-700">
           {restaurant.neighborhood}
           {restaurant.michelin_stars > 0 && (
             <span className="ml-2 text-amber-600">
@@ -45,7 +45,7 @@ export function RestaurantCard({
         </div>
 
       {restaurant.signature_dishes.length > 0 && (
-        <p className="mt-2 text-sm text-slate-700">
+        <p className="mt-2 text-sm text-sumi-800">
           {restaurant.signature_dishes.slice(0, 2).join(" · ")}
         </p>
       )}
@@ -54,16 +54,16 @@ export function RestaurantCard({
         {restaurant.cuisine.slice(0, 3).map((c) => (
           <span
             key={c}
-            className="rounded bg-slate-100 px-2 py-0.5 text-slate-700"
+            className="rounded bg-washi-100 px-2 py-0.5 text-sumi-800"
           >
             {CUISINE_LABELS[c] ?? c}
           </span>
         ))}
       </div>
 
-      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-600">
+      <dl className="mt-3 grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-sumi-700">
         <div>
-          <dt className="inline font-medium text-slate-500">Per person: </dt>
+          <dt className="inline font-medium text-sumi-700">Per person: </dt>
           <dd className="inline tabular-nums">
             <PriceDisplay
               amountMinor={restaurant.avg_price_per_person_minor}
@@ -72,7 +72,7 @@ export function RestaurantCard({
           </dd>
         </div>
         <div>
-          <dt className="inline font-medium text-slate-500">Reviews: </dt>
+          <dt className="inline font-medium text-sumi-700">Reviews: </dt>
           <dd className="inline tabular-nums">
             {restaurant.google_rating.toFixed(1)}★ ·{" "}
             {restaurant.google_review_count.toLocaleString()} on Google

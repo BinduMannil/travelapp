@@ -105,7 +105,7 @@ export default async function AttractionsPage({
         </section>
 
         {filtered.length === 0 && (
-          <p className="mt-8 rounded-lg border border-dashed border-slate-300 p-6 text-center text-slate-500">
+          <p className="mt-8 rounded-lg border border-dashed border-slate-300 p-6 text-center text-sumi-700">
             No attractions in this category yet.
           </p>
         )}

@@ -61,7 +61,7 @@ export function VisaPicker({
   return (
     <div>
       <label className="block">
-        <span className="text-sm font-medium text-slate-700">
+        <span className="text-sm font-medium text-sumi-800">
           Your citizenship
         </span>
         <select
@@ -82,7 +82,7 @@ export function VisaPicker({
         <article
           className={`mt-6 rounded-lg border p-5 ${REQUIREMENT_COPY[rule.requirement].tone}`}
         >
-          <div className="text-xs uppercase tracking-wide opacity-80">
+          <div className="text-xs uppercase tracking-[0.25em] opacity-80">
             Result for {rule.name}
           </div>
           <div className="mt-1 flex flex-wrap items-baseline gap-3">
@@ -110,12 +110,12 @@ export function VisaPicker({
           )}
         </article>
       ) : (
-        <p className="mt-6 rounded-lg border border-dashed border-slate-300 p-5 text-sm text-slate-600">
+        <p className="mt-6 rounded-lg border border-dashed border-slate-300 p-5 text-sm text-sumi-700">
           Pick your passport country above to see your specific requirement.
         </p>
       )}
 
-      <div className="mt-6 rounded-md bg-slate-50 p-4 text-sm text-slate-700">
+      <div className="mt-6 rounded-md bg-washi-100 p-4 text-sm text-sumi-800">
         <div>
           Rules last reviewed: <strong>{reviewedAt}</strong>
         </div>

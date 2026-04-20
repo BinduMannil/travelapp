@@ -39,11 +39,11 @@ export function CategoryTabs({
           "rounded-full border px-3 py-1 text-sm",
           !activeCategory
             ? "border-brand-500 bg-brand-50 text-brand-800"
-            : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+            : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300",
         )}
       >
         All
-        <span className="ml-1 text-xs text-slate-500">{total}</span>
+        <span className="ml-1 text-xs text-sumi-700">{total}</span>
       </button>
       {tabs.map((t) => (
         <button
@@ -54,11 +54,11 @@ export function CategoryTabs({
             "rounded-full border px-3 py-1 text-sm",
             activeCategory === t.slug
               ? "border-brand-500 bg-brand-50 text-brand-800"
-              : "border-slate-200 bg-white text-slate-700 hover:border-slate-300",
+              : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300",
           )}
         >
           {t.label}
-          <span className="ml-1 text-xs text-slate-500">{t.count}</span>
+          <span className="ml-1 text-xs text-sumi-700">{t.count}</span>
         </button>
       ))}
     </div>

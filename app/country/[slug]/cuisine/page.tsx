@@ -42,16 +42,16 @@ export default async function CuisinePage({
         {data.dishes.map((d) => (
           <article
             key={d.slug}
-            className="rounded-lg border border-slate-200 p-5"
+            className="rounded-lg border border-washi-200 p-5"
             id={d.slug}
           >
             <header className="flex flex-wrap items-baseline justify-between gap-3">
               <div>
                 <h2 className="text-xl font-semibold">
                   {d.name}
-                  <span className="ml-2 text-slate-500">{d.native_script}</span>
+                  <span className="ml-2 text-sumi-700">{d.native_script}</span>
                 </h2>
-                <div className="text-xs text-slate-500">
+                <div className="text-xs text-sumi-700">
                   <em>{d.romaji}</em>
                 </div>
               </div>
@@ -69,20 +69,20 @@ export default async function CuisinePage({
               </div>
             </header>
 
-            <p className="mt-3 text-sm leading-relaxed text-slate-800">
+            <p className="mt-3 text-sm leading-relaxed text-sumi-900">
               <strong>Made of:</strong> {d.made_of}
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+            <p className="mt-2 text-sm leading-relaxed text-sumi-800">
               <strong>Origin:</strong> {d.origin}
             </p>
 
             {d.similar_to.length > 0 && (
-              <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              <p className="mt-2 text-sm leading-relaxed text-sumi-800">
                 <strong>Similar to:</strong> {d.similar_to.join(" · ")}
               </p>
             )}
 
-            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+            <p className="mt-2 text-sm leading-relaxed text-sumi-800">
               <strong>How to try it:</strong> {d.must_try_form}
             </p>
 
@@ -94,7 +94,7 @@ export default async function CuisinePage({
 
             {d.where_in_tokyo && d.where_in_tokyo.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2 text-xs">
-                <span className="text-slate-500">Try in Tokyo:</span>
+                <span className="text-sumi-700">Try in Tokyo:</span>
                 {d.where_in_tokyo.map((r) => (
                   <Link
                     key={r}

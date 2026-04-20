@@ -5,9 +5,9 @@ import { PriceDisplay } from "@/lib/preferences/context";
 
 export function CostTable({ items }: { items: PriceItem[] }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200">
+    <div className="overflow-hidden rounded-lg border border-washi-200">
       <table className="min-w-full divide-y divide-slate-200 text-sm">
-        <thead className="bg-slate-50 text-left text-slate-600">
+        <thead className="bg-washi-100 text-left text-sumi-700">
           <tr>
             <th className="px-4 py-2 font-medium">Item</th>
             <th className="px-4 py-2 text-right font-medium">Typical price</th>
@@ -17,7 +17,7 @@ export function CostTable({ items }: { items: PriceItem[] }) {
         <tbody className="divide-y divide-slate-100 bg-white">
           {items.map((it) => (
             <tr key={it.key}>
-              <td className="px-4 py-3 font-medium text-slate-900">
+              <td className="px-4 py-3 font-medium text-sumi-900">
                 {it.label}
               </td>
               <td className="px-4 py-3 text-right tabular-nums">
@@ -26,7 +26,7 @@ export function CostTable({ items }: { items: PriceItem[] }) {
                   currency={it.currency}
                 />
               </td>
-              <td className="px-4 py-3 text-slate-600">{it.notes ?? ""}</td>
+              <td className="px-4 py-3 text-sumi-700">{it.notes ?? ""}</td>
             </tr>
           ))}
         </tbody>

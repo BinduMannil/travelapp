@@ -26,7 +26,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
   const active = route.options.find((o) => o.mode === activeMode);
 
   return (
-    <article className="rounded-lg border border-slate-200 p-5">
+    <article className="rounded-lg border border-washi-200 p-5">
       <header className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-xl font-semibold">{route.dest_name}</h2>
         {route.in_same_country && (
@@ -45,7 +45,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
             className={`rounded-full border px-3 py-1 ${
               activeMode === o.mode
                 ? "border-brand-500 bg-brand-50 text-brand-800"
-                : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300"
             }`}
           >
             {MODE_LABEL[o.mode] ?? o.mode}
@@ -55,16 +55,16 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
 
       {active && (
         <div className="mt-4 space-y-2 text-sm">
-          <div className="font-medium text-slate-900">{active.name}</div>
-          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-slate-700">
+          <div className="font-medium text-sumi-900">{active.name}</div>
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 text-sumi-800">
             <div>
-              <span className="text-slate-500">Time: </span>
+              <span className="text-sumi-700">Time: </span>
               <span className="font-medium">
                 {formatDuration(active.duration_minutes)}
               </span>
             </div>
             <div>
-              <span className="text-slate-500">Typical price: </span>
+              <span className="text-sumi-700">Typical price: </span>
               <span className="font-medium tabular-nums">
                 <PriceDisplay
                   amountMinor={active.price_min_minor}
@@ -83,7 +83,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
             </div>
           </div>
           {active.notes && (
-            <p className="text-slate-600">{active.notes}</p>
+            <p className="text-sumi-700">{active.notes}</p>
           )}
           {active.booking_url && (
             <a

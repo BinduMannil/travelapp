@@ -72,10 +72,10 @@ export function PackingPlanner({
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[360px_1fr]">
-      <form className="space-y-5 rounded-lg border border-slate-200 bg-slate-50 p-5">
+      <form className="space-y-5 rounded-lg border border-washi-200 bg-washi-100 p-5">
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Arrive
             </span>
             <input
@@ -86,7 +86,7 @@ export function PackingPlanner({
             />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Depart
             </span>
             <input
@@ -101,7 +101,7 @@ export function PackingPlanner({
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Adults
             </span>
             <input
@@ -114,7 +114,7 @@ export function PackingPlanner({
             />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Children
             </span>
             <input
@@ -129,7 +129,7 @@ export function PackingPlanner({
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Trip style
           </span>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -141,7 +141,7 @@ export function PackingPlanner({
                 className={`rounded-full border px-2.5 py-1 text-xs ${
                   tripTypes.includes(t.slug)
                     ? "border-brand-500 bg-brand-50 text-brand-800"
-                    : "border-slate-200 bg-white text-slate-700"
+                    : "border-washi-200 bg-white text-sumi-800"
                 }`}
               >
                 {t.label}
@@ -151,7 +151,7 @@ export function PackingPlanner({
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Planned activities
           </span>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -163,7 +163,7 @@ export function PackingPlanner({
                 className={`rounded-full border px-2.5 py-1 text-xs ${
                   activities.includes(a.slug)
                     ? "border-brand-500 bg-brand-50 text-brand-800"
-                    : "border-slate-200 bg-white text-slate-700"
+                    : "border-washi-200 bg-white text-sumi-800"
                 }`}
               >
                 {a.label}
@@ -177,7 +177,7 @@ export function PackingPlanner({
         {result ? (
           <PackingOutput items={result.items} ctx={result.ctx} />
         ) : (
-          <p className="rounded-lg border border-dashed border-slate-300 p-6 text-sm text-slate-600">
+          <p className="rounded-lg border border-dashed border-slate-300 p-6 text-sm text-sumi-700">
             Check your dates and try again.
           </p>
         )}
@@ -205,18 +205,18 @@ function PackingOutput({
   return (
     <div>
       <header className="flex flex-wrap items-baseline justify-between gap-3">
-        <div className="text-sm text-slate-600">
-          <strong className="text-slate-900">{ctx.nights}</strong> nights ·
+        <div className="text-sm text-sumi-700">
+          <strong className="text-sumi-900">{ctx.nights}</strong> nights ·
           averages{" "}
-          <strong className="text-slate-900">
+          <strong className="text-sumi-900">
             {ctx.tempCMax.toFixed(0)}° / {ctx.tempCMin.toFixed(0)}°C
           </strong>{" "}
           · expected precipitation{" "}
-          <strong className="text-slate-900">
+          <strong className="text-sumi-900">
             {ctx.precipMm.toFixed(0)} mm
           </strong>
         </div>
-        <div className="text-xs text-slate-500">
+        <div className="text-xs text-sumi-700">
           {totalCount} items ({essentialCount} essential)
         </div>
       </header>
@@ -227,19 +227,19 @@ function PackingOutput({
           if (!list || list.length === 0) return null;
           return (
             <section key={cat}>
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
                 {CATEGORY_LABEL[cat]}
               </h3>
               <ul className="mt-2 space-y-2">
                 {list.map((item) => (
                   <li
                     key={item.key}
-                    className="rounded-md border border-slate-200 bg-white p-3"
+                    className="rounded-md border border-washi-200 bg-white p-3"
                   >
                     <div className="flex items-baseline justify-between gap-3">
                       <div className="text-sm font-medium">
                         {item.quantity > 1 && (
-                          <span className="mr-1 tabular-nums text-slate-500">
+                          <span className="mr-1 tabular-nums text-sumi-700">
                             {item.quantity}×
                           </span>
                         )}
@@ -252,7 +252,7 @@ function PackingOutput({
                       )}
                     </div>
                     {item.notes && (
-                      <p className="mt-1 text-xs text-slate-600">
+                      <p className="mt-1 text-xs text-sumi-700">
                         {item.notes}
                       </p>
                     )}

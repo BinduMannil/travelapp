@@ -76,11 +76,11 @@ export default async function WellnessPage({
         palette="enji"
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
-<section className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+<section className="mt-6 rounded-lg border border-washi-200 bg-washi-100 p-4">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Bath etiquette — the short version
         </h2>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
+        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-sumi-800">
           {data.etiquette_points.map((p, i) => (
             <li key={i}>{p}</li>
           ))}
@@ -92,7 +92,7 @@ export default async function WellnessPage({
         defaultCurrency={city.default_currency ?? "JPY"}
       >
         <div className="mt-6 flex items-center justify-between">
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-sumi-700">
             Rates as of {snapshot.date}
           </span>
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
@@ -113,7 +113,7 @@ export default async function WellnessPage({
                   badge={WELLNESS_TYPE_LABEL[v.type]}
                 />
                 <div className="flex flex-1 flex-col p-5">
-                  <div className="text-xs uppercase tracking-wide text-sumi-700">
+                  <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                     {v.neighborhood}
                   </div>
                   <h2 className="mt-1 font-display text-lg font-semibold text-sumi-900">

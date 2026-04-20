@@ -12,13 +12,61 @@ body {
   height: 100%;
 }
 
+/* Editorial type scale anchored at ~9pt (13px) Montserrat for body copy.
+   Everything steps up from there so headings feel proportional, not shouty. */
+html {
+  font-size: 15px; /* base rem — keeps xs/sm utilities readable */
+}
+
 body {
   @apply bg-washi-50 text-sumi-900 antialiased;
+  font-family: var(--font-sans);
+  font-size: 0.8667rem; /* 13px — "size 9" editorial anchor */
+  line-height: 1.6;
+  letter-spacing: 0.005em;
   font-feature-settings: "ss01", "cv11";
+}
+
+p {
+  font-size: 0.8667rem; /* 13px */
+  line-height: 1.65;
 }
 
 /* Editorial display headings: use the serif for bigger type */
 h1,
 h2 {
   font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 1.75rem; /* ~26px */
+  line-height: 1.15;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.1rem; /* ~17px */
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 0.95rem; /* ~14px */
+  line-height: 1.3;
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+h4,
+h5,
+h6 {
+  font-size: 0.8667rem;
+  line-height: 1.35;
+  font-weight: 600;
+  font-family: var(--font-sans);
+}
+
+small {
+  font-size: 0.75rem;
 }

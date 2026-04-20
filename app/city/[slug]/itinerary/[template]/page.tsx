@@ -7,6 +7,7 @@ import {
   getItinerary,
   type ItineraryBlock,
 } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 export async function generateMetadata({
   params,
@@ -36,7 +37,7 @@ function BlockLine({
 
   return (
     <li className="flex gap-4">
-      <div className="w-16 shrink-0 text-right tabular-nums text-sm text-slate-500">
+      <div className="w-16 shrink-0 text-right tabular-nums text-sm text-sumi-700">
         {block.time}
       </div>
       <div className="flex-1">
@@ -50,7 +51,7 @@ function BlockLine({
           )}
         </div>
         {block.note && (
-          <p className="text-sm text-slate-600">{block.note}</p>
+          <p className="text-sm text-sumi-700">{block.note}</p>
         )}
       </div>
     </li>
@@ -68,44 +69,23 @@ export default async function ItineraryDetailPage({
   if (!city || !t) notFound();
 
   return (
-    <main className="mx-auto max-w-4xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}/itinerary`} className="hover:underline">
-          Itineraries
-        </Link>{" "}
-        · {t.name}
-      </nav>
-
-      <header className="mt-3 flex flex-wrap items-baseline justify-between gap-3">
-        <div>
-          <h1 className="text-3xl font-semibold">{t.name}</h1>
-          <div className="mt-1 text-sm text-slate-500">
-            {t.days} days · Pace: {t.pace}
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-1 text-xs">
-          {t.trip_type_slugs.map((s) => (
-            <span
-              key={s}
-              className="rounded bg-brand-100 px-2 py-0.5 text-brand-800"
-            >
-              {s}
-            </span>
-          ))}
-        </div>
-      </header>
-
-      <p className="mt-4 text-slate-700">{t.summary}</p>
-
-      <p className="mt-4 text-xs text-slate-500">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Itineraries", href: `/city/${slug}/itinerary` },
+          { label: t.name },
+        ]}
+        kanji="旅"
+        eyebrow={`${t.days} days · Pace ${t.pace}`}
+        title={t.name}
+        subtitle={t.trip_type_slugs.join(" · ")}
+        lede={t.summary}
+        palette="matcha"
+      />
+      <div className="mx-auto max-w-4xl px-6 py-12">
+      <p className="text-xs uppercase tracking-[0.25em] text-sumi-700">
         Best for: {t.best_for.join(", ")}
       </p>
 
@@ -113,7 +93,7 @@ export default async function ItineraryDetailPage({
         {t.sections.map((sec) => (
           <article
             key={sec.day}
-            className="rounded-lg border border-slate-200 p-6"
+            className="rounded-lg border border-washi-200 p-6"
           >
             <h2 className="text-lg font-semibold">{sec.title}</h2>
             <ul className="mt-4 space-y-4">
@@ -125,8 +105,8 @@ export default async function ItineraryDetailPage({
         ))}
       </section>
 
-      <section className="mt-10 rounded-lg border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
-        <strong className="text-slate-900">Heads-up:</strong> reservations
+      <section className="mt-10 rounded-lg border border-dashed border-washi-200 bg-washi-100 p-5 text-sm text-sumi-700">
+        <strong className="text-sumi-900">Heads-up:</strong> reservations
         marked &ldquo;book ahead&rdquo; or &ldquo;T-30 days&rdquo; really do sell
         out that early. See{" "}
         <Link
@@ -137,6 +117,7 @@ export default async function ItineraryDetailPage({
         </Link>{" "}
         before you lock in your dates.
       </section>
+      </div>
     </main>
   );
 }

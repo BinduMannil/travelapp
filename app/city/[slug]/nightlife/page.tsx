@@ -66,7 +66,7 @@ export default async function NightlifePage({
               className="!rounded-none !aspect-square md:!aspect-auto md:h-full"
             />
             <div className="p-6 md:py-6 md:pr-6">
-              <div className="text-xs uppercase tracking-wide text-sumi-700">
+              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                 {s.neighborhood} · {s.vibe}
               </div>
               <h2 className="mt-1 font-display text-2xl font-semibold text-sumi-900">

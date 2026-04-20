@@ -96,14 +96,14 @@ export default async function ArrivalPage({
         defaultCurrency={city.default_currency ?? "JPY"}
       >
         <div className="mt-6 flex items-center justify-between">
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-sumi-700">
             Rates as of {snapshot.date}
           </span>
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
         <section className="mt-4">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Airport → city
           </h2>
           <div className="mt-3 space-y-6">
@@ -113,7 +113,7 @@ export default async function ArrivalPage({
                   <h3 className="text-lg font-semibold">
                     {group.airport_name}
                   </h3>
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-sumi-700">
                     ({group.from_airport})
                   </span>
                 </header>
@@ -121,15 +121,15 @@ export default async function ArrivalPage({
                   {group.options.map((o) => (
                     <div
                       key={o.name}
-                      className="rounded-lg border border-slate-200 p-4"
+                      className="rounded-lg border border-washi-200 p-4"
                     >
-                      <div className="text-xs uppercase tracking-wide text-slate-500">
+                      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                         {MODE_LABEL[o.mode] ?? o.mode}
                       </div>
                       <div className="mt-1 font-semibold">{o.name}</div>
-                      <div className="mt-2 grid grid-cols-2 gap-y-1 text-xs text-slate-700">
+                      <div className="mt-2 grid grid-cols-2 gap-y-1 text-xs text-sumi-800">
                         <div>
-                          <span className="text-slate-500">Time: </span>
+                          <span className="text-sumi-700">Time: </span>
                           {formatDuration(o.duration_minutes)}
                         </div>
                         <div className="tabular-nums text-right">
@@ -148,12 +148,12 @@ export default async function ArrivalPage({
                           )}
                         </div>
                         <div className="col-span-2">
-                          <span className="text-slate-500">Service: </span>
+                          <span className="text-sumi-700">Service: </span>
                           {o.first_last_service}
                         </div>
                       </div>
                       {o.notes && (
-                        <p className="mt-2 text-xs text-slate-600">{o.notes}</p>
+                        <p className="mt-2 text-xs text-sumi-700">{o.notes}</p>
                       )}
                       {o.url && (
                         <a
@@ -174,20 +174,20 @@ export default async function ArrivalPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Luggage: lockers, bag drop, forwarding
           </h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {arrival.luggage_services.map((l) => (
               <article
                 key={l.provider}
-                className="rounded-lg border border-slate-200 p-4"
+                className="rounded-lg border border-washi-200 p-4"
               >
-                <div className="text-xs uppercase tracking-wide text-slate-500">
+                <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
                   {l.kind.replace("_", " ")}
                 </div>
                 <div className="mt-1 font-semibold">{l.provider}</div>
-                <div className="mt-1 text-sm text-slate-700">{l.coverage}</div>
+                <div className="mt-1 text-sm text-sumi-800">{l.coverage}</div>
                 <div className="mt-2 text-sm tabular-nums">
                   from{" "}
                   <PriceDisplay
@@ -196,7 +196,7 @@ export default async function ArrivalPage({
                   />
                 </div>
                 {l.notes && (
-                  <p className="mt-2 text-xs text-slate-600">{l.notes}</p>
+                  <p className="mt-2 text-xs text-sumi-700">{l.notes}</p>
                 )}
                 {l.url && (
                   <a
@@ -214,18 +214,18 @@ export default async function ArrivalPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Cash &amp; exchange
           </h2>
           <div className="mt-3 space-y-2">
             {arrival.atm_exchange.map((row) => (
               <article
                 key={row.name}
-                className="rounded-lg border border-slate-200 p-3"
+                className="rounded-lg border border-washi-200 p-3"
               >
                 <div className="flex items-baseline justify-between gap-3">
                   <div className="font-medium">{row.name}</div>
-                  <div className="text-xs text-slate-500">{row.hours}</div>
+                  <div className="text-xs text-sumi-700">{row.hours}</div>
                 </div>
                 {row.type === "atm" && row.foreign_card_ok && (
                   <div className="mt-1 text-xs text-emerald-700">
@@ -233,7 +233,7 @@ export default async function ArrivalPage({
                   </div>
                 )}
                 {row.notes && (
-                  <p className="mt-1 text-sm text-slate-600">{row.notes}</p>
+                  <p className="mt-1 text-sm text-sumi-700">{row.notes}</p>
                 )}
                 {row.url && (
                   <a

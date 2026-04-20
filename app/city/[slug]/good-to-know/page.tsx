@@ -66,7 +66,7 @@ export default async function GoodToKnowPage({
           <a
             key={c}
             href={`#cat-${c}`}
-            className="rounded-full border border-slate-200 bg-white px-3 py-1 text-slate-700 hover:border-brand-500 hover:text-brand-700"
+            className="rounded-full border border-washi-200 bg-white px-3 py-1 text-sumi-800 hover:border-brand-500 hover:text-brand-700"
           >
             {GOOD_TO_KNOW_CATEGORY_LABEL[c] ?? c}
           </a>
@@ -76,17 +76,17 @@ export default async function GoodToKnowPage({
       <div className="mt-6 space-y-8">
         {orderedCategories.map((cat) => (
           <section key={cat} id={`cat-${cat}`} className="scroll-mt-16">
-            <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               {GOOD_TO_KNOW_CATEGORY_LABEL[cat] ?? cat}
             </h2>
             <div className="mt-2 space-y-2">
               {(grouped.get(cat) ?? []).map((e) => (
                 <article
                   key={e.title}
-                  className="rounded-lg border border-slate-200 p-4"
+                  className="rounded-lg border border-washi-200 p-4"
                 >
                   <h3 className="font-semibold">{e.title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-slate-700">
+                  <p className="mt-1 text-sm leading-relaxed text-sumi-800">
                     {e.body}
                   </p>
                 </article>

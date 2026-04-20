@@ -48,7 +48,7 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
           >
             <div className="flex items-baseline justify-between">
               <div className="text-lg font-semibold">{MONTH_NAMES[m - 1]}</div>
-              <div className="text-xs font-medium uppercase tracking-wide">
+              <div className="text-xs font-medium uppercase tracking-[0.25em]">
                 {SEASON_LABEL[row.season_label]}
               </div>
             </div>
@@ -57,14 +57,14 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
                 <TempDisplay celsius={row.avg_high_c} /> /{" "}
                 <TempDisplay celsius={row.avg_low_c} />
               </div>
-              <div className="text-slate-600">
+              <div className="text-sumi-700">
                 {row.precip_mm} mm · {row.humidity_pct}% RH
               </div>
-              <div className="text-slate-600">
+              <div className="text-sumi-700">
                 Price index {row.cost_index.toFixed(2)}×
               </div>
             </div>
-            <p className="mt-3 text-xs leading-relaxed text-slate-700">
+            <p className="mt-3 text-xs leading-relaxed text-sumi-800">
               {row.notes}
             </p>
           </div>
