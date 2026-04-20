@@ -54,35 +54,56 @@ export default async function NightlifePage({
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
 <section className="mt-10 space-y-6">
-        {data.scenes.map((s) => (
-          <article
-            key={s.slug}
-            className="grid gap-5 overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm md:grid-cols-[260px_1fr]"
-          >
-            <CoverTile
-              palette={SCENE_PALETTE[s.slug] ?? "aizome"}
-              kanji={s.kanji}
-              aspect="3/2"
-              className="!rounded-none !aspect-square md:!aspect-auto md:h-full"
-            />
-            <div className="p-6 md:py-6 md:pr-6">
-              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-                {s.neighborhood} · {s.vibe}
-              </div>
-              <h2 className="mt-1 font-display text-2xl font-semibold text-sumi-900">
-                {s.title}
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-sumi-700">
-                {s.body}
-              </p>
-              {s.tip && (
-                <p className="mt-3 rounded-lg bg-washi-100 p-3 text-xs text-sumi-900">
-                  <strong>Tip:</strong> {s.tip}
+        {data.scenes.map((s) => {
+          const vibes = s.vibe
+            .split(",")
+            .map((v) => v.trim())
+            .filter(Boolean);
+          return (
+            <article
+              key={s.slug}
+              className="grid gap-6 overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm md:grid-cols-[240px_1fr]"
+            >
+              <CoverTile
+                palette={SCENE_PALETTE[s.slug] ?? "aizome"}
+                kanji={s.kanji}
+                aspect="3/2"
+                className="!rounded-none !aspect-square md:!aspect-auto md:h-full"
+              />
+              <div className="p-6 md:py-8 md:pr-8">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                  {s.neighborhood}
+                </div>
+                <h2 className="mt-2 text-xl font-semibold leading-snug text-sumi-900 sm:text-2xl">
+                  {s.title}
+                </h2>
+                {vibes.length > 0 && (
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {vibes.map((v) => (
+                      <span
+                        key={v}
+                        className="rounded-full border border-washi-300 bg-washi-100 px-2.5 py-0.5 text-[11px] text-sumi-700"
+                      >
+                        {v}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <p className="mt-4 text-sm leading-relaxed text-sumi-800">
+                  {s.body}
                 </p>
-              )}
-            </div>
-          </article>
-        ))}
+                {s.tip && (
+                  <p className="mt-4 border-l-2 border-kintsugi-400 pl-3 text-xs italic leading-relaxed text-sumi-700">
+                    <span className="not-italic font-semibold text-sumi-900">
+                      Tip.
+                    </span>{" "}
+                    {s.tip}
+                  </p>
+                )}
+              </div>
+            </article>
+          );
+        })}
       </section>
     </div>
     </main>
