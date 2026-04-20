@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getNeighborhoods } from "@/lib/data/seed";
+import { CoverTile, neighborhoodCover } from "@/components/common/CoverTile";
 
 export function generateMetadata(): Metadata {
   return {
@@ -24,50 +25,63 @@ export default async function NeighborhoodsPage({
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
+      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+        <Link href="/" className="hover:text-enji-600">
           Home
         </Link>{" "}
         ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
+        <Link href={`/city/${slug}`} className="hover:text-enji-600">
           {city.name}
         </Link>{" "}
         · Neighborhoods
       </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
+      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
         {city.name} neighborhoods
       </h1>
-      <p className="mt-3 text-slate-600">
+      <p className="mt-3 max-w-2xl text-sumi-700">
         Pick the one that matches your speed. The right base changes your trip
         more than any single attraction.
       </p>
 
-      <section className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {neighborhoods.map((n) => (
-          <Link
-            key={n.slug}
-            href={`/city/${slug}/neighborhoods/${n.slug}`}
-            className="block rounded-lg border border-slate-200 bg-white p-4 hover:border-brand-500 hover:bg-brand-50"
-          >
-            <h2 className="text-lg font-semibold">{n.name}</h2>
-            <p className="mt-1 text-sm text-slate-700">{n.summary}</p>
-            <div className="mt-3 flex flex-wrap gap-1 text-xs">
-              {n.vibe.slice(0, 4).map((v) => (
-                <span
-                  key={v}
-                  className="rounded bg-slate-100 px-2 py-0.5 text-slate-700"
-                >
-                  {v}
-                </span>
-              ))}
-            </div>
-            {n.best_for.length > 0 && (
-              <p className="mt-3 text-xs text-slate-500">
-                Best for: {n.best_for.join(", ")}
-              </p>
-            )}
-          </Link>
-        ))}
+      <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {neighborhoods.map((n) => {
+          const cover = neighborhoodCover(n.vibe);
+          return (
+            <Link
+              key={n.slug}
+              href={`/city/${slug}/neighborhoods/${n.slug}`}
+              className="group block overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-lg"
+            >
+              <CoverTile
+                palette={cover.palette}
+                kanji={cover.kanji}
+                aspect="3/2"
+                badge={n.vibe[0]}
+              />
+              <div className="p-5">
+                <h2 className="font-display text-xl font-semibold text-sumi-900">
+                  {n.name}
+                </h2>
+                <p className="mt-2 text-sm text-sumi-700">{n.summary}</p>
+                <div className="mt-3 flex flex-wrap gap-1 text-xs">
+                  {n.vibe.slice(0, 4).map((v) => (
+                    <span
+                      key={v}
+                      className="rounded-full bg-washi-100 px-2 py-0.5 text-sumi-700"
+                    >
+                      {v}
+                    </span>
+                  ))}
+                </div>
+                {n.best_for.length > 0 && (
+                  <p className="mt-4 text-xs text-sumi-700">
+                    <strong>Best for:</strong> {n.best_for.join(", ")}
+                  </p>
+                )}
+              </div>
+            </Link>
+          );
+        })}
       </section>
     </main>
   );

@@ -14,6 +14,7 @@ import {
   CurrencySelector,
   PriceDisplay,
 } from "@/lib/preferences/context";
+import { CoverTile, hotelCover } from "@/components/common/CoverTile";
 
 export function generateMetadata(): Metadata {
   return {
@@ -141,63 +142,74 @@ export default async function HotelsPage({
         )}
 
         <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((h) => (
-            <article
-              key={h.slug}
-              className="flex flex-col rounded-lg border border-slate-200 bg-white p-4"
-            >
-              <header>
-                <div className="text-xs uppercase tracking-wide text-slate-500">
-                  {HOTEL_TIER_LABEL[h.tier]} · {h.neighborhood}
-                </div>
-                <h2 className="mt-0.5 text-lg font-semibold">{h.name}</h2>
-              </header>
-              <div className="mt-2 text-sm tabular-nums text-slate-800">
-                <PriceDisplay
-                  amountMinor={h.price_night_min_minor}
-                  currency={h.currency}
+          {filtered.map((h) => {
+            const cover = hotelCover(h.tier);
+            return (
+              <article
+                key={h.slug}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-lg"
+              >
+                <CoverTile
+                  palette={cover.palette}
+                  kanji={cover.kanji}
+                  aspect="3/2"
+                  badge={HOTEL_TIER_LABEL[h.tier]}
                 />
-                {h.price_night_max_minor > h.price_night_min_minor && (
-                  <>
-                    {" – "}
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="text-xs uppercase tracking-wide text-sumi-700">
+                    {h.neighborhood}
+                  </div>
+                  <h2 className="mt-1 font-display text-lg font-semibold text-sumi-900">
+                    {h.name}
+                  </h2>
+                  <div className="mt-2 text-sm tabular-nums text-sumi-900">
                     <PriceDisplay
-                      amountMinor={h.price_night_max_minor}
+                      amountMinor={h.price_night_min_minor}
                       currency={h.currency}
                     />
-                  </>
-                )}
-                <span className="ml-1 text-xs text-slate-500">/ night</span>
-              </div>
-              {h.notes && (
-                <p className="mt-2 text-sm text-slate-600">{h.notes}</p>
-              )}
-              <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
-                {h.kid_friendly && (
-                  <span className="rounded bg-emerald-50 px-1.5 py-0.5 text-emerald-800">
-                    Kid-friendly
-                  </span>
-                )}
-                {h.wheelchair_accessible && (
-                  <span className="rounded bg-sky-50 px-1.5 py-0.5 text-sky-800">
-                    Wheelchair
-                  </span>
-                )}
-                {h.lgbtq_friendly && (
-                  <span className="rounded bg-fuchsia-50 px-1.5 py-0.5 text-fuchsia-800">
-                    LGBTQ+ friendly
-                  </span>
-                )}
-              </div>
-              <a
-                href={h.booking_url}
-                target="_blank"
-                rel="sponsored noopener noreferrer"
-                className="mt-4 inline-block rounded-md border border-slate-300 bg-white px-3 py-1.5 text-center text-sm font-medium text-slate-900 hover:bg-slate-50"
-              >
-                Book direct →
-              </a>
-            </article>
-          ))}
+                    {h.price_night_max_minor > h.price_night_min_minor && (
+                      <>
+                        {" – "}
+                        <PriceDisplay
+                          amountMinor={h.price_night_max_minor}
+                          currency={h.currency}
+                        />
+                      </>
+                    )}
+                    <span className="ml-1 text-xs text-sumi-700">/ night</span>
+                  </div>
+                  {h.notes && (
+                    <p className="mt-2 text-sm text-sumi-700">{h.notes}</p>
+                  )}
+                  <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
+                    {h.kid_friendly && (
+                      <span className="rounded-full bg-matcha-100 px-2 py-0.5 text-matcha-700">
+                        Kid-friendly
+                      </span>
+                    )}
+                    {h.wheelchair_accessible && (
+                      <span className="rounded-full bg-aizome-50 px-2 py-0.5 text-aizome-700">
+                        Wheelchair
+                      </span>
+                    )}
+                    {h.lgbtq_friendly && (
+                      <span className="rounded-full bg-sakura-100 px-2 py-0.5 text-enji-700">
+                        LGBTQ+ friendly
+                      </span>
+                    )}
+                  </div>
+                  <a
+                    href={h.booking_url}
+                    target="_blank"
+                    rel="sponsored noopener noreferrer"
+                    className="mt-auto inline-block rounded-full border border-sumi-200 bg-white px-4 py-2 text-center text-sm font-semibold text-sumi-900 transition hover:bg-sumi-900 hover:text-white"
+                  >
+                    Book direct →
+                  </a>
+                </div>
+              </article>
+            );
+          })}
         </section>
 
         {filtered.length === 0 && (

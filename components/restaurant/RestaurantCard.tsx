@@ -21,7 +21,7 @@ export function RestaurantCard({
     >
       <CoverTile
         palette={cover.palette}
-        icon={cover.icon}
+        kanji={cover.kanji}
         aspect="3/2"
         badge={restaurant.price_band}
       />

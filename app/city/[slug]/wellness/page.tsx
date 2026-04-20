@@ -12,6 +12,7 @@ import {
   CurrencySelector,
   PriceDisplay,
 } from "@/lib/preferences/context";
+import { CoverTile, wellnessCover } from "@/components/common/CoverTile";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -95,61 +96,72 @@ export default async function WellnessPage({
         </div>
 
         <section className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          {sorted.map((v) => (
-            <article
-              key={v.slug}
-              className="flex flex-col rounded-lg border border-slate-200 bg-white p-5"
-            >
-              <header>
-                <div className="text-xs uppercase tracking-wide text-slate-500">
-                  {WELLNESS_TYPE_LABEL[v.type]} · {v.neighborhood}
-                </div>
-                <h2 className="mt-0.5 text-lg font-semibold">{v.name}</h2>
-              </header>
-
-              <div className="mt-2 text-sm tabular-nums text-slate-800">
-                <PriceDisplay
-                  amountMinor={v.price_min_minor}
-                  currency={v.currency}
+          {sorted.map((v) => {
+            const cover = wellnessCover(v.type);
+            return (
+              <article
+                key={v.slug}
+                className="group flex flex-col overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-lg"
+              >
+                <CoverTile
+                  palette={cover.palette}
+                  kanji={cover.kanji}
+                  aspect="3/2"
+                  badge={WELLNESS_TYPE_LABEL[v.type]}
                 />
-                {v.price_max_minor > v.price_min_minor && (
-                  <>
-                    {" – "}
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="text-xs uppercase tracking-wide text-sumi-700">
+                    {v.neighborhood}
+                  </div>
+                  <h2 className="mt-1 font-display text-lg font-semibold text-sumi-900">
+                    {v.name}
+                  </h2>
+
+                  <div className="mt-2 text-sm tabular-nums text-sumi-900">
                     <PriceDisplay
-                      amountMinor={v.price_max_minor}
+                      amountMinor={v.price_min_minor}
                       currency={v.currency}
                     />
-                  </>
-                )}
-                <span className="ml-1 text-xs text-slate-500">
-                  / admission
-                </span>
-              </div>
+                    {v.price_max_minor > v.price_min_minor && (
+                      <>
+                        {" – "}
+                        <PriceDisplay
+                          amountMinor={v.price_max_minor}
+                          currency={v.currency}
+                        />
+                      </>
+                    )}
+                    <span className="ml-1 text-xs text-sumi-700">
+                      / admission
+                    </span>
+                  </div>
 
-              <div className="mt-2 text-xs text-slate-600">{v.hours}</div>
+                  <div className="mt-2 text-xs text-sumi-700">{v.hours}</div>
 
-              <p className="mt-3 text-xs text-amber-900">
-                <strong>Tattoos:</strong> {v.tattoo_policy}
-              </p>
+                  <p className="mt-3 rounded-lg bg-kintsugi-300/20 p-2 text-xs text-sumi-900">
+                    <strong>Tattoos:</strong> {v.tattoo_policy}
+                  </p>
 
-              <ul className="mt-3 space-y-1 text-sm text-slate-700">
-                {v.features.map((f, i) => (
-                  <li key={i}>· {f}</li>
-                ))}
-              </ul>
+                  <ul className="mt-3 space-y-1 text-sm text-sumi-700">
+                    {v.features.map((f, i) => (
+                      <li key={i}>· {f}</li>
+                    ))}
+                  </ul>
 
-              {v.url && (
-                <a
-                  href={v.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-block text-sm text-brand-600 underline"
-                >
-                  Website →
-                </a>
-              )}
-            </article>
-          ))}
+                  {v.url && (
+                    <a
+                      href={v.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-auto inline-block pt-3 text-sm font-semibold text-enji-600 hover:underline"
+                    >
+                      Website →
+                    </a>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </section>
       </CurrencyProvider>
     </main>

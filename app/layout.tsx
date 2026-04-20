@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { montserrat, notoSerifJp } from "./fonts";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { PreferencesProvider } from "@/lib/preferences/context";
 
@@ -22,31 +23,37 @@ export default async function RootLayout({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-slate-50 text-slate-900 antialiased">
+    <html lang="en" className={`${montserrat.variable} ${notoSerifJp.variable}`}>
+      <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">
         <PreferencesProvider rates={rates} defaultCurrency="JPY">
-          <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/80 backdrop-blur">
+          <header className="sticky top-0 z-30 border-b border-sumi-100/60 bg-washi-50/85 backdrop-blur">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-              <Link href="/" className="flex items-center gap-2">
-                <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-brand-500 to-fuchsia-500 text-white">
-                  <span aria-hidden>✈</span>
+              <Link href="/" className="flex items-center gap-3">
+                <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-enji-600 to-sumi-900 font-display text-lg font-bold text-white shadow-sm">
+                  旅
                 </span>
-                <span className="font-semibold tracking-tight">
+                <span className="font-display text-base font-semibold tracking-tight text-sumi-900">
                   Travel companion
                 </span>
               </Link>
-              <nav className="hidden gap-4 text-sm text-slate-600 sm:flex">
-                <Link href="/country/japan" className="hover:text-slate-900">
+              <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">
+                <Link
+                  href="/country/japan"
+                  className="transition hover:text-enji-600"
+                >
                   Japan
                 </Link>
-                <Link href="/city/tokyo" className="hover:text-slate-900">
+                <Link
+                  href="/city/tokyo"
+                  className="transition hover:text-enji-600"
+                >
                   Tokyo
                 </Link>
               </nav>
             </div>
           </header>
           <div className="min-h-[calc(100vh-64px)]">{children}</div>
-          <footer className="mt-16 border-t border-slate-200 bg-white py-8 text-center text-xs text-slate-500">
+          <footer className="mt-16 border-t border-sumi-100 bg-white py-8 text-center text-xs text-sumi-700">
             Seed data for the Tokyo pilot · rates live from Frankfurter ·{" "}
             <span className="whitespace-nowrap">Reviewed 2026-04</span>
           </footer>

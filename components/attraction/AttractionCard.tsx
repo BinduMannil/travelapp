@@ -39,7 +39,7 @@ export function AttractionCard({
     >
       <CoverTile
         palette={cover.palette}
-        icon={cover.icon}
+        kanji={cover.kanji}
         aspect="3/2"
         badge={attraction.neighborhood}
       />
