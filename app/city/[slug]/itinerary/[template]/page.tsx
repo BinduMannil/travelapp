@@ -185,7 +185,7 @@ export default async function ItineraryDetailPage({
       </section>
 
       <section className="mt-10 rounded-lg border border-dashed border-washi-200 bg-washi-100 p-5 text-sm text-sumi-700">
-        <strong className="text-sumi-900">Heads-up:</strong> reservations
+        <strong className="text-sumi-900">Heads-up:</strong> Reservations
         marked &ldquo;book ahead&rdquo; or &ldquo;T-30 days&rdquo; really do sell
         out that early. See{" "}
         <Link
