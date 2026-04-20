@@ -70,29 +70,117 @@ export default async function PaymentsPage({
       />
 
       <div className="mx-auto max-w-6xl px-6 py-12">
-      <section className="mt-0">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-          Acceptance by method
-        </h2>
-        <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-          {payments.methods.map((m) => (
-            <article
-              key={m.key}
-              className="rounded-md border border-washi-200 p-3"
-            >
-              <header className="flex items-baseline justify-between gap-2">
-                <div className="font-medium">{m.label}</div>
-                <span className="rounded bg-washi-100 px-2 py-0.5 text-xs text-sumi-800">
-                  {METHOD_ACCEPT_LABEL[m.accepted_level] ?? m.accepted_level}
+      {(() => {
+        // Group methods by acceptance tier so the page reads "what works
+        // everywhere" → "what works most places" → "what works only sometimes".
+        const ORDER: Array<keyof typeof TIER_META> = [
+          "ubiquitous",
+          "common",
+          "limited",
+          "rare",
+        ];
+        const TIER_META = {
+          ubiquitous: {
+            label: "Works everywhere",
+            sub: "Use without thinking.",
+            dots: 4,
+            accent: "matcha",
+          },
+          common: {
+            label: "Works most places",
+            sub: "Hotels, chains, department stores.",
+            dots: 3,
+            accent: "kintsugi",
+          },
+          limited: {
+            label: "Works some places",
+            sub: "Don't rely on it as your only option.",
+            dots: 2,
+            accent: "ume",
+          },
+          rare: {
+            label: "Rarely works",
+            sub: "Carry a backup.",
+            dots: 1,
+            accent: "enji",
+          },
+        } as const;
+
+        const grouped = new Map<string, typeof payments.methods>();
+        for (const m of payments.methods) {
+          const tier = (TIER_META[m.accepted_level as keyof typeof TIER_META]
+            ? m.accepted_level
+            : "common") as keyof typeof TIER_META;
+          const list = grouped.get(tier) ?? [];
+          list.push(m);
+          grouped.set(tier, list);
+        }
+        const carry = (grouped.get("ubiquitous") ?? [])
+          .map((m) => m.label.split(" (")[0])
+          .join(", ");
+
+        return (
+          <section>
+            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+              Acceptance by method
+            </h2>
+
+            {carry && (
+              <div className="mt-3 flex items-center gap-3 rounded-2xl border border-matcha-400/40 bg-matcha-100/70 p-4">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-display text-lg font-bold text-matcha-700 shadow-sm">
+                  ¥
                 </span>
-              </header>
-              {m.notes && (
-                <p className="mt-1 text-sm text-sumi-700">{m.notes}</p>
-              )}
-            </article>
-          ))}
-        </div>
-      </section>
+                <div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-matcha-700">
+                    What to carry
+                  </div>
+                  <div className="font-display text-sumi-900">{carry}</div>
+                </div>
+              </div>
+            )}
+
+            <div className="mt-5 space-y-7">
+              {ORDER.filter((tier) => grouped.has(tier)).map((tier) => {
+                const meta = TIER_META[tier];
+                return (
+                  <div key={tier}>
+                    <div className="flex items-baseline justify-between border-b border-washi-200 pb-2">
+                      <div>
+                        <div className="font-display text-base font-semibold text-sumi-900">
+                          {meta.label}
+                        </div>
+                        <div className="text-[11px] uppercase tracking-[0.2em] text-sumi-700">
+                          {meta.sub}
+                        </div>
+                      </div>
+                      <SignalDots filled={meta.dots} accent={meta.accent} />
+                    </div>
+
+                    <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                      {(grouped.get(tier) ?? []).map((m) => (
+                        <li
+                          key={m.key}
+                          className="flex items-start gap-3 rounded-xl border border-washi-200 bg-white p-3 transition hover:border-enji-300 hover:shadow-sm"
+                        >
+                          <BrandTile mkey={m.key} label={m.label} />
+                          <div className="min-w-0 flex-1">
+                            <div className="font-display text-sm font-semibold text-sumi-900">
+                              {m.label}
+                            </div>
+                            {m.notes && (
+                              <p className="mt-0.5 text-sumi-700">{m.notes}</p>
+                            )}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        );
+      })()}
 
       <section className="mt-10">
         <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
@@ -167,5 +255,60 @@ export default async function PaymentsPage({
       <AffiliateDisclosure />
       </div>
     </main>
+  );
+}
+
+const BRAND_META: Record<string, { mark: string; tint: string }> = {
+  cash_jpy:    { mark: "¥",  tint: "bg-kintsugi-300/30 text-kintsugi-600 ring-kintsugi-400/40" },
+  suica_ic:    { mark: "IC", tint: "bg-matcha-100 text-matcha-700 ring-matcha-400/40" },
+  visa:        { mark: "V",  tint: "bg-aizome-50 text-aizome-700 ring-aizome-200" },
+  mastercard:  { mark: "M",  tint: "bg-enji-50 text-enji-700 ring-enji-200" },
+  amex:        { mark: "A",  tint: "bg-aizome-50 text-aizome-700 ring-aizome-200" },
+  jcb:         { mark: "J",  tint: "bg-matcha-100 text-matcha-700 ring-matcha-400/40" },
+  apple_pay:   { mark: "", tint: "bg-sumi-100 text-sumi-900 ring-sumi-200" },
+  google_pay:  { mark: "G",  tint: "bg-washi-200 text-aizome-700 ring-washi-300" },
+  paypay:      { mark: "P",  tint: "bg-enji-50 text-enji-700 ring-enji-200" },
+  alipay:      { mark: "支", tint: "bg-enji-50 text-enji-700 ring-enji-200" },
+  wise:        { mark: "W",  tint: "bg-matcha-100 text-matcha-700 ring-matcha-400/40" },
+};
+
+function BrandTile({ mkey, label }: { mkey: string; label: string }) {
+  const meta = BRAND_META[mkey] ?? {
+    mark: label.slice(0, 1).toUpperCase(),
+    tint: "bg-washi-200 text-sumi-900 ring-washi-300",
+  };
+  return (
+    <span
+      aria-hidden
+      className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl font-display text-base font-bold ring-1 ${meta.tint}`}
+    >
+      {meta.mark}
+    </span>
+  );
+}
+
+const ACCENT_DOT: Record<string, string> = {
+  matcha: "bg-matcha-600",
+  kintsugi: "bg-kintsugi-500",
+  ume: "bg-enji-700",
+  enji: "bg-enji-600",
+};
+
+function SignalDots({ filled, accent }: { filled: number; accent: string }) {
+  const onClass = ACCENT_DOT[accent] ?? "bg-sumi-900";
+  return (
+    <span
+      aria-hidden
+      className="flex items-end gap-1"
+      title={`${filled} of 4`}
+    >
+      {[0, 1, 2, 3].map((i) => (
+        <span
+          key={i}
+          className={`block w-1.5 rounded-full ${i < filled ? onClass : "bg-washi-300"}`}
+          style={{ height: `${6 + i * 4}px` }}
+        />
+      ))}
+    </span>
   );
 }

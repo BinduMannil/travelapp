@@ -7,7 +7,7 @@ import { PreferencesProvider } from "@/lib/preferences/context";
 import { ConsentProvider } from "@/lib/consent/context";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { PreferencesTrigger } from "@/components/consent/PreferencesTrigger";
-import { LEGAL } from "@/lib/legal/constants";
+import { LEGAL, formatReviewedAt } from "@/lib/legal/constants";
 import { LanguagePicker } from "@/components/layout/LanguagePicker";
 
 export const metadata: Metadata = {
@@ -82,7 +82,7 @@ export default async function RootLayout({
                   <p className="mt-3 text-[10px]">
                     Seed data for the Tokyo pilot · rates live from Frankfurter ·{" "}
                     <span className="whitespace-nowrap">
-                      Reviewed {LEGAL.reviewedAt}
+                      Reviewed {formatReviewedAt()}
                     </span>
                   </p>
                 </div>

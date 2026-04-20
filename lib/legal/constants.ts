@@ -22,6 +22,21 @@ export const LEGAL = {
   // Governing law (UAE standard for an FZ-LLC is the free-zone courts or ADGM/DIFC common-law courts)
   governingLaw:
     "Laws of the United Arab Emirates, with exclusive jurisdiction in the courts of the Dubai International Financial Centre (DIFC).",
-  // Date last reviewed — update each time the docs change
+  // Date last reviewed — update each time the docs change. Stored ISO,
+  // surfaced via `formatReviewedAt` for human-readable rendering.
   reviewedAt: "2026-04-20",
 } as const;
+
+/**
+ * Render an ISO date as "20 April 2026". Falls back to the raw string
+ * if the date can't be parsed.
+ */
+export function formatReviewedAt(iso: string = LEGAL.reviewedAt): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  return d.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
