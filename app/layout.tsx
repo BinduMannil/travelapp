@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${playfairDisplay.variable} ${italianno.variable} ${notoSerifJp.variable}`}
+      className={`${montserrat.variable} ${fraunces.variable} ${italianno.variable} ${notoSerifJp.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">
