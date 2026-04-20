@@ -149,7 +149,7 @@ export default async function PaymentsPage({
                         <div className="font-display text-base font-semibold text-sumi-900">
                           {meta.label}
                         </div>
-                        <div className="text-[11px] uppercase tracking-[0.2em] text-sumi-700">
+                        <div className="mt-0.5 text-xs text-sumi-700">
                           {meta.sub}
                         </div>
                       </div>

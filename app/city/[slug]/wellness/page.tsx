@@ -146,9 +146,17 @@ export default async function WellnessPage({
                     <strong>Tattoos:</strong> {v.tattoo_policy}
                   </p>
 
-                  <ul className="mt-3 space-y-1 text-sm text-sumi-700">
+                  <ul className="mt-3 space-y-1.5 text-sm text-sumi-700">
                     {v.features.map((f, i) => (
-                      <li key={i}>· {f}</li>
+                      <li key={i} className="flex gap-2">
+                        <span
+                          aria-hidden
+                          className="mt-0.5 shrink-0 text-sumi-300"
+                        >
+                          ·
+                        </span>
+                        <span className="flex-1 leading-snug">{f}</span>
+                      </li>
                     ))}
                   </ul>
 

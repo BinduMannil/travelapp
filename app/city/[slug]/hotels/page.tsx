@@ -181,28 +181,25 @@ export default async function HotelsPage({
                   {h.notes && (
                     <p className="mt-2 text-sm text-sumi-700">{h.notes}</p>
                   )}
-                  <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
-                    {h.kid_friendly && (
-                      <span className="rounded-full bg-matcha-100 px-2 py-0.5 text-matcha-700">
-                        Kid-friendly
-                      </span>
-                    )}
-                    {h.wheelchair_accessible && (
-                      <span className="rounded-full bg-aizome-50 px-2 py-0.5 text-aizome-700">
-                        Wheelchair
-                      </span>
-                    )}
-                    {h.lgbtq_friendly && (
-                      <span className="rounded-full bg-sakura-100 px-2 py-0.5 text-enji-700">
-                        LGBTQ+ friendly
-                      </span>
-                    )}
-                  </div>
+                  {(h.kid_friendly || h.wheelchair_accessible) && (
+                    <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
+                      {h.kid_friendly && (
+                        <span className="rounded-full bg-matcha-100 px-2 py-0.5 text-matcha-700">
+                          Kid-friendly
+                        </span>
+                      )}
+                      {h.wheelchair_accessible && (
+                        <span className="rounded-full bg-aizome-50 px-2 py-0.5 text-aizome-700">
+                          Wheelchair
+                        </span>
+                      )}
+                    </div>
+                  )}
                   <AffiliateLink
                     href={h.booking_url}
                     partner="auto"
                     source={`hotel/${h.slug}`}
-                    className="mt-auto inline-block rounded-full border border-sumi-200 bg-white px-4 py-2 text-center text-sm font-semibold text-sumi-900 transition hover:bg-sumi-900 hover:text-white"
+                    className="mt-5 inline-block rounded-full border border-sumi-200 bg-white px-4 py-2.5 text-center text-sm font-semibold text-sumi-900 transition hover:bg-sumi-900 hover:text-white"
                   >
                     Book direct →
                   </AffiliateLink>
