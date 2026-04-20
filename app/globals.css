@@ -70,3 +70,24 @@ h6 {
 small {
   font-size: 0.75rem;
 }
+
+/* Global bullet treatment — hanging bullets aligned with the paragraph
+   left edge, wrapped lines indented under the item text. Applies to any
+   ul.list-disc (Tailwind utility) anywhere in the app so the rule stays
+   in one place. */
+ul.list-disc {
+  list-style: none;
+  padding-left: 0;
+}
+ul.list-disc > li {
+  position: relative;
+  padding-left: 1rem;
+}
+ul.list-disc > li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #787469; /* ≈ sumi-500 */
+  line-height: inherit;
+}
