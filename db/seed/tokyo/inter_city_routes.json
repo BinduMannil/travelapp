@@ -44,6 +44,13 @@
         "notes": "Tolls ¥10,000+, gas extra. Car is more hassle than help between these cities.",
         "booking_url": null
       }
+    ],
+    "kanji": "京",
+    "palette": "enji",
+    "hero_image_urls": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji_the_Golden_Pavilion_in_Kyoto.jpg",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Fushimi_Inari-taisha_shrine_Kyoto.jpg",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Arashiyama_bamboo_forest_Kyoto.jpg"
     ]
   },
   {
@@ -81,6 +88,12 @@
         "notes": "Peach/Jetstar fares can beat Shinkansen booked 2+ weeks out.",
         "booking_url": null
       }
+    ],
+    "kanji": "阪",
+    "palette": "kintsugi",
+    "hero_image_urls": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Osaka_Castle_02bs3200.jpg",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_Osaka_neon_at_night.jpg"
     ]
   },
   {
@@ -118,6 +131,12 @@
         "notes": "Reserved seats; good if trains are booked out.",
         "booking_url": "https://highway-buses.jp/"
       }
+    ],
+    "kanji": "箱",
+    "palette": "matcha",
+    "hero_image_urls": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Hakone_Lake_Ashi_with_Mt_Fuji.jpg",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Hakone_Shrine_torii.jpg"
     ]
   },
   {
@@ -145,6 +164,12 @@
         "notes": "Covered by JR Pass; slightly less convenient.",
         "booking_url": "https://smart-ex.jp/en/"
       }
+    ],
+    "kanji": "光",
+    "palette": "forest",
+    "hero_image_urls": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Toshogu_Shrine_Nikko.jpg",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kegon_Falls_Nikko.jpg"
     ]
   },
   {
@@ -172,6 +197,12 @@
         "notes": "Faster from the west side of Tokyo.",
         "booking_url": null
       }
+    ],
+    "kanji": "鎌",
+    "palette": "ume",
+    "hero_image_urls": [
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kamakura_Great_Buddha_Daibutsu.jpg",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Hasedera_temple_Kamakura.jpg"
     ]
   }
 ]

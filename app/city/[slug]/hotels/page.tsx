@@ -230,23 +230,30 @@ export default async function HotelsPage({
                     )}
                     <span className="ml-1 text-xs text-sumi-700">/ night</span>
                   </div>
-                  {h.notes && (
-                    <p className="mt-2 text-sm text-sumi-700">{h.notes}</p>
-                  )}
-                  {(h.kid_friendly || h.wheelchair_accessible) && (
-                    <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
-                      {h.kid_friendly && (
-                        <span className="rounded-full bg-matcha-100 px-2 py-0.5 text-matcha-700">
-                          Kid-friendly
-                        </span>
-                      )}
-                      {h.wheelchair_accessible && (
-                        <span className="rounded-full bg-aizome-50 px-2 py-0.5 text-aizome-700">
-                          Wheelchair
-                        </span>
-                      )}
-                    </div>
-                  )}
+                  {/* Body area — grows to fill so the Book button always
+                      pins to the card bottom across every card in the row. */}
+                  <div className="mt-2 flex-1">
+                    {h.notes && (
+                      <p className="text-sm leading-relaxed text-sumi-700">
+                        {h.notes}
+                      </p>
+                    )}
+                    {(h.kid_friendly || h.wheelchair_accessible) && (
+                      <div className="mt-3 flex flex-wrap gap-1 text-[10px]">
+                        {h.kid_friendly && (
+                          <span className="rounded-full bg-matcha-100 px-2 py-0.5 text-matcha-700">
+                            Kid-friendly
+                          </span>
+                        )}
+                        {h.wheelchair_accessible && (
+                          <span className="rounded-full bg-aizome-50 px-2 py-0.5 text-aizome-700">
+                            Wheelchair
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
                   <AffiliateLink
                     href={h.booking_url}
                     partner="auto"

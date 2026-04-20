@@ -185,6 +185,18 @@ export type InterCityRoute = {
   dest_slug: string;
   in_same_country: boolean;
   options: InterCityMode[];
+  kanji?: string;
+  palette?:
+    | "enji"
+    | "aizome"
+    | "sakura"
+    | "matcha"
+    | "kintsugi"
+    | "sumi"
+    | "ume"
+    | "ocean"
+    | "forest";
+  hero_image_urls?: string[];
 };
 
 const MUST_HAVE_APPS: Record<string, MustHaveApp[]> = {
