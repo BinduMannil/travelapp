@@ -32,17 +32,26 @@ const PALETTE_GRADIENT: Record<string, string> = {
   forest: "from-matcha-500 via-matcha-700 to-aizome-900",
 };
 
+/**
+ * Menu-style dark card with a circular food portrait on top, an optional
+ * TOP rank ribbon, and expand-on-tap for the full details. Photo rotates
+ * + scales on hover; card lifts; the kanji mark behind the photo drifts.
+ */
 export function DishCard({
   dish,
   countryName,
+  rank,
 }: {
   dish: Dish;
   countryName: string;
+  /** 1/2/3 for TOP ribbon; undefined for no ribbon. */
+  rank?: number;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [allFailed, setAllFailed] = useState(false);
   const kanji = KANJI_BY_SLUG[dish.slug] ?? "食";
-  const gradient = PALETTE_GRADIENT[dish.palette ?? "enji"] ?? PALETTE_GRADIENT.enji;
+  const gradient =
+    PALETTE_GRADIENT[dish.palette ?? "enji"] ?? PALETTE_GRADIENT.enji;
   const images = (dish.hero_image_urls ?? []).length > 0
     ? dish.hero_image_urls!
     : dish.hero_image_url
@@ -52,18 +61,20 @@ export function DishCard({
   return (
     <article
       id={dish.slug}
-      className="group overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-300 hover:shadow-lg"
+      className="group relative flex flex-col overflow-hidden rounded-2xl bg-sumi-900 pt-20 text-washi-50 shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
     >
-      <button
-        type="button"
-        onClick={() => setExpanded((v) => !v)}
-        aria-expanded={expanded}
-        aria-controls={`dish-body-${dish.slug}`}
-        className="flex w-full items-stretch gap-0 text-left"
+      {/* Faint kanji ghost in the background — drifts on hover */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-4 -top-4 select-none font-display text-[8rem] font-bold leading-none text-washi-50/[0.04] transition duration-700 group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:rotate-[-6deg] group-hover:text-washi-50/[0.08]"
       >
-        {/* Hero image (or kanji fallback) */}
+        {kanji}
+      </span>
+
+      {/* Circular photo — protrudes over the top of the card */}
+      <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-8">
         <div
-          className={`relative w-28 shrink-0 overflow-hidden bg-gradient-to-br sm:w-40 ${gradient}`}
+          className={`relative h-32 w-32 overflow-hidden rounded-full bg-gradient-to-br shadow-2xl ring-4 ring-sumi-900 transition duration-500 group-hover:rotate-[3deg] group-hover:scale-105 ${gradient}`}
         >
           {images.length > 0 && !allFailed ? (
             <ImageCarousel
@@ -73,96 +84,111 @@ export function DishCard({
               onAllFailed={() => setAllFailed(true)}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center font-display text-5xl font-bold text-white/90 drop-shadow sm:text-6xl">
+            <div className="absolute inset-0 flex items-center justify-center font-display text-5xl font-bold text-white/90 drop-shadow">
               {kanji}
             </div>
           )}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-          <div className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-sm text-white backdrop-blur-sm">
-            {kanji}
+        </div>
+      </div>
+
+      {/* TOP rank ribbon */}
+      {rank && rank <= 3 && (
+        <div className="absolute left-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-washi-50 text-sumi-900 shadow-lg ring-2 ring-sumi-900">
+          <div className="text-center leading-none">
+            <div className="text-[8px] font-bold uppercase tracking-[0.15em]">
+              Top
+            </div>
+            <div className="font-display text-lg font-bold">{rank}</div>
           </div>
         </div>
+      )}
 
-        {/* Header / always-visible summary */}
-        <div className="flex-1 p-4 sm:p-5">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <div>
-              <h2 className="font-display text-lg font-semibold text-sumi-900">
-                {dish.name}{" "}
-                <span className="font-display text-sumi-700">
-                  {dish.native_script}
-                </span>
-              </h2>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-sumi-700">
-                <em>{dish.romaji}</em>
-              </div>
-            </div>
-            <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-              {dish.originated_here && (
-                <span className="rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-900">
-                  Originated in {countryName}
-                </span>
-              )}
-              {dish.vegan_version && (
-                <span className="rounded-full bg-emerald-100 px-2 py-0.5 font-medium text-emerald-900">
-                  Vegan possible
-                </span>
-              )}
-            </div>
-          </div>
+      {/* Originated + vegan chips (top-right) */}
+      <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-1 text-[9px] uppercase tracking-[0.15em]">
+        {dish.originated_here && (
+          <span className="rounded-full bg-kintsugi-500/90 px-2 py-0.5 font-semibold text-sumi-900">
+            From {countryName}
+          </span>
+        )}
+        {dish.vegan_version && (
+          <span className="rounded-full bg-matcha-400/90 px-2 py-0.5 font-semibold text-sumi-900">
+            Vegan possible
+          </span>
+        )}
+      </div>
 
-          <p className="mt-2 line-clamp-2 text-sumi-800 sm:text-[0.9rem]">
-            {dish.made_of}
-          </p>
+      {/* Title block */}
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        aria-expanded={expanded}
+        aria-controls={`dish-body-${dish.slug}`}
+        className="relative z-[1] mt-12 flex flex-1 flex-col px-6 pb-5 text-center"
+      >
+        <div className="text-[11px] uppercase tracking-[0.3em] text-washi-50/70">
+          <em className="not-italic">{dish.romaji}</em>
+        </div>
+        <h2 className="mt-1 font-display text-xl font-bold uppercase tracking-tight text-washi-50">
+          {dish.name}
+        </h2>
+        {/* Script flourish — Italianno handwritten accent */}
+        <div className="mt-0.5 font-script text-2xl italic text-kintsugi-300">
+          {dish.native_script}
+        </div>
 
-          <div className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-enji-600">
-            <span>{expanded ? "Tap to collapse" : "Tap to see more"}</span>
-            <span
-              aria-hidden
-              className={`inline-block transition-transform duration-300 ${
-                expanded ? "rotate-180" : ""
-              }`}
-            >
-              ▾
-            </span>
-          </div>
+        <p className="mx-auto mt-4 max-w-xs text-[0.8rem] leading-relaxed text-washi-50/80">
+          {dish.made_of}
+        </p>
+
+        <div className="mt-5 inline-flex items-center justify-center gap-1 self-center rounded-full border border-washi-50/20 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-washi-50/80 transition group-hover:border-kintsugi-300 group-hover:text-kintsugi-300">
+          {expanded ? "Show less" : "Show more"}
+          <span
+            aria-hidden
+            className={`inline-block transition-transform duration-300 ${
+              expanded ? "rotate-180" : ""
+            }`}
+          >
+            ▾
+          </span>
         </div>
       </button>
 
       {/* Expandable body */}
       <div
         id={`dish-body-${dish.slug}`}
-        className={`grid transition-all duration-300 ease-out ${
+        className={`relative z-[1] grid transition-all duration-500 ease-out ${
           expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         }`}
       >
         <div className="min-h-0 overflow-hidden">
-          <div className="border-t border-washi-200 px-4 py-4 sm:px-5 sm:py-5">
+          <div className="border-t border-washi-50/10 px-6 py-5 text-left">
             <Row label="Origin">{dish.origin}</Row>
             {dish.similar_to.length > 0 && (
               <Row label="Similar to">{dish.similar_to.join(" · ")}</Row>
             )}
             <Row label="How to try it">{dish.must_try_form}</Row>
             {dish.vegan_version && dish.vegan_notes && (
-              <Row label="Vegan/vegetarian" accent="emerald">
+              <Row label="Vegan / vegetarian" accent="matcha">
                 {dish.vegan_notes}
               </Row>
             )}
 
             {dish.where_in_tokyo && dish.where_in_tokyo.length > 0 && (
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-                <span className="text-[11px] uppercase tracking-[0.2em] text-sumi-700">
+              <div className="mt-4">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-kintsugi-300">
                   Try in Tokyo
-                </span>
-                {dish.where_in_tokyo.map((r) => (
-                  <Link
-                    key={r}
-                    href={`/city/tokyo/restaurants/${r}`}
-                    className="rounded-full bg-brand-100 px-2.5 py-1 font-medium text-brand-800 transition hover:bg-brand-200"
-                  >
-                    {r.replace(/-/g, " ")} →
-                  </Link>
-                ))}
+                </div>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {dish.where_in_tokyo.map((r) => (
+                    <Link
+                      key={r}
+                      href={`/city/tokyo/restaurants/${r}`}
+                      className="rounded-full bg-washi-50/10 px-2.5 py-1 text-[11px] font-medium text-washi-50 transition hover:bg-kintsugi-500 hover:text-sumi-900"
+                    >
+                      {r.replace(/-/g, " ")} →
+                    </Link>
+                  ))}
+                </div>
               </div>
             )}
           </div>
@@ -179,20 +205,20 @@ function Row({
 }: {
   label: string;
   children: React.ReactNode;
-  accent?: "emerald";
+  accent?: "matcha";
 }) {
   const labelClass =
-    accent === "emerald" ? "text-emerald-700" : "text-sumi-700";
-  const bodyClass =
-    accent === "emerald" ? "text-emerald-900" : "text-sumi-900";
+    accent === "matcha" ? "text-matcha-400" : "text-kintsugi-300";
   return (
-    <div className="mt-2 first:mt-0">
-      <span
-        className={`mr-2 text-[11px] font-semibold uppercase tracking-[0.2em] ${labelClass}`}
+    <div className="mt-3 first:mt-0">
+      <div
+        className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${labelClass}`}
       >
         {label}
-      </span>
-      <span className={bodyClass}>{children}</span>
+      </div>
+      <div className="mt-1 text-sm leading-relaxed text-washi-50/85">
+        {children}
+      </div>
     </div>
   );
 }
