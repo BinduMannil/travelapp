@@ -12,12 +12,18 @@
       "name": "Thermae-Yu",
       "type": "urban_onsen",
       "neighborhood": "Shinjuku",
-      "price_min_minor": 285000,
-      "price_max_minor": 345000,
+      "price_min_minor": 2850,
+      "price_max_minor": 3450,
       "currency": "JPY",
       "hours": "11:00 – 09:00 (next day)",
       "tattoo_policy": "Small covered tattoos allowed; visible tattoos not permitted.",
-      "features": ["Natural hot-spring water piped in from Nakaizu", "Outdoor rotenburo baths", "Carbonated bath", "Silk bath", "Sauna + cold plunge"],
+      "features": [
+        "Natural hot-spring water piped in from Nakaizu",
+        "Outdoor rotenburo baths",
+        "Carbonated bath",
+        "Silk bath",
+        "Sauna + cold plunge"
+      ],
       "url": "https://thermae-yu.jp/en/",
       "display_order": 1
     },
@@ -26,12 +32,17 @@
       "name": "Spa LaQua (Tokyo Dome City)",
       "type": "urban_onsen",
       "neighborhood": "Bunkyo",
-      "price_min_minor": 299000,
-      "price_max_minor": 399000,
+      "price_min_minor": 2990,
+      "price_max_minor": 3990,
       "currency": "JPY",
       "hours": "11:00 – 09:00 (next day)",
       "tattoo_policy": "Tattoos not permitted.",
-      "features": ["Natural spring water from 1,700m below", "Rooftop outdoor bath", "Healing stone saunas", "Ladies-only relaxation lounge"],
+      "features": [
+        "Natural spring water from 1,700m below",
+        "Rooftop outdoor bath",
+        "Healing stone saunas",
+        "Ladies-only relaxation lounge"
+      ],
       "url": "https://www.laqua.jp/en/spa/",
       "display_order": 2
     },
@@ -40,12 +51,16 @@
       "name": "Niwa-no-Yu",
       "type": "urban_onsen",
       "neighborhood": "Toshima (Toshimaen)",
-      "price_min_minor": 237000,
-      "price_max_minor": 297000,
+      "price_min_minor": 2370,
+      "price_max_minor": 2970,
       "currency": "JPY",
       "hours": "10:00 – 23:00",
       "tattoo_policy": "Tattoos permitted if covered by the included bathing suit in the mixed garden area. No tattoos in the single-gender onsen zones.",
-      "features": ["Mixed-gender forest garden with bathing-suit-required pools", "Bathing-suit-free traditional onsen zones", "Outdoor natural hot-spring rotenburo"],
+      "features": [
+        "Mixed-gender forest garden with bathing-suit-required pools",
+        "Bathing-suit-free traditional onsen zones",
+        "Outdoor natural hot-spring rotenburo"
+      ],
       "url": "https://www.niwanoyu.jp/",
       "display_order": 3
     },
@@ -54,12 +69,16 @@
       "name": "Tokyo Toyosu Manyō Club · Senkyaku Banrai",
       "type": "urban_onsen",
       "neighborhood": "Toyosu",
-      "price_min_minor": 390000,
-      "price_max_minor": 490000,
+      "price_min_minor": 3900,
+      "price_max_minor": 4900,
       "currency": "JPY",
       "hours": "11:00 – 23:00",
       "tattoo_policy": "Tattoos not permitted.",
-      "features": ["Rooftop onsen overlooking Tokyo Bay", "Natural hot-spring water trucked in from Hakone and Yugawara", "Edo-themed food street on lower floors"],
+      "features": [
+        "Rooftop onsen overlooking Tokyo Bay",
+        "Natural hot-spring water trucked in from Hakone and Yugawara",
+        "Edo-themed food street on lower floors"
+      ],
       "url": "https://toyosu.manyo.co.jp/en/",
       "display_order": 4
     },
@@ -68,12 +87,16 @@
       "name": "Daikoku-yu (Senju)",
       "type": "sento",
       "neighborhood": "Adachi (north Tokyo)",
-      "price_min_minor": 55000,
-      "price_max_minor": 55000,
+      "price_min_minor": 550,
+      "price_max_minor": 550,
       "currency": "JPY",
       "hours": "15:00 – 00:45, closed Mon",
       "tattoo_policy": "Tattoos permitted.",
-      "features": ["Traditional working-class bathhouse dating to the 1920s", "Outdoor rotenburo and electric bath", "Muscle-relaxing jet baths"],
+      "features": [
+        "Traditional working-class bathhouse dating to the 1920s",
+        "Outdoor rotenburo and electric bath",
+        "Muscle-relaxing jet baths"
+      ],
       "url": null,
       "display_order": 5
     },
@@ -82,12 +105,16 @@
       "name": "Koganeyu",
       "type": "sento",
       "neighborhood": "Sumida (near Kinshicho)",
-      "price_min_minor": 55000,
-      "price_max_minor": 55000,
+      "price_min_minor": 550,
+      "price_max_minor": 550,
       "currency": "JPY",
       "hours": "13:00 – 00:30, closed Tue",
       "tattoo_policy": "Tattoos permitted.",
-      "features": ["Redesigned by Schemata Architects in 2020 — modern beams, cedar tubs", "Craft beer on tap in the lobby", "DJ nights some weekends"],
+      "features": [
+        "Redesigned by Schemata Architects in 2020 — modern beams, cedar tubs",
+        "Craft beer on tap in the lobby",
+        "DJ nights some weekends"
+      ],
       "url": "https://koganeyu.co/en/",
       "display_order": 6
     },
@@ -96,12 +123,16 @@
       "name": "OMOTESANDO SAKURA (head spa)",
       "type": "head_spa",
       "neighborhood": "Omotesando",
-      "price_min_minor": 900000,
-      "price_max_minor": 1800000,
+      "price_min_minor": 9000,
+      "price_max_minor": 18000,
       "currency": "JPY",
       "hours": "10:00 – 20:00",
       "tattoo_policy": "Not applicable (salon).",
-      "features": ["60-90 minute scalp + neck + shoulder treatment", "Micro-bubble scalp cleansing", "Popular with long-haul flight recovery"],
+      "features": [
+        "60-90 minute scalp + neck + shoulder treatment",
+        "Micro-bubble scalp cleansing",
+        "Popular with long-haul flight recovery"
+      ],
       "url": null,
       "display_order": 7
     },
@@ -110,12 +141,16 @@
       "name": "Rafina (shiatsu massage)",
       "type": "massage",
       "neighborhood": "Shinjuku",
-      "price_min_minor": 560000,
-      "price_max_minor": 1050000,
+      "price_min_minor": 5600,
+      "price_max_minor": 10500,
       "currency": "JPY",
       "hours": "11:00 – 23:00",
       "tattoo_policy": "Not applicable (clinic-style).",
-      "features": ["Clinic-style shiatsu; practitioners are licensed", "30/60/90-minute sessions", "Walk-ins accepted off-peak"],
+      "features": [
+        "Clinic-style shiatsu; practitioners are licensed",
+        "30/60/90-minute sessions",
+        "Walk-ins accepted off-peak"
+      ],
       "url": null,
       "display_order": 8
     },
@@ -124,12 +159,16 @@
       "name": "Hakone Yuryō (day trip option)",
       "type": "mountain_onsen",
       "neighborhood": "Hakone (~90 min from Tokyo)",
-      "price_min_minor": 150000,
-      "price_max_minor": 200000,
+      "price_min_minor": 1500,
+      "price_max_minor": 2000,
       "currency": "JPY",
       "hours": "10:00 – 22:00",
       "tattoo_policy": "Tattoos permitted (rare in traditional onsen — one reason to pick this).",
-      "features": ["Real mountain onsen surrounded by forest", "19 private outdoor baths bookable by the hour", "Shuttle bus from Hakone-Yumoto station"],
+      "features": [
+        "Real mountain onsen surrounded by forest",
+        "19 private outdoor baths bookable by the hour",
+        "Shuttle bus from Hakone-Yumoto station"
+      ],
       "url": "https://www.hakoneyuryo.jp/en/",
       "display_order": 9
     },
@@ -138,12 +177,16 @@
       "name": "Rokuryū Kōsen (Asakusa black-water sentō)",
       "type": "sento",
       "neighborhood": "Asakusa / Ueno",
-      "price_min_minor": 55000,
-      "price_max_minor": 55000,
+      "price_min_minor": 550,
+      "price_max_minor": 550,
       "currency": "JPY",
       "hours": "15:30 – 23:00, closed Mon",
       "tattoo_policy": "Tattoos permitted.",
-      "features": ["Kuroyu (black-water spring) — rich in humic acid, said to help aching joints", "Tiny, old-school local bathhouse", "Cash only"],
+      "features": [
+        "Kuroyu (black-water spring) — rich in humic acid, said to help aching joints",
+        "Tiny, old-school local bathhouse",
+        "Cash only"
+      ],
       "url": null,
       "display_order": 10
     }

@@ -1,14 +1,98 @@
 [
-  { "key": "coffee",          "label": "Coffee at a café",              "amount_minor": 50000,  "currency": "JPY", "display_order": 1,  "notes": "Specialty cafés in central Tokyo. Convenience-store coffee is ¥120-180." },
-  { "key": "water_bottle",    "label": "500ml water (konbini)",         "amount_minor": 11000,  "currency": "JPY", "display_order": 2,  "notes": "Tap water is safe to drink; refill stations are growing." },
-  { "key": "meal_casual",     "label": "Casual meal (ramen, gyudon)",   "amount_minor": 110000, "currency": "JPY", "display_order": 3,  "notes": "Typical chain or independent shop, no drink." },
-  { "key": "meal_mid",        "label": "Mid-range restaurant dinner",   "amount_minor": 350000, "currency": "JPY", "display_order": 4,  "notes": "Per person, one drink. Reservations often needed on weekends." },
-  { "key": "beer",            "label": "Beer at a pub/izakaya",         "amount_minor": 70000,  "currency": "JPY", "display_order": 5,  "notes": "½ pint / medium draft. Convenience-store cans: ¥220-350." },
-  { "key": "metro_ticket",    "label": "Metro single ride",             "amount_minor": 18000,  "currency": "JPY", "display_order": 6,  "notes": "Base fare; distance-based. Use Suica/Pasmo IC card to tap." },
-  { "key": "taxi_base",       "label": "Taxi base fare",                "amount_minor": 50000,  "currency": "JPY", "display_order": 7,  "notes": "First 1.096 km; then ¥100 per 255 m. Surcharge 22:00-05:00." },
-  { "key": "taxi_per_km",     "label": "Taxi per extra km",             "amount_minor": 39200,  "currency": "JPY", "display_order": 8,  "notes": "Approximate. Tolls not included." },
-  { "key": "sim_7d",          "label": "Tourist SIM / eSIM (7 days)",   "amount_minor": 180000, "currency": "JPY", "display_order": 9,  "notes": "Varies by provider; eSIM often cheaper than physical SIM." },
-  { "key": "sim_30d",         "label": "Tourist SIM / eSIM (30 days)",  "amount_minor": 350000, "currency": "JPY", "display_order": 10, "notes": "Unlimited data plans from Airalo, Holafly, Ubigi and local telcos." },
-  { "key": "coin_locker_day", "label": "Coin locker (medium, day)",     "amount_minor": 50000,  "currency": "JPY", "display_order": 11, "notes": "At major stations. Ecbo Cloak starts around ¥500 for a backpack." },
-  { "key": "museum_entry",    "label": "Museum entry (average)",        "amount_minor": 120000, "currency": "JPY", "display_order": 12, "notes": "Major museums; smaller galleries often free or ¥500-800." }
+  {
+    "key": "coffee",
+    "label": "Coffee at a café",
+    "amount_minor": 500,
+    "currency": "JPY",
+    "display_order": 1,
+    "notes": "Specialty cafés in central Tokyo. Convenience-store coffee is ¥120-180."
+  },
+  {
+    "key": "water_bottle",
+    "label": "500ml water (konbini)",
+    "amount_minor": 110,
+    "currency": "JPY",
+    "display_order": 2,
+    "notes": "Tap water is safe to drink; refill stations are growing."
+  },
+  {
+    "key": "meal_casual",
+    "label": "Casual meal (ramen, gyudon)",
+    "amount_minor": 1100,
+    "currency": "JPY",
+    "display_order": 3,
+    "notes": "Typical chain or independent shop, no drink."
+  },
+  {
+    "key": "meal_mid",
+    "label": "Mid-range restaurant dinner",
+    "amount_minor": 3500,
+    "currency": "JPY",
+    "display_order": 4,
+    "notes": "Per person, one drink. Reservations often needed on weekends."
+  },
+  {
+    "key": "beer",
+    "label": "Beer at a pub/izakaya",
+    "amount_minor": 700,
+    "currency": "JPY",
+    "display_order": 5,
+    "notes": "½ pint / medium draft. Convenience-store cans: ¥220-350."
+  },
+  {
+    "key": "metro_ticket",
+    "label": "Metro single ride",
+    "amount_minor": 180,
+    "currency": "JPY",
+    "display_order": 6,
+    "notes": "Base fare; distance-based. Use Suica/Pasmo IC card to tap."
+  },
+  {
+    "key": "taxi_base",
+    "label": "Taxi base fare",
+    "amount_minor": 500,
+    "currency": "JPY",
+    "display_order": 7,
+    "notes": "First 1.096 km; then ¥100 per 255 m. Surcharge 22:00-05:00."
+  },
+  {
+    "key": "taxi_per_km",
+    "label": "Taxi per extra km",
+    "amount_minor": 392,
+    "currency": "JPY",
+    "display_order": 8,
+    "notes": "Approximate. Tolls not included."
+  },
+  {
+    "key": "sim_7d",
+    "label": "Tourist SIM / eSIM (7 days)",
+    "amount_minor": 1800,
+    "currency": "JPY",
+    "display_order": 9,
+    "notes": "Varies by provider; eSIM often cheaper than physical SIM."
+  },
+  {
+    "key": "sim_30d",
+    "label": "Tourist SIM / eSIM (30 days)",
+    "amount_minor": 3500,
+    "currency": "JPY",
+    "display_order": 10,
+    "notes": "Unlimited data plans from Airalo, Holafly, Ubigi and local telcos."
+  },
+  {
+    "key": "coin_locker_day",
+    "label": "Coin locker (medium, day)",
+    "amount_minor": 500,
+    "currency": "JPY",
+    "display_order": 11,
+    "notes": "At major stations. Ecbo Cloak starts around ¥500 for a backpack."
+  },
+  {
+    "key": "museum_entry",
+    "label": "Museum entry (average)",
+    "amount_minor": 1200,
+    "currency": "JPY",
+    "display_order": 12,
+    "notes": "Major museums; smaller galleries often free or ¥500-800."
+  }
 ]

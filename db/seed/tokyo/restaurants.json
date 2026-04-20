@@ -3,16 +3,25 @@
     "slug": "sushi-dai",
     "name": "Sushi Dai",
     "neighborhood": "Toyosu",
-    "cuisine": ["sushi", "seafood"],
+    "cuisine": [
+      "sushi",
+      "seafood"
+    ],
     "price_band": "$$$",
-    "avg_price_per_person_minor": 580000,
+    "avg_price_per_person_minor": 5800,
     "currency": "JPY",
-    "signature_dishes": ["Chef's omakase set", "Uni gunkan", "Fatty tuna (otoro)"],
+    "signature_dishes": [
+      "Chef's omakase set",
+      "Uni gunkan",
+      "Fatty tuna (otoro)"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": null,
     "opening_hours": "05:30-13:30, closed Sun and market holidays",
-    "closed_days": ["sun"],
+    "closed_days": [
+      "sun"
+    ],
     "google_rating": 4.5,
     "google_review_count": 3800,
     "tabelog_score": 3.95,
@@ -29,11 +38,16 @@
     "slug": "ichiran-shibuya",
     "name": "Ichiran Shibuya",
     "neighborhood": "Shibuya",
-    "cuisine": ["ramen", "tonkotsu"],
+    "cuisine": [
+      "ramen",
+      "tonkotsu"
+    ],
     "price_band": "$",
-    "avg_price_per_person_minor": 135000,
+    "avg_price_per_person_minor": 1350,
     "currency": "JPY",
-    "signature_dishes": ["Tonkotsu ramen with kaedama (noodle refill)"],
+    "signature_dishes": [
+      "Tonkotsu ramen with kaedama (noodle refill)"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": null,
@@ -55,11 +69,17 @@
     "slug": "afuri-ebisu",
     "name": "AFURI Ebisu",
     "neighborhood": "Ebisu",
-    "cuisine": ["ramen", "shio"],
+    "cuisine": [
+      "ramen",
+      "shio"
+    ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 180000,
+    "avg_price_per_person_minor": 1800,
     "currency": "JPY",
-    "signature_dishes": ["Yuzu shio ramen", "Yuzu shio vegan ramen"],
+    "signature_dishes": [
+      "Yuzu shio ramen",
+      "Yuzu shio vegan ramen"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": null,
@@ -70,7 +90,9 @@
     "tabelog_score": 3.72,
     "michelin_stars": 0,
     "bib_gourmand": false,
-    "dietary": ["vegan"],
+    "dietary": [
+      "vegan"
+    ],
     "lgbtq_friendly": true,
     "kid_friendly": true,
     "wheelchair_accessible": true,
@@ -81,16 +103,24 @@
     "slug": "tsuta",
     "name": "Tsuta",
     "neighborhood": "Yoyogi-uehara",
-    "cuisine": ["ramen", "shoyu", "michelin"],
+    "cuisine": [
+      "ramen",
+      "shoyu",
+      "michelin"
+    ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 220000,
+    "avg_price_per_person_minor": 2200,
     "currency": "JPY",
-    "signature_dishes": ["Shoyu soba with black truffle oil"],
+    "signature_dishes": [
+      "Shoyu soba with black truffle oil"
+    ],
     "reservation_required": true,
     "reservations_lead_time_days": 0,
     "reservation_url": "https://www.tabelog.com/en/tokyo/A1318/A131811/13171068/",
     "opening_hours": "11:00-15:00 (lunch), 18:00-21:00 (dinner)",
-    "closed_days": ["wed"],
+    "closed_days": [
+      "wed"
+    ],
     "google_rating": 4.3,
     "google_review_count": 1900,
     "tabelog_score": 3.75,
@@ -107,19 +137,26 @@
     "slug": "sukiyabashi-jiro-roppongi",
     "name": "Sukiyabashi Jiro (Roppongi branch)",
     "neighborhood": "Roppongi Hills",
-    "cuisine": ["sushi", "edomae"],
+    "cuisine": [
+      "sushi",
+      "edomae"
+    ],
     "price_band": "$$$$$",
-    "avg_price_per_person_minor": 3500000,
+    "avg_price_per_person_minor": 35000,
     "currency": "JPY",
-    "signature_dishes": ["20-piece omakase lunch course"],
+    "signature_dishes": [
+      "20-piece omakase lunch course"
+    ],
     "reservation_required": true,
     "reservations_lead_time_days": 30,
     "reservation_url": "https://www.sushi-jiro.jp/english/",
     "opening_hours": "11:30-14:00, 17:00-20:30",
-    "closed_days": ["sun"],
+    "closed_days": [
+      "sun"
+    ],
     "google_rating": 4.6,
     "google_review_count": 280,
-    "tabelog_score": 4.20,
+    "tabelog_score": 4.2,
     "michelin_stars": 2,
     "bib_gourmand": false,
     "dietary": [],
@@ -133,16 +170,23 @@
     "slug": "tempura-kondo",
     "name": "Tempura Kondo",
     "neighborhood": "Ginza",
-    "cuisine": ["tempura", "michelin"],
+    "cuisine": [
+      "tempura",
+      "michelin"
+    ],
     "price_band": "$$$$",
-    "avg_price_per_person_minor": 1800000,
+    "avg_price_per_person_minor": 18000,
     "currency": "JPY",
-    "signature_dishes": ["Tsukasa set — seasonal vegetables then seafood"],
+    "signature_dishes": [
+      "Tsukasa set — seasonal vegetables then seafood"
+    ],
     "reservation_required": true,
     "reservations_lead_time_days": 30,
     "reservation_url": "https://www.tempura-kondo.com/",
     "opening_hours": "12:00-15:00, 17:00-20:30",
-    "closed_days": ["sun"],
+    "closed_days": [
+      "sun"
+    ],
     "google_rating": 4.5,
     "google_review_count": 480,
     "tabelog_score": 4.15,
@@ -159,11 +203,18 @@
     "slug": "ts-tantan-tokyo-station",
     "name": "T's Tantan (Tokyo Station)",
     "neighborhood": "Marunouchi",
-    "cuisine": ["ramen", "vegan", "tantanmen"],
+    "cuisine": [
+      "ramen",
+      "vegan",
+      "tantanmen"
+    ],
     "price_band": "$",
-    "avg_price_per_person_minor": 130000,
+    "avg_price_per_person_minor": 1300,
     "currency": "JPY",
-    "signature_dishes": ["Hakutantan (white sesame vegan tantanmen)", "Kuro (black sesame)"],
+    "signature_dishes": [
+      "Hakutantan (white sesame vegan tantanmen)",
+      "Kuro (black sesame)"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": null,
@@ -171,10 +222,13 @@
     "closed_days": [],
     "google_rating": 4.3,
     "google_review_count": 3400,
-    "tabelog_score": 3.60,
+    "tabelog_score": 3.6,
     "michelin_stars": 0,
     "bib_gourmand": false,
-    "dietary": ["vegan", "vegetarian"],
+    "dietary": [
+      "vegan",
+      "vegetarian"
+    ],
     "lgbtq_friendly": true,
     "kid_friendly": true,
     "wheelchair_accessible": true,
@@ -185,22 +239,34 @@
     "slug": "narisawa",
     "name": "NARISAWA",
     "neighborhood": "Minami-Aoyama",
-    "cuisine": ["kaiseki", "innovative", "michelin"],
+    "cuisine": [
+      "kaiseki",
+      "innovative",
+      "michelin"
+    ],
     "price_band": "$$$$$",
-    "avg_price_per_person_minor": 4500000,
+    "avg_price_per_person_minor": 45000,
     "currency": "JPY",
-    "signature_dishes": ["Bread of the forest", "Soup of the soil"],
+    "signature_dishes": [
+      "Bread of the forest",
+      "Soup of the soil"
+    ],
     "reservation_required": true,
     "reservations_lead_time_days": 90,
     "reservation_url": "https://www.narisawa-yoshihiro.com/en/reservations.html",
     "opening_hours": "12:00-15:00, 18:30-23:00",
-    "closed_days": ["sun", "mon"],
+    "closed_days": [
+      "sun",
+      "mon"
+    ],
     "google_rating": 4.6,
     "google_review_count": 520,
     "tabelog_score": 4.25,
     "michelin_stars": 2,
     "bib_gourmand": false,
-    "dietary": ["vegetarian_on_request"],
+    "dietary": [
+      "vegetarian_on_request"
+    ],
     "lgbtq_friendly": true,
     "kid_friendly": false,
     "wheelchair_accessible": true,
@@ -211,11 +277,17 @@
     "slug": "gonpachi-nishi-azabu",
     "name": "Gonpachi Nishi-Azabu (The 'Kill Bill' restaurant)",
     "neighborhood": "Nishi-Azabu",
-    "cuisine": ["izakaya", "japanese"],
+    "cuisine": [
+      "izakaya",
+      "japanese"
+    ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 600000,
+    "avg_price_per_person_minor": 6000,
     "currency": "JPY",
-    "signature_dishes": ["Handmade soba", "Grilled yakitori platter"],
+    "signature_dishes": [
+      "Handmade soba",
+      "Grilled yakitori platter"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": "https://gonpachi.jp/nishi-azabu/en/",
@@ -223,10 +295,12 @@
     "closed_days": [],
     "google_rating": 4.0,
     "google_review_count": 9800,
-    "tabelog_score": 3.40,
+    "tabelog_score": 3.4,
     "michelin_stars": 0,
     "bib_gourmand": false,
-    "dietary": ["vegetarian_options"],
+    "dietary": [
+      "vegetarian_options"
+    ],
     "lgbtq_friendly": true,
     "kid_friendly": true,
     "wheelchair_accessible": false,
@@ -237,11 +311,18 @@
     "slug": "ain-soph-journey",
     "name": "Ain Soph. Journey Shinjuku",
     "neighborhood": "Shinjuku",
-    "cuisine": ["vegan", "cafe", "brunch"],
+    "cuisine": [
+      "vegan",
+      "cafe",
+      "brunch"
+    ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 250000,
+    "avg_price_per_person_minor": 2500,
     "currency": "JPY",
-    "signature_dishes": ["Heavenly fluffy pancakes", "Dashi mushroom cheeseburger"],
+    "signature_dishes": [
+      "Heavenly fluffy pancakes",
+      "Dashi mushroom cheeseburger"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": "https://ain-soph.jp/journey-shinjuku/",
@@ -252,7 +333,11 @@
     "tabelog_score": 3.52,
     "michelin_stars": 0,
     "bib_gourmand": false,
-    "dietary": ["vegan", "vegetarian", "gluten_free"],
+    "dietary": [
+      "vegan",
+      "vegetarian",
+      "gluten_free"
+    ],
     "lgbtq_friendly": true,
     "kid_friendly": true,
     "wheelchair_accessible": true,
@@ -263,11 +348,17 @@
     "slug": "tonkatsu-maisen-aoyama",
     "name": "Tonkatsu Maisen Aoyama Main Branch",
     "neighborhood": "Omotesando",
-    "cuisine": ["tonkatsu", "japanese"],
+    "cuisine": [
+      "tonkatsu",
+      "japanese"
+    ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 280000,
+    "avg_price_per_person_minor": 2800,
     "currency": "JPY",
-    "signature_dishes": ["Kurobuta pork loin katsu", "Premium rosu set"],
+    "signature_dishes": [
+      "Kurobuta pork loin katsu",
+      "Premium rosu set"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": null,
@@ -289,11 +380,17 @@
     "slug": "coco-ichibanya-shinjuku",
     "name": "CoCo Ichibanya (Shinjuku)",
     "neighborhood": "Shinjuku",
-    "cuisine": ["curry", "japanese"],
+    "cuisine": [
+      "curry",
+      "japanese"
+    ],
     "price_band": "$",
-    "avg_price_per_person_minor": 120000,
+    "avg_price_per_person_minor": 1200,
     "currency": "JPY",
-    "signature_dishes": ["Pork cutlet curry", "Vegetable curry"],
+    "signature_dishes": [
+      "Pork cutlet curry",
+      "Vegetable curry"
+    ],
     "reservation_required": false,
     "reservations_lead_time_days": 0,
     "reservation_url": null,
@@ -301,10 +398,12 @@
     "closed_days": [],
     "google_rating": 3.9,
     "google_review_count": 1300,
-    "tabelog_score": 3.10,
+    "tabelog_score": 3.1,
     "michelin_stars": 0,
     "bib_gourmand": false,
-    "dietary": ["vegetarian"],
+    "dietary": [
+      "vegetarian"
+    ],
     "lgbtq_friendly": true,
     "kid_friendly": true,
     "wheelchair_accessible": true,

@@ -4,10 +4,23 @@
     "name": "Sensō-ji Temple",
     "neighborhood": "Asakusa",
     "category": "religious",
-    "significance": ["religious", "historic", "cultural"],
+    "significance": [
+      "religious",
+      "historic",
+      "cultural"
+    ],
     "importance": 5,
-    "tags": ["temple", "lanterns", "iconic", "nakamise"],
-    "trip_type_slugs": ["cultural", "family", "budget"],
+    "tags": [
+      "temple",
+      "lanterns",
+      "iconic",
+      "nakamise"
+    ],
+    "trip_type_slugs": [
+      "cultural",
+      "family",
+      "budget"
+    ],
     "cost_adult_minor": 0,
     "cost_child_minor": 0,
     "currency": "JPY",
@@ -39,10 +52,24 @@
     "name": "Meiji Jingū",
     "neighborhood": "Harajuku",
     "category": "religious",
-    "significance": ["religious", "historic", "nature"],
+    "significance": [
+      "religious",
+      "historic",
+      "nature"
+    ],
     "importance": 5,
-    "tags": ["shrine", "forest", "torii", "shinto"],
-    "trip_type_slugs": ["cultural", "solo", "couple", "family"],
+    "tags": [
+      "shrine",
+      "forest",
+      "torii",
+      "shinto"
+    ],
+    "trip_type_slugs": [
+      "cultural",
+      "solo",
+      "couple",
+      "family"
+    ],
     "cost_adult_minor": 0,
     "cost_child_minor": 0,
     "currency": "JPY",
@@ -71,12 +98,23 @@
     "name": "Tokyo Skytree",
     "neighborhood": "Sumida",
     "category": "landmark",
-    "significance": ["architectural", "scenic"],
+    "significance": [
+      "architectural",
+      "scenic"
+    ],
     "importance": 4,
-    "tags": ["observation", "skyline", "mt-fuji"],
-    "trip_type_slugs": ["family", "couple", "solo"],
-    "cost_adult_minor": 240000,
-    "cost_child_minor": 100000,
+    "tags": [
+      "observation",
+      "skyline",
+      "mt-fuji"
+    ],
+    "trip_type_slugs": [
+      "family",
+      "couple",
+      "solo"
+    ],
+    "cost_adult_minor": 2400,
+    "cost_child_minor": 1000,
     "currency": "JPY",
     "duration_minutes": 90,
     "indoor": true,
@@ -106,10 +144,22 @@
     "name": "Shibuya Scramble Crossing",
     "neighborhood": "Shibuya",
     "category": "landmark",
-    "significance": ["cultural", "scenic"],
+    "significance": [
+      "cultural",
+      "scenic"
+    ],
     "importance": 4,
-    "tags": ["iconic", "photo-op", "nightlife"],
-    "trip_type_slugs": ["solo", "couple", "family", "budget"],
+    "tags": [
+      "iconic",
+      "photo-op",
+      "nightlife"
+    ],
+    "trip_type_slugs": [
+      "solo",
+      "couple",
+      "family",
+      "budget"
+    ],
     "cost_adult_minor": 0,
     "cost_child_minor": 0,
     "currency": "JPY",
@@ -138,12 +188,26 @@
     "name": "teamLab Planets Tokyo",
     "neighborhood": "Toyosu",
     "category": "art",
-    "significance": ["activity", "cultural", "architectural"],
+    "significance": [
+      "activity",
+      "cultural",
+      "architectural"
+    ],
     "importance": 4,
-    "tags": ["digital-art", "immersive", "instagram", "barefoot"],
-    "trip_type_slugs": ["family", "couple", "solo", "cultural"],
-    "cost_adult_minor": 380000,
-    "cost_child_minor": 130000,
+    "tags": [
+      "digital-art",
+      "immersive",
+      "instagram",
+      "barefoot"
+    ],
+    "trip_type_slugs": [
+      "family",
+      "couple",
+      "solo",
+      "cultural"
+    ],
+    "cost_adult_minor": 3800,
+    "cost_child_minor": 1300,
     "currency": "JPY",
     "duration_minutes": 75,
     "indoor": true,
@@ -173,10 +237,23 @@
     "name": "Tsukiji Outer Market",
     "neighborhood": "Tsukiji",
     "category": "food",
-    "significance": ["culinary", "cultural"],
+    "significance": [
+      "culinary",
+      "cultural"
+    ],
     "importance": 4,
-    "tags": ["sushi", "street-food", "foodie", "breakfast"],
-    "trip_type_slugs": ["food", "cultural", "solo", "couple"],
+    "tags": [
+      "sushi",
+      "street-food",
+      "foodie",
+      "breakfast"
+    ],
+    "trip_type_slugs": [
+      "food",
+      "cultural",
+      "solo",
+      "couple"
+    ],
     "cost_adult_minor": 0,
     "cost_child_minor": 0,
     "currency": "JPY",
@@ -207,12 +284,25 @@
     "name": "Shinjuku Gyoen National Garden",
     "neighborhood": "Shinjuku",
     "category": "park",
-    "significance": ["nature", "scenic"],
+    "significance": [
+      "nature",
+      "scenic"
+    ],
     "importance": 4,
-    "tags": ["garden", "sakura", "picnic", "greenhouse"],
-    "trip_type_slugs": ["couple", "solo", "family", "cultural"],
-    "cost_adult_minor": 50000,
-    "cost_child_minor": 25000,
+    "tags": [
+      "garden",
+      "sakura",
+      "picnic",
+      "greenhouse"
+    ],
+    "trip_type_slugs": [
+      "couple",
+      "solo",
+      "family",
+      "cultural"
+    ],
+    "cost_adult_minor": 500,
+    "cost_child_minor": 250,
     "currency": "JPY",
     "duration_minutes": 90,
     "indoor": false,
@@ -239,12 +329,24 @@
     "name": "Ghibli Museum",
     "neighborhood": "Mitaka",
     "category": "museum",
-    "significance": ["cultural", "architectural"],
+    "significance": [
+      "cultural",
+      "architectural"
+    ],
     "importance": 5,
-    "tags": ["animation", "family", "ghibli", "timed-entry"],
-    "trip_type_slugs": ["family", "cultural", "couple"],
-    "cost_adult_minor": 100000,
-    "cost_child_minor": 70000,
+    "tags": [
+      "animation",
+      "family",
+      "ghibli",
+      "timed-entry"
+    ],
+    "trip_type_slugs": [
+      "family",
+      "cultural",
+      "couple"
+    ],
+    "cost_adult_minor": 1000,
+    "cost_child_minor": 700,
     "currency": "JPY",
     "duration_minutes": 150,
     "indoor": true,
@@ -273,11 +375,22 @@
     "name": "Tokyo National Museum",
     "neighborhood": "Ueno",
     "category": "museum",
-    "significance": ["cultural", "historic"],
+    "significance": [
+      "cultural",
+      "historic"
+    ],
     "importance": 4,
-    "tags": ["art", "samurai", "buddhist-sculpture"],
-    "trip_type_slugs": ["cultural", "solo", "couple"],
-    "cost_adult_minor": 100000,
+    "tags": [
+      "art",
+      "samurai",
+      "buddhist-sculpture"
+    ],
+    "trip_type_slugs": [
+      "cultural",
+      "solo",
+      "couple"
+    ],
+    "cost_adult_minor": 1000,
     "cost_child_minor": 0,
     "currency": "JPY",
     "duration_minutes": 180,
@@ -305,12 +418,27 @@
     "name": "Mt. Takao",
     "neighborhood": "Hachioji",
     "category": "nature",
-    "significance": ["nature", "activity", "scenic"],
+    "significance": [
+      "nature",
+      "activity",
+      "scenic"
+    ],
     "importance": 3,
-    "tags": ["hiking", "day-trip", "cable-car", "waterfall"],
-    "trip_type_slugs": ["adventure", "family", "solo", "couple", "budget"],
-    "cost_adult_minor": 50000,
-    "cost_child_minor": 25000,
+    "tags": [
+      "hiking",
+      "day-trip",
+      "cable-car",
+      "waterfall"
+    ],
+    "trip_type_slugs": [
+      "adventure",
+      "family",
+      "solo",
+      "couple",
+      "budget"
+    ],
+    "cost_adult_minor": 500,
+    "cost_child_minor": 250,
     "currency": "JPY",
     "duration_minutes": 300,
     "indoor": false,
@@ -337,10 +465,22 @@
     "name": "Akihabara Electric Town",
     "neighborhood": "Akihabara",
     "category": "district",
-    "significance": ["cultural", "shopping"],
+    "significance": [
+      "cultural",
+      "shopping"
+    ],
     "importance": 3,
-    "tags": ["anime", "electronics", "retro-games", "nightlife"],
-    "trip_type_slugs": ["cultural", "solo", "budget"],
+    "tags": [
+      "anime",
+      "electronics",
+      "retro-games",
+      "nightlife"
+    ],
+    "trip_type_slugs": [
+      "cultural",
+      "solo",
+      "budget"
+    ],
     "cost_adult_minor": 0,
     "cost_child_minor": 0,
     "currency": "JPY",
@@ -371,10 +511,23 @@
     "name": "Odaiba Waterfront",
     "neighborhood": "Minato",
     "category": "district",
-    "significance": ["scenic", "activity", "architectural"],
+    "significance": [
+      "scenic",
+      "activity",
+      "architectural"
+    ],
     "importance": 3,
-    "tags": ["bay-view", "rainbow-bridge", "family", "shopping"],
-    "trip_type_slugs": ["family", "couple", "budget"],
+    "tags": [
+      "bay-view",
+      "rainbow-bridge",
+      "family",
+      "shopping"
+    ],
+    "trip_type_slugs": [
+      "family",
+      "couple",
+      "budget"
+    ],
     "cost_adult_minor": 0,
     "cost_child_minor": 0,
     "currency": "JPY",

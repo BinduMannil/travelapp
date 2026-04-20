@@ -4,10 +4,46 @@
     "dest_slug": "kyoto",
     "in_same_country": true,
     "options": [
-      { "mode": "shinkansen",    "name": "Nozomi / Hikari / Kodama (Tokaido Shinkansen)", "duration_minutes": 140, "price_min_minor": 1440000, "price_max_minor": 1480000, "currency": "JPY", "notes": "Every 5-10 minutes. JR Pass covers Hikari/Kodama but not Nozomi.", "booking_url": "https://smart-ex.jp/en/" },
-      { "mode": "highway_bus",   "name": "Overnight highway bus (Willer, JR Bus)",        "duration_minutes": 480, "price_min_minor":  500000, "price_max_minor":  900000, "currency": "JPY", "notes": "Cheapest option; arrives Kyoto morning. Less comfortable for tall travelers.", "booking_url": "https://willerexpress.com/en/" },
-      { "mode": "domestic_flight","name": "Haneda ↔ Itami (Osaka) + 1h transfer to Kyoto", "duration_minutes": 210, "price_min_minor":  800000, "price_max_minor": 2000000, "currency": "JPY", "notes": "Rarely worth it once transfers are counted. Useful only with cheap LCC deals.", "booking_url": null },
-      { "mode": "rental_car",    "name": "Expressway drive",                              "duration_minutes": 360, "price_min_minor":  600000, "price_max_minor":  900000, "currency": "JPY", "notes": "Tolls ¥10,000+, gas extra. Car is more hassle than help between these cities.", "booking_url": null }
+      {
+        "mode": "shinkansen",
+        "name": "Nozomi / Hikari / Kodama (Tokaido Shinkansen)",
+        "duration_minutes": 140,
+        "price_min_minor": 14400,
+        "price_max_minor": 14800,
+        "currency": "JPY",
+        "notes": "Every 5-10 minutes. JR Pass covers Hikari/Kodama but not Nozomi.",
+        "booking_url": "https://smart-ex.jp/en/"
+      },
+      {
+        "mode": "highway_bus",
+        "name": "Overnight highway bus (Willer, JR Bus)",
+        "duration_minutes": 480,
+        "price_min_minor": 5000,
+        "price_max_minor": 9000,
+        "currency": "JPY",
+        "notes": "Cheapest option; arrives Kyoto morning. Less comfortable for tall travelers.",
+        "booking_url": "https://willerexpress.com/en/"
+      },
+      {
+        "mode": "domestic_flight",
+        "name": "Haneda ↔ Itami (Osaka) + 1h transfer to Kyoto",
+        "duration_minutes": 210,
+        "price_min_minor": 8000,
+        "price_max_minor": 20000,
+        "currency": "JPY",
+        "notes": "Rarely worth it once transfers are counted. Useful only with cheap LCC deals.",
+        "booking_url": null
+      },
+      {
+        "mode": "rental_car",
+        "name": "Expressway drive",
+        "duration_minutes": 360,
+        "price_min_minor": 6000,
+        "price_max_minor": 9000,
+        "currency": "JPY",
+        "notes": "Tolls ¥10,000+, gas extra. Car is more hassle than help between these cities.",
+        "booking_url": null
+      }
     ]
   },
   {
@@ -15,9 +51,36 @@
     "dest_slug": "osaka",
     "in_same_country": true,
     "options": [
-      { "mode": "shinkansen",    "name": "Nozomi / Hikari (Tokaido Shinkansen)",          "duration_minutes": 165, "price_min_minor": 1520000, "price_max_minor": 1520000, "currency": "JPY", "notes": "Tokyo ↔ Shin-Osaka direct.", "booking_url": "https://smart-ex.jp/en/" },
-      { "mode": "highway_bus",   "name": "Overnight bus",                                 "duration_minutes": 510, "price_min_minor":  550000, "price_max_minor":  950000, "currency": "JPY", "notes": "Arrives Osaka ~06:30.", "booking_url": "https://willerexpress.com/en/" },
-      { "mode": "domestic_flight","name": "Haneda ↔ Itami / Kansai",                      "duration_minutes": 160, "price_min_minor":  700000, "price_max_minor": 2500000, "currency": "JPY", "notes": "Peach/Jetstar fares can beat Shinkansen booked 2+ weeks out.", "booking_url": null }
+      {
+        "mode": "shinkansen",
+        "name": "Nozomi / Hikari (Tokaido Shinkansen)",
+        "duration_minutes": 165,
+        "price_min_minor": 15200,
+        "price_max_minor": 15200,
+        "currency": "JPY",
+        "notes": "Tokyo ↔ Shin-Osaka direct.",
+        "booking_url": "https://smart-ex.jp/en/"
+      },
+      {
+        "mode": "highway_bus",
+        "name": "Overnight bus",
+        "duration_minutes": 510,
+        "price_min_minor": 5500,
+        "price_max_minor": 9500,
+        "currency": "JPY",
+        "notes": "Arrives Osaka ~06:30.",
+        "booking_url": "https://willerexpress.com/en/"
+      },
+      {
+        "mode": "domestic_flight",
+        "name": "Haneda ↔ Itami / Kansai",
+        "duration_minutes": 160,
+        "price_min_minor": 7000,
+        "price_max_minor": 25000,
+        "currency": "JPY",
+        "notes": "Peach/Jetstar fares can beat Shinkansen booked 2+ weeks out.",
+        "booking_url": null
+      }
     ]
   },
   {
@@ -25,9 +88,36 @@
     "dest_slug": "hakone",
     "in_same_country": true,
     "options": [
-      { "mode": "limited_express","name": "Odakyu Romancecar (Shinjuku → Hakone-Yumoto)", "duration_minutes": 85,  "price_min_minor":  232000, "price_max_minor":  232000, "currency": "JPY", "notes": "Pair with Hakone Free Pass (2-day ¥6,100) for unlimited local transport + discounts.", "booking_url": "https://www.odakyu.jp/english/romancecar/" },
-      { "mode": "shinkansen",    "name": "Shinkansen to Odawara + local transfer",        "duration_minutes": 70,  "price_min_minor":  374000, "price_max_minor":  374000, "currency": "JPY", "notes": "Fastest but not the scenic route.", "booking_url": "https://smart-ex.jp/en/" },
-      { "mode": "highway_bus",   "name": "Direct bus from Shinjuku",                      "duration_minutes": 150, "price_min_minor":  210000, "price_max_minor":  220000, "currency": "JPY", "notes": "Reserved seats; good if trains are booked out.", "booking_url": "https://highway-buses.jp/" }
+      {
+        "mode": "limited_express",
+        "name": "Odakyu Romancecar (Shinjuku → Hakone-Yumoto)",
+        "duration_minutes": 85,
+        "price_min_minor": 2320,
+        "price_max_minor": 2320,
+        "currency": "JPY",
+        "notes": "Pair with Hakone Free Pass (2-day ¥6,100) for unlimited local transport + discounts.",
+        "booking_url": "https://www.odakyu.jp/english/romancecar/"
+      },
+      {
+        "mode": "shinkansen",
+        "name": "Shinkansen to Odawara + local transfer",
+        "duration_minutes": 70,
+        "price_min_minor": 3740,
+        "price_max_minor": 3740,
+        "currency": "JPY",
+        "notes": "Fastest but not the scenic route.",
+        "booking_url": "https://smart-ex.jp/en/"
+      },
+      {
+        "mode": "highway_bus",
+        "name": "Direct bus from Shinjuku",
+        "duration_minutes": 150,
+        "price_min_minor": 2100,
+        "price_max_minor": 2200,
+        "currency": "JPY",
+        "notes": "Reserved seats; good if trains are booked out.",
+        "booking_url": "https://highway-buses.jp/"
+      }
     ]
   },
   {
@@ -35,8 +125,26 @@
     "dest_slug": "nikko",
     "in_same_country": true,
     "options": [
-      { "mode": "limited_express","name": "Tobu SPACIA Nikko (Asakusa → Tobu-Nikko)",     "duration_minutes": 115, "price_min_minor":  306000, "price_max_minor":  306000, "currency": "JPY", "notes": "Nikko Pass (Tobu) includes local transit and some attraction discounts.", "booking_url": "https://www.tobu.co.jp/en/tcn/" },
-      { "mode": "shinkansen",    "name": "JR Shinkansen to Utsunomiya + local JR transfer","duration_minutes": 110, "price_min_minor":  509000, "price_max_minor":  509000, "currency": "JPY", "notes": "Covered by JR Pass; slightly less convenient.", "booking_url": "https://smart-ex.jp/en/" }
+      {
+        "mode": "limited_express",
+        "name": "Tobu SPACIA Nikko (Asakusa → Tobu-Nikko)",
+        "duration_minutes": 115,
+        "price_min_minor": 3060,
+        "price_max_minor": 3060,
+        "currency": "JPY",
+        "notes": "Nikko Pass (Tobu) includes local transit and some attraction discounts.",
+        "booking_url": "https://www.tobu.co.jp/en/tcn/"
+      },
+      {
+        "mode": "shinkansen",
+        "name": "JR Shinkansen to Utsunomiya + local JR transfer",
+        "duration_minutes": 110,
+        "price_min_minor": 5090,
+        "price_max_minor": 5090,
+        "currency": "JPY",
+        "notes": "Covered by JR Pass; slightly less convenient.",
+        "booking_url": "https://smart-ex.jp/en/"
+      }
     ]
   },
   {
@@ -44,8 +152,26 @@
     "dest_slug": "kamakura",
     "in_same_country": true,
     "options": [
-      { "mode": "jr",            "name": "JR Yokosuka line (Tokyo → Kamakura)",           "duration_minutes": 60,  "price_min_minor":   94000, "price_max_minor":   94000, "currency": "JPY", "notes": "Direct; no reservations needed.", "booking_url": null },
-      { "mode": "jr",            "name": "JR Shonan-Shinjuku line (Shinjuku → Kamakura)", "duration_minutes": 55,  "price_min_minor":   94000, "price_max_minor":   94000, "currency": "JPY", "notes": "Faster from the west side of Tokyo.", "booking_url": null }
+      {
+        "mode": "jr",
+        "name": "JR Yokosuka line (Tokyo → Kamakura)",
+        "duration_minutes": 60,
+        "price_min_minor": 940,
+        "price_max_minor": 940,
+        "currency": "JPY",
+        "notes": "Direct; no reservations needed.",
+        "booking_url": null
+      },
+      {
+        "mode": "jr",
+        "name": "JR Shonan-Shinjuku line (Shinjuku → Kamakura)",
+        "duration_minutes": 55,
+        "price_min_minor": 940,
+        "price_max_minor": 940,
+        "currency": "JPY",
+        "notes": "Faster from the west side of Tokyo.",
+        "booking_url": null
+      }
     ]
   }
 ]
