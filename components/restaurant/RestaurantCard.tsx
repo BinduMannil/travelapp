@@ -76,7 +76,7 @@ export function RestaurantCard({
             <div className="text-[10px] uppercase tracking-[0.25em] text-sumi-700">
               Per person
             </div>
-            <div className="mt-0.5 font-display text-sm font-semibold text-sumi-900 tabular-nums">
+            <div className="mt-0.5 text-sm font-semibold text-sumi-900 tabular-nums">
               <PriceDisplay
                 amountMinor={restaurant.avg_price_per_person_minor}
                 currency={restaurant.currency}
@@ -87,7 +87,7 @@ export function RestaurantCard({
             <div className="text-[10px] uppercase tracking-[0.25em] text-sumi-700">
               Reviews
             </div>
-            <div className="mt-0.5 font-display text-sm font-semibold text-sumi-900 tabular-nums">
+            <div className="mt-0.5 text-sm font-semibold text-sumi-900 tabular-nums">
               {restaurant.google_rating.toFixed(1)}
               <span className="ml-0.5 text-xs text-kintsugi-500">★</span>
               <span className="ml-1 text-[10px] font-normal text-sumi-700">
