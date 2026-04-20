@@ -9,6 +9,8 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { PreferencesTrigger } from "@/components/consent/PreferencesTrigger";
 import { LEGAL, formatReviewedAt } from "@/lib/legal/constants";
 import { LanguagePicker } from "@/components/layout/LanguagePicker";
+import { AlertBanner } from "@/components/alerts/AlertBanner";
+import { getActiveAlerts } from "@/lib/alerts";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +38,11 @@ export default async function RootLayout({
       <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">
         <ConsentProvider>
           <PreferencesProvider rates={rates} defaultCurrency="JPY">
+            {/* Travel advisories — war, revolution, natural hazards, etc.
+                Scoped to the current route (global / country / city) and
+                dismissible per session. Rendered at the very top so it
+                sits above the sticky header. */}
+            <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
             <header className="sticky top-0 z-30 border-b border-sumi-100/60 bg-washi-50/85 backdrop-blur">
               <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
                 <Link href="/" className="flex items-center gap-3">
