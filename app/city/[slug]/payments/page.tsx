@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { FxCardCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import {
   getCity,
   getCountryForCity,
@@ -160,6 +162,11 @@ export default async function PaymentsPage({
           <p className="mt-2 text-sm text-slate-700">{payments.tax_refund_note}</p>
         </article>
       </section>
+
+      <div className="mt-10">
+        <FxCardCta source="payments-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }

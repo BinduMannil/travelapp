@@ -8,6 +8,12 @@ import {
   CurrencySelector,
   PriceDisplay,
 } from "@/lib/preferences/context";
+import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
+import {
+  InsuranceCta,
+  ToursCta,
+} from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 const SIGNIFICANCE_LABEL: Record<string, string> = {
   historic: "Historic",
@@ -244,15 +250,15 @@ export default async function AttractionDetailPage({
               </a>
             )}
             {Object.entries(a.reseller_urls).map(([k, url]) => (
-              <a
+              <AffiliateLink
                 key={k}
                 href={url}
-                target="_blank"
-                rel="sponsored noopener noreferrer"
+                partner="auto"
+                source={`attraction/${a.slug}`}
                 className="rounded-md border border-slate-300 bg-white px-4 py-2 text-slate-900 hover:bg-slate-50"
               >
                 {RESELLER_LABEL[k] ?? k} →
-              </a>
+              </AffiliateLink>
             ))}
           </div>
           {Object.keys(a.reseller_urls).length > 0 && (
@@ -262,6 +268,10 @@ export default async function AttractionDetailPage({
             </p>
           )}
         </section>
+
+        <div className="mt-8">
+          <ToursCta city={city.name} source={`attraction/${a.slug}`} />
+        </div>
       </CurrencyProvider>
     </main>
   );

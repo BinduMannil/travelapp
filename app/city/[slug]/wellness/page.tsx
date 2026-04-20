@@ -13,6 +13,9 @@ import {
   PriceDisplay,
 } from "@/lib/preferences/context";
 import { CoverTile, wellnessCover } from "@/components/common/CoverTile";
+import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
+import { ToursCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -149,14 +152,15 @@ export default async function WellnessPage({
                   </ul>
 
                   {v.url && (
-                    <a
+                    <AffiliateLink
                       href={v.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      partner="auto"
+                      source={`wellness/${v.slug}`}
+                      nonSponsored
                       className="mt-auto inline-block pt-3 text-sm font-semibold text-enji-600 hover:underline"
                     >
                       Website →
-                    </a>
+                    </AffiliateLink>
                   )}
                 </div>
               </article>
@@ -164,6 +168,11 @@ export default async function WellnessPage({
           })}
         </section>
       </CurrencyProvider>
+
+      <div className="mt-10">
+        <ToursCta city={city.name} source="wellness-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }

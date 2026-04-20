@@ -12,6 +12,9 @@ import {
   CurrencySelector,
   PriceDisplay,
 } from "@/lib/preferences/context";
+import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
+import { EsimCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 const DISPLAY_CURRENCIES = [
   "USD",
@@ -75,6 +78,10 @@ export default async function ConnectivityPage({
       </nav>
       <h1 className="mt-2 text-3xl font-semibold">Staying online</h1>
 
+      <div className="mt-6">
+        <EsimCta source="connectivity-top" />
+      </div>
+
       <CurrencyProvider
         rates={rates}
         defaultCurrency={city.default_currency ?? "JPY"}
@@ -133,14 +140,14 @@ export default async function ConnectivityPage({
               </div>
 
               {o.url && (
-                <a
+                <AffiliateLink
                   href={o.url}
-                  target="_blank"
-                  rel="sponsored noopener noreferrer"
+                  partner="auto"
+                  source={`connectivity/${o.provider.toLowerCase().replace(/\s+/g, "-")}`}
                   className="mt-3 inline-block text-sm text-brand-600 underline"
                 >
                   Provider site →
-                </a>
+                </AffiliateLink>
               )}
             </article>
           ))}
@@ -184,6 +191,8 @@ export default async function ConnectivityPage({
           <p className="mt-2 text-sm text-slate-700">{payload.vpn_note}</p>
         </article>
       </section>
+
+      <AffiliateDisclosure />
     </main>
   );
 }

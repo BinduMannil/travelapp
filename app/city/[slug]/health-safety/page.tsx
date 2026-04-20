@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { InsuranceCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import {
   getCity,
   getCountryForCity,
@@ -284,7 +286,12 @@ export default async function HealthSafetyPage({
         </div>
       </section>
 
-      <p className="mt-10 text-xs text-slate-500">
+      <div className="mt-10">
+        <InsuranceCta source="health-safety-bottom" />
+      </div>
+      <AffiliateDisclosure />
+
+      <p className="mt-6 text-xs text-slate-500">
         Reviewed: {data.reviewed_at}. Visa, medication, and LGBTQ+ policies
         change — verify critical items with an official source before you
         travel.

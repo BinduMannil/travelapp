@@ -15,6 +15,9 @@ import {
   PriceDisplay,
 } from "@/lib/preferences/context";
 import { CoverTile, hotelCover } from "@/components/common/CoverTile";
+import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
+import { HotelCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 export function generateMetadata(): Metadata {
   return {
@@ -198,14 +201,14 @@ export default async function HotelsPage({
                       </span>
                     )}
                   </div>
-                  <a
+                  <AffiliateLink
                     href={h.booking_url}
-                    target="_blank"
-                    rel="sponsored noopener noreferrer"
+                    partner="auto"
+                    source={`hotel/${h.slug}`}
                     className="mt-auto inline-block rounded-full border border-sumi-200 bg-white px-4 py-2 text-center text-sm font-semibold text-sumi-900 transition hover:bg-sumi-900 hover:text-white"
                   >
                     Book direct →
-                  </a>
+                  </AffiliateLink>
                 </div>
               </article>
             );
@@ -219,11 +222,16 @@ export default async function HotelsPage({
         )}
       </CurrencyProvider>
 
-      <p className="mt-10 text-xs text-slate-500">
+      <p className="mt-10 text-xs text-sumi-700">
         Rates are typical flexible rates and vary with season, demand, and
         day-of-week. Add 10% consumption tax and 200-1,000¥ accommodation tax
         per person per night.
       </p>
+
+      <div className="mt-8">
+        <HotelCta city={city.name} source="hotels-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { InsuranceCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import {
   getCity,
   getCountryForCity,
@@ -94,6 +96,11 @@ export default async function GoodToKnowPage({
           </section>
         ))}
       </div>
+
+      <div className="mt-10">
+        <InsuranceCta source="good-to-know-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }

@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { PreferencesPanel } from "@/components/home/PreferencesPanel";
 import { CoverTile } from "@/components/common/CoverTile";
+import {
+  FlightCta,
+  HotelCta,
+  InsuranceCta,
+} from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 type Palette =
   | "enji"
@@ -252,6 +258,18 @@ export default function HomePage() {
       {/* PREFERENCES — washi card */}
       <section className="mx-auto mt-8 max-w-6xl px-6">
         <PreferencesPanel />
+      </section>
+
+      {/* MONETISATION STRIP — booking / flights / insurance one-liners */}
+      <section className="mx-auto mt-6 max-w-6xl px-6">
+        <div className="grid gap-3 md:grid-cols-3">
+          <HotelCta city="Tokyo" source="home-strip" />
+          <FlightCta source="home-strip" />
+          <InsuranceCta source="home-strip" />
+        </div>
+        <div className="mt-3">
+          <AffiliateDisclosure />
+        </div>
       </section>
 
       {/* TIMELINE */}

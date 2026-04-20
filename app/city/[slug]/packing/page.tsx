@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { getCity, getClimate } from "@/lib/data/seed";
 import { DEFAULT_RULES } from "@/lib/packing/rules";
 import { PackingPlanner } from "@/components/packing/PackingPlanner";
+import { EsimCta, InsuranceCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 export function generateMetadata(): Metadata {
   return {
@@ -50,7 +52,13 @@ export default async function PackingPage({
         <PackingPlanner climate={climate} rules={DEFAULT_RULES} />
       </section>
 
-      <p className="mt-10 text-xs text-slate-500">
+      <div className="mt-10 grid gap-3 sm:grid-cols-2">
+        <EsimCta source="packing-bottom" />
+        <InsuranceCta source="packing-bottom" />
+      </div>
+      <AffiliateDisclosure />
+
+      <p className="mt-6 text-xs text-slate-500">
         Weather layers are driven by historical monthly averages — the day you
         arrive may vary. Check the live forecast the week before you travel.
       </p>

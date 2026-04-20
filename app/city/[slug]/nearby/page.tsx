@@ -8,6 +8,8 @@ import {
   CurrencySelector,
 } from "@/lib/preferences/context";
 import { NearbyRouteCard } from "@/components/city/NearbyRouteCard";
+import { CarRentalCta, FlightCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -105,6 +107,12 @@ export default async function NearbyPage({
           </section>
         )}
       </CurrencyProvider>
+
+      <div className="mt-10 grid gap-3 sm:grid-cols-2">
+        <FlightCta source="nearby-bottom" />
+        <CarRentalCta source="nearby-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }

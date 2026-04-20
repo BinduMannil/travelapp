@@ -8,6 +8,13 @@ import {
   CurrencySelector,
   PriceDisplay,
 } from "@/lib/preferences/context";
+import {
+  AirportTransferCta,
+  CarRentalCta,
+  FlightCta,
+  LuggageCta,
+} from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 const DISPLAY_CURRENCIES = [
   "JPY",
@@ -80,6 +87,11 @@ export default async function ArrivalPage({
         Airport transfers, bag drop, and first-hour cash. Prices switch into
         your home currency.
       </p>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+        <FlightCta source="arrival-top" />
+        <AirportTransferCta city={city.name} source="arrival-top" />
+      </div>
 
       <CurrencyProvider
         rates={rates}
@@ -240,6 +252,12 @@ export default async function ArrivalPage({
           </div>
         </section>
       </CurrencyProvider>
+
+      <div className="mt-12 grid gap-3 sm:grid-cols-2">
+        <LuggageCta source="arrival-bottom" />
+        <CarRentalCta source="arrival-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }

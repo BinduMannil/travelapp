@@ -13,6 +13,8 @@ import {
 } from "@/lib/preferences/context";
 import { AttractionCard } from "@/components/attraction/AttractionCard";
 import { CategoryTabs } from "@/components/attraction/CategoryTabs";
+import { ToursCta } from "@/components/affiliate/AffiliateCtas";
+import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 
 export function generateMetadata(): Metadata {
   return {
@@ -111,6 +113,11 @@ export default async function AttractionsPage({
           </p>
         )}
       </CurrencyProvider>
+
+      <div className="mt-10">
+        <ToursCta city={city.name} source="attractions-bottom" />
+      </div>
+      <AffiliateDisclosure />
     </main>
   );
 }
