@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CoverTile } from "@/components/common/CoverTile";
+import { CountryMap } from "@/components/country/CountryMap";
 
 const COUNTRIES: Record<
   string,
@@ -141,6 +142,9 @@ export default async function CountryPage({
           </p>
         </div>
       </section>
+
+      {/* Interactive country map — cities are clickable pins. */}
+      <CountryMap countryName={country.name} />
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
