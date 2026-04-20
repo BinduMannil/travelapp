@@ -120,6 +120,7 @@ const COUNTRY_FEATURES: Array<{
 }> = [
   { label: "Must-try cuisine", kanji: "食", href: "/country/japan/cuisine", hint: "12 dishes · origin · vegan notes" },
   { label: "Famous for", kanji: "和", href: "/country/japan/famous-for", hint: "Knives, whisky, anime, denim" },
+  { label: "Tea, coffee & alcohol", kanji: "酒", href: "/country/japan/beverages", hint: "Sake, whisky, matcha, kissaten" },
   { label: "Languages", kanji: "語", href: "/country/japan/languages", hint: "All spoken, by share" },
 ];
 

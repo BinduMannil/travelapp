@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import type { Dish } from "@/lib/data/seed";
+import { ImageCarousel } from "@/components/common/ImageCarousel";
 
 const KANJI_BY_SLUG: Record<string, string> = {
   sushi: "鮨",
@@ -39,9 +40,14 @@ export function DishCard({
   countryName: string;
 }) {
   const [expanded, setExpanded] = useState(false);
-  const [imgOk, setImgOk] = useState(Boolean(dish.hero_image_url));
+  const [allFailed, setAllFailed] = useState(false);
   const kanji = KANJI_BY_SLUG[dish.slug] ?? "食";
   const gradient = PALETTE_GRADIENT[dish.palette ?? "enji"] ?? PALETTE_GRADIENT.enji;
+  const images = (dish.hero_image_urls ?? []).length > 0
+    ? dish.hero_image_urls!
+    : dish.hero_image_url
+      ? [dish.hero_image_url]
+      : [];
 
   return (
     <article
@@ -59,21 +65,19 @@ export function DishCard({
         <div
           className={`relative w-28 shrink-0 overflow-hidden bg-gradient-to-br sm:w-40 ${gradient}`}
         >
-          {imgOk && dish.hero_image_url ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={dish.hero_image_url}
+          {images.length > 0 && !allFailed ? (
+            <ImageCarousel
+              images={images}
               alt={dish.name}
-              loading="lazy"
-              onError={() => setImgOk(false)}
-              className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full"
+              onAllFailed={() => setAllFailed(true)}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center font-display text-5xl font-bold text-white/90 drop-shadow sm:text-6xl">
               {kanji}
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           <div className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-sm text-white backdrop-blur-sm">
             {kanji}
           </div>

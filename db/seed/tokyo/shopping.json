@@ -7,9 +7,28 @@
       "kanji": "文",
       "body": "Japan is the world capital of pens, paper, and planners. Try before you buy — every shop hands you paper samples.",
       "picks": [
-        { "name": "Itoya G.Ginza", "neighborhood": "Ginza", "body": "Twelve floors devoted to paper, pens, leather, and travel goods. 4F Smith pen counter is a pilgrimage site.", "url": "https://www.ito-ya.co.jp/" },
-        { "name": "Sekaido", "neighborhood": "Shinjuku", "body": "Art-supply mega-store. Cheapest prices on Copic markers, washi tape, sketchbooks in Tokyo.", "url": null },
-        { "name": "Bungu Box", "neighborhood": "Hamamatsucho", "body": "Tiny curator of high-end Japanese inks and fountain pens; house-made inks sell out.", "url": null }
+        {
+          "name": "Itoya G.Ginza",
+          "neighborhood": "Ginza",
+          "body": "Twelve floors devoted to paper, pens, leather, and travel goods. 4F Smith pen counter is a pilgrimage site.",
+          "url": "https://www.ito-ya.co.jp/"
+        },
+        {
+          "name": "Sekaido",
+          "neighborhood": "Shinjuku",
+          "body": "Art-supply mega-store. Cheapest prices on Copic markers, washi tape, sketchbooks in Tokyo.",
+          "url": null
+        },
+        {
+          "name": "Bungu Box",
+          "neighborhood": "Hamamatsucho",
+          "body": "Tiny curator of high-end Japanese inks and fountain pens; house-made inks sell out.",
+          "url": null
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Stationery_section.jpg"
       ]
     },
     {
@@ -18,9 +37,28 @@
       "kanji": "刃",
       "body": "Sakai and Seki have forged blades for 600+ years. Kappabashi is Tokyo's kitchen-ware district; many shops engrave your name in kanji for free.",
       "picks": [
-        { "name": "Kama-asa Shoten", "neighborhood": "Kappabashi", "body": "Seven-generation knife house with English-speaking staff and a full catalogue of Japanese steels.", "url": "https://www.kama-asa.co.jp/en/" },
-        { "name": "Union Commerce", "neighborhood": "Kappabashi", "body": "Good mid-price range; great for a first Japanese chef knife under ¥15,000.", "url": null },
-        { "name": "Tsubaya Hocho-ten", "neighborhood": "Kappabashi", "body": "Handles vintage Yanagi-ba (sushi knives) as well as new stock; sharpening included.", "url": null }
+        {
+          "name": "Kama-asa Shoten",
+          "neighborhood": "Kappabashi",
+          "body": "Seven-generation knife house with English-speaking staff and a full catalogue of Japanese steels.",
+          "url": "https://www.kama-asa.co.jp/en/"
+        },
+        {
+          "name": "Union Commerce",
+          "neighborhood": "Kappabashi",
+          "body": "Good mid-price range; great for a first Japanese chef knife under ¥15,000.",
+          "url": null
+        },
+        {
+          "name": "Tsubaya Hocho-ten",
+          "neighborhood": "Kappabashi",
+          "body": "Handles vintage Yanagi-ba (sushi knives) as well as new stock; sharpening included.",
+          "url": null
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kappabashi_kitchen_street.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg"
       ]
     },
     {
@@ -29,9 +67,24 @@
       "kanji": "古",
       "body": "Shimokitazawa is the beating heart. Koenji is Shimokita's grungier cousin. Daikanyama Hillside and Omotesando for curated vintage at designer prices.",
       "picks": [
-        { "name": "Flamingo (Shimokitazawa)", "neighborhood": "Shimokitazawa", "body": "Chain for 70s-90s American vintage — Levi's, Carhartt, graphic tees — at fair prices." },
-        { "name": "Chicago Harajuku", "neighborhood": "Harajuku", "body": "Huge, cheap, well-organised by garment type. The kimono racks in the basement are the real find." },
-        { "name": "Okura (Daikanyama)", "neighborhood": "Daikanyama", "body": "House of indigo aizome — modern Japanese workwear and scarves dyed in traditional vats." }
+        {
+          "name": "Flamingo (Shimokitazawa)",
+          "neighborhood": "Shimokitazawa",
+          "body": "Chain for 70s-90s American vintage — Levi's, Carhartt, graphic tees — at fair prices."
+        },
+        {
+          "name": "Chicago Harajuku",
+          "neighborhood": "Harajuku",
+          "body": "Huge, cheap, well-organised by garment type. The kimono racks in the basement are the real find."
+        },
+        {
+          "name": "Okura (Daikanyama)",
+          "neighborhood": "Daikanyama",
+          "body": "House of indigo aizome — modern Japanese workwear and scarves dyed in traditional vats."
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shimokitazawa_vintage_store.jpg"
       ]
     },
     {
@@ -40,9 +93,25 @@
       "kanji": "遊",
       "body": "Akihabara for the whole spectrum; Nakano Broadway for rarer, dustier collector gold.",
       "picks": [
-        { "name": "Mandarake Complex", "neighborhood": "Akihabara", "body": "Eight floors of used manga, vinyl figures, vintage toys. Know what you want — prices reward patient digging." },
-        { "name": "Super Potato", "neighborhood": "Akihabara", "body": "Retro game pilgrimage: Famicom, PC Engine, Saturn — fully tested, marked by condition." },
-        { "name": "Nakano Broadway", "neighborhood": "Nakano", "body": "Four floors in a 1966 mall of 300+ small shops: manga, idol merch, vintage watches, niche everything." }
+        {
+          "name": "Mandarake Complex",
+          "neighborhood": "Akihabara",
+          "body": "Eight floors of used manga, vinyl figures, vintage toys. Know what you want — prices reward patient digging."
+        },
+        {
+          "name": "Super Potato",
+          "neighborhood": "Akihabara",
+          "body": "Retro game pilgrimage: Famicom, PC Engine, Saturn — fully tested, marked by condition."
+        },
+        {
+          "name": "Nakano Broadway",
+          "neighborhood": "Nakano",
+          "body": "Four floors in a 1966 mall of 300+ small shops: manga, idol merch, vintage watches, niche everything."
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Mandarake_Akihabara.jpg"
       ]
     },
     {
@@ -51,9 +120,25 @@
       "kanji": "電",
       "body": "Yodobashi Akiba for breadth. Audio-obsessed head to the basement bars and specialist rooms around Akihabara and Ochanomizu.",
       "picks": [
-        { "name": "Yodobashi Akiba", "neighborhood": "Akihabara", "body": "Nine-floor mega-store with tax-free counter; decent prices, excellent variety." },
-        { "name": "Dynamic Audio 5555", "neighborhood": "Akihabara", "body": "Five floors of high-end audio — tube amps, €20,000 headphones, vinyl rooms. Listening welcomed." },
-        { "name": "Disk Union (Shinjuku flagship)", "neighborhood": "Shinjuku", "body": "Eight floors of used CDs, vinyl, cassettes by genre. Jazz / J-pop / soul each get their own floor." }
+        {
+          "name": "Yodobashi Akiba",
+          "neighborhood": "Akihabara",
+          "body": "Nine-floor mega-store with tax-free counter; decent prices, excellent variety."
+        },
+        {
+          "name": "Dynamic Audio 5555",
+          "neighborhood": "Akihabara",
+          "body": "Five floors of high-end audio — tube amps, €20,000 headphones, vinyl rooms. Listening welcomed."
+        },
+        {
+          "name": "Disk Union (Shinjuku flagship)",
+          "neighborhood": "Shinjuku",
+          "body": "Eight floors of used CDs, vinyl, cassettes by genre. Jazz / J-pop / soul each get their own floor."
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Yodobashi_Camera_Akiba.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg"
       ]
     },
     {
@@ -62,9 +147,24 @@
       "kanji": "味",
       "body": "Basement floors of every major department store — a ¥300 sample tour of top-tier wagashi, bento, pickles, sushi. 30 minutes before closing is the price-drop window.",
       "picks": [
-        { "name": "Isetan Shinjuku", "neighborhood": "Shinjuku", "body": "Tokyo's best depachika — basement 1 is pure theatre. Try the Ginza Sembikiya fruit sandos." },
-        { "name": "Mitsukoshi Ginza", "neighborhood": "Ginza", "body": "Classic old-school depachika, strong on bento and wagashi." },
-        { "name": "Takashimaya Nihombashi", "neighborhood": "Nihombashi", "body": "Sprawling, regional-product focused. Good for omiyage (take-home gifts)." }
+        {
+          "name": "Isetan Shinjuku",
+          "neighborhood": "Shinjuku",
+          "body": "Tokyo's best depachika — basement 1 is pure theatre. Try the Ginza Sembikiya fruit sandos."
+        },
+        {
+          "name": "Mitsukoshi Ginza",
+          "neighborhood": "Ginza",
+          "body": "Classic old-school depachika, strong on bento and wagashi."
+        },
+        {
+          "name": "Takashimaya Nihombashi",
+          "neighborhood": "Nihombashi",
+          "body": "Sprawling, regional-product focused. Good for omiyage (take-home gifts)."
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Isetan_Shinjuku_depachika.jpg"
       ]
     },
     {
@@ -73,9 +173,25 @@
       "kanji": "雅",
       "body": "Omotesando for architectural flagships; Ginza for heritage jewellers; Aoyama for Japanese avant-garde.",
       "picks": [
-        { "name": "Omotesando Hills + flagships", "neighborhood": "Omotesando", "body": "Prada (Herzog & de Meuron), Dior (SANAA), Louis Vuitton (Jun Aoki), Tod's (Toyo Ito). Walk the avenue even if you buy nothing." },
-        { "name": "Comme des Garçons Aoyama", "neighborhood": "Aoyama", "body": "Rei Kawakubo's flagship plus Trading Museum — the conceptual side of Japanese fashion." },
-        { "name": "Ginza Six", "neighborhood": "Ginza", "body": "Rooftop garden with a Tokyo skyline; six floors of international + Japanese brands; 1F teamLab installation." }
+        {
+          "name": "Omotesando Hills + flagships",
+          "neighborhood": "Omotesando",
+          "body": "Prada (Herzog & de Meuron), Dior (SANAA), Louis Vuitton (Jun Aoki), Tod's (Toyo Ito). Walk the avenue even if you buy nothing."
+        },
+        {
+          "name": "Comme des Garçons Aoyama",
+          "neighborhood": "Aoyama",
+          "body": "Rei Kawakubo's flagship plus Trading Museum — the conceptual side of Japanese fashion."
+        },
+        {
+          "name": "Ginza Six",
+          "neighborhood": "Ginza",
+          "body": "Rooftop garden with a Tokyo skyline; six floors of international + Japanese brands; 1F teamLab installation."
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_at_night.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills.jpg"
       ]
     },
     {
@@ -84,9 +200,122 @@
       "kanji": "匠",
       "body": "Not just buying — making. One-day classes in indigo dyeing, kintsugi, washi paper-making, wagashi decoration are well-run in English.",
       "picks": [
-        { "name": "Aizenkobo", "neighborhood": "Kyoto (day trip)", "body": "Indigo dyeing studio (150 years). Half-day dye-your-own-scarf class, advance booking." },
-        { "name": "Kintsugi Library", "neighborhood": "Shibuya", "body": "English-language workshops teaching gold-leaf pottery repair. Take your piece home after two sessions." },
-        { "name": "Ozu Washi", "neighborhood": "Nihonbashi", "body": "350-year-old washi paper merchant with a small museum and paper-making classes." }
+        {
+          "name": "Aizenkobo",
+          "neighborhood": "Kyoto (day trip)",
+          "body": "Indigo dyeing studio (150 years). Half-day dye-your-own-scarf class, advance booking."
+        },
+        {
+          "name": "Kintsugi Library",
+          "neighborhood": "Shibuya",
+          "body": "English-language workshops teaching gold-leaf pottery repair. Take your piece home after two sessions."
+        },
+        {
+          "name": "Ozu Washi",
+          "neighborhood": "Nihonbashi",
+          "body": "350-year-old washi paper merchant with a small museum and paper-making classes."
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ozu_Washi_paper_shop.jpg"
+      ]
+    },
+    {
+      "slug": "malls",
+      "title": "Shopping malls + complexes",
+      "kanji": "塔",
+      "body": "Vertical shopping cities — six to eight floors of fashion, food halls, cinemas, and observation decks. Often the easiest one-stop for travellers short on time.",
+      "picks": [
+        {
+          "name": "Shibuya Scramble Square",
+          "neighborhood": "Shibuya",
+          "body": "12 floors above Shibuya Station with Tsutaya Books, lifestyle brands, and Shibuya Sky observatory at the top.",
+          "url": "https://www.shibuya-scramble-square.com/en/"
+        },
+        {
+          "name": "Tokyo Midtown",
+          "neighborhood": "Roppongi",
+          "body": "Lower-key luxury complex anchored by The Ritz-Carlton, with Suntory Museum of Art and a quiet park.",
+          "url": "https://www.tokyo-midtown.com/en/"
+        },
+        {
+          "name": "Roppongi Hills",
+          "neighborhood": "Roppongi",
+          "body": "Six interconnected blocks; Mori Art Museum, Tokyo City View, plus 200+ shops. Best for design-forward labels and contemporary art.",
+          "url": "https://www.roppongihills.com/en/"
+        },
+        {
+          "name": "NEWoMan Shinjuku",
+          "neighborhood": "Shinjuku",
+          "body": "Curated department store atop the Shinjuku Bus Terminal — strong mix of independent Japanese designers and excellent depachika.",
+          "url": "https://www.newoman.jp/shinjuku/en/"
+        },
+        {
+          "name": "Tokyu Plaza Omotesando",
+          "neighborhood": "Harajuku",
+          "body": "The kaleidoscope-mirror entrance is a landmark; inside is Tommy Hilfiger, American Eagle, plus a rooftop garden facing Omotesando.",
+          "url": "https://omohara.tokyu-plaza.com/en/"
+        },
+        {
+          "name": "Shibuya Hikarie",
+          "neighborhood": "Shibuya",
+          "body": "Above-station tower with ShinQs depachika, theatre, and Sky Lobby views — calmer than Scramble Square next door.",
+          "url": "https://www.hikarie.jp/en/"
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Midtown.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_Scramble_Square.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Roppongi_Hills.jpg"
+      ]
+    },
+    {
+      "slug": "boutiques",
+      "title": "Boutiques + concept stores",
+      "kanji": "店",
+      "body": "Where Tokyo sets the global agenda. Single-floor select shops for menswear, lifestyle goods, and Japanese designers you won't find at home.",
+      "picks": [
+        {
+          "name": "Beams Japan",
+          "neighborhood": "Shinjuku",
+          "body": "Six floors of Japan-only collaborations: tenugui, denim, ceramics, food. The flagship to bring home gifts you won't see again.",
+          "url": "https://www.beams.co.jp/global/en/shop/japan/"
+        },
+        {
+          "name": "United Arrows Harajuku",
+          "neighborhood": "Harajuku",
+          "body": "House label plus carefully curated international brands; the Aoyama menswear store is the more refined sibling.",
+          "url": "https://www.united-arrows.co.jp/en/"
+        },
+        {
+          "name": "Daikanyama T-Site",
+          "neighborhood": "Daikanyama",
+          "body": "Tsutaya bookstore + lifestyle complex set in a low-rise compound; arguably the most beautiful bookshop in Asia. Stay for breakfast at Ivy Place.",
+          "url": "https://store.tsite.jp/daikanyama/english/"
+        },
+        {
+          "name": "A Bathing Ape (Bape Store Harajuku)",
+          "neighborhood": "Harajuku",
+          "body": "Streetwear pilgrimage. Limited drops sell out fast — go on release Saturdays only if you're committed.",
+          "url": "https://bape.com/"
+        },
+        {
+          "name": "Loopwheeler",
+          "neighborhood": "Sendagaya",
+          "body": "Slow-loomed sweatshirts on 1920s German machines — about 40 garments per machine per day. The standard premium hoodie.",
+          "url": "https://www.loopwheeler.co.jp/en/"
+        },
+        {
+          "name": "Dover Street Market Ginza",
+          "neighborhood": "Ginza",
+          "body": "Rei Kawakubo's seven-floor temple of luxury streetwear; everything from Comme des Garçons to Supreme drops in one elevator.",
+          "url": "https://ginza.doverstreetmarket.com/"
+        }
+      ],
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Beams_flagship_Harajuku.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/United_Arrows_Harajuku.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Daikanyama_T-Site.jpg"
       ]
     }
   ],

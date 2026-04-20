@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { FamousItem } from "@/lib/data/seed";
+import { ImageCarousel } from "@/components/common/ImageCarousel";
 
 const PALETTE_GRADIENT: Record<string, string> = {
   enji: "from-enji-500 via-enji-700 to-sumi-900",
@@ -17,10 +18,15 @@ const PALETTE_GRADIENT: Record<string, string> = {
 
 export function FamousCard({ item }: { item: FamousItem }) {
   const [expanded, setExpanded] = useState(false);
-  const [imgOk, setImgOk] = useState(Boolean(item.hero_image_url));
+  const [allFailed, setAllFailed] = useState(false);
   const kanji = item.kanji ?? "和";
   const gradient =
     PALETTE_GRADIENT[item.palette ?? "kintsugi"] ?? PALETTE_GRADIENT.kintsugi;
+  const images = (item.hero_image_urls ?? []).length > 0
+    ? item.hero_image_urls!
+    : item.hero_image_url
+      ? [item.hero_image_url]
+      : [];
 
   return (
     <article className="group overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-300 hover:shadow-lg">
@@ -33,21 +39,19 @@ export function FamousCard({ item }: { item: FamousItem }) {
         <div
           className={`relative w-24 shrink-0 overflow-hidden bg-gradient-to-br sm:w-32 ${gradient}`}
         >
-          {imgOk && item.hero_image_url ? (
-            /* eslint-disable-next-line @next/next/no-img-element */
-            <img
-              src={item.hero_image_url}
+          {images.length > 0 && !allFailed ? (
+            <ImageCarousel
+              images={images}
               alt={item.name}
-              loading="lazy"
-              onError={() => setImgOk(false)}
-              className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full"
+              onAllFailed={() => setAllFailed(true)}
             />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center font-display text-4xl font-bold text-white/90 drop-shadow sm:text-5xl">
               {kanji}
             </div>
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
           <div className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-xs text-white backdrop-blur-sm">
             {kanji}
           </div>

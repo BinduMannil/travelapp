@@ -8,6 +8,7 @@ import { ConsentProvider } from "@/lib/consent/context";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { PreferencesTrigger } from "@/components/consent/PreferencesTrigger";
 import { LEGAL } from "@/lib/legal/constants";
+import { LanguagePicker } from "@/components/layout/LanguagePicker";
 
 export const metadata: Metadata = {
   title: {
@@ -45,20 +46,23 @@ export default async function RootLayout({
                     {LEGAL.brand}
                   </span>
                 </Link>
-                <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">
-                  <Link
-                    href="/country/japan"
-                    className="transition hover:text-enji-600"
-                  >
-                    Japan
-                  </Link>
-                  <Link
-                    href="/city/tokyo"
-                    className="transition hover:text-enji-600"
-                  >
-                    Tokyo
-                  </Link>
-                </nav>
+                <div className="flex items-center gap-5">
+                  <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">
+                    <Link
+                      href="/country/japan"
+                      className="transition hover:text-enji-600"
+                    >
+                      Japan
+                    </Link>
+                    <Link
+                      href="/city/tokyo"
+                      className="transition hover:text-enji-600"
+                    >
+                      Tokyo
+                    </Link>
+                  </nav>
+                  <LanguagePicker />
+                </div>
               </div>
             </header>
             <div className="min-h-[calc(100vh-64px)]">{children}</div>

@@ -21,7 +21,12 @@
         "sukiyabashi-jiro-roppongi"
       ],
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Various_sushi,_beautiful_October_2020.jpg",
-      "palette": "enji"
+      "palette": "enji",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Various_sushi,_beautiful_October_2020.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Nigiri_sushi_at_Sushi_Dai_in_Tsukiji.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Edo-mae_sushi.jpg"
+      ]
     },
     {
       "slug": "ramen",
@@ -46,7 +51,12 @@
         "ts-tantan-tokyo-station"
       ],
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shoyu_Ramen,_at_Kasukabe_Station_(2014.05.05)_1.jpg",
-      "palette": "kintsugi"
+      "palette": "kintsugi",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shoyu_Ramen,_at_Kasukabe_Station_(2014.05.05)_1.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tonkotsu_Ramen.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ichiran_Ramen.jpg"
+      ]
     },
     {
       "slug": "tempura",
@@ -67,7 +77,12 @@
         "tempura-kondo"
       ],
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tempura_(2014.01)_2.jpg",
-      "palette": "ume"
+      "palette": "ume",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tempura_(2014.01)_2.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tendon_(tempura_donburi).jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shrimp_tempura.jpg"
+      ]
     },
     {
       "slug": "tonkatsu",
@@ -88,7 +103,11 @@
         "tonkatsu-maisen-aoyama"
       ],
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tonkatsu_by_SteFou!_in_Tokyo.jpg",
-      "palette": "enji"
+      "palette": "enji",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tonkatsu_by_SteFou!_in_Tokyo.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tonkatsu_set_meal.jpg"
+      ]
     },
     {
       "slug": "yakitori",
@@ -107,7 +126,12 @@
       "vegan_notes": "Many yakitori spots also grill vegetable skewers (yakimono) — shishito peppers, shiitake, asparagus.",
       "must_try_form": "Omakase at a smoky counter. Don't sauce the skin skewer — salt-only is sacrilege otherwise.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yakitori_by_yoppy_in_Tokyo.jpg",
-      "palette": "kintsugi"
+      "palette": "kintsugi",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Yakitori_by_yoppy_in_Tokyo.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Yakitori_grilling_at_a_street_stall.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Negima_yakitori.jpg"
+      ]
     },
     {
       "slug": "okonomiyaki",
@@ -125,7 +149,12 @@
       "vegan_notes": "Vegan okonomiyaki exists at specialist diners; skip the bonito flakes and request dashi-free batter.",
       "must_try_form": "Cook-it-yourself on a teppan at a specialist in Shinjuku or Tsukishima (Monja Street).",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Okonomiyaki_by_chidorian_in_Okonomiyaki_Chitose,_Nippori,_Tokyo.jpg",
-      "palette": "enji"
+      "palette": "enji",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Okonomiyaki_by_chidorian_in_Okonomiyaki_Chitose,_Nippori,_Tokyo.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Okonomiyaki_being_cooked_on_a_teppan.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Hiroshima-style_okonomiyaki.jpg"
+      ]
     },
     {
       "slug": "takoyaki",
@@ -143,7 +172,12 @@
       "vegan_notes": null,
       "must_try_form": "Straight off the pan at a stall — they're dangerously hot for the first minute.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Takoyaki_by_yoppy_in_Osaka.jpg",
-      "palette": "kintsugi"
+      "palette": "kintsugi",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Takoyaki_by_yoppy_in_Osaka.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Takoyaki_being_cooked.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Takoyaki_with_bonito_flakes.jpg"
+      ]
     },
     {
       "slug": "soba",
@@ -161,7 +195,12 @@
       "vegan_notes": "The dipping sauce usually contains dashi — ask for shōjin (vegan-style) dashi or plain soy.",
       "must_try_form": "Cold zaru soba on a hot day, at a stand-up shop inside a major station.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Zarusoba.jpg",
-      "palette": "matcha"
+      "palette": "matcha",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Zarusoba.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tempura_soba.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Soba_noodles_being_made.jpg"
+      ]
     },
     {
       "slug": "udon",
@@ -178,7 +217,12 @@
       "vegan_notes": "Sanuki udon with plain kake broth and tempura vegetables is one of the easier vegan options.",
       "must_try_form": "Bukkake udon with ginger, scallion, and grated daikon on top.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kake_udon_by_june29_in_Bi-goccho,_Tokyo.jpg",
-      "palette": "matcha"
+      "palette": "matcha",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kake_udon_by_june29_in_Bi-goccho,_Tokyo.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tempura_udon.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Sanuki_udon.jpg"
+      ]
     },
     {
       "slug": "kaiseki",
@@ -199,7 +243,12 @@
         "narisawa"
       ],
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kaiseki_Hassun_at_Izuyasu,_Kyoto.jpg",
-      "palette": "sumi"
+      "palette": "sumi",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kaiseki_Hassun_at_Izuyasu,_Kyoto.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kaiseki_meal_at_a_ryokan.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kaiseki_sashimi_course.jpg"
+      ]
     },
     {
       "slug": "wagyu",
@@ -217,7 +266,12 @@
       "vegan_notes": null,
       "must_try_form": "Teppanyaki counter (chef cooks in front of you) or yakiniku (grill-at-the-table).",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kobe_Beef_Shabushabu.jpg",
-      "palette": "sumi"
+      "palette": "sumi",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kobe_Beef_Shabushabu.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_steak.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Wagyu_sushi.jpg"
+      ]
     },
     {
       "slug": "matcha",
@@ -234,7 +288,12 @@
       "vegan_notes": "Inherently vegan. Matcha lattes at many Tokyo cafés now offer soy / oat milk.",
       "must_try_form": "Ceremonial-grade usucha at a tea room — sit seiza, receive the bowl with both hands, rotate twice, and drink in three sips.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matcha_whisked_in_a_bowl_with_chasen.jpg",
-      "palette": "matcha"
+      "palette": "matcha",
+      "hero_image_urls": [
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Matcha_whisked_in_a_bowl_with_chasen.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Matcha_latte.jpg",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Matcha_powder.jpg"
+      ]
     }
   ]
 }

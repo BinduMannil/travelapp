@@ -1,9 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityShopping } from "@/lib/data/seed";
-import { CoverTile } from "@/components/common/CoverTile";
 import { PageHero } from "@/components/layout/PageHero";
+import { ShoppingCategoryCover } from "@/components/shopping/ShoppingCategoryCover";
 
 const CATEGORY_PALETTE: Record<
   string,
@@ -17,6 +16,8 @@ const CATEGORY_PALETTE: Record<
   depachika: "enji",
   luxury: "sakura",
   "craft-workshops": "matcha",
+  malls: "kintsugi",
+  boutiques: "ume",
 };
 
 export function generateMetadata(): Metadata {
@@ -70,10 +71,11 @@ export default async function ShoppingPage({
           <section key={c.slug} id={`cat-${c.slug}`} className="scroll-mt-20">
             <div className="flex items-start gap-5">
               <div className="w-32 shrink-0">
-                <CoverTile
+                <ShoppingCategoryCover
                   palette={CATEGORY_PALETTE[c.slug] ?? "aizome"}
                   kanji={c.kanji}
-                  aspect="1/1"
+                  images={c.hero_image_urls ?? []}
+                  alt={c.title}
                 />
               </div>
               <div className="flex-1">

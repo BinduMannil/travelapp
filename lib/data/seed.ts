@@ -31,6 +31,7 @@ import tokyoKidsJson from "@/db/seed/tokyo/kids.json";
 import tokyoEmergencyJson from "@/db/seed/tokyo/emergency.json";
 import japanCuisineJson from "@/db/seed/japan/cuisine.json";
 import japanFamousForJson from "@/db/seed/japan/famous_for.json";
+import japanBeveragesJson from "@/db/seed/japan/beverages.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
 import japanLanguagesJson from "@/db/seed/japan/languages.json";
 import japanTippingJson from "@/db/seed/japan/tipping.json";
@@ -876,6 +877,7 @@ export type Dish = {
   must_try_form: string;
   where_in_tokyo?: string[];
   hero_image_url?: string;
+  hero_image_urls?: string[];
   palette?:
     | "enji"
     | "aizome"
@@ -898,6 +900,7 @@ export type FamousItem = {
   why: string;
   where_to_buy?: string;
   hero_image_url?: string;
+  hero_image_urls?: string[];
   kanji?: string;
   palette?:
     | "enji"
@@ -958,6 +961,45 @@ const COUNTRY_FAMOUS_FOR: Record<string, FamousForPayload> = {
   japan: japanFamousForJson as FamousForPayload,
 };
 
+export type BeverageCategory = "tea" | "coffee" | "alcohol";
+export type Beverage = {
+  slug: string;
+  name: string;
+  kanji: string;
+  native_script: string;
+  romaji: string;
+  category: BeverageCategory;
+  abv: string | null;
+  made_of: string;
+  popularity: string;
+  how_to_try: string;
+  where_to_try: string;
+  palette?: string;
+  hero_image_url?: string;
+  hero_image_urls?: string[];
+};
+export type BeveragesPayload = {
+  summary: string;
+  tea_or_coffee: {
+    verdict: "tea" | "coffee" | "both";
+    headline: string;
+    body: string;
+    tea_culture_notes: string;
+    coffee_culture_notes: string;
+  };
+  drinks: Beverage[];
+};
+
+const COUNTRY_BEVERAGES: Record<string, BeveragesPayload> = {
+  japan: japanBeveragesJson as BeveragesPayload,
+};
+
+export function getCountryBeverages(
+  countrySlug: string,
+): BeveragesPayload | null {
+  return COUNTRY_BEVERAGES[countrySlug] ?? null;
+}
+
 const CITY_WELLNESS: Record<string, WellnessPayload> = {
   tokyo: tokyoWellnessJson as WellnessPayload,
 };
@@ -1015,6 +1057,7 @@ export type ShoppingCategory = {
   kanji: string;
   body: string;
   picks: ShoppingPick[];
+  hero_image_urls?: string[];
 };
 export type ShoppingPayload = {
   summary: string;

@@ -11,7 +11,12 @@
           "where_to_buy": "Kappabashi (Tokyo), Sakai (Osaka), Seki (Gifu).",
           "kanji": "刃",
           "palette": "sumi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Sakai_knife_workshop.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Kappabashi_kitchen_street.jpg"
+          ]
         },
         {
           "name": "Washi paper",
@@ -19,7 +24,11 @@
           "where_to_buy": "Ozu Washi (Nihonbashi), Kamiji Kakimoto (Kyoto).",
           "kanji": "紙",
           "palette": "kintsugi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Various_kinds_of_washi.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Various_kinds_of_washi.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Various_kinds_of_washi.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Washi_being_made_by_hand.jpg"
+          ]
         },
         {
           "name": "Ceramics (Arita / Kutani / Mashiko)",
@@ -27,7 +36,12 @@
           "where_to_buy": "Department store galleries in Ginza and Shinjuku; annual Mashiko Pottery Fair in November.",
           "kanji": "陶",
           "palette": "aizome",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Arita_porcelain_-_19th_century.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Arita_porcelain_-_19th_century.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Arita_porcelain_-_19th_century.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Kutani_porcelain.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Mashiko_pottery.jpg"
+          ]
         },
         {
           "name": "Kintsugi (golden joinery)",
@@ -35,7 +49,11 @@
           "where_to_buy": "Workshops in Tokyo teach one-day introductory classes.",
           "kanji": "継",
           "palette": "kintsugi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tea_bowl_fixed_in_the_Kintsugi_method.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Tea_bowl_fixed_in_the_Kintsugi_method.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Tea_bowl_fixed_in_the_Kintsugi_method.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Kintsugi_repair_in_progress.jpg"
+          ]
         },
         {
           "name": "Japanese textiles + kimono",
@@ -43,7 +61,12 @@
           "where_to_buy": "Nishijin Textile Center (Kyoto), Itchiku Kubota Museum (Hakone).",
           "kanji": "織",
           "palette": "ume",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Furisode_kimono.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Furisode_kimono.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Furisode_kimono.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Yukata_summer_kimono.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Nishijin-ori_textile.jpg"
+          ]
         }
       ]
     },
@@ -57,7 +80,12 @@
           "where_to_buy": "Dedicated whisky bars (Zoetrope, Shot Bar Zoetrope) or department-store liquor floors.",
           "kanji": "酒",
           "palette": "kintsugi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yamazaki_Distillery_Pot_Stills.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yamazaki_Distillery_Pot_Stills.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Yamazaki_Distillery_Pot_Stills.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Hakushu_distillery_in_Japan.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_whisky_bar.jpg"
+          ]
         },
         {
           "name": "Soy sauce, miso, sake",
@@ -65,7 +93,12 @@
           "where_to_buy": "Akomeya Tokyo in Ginza; breweries across Chiba and Nagano.",
           "kanji": "醤",
           "palette": "enji",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Soy_sauce_2.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Soy_sauce_2.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Soy_sauce_2.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Sake_brewery_barrels.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Miso_paste.jpg"
+          ]
         },
         {
           "name": "Green tea (sencha, gyokuro, hōjicha)",
@@ -73,7 +106,12 @@
           "where_to_buy": "Ippodo (Kyoto and Tokyo branches), Lupicia.",
           "kanji": "茶",
           "palette": "matcha",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sencha_Japanese_green_tea.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Sencha_Japanese_green_tea.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Sencha_Japanese_green_tea.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Matcha_powder.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Tea_fields_in_Shizuoka.jpg"
+          ]
         },
         {
           "name": "Wagashi (traditional confections)",
@@ -81,7 +119,12 @@
           "where_to_buy": "Toraya in Akasaka (400 years old).",
           "kanji": "菓",
           "palette": "sakura",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wagashi_assortment.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Wagashi_assortment.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Wagashi_assortment.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Sakura_mochi.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Daifuku_wagashi.jpg"
+          ]
         }
       ]
     },
@@ -95,7 +138,12 @@
           "where_to_buy": "Animate Ikebukuro, Mandarake Complex Akihabara, Tokyo Character Street in Tokyo Station.",
           "kanji": "漫",
           "palette": "ume",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Manga_section_at_a_bookstore.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Cosplay_in_Akihabara.jpg"
+          ]
         },
         {
           "name": "Video games",
@@ -103,7 +151,11 @@
           "where_to_buy": "Super Potato (retro), Pokemon Centers, Square Enix Café.",
           "kanji": "遊",
           "palette": "aizome",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo_Switch_Console.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo_Switch_Console.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Nintendo_Switch_Console.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Game_arcade_in_Tokyo.jpg"
+          ]
         },
         {
           "name": "J-pop, city pop, and jazz kissa",
@@ -111,7 +163,11 @@
           "where_to_buy": "Tower Records Shibuya, Disk Union, Jazz kissa cafés in Kichijoji and Yoyogi.",
           "kanji": "音",
           "palette": "sumi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Vinyl_records_in_a_jazz_kissa.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Vinyl_records_in_a_jazz_kissa.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Vinyl_records_in_a_jazz_kissa.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Jazz_kissa_interior.jpg"
+          ]
         }
       ]
     },
@@ -125,7 +181,11 @@
           "where_to_buy": "Itoya in Ginza (12 floors of pens and paper), Sekaido in Shinjuku.",
           "kanji": "筆",
           "palette": "matcha",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyu_Hands_stationery.jpg"
+          ]
         },
         {
           "name": "Denim",
@@ -133,7 +193,11 @@
           "where_to_buy": "Okura (Daikanyama), denim floors of Beams and United Arrows.",
           "kanji": "藍",
           "palette": "aizome",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kojima_Jeans_Street.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kojima_Jeans_Street.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Kojima_Jeans_Street.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Selvedge_denim_jeans.jpg"
+          ]
         },
         {
           "name": "Rail engineering",
@@ -141,7 +205,12 @@
           "where_to_buy": "The Railway Museum in Saitama; Kyoto Railway Museum.",
           "kanji": "鉄",
           "palette": "enji",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shinkansen_E5_at_Tokyo_Station.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Shinkansen_E5_at_Tokyo_Station.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Shinkansen_E5_at_Tokyo_Station.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Shinkansen_at_Mt._Fuji.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Shinkansen_interior.jpg"
+          ]
         },
         {
           "name": "Consumer electronics & audio",
@@ -149,7 +218,11 @@
           "where_to_buy": "Yodobashi Akiba (nine floors), BIC Camera.",
           "kanji": "電",
           "palette": "sumi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Audio_equipment_at_an_Akihabara_store.jpg"
+          ]
         }
       ]
     },
@@ -163,7 +236,11 @@
           "where_to_buy": "Sōgetsu Kaikan in Akasaka offers English classes.",
           "kanji": "華",
           "palette": "sakura",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ikebana_arrangement_at_Sogetsu.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ikebana_arrangement_at_Sogetsu.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Ikebana_arrangement_at_Sogetsu.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Ikebana_flower_arrangement.jpg"
+          ]
         },
         {
           "name": "Origami",
@@ -171,7 +248,11 @@
           "where_to_buy": "Origami Kaikan in Yushima; museum shops nationwide.",
           "kanji": "折",
           "palette": "ume",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Origami_cranes.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Origami_cranes.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Origami_cranes.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Origami_animals.jpg"
+          ]
         },
         {
           "name": "Shodō (calligraphy)",
@@ -179,7 +260,11 @@
           "where_to_buy": "Various studios offer hotel-arranged classes.",
           "kanji": "書",
           "palette": "sumi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_calligraphy.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_calligraphy.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_calligraphy.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Shodo_brush_writing.jpg"
+          ]
         },
         {
           "name": "Omotenashi (hospitality)",
@@ -187,7 +272,11 @@
           "where_to_buy": "Ryokan stays are the clearest introduction.",
           "kanji": "心",
           "palette": "kintsugi",
-          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ryokan_okami_serving_tea.jpg"
+          "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Ryokan_okami_serving_tea.jpg",
+          "hero_image_urls": [
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Ryokan_okami_serving_tea.jpg",
+            "https://commons.wikimedia.org/wiki/Special:FilePath/Tea_ceremony.jpg"
+          ]
         }
       ]
     }
