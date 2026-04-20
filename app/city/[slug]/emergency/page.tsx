@@ -42,25 +42,37 @@ export default async function EmergencyPage({
         <div className="text-xs font-semibold uppercase tracking-[0.25em] text-enji-700">
           Save these numbers offline
         </div>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {data.numbers.map((n) => (
-            <a
-              key={n.label + n.number}
-              href={`tel:${n.number.replace(/\s|-/g, "")}`}
-              className="block rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md"
-            >
-              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-                {n.label}
-              </div>
-              <div className="mt-1 font-display text-3xl font-bold tabular-nums text-enji-700">
-                {n.number}
-              </div>
-              {n.notes && (
-                <div className="mt-1 text-xs text-sumi-700">{n.notes}</div>
-              )}
-            </a>
-          ))}
-        </div>
+        <ul className="mt-4 divide-y divide-enji-100 overflow-hidden rounded-xl bg-white shadow-sm">
+          {data.numbers.map((n) => {
+            const isShort = n.number.replace(/\D/g, "").length <= 4;
+            return (
+              <li key={n.label + n.number}>
+                <a
+                  href={`tel:${n.number.replace(/\s|-/g, "")}`}
+                  className="flex items-center justify-between gap-4 px-5 py-4 transition hover:bg-enji-50/60"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                      {n.label}
+                    </div>
+                    {n.notes && (
+                      <div className="mt-1 text-xs text-sumi-700">
+                        {n.notes}
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    className={`shrink-0 whitespace-nowrap font-semibold tabular-nums text-enji-700 ${
+                      isShort ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl"
+                    }`}
+                  >
+                    {n.number}
+                  </div>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       <section className="mt-10">

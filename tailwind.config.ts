@@ -73,8 +73,26 @@ export default {
         },
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "-apple-system", "sans-serif"],
-        display: ["var(--font-display)", "Georgia", "serif"],
+        // Single typeface across the whole app: Montserrat for Latin,
+        // Noto Serif JP as fallback so kanji characters that Montserrat
+        // can't render (旅, 東京, etc.) still display in a well-crafted
+        // Japanese face instead of whatever the browser picks.
+        sans: [
+          "var(--font-sans)",
+          "var(--font-display)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
+        // font-display is kept as an alias so existing usages keep
+        // working, but it now points at the same Montserrat stack.
+        display: [
+          "var(--font-sans)",
+          "var(--font-display)",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
       },
       backgroundImage: {
         // Seigaiha — overlapping-wave motif. Classic traditional pattern.

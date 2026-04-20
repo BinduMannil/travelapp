@@ -20,7 +20,7 @@ html {
 
 body {
   @apply bg-washi-50 text-sumi-900 antialiased;
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), var(--font-display), system-ui, sans-serif;
   font-size: 0.8667rem; /* 13px — "size 9" editorial anchor */
   line-height: 1.6;
   letter-spacing: 0.005em;
@@ -32,30 +32,35 @@ p {
   line-height: 1.65;
 }
 
-/* Editorial display headings: use the serif for bigger type */
+/* Every heading is Montserrat too — titles, cards, section labels — so
+   the whole app reads in one typeface. Kanji characters automatically
+   fall through to Noto Serif JP. */
 h1,
-h2 {
-  font-family: var(--font-display);
-  letter-spacing: -0.01em;
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  letter-spacing: -0.005em;
 }
 
 h1 {
   font-size: 1.75rem; /* ~26px */
-  line-height: 1.15;
-  font-weight: 600;
+  line-height: 1.2;
+  font-weight: 700;
 }
 
 h2 {
   font-size: 1.1rem; /* ~17px */
-  line-height: 1.25;
+  line-height: 1.3;
   font-weight: 600;
 }
 
 h3 {
   font-size: 0.95rem; /* ~14px */
-  line-height: 1.3;
+  line-height: 1.35;
   font-weight: 600;
-  font-family: var(--font-sans);
 }
 
 h4,
@@ -64,7 +69,6 @@ h6 {
   font-size: 0.8667rem;
   line-height: 1.35;
   font-weight: 600;
-  font-family: var(--font-sans);
 }
 
 small {
