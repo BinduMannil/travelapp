@@ -24,6 +24,11 @@ import tokyoNeighborhoodsJson from "@/db/seed/tokyo/neighborhoods.json";
 import tokyoHotelsJson from "@/db/seed/tokyo/hotels.json";
 import tokyoItinerariesJson from "@/db/seed/tokyo/itineraries.json";
 import tokyoWellnessJson from "@/db/seed/tokyo/wellness.json";
+import tokyoHiddenGemsJson from "@/db/seed/tokyo/hidden_gems.json";
+import tokyoShoppingJson from "@/db/seed/tokyo/shopping.json";
+import tokyoNightlifeJson from "@/db/seed/tokyo/nightlife.json";
+import tokyoKidsJson from "@/db/seed/tokyo/kids.json";
+import tokyoEmergencyJson from "@/db/seed/tokyo/emergency.json";
 import japanCuisineJson from "@/db/seed/japan/cuisine.json";
 import japanFamousForJson from "@/db/seed/japan/famous_for.json";
 import japanCountryJson from "@/db/seed/japan/country.json";
@@ -959,3 +964,114 @@ export const WELLNESS_TYPE_LABEL: Record<WellnessVenueType, string> = {
   head_spa: "Head spa",
   massage: "Massage",
 };
+
+// ---------------------------------------------------------------------------
+// Tokyo add-on content pages (hidden gems, shopping, nightlife, kids, emergency)
+// ---------------------------------------------------------------------------
+
+export type HiddenGem = {
+  slug: string;
+  name: string;
+  neighborhood: string;
+  category: string;
+  why: string;
+  tip?: string;
+  when?: string;
+};
+export type HiddenGemsPayload = { summary: string; picks: HiddenGem[] };
+
+export type ShoppingPick = {
+  name: string;
+  neighborhood: string;
+  body: string;
+  url?: string | null;
+};
+export type ShoppingCategory = {
+  slug: string;
+  title: string;
+  kanji: string;
+  body: string;
+  picks: ShoppingPick[];
+};
+export type ShoppingPayload = {
+  summary: string;
+  categories: ShoppingCategory[];
+  tax_free_note: string;
+};
+
+export type NightlifeScene = {
+  slug: string;
+  title: string;
+  kanji: string;
+  neighborhood: string;
+  vibe: string;
+  body: string;
+  tip?: string;
+};
+export type NightlifePayload = { summary: string; scenes: NightlifeScene[] };
+
+export type KidPick = {
+  slug: string;
+  name: string;
+  neighborhood: string;
+  age_range: string;
+  price_band: string;
+  body: string;
+  tip?: string;
+  url?: string | null;
+};
+export type KidsPayload = {
+  summary: string;
+  tips: string[];
+  picks: KidPick[];
+};
+
+export type EmergencyNumberEntry = {
+  label: string;
+  number: string;
+  notes?: string;
+};
+export type EmergencyScenario = {
+  slug: string;
+  title: string;
+  steps: string[];
+};
+export type EmergencyPayload = {
+  headline: string;
+  numbers: EmergencyNumberEntry[];
+  scenarios: EmergencyScenario[];
+  useful_apps: Array<{ name: string; purpose: string }>;
+  final_note: string;
+};
+
+const CITY_HIDDEN_GEMS: Record<string, HiddenGemsPayload> = {
+  tokyo: tokyoHiddenGemsJson as HiddenGemsPayload,
+};
+const CITY_SHOPPING: Record<string, ShoppingPayload> = {
+  tokyo: tokyoShoppingJson as ShoppingPayload,
+};
+const CITY_NIGHTLIFE: Record<string, NightlifePayload> = {
+  tokyo: tokyoNightlifeJson as NightlifePayload,
+};
+const CITY_KIDS: Record<string, KidsPayload> = {
+  tokyo: tokyoKidsJson as KidsPayload,
+};
+const CITY_EMERGENCY: Record<string, EmergencyPayload> = {
+  tokyo: tokyoEmergencyJson as EmergencyPayload,
+};
+
+export function getCityHiddenGems(citySlug: string): HiddenGemsPayload | null {
+  return CITY_HIDDEN_GEMS[citySlug] ?? null;
+}
+export function getCityShopping(citySlug: string): ShoppingPayload | null {
+  return CITY_SHOPPING[citySlug] ?? null;
+}
+export function getCityNightlife(citySlug: string): NightlifePayload | null {
+  return CITY_NIGHTLIFE[citySlug] ?? null;
+}
+export function getCityKids(citySlug: string): KidsPayload | null {
+  return CITY_KIDS[citySlug] ?? null;
+}
+export function getCityEmergency(citySlug: string): EmergencyPayload | null {
+  return CITY_EMERGENCY[citySlug] ?? null;
+}

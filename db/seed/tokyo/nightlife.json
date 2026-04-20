@@ -1,0 +1,77 @@
+{
+  "summary": "Tokyo's night runs in layers. 18:00 starts at an izakaya; 22:00 is a whisky bar or jazz kissa; 02:00 is Golden Gai or a Ni-chōme side-street club; the first train home is 04:45. Pace yourself.",
+  "scenes": [
+    {
+      "slug": "golden-gai",
+      "title": "Golden Gai",
+      "kanji": "宵",
+      "neighborhood": "Shinjuku",
+      "vibe": "Tiny themed bars, survivor alleys, cash-only charm",
+      "body": "Six alleys of 200+ hole-in-the-wall bars, each themed around music, film, a cult movie, a specific drink. Four to eight seats per bar. A ¥500-¥1,500 seat charge (otoshi) is standard and legit. Rotate bars — two drinks per stop is plenty.",
+      "tip": "Look for an English menu outside the door — those bars actively welcome tourists. Skip bars with a black sign and no menu; they're members-only."
+    },
+    {
+      "slug": "ni-chome",
+      "title": "Shinjuku Ni-chōme",
+      "kanji": "虹",
+      "neighborhood": "Shinjuku",
+      "vibe": "Queer nightlife capital of Asia; welcoming to everyone",
+      "body": "Around 300 bars and clubs packed into a few short blocks, from tiny listening bars to the massive AiSOTOPE basement. One of the world's oldest gay districts.",
+      "tip": "Starters: AiiRO Cafe (Sundays 14:00 streetside), Arty Farty (pop), Campy! Bar (camp cabaret), Eagle (bear). All tourist-friendly."
+    },
+    {
+      "slug": "jazz-kissa",
+      "title": "Jazz kissa listening bars",
+      "kanji": "奏",
+      "neighborhood": "Across Tokyo",
+      "vibe": "Silent listening rooms dedicated to vinyl worship",
+      "body": "Post-war Tokyo's answer to scarce imports: tiny bars with master-grade hi-fi rigs where you sit, listen, and don't chat. Half a dozen originals remain — JBS Shibuya, Eagle Yotsuya, Meikyoku Kissa Lion in Shibuya, Dug Shinjuku.",
+      "tip": "Phones silent, no photography, no conversation. Order a drink, listen to the side all the way through."
+    },
+    {
+      "slug": "craft-beer-trail",
+      "title": "Craft beer trail",
+      "kanji": "麦",
+      "neighborhood": "Various",
+      "vibe": "20 taphouses walking distance apart",
+      "body": "Japan's craft beer scene pushed past IPAs years ago — Shiga Kogen, Baird, Yo-Ho, Ise Kadoya. Tokyo's best concentration is between Shibuya and Ebisu on the Meguro River.",
+      "tip": "Good trail: Beer Bar Ushitora (Shimokita) → Mikkeller Tokyo (Shibuya) → Goodbeer Faucets (Shibuya) → Devilcraft (Hamamatsucho) for Chicago-style deep-dish and a stacked tap list."
+    },
+    {
+      "slug": "whisky-bars",
+      "title": "Whisky bars",
+      "kanji": "醇",
+      "neighborhood": "Ginza + Roppongi",
+      "vibe": "Hushed counters, precision, Japanese whisky paradise",
+      "body": "Ginza alone has over 40 whisky bars — cedar counters, pristine ice, bartenders in white coats. Japanese whisky allocations are tight; you'll find bottlings unavailable retail.",
+      "tip": "Starters: Bar High Five (Ginza, no menu, tell them what you like), Star Bar (Ginza, cocktail-first), Zoetrope (Shinjuku, 300+ Japanese whiskies). Reserve or arrive early. ¥1,000-¥2,500 seat charge."
+    },
+    {
+      "slug": "izakaya-crawl",
+      "title": "Izakaya crawl",
+      "kanji": "酒",
+      "neighborhood": "Shinjuku Omoide Yokocho / Ebisu Yokocho / Ameyoko",
+      "vibe": "Cheap, smoky, standing, loud",
+      "body": "The right introduction to Tokyo drinking. Yokocho means 'side alley' — a cluster of 8-seat shops selling skewers, sashimi, highballs, draft beer. Pay as you go, hop to the next.",
+      "tip": "Ebisu Yokocho is the most tourist-accessible. Omoide Yokocho and Ameyoko are grittier, more authentic. Expect ¥500 otoshi charge per stop."
+    },
+    {
+      "slug": "clubs",
+      "title": "Clubs",
+      "kanji": "踊",
+      "neighborhood": "Shibuya + Roppongi",
+      "vibe": "International DJ circuit, 25:00-05:00",
+      "body": "Tokyo's club night runs very late — lineups peak at 02:00, first-trains at 04:45. Dress code is smart-casual; doormen turn away shorts and beach sandals.",
+      "tip": "Contact Tokyo (Shibuya, underground dance), Womb (Shibuya, house/techno), ageHa (Shin-Kiba, mega-venue). Avoid touts in Roppongi — they steer into overpriced bars."
+    },
+    {
+      "slug": "rooftop-views",
+      "title": "Rooftop bars with a view",
+      "kanji": "天",
+      "neighborhood": "Various",
+      "vibe": "Skyline dressing, quieter pace, pre-dinner or post-dinner",
+      "body": "Tokyo's skyscraper hotels built their bars around the view. Dress smart, reserve ahead, drink slow.",
+      "tip": "Picks: New York Bar at Park Hyatt (52F, the 'Lost in Translation' bar), Peak Lounge at Park Hyatt, Andaz Tavern (Toranomon), EDITION's Blue Room."
+    }
+  ]
+}

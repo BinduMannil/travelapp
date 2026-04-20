@@ -59,6 +59,11 @@ const SECTIONS: Section[] = [
   { slug: "packing", label: "Packing list", kanji: "装", palette: "ume", blurb: "Live — tuned to your dates + activities", ready: true },
   { slug: "itinerary", label: "Itineraries", kanji: "道", palette: "kintsugi", blurb: "4 templates · 3 / 5 / 4 / 5 days", ready: true },
   { slug: "wellness", label: "Wellness & onsen", kanji: "湯", palette: "enji", blurb: "10 venues · tattoo policies · etiquette", ready: true },
+  { slug: "hidden-gems", label: "Hidden gems", kanji: "秘", palette: "ume", blurb: "Deep cuts · jazz kissa · local picks", ready: true },
+  { slug: "shopping", label: "Shopping", kanji: "買", palette: "kintsugi", blurb: "Knives, stationery, vintage, depachika", ready: true },
+  { slug: "nightlife", label: "Nightlife", kanji: "宵", palette: "sumi", blurb: "Golden Gai, jazz kissa, craft beer", ready: true },
+  { slug: "kids", label: "With kids", kanji: "幼", palette: "sakura", blurb: "Disney, Ghibli, zoo, rainy-day picks", ready: true },
+  { slug: "emergency", label: "Emergency quick-card", kanji: "急", palette: "enji", blurb: "Numbers, lost passport, scenarios", ready: true },
 ];
 
 export default async function CityPage({

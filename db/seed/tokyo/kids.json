@@ -1,0 +1,129 @@
+{
+  "summary": "Tokyo is one of the easiest big-city trips with children — spotless public restrooms, baby-change rooms in every station and department store, affordable kid-friendly food everywhere. These are the picks that go beyond the usual.",
+  "tips": [
+    "Strollers are manageable but crowded trains + long station staircases are hard — baby carriers win the commute.",
+    "Konbini (7-Eleven, Family Mart, Lawson) stock formula, diapers, baby food, toys.",
+    "Priority-seat cars on trains are for elderly, pregnant, and disabled passengers first — leave those empty at rush hour.",
+    "Most museums and attractions give under-6 free entry and half-price for ages 6-12.",
+    "Stations now sell 'babyroom' maps — clean breastfeeding and change rooms inside major stations and department stores."
+  ],
+  "picks": [
+    {
+      "slug": "tokyo-disneyland",
+      "name": "Tokyo Disneyland",
+      "neighborhood": "Maihama (Chiba, ~30 min from central Tokyo)",
+      "age_range": "3+",
+      "price_band": "$$$",
+      "body": "The most visited Disney park in Asia; more classic Americana than Shanghai or Hong Kong. Fantasyland and Toontown are built for young kids.",
+      "tip": "Book date-specific tickets online 60 days ahead; Disney Premier Access for the hottest rides. Weekday beats weekend 10x.",
+      "url": "https://www.tokyodisneyresort.jp/en/tdl/"
+    },
+    {
+      "slug": "tokyo-disneysea",
+      "name": "Tokyo DisneySea",
+      "neighborhood": "Maihama (Chiba, ~30 min from central Tokyo)",
+      "age_range": "6+",
+      "price_band": "$$$",
+      "body": "Unique to Tokyo and arguably the best Disney park in the world — nautical-themed lands, higher-thrill rides, excellent food. Fantasy Springs opened 2024.",
+      "tip": "Better for older kids and adults. Mountain Beverage at Mount Prometheus tops every 'best Disney drink' list.",
+      "url": "https://www.tokyodisneyresort.jp/en/tds/"
+    },
+    {
+      "slug": "kidzania-tokyo",
+      "name": "KidZania Tokyo",
+      "neighborhood": "Toyosu",
+      "age_range": "3-12",
+      "price_band": "$$",
+      "body": "Kids-sized city where children 'work' real jobs (firefighter, pilot, sushi chef, radio DJ) and earn in-park currency. Completely in Japanese but most activities are visual and kids figure it out fast.",
+      "tip": "Book the earliest morning session. Sessions are 5-hour blocks; pack water and snacks for parents (food inside is limited).",
+      "url": "https://www.kidzania.jp/"
+    },
+    {
+      "slug": "ghibli-museum-kids",
+      "name": "Ghibli Museum",
+      "neighborhood": "Mitaka",
+      "age_range": "4+",
+      "price_band": "$",
+      "body": "Half-day with under-10s. Climb-in Catbus, rotating short film in the basement theatre (you get a unique film strip ticket), rooftop Laputa robot.",
+      "tip": "Tickets open the 10th of the previous month at 10:00 JST on Lawson Loppi or JTB abroad. They sell in hours."
+    },
+    {
+      "slug": "ueno-zoo",
+      "name": "Ueno Zoo",
+      "neighborhood": "Ueno",
+      "age_range": "2+",
+      "price_band": "$",
+      "body": "Japan's oldest zoo, home to giant pandas (reliably the queue magnet). Well-sized for a half-day visit.",
+      "tip": "¥600 adult, free under 12. Monorail between east and west zones. Pair with Ueno Park for a picnic afterwards.",
+      "url": "https://www.tokyo-zoo.net/english/ueno/"
+    },
+    {
+      "slug": "shinyokohama-ramen-museum",
+      "name": "Shin-Yokohama Ramen Museum",
+      "neighborhood": "Shin-Yokohama (~30 min from central Tokyo)",
+      "age_range": "4+",
+      "price_band": "$$",
+      "body": "Replica 1958 Tokyo street with 9 famous regional ramen shops, a photo-op hit and a surprisingly good food hall. Kids' mini-ramen bowls let them try 3-4 styles without giving up.",
+      "tip": "¥450 entry; each bowl ordered separately. Go before 11:00 to avoid the lunch queue.",
+      "url": "https://www.raumen.co.jp/english/"
+    },
+    {
+      "slug": "odaiba-family",
+      "name": "Odaiba waterfront",
+      "neighborhood": "Odaiba",
+      "age_range": "All",
+      "price_band": "$",
+      "body": "Life-sized Unicorn Gundam statue (free, moves on the hour), small beach and Rainbow Bridge view, the Yurikamome train is driverless (sit in the front for kid-bliss). TeamLab Planets nearby.",
+      "tip": "Walk the Odaiba-to-Toyosu waterfront for easy stroller access. Sunset is the win."
+    },
+    {
+      "slug": "showa-memorial-park",
+      "name": "Shōwa Kinen Park",
+      "neighborhood": "Tachikawa",
+      "age_range": "All",
+      "price_band": "$",
+      "body": "165-hectare park with a rainbow-coloured dragon jungle gym, trampoline meadows, cherry blossom avenues, a lake with pedal boats, kids' cycling courses.",
+      "tip": "Bike rental at the gate lets you cover more ground. Weekend afternoons only fill at peak sakura or autumn foliage.",
+      "url": "https://www.showakinen-koen.jp/"
+    },
+    {
+      "slug": "teamlab-planets-kids",
+      "name": "teamLab Planets",
+      "neighborhood": "Toyosu",
+      "age_range": "3+",
+      "price_band": "$$",
+      "body": "Barefoot digital-art walk — koi projections swim around your legs, mirrored orchid room, ankle-deep water. Kids love it; strollers are not accommodated.",
+      "tip": "Wear clothes you can roll up to the knee. 75 minutes is enough."
+    },
+    {
+      "slug": "tokyo-joypolis",
+      "name": "Tokyo Joypolis",
+      "neighborhood": "Odaiba",
+      "age_range": "7+",
+      "price_band": "$$",
+      "body": "Sega-run indoor amusement park — VR coasters, Sonic attractions, rhythm games. Rainy-day saviour.",
+      "tip": "Day passports (~¥5,100 adult / ¥4,300 child) beat per-ride pricing if you're staying >2 hours.",
+      "url": "https://tokyo-joypolis.com/language/english/"
+    },
+    {
+      "slug": "origami-kaikan",
+      "name": "Origami Kaikan",
+      "neighborhood": "Yushima",
+      "age_range": "5+",
+      "price_band": "Free",
+      "body": "Free museum of origami and paper-making; drop-in folding sessions several times a week; gift shop is a paper lover's heaven.",
+      "tip": "Check the weekly workshop schedule online — English-friendly sessions run most weekends.",
+      "url": "https://www.origamikaikan.co.jp/"
+    },
+    {
+      "slug": "railway-museum",
+      "name": "The Railway Museum (Tetsudo Hakubutsukan)",
+      "neighborhood": "Omiya (~35 min from Tokyo Station)",
+      "age_range": "3+",
+      "price_band": "$",
+      "body": "Full-size Shinkansen bullet trains you can climb into, driving simulators, diorama with 1,200 model trains. Train-loving kids will not leave quietly.",
+      "tip": "Buy tickets at konbini Loppi machines in advance; walk-ups can sell out on weekends.",
+      "url": "https://www.railway-museum.jp/en/"
+    }
+  ]
+}

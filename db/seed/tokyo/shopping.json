@@ -1,0 +1,94 @@
+{
+  "summary": "Tokyo rewards the specialist. Instead of one mall, dozens of focused worlds: twelve floors of stationery, a block of vintage denim, a basement dedicated to depachika sweets. Here's how to navigate by what you're after.",
+  "categories": [
+    {
+      "slug": "stationery",
+      "title": "Stationery",
+      "kanji": "文",
+      "body": "Japan is the world capital of pens, paper, and planners. Try before you buy — every shop hands you paper samples.",
+      "picks": [
+        { "name": "Itoya G.Ginza", "neighborhood": "Ginza", "body": "Twelve floors devoted to paper, pens, leather, and travel goods. 4F Smith pen counter is a pilgrimage site.", "url": "https://www.ito-ya.co.jp/" },
+        { "name": "Sekaido", "neighborhood": "Shinjuku", "body": "Art-supply mega-store. Cheapest prices on Copic markers, washi tape, sketchbooks in Tokyo.", "url": null },
+        { "name": "Bungu Box", "neighborhood": "Hamamatsucho", "body": "Tiny curator of high-end Japanese inks and fountain pens; house-made inks sell out.", "url": null }
+      ]
+    },
+    {
+      "slug": "knives",
+      "title": "Japanese knives",
+      "kanji": "刃",
+      "body": "Sakai and Seki have forged blades for 600+ years. Kappabashi is Tokyo's kitchen-ware district; many shops engrave your name in kanji for free.",
+      "picks": [
+        { "name": "Kama-asa Shoten", "neighborhood": "Kappabashi", "body": "Seven-generation knife house with English-speaking staff and a full catalogue of Japanese steels.", "url": "https://www.kama-asa.co.jp/en/" },
+        { "name": "Union Commerce", "neighborhood": "Kappabashi", "body": "Good mid-price range; great for a first Japanese chef knife under ¥15,000.", "url": null },
+        { "name": "Tsubaya Hocho-ten", "neighborhood": "Kappabashi", "body": "Handles vintage Yanagi-ba (sushi knives) as well as new stock; sharpening included.", "url": null }
+      ]
+    },
+    {
+      "slug": "vintage",
+      "title": "Vintage + thrift",
+      "kanji": "古",
+      "body": "Shimokitazawa is the beating heart. Koenji is Shimokita's grungier cousin. Daikanyama Hillside and Omotesando for curated vintage at designer prices.",
+      "picks": [
+        { "name": "Flamingo (Shimokitazawa)", "neighborhood": "Shimokitazawa", "body": "Chain for 70s-90s American vintage — Levi's, Carhartt, graphic tees — at fair prices." },
+        { "name": "Chicago Harajuku", "neighborhood": "Harajuku", "body": "Huge, cheap, well-organised by garment type. The kimono racks in the basement are the real find." },
+        { "name": "Okura (Daikanyama)", "neighborhood": "Daikanyama", "body": "House of indigo aizome — modern Japanese workwear and scarves dyed in traditional vats." }
+      ]
+    },
+    {
+      "slug": "anime-retro-games",
+      "title": "Anime, manga, retro games",
+      "kanji": "遊",
+      "body": "Akihabara for the whole spectrum; Nakano Broadway for rarer, dustier collector gold.",
+      "picks": [
+        { "name": "Mandarake Complex", "neighborhood": "Akihabara", "body": "Eight floors of used manga, vinyl figures, vintage toys. Know what you want — prices reward patient digging." },
+        { "name": "Super Potato", "neighborhood": "Akihabara", "body": "Retro game pilgrimage: Famicom, PC Engine, Saturn — fully tested, marked by condition." },
+        { "name": "Nakano Broadway", "neighborhood": "Nakano", "body": "Four floors in a 1966 mall of 300+ small shops: manga, idol merch, vintage watches, niche everything." }
+      ]
+    },
+    {
+      "slug": "electronics",
+      "title": "Electronics + audio",
+      "kanji": "電",
+      "body": "Yodobashi Akiba for breadth. Audio-obsessed head to the basement bars and specialist rooms around Akihabara and Ochanomizu.",
+      "picks": [
+        { "name": "Yodobashi Akiba", "neighborhood": "Akihabara", "body": "Nine-floor mega-store with tax-free counter; decent prices, excellent variety." },
+        { "name": "Dynamic Audio 5555", "neighborhood": "Akihabara", "body": "Five floors of high-end audio — tube amps, €20,000 headphones, vinyl rooms. Listening welcomed." },
+        { "name": "Disk Union (Shinjuku flagship)", "neighborhood": "Shinjuku", "body": "Eight floors of used CDs, vinyl, cassettes by genre. Jazz / J-pop / soul each get their own floor." }
+      ]
+    },
+    {
+      "slug": "depachika",
+      "title": "Depachika (department-store food halls)",
+      "kanji": "味",
+      "body": "Basement floors of every major department store — a ¥300 sample tour of top-tier wagashi, bento, pickles, sushi. 30 minutes before closing is the price-drop window.",
+      "picks": [
+        { "name": "Isetan Shinjuku", "neighborhood": "Shinjuku", "body": "Tokyo's best depachika — basement 1 is pure theatre. Try the Ginza Sembikiya fruit sandos." },
+        { "name": "Mitsukoshi Ginza", "neighborhood": "Ginza", "body": "Classic old-school depachika, strong on bento and wagashi." },
+        { "name": "Takashimaya Nihombashi", "neighborhood": "Nihombashi", "body": "Sprawling, regional-product focused. Good for omiyage (take-home gifts)." }
+      ]
+    },
+    {
+      "slug": "luxury",
+      "title": "Luxury + high fashion",
+      "kanji": "雅",
+      "body": "Omotesando for architectural flagships; Ginza for heritage jewellers; Aoyama for Japanese avant-garde.",
+      "picks": [
+        { "name": "Omotesando Hills + flagships", "neighborhood": "Omotesando", "body": "Prada (Herzog & de Meuron), Dior (SANAA), Louis Vuitton (Jun Aoki), Tod's (Toyo Ito). Walk the avenue even if you buy nothing." },
+        { "name": "Comme des Garçons Aoyama", "neighborhood": "Aoyama", "body": "Rei Kawakubo's flagship plus Trading Museum — the conceptual side of Japanese fashion." },
+        { "name": "Ginza Six", "neighborhood": "Ginza", "body": "Rooftop garden with a Tokyo skyline; six floors of international + Japanese brands; 1F teamLab installation." }
+      ]
+    },
+    {
+      "slug": "craft-workshops",
+      "title": "Traditional craft + workshops",
+      "kanji": "匠",
+      "body": "Not just buying — making. One-day classes in indigo dyeing, kintsugi, washi paper-making, wagashi decoration are well-run in English.",
+      "picks": [
+        { "name": "Aizenkobo", "neighborhood": "Kyoto (day trip)", "body": "Indigo dyeing studio (150 years). Half-day dye-your-own-scarf class, advance booking." },
+        { "name": "Kintsugi Library", "neighborhood": "Shibuya", "body": "English-language workshops teaching gold-leaf pottery repair. Take your piece home after two sessions." },
+        { "name": "Ozu Washi", "neighborhood": "Nihonbashi", "body": "350-year-old washi paper merchant with a small museum and paper-making classes." }
+      ]
+    }
+  ],
+  "tax_free_note": "Most shops displaying the \"Japan. Tax-free Shop\" logo refund 8-10% consumption tax if you spend ≥¥5,500 and show your passport at checkout. From 2026 the system is moving to a refund-on-departure model — keep receipts intact, don't open sealed bags until you've left Japan."
+}

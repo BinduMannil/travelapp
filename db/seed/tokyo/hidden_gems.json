@@ -1,0 +1,108 @@
+{
+  "summary": "The famous stuff is fine — the reason to come back is the alleys you'd never find on a list of Top 10. These are the deep cuts local friends drag you to.",
+  "picks": [
+    {
+      "slug": "jbs-jazz-kissa-shibuya",
+      "name": "JBS Jazz Kissa",
+      "neighborhood": "Shibuya",
+      "category": "music",
+      "why": "Tiny third-floor listening room with ~11,000 LPs, single owner-operator, drinks to sip while you sit silently and let the speakers cook. One of the last true jazz kissa in central Tokyo.",
+      "tip": "Go after 21:00 on a weeknight. Phones silent. No conversation — it's a listening bar, not a chat one.",
+      "when": "19:00-03:00, closed Sun"
+    },
+    {
+      "slug": "omoide-yokocho-shinjuku",
+      "name": "Omoide Yokocho (Piss Alley)",
+      "neighborhood": "Shinjuku",
+      "category": "street",
+      "why": "Two narrow lanes under the JR tracks packed with 60 charcoal-smoke yakitori stalls that have been running since the post-war black market. Eight seats per stall, elbow-to-elbow, cheap beer.",
+      "tip": "Go with cash and a willingness to pay a ¥500 otoshi cover. The best stalls are the ones where the smoke is thickest.",
+      "when": "17:00 until late"
+    },
+    {
+      "slug": "yanaka-cats",
+      "name": "Yanaka cat walk",
+      "neighborhood": "Yanaka",
+      "category": "neighborhood",
+      "why": "One of few districts to survive WWII bombing. Narrow lanes, 1920s wooden houses, stray cats that inspired a dedicated guidebook. Stop by Neko Action shrine to the neighborhood cats.",
+      "tip": "Wander aimlessly between Nippori and Sendagi stations. Aim for 16:00 when Yanaka Ginza opens its croquette and yakitori shops.",
+      "when": "Anytime daylight"
+    },
+    {
+      "slug": "golden-gai-alleys",
+      "name": "Shinjuku Golden Gai",
+      "neighborhood": "Shinjuku",
+      "category": "drinking",
+      "why": "Six alleys, 200+ pocket-sized bars, each seating 4-8 people, themed around anything from film noir to death metal. Survivor of Tokyo's rebuilding boom.",
+      "tip": "Bars with an English menu pasted outside welcome tourists. Expect a ¥500-¥1,500 seat charge. Rotate bars — two drinks per stop is plenty.",
+      "when": "20:00-05:00"
+    },
+    {
+      "slug": "kichijoji-harmonica-alley",
+      "name": "Harmonica Yokocho (Kichijoji)",
+      "neighborhood": "Kichijoji",
+      "category": "street",
+      "why": "Kichijoji's post-war shopping lanes — narrow, ramshackle, lined with a mix of ancient shops and new-wave standing bars. The best evening-drink-then-walk neighborhood in western Tokyo.",
+      "tip": "Pair with Inokashira Park during daylight. Tachinomi Shintori (standing bar) is the reliable starter."
+    },
+    {
+      "slug": "ni-chome-nightlife",
+      "name": "Shinjuku Ni-chōme",
+      "neighborhood": "Shinjuku",
+      "category": "drinking",
+      "why": "Asia's densest queer nightlife district — 300+ bars across a few short blocks. Historic legacy, uncomplicated welcome for any traveler regardless of orientation.",
+      "tip": "Aiiro Cafe (Sunday afternoons), Campy! Bar, Arty Farty — good English-friendly starters."
+    },
+    {
+      "slug": "cafe-de-lambre",
+      "name": "Café de l'Ambre",
+      "neighborhood": "Ginza",
+      "category": "coffee",
+      "why": "Opened 1948, still roasting beans aged up to 30 years, owner's recipes for siphon coffee and liqueur-laced demitasses. A sacred space for coffee obsessives.",
+      "tip": "Try the aged-bean pour-over. No Wi-Fi, no laptops, just the coffee."
+    },
+    {
+      "slug": "daikanyama-tsutaya-books",
+      "name": "Daikanyama T-Site",
+      "neighborhood": "Daikanyama",
+      "category": "bookshop",
+      "why": "Three low-rise pavilions, magazine curation that makes the Strand look small, Anjin lounge upstairs for a 90-minute coffee-plus-archival-Life-magazine session. Walk-worthy any hour.",
+      "tip": "Go 07:00 for quiet or 22:00 for the glow. Combine with a Meguro River walk in spring."
+    },
+    {
+      "slug": "nezu-shrine-torii",
+      "name": "Nezu Jinja torii tunnel",
+      "neighborhood": "Nezu",
+      "category": "shrine",
+      "why": "A quiet, walkable alternative to Kyoto's Fushimi Inari. Bright orange torii line a short hillside path at a 1,900-year-old shrine with azalea gardens peaking in late April.",
+      "tip": "Morning light is best for the tunnel shot. Pair with Yanaka walk — they're a 10-minute stroll apart.",
+      "when": "Dawn-Dusk"
+    },
+    {
+      "slug": "ryogoku-sumo-morning",
+      "name": "Ryogoku morning sumo practice",
+      "neighborhood": "Ryogoku",
+      "category": "sport",
+      "why": "Most stables open their keiko (morning practice) to outside observers during non-tournament months. Two hours of sweat, tradition, and incredible physicality a metre from your seat.",
+      "tip": "Arakawa Beya and a few others accept walk-ins at 06:30-09:00. Book via a guide (Magnitude Tokyo Sumo Tour) for reliable entry.",
+      "when": "Non-tournament weekdays, 06:30-10:00"
+    },
+    {
+      "slug": "meguro-parasitological-museum",
+      "name": "Meguro Parasitological Museum",
+      "neighborhood": "Meguro",
+      "category": "museum",
+      "why": "Two small floors dedicated to parasites — including an 8.8-metre tapeworm on display. Free, off-beat, the exact niche Tokyo excels at.",
+      "tip": "Twenty-minute visit. Pair with a Meguro River walk for cherry blossom season.",
+      "when": "10:00-17:00, closed Mon + Tue"
+    },
+    {
+      "slug": "kagurazaka-alleys",
+      "name": "Kagurazaka lanes",
+      "neighborhood": "Kagurazaka",
+      "category": "neighborhood",
+      "why": "Tokyo's 'little Paris' — French bistros, geisha alleys, hidden kaiseki counters, cobbled side streets. A polished evening walk that feels like a secret.",
+      "tip": "Stone-paved Hyogo-yokocho and Kakurenbo-yokocho are the photogenic lanes. Early evening is the sweet spot."
+    }
+  ]
+}

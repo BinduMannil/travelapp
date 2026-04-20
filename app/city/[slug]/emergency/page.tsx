@@ -1,0 +1,111 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+import { getCity, getCityEmergency } from "@/lib/data/seed";
+
+export function generateMetadata(): Metadata {
+  return {
+    title: "Emergency quick-card",
+    description:
+      "Numbers, scenarios, and the single photo-on-your-phone that solves 80% of stress.",
+  };
+}
+
+export default async function EmergencyPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const city = getCity(slug);
+  const data = getCityEmergency(slug);
+  if (!city || !data) notFound();
+
+  return (
+    <main className="mx-auto max-w-4xl px-6 py-12">
+      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+        <Link href="/" className="hover:text-enji-600">
+          Home
+        </Link>{" "}
+        ·{" "}
+        <Link href={`/city/${slug}`} className="hover:text-enji-600">
+          {city.name}
+        </Link>{" "}
+        · Emergency quick-card
+      </nav>
+      <h1 className="mt-4 font-display text-4xl font-semibold tracking-tight text-sumi-900">
+        {data.headline}
+      </h1>
+
+      <section className="mt-8 rounded-2xl border-2 border-enji-600 bg-enji-50 p-6 shadow-sm">
+        <div className="text-xs font-semibold uppercase tracking-[0.25em] text-enji-700">
+          Save these numbers offline
+        </div>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {data.numbers.map((n) => (
+            <a
+              key={n.label + n.number}
+              href={`tel:${n.number.replace(/\s|-/g, "")}`}
+              className="block rounded-xl bg-white p-4 shadow-sm transition hover:shadow-md"
+            >
+              <div className="text-xs uppercase tracking-wide text-sumi-700">
+                {n.label}
+              </div>
+              <div className="mt-1 font-display text-3xl font-bold tabular-nums text-enji-700">
+                {n.number}
+              </div>
+              {n.notes && (
+                <div className="mt-1 text-xs text-sumi-700">{n.notes}</div>
+              )}
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10">
+        <h2 className="font-display text-2xl font-semibold text-sumi-900">
+          If this happens…
+        </h2>
+        <div className="mt-4 space-y-4">
+          {data.scenarios.map((s) => (
+            <details
+              key={s.slug}
+              className="group rounded-2xl border border-washi-200 bg-white open:shadow-md"
+            >
+              <summary className="cursor-pointer list-none p-5">
+                <span className="font-display text-lg font-semibold text-sumi-900 group-open:text-enji-700">
+                  {s.title}
+                </span>
+                <span className="float-right text-sumi-700 group-open:rotate-180 transition" aria-hidden>
+                  ▾
+                </span>
+              </summary>
+              <ol className="list-decimal space-y-2 border-t border-washi-200 px-5 py-5 pl-10 text-sm text-sumi-900">
+                {s.steps.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-10 rounded-2xl border border-washi-200 bg-washi-100/60 p-5">
+        <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          Apps to install now
+        </h3>
+        <ul className="mt-3 space-y-2 text-sm text-sumi-900">
+          {data.useful_apps.map((a) => (
+            <li key={a.name}>
+              <strong>{a.name}</strong> — {a.purpose}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <p className="mt-10 rounded-2xl border-2 border-dashed border-enji-400 bg-enji-50/60 p-5 text-sm text-sumi-900">
+        {data.final_note}
+      </p>
+    </main>
+  );
+}

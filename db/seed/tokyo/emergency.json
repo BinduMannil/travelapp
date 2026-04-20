@@ -1,0 +1,79 @@
+{
+  "headline": "If it goes wrong, start here.",
+  "numbers": [
+    { "label": "Police", "number": "110", "notes": "Ask for an English-speaking operator." },
+    { "label": "Fire / Ambulance", "number": "119", "notes": "Ambulances are free." },
+    { "label": "Coast Guard", "number": "118" },
+    { "label": "Japan Helpline (24/7 English)", "number": "0570-000-911", "notes": "General triage for medical, legal, travel issues." },
+    { "label": "AMDA English medical information", "number": "03-6233-9266", "notes": "Weekdays 09:00-17:00. Finds English-friendly clinics." },
+    { "label": "Tourist Hotline (JNTO)", "number": "050-3816-2787", "notes": "24/7. General travel trouble." }
+  ],
+  "scenarios": [
+    {
+      "slug": "lost-passport",
+      "title": "Lost passport",
+      "steps": [
+        "Go to the nearest kōban (police box) to file a loss report (funshitsu todoke). Keep a copy.",
+        "Contact your embassy or consulate (see list on the Health & Safety page).",
+        "Bring: the police report, proof of identity (copy of passport if you have it), two passport photos, address in Japan.",
+        "Emergency travel documents take 1-3 working days; full replacements take longer. Plan to stay put."
+      ]
+    },
+    {
+      "slug": "medical-emergency",
+      "title": "Medical emergency",
+      "steps": [
+        "Call 119 for ambulance. Hospital treatment is not free but ambulance transport is. Most hospitals require upfront payment or proof of insurance.",
+        "For non-emergency: call AMDA (03-6233-9266) weekdays for an English-friendly clinic referral.",
+        "Carry travel insurance documents in your phone and wallet. Note the 24/7 emergency claims number.",
+        "Tokyo Midtown Clinic (Roppongi) and St. Luke's International (Tsukiji) are English-capable."
+      ]
+    },
+    {
+      "slug": "earthquake",
+      "title": "Earthquake shaking",
+      "steps": [
+        "If indoors: drop to the ground, get under a sturdy table, hold on until shaking stops. Do NOT run outside during shaking — falling debris is the bigger risk.",
+        "If outdoors: move away from buildings and power lines; protect your head.",
+        "After shaking: leave gas and electricity alone. Check the NERV Disaster Prevention app or JMA website for aftershock warnings.",
+        "If near the coast and shaking was strong: head for high ground immediately. Do not wait for sirens."
+      ]
+    },
+    {
+      "slug": "typhoon-approaching",
+      "title": "Typhoon approaching",
+      "steps": [
+        "Track on NERV app or Japan Meteorological Agency. Warnings typically 48h ahead.",
+        "Buy water, non-perishable food, charge devices 24h before.",
+        "Most flights and trains are cancelled the morning of; airlines usually waive rebooking fees.",
+        "Stay indoors during peak hours. Avoid riversides and coasts until the all-clear."
+      ]
+    },
+    {
+      "slug": "lost-wallet",
+      "title": "Lost wallet or phone",
+      "steps": [
+        "Go to the nearest kōban (police box). Japan has one of the world's highest lost-item recovery rates — more than 90% of cash and phones turned in to police are returned.",
+        "If it was on a train: the station's Lost & Found desk holds items for three days, then transfers to the JR line's central office.",
+        "Cancel cards and activate Find My (iPhone) or Find My Device (Android) from a friend's phone or hotel computer.",
+        "Taxis: GO app keeps a ride history; call the taxi company dispatcher for same-day returns."
+      ]
+    },
+    {
+      "slug": "stalking-harassment",
+      "title": "Feeling unsafe / harassment",
+      "steps": [
+        "Shout 'Chikan desu!' (molester!) loudly on crowded trains — bystanders will act.",
+        "Women-only train cars (pink doors) run during peak rush hours on most major lines.",
+        "Go to the nearest kōban if you need help on the street.",
+        "24/7 TELL hotline for English-language crisis support: 03-5774-0992 (voice) or tellchat.org."
+      ]
+    }
+  ],
+  "useful_apps": [
+    { "name": "NERV Disaster Prevention", "purpose": "Fast earthquake + typhoon alerts in English" },
+    { "name": "Japan Official Travel App (JNTO)", "purpose": "Free Wi-Fi + ATM finder, offline basics" },
+    { "name": "Google Translate", "purpose": "Camera translation for signs and drug packaging" }
+  ],
+  "final_note": "Keep a photo of your passport + insurance card + embassy number saved offline on your phone. That single file solves 80% of emergency stress."
+}
