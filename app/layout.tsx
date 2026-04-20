@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { italianno, montserrat, notoSerifJp, playfairDisplay } from "./fonts";
+import { fraunces, italianno, montserrat, notoSerifJp } from "./fonts";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { PreferencesProvider } from "@/lib/preferences/context";
 import { ConsentProvider } from "@/lib/consent/context";

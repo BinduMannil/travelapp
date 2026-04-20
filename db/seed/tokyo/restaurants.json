@@ -8,7 +8,7 @@
       "seafood"
     ],
     "price_band": "$$$",
-    "avg_price_per_person_minor": 5800,
+    "avg_price_per_person_minor": 5500,
     "currency": "JPY",
     "signature_dishes": [
       "Chef's omakase set",
@@ -43,7 +43,7 @@
       "tonkotsu"
     ],
     "price_band": "$",
-    "avg_price_per_person_minor": 1350,
+    "avg_price_per_person_minor": 1180,
     "currency": "JPY",
     "signature_dishes": [
       "Tonkotsu ramen with kaedama (noodle refill)"
@@ -74,7 +74,7 @@
       "shio"
     ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 1800,
+    "avg_price_per_person_minor": 1500,
     "currency": "JPY",
     "signature_dishes": [
       "Yuzu shio ramen",
@@ -109,7 +109,7 @@
       "michelin"
     ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 2200,
+    "avg_price_per_person_minor": 2000,
     "currency": "JPY",
     "signature_dishes": [
       "Shoyu soba with black truffle oil"
@@ -142,7 +142,7 @@
       "edomae"
     ],
     "price_band": "$$$$$",
-    "avg_price_per_person_minor": 35000,
+    "avg_price_per_person_minor": 55000,
     "currency": "JPY",
     "signature_dishes": [
       "20-piece omakase lunch course"
@@ -175,7 +175,7 @@
       "michelin"
     ],
     "price_band": "$$$$",
-    "avg_price_per_person_minor": 18000,
+    "avg_price_per_person_minor": 20000,
     "currency": "JPY",
     "signature_dishes": [
       "Tsukasa set — seasonal vegetables then seafood"
@@ -209,7 +209,7 @@
       "tantanmen"
     ],
     "price_band": "$",
-    "avg_price_per_person_minor": 1300,
+    "avg_price_per_person_minor": 1100,
     "currency": "JPY",
     "signature_dishes": [
       "Hakutantan (white sesame vegan tantanmen)",
@@ -245,7 +245,7 @@
       "michelin"
     ],
     "price_band": "$$$$$",
-    "avg_price_per_person_minor": 45000,
+    "avg_price_per_person_minor": 75000,
     "currency": "JPY",
     "signature_dishes": [
       "Bread of the forest",
@@ -282,7 +282,7 @@
       "japanese"
     ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 6000,
+    "avg_price_per_person_minor": 7500,
     "currency": "JPY",
     "signature_dishes": [
       "Handmade soba",
@@ -317,7 +317,7 @@
       "brunch"
     ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 2500,
+    "avg_price_per_person_minor": 2800,
     "currency": "JPY",
     "signature_dishes": [
       "Heavenly fluffy pancakes",
@@ -353,7 +353,7 @@
       "japanese"
     ],
     "price_band": "$$",
-    "avg_price_per_person_minor": 2800,
+    "avg_price_per_person_minor": 2500,
     "currency": "JPY",
     "signature_dishes": [
       "Kurobuta pork loin katsu",
@@ -385,7 +385,7 @@
       "japanese"
     ],
     "price_band": "$",
-    "avg_price_per_person_minor": 1200,
+    "avg_price_per_person_minor": 900,
     "currency": "JPY",
     "signature_dishes": [
       "Pork cutlet curry",

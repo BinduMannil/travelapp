@@ -1,4 +1,4 @@
-import { Italianno, Montserrat, Noto_Serif_JP, Playfair_Display } from "next/font/google";
+import { Fraunces, Italianno, Montserrat, Noto_Serif_JP } from "next/font/google";
 
 // Montserrat — clean geometric sans. The everyday workhorse for body,
 // cards, UI, numbers.
@@ -9,15 +9,18 @@ export const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
 });
 
-// Playfair Display — high-contrast classical serif for editorial hero
-// titles (the "Hello Paris" / "Carole" aesthetic). Opt-in via the
-// `font-display` utility.
-export const playfairDisplay = Playfair_Display({
+// Fraunces — a modern, expressive display serif (the Maglite-style
+// aesthetic: high-contrast strokes, swash tails on g/y/Q, generous
+// ligatures). Variable font, so a single load gives us every weight
+// and an italic axis. Used on hero titles via the `font-display`
+// utility.
+export const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
+  axes: ["SOFT", "opsz"],
 });
 
 // Italianno — elegant signature-style script for hand-drawn accent
