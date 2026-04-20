@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PreferencesPanel } from "@/components/home/PreferencesPanel";
 import { CoverTile } from "@/components/common/CoverTile";
+import { NearbyStack, type NearbyCard } from "@/components/home/NearbyStack";
 import {
   FlightCta,
   HotelCta,
@@ -20,16 +21,11 @@ type Palette =
   | "ocean"
   | "forest";
 
-const NEARBY_STACK: Array<{
-  label: string;
-  sublabel: string;
-  palette: Palette;
-  kanji: string;
-}> = [
-  { label: "Kyoto", sublabel: "2h 20m · Shinkansen", palette: "enji", kanji: "京" },
-  { label: "Osaka", sublabel: "2h 45m · Shinkansen", palette: "kintsugi", kanji: "阪" },
-  { label: "Hakone", sublabel: "1h 25m · Romancecar", palette: "matcha", kanji: "箱" },
-  { label: "Nikko", sublabel: "1h 55m · Tobu SPACIA", palette: "forest", kanji: "光" },
+const NEARBY_STACK: NearbyCard[] = [
+  { label: "Kyoto", sublabel: "2h 20m · Shinkansen", palette: "enji", kanji: "京", href: "/city/tokyo/nearby#kyoto" },
+  { label: "Osaka", sublabel: "2h 45m · Shinkansen", palette: "kintsugi", kanji: "阪", href: "/city/tokyo/nearby#osaka" },
+  { label: "Hakone", sublabel: "1h 25m · Romancecar", palette: "matcha", kanji: "箱", href: "/city/tokyo/nearby#hakone" },
+  { label: "Nikko", sublabel: "1h 55m · Tobu SPACIA", palette: "forest", kanji: "光", href: "/city/tokyo/nearby#nikko" },
 ];
 
 const STATS: Array<{ value: string; label: string; sublabel: string; href: string }> = [
@@ -190,44 +186,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Right — nearby destinations fan */}
+          {/* Right — nearby destinations fan (interactive) */}
           <div className="relative">
-            <div className="flex items-center justify-between border-b border-washi-50/15 pb-3 text-[11px] uppercase tracking-[0.3em] text-washi-50/70">
-              <span>Nearby · same visa</span>
-              <span className="tabular-nums text-washi-50/90">
-                01<span className="text-washi-50/30">/04</span>
-              </span>
-            </div>
-            <div className="relative mt-5">
-              {NEARBY_STACK.map((d, i) => (
-                <Link
-                  key={d.label}
-                  href="/city/tokyo/nearby"
-                  className="group absolute left-0 top-0 block aspect-[3/4] w-[60%] overflow-hidden rounded-2xl ring-1 ring-washi-50/25 shadow-2xl shadow-black/40 transition hover:-translate-y-1 hover:ring-enji-300"
-                  style={{
-                    transform: `translateX(${i * 28}%) translateY(${i * 10}px) rotate(${(i - 1.5) * 2.2}deg)`,
-                    zIndex: NEARBY_STACK.length - i,
-                  }}
-                >
-                  <CoverTile
-                    palette={d.palette}
-                    kanji={d.kanji}
-                    aspect="3/2"
-                    className="!aspect-[3/4] rounded-2xl"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4">
-                    <div className="text-[10px] uppercase tracking-[0.2em] text-washi-50/70">
-                      Day trip
-                    </div>
-                    <div className="mt-1 font-display text-xl font-semibold text-washi-50">
-                      {d.label}
-                    </div>
-                    <div className="text-xs text-washi-50/80">{d.sublabel}</div>
-                  </div>
-                </Link>
-              ))}
-              <div className="invisible aspect-[3/4] w-[60%]" />
-            </div>
+            <NearbyStack cards={NEARBY_STACK} />
           </div>
         </div>
       </section>

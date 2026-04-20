@@ -5,9 +5,10 @@
 export const LEGAL = {
   // Legal entity behind the app (UAE FZ-LLC).
   entityName: "The Launch Hub FZ-LLC",
-  // TODO: UAE trade-licence number (13-digit) + issuing authority (e.g. DED / IFZA / SHAMS)
-  tradeLicenseNumber: "[UAE TRADE LICENSE NUMBER]",
-  tradeLicenseAuthority: "[UAE FREE ZONE OR DED AUTHORITY]",
+  // Registered under Ras Al Khaimah Economic Zone. License number intentionally
+  // not displayed publicly.
+  tradeLicenseNumber: "",
+  tradeLicenseAuthority: "RAKEZ",
   // TODO: registered office address from the license
   registeredAddress: "[REGISTERED OFFICE ADDRESS, UAE]",
   // Consumer-facing product / app name

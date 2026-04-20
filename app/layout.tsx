@@ -62,21 +62,20 @@ export default async function RootLayout({
               </div>
             </header>
             <div className="min-h-[calc(100vh-64px)]">{children}</div>
-            <footer className="mt-16 border-t border-sumi-100 bg-white py-10 text-xs text-sumi-700">
+            <footer className="mt-16 border-t border-sumi-100 bg-white py-10 text-sumi-700">
               <div className="mx-auto grid max-w-6xl gap-6 px-6 sm:grid-cols-[1fr_auto]">
                 <div>
                   <div className="font-display text-sm font-semibold text-sumi-900">
                     {LEGAL.brand}
                   </div>
-                  <p className="mt-1 max-w-lg">
+                  <p className="mt-1 max-w-lg text-[10px] leading-relaxed">
                     Independent editorial travel guide. Operated by{" "}
                     {LEGAL.entityName}, registered with{" "}
-                    {LEGAL.tradeLicenseAuthority} under licence{" "}
-                    {LEGAL.tradeLicenseNumber}. Not a travel agent. Always
+                    {LEGAL.tradeLicenseAuthority}. Not a travel agent. Always
                     verify visa, health, and legal details with official
                     sources before you travel.
                   </p>
-                  <p className="mt-3">
+                  <p className="mt-3 text-[10px]">
                     Seed data for the Tokyo pilot · rates live from Frankfurter ·{" "}
                     <span className="whitespace-nowrap">
                       Reviewed {LEGAL.reviewedAt}
@@ -85,7 +84,7 @@ export default async function RootLayout({
                 </div>
                 <nav
                   aria-label="Legal"
-                  className="flex flex-wrap items-start gap-x-5 gap-y-2 sm:justify-end"
+                  className="flex flex-wrap items-start gap-x-5 gap-y-2 text-xs sm:justify-end"
                 >
                   <Link href="/legal/terms" className="hover:text-enji-600">
                     Terms

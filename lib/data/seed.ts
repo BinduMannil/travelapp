@@ -875,6 +875,17 @@ export type Dish = {
   vegan_notes: string | null;
   must_try_form: string;
   where_in_tokyo?: string[];
+  hero_image_url?: string;
+  palette?:
+    | "enji"
+    | "aizome"
+    | "sakura"
+    | "matcha"
+    | "kintsugi"
+    | "sumi"
+    | "ume"
+    | "ocean"
+    | "forest";
 };
 
 export type CuisinePayload = {
