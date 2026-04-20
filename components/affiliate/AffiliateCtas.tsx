@@ -41,27 +41,41 @@ function Card({
   source?: string;
   accent?: "enji" | "aizome" | "matcha" | "kintsugi" | "ume";
 }) {
-  const accentBg: Record<string, string> = {
-    enji: "bg-enji-50 border-enji-200",
-    aizome: "bg-aizome-50 border-aizome-200",
-    matcha: "bg-matcha-100 border-matcha-400/40",
-    kintsugi: "bg-kintsugi-300/20 border-kintsugi-400/40",
-    ume: "bg-sakura-100 border-sakura-200",
+  // Editorial Japanese palette: every card is a sheet of washi (paper)
+  // marked with a single accent — a top stripe (like a book spine or
+  // hanko border), a tinted kanji badge, and an ink-stamp button.
+  const accentStripe: Record<string, string> = {
+    enji: "bg-enji-600",
+    aizome: "bg-aizome-600",
+    matcha: "bg-matcha-600",
+    kintsugi: "bg-kintsugi-500",
+    ume: "bg-enji-700",
+  };
+  const accentKanji: Record<string, string> = {
+    enji: "bg-enji-50 text-enji-700 ring-enji-200",
+    aizome: "bg-aizome-50 text-aizome-700 ring-aizome-200",
+    matcha: "bg-matcha-100 text-matcha-700 ring-matcha-400/40",
+    kintsugi: "bg-kintsugi-300/25 text-enji-700 ring-kintsugi-400/50",
+    ume: "bg-washi-200 text-enji-700 ring-enji-200",
   };
   const accentBtn: Record<string, string> = {
     enji: "bg-enji-600 hover:bg-enji-700",
     aizome: "bg-aizome-600 hover:bg-aizome-700",
     matcha: "bg-matcha-600 hover:bg-matcha-700",
-    kintsugi: "bg-kintsugi-600 hover:bg-enji-700",
-    ume: "bg-enji-500 hover:bg-enji-600",
+    kintsugi: "bg-kintsugi-500 hover:bg-enji-700",
+    ume: "bg-enji-700 hover:bg-enji-900",
   };
 
   return (
-    <div
-      className={`flex h-full flex-col rounded-2xl border p-6 shadow-sm ${accentBg[accent]}`}
-    >
+    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-washi-200 bg-washi-50 p-6 shadow-sm">
+      <span
+        aria-hidden
+        className={`absolute inset-x-0 top-0 h-1 ${accentStripe[accent]}`}
+      />
       <div className="flex items-center gap-3">
-        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/80 font-display text-xl font-bold text-sumi-900">
+        <span
+          className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl font-display text-xl font-bold ring-1 ${accentKanji[accent]}`}
+        >
           {kanji}
         </span>
         <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
