@@ -97,46 +97,74 @@ export default async function ConnectivityPage({
           {payload.connectivity.map((o) => (
             <article
               key={o.provider}
-              className="rounded-lg border border-washi-200 p-5"
+              className="rounded-2xl border border-washi-200 bg-white p-5 shadow-sm"
             >
-              <header className="flex flex-wrap items-baseline justify-between gap-3">
-                <div>
-                  <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-                    {OPTION_LABEL[o.option] ?? o.option} · {o.kind}
+              <header className="flex flex-wrap items-start justify-between gap-4">
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                      {OPTION_LABEL[o.option] ?? o.option}
+                    </span>
+                    <span className="rounded-full border border-washi-300 bg-washi-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-sumi-700">
+                      {o.kind}
+                    </span>
                   </div>
-                  <h2 className="mt-0.5 text-xl font-semibold">
+                  <h2 className="mt-2 font-display text-xl font-semibold leading-tight text-sumi-900">
                     {o.provider}
                   </h2>
-                  <div className="text-sm text-sumi-700">{o.plan_label}</div>
+                  <div className="mt-1 text-sm text-sumi-700">
+                    {o.plan_label}
+                  </div>
                 </div>
                 {o.price_minor > 0 && (
-                  <div className="text-sm tabular-nums">
-                    <PriceDisplay
-                      amountMinor={o.price_minor}
-                      currency={o.currency}
-                    />
+                  <div className="text-right">
+                    <div className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                      From
+                    </div>
+                    <div className="mt-0.5 text-base font-semibold tabular-nums text-sumi-900">
+                      <PriceDisplay
+                        amountMinor={o.price_minor}
+                        currency={o.currency}
+                      />
+                    </div>
                   </div>
                 )}
               </header>
 
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-700">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-700">
                     Pros
                   </div>
-                  <ul className="mt-1 space-y-1 text-sm text-sumi-800">
+                  <ul className="mt-1.5 space-y-1.5 text-sm text-sumi-800">
                     {o.pros.map((p, i) => (
-                      <li key={i}>· {p}</li>
+                      <li key={i} className="flex gap-2">
+                        <span
+                          aria-hidden
+                          className="mt-0.5 shrink-0 text-emerald-600"
+                        >
+                          +
+                        </span>
+                        <span className="flex-1 leading-snug">{p}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.25em] text-rose-700">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-rose-700">
                     Cons
                   </div>
-                  <ul className="mt-1 space-y-1 text-sm text-sumi-800">
+                  <ul className="mt-1.5 space-y-1.5 text-sm text-sumi-800">
                     {o.cons.map((c, i) => (
-                      <li key={i}>· {c}</li>
+                      <li key={i} className="flex gap-2">
+                        <span
+                          aria-hidden
+                          className="mt-0.5 shrink-0 text-rose-500"
+                        >
+                          −
+                        </span>
+                        <span className="flex-1 leading-snug">{c}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
