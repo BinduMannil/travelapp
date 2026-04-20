@@ -81,10 +81,10 @@ export default async function HealthSafetyPage({
             >
               <h3 className="text-lg font-semibold">{h.title}</h3>
               <p className="mt-1 text-sm text-sumi-800">{h.body}</p>
-              <div className="mt-3 rounded bg-amber-50 p-3 text-sm text-amber-900">
-                <strong className="mr-1">What to do:</strong>
+              <p className="mt-3 border-l-2 border-amber-400 pl-3 text-sm text-sumi-800">
+                <strong className="text-amber-700">What to do.</strong>{" "}
                 {h.what_to_do}
-              </div>
+              </p>
             </article>
           ))}
         </div>
@@ -170,51 +170,84 @@ export default async function HealthSafetyPage({
         <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           LGBTQ+
         </h2>
-        <article className="mt-3 rounded-lg border border-washi-200 p-5">
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <article className="mt-3 overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm">
+          {/* Header: city + tolerance rating */}
+          <div className="flex items-center justify-between gap-4 border-b border-washi-200 bg-washi-50 px-5 py-4">
             <div>
-              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
                 City tolerance
               </div>
-              <div className="mt-0.5">
-                {"★".repeat(data.lgbtq.tolerance_score)}
-                <span className="text-slate-300">
-                  {"★".repeat(5 - data.lgbtq.tolerance_score)}
-                </span>
-                <span className="ml-2 text-sm text-sumi-700">
-                  ({data.lgbtq.tolerance_score}/5)
+              <div className="mt-1 text-xl font-semibold text-sumi-900 tabular-nums">
+                {data.lgbtq.tolerance_score}
+                <span className="ml-1 text-sm font-normal text-sumi-700">
+                  / 5
                 </span>
               </div>
             </div>
-          </div>
-          <p className="mt-3 text-sm text-sumi-800">
-            <strong>Legal status:</strong> {data.lgbtq.country_legal_status}
-          </p>
-          <p className="mt-2 text-sm text-sumi-800">
-            <strong>On the ground:</strong> {data.lgbtq.city_tolerance}
-          </p>
-          <div className="mt-3">
-            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
-              Safe &amp; friendly areas
+            <div
+              aria-label={`Tolerance ${data.lgbtq.tolerance_score} of 5`}
+              className="text-xl tracking-tight"
+            >
+              <span className="text-kintsugi-500">
+                {"★".repeat(data.lgbtq.tolerance_score)}
+              </span>
+              <span className="text-washi-300">
+                {"★".repeat(5 - data.lgbtq.tolerance_score)}
+              </span>
             </div>
-            <ul className="mt-1 list-disc space-y-1 pl-5 text-sm text-sumi-800">
-              {data.lgbtq.safe_neighborhoods.map((n) => (
-                <li key={n}>{n}</li>
-              ))}
-            </ul>
           </div>
-          <div className="mt-3">
-            <div className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+
+          {/* Body */}
+          <div className="space-y-4 px-5 py-5">
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                Legal status
+              </div>
+              <p className="mt-1 text-sm text-sumi-900">
+                {data.lgbtq.country_legal_status}
+              </p>
+            </div>
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                On the ground
+              </div>
+              <p className="mt-1 text-sm text-sumi-900">
+                {data.lgbtq.city_tolerance}
+              </p>
+            </div>
+            <div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                Safe &amp; friendly areas
+              </div>
+              <ul className="mt-2 space-y-1.5 text-sm text-sumi-900">
+                {data.lgbtq.safe_neighborhoods.map((n) => (
+                  <li key={n} className="flex gap-2">
+                    <span
+                      aria-hidden
+                      className="mt-0.5 shrink-0 text-sumi-400"
+                    >
+                      ·
+                    </span>
+                    <span className="flex-1 leading-snug">{n}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Resources footer */}
+          <div className="border-t border-washi-200 bg-washi-50 px-5 py-4">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
               Resources
             </div>
-            <ul className="mt-1 space-y-1 text-sm">
+            <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm">
               {data.lgbtq.resources.map((r) => (
                 <li key={r.url}>
                   <a
                     href={r.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-brand-600 underline"
+                    className="font-semibold text-enji-600 hover:underline"
                   >
                     {r.label} →
                   </a>
