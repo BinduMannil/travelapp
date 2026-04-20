@@ -10,7 +10,7 @@ import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import {
   CurrencyProvider,
   CurrencySelector,
-} from "@/lib/currency/context";
+} from "@/lib/preferences/context";
 import { AttractionCard } from "@/components/attraction/AttractionCard";
 import { CategoryTabs } from "@/components/attraction/CategoryTabs";
 

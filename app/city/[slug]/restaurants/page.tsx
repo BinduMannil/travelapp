@@ -12,7 +12,7 @@ import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import {
   CurrencyProvider,
   CurrencySelector,
-} from "@/lib/currency/context";
+} from "@/lib/preferences/context";
 import { RestaurantCard } from "@/components/restaurant/RestaurantCard";
 import { RestaurantFilters } from "@/components/restaurant/RestaurantFilters";
 

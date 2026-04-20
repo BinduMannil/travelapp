@@ -1,7 +1,7 @@
 "use client";
 
 import type { PriceItem } from "@/lib/data/seed";
-import { PriceDisplay } from "@/lib/currency/context";
+import { PriceDisplay } from "@/lib/preferences/context";
 
 export function CostTable({ items }: { items: PriceItem[] }) {
   return (

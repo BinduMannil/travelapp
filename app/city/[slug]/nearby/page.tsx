@@ -6,7 +6,7 @@ import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import {
   CurrencyProvider,
   CurrencySelector,
-} from "@/lib/currency/context";
+} from "@/lib/preferences/context";
 import { NearbyRouteCard } from "@/components/city/NearbyRouteCard";
 
 const DISPLAY_CURRENCIES = [

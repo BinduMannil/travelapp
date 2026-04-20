@@ -1,7 +1,8 @@
 import Link from "next/link";
 import type { Restaurant } from "@/lib/data/seed";
 import { CUISINE_LABELS, DIETARY_LABELS, popularityScore } from "@/lib/data/seed";
-import { PriceDisplay } from "@/lib/currency/context";
+import { PriceDisplay } from "@/lib/preferences/context";
+import { CoverTile, restaurantCover } from "@/components/common/CoverTile";
 
 export function RestaurantCard({
   citySlug,
@@ -11,29 +12,37 @@ export function RestaurantCard({
   restaurant: Restaurant;
 }) {
   const score = popularityScore(restaurant).toFixed(1);
+  const cover = restaurantCover(restaurant.cuisine);
 
   return (
     <Link
       href={`/city/${citySlug}/restaurants/${restaurant.slug}`}
-      className="block rounded-lg border border-slate-200 bg-white p-4 hover:border-brand-500 hover:bg-brand-50"
+      className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg"
     >
-      <header className="flex items-baseline justify-between gap-3">
-        <h2 className="text-lg font-semibold">{restaurant.name}</h2>
-        <span className="rounded bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-800">
-          {score} / 10
-        </span>
-      </header>
-      <div className="mt-1 text-xs text-slate-500">
-        {restaurant.neighborhood} · {restaurant.price_band}
-        {restaurant.michelin_stars > 0 && (
-          <span className="ml-2 text-amber-600">
-            {"★".repeat(restaurant.michelin_stars)} Michelin
+      <CoverTile
+        palette={cover.palette}
+        icon={cover.icon}
+        aspect="3/2"
+        badge={restaurant.price_band}
+      />
+      <div className="p-4">
+        <header className="flex items-baseline justify-between gap-3">
+          <h2 className="text-lg font-semibold">{restaurant.name}</h2>
+          <span className="rounded bg-brand-100 px-2 py-0.5 text-xs font-medium text-brand-800">
+            {score} / 10
           </span>
-        )}
-        {restaurant.bib_gourmand && (
-          <span className="ml-2 text-emerald-700">Bib Gourmand</span>
-        )}
-      </div>
+        </header>
+        <div className="mt-1 text-xs text-slate-500">
+          {restaurant.neighborhood}
+          {restaurant.michelin_stars > 0 && (
+            <span className="ml-2 text-amber-600">
+              {"★".repeat(restaurant.michelin_stars)} Michelin
+            </span>
+          )}
+          {restaurant.bib_gourmand && (
+            <span className="ml-2 text-emerald-700">Bib Gourmand</span>
+          )}
+        </div>
 
       {restaurant.signature_dishes.length > 0 && (
         <p className="mt-2 text-sm text-slate-700">
@@ -96,6 +105,7 @@ export function RestaurantCard({
             Kid-friendly
           </span>
         )}
+      </div>
       </div>
     </Link>
   );

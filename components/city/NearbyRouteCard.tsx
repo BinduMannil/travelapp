@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { InterCityRoute } from "@/lib/data/seed";
-import { PriceDisplay } from "@/lib/currency/context";
+import { PriceDisplay } from "@/lib/preferences/context";
 
 const MODE_LABEL: Record<string, string> = {
   shinkansen: "Shinkansen",

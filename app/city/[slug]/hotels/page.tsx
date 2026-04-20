@@ -13,7 +13,7 @@ import {
   CurrencyProvider,
   CurrencySelector,
   PriceDisplay,
-} from "@/lib/currency/context";
+} from "@/lib/preferences/context";
 
 export function generateMetadata(): Metadata {
   return {

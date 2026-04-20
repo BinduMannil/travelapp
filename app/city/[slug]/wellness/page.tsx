@@ -11,7 +11,7 @@ import {
   CurrencyProvider,
   CurrencySelector,
   PriceDisplay,
-} from "@/lib/currency/context";
+} from "@/lib/preferences/context";
 
 const DISPLAY_CURRENCIES = [
   "JPY",

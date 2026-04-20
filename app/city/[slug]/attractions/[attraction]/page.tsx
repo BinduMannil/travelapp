@@ -7,7 +7,7 @@ import {
   CurrencyProvider,
   CurrencySelector,
   PriceDisplay,
-} from "@/lib/currency/context";
+} from "@/lib/preferences/context";
 
 const SIGNIFICANCE_LABEL: Record<string, string> = {
   historic: "Historic",

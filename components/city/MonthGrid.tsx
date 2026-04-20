@@ -1,4 +1,7 @@
+"use client";
+
 import type { ClimateRow } from "@/lib/data/seed";
+import { TempDisplay } from "@/lib/preferences/context";
 import { cn } from "@/lib/utils";
 
 const MONTH_NAMES = [
@@ -51,7 +54,8 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
             </div>
             <div className="mt-2 text-sm">
               <div>
-                {row.avg_high_c}° / {row.avg_low_c}°C
+                <TempDisplay celsius={row.avg_high_c} /> /{" "}
+                <TempDisplay celsius={row.avg_low_c} />
               </div>
               <div className="text-slate-600">
                 {row.precip_mm} mm · {row.humidity_pct}% RH

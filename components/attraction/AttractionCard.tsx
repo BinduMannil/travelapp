@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Attraction } from "@/lib/data/seed";
-import { PriceDisplay } from "@/lib/currency/context";
+import { PriceDisplay } from "@/lib/preferences/context";
+import { CoverTile, attractionCover } from "@/components/common/CoverTile";
 
 function formatDuration(minutes: number) {
   if (minutes < 60) return `${minutes}m`;
@@ -29,26 +30,31 @@ export function AttractionCard({
   attraction: Attraction;
 }) {
   const importanceStars = "★".repeat(attraction.importance);
+  const cover = attractionCover(attraction.category);
 
   return (
     <Link
       href={`/city/${citySlug}/attractions/${attraction.slug}`}
-      className="block rounded-lg border border-slate-200 bg-white p-4 hover:border-brand-500 hover:bg-brand-50"
+      className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-lg"
     >
-      <header className="flex items-baseline justify-between gap-3">
-        <h2 className="text-lg font-semibold">{attraction.name}</h2>
-        <span
-          className="text-xs text-amber-600"
-          title={`Importance ${attraction.importance}/5`}
-          aria-label={`Importance ${attraction.importance} of 5`}
-        >
-          {importanceStars}
-        </span>
-      </header>
-      <div className="mt-1 text-xs text-slate-500">
-        {attraction.neighborhood}
-      </div>
-      <p className="mt-2 text-sm text-slate-700">{attraction.summary}</p>
+      <CoverTile
+        palette={cover.palette}
+        icon={cover.icon}
+        aspect="3/2"
+        badge={attraction.neighborhood}
+      />
+      <div className="p-4">
+        <header className="flex items-baseline justify-between gap-3">
+          <h2 className="text-lg font-semibold">{attraction.name}</h2>
+          <span
+            className="text-xs text-amber-600"
+            title={`Importance ${attraction.importance}/5`}
+            aria-label={`Importance ${attraction.importance} of 5`}
+          >
+            {importanceStars}
+          </span>
+        </header>
+        <p className="mt-2 text-sm text-slate-700">{attraction.summary}</p>
 
       <div className="mt-3 flex flex-wrap gap-1 text-xs">
         {attraction.significance.slice(0, 3).map((s) => (
@@ -102,6 +108,7 @@ export function AttractionCard({
             No photos
           </span>
         )}
+      </div>
       </div>
     </Link>
   );
