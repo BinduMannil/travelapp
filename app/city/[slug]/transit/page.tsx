@@ -8,20 +8,31 @@ const PAYMENT_LABELS: Record<string, string> = {
   pasmo: "PASMO",
   ic_card: "IC card",
   cash: "Cash",
-  cash_single_ticket: "Cash (paper ticket)",
+  cash_single_ticket: "Paper ticket",
   visa: "Visa",
   mastercard: "Mastercard",
   amex: "Amex",
   apple_pay: "Apple Pay",
 };
 
-const MODE_LABELS: Record<string, string> = {
-  metro: "Metro / Subway",
-  jr: "JR heavy rail",
-  taxi: "Taxi",
-  bus: "Bus",
-  bike: "Bike",
-  walk: "Walk",
+const MODE_META: Record<
+  string,
+  { label: string; kanji: string; accent: string }
+> = {
+  metro: { label: "Metro / Subway", kanji: "地", accent: "aizome" },
+  jr: { label: "JR heavy rail", kanji: "鉄", accent: "matcha" },
+  taxi: { label: "Taxi", kanji: "車", accent: "kintsugi" },
+  bus: { label: "Bus", kanji: "バ", accent: "enji" },
+  bike: { label: "Bike", kanji: "輪", accent: "matcha" },
+  walk: { label: "Walk", kanji: "歩", accent: "sumi" },
+};
+
+const ACCENT_TILE: Record<string, string> = {
+  aizome: "bg-aizome-500 text-white",
+  matcha: "bg-matcha-600 text-white",
+  kintsugi: "bg-kintsugi-500 text-white",
+  enji: "bg-enji-600 text-white",
+  sumi: "bg-sumi-900 text-white",
 };
 
 export function generateMetadata(): Metadata {
@@ -60,83 +71,118 @@ export default async function TransitPage({
       />
 
       <section className="mx-auto max-w-5xl space-y-4 px-6 py-12">
-        {options.map((o) => (
-          <article
-            key={o.mode}
-            className="rounded-lg border border-washi-200 p-5"
-          >
-            <header className="flex flex-wrap items-baseline justify-between gap-3">
-              <div>
-                <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-                  {MODE_LABELS[o.mode] ?? o.mode}
+        {options.map((o) => {
+          const meta =
+            MODE_META[o.mode] ?? {
+              label: o.mode,
+              kanji: "駅",
+              accent: "sumi",
+            };
+          return (
+            <article
+              key={o.mode}
+              className="rounded-2xl border border-washi-200 bg-white p-5 shadow-sm"
+            >
+              <header className="flex items-start gap-4">
+                <span
+                  aria-hidden
+                  className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl font-display text-xl font-bold ${ACCENT_TILE[meta.accent] ?? ACCENT_TILE.sumi}`}
+                >
+                  {meta.kanji}
+                </span>
+                <div className="min-w-0 flex-1">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
+                    {meta.label}
+                  </div>
+                  <h2 className="mt-0.5 !font-sans text-base font-semibold leading-tight text-sumi-900">
+                    {o.name}
+                    {o.recommended && (
+                      <span className="ml-2 rounded-full bg-matcha-100 px-2 py-0.5 align-middle text-[9px] font-semibold uppercase tracking-[0.2em] text-matcha-700">
+                        Recommended
+                      </span>
+                    )}
+                  </h2>
+                  <p className="mt-1 text-sm text-sumi-700">{o.price_note}</p>
                 </div>
-                <h2 className="mt-0.5 text-xl font-semibold">
-                  {o.name}
-                  {o.recommended && (
-                    <span className="ml-2 rounded bg-brand-100 px-1.5 py-0.5 text-xs font-medium text-brand-700 align-middle">
-                      Recommended
-                    </span>
+              </header>
+
+              {(o.pros.length > 0 || o.cons.length > 0) && (
+                <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                  {o.pros.length > 0 && (
+                    <div>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-700">
+                        Pros
+                      </div>
+                      <ul className="mt-1.5 space-y-1.5 text-sm text-sumi-800">
+                        {o.pros.map((p, i) => (
+                          <li key={i} className="flex gap-2">
+                            <span
+                              aria-hidden
+                              className="mt-0.5 shrink-0 text-emerald-600"
+                            >
+                              +
+                            </span>
+                            <span className="flex-1 leading-snug">{p}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   )}
-                </h2>
-              </div>
-              <div className="text-right text-sm text-sumi-800">
-                {o.price_note}
-              </div>
-            </header>
-
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              {o.pros.length > 0 && (
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-700">
-                    Pros
-                  </div>
-                  <ul className="mt-1 space-y-1 text-sm text-sumi-800">
-                    {o.pros.map((p, i) => (
-                      <li key={i}>· {p}</li>
-                    ))}
-                  </ul>
+                  {o.cons.length > 0 && (
+                    <div>
+                      <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-rose-700">
+                        Cons
+                      </div>
+                      <ul className="mt-1.5 space-y-1.5 text-sm text-sumi-800">
+                        {o.cons.map((c, i) => (
+                          <li key={i} className="flex gap-2">
+                            <span
+                              aria-hidden
+                              className="mt-0.5 shrink-0 text-rose-500"
+                            >
+                              −
+                            </span>
+                            <span className="flex-1 leading-snug">{c}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               )}
-              {o.cons.length > 0 && (
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-[0.25em] text-rose-700">
-                    Cons
-                  </div>
-                  <ul className="mt-1 space-y-1 text-sm text-sumi-800">
-                    {o.cons.map((c, i) => (
-                      <li key={i}>· {c}</li>
-                    ))}
-                  </ul>
+
+              {(o.payment_methods.length > 0 || o.url) && (
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-washi-200 pt-3">
+                  {o.payment_methods.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1.5 text-xs">
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                        Pays with
+                      </span>
+                      {o.payment_methods.map((m) => (
+                        <span
+                          key={m}
+                          className="rounded-full border border-washi-300 bg-washi-100 px-2 py-0.5 text-[11px] text-sumi-800"
+                        >
+                          {PAYMENT_LABELS[m] ?? m}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {o.url && (
+                    <a
+                      href={o.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs font-semibold text-enji-600 hover:underline"
+                    >
+                      Official info →
+                    </a>
+                  )}
                 </div>
               )}
-            </div>
-
-            {o.payment_methods.length > 0 && (
-              <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
-                <span className="text-sumi-700">Pays with:</span>
-                {o.payment_methods.map((m) => (
-                  <span
-                    key={m}
-                    className="rounded bg-washi-100 px-2 py-0.5 text-sumi-800"
-                  >
-                    {PAYMENT_LABELS[m] ?? m}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {o.url && (
-              <a
-                href={o.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-block text-sm text-brand-600 underline"
-              >
-                Official info →
-              </a>
-            )}
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </section>
     </main>
   );
