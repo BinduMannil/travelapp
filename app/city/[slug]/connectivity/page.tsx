@@ -41,6 +41,32 @@ const OPTION_LABEL: Record<string, string> = {
   public_wifi: "Public Wi-Fi",
 };
 
+const AVAILABILITY_META: Record<
+  string,
+  { label: string; tint: string; kanji: string }
+> = {
+  pre_arrival: {
+    label: "Buy before you fly",
+    tint: "bg-matcha-100 text-matcha-700 ring-matcha-400/40",
+    kanji: "発",
+  },
+  airport_pickup: {
+    label: "Reserve · collect on arrival",
+    tint: "bg-kintsugi-300/25 text-enji-700 ring-kintsugi-400/50",
+    kanji: "着",
+  },
+  in_country: {
+    label: "Buy in country",
+    tint: "bg-aizome-50 text-aizome-700 ring-aizome-200",
+    kanji: "内",
+  },
+  on_site: {
+    label: "Free · no purchase",
+    tint: "bg-washi-200 text-sumi-800 ring-washi-300",
+    kanji: "無",
+  },
+};
+
 export function generateMetadata(): Metadata {
   return {
     title: "Connectivity & power",
@@ -85,6 +111,42 @@ export default async function ConnectivityPage({
         <EsimCta source="connectivity-top" />
       </div>
 
+      {(() => {
+        const preFly = payload.connectivity.filter(
+          (o) => o.availability === "pre_arrival",
+        );
+        const pickup = payload.connectivity.filter(
+          (o) => o.availability === "airport_pickup",
+        );
+        if (preFly.length === 0 && pickup.length === 0) return null;
+        return (
+          <section className="mt-6 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border border-matcha-400/40 bg-matcha-100/70 p-4">
+              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-matcha-700">
+                <span className="font-display text-lg leading-none">発</span>
+                Buy before you fly
+              </div>
+              <p className="mt-2 text-sm text-sumi-900">
+                {preFly.length > 0
+                  ? `${preFly.map((o) => o.provider.split(" ")[0]).join(", ")} — activate the moment you land. No airport queue.`
+                  : "Nothing in this category."}
+              </p>
+            </div>
+            <div className="rounded-2xl border border-kintsugi-400/50 bg-kintsugi-300/15 p-4">
+              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-enji-700">
+                <span className="font-display text-lg leading-none">着</span>
+                Reserve · collect on arrival
+              </div>
+              <p className="mt-2 text-sm text-sumi-900">
+                {pickup.length > 0
+                  ? `${pickup.map((o) => o.provider.split(" ")[0]).join(", ")} — booked online, picked up at Narita or Haneda.`
+                  : "Nothing in this category."}
+              </p>
+            </div>
+          </section>
+        );
+      })()}
+
       <CurrencyProvider
         rates={rates}
         defaultCurrency={city.default_currency ?? "JPY"}
@@ -115,6 +177,23 @@ export default async function ConnectivityPage({
                       · {o.plan_label}
                     </span>
                   </h2>
+                  {o.availability && AVAILABILITY_META[o.availability] && (
+                    <div className="mt-2 flex flex-wrap items-center gap-2">
+                      <span
+                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ring-1 ${AVAILABILITY_META[o.availability].tint}`}
+                      >
+                        <span className="font-display text-sm leading-none">
+                          {AVAILABILITY_META[o.availability].kanji}
+                        </span>
+                        {AVAILABILITY_META[o.availability].label}
+                      </span>
+                    </div>
+                  )}
+                  {o.pre_arrival_note && (
+                    <p className="mt-1.5 text-xs text-sumi-700">
+                      {o.pre_arrival_note}
+                    </p>
+                  )}
                 </div>
                 {o.price_minor > 0 && (
                   <div className="shrink-0 rounded-full bg-washi-100 px-3 py-1 text-sm font-semibold tabular-nums text-sumi-900">

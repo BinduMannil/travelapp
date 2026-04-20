@@ -502,6 +502,12 @@ export type PowerInfo = {
   notes?: string;
 };
 
+export type ConnectivityAvailability =
+  | "pre_arrival"      // Buy + activate before you fly
+  | "airport_pickup"   // Reserve ahead, collect at arrivals
+  | "in_country"       // Only obtainable once you're in the country
+  | "on_site";         // Works without any purchase (public Wi-Fi, etc.)
+
 export type ConnectivityOption = {
   option: "esim" | "physical_sim" | "pocket_wifi" | "public_wifi";
   kind: string;
@@ -512,6 +518,8 @@ export type ConnectivityOption = {
   pros: string[];
   cons: string[];
   url?: string | null;
+  availability?: ConnectivityAvailability;
+  pre_arrival_note?: string;
 };
 
 export type ConnectivityPayload = {
