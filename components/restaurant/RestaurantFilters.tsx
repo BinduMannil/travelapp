@@ -149,7 +149,7 @@ function Pill({
         "rounded-full border px-3 py-1 text-sm",
         active
           ? "border-brand-500 bg-brand-50 text-brand-800"
-          : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300",
+          : "border-washi-200 bg-white text-sumi-800 hover:border-washi-300",
       )}
     >
       {children}

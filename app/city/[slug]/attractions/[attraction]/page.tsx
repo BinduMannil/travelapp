@@ -262,7 +262,7 @@ export default async function AttractionDetailPage({
                 href={url}
                 partner="auto"
                 source={`attraction/${a.slug}`}
-                className="rounded-md border border-slate-300 bg-white px-4 py-2 text-sumi-900 hover:bg-washi-100"
+                className="rounded-md border border-washi-300 bg-white px-4 py-2 text-sumi-900 hover:bg-washi-100"
               >
                 {RESELLER_LABEL[k] ?? k} →
               </AffiliateLink>

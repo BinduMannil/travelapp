@@ -162,7 +162,7 @@ export default async function RestaurantsPage({
         </section>
 
         {filtered.length === 0 && (
-          <p className="mt-8 rounded-lg border border-dashed border-slate-300 p-6 text-center text-sumi-700">
+          <p className="mt-8 rounded-lg border border-dashed border-washi-300 p-6 text-center text-sumi-700">
             No restaurants match those filters. Try loosening one.
           </p>
         )}

@@ -144,7 +144,7 @@ export default async function HotelsPage({
               className={`rounded-full border px-3 py-1 ${
                 !activeTier
                   ? "border-brand-500 bg-brand-50 text-brand-800"
-                  : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300"
+                  : "border-washi-200 bg-white text-sumi-800 hover:border-washi-300"
               }`}
             >
               All
@@ -157,7 +157,7 @@ export default async function HotelsPage({
                 className={`rounded-full border px-3 py-1 ${
                   activeTier === t.tier
                     ? "border-brand-500 bg-brand-50 text-brand-800"
-                    : "border-washi-200 bg-white text-sumi-800 hover:border-slate-300"
+                    : "border-washi-200 bg-white text-sumi-800 hover:border-washi-300"
                 }`}
               >
                 {HOTEL_TIER_LABEL[t.tier]}
@@ -262,7 +262,7 @@ export default async function HotelsPage({
         </section>
 
         {filtered.length === 0 && (
-          <p className="mt-8 rounded-lg border border-dashed border-slate-300 p-6 text-center text-sumi-700">
+          <p className="mt-8 rounded-lg border border-dashed border-washi-300 p-6 text-center text-sumi-700">
             No hotels in that tier yet.
           </p>
         )}

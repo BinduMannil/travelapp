@@ -82,7 +82,7 @@ export function PackingPlanner({
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm"
+              className="mt-1 w-full rounded-md border border-washi-300 bg-white px-2 py-1.5 text-sm"
             />
           </label>
           <label className="block">
@@ -94,7 +94,7 @@ export function PackingPlanner({
               value={endDate}
               min={startDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm"
+              className="mt-1 w-full rounded-md border border-washi-300 bg-white px-2 py-1.5 text-sm"
             />
           </label>
         </div>
@@ -110,7 +110,7 @@ export function PackingPlanner({
               max={10}
               value={adults}
               onChange={(e) => setAdults(Math.max(1, Number(e.target.value)))}
-              className="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm"
+              className="mt-1 w-full rounded-md border border-washi-300 bg-white px-2 py-1.5 text-sm"
             />
           </label>
           <label className="block">
@@ -123,7 +123,7 @@ export function PackingPlanner({
               max={10}
               value={children}
               onChange={(e) => setChildren(Math.max(0, Number(e.target.value)))}
-              className="mt-1 w-full rounded-md border border-slate-300 bg-white px-2 py-1.5 text-sm"
+              className="mt-1 w-full rounded-md border border-washi-300 bg-white px-2 py-1.5 text-sm"
             />
           </label>
         </div>
@@ -177,7 +177,7 @@ export function PackingPlanner({
         {result ? (
           <PackingOutput items={result.items} ctx={result.ctx} />
         ) : (
-          <p className="rounded-lg border border-dashed border-slate-300 p-6 text-sm text-sumi-700">
+          <p className="rounded-lg border border-dashed border-washi-300 p-6 text-sm text-sumi-700">
             Check your dates and try again.
           </p>
         )}

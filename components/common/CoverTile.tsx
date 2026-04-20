@@ -88,6 +88,7 @@ export function CoverTile({
         // Real photograph layer (shown when available). Uses a regular <img>
         // so CoverTile stays a server-renderable plain component; swap to
         // next/image in a later pass once the image pipeline is wired.
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           src={imageUrl}
           alt=""

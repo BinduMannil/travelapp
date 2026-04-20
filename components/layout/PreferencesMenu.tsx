@@ -58,7 +58,7 @@ export function PreferencesMenu() {
           onClick={() => setTempUnit("c")}
           className={`px-2 py-1 ${
             tempUnit === "c"
-              ? "bg-slate-900 text-white"
+              ? "bg-sumi-900 text-white"
               : "bg-white text-sumi-800 hover:bg-washi-100"
           }`}
         >
@@ -70,7 +70,7 @@ export function PreferencesMenu() {
           onClick={() => setTempUnit("f")}
           className={`px-2 py-1 ${
             tempUnit === "f"
-              ? "bg-slate-900 text-white"
+              ? "bg-sumi-900 text-white"
               : "bg-white text-sumi-800 hover:bg-washi-100"
           }`}
         >
@@ -89,7 +89,7 @@ export function PreferencesMenu() {
           onClick={() => setDistanceUnit("km")}
           className={`px-2 py-1 ${
             distanceUnit === "km"
-              ? "bg-slate-900 text-white"
+              ? "bg-sumi-900 text-white"
               : "bg-white text-sumi-800 hover:bg-washi-100"
           }`}
         >
@@ -101,7 +101,7 @@ export function PreferencesMenu() {
           onClick={() => setDistanceUnit("mi")}
           className={`px-2 py-1 ${
             distanceUnit === "mi"
-              ? "bg-slate-900 text-white"
+              ? "bg-sumi-900 text-white"
               : "bg-white text-sumi-800 hover:bg-washi-100"
           }`}
         >
