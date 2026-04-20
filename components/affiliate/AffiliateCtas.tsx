@@ -58,27 +58,25 @@ function Card({
 
   return (
     <div
-      className={`flex flex-col gap-3 rounded-2xl border p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between ${accentBg[accent]}`}
+      className={`flex h-full flex-col rounded-2xl border p-6 shadow-sm ${accentBg[accent]}`}
     >
-      <div className="flex items-start gap-4">
-        <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/70 font-display text-2xl font-bold text-sumi-900">
+      <div className="flex items-center gap-3">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-white/80 font-display text-xl font-bold text-sumi-900">
           {kanji}
         </span>
-        <div>
-          <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
-            {eyebrow}
-          </div>
-          <h3 className="mt-0.5 font-display text-lg font-semibold text-sumi-900">
-            {title}
-          </h3>
-          <p className="mt-1 text-sm text-sumi-700">{body}</p>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          {eyebrow}
         </div>
       </div>
+      <h3 className="mt-4 font-display text-xl font-semibold leading-snug text-sumi-900">
+        {title}
+      </h3>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-sumi-700">{body}</p>
       <AffiliateLink
         href={href}
         partner={partner}
         source={source}
-        className={`whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold text-white transition ${accentBtn[accent]}`}
+        className={`mt-5 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold text-white transition ${accentBtn[accent]}`}
       >
         {button} →
       </AffiliateLink>

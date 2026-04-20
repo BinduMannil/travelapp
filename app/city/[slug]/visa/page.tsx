@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -7,6 +6,7 @@ import {
   getVisaRuleset,
 } from "@/lib/data/seed";
 import { VisaPicker } from "@/components/city/VisaPicker";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -30,27 +30,22 @@ export default async function VisaPage({
   if (!ruleset) notFound();
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Visa for you
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Visa requirements for {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Pick your passport below to see the current rule. Your selection is
-        saved in this browser so we can personalise other pages (for example,
-        which nearby cities need no extra visa).
-      </p>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Visa for you" },
+        ]}
+        kanji="旅"
+        eyebrow="Visa for you"
+        title={`Visa for ${city.name}`}
+        subtitle="旅 券"
+        lede="Pick your passport to see the current rule. Your selection is saved in this browser so we can personalise other pages — for example, which nearby cities need no extra visa."
+        palette="sumi"
+      />
 
-      <section className="mt-8">
+      <section className="mx-auto max-w-3xl px-6 py-12">
         <VisaPicker
           rules={ruleset.rules}
           reviewedAt={ruleset.reviewed_at}

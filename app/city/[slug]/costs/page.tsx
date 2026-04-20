@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getPriceItems } from "@/lib/data/seed";
 import { CostTable } from "@/components/money/CostTable";
+import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -24,31 +24,27 @@ export default async function CostsPage({
   const items = getPriceItems(slug);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Daily costs
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">Daily costs — {city.name}</h1>
-      <p className="mt-3 text-slate-600">
-        Typical prices for common travel purchases, converted to the display
-        currency you picked on the home page.
-      </p>
-
-      <section className="mt-6">
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Daily costs" },
+        ]}
+        kanji="円"
+        eyebrow="Daily costs"
+        title={`What ${city.name} costs`}
+        subtitle="物 価"
+        lede="Typical prices for common travel purchases, converted into the display currency you picked on the home page."
+        palette="sumi"
+      />
+      <section className="mx-auto max-w-5xl px-6 py-12">
         <CostTable items={items} />
+        <p className="mt-10 text-xs text-sumi-700">
+          Prices are typical ranges for central {city.name}. Individual
+          businesses vary — treat as a planning guide, not a guarantee.
+        </p>
       </section>
-
-      <p className="mt-10 text-xs text-slate-500">
-        Prices are typical ranges for central Tokyo. Individual businesses vary
-        — treat as a planning guide, not a guarantee.
-      </p>
     </main>
   );
 }

@@ -262,7 +262,7 @@ export default function HomePage() {
 
       {/* MONETISATION STRIP — booking / flights / insurance one-liners */}
       <section className="mx-auto mt-6 max-w-6xl px-6">
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <HotelCta city="Tokyo" source="home-strip" />
           <FlightCta source="home-strip" />
           <InsuranceCta source="home-strip" />

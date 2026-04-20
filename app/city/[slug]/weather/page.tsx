@@ -1,14 +1,10 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { MonthGrid } from "@/components/city/MonthGrid";
 import { getCity, getClimate } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
-export function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}): Metadata {
+export function generateMetadata(): Metadata {
   return {
     title: "Weather & seasons",
     description:
@@ -30,47 +26,41 @@ export default async function WeatherPage({
   const off = rows.filter((r) => r.season_label === "off").map((r) => r.month);
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Weather &amp; seasons
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Weather &amp; seasons — {city.name}
-      </h1>
-      <p className="mt-3 text-slate-600">
-        Historical monthly averages help you pick when to go. Peak months have
-        the best weather but also higher prices and crowds; off-season trades
-        weather for value.
-      </p>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Weather & seasons" },
+        ]}
+        kanji="季"
+        eyebrow="Weather & seasons"
+        title={`When to visit ${city.name}`}
+        subtitle="四 季"
+        lede="Historical monthly averages help you pick when to go. Peak months have the best weather but also higher prices and crowds; off-season trades weather for value."
+        palette="sumi"
+      >
+        <div className="flex flex-wrap gap-2 text-sm">
+          {peak.length > 0 && (
+            <span className="rounded-full bg-sakura-100/15 px-3 py-1 text-sakura-100 ring-1 ring-sakura-200/30">
+              Peak: {peak.map((m) => monthName(m)).join(", ")}
+            </span>
+          )}
+          {off.length > 0 && (
+            <span className="rounded-full bg-matcha-400/15 px-3 py-1 text-matcha-100 ring-1 ring-matcha-400/30">
+              Off: {off.map((m) => monthName(m)).join(", ")}
+            </span>
+          )}
+        </div>
+      </PageHero>
 
-      <div className="mt-6 flex flex-wrap gap-2 text-sm">
-        {peak.length > 0 && (
-          <span className="rounded-full bg-rose-50 px-3 py-1 text-rose-900 ring-1 ring-rose-200">
-            Peak: {peak.map((m) => monthName(m)).join(", ")}
-          </span>
-        )}
-        {off.length > 0 && (
-          <span className="rounded-full bg-emerald-50 px-3 py-1 text-emerald-900 ring-1 ring-emerald-200">
-            Off: {off.map((m) => monthName(m)).join(", ")}
-          </span>
-        )}
-      </div>
-
-      <section className="mt-8">
+      <section className="mx-auto max-w-5xl px-6 py-12">
         <MonthGrid rows={rows} />
+        <p className="mt-10 text-xs text-sumi-700">
+          Source: seeded historical normals. Live current weather will be added
+          in a later update via OpenWeather.
+        </p>
       </section>
-
-      <p className="mt-10 text-xs text-slate-500">
-        Source: seeded historical normals. Live current weather will be added
-        in a later update via OpenWeather.
-      </p>
     </main>
   );
 }

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import {
@@ -6,6 +5,7 @@ import {
   getCountryForCity,
   getCountryTipping,
 } from "@/lib/data/seed";
+import { PageHero } from "@/components/layout/PageHero";
 
 const CONTEXT_LABELS: Record<string, string> = {
   restaurant: "Restaurants (mid-upper tier)",
@@ -40,55 +40,53 @@ export default async function TippingPage({
   if (!payload) notFound();
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
-      <nav className="text-sm text-slate-500">
-        <Link href="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        ·{" "}
-        <Link href={`/city/${slug}`} className="hover:underline">
-          {city.name}
-        </Link>{" "}
-        · Tipping
-      </nav>
-      <h1 className="mt-2 text-3xl font-semibold">
-        Tipping in {city.name}
-      </h1>
+    <main>
+      <PageHero
+        crumbs={[
+          { label: "Home", href: "/" },
+          { label: city.name, href: `/city/${slug}` },
+          { label: "Tipping" },
+        ]}
+        kanji="心"
+        eyebrow="Tipping culture"
+        title={`Tipping in ${city.name}`}
+        subtitle="心 付"
+        lede={payload.summary}
+        palette="enji"
+      />
 
-      <p className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-emerald-900">
-        {payload.summary}
-      </p>
-
-      <section className="mt-8 space-y-3">
-        {payload.rules.map((r) => (
-          <article
-            key={r.context}
-            className="rounded-lg border border-slate-200 p-4"
-          >
-            <header className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="text-lg font-semibold">
-                {CONTEXT_LABELS[r.context] ?? r.context}
-              </h2>
-              <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                  r.expected
-                    ? "bg-amber-100 text-amber-900"
-                    : "bg-slate-100 text-slate-700"
-                }`}
-              >
-                {r.expected ? "Tip expected" : "No tip"}
-              </span>
-            </header>
-            <p className="mt-2 text-sm font-medium text-slate-900">
-              {r.amount_guidance}
-            </p>
-            {r.notes && (
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                {r.notes}
+      <section className="mx-auto max-w-3xl px-6 py-12">
+        <div className="space-y-3">
+          {payload.rules.map((r) => (
+            <article
+              key={r.context}
+              className="rounded-2xl border border-washi-200 bg-white p-5"
+            >
+              <header className="flex flex-wrap items-baseline justify-between gap-3">
+                <h2 className="font-display text-lg font-semibold text-sumi-900">
+                  {CONTEXT_LABELS[r.context] ?? r.context}
+                </h2>
+                <span
+                  className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                    r.expected
+                      ? "bg-kintsugi-300/30 text-sumi-900"
+                      : "bg-matcha-100 text-matcha-700"
+                  }`}
+                >
+                  {r.expected ? "Tip expected" : "No tip"}
+                </span>
+              </header>
+              <p className="mt-2 text-sm font-medium text-sumi-900">
+                {r.amount_guidance}
               </p>
-            )}
-          </article>
-        ))}
+              {r.notes && (
+                <p className="mt-2 text-sm leading-relaxed text-sumi-700">
+                  {r.notes}
+                </p>
+              )}
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
