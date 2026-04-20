@@ -62,7 +62,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
       {active && (
         <>
           {/* Primary: time + price, big and scannable */}
-          <div className="mt-5 grid grid-cols-2 gap-4">
+          <div className="mt-5 flex items-start justify-between gap-4">
             <div>
               <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
                 Time
@@ -71,7 +71,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
                 {formatDuration(active.duration_minutes)}
               </div>
             </div>
-            <div>
+            <div className="text-right">
               <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
                 Typical fare
               </div>

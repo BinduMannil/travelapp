@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
-import { montserrat, notoSerifJp } from "./fonts";
+import { italianno, montserrat, notoSerifJp, playfairDisplay } from "./fonts";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { PreferencesProvider } from "@/lib/preferences/context";
 import { ConsentProvider } from "@/lib/consent/context";
@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${notoSerifJp.variable}`}
+      className={`${montserrat.variable} ${playfairDisplay.variable} ${italianno.variable} ${notoSerifJp.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">

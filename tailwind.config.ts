@@ -73,26 +73,25 @@ export default {
         },
       },
       fontFamily: {
-        // Single typeface across the whole app: Montserrat for Latin,
-        // Noto Serif JP as fallback so kanji characters that Montserrat
-        // can't render (旅, 東京, etc.) still display in a well-crafted
-        // Japanese face instead of whatever the browser picks.
+        // Everyday sans: Montserrat, with Noto Serif JP as CJK fallback
+        // so kanji inside Latin copy still lands on a crafted face.
         sans: [
           "var(--font-sans)",
-          "var(--font-display)",
+          "var(--font-jp-serif)",
           "system-ui",
           "-apple-system",
           "sans-serif",
         ],
-        // font-display is kept as an alias so existing usages keep
-        // working, but it now points at the same Montserrat stack.
+        // Editorial display: Playfair Display (high-contrast classical
+        // serif, "Hello Paris" aesthetic) for hero titles and covers.
         display: [
-          "var(--font-sans)",
           "var(--font-display)",
-          "system-ui",
-          "-apple-system",
-          "sans-serif",
+          "var(--font-jp-serif)",
+          "Georgia",
+          "serif",
         ],
+        // Script accent: Italianno for signature-style flourishes.
+        script: ["var(--font-script)", "cursive"],
       },
       backgroundImage: {
         // Seigaiha — overlapping-wave motif. Classic traditional pattern.
