@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { FxCardCta } from "@/components/affiliate/AffiliateCtas";
@@ -23,13 +22,6 @@ const LEVEL_STYLES: Record<AcceptanceLevel, string> = {
   often: "bg-sky-100 text-sky-900",
   sometimes: "bg-amber-100 text-amber-900",
   rare: "bg-rose-100 text-rose-900",
-};
-
-const METHOD_ACCEPT_LABEL: Record<string, string> = {
-  ubiquitous: "Ubiquitous",
-  common: "Common",
-  limited: "Limited",
-  rare: "Rare",
 };
 
 export function generateMetadata(): Metadata {
@@ -205,7 +197,7 @@ export default async function PaymentsPage({
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-washi-200">
               {payments.venues.map((v) => (
                 <tr key={v.key}>
                   <th className="px-3 py-2 text-left font-medium text-sumi-900 whitespace-nowrap">

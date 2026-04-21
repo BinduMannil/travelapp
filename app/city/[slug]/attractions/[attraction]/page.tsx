@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getAttraction, getCity } from "@/lib/data/seed";
@@ -9,11 +8,7 @@ import {
   PriceDisplay,
 } from "@/lib/preferences/context";
 import { AffiliateLink } from "@/components/affiliate/AffiliateLink";
-import {
-  InsuranceCta,
-  ToursCta,
-} from "@/components/affiliate/AffiliateCtas";
-import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { ToursCta } from "@/components/affiliate/AffiliateCtas";
 import { PageHero } from "@/components/layout/PageHero";
 import { attractionCover } from "@/components/common/CoverTile";
 

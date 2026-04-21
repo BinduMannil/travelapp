@@ -161,8 +161,8 @@ export default async function CulturePage({
                   {PHRASE_CATEGORY_LABEL[cat] ?? cat}
                 </h3>
                 <div className="mt-2 overflow-hidden rounded-lg border border-washi-200">
-                  <table className="min-w-full divide-y divide-slate-200 text-sm">
-                    <tbody className="divide-y divide-slate-100">
+                  <table className="min-w-full divide-y divide-washi-200 text-sm">
+                    <tbody className="divide-y divide-washi-200">
                       {(phrasesByCategory.get(cat) ?? []).map((p) => (
                         <tr key={p.romaji}>
                           <td className="px-4 py-2 font-medium text-sumi-900">
