@@ -11,17 +11,14 @@ export const montserrat = Montserrat({
 
 // Fraunces — a modern, expressive display serif (the Maglite-style
 // aesthetic: high-contrast strokes, swash tails on g/y/Q, generous
-// ligatures). Variable font, so a single load gives us every weight
-// and an italic axis. Used on hero titles via the `font-display`
-// utility.
+// ligatures). Multi-weight static loading so every weight is reliably
+// available server-side without variable-axis surprises.
 export const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  // Variable font — omit `weight` so every weight along the wght axis
-  // is available. Adding `axes` requires this for next/font.
+  weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
-  axes: ["SOFT", "opsz"],
 });
 
 // Italianno — elegant signature-style script for hand-drawn accent

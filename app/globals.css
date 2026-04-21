@@ -35,7 +35,10 @@ p {
 /* Every heading uses Fraunces — the Maglite-style display serif — by
    default. Body / data / numbers stay on Montserrat via the `inherit`
    chain from <body>. Kanji characters inside a heading still fall
-   through to Noto Serif JP via the font-family stack in tailwind. */
+   through to Noto Serif JP via the font-family stack in tailwind.
+   Fraunces stylistic sets ss01/ss02 enable the swashy alternate
+   letterforms (g with curly tail, alt R, alt Q) that give the face
+   its expressive Maglite-like character. */
 h1,
 h2,
 h3,
@@ -43,7 +46,8 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display), var(--font-jp-serif), Georgia, serif;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
+  font-feature-settings: "ss01", "ss02", "dlig", "liga";
 }
 
 h1 {
