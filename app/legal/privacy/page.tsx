@@ -435,9 +435,9 @@ export default function PrivacyPage() {
             </thead>
             <tbody>
               <tr>
-                <td>Vercel Inc.</td>
+                <td>Hosting provider (to be announced)</td>
                 <td>Web hosting, CDN, edge functions</td>
-                <td>USA (+ edge PoPs worldwide)</td>
+                <td>Disclosed here once selected</td>
               </tr>
               <tr>
                 <td>Supabase Inc.</td>

@@ -19,7 +19,9 @@ Full product plan: `/root/.claude/plans/let-s-plan-a-travel-witty-cake.md`.
   (script accent), Noto Serif JP (CJK fallback) — all via `next/font`.
 - **Database + auth**: Supabase (Postgres + RLS + Storage) — plugged in
   for M4 onwards.
-- **Hosting**: Vercel
+- **Hosting**: local-first during development (`npm run dev`). A host
+  will be picked closer to launch; the code is framework-standard
+  Next.js and not tied to any specific provider.
 - **Testing**: Vitest (unit) + Playwright (e2e, added in M4)
 - **Compliance posture**: globally valid Privacy Policy + Terms
   covering GDPR, UK GDPR, CCPA/CPRA, LGPD, PIPEDA, APPI, PDPL, PDPA,

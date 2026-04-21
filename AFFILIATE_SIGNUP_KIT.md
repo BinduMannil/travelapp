@@ -15,7 +15,7 @@ Fill these in once — you'll reuse them across every application.
 | **Phone** | Verified phone — each program texts a code |
 | **Email for business** | Use a dedicated inbox (e.g. partnerships@yourdomain.com). Gmail is fine. |
 | **Bank / PayPal / Wise** | Where payouts land. Wise is simplest for non-US residents. |
-| **Website URL** | The Vercel URL once you deploy (`<project>.vercel.app`) or your own domain |
+| **Website URL** | Your deployed URL once you pick a host, or your own domain (journee-app.com). Leave blank while still local-only. |
 | **Site category** | Travel / Tourism |
 | **Monthly visitors** | "Pre-launch. Target ~5k/mo within 3 months." (honest; they approve anyway) |
 | **Promotion methods** | "Editorial content site. Integrated affiliate links in relevant content, no spam, no email blasts. FTC-compliant `rel=sponsored` disclosure on every affiliate link." |
@@ -78,14 +78,16 @@ Ordered **easiest + highest ROI first**. Status legend: ⬜ not started · 🟡 
 
 ## How to hand me back the IDs
 
-Once you have an affiliate ID from any program, either:
+Once you have an affiliate ID from any program:
 
-**Option A (fastest):** paste into Vercel dashboard yourself
-1. vercel.com → your project → Settings → Environment Variables
-2. Add each `NEXT_PUBLIC_AFF_*` key with the ID value
-3. Redeploy. Done.
+**While still local on your Mac:**
+1. Open `.env.local` in the project root (create it by copying `.env.example`).
+2. Add each `NEXT_PUBLIC_AFF_*` key with the ID value.
+3. Restart `npm run dev`. Done — the links now carry your ID.
 
-**Option B:** paste them here to me in chat. I'll add them to the Vercel env vars for you (you'd need to connect me to your Vercel project via the MCP GitHub integration we already have, plus a Vercel token — flag if you want to go this route).
+**Once you pick a host:** paste the same values into that host's
+environment-variables config (the exact path depends on the host).
+Tell me which host you pick and I'll walk you through the UI.
 
 ## Recurring tasks once live
 
