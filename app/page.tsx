@@ -21,11 +21,34 @@ type Palette =
   | "ocean"
   | "forest";
 
+// Fan of key Japan destinations — cities, towns, and UNESCO villages
+// reachable from Tokyo without changing visa. Ordered loosely by distance
+// from Tokyo so the stack flows from close-in day trips out to far-flung
+// heritage sites. Each card deep-links to the matching row on the Nearby
+// page; a few of the lesser-known ones will get their own city pages in
+// a later content pass.
 const NEARBY_STACK: NearbyCard[] = [
-  { label: "Kyoto", sublabel: "2h 20m · Shinkansen", palette: "enji", kanji: "京", href: "/city/tokyo/nearby#kyoto" },
-  { label: "Osaka", sublabel: "2h 45m · Shinkansen", palette: "kintsugi", kanji: "阪", href: "/city/tokyo/nearby#osaka" },
-  { label: "Hakone", sublabel: "1h 25m · Romancecar", palette: "matcha", kanji: "箱", href: "/city/tokyo/nearby#hakone" },
-  { label: "Nikko", sublabel: "1h 55m · Tobu SPACIA", palette: "forest", kanji: "光", href: "/city/tokyo/nearby#nikko" },
+  { label: "Kamakura",     sublabel: "1h · JR Yokosuka · coastal temples",      palette: "ume",      kanji: "鎌", href: "/city/tokyo/nearby#kamakura" },
+  { label: "Yokohama",     sublabel: "30m · JR Tokaido · Chinatown + bay",       palette: "ocean",    kanji: "横", href: "/city/tokyo/nearby#yokohama" },
+  { label: "Hakone",       sublabel: "1h 25m · Romancecar · onsen + Fuji views", palette: "matcha",   kanji: "箱", href: "/city/tokyo/nearby#hakone" },
+  { label: "Nikko",        sublabel: "1h 55m · Tobu SPACIA · shrines + waterfall", palette: "forest", kanji: "光", href: "/city/tokyo/nearby#nikko" },
+  { label: "Mt Fuji",      sublabel: "2h · Chuo + bus · five lakes",             palette: "aizome",   kanji: "富", href: "/city/tokyo/nearby#mt-fuji" },
+  { label: "Kyoto",        sublabel: "2h 20m · Shinkansen · imperial heritage",  palette: "enji",     kanji: "京", href: "/city/tokyo/nearby#kyoto" },
+  { label: "Nara",         sublabel: "2h 40m · Shinkansen + JR · deer + Daibutsu", palette: "kintsugi", kanji: "奈", href: "/city/tokyo/nearby#nara" },
+  { label: "Osaka",        sublabel: "2h 45m · Shinkansen · food capital",       palette: "kintsugi", kanji: "阪", href: "/city/tokyo/nearby#osaka" },
+  { label: "Kobe",         sublabel: "3h · Shinkansen · wagyu + harbour",        palette: "ume",      kanji: "神", href: "/city/tokyo/nearby#kobe" },
+  { label: "Kanazawa",     sublabel: "2h 30m · Hokuriku Shinkansen · samurai",   palette: "sumi",     kanji: "金", href: "/city/tokyo/nearby#kanazawa" },
+  { label: "Takayama",     sublabel: "4h · Shinkansen + Wide-View Hida · Edo old town", palette: "forest", kanji: "高", href: "/city/tokyo/nearby#takayama" },
+  { label: "Shirakawa-go", sublabel: "4h 45m · via Takayama · gassho villages",  palette: "washi",    kanji: "白", href: "/city/tokyo/nearby#shirakawa-go" },
+  { label: "Matsumoto",    sublabel: "2h 45m · Azusa Limited Express · castle",  palette: "aizome",   kanji: "松", href: "/city/tokyo/nearby#matsumoto" },
+  { label: "Hiroshima",    sublabel: "4h · Shinkansen · peace memorial",         palette: "enji",     kanji: "広", href: "/city/tokyo/nearby#hiroshima" },
+  { label: "Miyajima",     sublabel: "4h 30m · via Hiroshima · floating torii",  palette: "enji",     kanji: "宮", href: "/city/tokyo/nearby#miyajima" },
+  { label: "Sapporo",      sublabel: "1h 40m flight · Hokkaido winter capital",  palette: "aizome",   kanji: "札", href: "/city/tokyo/nearby#sapporo" },
+  { label: "Sendai",       sublabel: "1h 30m · Tohoku Shinkansen · Date-era",    palette: "matcha",   kanji: "仙", href: "/city/tokyo/nearby#sendai" },
+  { label: "Fukuoka",      sublabel: "1h 50m flight · Kyushu ramen + yatai",     palette: "enji",     kanji: "福", href: "/city/tokyo/nearby#fukuoka" },
+  { label: "Beppu",        sublabel: "2h flight + local · 8 hells, onsen town",  palette: "kintsugi", kanji: "別", href: "/city/tokyo/nearby#beppu" },
+  { label: "Naha (Okinawa)", sublabel: "2h 40m flight · subtropical islands",    palette: "sakura",   kanji: "沖", href: "/city/tokyo/nearby#naha" },
+  { label: "Ise",          sublabel: "3h 20m · Kintetsu · grand shrine",         palette: "matcha",   kanji: "伊", href: "/city/tokyo/nearby#ise" },
 ];
 
 const STATS: Array<{ value: string; label: string; sublabel: string; href: string }> = [
