@@ -51,7 +51,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
   const kanji = route.kanji ?? "市";
 
   return (
-    <article className="group relative overflow-hidden rounded-2xl text-washi-50 shadow-xl transition-transform duration-500 hover:-translate-y-1">
+    <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl text-washi-50 shadow-xl transition-transform duration-500 hover:-translate-y-1">
       {/* Background layers — gradient wash, optional photo carousel,
           dark overlay for legibility, and a drifting kanji ghost. */}
       <div className="absolute inset-0 -z-10">
@@ -76,7 +76,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
         </span>
       </div>
 
-      <div className="p-6">
+      <div className="flex flex-1 flex-col p-6">
         <header className="flex items-baseline justify-between gap-3">
           <h2 className="text-3xl font-semibold tracking-tight text-washi-50">
             {route.dest_name}
@@ -113,7 +113,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
         {active && (
           <div
             key={active.mode}
-            className="mt-6 animate-[fadeUp_350ms_ease-out_both]"
+            className="mt-6 flex flex-1 flex-col animate-[fadeUp_350ms_ease-out_both]"
           >
             <style>{`
               @keyframes fadeUp {
@@ -153,7 +153,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
               </div>
             </div>
 
-            <div className="mt-3 text-xs leading-snug text-washi-50/75">
+            <div className="mt-3 flex-1 text-xs leading-snug text-washi-50/75">
               {active.name}
               {active.notes && <span> · {active.notes}</span>}
             </div>
@@ -163,7 +163,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
                 href={active.booking_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-kintsugi-300 transition hover:text-kintsugi-200"
+                className="mt-4 inline-flex items-center gap-1.5 self-start text-xs font-semibold uppercase tracking-[0.22em] text-kintsugi-300 transition hover:text-kintsugi-200"
               >
                 Book
                 <span aria-hidden>→</span>

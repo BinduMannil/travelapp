@@ -7,7 +7,7 @@ import {
   CurrencyProvider,
   CurrencySelector,
 } from "@/lib/preferences/context";
-import { NearbyRouteCard } from "@/components/city/NearbyRouteCard";
+import { NearbyDestinationsGrid } from "@/components/city/NearbyDestinationsGrid";
 import { CarRentalCta, FlightCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
@@ -81,29 +81,17 @@ export default async function NearbyPage({
         </div>
 
         {domestic.length > 0 && (
-          <section className="mt-6">
-            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-              Within Japan · same visa
-            </h2>
-            <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
-              {domestic.map((r) => (
-                <NearbyRouteCard key={r.dest_slug} route={r} />
-              ))}
-            </div>
-          </section>
+          <NearbyDestinationsGrid
+            routes={domestic}
+            heading="Within Japan · same visa"
+          />
         )}
 
         {foreign.length > 0 && (
-          <section className="mt-8">
-            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-              International · check visa first
-            </h2>
-            <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
-              {foreign.map((r) => (
-                <NearbyRouteCard key={r.dest_slug} route={r} />
-              ))}
-            </div>
-          </section>
+          <NearbyDestinationsGrid
+            routes={foreign}
+            heading="International · check visa first"
+          />
         )}
       </CurrencyProvider>
 
