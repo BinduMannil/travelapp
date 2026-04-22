@@ -16,11 +16,67 @@
     "notes": "Tap water is safe to drink; refill stations are growing."
   },
   {
+    "key": "milk_1l",
+    "label": "Milk (1 L, supermarket)",
+    "amount_minor": 280,
+    "currency": "JPY",
+    "display_order": 3,
+    "notes": "Full-fat cow's milk at Life, Maruetsu, or Seiyu. Brand-name organic ~¥400."
+  },
+  {
+    "key": "bread_loaf",
+    "label": "Bread (loaf, 5 slices)",
+    "amount_minor": 220,
+    "currency": "JPY",
+    "display_order": 4,
+    "notes": "Classic shokupan — thick, soft, slightly sweet. Artisan bakeries charge ¥400-700."
+  },
+  {
+    "key": "eggs_dozen",
+    "label": "Eggs (10 pack)",
+    "amount_minor": 300,
+    "currency": "JPY",
+    "display_order": 5,
+    "notes": "Sold in packs of 10, not 12. Brown-shell free-range adds ¥80-150."
+  },
+  {
+    "key": "konbini_sandwich",
+    "label": "Konbini sandwich (egg or tuna)",
+    "amount_minor": 240,
+    "currency": "JPY",
+    "display_order": 6,
+    "notes": "7-Eleven's tamago sando is a meal-replacement staple — shockingly good for the price."
+  },
+  {
+    "key": "mcdonalds_big_mac",
+    "label": "McDonald's Big Mac meal",
+    "amount_minor": 750,
+    "currency": "JPY",
+    "display_order": 7,
+    "notes": "Big Mac ¥480 on its own; meal (fries + drink) ¥750. A standard comparison point worldwide."
+  },
+  {
+    "key": "kfc_two_piece",
+    "label": "KFC 2-piece combo",
+    "amount_minor": 960,
+    "currency": "JPY",
+    "display_order": 8,
+    "notes": "Original Recipe chicken with fries + drink. KFC is the de-facto Christmas dinner in Japan."
+  },
+  {
+    "key": "pizza_medium",
+    "label": "Medium pizza delivery (Domino's / Pizza Hut)",
+    "amount_minor": 2400,
+    "currency": "JPY",
+    "display_order": 9,
+    "notes": "M-size margherita delivered. Takeout via half-price coupons ~¥1,400."
+  },
+  {
     "key": "meal_casual",
     "label": "Casual meal (ramen, gyudon)",
     "amount_minor": 1100,
     "currency": "JPY",
-    "display_order": 3,
+    "display_order": 10,
     "notes": "Typical chain or independent shop, no drink."
   },
   {
@@ -28,7 +84,7 @@
     "label": "Mid-range restaurant dinner",
     "amount_minor": 3500,
     "currency": "JPY",
-    "display_order": 4,
+    "display_order": 11,
     "notes": "Per person, one drink. Reservations often needed on weekends."
   },
   {
@@ -36,15 +92,23 @@
     "label": "Beer at a pub/izakaya",
     "amount_minor": 700,
     "currency": "JPY",
-    "display_order": 5,
+    "display_order": 12,
     "notes": "½ pint / medium draft. Convenience-store cans: ¥220-350."
+  },
+  {
+    "key": "wine_bottle",
+    "label": "Bottle of wine (supermarket)",
+    "amount_minor": 1500,
+    "currency": "JPY",
+    "display_order": 13,
+    "notes": "Decent entry-level Chilean/Italian/Japanese red or white at a large supermarket."
   },
   {
     "key": "metro_ticket",
     "label": "Metro single ride",
     "amount_minor": 180,
     "currency": "JPY",
-    "display_order": 6,
+    "display_order": 14,
     "notes": "Base fare; distance-based. Use Suica/Pasmo IC card to tap."
   },
   {
@@ -52,7 +116,7 @@
     "label": "Taxi base fare",
     "amount_minor": 500,
     "currency": "JPY",
-    "display_order": 7,
+    "display_order": 15,
     "notes": "First 1.096 km; then ¥100 per 255 m. Surcharge 22:00-05:00."
   },
   {
@@ -60,15 +124,47 @@
     "label": "Taxi per extra km",
     "amount_minor": 392,
     "currency": "JPY",
-    "display_order": 8,
+    "display_order": 16,
     "notes": "Approximate. Tolls not included."
+  },
+  {
+    "key": "panadol_pack",
+    "label": "Paracetamol / painkiller (24 tablets)",
+    "amount_minor": 1300,
+    "currency": "JPY",
+    "display_order": 17,
+    "notes": "Pharmacy only — no supermarkets. Tylenol A (Japanese Panadol equivalent). Bring your preferred brand if possible."
+  },
+  {
+    "key": "sunscreen",
+    "label": "Sunscreen (SPF 50+, 50 g)",
+    "amount_minor": 1500,
+    "currency": "JPY",
+    "display_order": 18,
+    "notes": "Anessa, Biore UV — both world-class Japanese formulas. Widely exported but always cheaper at source."
+  },
+  {
+    "key": "toothpaste",
+    "label": "Toothpaste (Colgate / local brand)",
+    "amount_minor": 350,
+    "currency": "JPY",
+    "display_order": 19,
+    "notes": "Most toothpaste in Japan has very low fluoride (under 1000 ppm) by regulation. Bring your own if you need higher."
+  },
+  {
+    "key": "cinema_ticket",
+    "label": "Cinema ticket (standard adult)",
+    "amount_minor": 2000,
+    "currency": "JPY",
+    "display_order": 20,
+    "notes": "Toho or United. Many chains drop to ¥1,300 on the 1st of each month ('Cinema Day')."
   },
   {
     "key": "sim_7d",
     "label": "Tourist SIM / eSIM (7 days)",
     "amount_minor": 1800,
     "currency": "JPY",
-    "display_order": 9,
+    "display_order": 21,
     "notes": "Varies by provider; eSIM often cheaper than physical SIM."
   },
   {
@@ -76,7 +172,7 @@
     "label": "Tourist SIM / eSIM (30 days)",
     "amount_minor": 3500,
     "currency": "JPY",
-    "display_order": 10,
+    "display_order": 22,
     "notes": "Unlimited data plans from Airalo, Holafly, Ubigi and local telcos."
   },
   {
@@ -84,7 +180,7 @@
     "label": "Coin locker (medium, day)",
     "amount_minor": 500,
     "currency": "JPY",
-    "display_order": 11,
+    "display_order": 23,
     "notes": "At major stations. Ecbo Cloak starts around ¥500 for a backpack."
   },
   {
@@ -92,7 +188,23 @@
     "label": "Museum entry (average)",
     "amount_minor": 1200,
     "currency": "JPY",
-    "display_order": 12,
+    "display_order": 24,
     "notes": "Major museums; smaller galleries often free or ¥500-800."
+  },
+  {
+    "key": "gym_day_pass",
+    "label": "Gym day pass",
+    "amount_minor": 2500,
+    "currency": "JPY",
+    "display_order": 25,
+    "notes": "Anytime Fitness, Gold's, Tipness. Hotel gym use is often included with the room."
+  },
+  {
+    "key": "haircut",
+    "label": "Haircut (men's, no wash)",
+    "amount_minor": 1200,
+    "currency": "JPY",
+    "display_order": 26,
+    "notes": "QB House — 10-minute cut, ¥1,200 fixed. Salons are ¥4,000-8,000."
   }
 ]

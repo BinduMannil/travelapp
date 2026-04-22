@@ -98,8 +98,7 @@ export default async function RootLayout({
                     arrangements.
                   </p>
                   <p className="mt-3 text-[10px]">
-                    Operated by {LEGAL.entityName}, registered with{" "}
-                    {LEGAL.tradeLicenseAuthority} ·{" "}
+                    Operated by {LEGAL.entityName}, UAE ·{" "}
                     <span className="whitespace-nowrap">
                       Reviewed {formatReviewedAt()}
                     </span>
