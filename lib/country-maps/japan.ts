@@ -180,3 +180,31 @@ export const JAPAN_OFFSHORE: Array<{
     href: "/country/japan",
   },
 ];
+
+/**
+ * International + key domestic airports. Positioned in the same
+ * 400 × 600 viewBox as the city pins. Rendered as small triangles so
+ * they visually separate from city dots.
+ */
+export type AirportPin = {
+  iata: string;
+  name: string;
+  city: string;
+  /** x, y in the viewBox. */
+  pos: [number, number];
+  international: boolean;
+};
+
+export const JAPAN_AIRPORTS: AirportPin[] = [
+  { iata: "CTS", name: "New Chitose",      city: "Sapporo",    pos: [294, 104], international: true },
+  { iata: "SDJ", name: "Sendai",            city: "Sendai",     pos: [246, 218], international: true },
+  { iata: "HND", name: "Haneda",            city: "Tokyo",      pos: [262, 282], international: true },
+  { iata: "NRT", name: "Narita",            city: "Tokyo",      pos: [278, 276], international: true },
+  { iata: "NGO", name: "Chubu Centrair",    city: "Nagoya",     pos: [216, 316], international: true },
+  { iata: "KIX", name: "Kansai Int'l",      city: "Osaka",      pos: [168, 346], international: true },
+  { iata: "ITM", name: "Osaka Itami",        city: "Osaka",      pos: [178, 334], international: false },
+  { iata: "HIJ", name: "Hiroshima",          city: "Hiroshima",  pos: [118, 404], international: true },
+  { iata: "FUK", name: "Fukuoka",            city: "Fukuoka",    pos: [60, 510],  international: true },
+  { iata: "KMJ", name: "Kumamoto",           city: "Kumamoto",   pos: [48, 528],  international: false },
+  { iata: "KOJ", name: "Kagoshima",          city: "Kagoshima",  pos: [56, 560],  international: true },
+];
