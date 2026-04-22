@@ -141,13 +141,13 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
                     currency={active.currency}
                   />
                   {active.price_max_minor > active.price_min_minor && (
-                    <span className="text-sm font-normal text-washi-50/70">
-                      {" – "}
+                    <>
+                      <span className="mx-1 text-washi-50/60">–</span>
                       <PriceDisplay
                         amountMinor={active.price_max_minor}
                         currency={active.currency}
                       />
-                    </span>
+                    </>
                   )}
                 </div>
               </div>

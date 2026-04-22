@@ -34,42 +34,49 @@ type TempBand = {
   chip: string;
 };
 
-// Weather-based colour scale.
+// Weather-based colour scale drawn from the Japan palette:
+// cold = aizome indigo, cool = washi + sumi ink, mild = matcha green,
+// warm = kintsugi gold, hot = enji crimson. Backgrounds use full
+// palette tints (not /60 washes) so each card has clear destination-
+// rooted colour character.
+//
+// When we add more countries each country will ship its own TEMP_BANDS
+// via `lib/country-palettes/<slug>.ts` — see CONTRIBUTING.md.
 const TEMP_BANDS: TempBand[] = [
   {
     key: "cold",
     label: "Cold",
     upper: 8,
-    card: "bg-aizome-50/60 border-aizome-200",
-    chip: "bg-aizome-50 text-aizome-700",
+    card: "bg-aizome-100 border-aizome-400",
+    chip: "bg-aizome-600 text-white",
   },
   {
     key: "cool",
     label: "Cool",
     upper: 16,
-    card: "bg-washi-100 border-washi-300",
-    chip: "bg-washi-200 text-sumi-700",
+    card: "bg-washi-200 border-sumi-200",
+    chip: "bg-sumi-900 text-washi-50",
   },
   {
     key: "mild",
     label: "Mild",
     upper: 22,
-    card: "bg-matcha-100/60 border-matcha-400/40",
-    chip: "bg-matcha-100 text-matcha-700",
+    card: "bg-matcha-100 border-matcha-500",
+    chip: "bg-matcha-600 text-white",
   },
   {
     key: "warm",
     label: "Warm",
     upper: 28,
-    card: "bg-kintsugi-300/15 border-kintsugi-400/50",
-    chip: "bg-kintsugi-300/40 text-enji-700",
+    card: "bg-kintsugi-300/45 border-kintsugi-500",
+    chip: "bg-kintsugi-500 text-sumi-900",
   },
   {
     key: "hot",
     label: "Hot",
     upper: Infinity,
-    card: "bg-enji-50 border-enji-200",
-    chip: "bg-enji-100 text-enji-700",
+    card: "bg-enji-100 border-enji-500",
+    chip: "bg-enji-600 text-white",
   },
 ];
 
