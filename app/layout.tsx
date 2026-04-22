@@ -80,14 +80,26 @@ export default async function RootLayout({
                     {LEGAL.brand}
                   </div>
                   <p className="mt-1 max-w-lg text-[10px] leading-relaxed">
-                    Independent editorial travel guide. Operated by{" "}
-                    {LEGAL.entityName}, registered with{" "}
-                    {LEGAL.tradeLicenseAuthority}. Not a travel agent. Always
-                    verify visa, health, and legal details with official
-                    sources before you travel.
+                    {LEGAL.brand} is a refined, independent editorial travel
+                    guide curated for modern explorers seeking insight beyond
+                    the obvious. {LEGAL.brand} delivers thoughtfully crafted
+                    travel narratives, destination intelligence, and
+                    culturally grounded perspectives designed to elevate
+                    every journey.
+                  </p>
+                  <p className="mt-2 max-w-lg text-[10px] leading-relaxed">
+                    {LEGAL.brand} does not operate as a travel agency or
+                    booking platform. All content is provided strictly for
+                    editorial and informational purposes. Travellers are
+                    strongly encouraged to independently verify visa
+                    requirements, health advisories, entry regulations, and
+                    applicable legal conditions with official government and
+                    regulatory sources prior to making any travel
+                    arrangements.
                   </p>
                   <p className="mt-3 text-[10px]">
-                    Seed data for the Tokyo pilot · rates live from Frankfurter ·{" "}
+                    Operated by {LEGAL.entityName}, registered with{" "}
+                    {LEGAL.tradeLicenseAuthority} ·{" "}
                     <span className="whitespace-nowrap">
                       Reviewed {formatReviewedAt()}
                     </span>
