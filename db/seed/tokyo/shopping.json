@@ -27,8 +27,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Stationery_section.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Stationery_section.jpg?width=1200"
       ]
     },
     {
@@ -57,8 +57,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Kappabashi_kitchen_street.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kappabashi_kitchen_street.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg?width=1200"
       ]
     },
     {
@@ -84,7 +84,7 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Shimokitazawa_vintage_store.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shimokitazawa_vintage_store.jpg?width=1200"
       ]
     },
     {
@@ -110,8 +110,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Mandarake_Akihabara.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Mandarake_Akihabara.jpg?width=1200"
       ]
     },
     {
@@ -137,8 +137,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Yodobashi_Camera_Akiba.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Yodobashi_Camera_Akiba.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg?width=1200"
       ]
     },
     {
@@ -164,7 +164,7 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Isetan_Shinjuku_depachika.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Isetan_Shinjuku_depachika.jpg?width=1200"
       ]
     },
     {
@@ -190,8 +190,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_at_night.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_at_night.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills.jpg?width=1200"
       ]
     },
     {
@@ -217,7 +217,7 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Ozu_Washi_paper_shop.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ozu_Washi_paper_shop.jpg?width=1200"
       ]
     },
     {
@@ -264,9 +264,9 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Midtown.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_Scramble_Square.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Roppongi_Hills.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Midtown.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_Scramble_Square.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Roppongi_Hills.jpg?width=1200"
       ]
     },
     {
@@ -313,9 +313,9 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Beams_flagship_Harajuku.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/United_Arrows_Harajuku.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Daikanyama_T-Site.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Beams_flagship_Harajuku.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/United_Arrows_Harajuku.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Daikanyama_T-Site.jpg?width=1200"
       ]
     }
   ],

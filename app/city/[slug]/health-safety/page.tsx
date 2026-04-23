@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { MoneyText } from "@/components/common/MoneyText";
 import { InsuranceCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import {
@@ -79,7 +80,7 @@ export default async function HealthSafetyPage({
               className="rounded-lg border border-washi-200 p-4"
             >
               <h3 className="text-lg font-semibold">{h.title}</h3>
-              <p className="mt-1 text-sm text-sumi-800">{h.body}</p>
+              <p className="mt-1 text-sm text-sumi-800"><MoneyText>{h.body}</MoneyText></p>
               <p className="mt-3 border-l-2 border-amber-400 pl-3 text-sm text-sumi-800">
                 <strong className="text-amber-700">What to do.</strong>{" "}
                 {h.what_to_do}

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { MoneyText } from "@/components/common/MoneyText";
 import { getCity, getCityShopping } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 import { ShoppingBubbleHero } from "@/components/shopping/ShoppingBubbleHero";
@@ -151,7 +152,7 @@ export default async function ShoppingPage({
                       {p.name}
                     </h3>
                     <p className="mt-2 flex-1 text-sm leading-relaxed text-sumi-700">
-                      {p.body}
+                      <MoneyText>{p.body}</MoneyText>
                     </p>
                     {p.url && (
                       <a

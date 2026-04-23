@@ -9,6 +9,7 @@ import {
   getCountryPayments,
   type AcceptanceLevel,
 } from "@/lib/data/seed";
+import { MoneyText } from "@/components/common/MoneyText";
 
 const LEVEL_LABEL: Record<AcceptanceLevel, string> = {
   yes: "Yes",
@@ -231,13 +232,17 @@ export default async function PaymentsPage({
           <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             ATMs for foreign cards
           </h3>
-          <p className="mt-2 text-sm text-sumi-800">{payments.atm_notes}</p>
+          <p className="mt-2 text-sm text-sumi-800">
+            <MoneyText>{payments.atm_notes}</MoneyText>
+          </p>
         </article>
         <article className="rounded-lg border border-washi-200 p-4">
           <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Tax-free shopping
           </h3>
-          <p className="mt-2 text-sm text-sumi-800">{payments.tax_refund_note}</p>
+          <p className="mt-2 text-sm text-sumi-800">
+            <MoneyText>{payments.tax_refund_note}</MoneyText>
+          </p>
         </article>
       </section>
 

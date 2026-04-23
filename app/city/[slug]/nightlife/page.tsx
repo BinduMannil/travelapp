@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityNightlife } from "@/lib/data/seed";
 import { CoverTile } from "@/components/common/CoverTile";
+import { MoneyText } from "@/components/common/MoneyText";
 import { PageHero } from "@/components/layout/PageHero";
 
 const SCENE_PALETTE: Record<
@@ -89,14 +90,14 @@ export default async function NightlifePage({
                   </div>
                 )}
                 <p className="mt-4 text-sm leading-relaxed text-sumi-800">
-                  {s.body}
+                  <MoneyText>{s.body}</MoneyText>
                 </p>
                 {s.tip && (
                   <p className="mt-4 border-l-2 border-kintsugi-400 pl-3 text-xs italic leading-relaxed text-sumi-700">
                     <span className="not-italic font-semibold text-sumi-900">
                       Tip.
                     </span>{" "}
-                    {s.tip}
+                    <MoneyText>{s.tip}</MoneyText>
                   </p>
                 )}
               </div>

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCity, getCityKids } from "@/lib/data/seed";
 import { CoverTile } from "@/components/common/CoverTile";
+import { MoneyText } from "@/components/common/MoneyText";
 import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
@@ -69,16 +70,30 @@ export default async function KidsPage({
               badge={p.age_range}
             />
             <div className="flex flex-1 flex-col p-5">
-              <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-                {p.neighborhood} · {p.price_band}
+              {/* Top row — neighbourhood (truncated to one line) on the
+                  left, price band as a small chip on the right. Stops the
+                  long Maihama / Toyosu eyebrow from wrapping into two
+                  loud uppercase lines. */}
+              <div className="flex items-baseline justify-between gap-2">
+                <div className="min-w-0 truncate text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                  {p.neighborhood}
+                </div>
+                <span className="shrink-0 rounded-full bg-washi-100 px-2 py-0.5 text-[10px] font-semibold tabular-nums text-sumi-700">
+                  {p.price_band}
+                </span>
               </div>
-              <h2 className="mt-1 font-display text-lg font-semibold text-sumi-900">
+              <h2 className="mt-1 text-lg font-semibold leading-snug text-sumi-900">
                 {p.name}
               </h2>
-              <p className="mt-2 text-sm text-sumi-700">{p.body}</p>
+              <p className="mt-2 flex-1 text-sm text-sumi-700">
+                <MoneyText>{p.body}</MoneyText>
+              </p>
               {p.tip && (
-                <p className="mt-3 rounded-lg bg-washi-100 p-3 text-xs text-sumi-900">
-                  <strong>Tip:</strong> {p.tip}
+                <p className="mt-3 border-l-2 border-kintsugi-400 pl-3 text-xs italic leading-relaxed text-sumi-700">
+                  <span className="not-italic font-semibold text-sumi-900">
+                    Tip.
+                  </span>{" "}
+                  <MoneyText>{p.tip}</MoneyText>
                 </p>
               )}
               {p.url && (
@@ -86,7 +101,7 @@ export default async function KidsPage({
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-auto inline-block pt-3 text-sm font-semibold text-enji-600 hover:underline"
+                  className="mt-4 inline-block text-sm font-semibold text-enji-600 hover:underline"
                 >
                   Website →
                 </a>

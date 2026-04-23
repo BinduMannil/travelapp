@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { MoneyText } from "@/components/common/MoneyText";
 import { getCity, getTransitOptions } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -102,7 +103,7 @@ export default async function TransitPage({
                       </span>
                     )}
                   </h2>
-                  <p className="mt-1 text-sm text-sumi-700">{o.price_note}</p>
+                  <p className="mt-1 text-sm text-sumi-700"><MoneyText>{o.price_note}</MoneyText></p>
                 </div>
               </header>
 

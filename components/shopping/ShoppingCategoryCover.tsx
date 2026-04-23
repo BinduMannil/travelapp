@@ -28,12 +28,25 @@ export function ShoppingCategoryCover({
 }) {
   const [allFailed, setAllFailed] = useState(false);
 
+  // Wide banner ratio — far less heavy than the old 1:1 cover and lets
+  // a row of category sections feel like an editorial section divider.
+  const BANNER = "h-32 sm:h-36 lg:h-40";
+
   if (images.length === 0 || allFailed) {
-    return <CoverTile palette={palette} kanji={kanji} aspect="1/1" />;
+    return (
+      <div className={`relative w-full overflow-hidden rounded-xl ${BANNER}`}>
+        <CoverTile
+          palette={palette}
+          kanji={kanji}
+          aspect="16/9"
+          className="!aspect-auto h-full w-full"
+        />
+      </div>
+    );
   }
 
   return (
-    <div className="relative aspect-square overflow-hidden rounded-xl">
+    <div className={`relative w-full overflow-hidden rounded-xl ${BANNER}`}>
       <ImageCarousel
         images={images}
         alt={alt}
@@ -41,7 +54,7 @@ export function ShoppingCategoryCover({
         onAllFailed={() => setAllFailed(true)}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-      <div className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-xs text-white backdrop-blur-sm">
+      <div className="pointer-events-none absolute right-3 top-3 rounded-full bg-black/55 px-2 py-0.5 font-display text-xs text-white backdrop-blur-sm">
         {kanji}
       </div>
     </div>

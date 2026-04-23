@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { MoneyText } from "@/components/common/MoneyText";
 import {
   getCity,
   getCountryCalendar,
@@ -117,7 +118,7 @@ export default async function CalendarPage({
                   {IMPACT_LABEL[f.price_impact] ?? f.price_impact}
                 </span>
               </header>
-              <p className="mt-3 text-sm">{f.body}</p>
+              <p className="mt-3 text-sm"><MoneyText>{f.body}</MoneyText></p>
               {f.url && (
                 <a
                   href={f.url}

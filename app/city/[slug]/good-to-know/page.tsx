@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { MoneyText } from "@/components/common/MoneyText";
 import { InsuranceCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import {
@@ -86,7 +87,7 @@ export default async function GoodToKnowPage({
                 >
                   <h3 className="font-semibold">{e.title}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-sumi-800">
-                    {e.body}
+                    <MoneyText>{e.body}</MoneyText>
                   </p>
                 </article>
               ))}
