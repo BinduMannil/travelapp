@@ -27,28 +27,34 @@ type Palette =
 // heritage sites. Each card deep-links to the matching row on the Nearby
 // page; a few of the lesser-known ones will get their own city pages in
 // a later content pass.
+// Wikimedia thumbnails per destination — high-res via the Special:FilePath
+// redirect with ?width=1200. Falls back gracefully to the kanji tile if a
+// file 404s.
+const W = (file: string) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${file.replace(/ /g, "_")}?width=1200`;
+
 const NEARBY_STACK: NearbyCard[] = [
-  { label: "Kamakura",     sublabel: "1h · JR Yokosuka · coastal temples",      palette: "ume",      kanji: "鎌", href: "/city/tokyo/nearby#kamakura" },
-  { label: "Yokohama",     sublabel: "30m · JR Tokaido · Chinatown + bay",       palette: "ocean",    kanji: "横", href: "/city/tokyo/nearby#yokohama" },
-  { label: "Hakone",       sublabel: "1h 25m · Romancecar · onsen + Fuji views", palette: "matcha",   kanji: "箱", href: "/city/tokyo/nearby#hakone" },
-  { label: "Nikko",        sublabel: "1h 55m · Tobu SPACIA · shrines + waterfall", palette: "forest", kanji: "光", href: "/city/tokyo/nearby#nikko" },
-  { label: "Mt Fuji",      sublabel: "2h · Chuo + bus · five lakes",             palette: "aizome",   kanji: "富", href: "/city/tokyo/nearby#mt-fuji" },
-  { label: "Kyoto",        sublabel: "2h 20m · Shinkansen · imperial heritage",  palette: "enji",     kanji: "京", href: "/city/tokyo/nearby#kyoto" },
-  { label: "Nara",         sublabel: "2h 40m · Shinkansen + JR · deer + Daibutsu", palette: "kintsugi", kanji: "奈", href: "/city/tokyo/nearby#nara" },
-  { label: "Osaka",        sublabel: "2h 45m · Shinkansen · food capital",       palette: "kintsugi", kanji: "阪", href: "/city/tokyo/nearby#osaka" },
-  { label: "Kobe",         sublabel: "3h · Shinkansen · wagyu + harbour",        palette: "ume",      kanji: "神", href: "/city/tokyo/nearby#kobe" },
-  { label: "Kanazawa",     sublabel: "2h 30m · Hokuriku Shinkansen · samurai",   palette: "sumi",     kanji: "金", href: "/city/tokyo/nearby#kanazawa" },
-  { label: "Takayama",     sublabel: "4h · Shinkansen + Wide-View Hida · Edo old town", palette: "forest", kanji: "高", href: "/city/tokyo/nearby#takayama" },
-  { label: "Shirakawa-go", sublabel: "4h 45m · via Takayama · gassho villages",  palette: "washi",    kanji: "白", href: "/city/tokyo/nearby#shirakawa-go" },
-  { label: "Matsumoto",    sublabel: "2h 45m · Azusa Limited Express · castle",  palette: "aizome",   kanji: "松", href: "/city/tokyo/nearby#matsumoto" },
-  { label: "Hiroshima",    sublabel: "4h · Shinkansen · peace memorial",         palette: "enji",     kanji: "広", href: "/city/tokyo/nearby#hiroshima" },
-  { label: "Miyajima",     sublabel: "4h 30m · via Hiroshima · floating torii",  palette: "enji",     kanji: "宮", href: "/city/tokyo/nearby#miyajima" },
-  { label: "Sapporo",      sublabel: "1h 40m flight · Hokkaido winter capital",  palette: "aizome",   kanji: "札", href: "/city/tokyo/nearby#sapporo" },
-  { label: "Sendai",       sublabel: "1h 30m · Tohoku Shinkansen · Date-era",    palette: "matcha",   kanji: "仙", href: "/city/tokyo/nearby#sendai" },
-  { label: "Fukuoka",      sublabel: "1h 50m flight · Kyushu ramen + yatai",     palette: "enji",     kanji: "福", href: "/city/tokyo/nearby#fukuoka" },
-  { label: "Beppu",        sublabel: "2h flight + local · 8 hells, onsen town",  palette: "kintsugi", kanji: "別", href: "/city/tokyo/nearby#beppu" },
-  { label: "Naha (Okinawa)", sublabel: "2h 40m flight · subtropical islands",    palette: "sakura",   kanji: "沖", href: "/city/tokyo/nearby#naha" },
-  { label: "Ise",          sublabel: "3h 20m · Kintetsu · grand shrine",         palette: "matcha",   kanji: "伊", href: "/city/tokyo/nearby#ise" },
+  { label: "Kamakura",     sublabel: "1h · JR Yokosuka · coastal temples",      palette: "ume",      kanji: "鎌", href: "/city/tokyo/nearby#kamakura",     imageUrl: W("Kamakura_Budda_Daibutsu_front_1885.jpg") },
+  { label: "Yokohama",     sublabel: "30m · JR Tokaido · Chinatown + bay",       palette: "ocean",    kanji: "横", href: "/city/tokyo/nearby#yokohama",     imageUrl: W("Minato_Mirai_21_Yokohama.jpg") },
+  { label: "Hakone",       sublabel: "1h 25m · Romancecar · onsen + Fuji views", palette: "matcha",   kanji: "箱", href: "/city/tokyo/nearby#hakone",       imageUrl: W("Lake_Ashi_and_Mt_Fuji.jpg") },
+  { label: "Nikko",        sublabel: "1h 55m · Tobu SPACIA · shrines + waterfall", palette: "forest", kanji: "光", href: "/city/tokyo/nearby#nikko",        imageUrl: W("Nikko_Tōshōgū_Yōmeimon_M3087.jpg") },
+  { label: "Mt Fuji",      sublabel: "2h · Chuo + bus · five lakes",             palette: "aizome",   kanji: "富", href: "/city/tokyo/nearby#mt-fuji",     imageUrl: W("Mount_Fuji_from_Hotel_Mt_Fuji_1995-8-25.jpg") },
+  { label: "Kyoto",        sublabel: "2h 20m · Shinkansen · imperial heritage",  palette: "enji",     kanji: "京", href: "/city/tokyo/nearby#kyoto",        imageUrl: W("Kinkaku-ji_2015.jpg") },
+  { label: "Nara",         sublabel: "2h 40m · Shinkansen + JR · deer + Daibutsu", palette: "kintsugi", kanji: "奈", href: "/city/tokyo/nearby#nara",      imageUrl: W("Todaiji_Daibutsuden_0263.jpg") },
+  { label: "Osaka",        sublabel: "2h 45m · Shinkansen · food capital",       palette: "kintsugi", kanji: "阪", href: "/city/tokyo/nearby#osaka",        imageUrl: W("Osaka_Castle_02bs3200.jpg") },
+  { label: "Kobe",         sublabel: "3h · Shinkansen · wagyu + harbour",        palette: "ume",      kanji: "神", href: "/city/tokyo/nearby#kobe",         imageUrl: W("Kobe_Port_Tower_M9089.jpg") },
+  { label: "Kanazawa",     sublabel: "2h 30m · Hokuriku Shinkansen · samurai",   palette: "sumi",     kanji: "金", href: "/city/tokyo/nearby#kanazawa",     imageUrl: W("Kanazawa_Castle_2015.jpg") },
+  { label: "Takayama",     sublabel: "4h · Shinkansen + Wide-View Hida · Edo old town", palette: "forest", kanji: "高", href: "/city/tokyo/nearby#takayama", imageUrl: W("Takayama_Sanmachi-Suji_District.jpg") },
+  { label: "Shirakawa-go", sublabel: "4h 45m · via Takayama · gassho villages",  palette: "washi",    kanji: "白", href: "/city/tokyo/nearby#shirakawa-go", imageUrl: W("Shirakawa-go_winter_view.jpg") },
+  { label: "Matsumoto",    sublabel: "2h 45m · Azusa Limited Express · castle",  palette: "aizome",   kanji: "松", href: "/city/tokyo/nearby#matsumoto",    imageUrl: W("Matsumoto_Castle03s3200.jpg") },
+  { label: "Hiroshima",    sublabel: "4h · Shinkansen · peace memorial",         palette: "enji",     kanji: "広", href: "/city/tokyo/nearby#hiroshima",    imageUrl: W("Genbaku_Dome_Hiroshima.jpg") },
+  { label: "Miyajima",     sublabel: "4h 30m · via Hiroshima · floating torii",  palette: "enji",     kanji: "宮", href: "/city/tokyo/nearby#miyajima",     imageUrl: W("Itsukushima_Torii_Gate.jpg") },
+  { label: "Sapporo",      sublabel: "1h 40m flight · Hokkaido winter capital",  palette: "aizome",   kanji: "札", href: "/city/tokyo/nearby#sapporo",      imageUrl: W("Sapporo_Snow_Festival_2015.jpg") },
+  { label: "Sendai",       sublabel: "1h 30m · Tohoku Shinkansen · Date-era",    palette: "matcha",   kanji: "仙", href: "/city/tokyo/nearby#sendai",       imageUrl: W("Sendai_Castle_ruins.jpg") },
+  { label: "Fukuoka",      sublabel: "1h 50m flight · Kyushu ramen + yatai",     palette: "enji",     kanji: "福", href: "/city/tokyo/nearby#fukuoka",      imageUrl: W("Fukuoka_yatai_food_stall.jpg") },
+  { label: "Beppu",        sublabel: "2h flight + local · 8 hells, onsen town",  palette: "kintsugi", kanji: "別", href: "/city/tokyo/nearby#beppu",        imageUrl: W("Beppu_Umi_Jigoku.jpg") },
+  { label: "Naha (Okinawa)", sublabel: "2h 40m flight · subtropical islands",    palette: "sakura",   kanji: "沖", href: "/city/tokyo/nearby#naha",         imageUrl: W("Shuri_Castle_Okinawa.jpg") },
+  { label: "Ise",          sublabel: "3h 20m · Kintetsu · grand shrine",         palette: "matcha",   kanji: "伊", href: "/city/tokyo/nearby#ise",          imageUrl: W("Ise_Grand_Shrine_Naiku.jpg") },
 ];
 
 const STATS: Array<{ value: string; label: string; sublabel: string; href: string }> = [

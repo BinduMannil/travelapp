@@ -60,8 +60,10 @@ export function NearbyStack({ cards }: { cards: NearbyCard[] }) {
     setActive(i);
   }
 
+  // Cycle continuously: pressing next on the last card jumps back to the
+  // first; pressing prev on the first jumps to the last.
   function nudge(dir: 1 | -1) {
-    const next = Math.max(0, Math.min(cards.length - 1, active + dir));
+    const next = (active + dir + cards.length) % cards.length;
     scrollToIndex(next);
   }
 
@@ -187,32 +189,36 @@ function DestinationCard({
           alt=""
           aria-hidden
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover opacity-65 mix-blend-overlay transition group-hover:opacity-80"
+          className="absolute inset-0 h-full w-full object-cover opacity-80 transition group-hover:opacity-95"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).style.display = "none";
           }}
         />
       )}
 
-      {/* Kanji ghost, dimmer when a photo is present */}
+      {/* Kanji ghost behind everything; dim further when a photo loads */}
       <span
         aria-hidden
         className={`pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[7rem] font-bold text-white/70 drop-shadow-xl transition-transform duration-500 group-hover:scale-105 ${
-          card.imageUrl ? "mix-blend-screen opacity-40" : ""
+          card.imageUrl ? "mix-blend-screen opacity-25" : ""
         }`}
       >
         {card.kanji}
       </span>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
-      <div className="absolute inset-x-4 bottom-4">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-washi-50/80">
+      {/* Stronger bottom-up gradient — deep black at the foot, ~half the
+          card height shaded, so the title row stays legible over busy photos. */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-transparent" />
+      <div className="absolute inset-x-4 bottom-4 text-washi-50 [text-shadow:0_2px_8px_rgba(0,0,0,0.6)]">
+        <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-kintsugi-300">
           Day trip
         </div>
-        <div className="mt-1 text-xl font-semibold text-washi-50">
+        <div className="mt-1 text-2xl font-bold leading-tight">
           {card.label}
         </div>
-        <div className="text-xs text-washi-50/85">{card.sublabel}</div>
+        <div className="mt-1 text-sm font-medium text-washi-50">
+          {card.sublabel}
+        </div>
       </div>
     </Link>
   );
