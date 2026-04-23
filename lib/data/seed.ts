@@ -1092,6 +1092,7 @@ export type HiddenGem = {
   why: string;
   tip?: string;
   when?: string;
+  hero_image_urls?: string[];
 };
 export type HiddenGemsPayload = { summary: string; picks: HiddenGem[] };
 
