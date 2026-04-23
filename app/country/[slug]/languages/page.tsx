@@ -7,6 +7,7 @@ import {
 } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 import { ResidentsPies } from "@/components/demographics/ResidentsPies";
+import { PopulationBreakdown } from "@/components/demographics/PopulationBreakdown";
 
 const ROLE_LABELS: Record<string, string> = {
   official: "Official",
@@ -91,6 +92,13 @@ export default async function LanguagesPage({
         )}
       </section>
 
+      {residents?.demographics && (
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          <PopulationBreakdown scope={residents.demographics.country} />
+          <PopulationBreakdown scope={residents.demographics.city} />
+        </div>
+      )}
+
       {residents && (
         <ResidentsPies
           country={residents.country}
@@ -98,6 +106,43 @@ export default async function LanguagesPage({
           source={residents.source}
         />
       )}
+
+      {/* Authoritative sources for travellers who want to dig deeper or
+          confirm anything time-sensitive (visa rules, weather alerts,
+          civil unrest, embassy advisories). */}
+      <section className="mt-10 rounded-2xl border border-washi-200 bg-washi-50 p-5">
+        <h2 className="px-0 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          Official sources & news
+        </h2>
+        <p className="mt-2 text-xs text-sumi-700">
+          Cross-check anything time-sensitive against the government,
+          weather, and English-language news sources below.
+        </p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <SourceColumn
+            title="Government & official"
+            links={[
+              { label: "MOFA — Ministry of Foreign Affairs", href: "https://www.mofa.go.jp/" },
+              { label: "MOJ — Immigration Services Agency", href: "https://www.moj.go.jp/isa/index.html" },
+              { label: "JNTO — Japan National Tourism", href: "https://www.japan.travel/en/" },
+              { label: "JMA — Japan Meteorological Agency", href: "https://www.jma.go.jp/bosai/map.html" },
+              { label: "Statistics Bureau of Japan", href: "https://www.stat.go.jp/english/" },
+              { label: "Tokyo Metropolitan Government (English)", href: "https://www.metro.tokyo.lg.jp/english/" },
+            ]}
+          />
+          <SourceColumn
+            title="English-language news"
+            links={[
+              { label: "NHK World — Japan's public broadcaster", href: "https://www3.nhk.or.jp/nhkworld/en/news/" },
+              { label: "The Japan Times", href: "https://www.japantimes.co.jp/" },
+              { label: "The Asahi Shimbun (English)", href: "https://www.asahi.com/ajw/" },
+              { label: "Mainichi (English)", href: "https://mainichi.jp/english/" },
+              { label: "Tokyo Weekender", href: "https://www.tokyoweekender.com/" },
+              { label: "Time Out Tokyo", href: "https://www.timeout.com/tokyo" },
+            ]}
+          />
+        </div>
+      </section>
 
       <section className="mt-8 space-y-3">
         {languages.map((lang) => (
@@ -161,4 +206,34 @@ function formatPct(n: number) {
   if (n >= 1) return `${n.toFixed(1)}%`;
   if (n >= 0.1) return `${n.toFixed(2)}%`;
   return `< 0.1%`;
+}
+
+function SourceColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: Array<{ label: string; href: string }>;
+}) {
+  return (
+    <div>
+      <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+        {title}
+      </div>
+      <ul className="mt-2 space-y-1.5 text-sm">
+        {links.map((l) => (
+          <li key={l.href}>
+            <a
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sumi-900 underline-offset-2 hover:text-enji-700 hover:underline"
+            >
+              {l.label} <span aria-hidden>↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
