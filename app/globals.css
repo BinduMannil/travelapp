@@ -51,27 +51,32 @@ h6 {
 }
 
 h1 {
-  font-size: 1.75rem; /* ~26px */
-  line-height: 1.2;
+  font-size: 1.85rem; /* ~28px */
+  line-height: 1.15;
   font-weight: 700;
 }
 
 h2 {
-  font-size: 1.1rem; /* ~17px */
-  line-height: 1.3;
+  font-size: 1.4rem; /* ~21px */
+  line-height: 1.25;
   font-weight: 600;
 }
 
 h3 {
-  font-size: 0.95rem; /* ~14px */
-  line-height: 1.35;
+  font-size: 1.15rem; /* ~17px */
+  line-height: 1.3;
   font-weight: 600;
 }
 
-h4,
+h4 {
+  font-size: 1.05rem; /* ~16px */
+  line-height: 1.3;
+  font-weight: 600;
+}
+
 h5,
 h6 {
-  font-size: 0.8667rem;
+  font-size: 0.95rem; /* ~14px — still larger than body 13px */
   line-height: 1.35;
   font-weight: 600;
 }
