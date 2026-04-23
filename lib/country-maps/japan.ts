@@ -193,18 +193,206 @@ export type AirportPin = {
   /** x, y in the viewBox. */
   pos: [number, number];
   international: boolean;
+  /**
+   * Direct-flight routes that exist as of 2026. Keyed by origin IATA so
+   * the click-through panel can answer "from Dubai, can I fly direct?".
+   * Sourced manually; refresh when carriers add or drop routes.
+   */
+  direct_routes?: Record<
+    string,
+    {
+      airlines: string[];
+      duration_hours: number;
+      frequency: string;
+    }
+  >;
 };
 
 export const JAPAN_AIRPORTS: AirportPin[] = [
-  { iata: "CTS", name: "New Chitose",      city: "Sapporo",    pos: [294, 104], international: true },
-  { iata: "SDJ", name: "Sendai",            city: "Sendai",     pos: [246, 218], international: true },
-  { iata: "HND", name: "Haneda",            city: "Tokyo",      pos: [262, 282], international: true },
-  { iata: "NRT", name: "Narita",            city: "Tokyo",      pos: [278, 276], international: true },
-  { iata: "NGO", name: "Chubu Centrair",    city: "Nagoya",     pos: [216, 316], international: true },
-  { iata: "KIX", name: "Kansai Int'l",      city: "Osaka",      pos: [168, 346], international: true },
-  { iata: "ITM", name: "Osaka Itami",        city: "Osaka",      pos: [178, 334], international: false },
-  { iata: "HIJ", name: "Hiroshima",          city: "Hiroshima",  pos: [118, 404], international: true },
-  { iata: "FUK", name: "Fukuoka",            city: "Fukuoka",    pos: [62, 492],  international: true },
-  { iata: "KMJ", name: "Kumamoto",           city: "Kumamoto",   pos: [40, 522],  international: false },
-  { iata: "KOJ", name: "Kagoshima",          city: "Kagoshima",  pos: [70, 552],  international: true },
+  {
+    iata: "CTS",
+    name: "New Chitose",
+    city: "Sapporo",
+    pos: [294, 104],
+    international: true,
+    direct_routes: {
+      ICN: { airlines: ["Korean Air", "Air Seoul"], duration_hours: 2.7, frequency: "Daily" },
+      TPE: { airlines: ["EVA Air"], duration_hours: 4, frequency: "Daily" },
+      HKG: { airlines: ["Hong Kong Express"], duration_hours: 4.7, frequency: "5×/week" },
+    },
+  },
+  {
+    iata: "SDJ",
+    name: "Sendai",
+    city: "Sendai",
+    pos: [246, 218],
+    international: true,
+    direct_routes: {
+      ICN: { airlines: ["Korean Air"], duration_hours: 2.5, frequency: "Daily" },
+      TPE: { airlines: ["Tigerair Taiwan"], duration_hours: 3.7, frequency: "5×/week" },
+    },
+  },
+  {
+    iata: "HND",
+    name: "Haneda",
+    city: "Tokyo",
+    pos: [262, 282],
+    international: true,
+    direct_routes: {
+      DXB: { airlines: ["Emirates"], duration_hours: 9.3, frequency: "Daily" },
+      DOH: { airlines: ["Qatar Airways"], duration_hours: 10, frequency: "Daily" },
+      AUH: { airlines: ["Etihad"], duration_hours: 9.7, frequency: "Daily" },
+      LHR: { airlines: ["British Airways", "ANA", "JAL"], duration_hours: 12, frequency: "Daily" },
+      CDG: { airlines: ["Air France", "ANA", "JAL"], duration_hours: 12, frequency: "Daily" },
+      FRA: { airlines: ["Lufthansa", "ANA"], duration_hours: 11.5, frequency: "Daily" },
+      JFK: { airlines: ["JAL", "ANA", "American", "Delta"], duration_hours: 13.5, frequency: "Multiple daily" },
+      LAX: { airlines: ["JAL", "ANA", "Delta", "American"], duration_hours: 11, frequency: "Multiple daily" },
+      SFO: { airlines: ["United", "ANA", "JAL"], duration_hours: 10.5, frequency: "Daily" },
+      ORD: { airlines: ["United", "ANA", "JAL"], duration_hours: 12.5, frequency: "Daily" },
+      YYZ: { airlines: ["Air Canada"], duration_hours: 12.5, frequency: "Daily" },
+      SYD: { airlines: ["Qantas", "JAL", "ANA"], duration_hours: 9.8, frequency: "Daily" },
+      MEL: { airlines: ["Qantas", "JAL"], duration_hours: 10.5, frequency: "Daily" },
+      SIN: { airlines: ["Singapore Airlines", "ANA", "JAL"], duration_hours: 7.5, frequency: "Multiple daily" },
+      BKK: { airlines: ["Thai Airways", "ANA", "JAL"], duration_hours: 6.5, frequency: "Daily" },
+      HKG: { airlines: ["Cathay Pacific", "ANA", "JAL"], duration_hours: 4.8, frequency: "Multiple daily" },
+      ICN: { airlines: ["Korean Air", "Asiana", "ANA", "JAL"], duration_hours: 2.5, frequency: "Multiple daily" },
+      DEL: { airlines: ["Air India"], duration_hours: 9, frequency: "5×/week" },
+      BOM: { airlines: ["Air India"], duration_hours: 10, frequency: "Daily" },
+    },
+  },
+  {
+    iata: "NRT",
+    name: "Narita",
+    city: "Tokyo",
+    pos: [278, 276],
+    international: true,
+    direct_routes: {
+      DXB: { airlines: ["Emirates"], duration_hours: 9.5, frequency: "Daily" },
+      LHR: { airlines: ["British Airways", "Virgin Atlantic"], duration_hours: 12, frequency: "Daily" },
+      JFK: { airlines: ["JAL", "ANA", "United"], duration_hours: 13.5, frequency: "Daily" },
+      LAX: { airlines: ["JAL", "ANA", "Delta", "Singapore Airlines"], duration_hours: 11, frequency: "Multiple daily" },
+      SIN: { airlines: ["Singapore Airlines", "ZIPAIR"], duration_hours: 7.5, frequency: "Daily" },
+      BKK: { airlines: ["Thai Airways", "ZIPAIR"], duration_hours: 6.5, frequency: "Daily" },
+      ICN: { airlines: ["Korean Air", "Asiana"], duration_hours: 2.5, frequency: "Multiple daily" },
+      MNL: { airlines: ["Philippine Airlines", "Cebu Pacific"], duration_hours: 4.5, frequency: "Daily" },
+      KUL: { airlines: ["Malaysia Airlines", "AirAsia X"], duration_hours: 7, frequency: "Daily" },
+      DEL: { airlines: ["Air India", "Vistara"], duration_hours: 9, frequency: "5×/week" },
+      JNB: { airlines: ["No direct service — via SIN or DXB"], duration_hours: 0, frequency: "Connections only" },
+    },
+  },
+  {
+    iata: "NGO",
+    name: "Chubu Centrair",
+    city: "Nagoya",
+    pos: [216, 316],
+    international: true,
+    direct_routes: {
+      ICN: { airlines: ["Korean Air", "Asiana"], duration_hours: 2.7, frequency: "Daily" },
+      HKG: { airlines: ["Cathay Pacific"], duration_hours: 4.7, frequency: "Daily" },
+      BKK: { airlines: ["Thai Airways"], duration_hours: 6.7, frequency: "Daily" },
+      MNL: { airlines: ["Philippine Airlines"], duration_hours: 4.5, frequency: "Daily" },
+    },
+  },
+  {
+    iata: "KIX",
+    name: "Kansai International",
+    city: "Osaka",
+    pos: [168, 346],
+    international: true,
+    direct_routes: {
+      DXB: { airlines: ["Emirates"], duration_hours: 9.5, frequency: "Daily" },
+      LHR: { airlines: ["British Airways"], duration_hours: 12, frequency: "5×/week" },
+      LAX: { airlines: ["JAL", "Singapore Airlines"], duration_hours: 11, frequency: "Daily" },
+      SIN: { airlines: ["Singapore Airlines"], duration_hours: 7.5, frequency: "Daily" },
+      BKK: { airlines: ["Thai Airways", "Peach"], duration_hours: 6.5, frequency: "Daily" },
+      HKG: { airlines: ["Cathay Pacific", "HK Express"], duration_hours: 4.8, frequency: "Multiple daily" },
+      ICN: { airlines: ["Korean Air", "Asiana", "Peach"], duration_hours: 2.7, frequency: "Multiple daily" },
+      TPE: { airlines: ["EVA Air", "China Airlines"], duration_hours: 3.2, frequency: "Multiple daily" },
+      DEL: { airlines: ["Indigo (seasonal)"], duration_hours: 9.5, frequency: "Seasonal" },
+    },
+  },
+  {
+    iata: "ITM",
+    name: "Osaka Itami",
+    city: "Osaka",
+    pos: [178, 334],
+    international: false,
+  },
+  {
+    iata: "HIJ",
+    name: "Hiroshima",
+    city: "Hiroshima",
+    pos: [118, 404],
+    international: true,
+    direct_routes: {
+      ICN: { airlines: ["Asiana"], duration_hours: 2.5, frequency: "Daily" },
+      TPE: { airlines: ["China Airlines"], duration_hours: 3.7, frequency: "4×/week" },
+    },
+  },
+  {
+    iata: "FUK",
+    name: "Fukuoka",
+    city: "Fukuoka",
+    pos: [62, 492],
+    international: true,
+    direct_routes: {
+      ICN: { airlines: ["Korean Air", "Asiana", "Jeju Air"], duration_hours: 1.3, frequency: "Multiple daily" },
+      TPE: { airlines: ["EVA Air", "China Airlines"], duration_hours: 2.5, frequency: "Daily" },
+      HKG: { airlines: ["Cathay Pacific", "HK Express"], duration_hours: 4, frequency: "Daily" },
+      BKK: { airlines: ["Thai Airways"], duration_hours: 6, frequency: "5×/week" },
+      SIN: { airlines: ["Singapore Airlines"], duration_hours: 6.7, frequency: "5×/week" },
+    },
+  },
+  {
+    iata: "KMJ",
+    name: "Kumamoto",
+    city: "Kumamoto",
+    pos: [40, 522],
+    international: false,
+  },
+  {
+    iata: "KOJ",
+    name: "Kagoshima",
+    city: "Kagoshima",
+    pos: [70, 552],
+    international: true,
+    direct_routes: {
+      ICN: { airlines: ["Korean Air"], duration_hours: 1.7, frequency: "5×/week" },
+      TPE: { airlines: ["China Airlines"], duration_hours: 2.7, frequency: "3×/week" },
+    },
+  },
+];
+
+/**
+ * Curated origin cities the user can pick as their departure point.
+ * Determines which routes the airport-detail panel highlights.
+ */
+export const ORIGIN_CITIES: Array<{
+  iata: string;
+  city: string;
+  country: string;
+}> = [
+  { iata: "DXB", city: "Dubai", country: "UAE" },
+  { iata: "DOH", city: "Doha", country: "Qatar" },
+  { iata: "AUH", city: "Abu Dhabi", country: "UAE" },
+  { iata: "LHR", city: "London", country: "UK" },
+  { iata: "CDG", city: "Paris", country: "France" },
+  { iata: "FRA", city: "Frankfurt", country: "Germany" },
+  { iata: "JFK", city: "New York (JFK)", country: "USA" },
+  { iata: "LAX", city: "Los Angeles", country: "USA" },
+  { iata: "SFO", city: "San Francisco", country: "USA" },
+  { iata: "ORD", city: "Chicago", country: "USA" },
+  { iata: "YYZ", city: "Toronto", country: "Canada" },
+  { iata: "SYD", city: "Sydney", country: "Australia" },
+  { iata: "MEL", city: "Melbourne", country: "Australia" },
+  { iata: "SIN", city: "Singapore", country: "Singapore" },
+  { iata: "BKK", city: "Bangkok", country: "Thailand" },
+  { iata: "HKG", city: "Hong Kong", country: "Hong Kong" },
+  { iata: "ICN", city: "Seoul (Incheon)", country: "South Korea" },
+  { iata: "TPE", city: "Taipei", country: "Taiwan" },
+  { iata: "MNL", city: "Manila", country: "Philippines" },
+  { iata: "KUL", city: "Kuala Lumpur", country: "Malaysia" },
+  { iata: "DEL", city: "Delhi", country: "India" },
+  { iata: "BOM", city: "Mumbai", country: "India" },
+  { iata: "JNB", city: "Johannesburg", country: "South Africa" },
 ];

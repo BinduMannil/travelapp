@@ -1,15 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   JAPAN_AIRPORTS,
   JAPAN_CITY_PINS,
   JAPAN_ISLANDS,
   JAPAN_MAP_VIEWBOX,
   JAPAN_OFFSHORE,
+  ORIGIN_CITIES,
+  type AirportPin,
   type CityPin,
 } from "@/lib/country-maps/japan";
+
+const LS_ORIGIN = "journee:origin-iata";
 
 /**
  * City pins that overlap (e.g. Tokyo + Yokohama or Kyoto + Osaka) get
@@ -35,8 +39,24 @@ export function CountryMap({
 }) {
   const [layer, setLayer] = useState<"cities" | "airports">("cities");
   const [hovered, setHovered] = useState<string | null>(null);
+  const [selectedAirport, setSelectedAirport] = useState<string | null>(null);
+  const [originIata, setOriginIata] = useState<string>("DXB");
+
+  // Restore the user's previously-picked origin city.
+  useEffect(() => {
+    const saved = window.localStorage.getItem(LS_ORIGIN);
+    if (saved && ORIGIN_CITIES.some((o) => o.iata === saved))
+      setOriginIata(saved);
+  }, []);
+
+  function pickOrigin(iata: string) {
+    setOriginIata(iata);
+    window.localStorage.setItem(LS_ORIGIN, iata);
+  }
 
   const airports = useMemo(() => JAPAN_AIRPORTS, []);
+  const activeAirport = airports.find((a) => a.iata === selectedAirport);
+  const activeOrigin = ORIGIN_CITIES.find((o) => o.iata === originIata);
 
   return (
     <section className="relative bg-washi-50">
@@ -207,8 +227,11 @@ export function CountryMap({
                 <AirportMapPin
                   key={a.iata}
                   airport={a}
-                  hovered={hovered === a.iata}
+                  hovered={hovered === a.iata || selectedAirport === a.iata}
                   onHover={setHovered}
+                  onSelect={(iata) =>
+                    setSelectedAirport((cur) => (cur === iata ? null : iata))
+                  }
                 />
               ))}
           </svg>
@@ -235,31 +258,78 @@ export function CountryMap({
             </div>
           )}
 
-          {/* Airport list beneath the map */}
+          {/* Airport-layer footer: origin picker + airport list / panel */}
           {layer === "airports" && (
-            <div className="mt-6 grid gap-1.5 rounded-2xl border border-washi-200 bg-white p-4 text-xs sm:grid-cols-2">
-              {airports.map((a) => (
-                <div
-                  key={a.iata}
-                  onMouseEnter={() => setHovered(a.iata)}
-                  onMouseLeave={() => setHovered(null)}
-                  className={`flex items-baseline justify-between rounded px-2 py-1 ${
-                    hovered === a.iata ? "bg-washi-100" : ""
-                  }`}
+            <div className="mt-6 space-y-4">
+              {/* Origin picker */}
+              <label className="flex flex-wrap items-center gap-3 rounded-xl border border-washi-200 bg-white px-3 py-2 text-xs">
+                <span className="font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                  Flying from
+                </span>
+                <select
+                  value={originIata}
+                  onChange={(e) => pickOrigin(e.target.value)}
+                  className="flex-1 rounded-md border border-washi-300 bg-white px-2 py-1.5 text-sm"
                 >
-                  <span className="text-sumi-900">
-                    <span className="font-mono font-semibold">{a.iata}</span>{" "}
-                    · {a.name}
-                  </span>
-                  <span
-                    className={`text-[10px] uppercase tracking-[0.18em] ${
-                      a.international ? "text-aizome-600" : "text-matcha-700"
-                    }`}
-                  >
-                    {a.international ? "Intl" : "Domestic"}
-                  </span>
+                  {ORIGIN_CITIES.map((o) => (
+                    <option key={o.iata} value={o.iata}>
+                      {o.iata} · {o.city}, {o.country}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              {/* Either airport detail panel or the full list */}
+              {activeAirport ? (
+                <AirportPanel
+                  airport={activeAirport}
+                  originIata={originIata}
+                  originCity={activeOrigin?.city ?? ""}
+                  onClose={() => setSelectedAirport(null)}
+                />
+              ) : (
+                <div className="grid gap-1.5 rounded-2xl border border-washi-200 bg-white p-4 text-xs sm:grid-cols-2">
+                  {airports.map((a) => {
+                    const directFromOrigin = a.direct_routes?.[originIata];
+                    return (
+                      <button
+                        key={a.iata}
+                        type="button"
+                        onMouseEnter={() => setHovered(a.iata)}
+                        onMouseLeave={() => setHovered(null)}
+                        onClick={() => setSelectedAirport(a.iata)}
+                        className={`flex items-baseline justify-between rounded px-2 py-1 text-left transition ${
+                          hovered === a.iata
+                            ? "bg-washi-100"
+                            : "hover:bg-washi-100"
+                        }`}
+                      >
+                        <span className="text-sumi-900">
+                          <span className="font-semibold tracking-[0.05em]">
+                            {a.iata}
+                          </span>{" "}
+                          · {a.name}
+                        </span>
+                        <span
+                          className={`text-[10px] uppercase tracking-[0.18em] ${
+                            directFromOrigin
+                              ? "text-matcha-700"
+                              : a.international
+                                ? "text-aizome-600"
+                                : "text-sumi-500"
+                          }`}
+                        >
+                          {directFromOrigin
+                            ? "Direct ✓"
+                            : a.international
+                              ? "Intl"
+                              : "Domestic"}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
-              ))}
+              )}
             </div>
           )}
         </div>
@@ -356,10 +426,12 @@ function AirportMapPin({
   airport,
   hovered,
   onHover,
+  onSelect,
 }: {
   airport: (typeof JAPAN_AIRPORTS)[number];
   hovered: boolean;
   onHover: (slug: string | null) => void;
+  onSelect: (iata: string) => void;
 }) {
   const [x, y] = airport.pos;
   const fill = airport.international ? "#1f3a5f" : "#6e8a49"; // aizome-600 / matcha-600
@@ -367,13 +439,13 @@ function AirportMapPin({
     <g
       onMouseEnter={() => onHover(airport.iata)}
       onMouseLeave={() => onHover(null)}
-      className="cursor-default"
+      onClick={() => onSelect(airport.iata)}
+      className="cursor-pointer"
     >
       <title>
         {airport.iata} · {airport.name} ({airport.city}){" "}
         {airport.international ? "— international" : "— domestic"}
       </title>
-      {/* Triangle points up */}
       <polygon
         points={`${x},${y - 6} ${x - 5},${y + 3} ${x + 5},${y + 3}`}
         fill={fill}
@@ -392,5 +464,125 @@ function AirportMapPin({
         {airport.iata}
       </text>
     </g>
+  );
+}
+
+/**
+ * Detail panel that opens below the map when an airport is selected.
+ * Surfaces direct-flight info from the user's chosen origin city,
+ * plus a Skyscanner deep link to compare live fares.
+ */
+function AirportPanel({
+  airport,
+  originIata,
+  originCity,
+  onClose,
+}: {
+  airport: AirportPin;
+  originIata: string;
+  originCity: string;
+  onClose: () => void;
+}) {
+  const direct = airport.direct_routes?.[originIata];
+  const otherOrigins = Object.keys(airport.direct_routes ?? {}).filter(
+    (i) => i !== originIata,
+  );
+  const skyscanner = `https://www.skyscanner.net/transport/flights/${originIata.toLowerCase()}/${airport.iata.toLowerCase()}/`;
+
+  return (
+    <article className="rounded-2xl border border-washi-200 bg-white p-5 text-sm shadow-sm">
+      <header className="flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+            {airport.iata} · {airport.city}
+          </div>
+          <h3 className="mt-1 text-xl font-semibold text-sumi-900">
+            {airport.name}
+          </h3>
+          <div
+            className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+              airport.international ? "text-aizome-600" : "text-matcha-700"
+            }`}
+          >
+            {airport.international
+              ? "International airport"
+              : "Domestic airport"}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="grid h-7 w-7 place-items-center rounded-full bg-washi-100 text-sumi-700 hover:bg-washi-200"
+        >
+          ×
+        </button>
+      </header>
+
+      <div className="mt-5 rounded-xl border border-washi-200 bg-washi-50 p-4">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+          From {originCity || originIata}
+        </div>
+        {direct ? (
+          <>
+            <div className="mt-1 text-base font-semibold text-matcha-700">
+              Direct flights available ✓
+            </div>
+            <div className="mt-2 grid gap-1 text-xs text-sumi-800 sm:grid-cols-3">
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                  Airlines
+                </span>
+                <div className="mt-0.5">{direct.airlines.join(", ")}</div>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                  Flight time
+                </span>
+                <div className="mt-0.5 tabular-nums">
+                  ~{direct.duration_hours} h
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                  Frequency
+                </span>
+                <div className="mt-0.5">{direct.frequency}</div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="mt-1 text-base font-semibold text-enji-700">
+            No direct flights from {originCity || originIata}
+          </div>
+        )}
+        <a
+          href={skyscanner}
+          target="_blank"
+          rel="sponsored noopener"
+          className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-sumi-900 px-4 py-2 text-xs font-semibold text-washi-50 transition hover:bg-aizome-700"
+        >
+          Compare fares on Skyscanner →
+        </a>
+      </div>
+
+      {otherOrigins.length > 0 && (
+        <div className="mt-4">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+            Also flies direct from
+          </div>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {otherOrigins.map((iata) => (
+              <span
+                key={iata}
+                className="rounded-full border border-washi-300 bg-white px-2 py-0.5 text-[11px] font-semibold tracking-[0.05em] text-sumi-700"
+              >
+                {iata}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
   );
 }
