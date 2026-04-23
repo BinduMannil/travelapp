@@ -75,7 +75,7 @@ export default async function GoodToKnowPage({
       <div className="mt-6 space-y-8">
         {orderedCategories.map((cat) => (
           <section key={cat} id={`cat-${cat}`} className="scroll-mt-16">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               {GOOD_TO_KNOW_CATEGORY_LABEL[cat] ?? cat}
             </h2>
             <div className="mt-2 space-y-2">

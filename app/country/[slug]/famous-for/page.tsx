@@ -56,7 +56,7 @@ export default async function FamousForPage({
       <div className="mt-4 space-y-10">
         {data.categories.map((c) => (
           <section key={c.slug} id={`cat-${c.slug}`} className="scroll-mt-16">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               {c.label}
             </h2>
             <div className="mt-3 grid gap-4 md:grid-cols-2">

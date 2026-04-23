@@ -77,7 +77,7 @@ export default async function WellnessPage({
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
 <section className="mt-6 rounded-lg border border-washi-200 bg-washi-100 p-4">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Bath etiquette — the short version
         </h2>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-sumi-800">

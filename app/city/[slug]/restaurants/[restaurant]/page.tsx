@@ -144,7 +144,7 @@ export default async function RestaurantDetailPage({
         </section>
 
         <section className="mt-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Signature dishes
           </h2>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sumi-900">
@@ -165,7 +165,7 @@ export default async function RestaurantDetailPage({
 
         <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Hours
             </h3>
             <p className="mt-2 text-sm text-sumi-900">{r.opening_hours}</p>
@@ -179,7 +179,7 @@ export default async function RestaurantDetailPage({
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Dietary
             </h3>
             {r.dietary.length === 0 ? (
@@ -200,7 +200,7 @@ export default async function RestaurantDetailPage({
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Accessibility
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -210,7 +210,7 @@ export default async function RestaurantDetailPage({
             </p>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Inclusive
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -222,7 +222,7 @@ export default async function RestaurantDetailPage({
 
         {r.reservation_url && (
           <section className="mt-8 rounded-lg border border-washi-200 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Book
             </h3>
             <a

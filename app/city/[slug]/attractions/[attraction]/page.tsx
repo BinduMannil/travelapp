@@ -166,7 +166,7 @@ export default async function AttractionDetailPage({
         </section>
 
         <section className="mt-6 space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             About
           </h2>
           <p className="leading-relaxed text-sumi-900">{a.description}</p>
@@ -182,7 +182,7 @@ export default async function AttractionDetailPage({
 
         <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Dress code
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -193,7 +193,7 @@ export default async function AttractionDetailPage({
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Photography
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -201,7 +201,7 @@ export default async function AttractionDetailPage({
             </p>
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Accessibility
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -224,7 +224,7 @@ export default async function AttractionDetailPage({
             )}
           </div>
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Inclusive
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -237,7 +237,7 @@ export default async function AttractionDetailPage({
         </section>
 
         <section className="mt-8 rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Tickets &amp; booking
           </h3>
           <div className="mt-3 flex flex-wrap gap-2 text-sm">

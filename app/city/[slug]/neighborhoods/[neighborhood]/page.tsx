@@ -53,7 +53,7 @@ export default async function NeighborhoodDetailPage({
       />
       <div className="mx-auto max-w-4xl px-6 py-12">
       <section className="rounded-lg border border-washi-200 p-5">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           The gist
         </h2>
         <p className="mt-2 text-sumi-900">{n.description}</p>
@@ -61,7 +61,7 @@ export default async function NeighborhoodDetailPage({
 
       <section className="mt-6 grid gap-4 sm:grid-cols-2">
         <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Best for
           </h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-sumi-800">
@@ -71,7 +71,7 @@ export default async function NeighborhoodDetailPage({
           </ul>
         </article>
         <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Transit
           </h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-sumi-800">
@@ -84,7 +84,7 @@ export default async function NeighborhoodDetailPage({
 
       {attractionsHere.length > 0 && (
         <section className="mt-8">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Attractions here
           </h2>
           <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">

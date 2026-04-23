@@ -99,7 +99,7 @@ export default async function BeveragesPage({
 
         {CATEGORY_ORDER.filter((c) => grouped.has(c)).map((cat) => (
           <section key={cat} id={`cat-${cat}`} className="mt-6">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               {CATEGORY_LABEL[cat]}
             </h2>
             <div className="mt-3 space-y-3">

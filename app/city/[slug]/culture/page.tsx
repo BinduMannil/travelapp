@@ -85,7 +85,7 @@ export default async function CulturePage({
       />
       <div className="mx-auto max-w-4xl px-6 py-12">
 <section className="mt-6">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           What to expect
         </h2>
         <p className="mt-2 text-sumi-800">{culture.people.summary}</p>
@@ -103,7 +103,7 @@ export default async function CulturePage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Dress code by context
         </h2>
         <div className="mt-3 space-y-2">
@@ -125,7 +125,7 @@ export default async function CulturePage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Languages you will hear
         </h2>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -150,7 +150,7 @@ export default async function CulturePage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Phrasebook
         </h2>
         <div className="mt-3 space-y-6">

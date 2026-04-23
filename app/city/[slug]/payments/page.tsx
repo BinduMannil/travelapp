@@ -113,7 +113,7 @@ export default async function PaymentsPage({
 
         return (
           <section>
-            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
               Acceptance by method
             </h2>
 
@@ -175,7 +175,7 @@ export default async function PaymentsPage({
       })()}
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Method × venue matrix
         </h2>
         <p className="mt-1 text-xs text-sumi-700">
@@ -228,13 +228,13 @@ export default async function PaymentsPage({
 
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
         <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             ATMs for foreign cards
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{payments.atm_notes}</p>
         </article>
         <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Tax-free shopping
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{payments.tax_refund_note}</p>

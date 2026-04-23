@@ -48,7 +48,7 @@ export default async function HealthSafetyPage({
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
 <section className="mt-8 rounded-lg border border-rose-200 bg-rose-50 p-5">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-rose-900">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-rose-900">
           Emergency numbers
         </h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -69,7 +69,7 @@ export default async function HealthSafetyPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Natural hazards
         </h2>
         <div className="mt-3 space-y-4">
@@ -90,7 +90,7 @@ export default async function HealthSafetyPage({
       </section>
 
       <section className="mt-10 rounded-lg border border-amber-200 bg-amber-50 p-5">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-amber-900">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-amber-900">
           Prohibited &amp; restricted medications
         </h2>
         <p className="mt-2 text-sm text-amber-900">
@@ -126,7 +126,7 @@ export default async function HealthSafetyPage({
 
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
         <article className="rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Pharmacies &amp; English-friendly care
           </h3>
           <div className="mt-2 space-y-2 text-sm">
@@ -153,7 +153,7 @@ export default async function HealthSafetyPage({
         </article>
 
         <article className="rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Tap water
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{data.tap_water}</p>
@@ -166,7 +166,7 @@ export default async function HealthSafetyPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           LGBTQ+
         </h2>
         <article className="mt-3 overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm">
@@ -258,7 +258,7 @@ export default async function HealthSafetyPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Printable allergy &amp; dietary cards
         </h2>
         <p className="mt-2 text-xs text-sumi-700">
@@ -285,7 +285,7 @@ export default async function HealthSafetyPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Embassies in {city.name}
         </h2>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">

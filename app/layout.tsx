@@ -9,6 +9,7 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { PreferencesTrigger } from "@/components/consent/PreferencesTrigger";
 import { LEGAL, formatReviewedAt } from "@/lib/legal/constants";
 import { LanguagePicker } from "@/components/layout/LanguagePicker";
+import { TextSizeControl } from "@/components/layout/TextSizeControl";
 import { AlertBanner } from "@/components/alerts/AlertBanner";
 import { getActiveAlerts } from "@/lib/alerts";
 
@@ -53,7 +54,8 @@ export default async function RootLayout({
                     {LEGAL.brand}
                   </span>
                 </Link>
-                <div className="flex items-center gap-5">
+                <div className="flex items-center gap-3 sm:gap-5">
+                  <TextSizeControl />
                   <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">
                     <Link
                       href="/country/japan"

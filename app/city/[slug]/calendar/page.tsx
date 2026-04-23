@@ -70,7 +70,7 @@ export default async function CalendarPage({
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
 <section className="mt-8">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Public holidays
         </h2>
         <div className="mt-3 space-y-2">
@@ -97,7 +97,7 @@ export default async function CalendarPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
           Festivals &amp; seasonal events
         </h2>
         <div className="mt-3 space-y-3">

@@ -260,7 +260,7 @@ export default async function ConnectivityPage({
 
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
         <article className="rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             Plugs &amp; power
           </h3>
           <div className="mt-2 space-y-1 text-sm">
@@ -289,7 +289,7 @@ export default async function ConnectivityPage({
         </article>
 
         <article className="rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="px-5 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
             VPN
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{payload.vpn_note}</p>
