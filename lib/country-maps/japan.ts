@@ -28,13 +28,13 @@ export const JAPAN_ISLANDS: Record<
     path:
       "M 92 466 C 118 462 146 470 150 486 C 152 502 122 506 102 500 C 86 494 82 480 92 466 Z",
     label: "Shikoku",
-    labelAt: [120, 520],
+    labelAt: [165, 484],
   },
   kyushu: {
     path:
       "M 48 478 C 76 472 102 490 92 528 C 80 560 46 562 24 544 C 10 528 14 498 48 478 Z",
     label: "Kyūshū",
-    labelAt: [45, 565],
+    labelAt: [12, 480],
   },
 };
 
@@ -204,7 +204,7 @@ export const JAPAN_AIRPORTS: AirportPin[] = [
   { iata: "KIX", name: "Kansai Int'l",      city: "Osaka",      pos: [168, 346], international: true },
   { iata: "ITM", name: "Osaka Itami",        city: "Osaka",      pos: [178, 334], international: false },
   { iata: "HIJ", name: "Hiroshima",          city: "Hiroshima",  pos: [118, 404], international: true },
-  { iata: "FUK", name: "Fukuoka",            city: "Fukuoka",    pos: [60, 510],  international: true },
-  { iata: "KMJ", name: "Kumamoto",           city: "Kumamoto",   pos: [48, 528],  international: false },
-  { iata: "KOJ", name: "Kagoshima",          city: "Kagoshima",  pos: [56, 560],  international: true },
+  { iata: "FUK", name: "Fukuoka",            city: "Fukuoka",    pos: [62, 492],  international: true },
+  { iata: "KMJ", name: "Kumamoto",           city: "Kumamoto",   pos: [40, 522],  international: false },
+  { iata: "KOJ", name: "Kagoshima",          city: "Kagoshima",  pos: [70, 552],  international: true },
 ];

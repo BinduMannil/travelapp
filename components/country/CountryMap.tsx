@@ -8,18 +8,8 @@ import {
   JAPAN_ISLANDS,
   JAPAN_MAP_VIEWBOX,
   JAPAN_OFFSHORE,
-  JAPAN_REGIONS,
   type CityPin,
 } from "@/lib/country-maps/japan";
-
-const REGION_FILL: Record<string, string> = {
-  matcha: "fill-matcha-400/45",
-  aizome: "fill-aizome-400/45",
-  kintsugi: "fill-kintsugi-300/55",
-  enji: "fill-enji-400/40",
-  ume: "fill-sakura-300/55",
-  sumi: "fill-sumi-700/30",
-};
 
 /**
  * City pins that overlap (e.g. Tokyo + Yokohama or Kyoto + Osaka) get
@@ -179,30 +169,24 @@ export function CountryMap({
               </g>
             ))}
 
-            {/* Region accent blobs on top */}
-            {layer === "cities" &&
-              JAPAN_REGIONS.map((r) => (
-                <path
-                  key={r.slug}
-                  d={r.blob}
-                  className={`${REGION_FILL[r.accent]} transition duration-300`}
-                />
-              ))}
+            {/* Region accent blobs were retired — they made the dense
+                Honshū corridor read as crowded. The cities + island
+                labels carry the typography load on their own. */}
 
-            {/* Island labels */}
+            {/* Island labels — sentence case so they pair with the city
+                labels below instead of fighting them. */}
             {Object.values(JAPAN_ISLANDS).map((island, i) => (
               <text
                 key={`label-${i}`}
                 x={island.labelAt[0]}
                 y={island.labelAt[1]}
-                className="fill-sumi-600"
+                className="fill-sumi-500"
                 fontSize="10"
-                fontWeight="600"
-                letterSpacing="0.25em"
+                fontWeight="500"
+                letterSpacing="0.05em"
                 textAnchor="middle"
-                style={{ textTransform: "uppercase" }}
               >
-                {island.label.toUpperCase()}
+                {island.label}
               </text>
             ))}
 
@@ -400,8 +384,9 @@ function AirportMapPin({
       <text
         x={x + 8}
         y={y + 4}
-        className="fill-sumi-900 font-mono font-semibold"
-        fontSize={hovered ? 11 : 9}
+        className="fill-sumi-900 font-semibold"
+        fontSize={hovered ? 11 : 9.5}
+        letterSpacing="0.05em"
         style={{ transition: "font-size 150ms" }}
       >
         {airport.iata}
