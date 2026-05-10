@@ -1,0 +1,11 @@
+{
+  "slug": "vietnam",
+  "name": "Vietnam",
+  "iso2": "VN",
+  "iso3": "VNM",
+  "default_currency": "VND",
+  "default_timezone": "Asia/Ho_Chi_Minh",
+  "primary_languages": ["Vietnamese"],
+  "summary": "A long S-shaped Southeast Asian country with layered cities, motorbike street life, deep coffee culture, limestone bays, mountain trekking, beaches, caves, imperial heritage, and regional weather patterns that change the trip month by month.",
+  "hero_image_url": null
+}

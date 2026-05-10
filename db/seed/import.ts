@@ -267,6 +267,71 @@ type PhrasebookPayload = {
   phrases: PhrasebookSeed[];
 };
 
+type DestinationIntelligenceSeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  intelligence_category:
+    | "visa_entry"
+    | "money_payments"
+    | "scams"
+    | "police_official_interaction"
+    | "street_crossing"
+    | "scooter_motorbike"
+    | "connectivity_sim_esim"
+    | "weather_region"
+    | "nightlife"
+    | "local_etiquette"
+    | "transport"
+    | "health_safety"
+    | "digital_nomad"
+    | "other";
+  risk_level?: "low" | "moderate" | "high" | "critical" | null;
+  title: string;
+  traveler_summary: string;
+  practical_guidance: string[];
+  watchouts: string[];
+  examples: string[];
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type DestinationIntelligencePayload = {
+  notes: DestinationIntelligenceSeed[];
+};
+
+type AffiliateOpportunitySeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  opportunity_key: string;
+  category:
+    | "hotels"
+    | "tours"
+    | "esim"
+    | "transfers"
+    | "activities"
+    | "buses_trains"
+    | "insurance"
+    | "cars"
+    | "other";
+  traveler_need: string;
+  recommended_partner_keys: string[];
+  placement_context: string[];
+  priority: "low" | "medium" | "high";
+  notes?: string | null;
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type AffiliateOpportunitiesPayload = {
+  opportunities: AffiliateOpportunitySeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -399,6 +464,38 @@ async function main() {
   if (!cityRow) throw new Error("City upsert returned no row");
   const cityId = cityRow.id;
   console.log(`Upserted city: ${cityRow.slug}`);
+
+  // --- Vietnam country + city pilot stack -------------------------------
+  const vietnam = await readJson<CountrySeed>(
+    resolve(root, "vietnam/country.json"),
+  );
+  const { data: vietnamCountryRow, error: vietnamCountryErr } = await supabase
+    .from("countries")
+    .upsert(vietnam, { onConflict: "slug" })
+    .select("id, slug")
+    .single();
+
+  if (vietnamCountryErr) throw vietnamCountryErr;
+  if (!vietnamCountryRow) {
+    throw new Error("Vietnam country upsert returned no row");
+  }
+  console.log(`Upserted country: ${vietnamCountryRow.slug}`);
+
+  const vietnamCities = await readJson<CitySeed[]>(
+    resolve(root, "vietnam/cities.json"),
+  );
+  for (const vietnamCity of vietnamCities) {
+    const { country_slug: vietnamCountrySlug, ...vietnamCityFields } = vietnamCity;
+    if (vietnamCountrySlug !== vietnamCountryRow.slug) {
+      throw new Error(`Unexpected Vietnam city country: ${vietnamCountrySlug}`);
+    }
+    const { error } = await supabase.from("cities").upsert(
+      { ...vietnamCityFields, country_id: vietnamCountryRow.id },
+      { onConflict: "country_id,slug" },
+    );
+    if (error) throw error;
+  }
+  console.log(`Upserted Vietnam cities: ${vietnamCities.length}`);
 
   async function resolveOwner(input: {
     owner_kind: OwnerKind;
@@ -730,9 +827,17 @@ async function main() {
   console.log(`Upserted legal/social risks: ${legalSocialRisks.risks.length}`);
 
   // --- Destination identity profiles -----------------------------------
-  const destinationIdentity = await readJson<DestinationIdentityPayload>(
-    resolve(root, "japan/destination_identity.json"),
-  );
+  const destinationIdentityPayloads = await Promise.all([
+    readJson<DestinationIdentityPayload>(
+      resolve(root, "japan/destination_identity.json"),
+    ),
+    readJson<DestinationIdentityPayload>(
+      resolve(root, "vietnam/destination_identity.json"),
+    ),
+  ]);
+  const destinationIdentity = {
+    profiles: destinationIdentityPayloads.flatMap((payload) => payload.profiles),
+  };
 
   for (const profile of destinationIdentity.profiles) {
     const owner = await deleteOwnerRows(
@@ -766,9 +871,20 @@ async function main() {
   console.log(`Upserted identity profiles: ${destinationIdentity.profiles.length}`);
 
   // --- Travel activities taxonomy --------------------------------------
-  const travelActivities = await readJson<TravelActivitiesPayload>(
-    resolve(root, "japan/travel_activities.json"),
-  );
+  const travelActivityPayloads = await Promise.all([
+    readJson<TravelActivitiesPayload>(
+      resolve(root, "japan/travel_activities.json"),
+    ),
+    readJson<TravelActivitiesPayload>(
+      resolve(root, "vietnam/travel_activities.json"),
+    ),
+  ]);
+  const travelActivities = {
+    activities: travelActivityPayloads.flatMap((payload) => payload.activities),
+    destination_map: travelActivityPayloads.flatMap(
+      (payload) => payload.destination_map,
+    ),
+  };
 
   for (const activity of travelActivities.activities) {
     const { error } = await supabase.from("travel_activities").upsert(
@@ -822,9 +938,17 @@ async function main() {
   );
 
   // --- Price benchmarks -------------------------------------------------
-  const priceBenchmarks = await readJson<PriceBenchmarksPayload>(
-    resolve(root, "tokyo/price_benchmarks.json"),
-  );
+  const priceBenchmarkPayloads = await Promise.all([
+    readJson<PriceBenchmarksPayload>(
+      resolve(root, "tokyo/price_benchmarks.json"),
+    ),
+    readJson<PriceBenchmarksPayload>(
+      resolve(root, "vietnam/price_benchmarks.json"),
+    ),
+  ]);
+  const priceBenchmarks = {
+    benchmarks: priceBenchmarkPayloads.flatMap((payload) => payload.benchmarks),
+  };
 
   for (const benchmark of priceBenchmarks.benchmarks) {
     const owner = await deleteOwnerRows("price_benchmarks", benchmark, {
@@ -857,9 +981,13 @@ async function main() {
   console.log(`Upserted price benchmarks: ${priceBenchmarks.benchmarks.length}`);
 
   // --- Local apps directory --------------------------------------------
-  const localApps = await readJson<LocalAppsPayload>(
-    resolve(root, "tokyo/local_apps.json"),
-  );
+  const localAppPayloads = await Promise.all([
+    readJson<LocalAppsPayload>(resolve(root, "tokyo/local_apps.json")),
+    readJson<LocalAppsPayload>(resolve(root, "vietnam/local_apps.json")),
+  ]);
+  const localApps = {
+    apps: localAppPayloads.flatMap((payload) => payload.apps),
+  };
 
   for (const app of localApps.apps) {
     const owner = await deleteOwnerRows("local_apps", app, { slug: app.slug });
@@ -887,9 +1015,13 @@ async function main() {
   console.log(`Upserted local apps: ${localApps.apps.length}`);
 
   // --- Phrasebook -------------------------------------------------------
-  const phrasebook = await readJson<PhrasebookPayload>(
-    resolve(root, "japan/phrasebook.json"),
-  );
+  const phrasebookPayloads = await Promise.all([
+    readJson<PhrasebookPayload>(resolve(root, "japan/phrasebook.json")),
+    readJson<PhrasebookPayload>(resolve(root, "vietnam/phrasebook.json")),
+  ]);
+  const phrasebook = {
+    phrases: phrasebookPayloads.flatMap((payload) => payload.phrases),
+  };
 
   for (const phrase of phrasebook.phrases) {
     const owner = await deleteOwnerRows("phrasebook_entries", phrase, {
@@ -917,6 +1049,79 @@ async function main() {
   }
 
   console.log(`Upserted phrasebook entries: ${phrasebook.phrases.length}`);
+
+  // --- Destination intelligence notes ----------------------------------
+  const intelligenceNotes = await readJson<DestinationIntelligencePayload>(
+    resolve(root, "vietnam/intelligence_notes.json"),
+  );
+
+  for (const note of intelligenceNotes.notes) {
+    const owner = await deleteOwnerRows(
+      "destination_intelligence_notes",
+      note,
+      {
+        intelligence_category: note.intelligence_category,
+        title: note.title,
+      },
+    );
+    const { error } = await supabase
+      .from("destination_intelligence_notes")
+      .insert({
+        owner_kind: note.owner_kind,
+        country_id: owner.countryId,
+        city_id: owner.cityId,
+        intelligence_category: note.intelligence_category,
+        risk_level: note.risk_level ?? null,
+        title: note.title,
+        traveler_summary: note.traveler_summary,
+        practical_guidance: note.practical_guidance,
+        watchouts: note.watchouts,
+        examples: note.examples,
+        source_label: note.source_label ?? null,
+        source_url: note.source_url ?? null,
+        reviewed_at: note.reviewed_at ?? null,
+        confidence_level: note.confidence_level,
+        display_order: note.display_order,
+        metadata: note.metadata ?? {},
+      });
+    if (error) throw error;
+  }
+
+  console.log(`Upserted intelligence notes: ${intelligenceNotes.notes.length}`);
+
+  // --- Affiliate opportunities -----------------------------------------
+  const affiliateOpportunities = await readJson<AffiliateOpportunitiesPayload>(
+    resolve(root, "vietnam/affiliate_opportunities.json"),
+  );
+
+  for (const opportunity of affiliateOpportunities.opportunities) {
+    const owner = await deleteOwnerRows(
+      "destination_affiliate_opportunities",
+      opportunity,
+      { opportunity_key: opportunity.opportunity_key },
+    );
+    const { error } = await supabase
+      .from("destination_affiliate_opportunities")
+      .insert({
+        owner_kind: opportunity.owner_kind,
+        country_id: owner.countryId,
+        city_id: owner.cityId,
+        opportunity_key: opportunity.opportunity_key,
+        category: opportunity.category,
+        traveler_need: opportunity.traveler_need,
+        recommended_partner_keys: opportunity.recommended_partner_keys,
+        placement_context: opportunity.placement_context,
+        priority: opportunity.priority,
+        notes: opportunity.notes ?? null,
+        display_order: opportunity.display_order,
+        metadata: opportunity.metadata ?? {},
+      });
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted affiliate opportunities: ${affiliateOpportunities.opportunities.length}`,
+  );
 }
 
 main().catch((err) => {

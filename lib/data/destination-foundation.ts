@@ -10,6 +10,11 @@ import travelActivitiesJson from "@/db/seed/japan/travel_activities.json";
 import tokyoPriceBenchmarksJson from "@/db/seed/tokyo/price_benchmarks.json";
 import tokyoLocalAppsJson from "@/db/seed/tokyo/local_apps.json";
 import phrasebookJson from "@/db/seed/japan/phrasebook.json";
+import vietnamIdentityJson from "@/db/seed/vietnam/destination_identity.json";
+import vietnamTravelActivitiesJson from "@/db/seed/vietnam/travel_activities.json";
+import vietnamPriceBenchmarksJson from "@/db/seed/vietnam/price_benchmarks.json";
+import vietnamLocalAppsJson from "@/db/seed/vietnam/local_apps.json";
+import vietnamPhrasebookJson from "@/db/seed/vietnam/phrasebook.json";
 
 export type DestinationOwnerKind = "country" | "city";
 
@@ -162,15 +167,34 @@ type DestinationActivityRow = {
     | null;
 };
 
-const IDENTITY_SEED = destinationIdentityJson as unknown as DestinationIdentityPayload;
-const ACTIVITIES_SEED = travelActivitiesJson as TravelActivitiesPayload;
+const IDENTITY_SEED: DestinationIdentityPayload = {
+  profiles: [
+    ...(destinationIdentityJson as unknown as DestinationIdentityPayload).profiles,
+    ...(vietnamIdentityJson as unknown as DestinationIdentityPayload).profiles,
+  ],
+};
+const ACTIVITIES_SEED: TravelActivitiesPayload = {
+  activities: [
+    ...(travelActivitiesJson as TravelActivitiesPayload).activities,
+    ...(vietnamTravelActivitiesJson as TravelActivitiesPayload).activities,
+  ],
+  destination_map: [
+    ...(travelActivitiesJson as TravelActivitiesPayload).destination_map,
+    ...(vietnamTravelActivitiesJson as TravelActivitiesPayload).destination_map,
+  ],
+};
 const PRICE_BENCHMARK_SEEDS: Record<string, PriceBenchmarksPayload> = {
   tokyo: tokyoPriceBenchmarksJson as PriceBenchmarksPayload,
+  vietnam: vietnamPriceBenchmarksJson as PriceBenchmarksPayload,
 };
 const LOCAL_APP_SEEDS: Record<string, LocalAppsPayload> = {
   tokyo: tokyoLocalAppsJson as LocalAppsPayload,
+  vietnam: vietnamLocalAppsJson as LocalAppsPayload,
 };
-const PHRASEBOOK_SEED = phrasebookJson as PhrasebookPayload;
+const PHRASEBOOK_SEEDS: Record<string, PhrasebookPayload> = {
+  japan: phrasebookJson as PhrasebookPayload,
+  vietnam: vietnamPhrasebookJson as PhrasebookPayload,
+};
 
 function getSupabase(): SupabaseClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -431,7 +455,7 @@ export async function getLocalAppsLive({
 }
 
 export function getPhrasebookSeed(countrySlug: string): PhrasebookEntry[] {
-  return PHRASEBOOK_SEED.phrases
+  return (PHRASEBOOK_SEEDS[countrySlug]?.phrases ?? [])
     .filter((phrase) => phrase.country_slug === countrySlug)
     .sort((a, b) => a.display_order - b.display_order);
 }

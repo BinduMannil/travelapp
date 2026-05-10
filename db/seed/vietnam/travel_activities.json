@@ -1,0 +1,114 @@
+{
+  "activities": [
+    {
+      "slug": "motorbike-travel",
+      "label": "Motorbike travel",
+      "activity_group": "transport_adventure",
+      "description": "Self-drive or guided motorbike routes, city scooter culture, and rural loops.",
+      "traveler_types": ["adventure", "solo", "budget"],
+      "intensity": "high",
+      "indoor": false,
+      "family_friendly": false,
+      "display_order": 110
+    },
+    {
+      "slug": "trekking",
+      "label": "Trekking",
+      "activity_group": "outdoors",
+      "description": "Mountain walks, rice terraces, village homestays, waterfalls, and weather-dependent trails.",
+      "traveler_types": ["adventure", "solo", "couple"],
+      "intensity": "high",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 120
+    },
+    {
+      "slug": "island-hopping",
+      "label": "Island hopping",
+      "activity_group": "beach",
+      "description": "Boat days, snorkeling, beaches, seafood, and island resorts.",
+      "traveler_types": ["couple", "family", "luxury", "adventure"],
+      "intensity": "moderate",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 130
+    },
+    {
+      "slug": "cave-exploration",
+      "label": "Cave exploration",
+      "activity_group": "adventure",
+      "description": "Limestone cave systems, boat caves, national parks, and guided adventure tours.",
+      "traveler_types": ["adventure", "family", "couple"],
+      "intensity": "high",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 140
+    },
+    {
+      "slug": "diving-snorkeling",
+      "label": "Diving & snorkeling",
+      "activity_group": "beach",
+      "description": "Reef trips, beginner dives, island boat days, and seasonal visibility planning.",
+      "traveler_types": ["adventure", "couple", "family"],
+      "intensity": "moderate",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 150
+    },
+    {
+      "slug": "coffee-culture",
+      "label": "Coffee culture",
+      "activity_group": "food",
+      "description": "Phin coffee, egg coffee, coconut coffee, specialty cafés, roasteries, and café work sessions.",
+      "traveler_types": ["food", "digital_nomad", "solo", "couple"],
+      "intensity": "low",
+      "indoor": true,
+      "family_friendly": true,
+      "display_order": 160
+    },
+    {
+      "slug": "tailoring",
+      "label": "Tailoring",
+      "activity_group": "shopping",
+      "description": "Custom clothing, fittings, fabric selection, and time-sensitive alteration planning.",
+      "traveler_types": ["couple", "luxury", "solo"],
+      "intensity": "low",
+      "indoor": true,
+      "family_friendly": false,
+      "display_order": 170
+    },
+    {
+      "slug": "digital-nomad",
+      "label": "Digital nomad",
+      "activity_group": "work_stay",
+      "description": "Longer stays, cafés, coworking, apartments, SIM/eSIM setup, and neighborhood selection.",
+      "traveler_types": ["solo", "budget", "digital_nomad"],
+      "intensity": "low",
+      "indoor": true,
+      "family_friendly": false,
+      "display_order": 180
+    },
+    {
+      "slug": "train-journeys",
+      "label": "Train journeys",
+      "activity_group": "transport",
+      "description": "North-south rail, sleeper trains, scenic passes, and station logistics.",
+      "traveler_types": ["adventure", "budget", "family", "solo"],
+      "intensity": "moderate",
+      "indoor": true,
+      "family_friendly": true,
+      "display_order": 190
+    }
+  ],
+  "destination_map": [
+    {"owner_kind": "country", "country_slug": "vietnam", "activity_slug": "motorbike-travel", "relevance_level": "signature", "seasonality": ["dry_season_best", "weather_dependent"], "notes": "Iconic but high-risk for inexperienced riders; guided routes are safer.", "display_order": 10},
+    {"owner_kind": "country", "country_slug": "vietnam", "activity_slug": "coffee-culture", "relevance_level": "signature", "seasonality": ["year_round"], "notes": "Daily-use activity in every major city; strong fit for slow travel and digital nomads.", "display_order": 20},
+    {"owner_kind": "country", "country_slug": "vietnam", "activity_slug": "train-journeys", "relevance_level": "recommended", "seasonality": ["year_round", "typhoon_disruption_possible"], "notes": "Useful for Hanoi-Hue-Da Nang-HCMC routes and scenic central coast segments.", "display_order": 30},
+    {"owner_kind": "city", "country_slug": "vietnam", "city_slug": "sapa", "activity_slug": "trekking", "relevance_level": "signature", "seasonality": ["spring", "autumn", "dry_weather_best"], "notes": "Trail quality and views depend heavily on fog and rain.", "display_order": 40},
+    {"owner_kind": "city", "country_slug": "vietnam", "city_slug": "phu-quoc", "activity_slug": "island-hopping", "relevance_level": "signature", "seasonality": ["dry_season_best"], "notes": "Weather and sea conditions shape boat days.", "display_order": 50},
+    {"owner_kind": "city", "country_slug": "vietnam", "city_slug": "nha-trang", "activity_slug": "diving-snorkeling", "relevance_level": "recommended", "seasonality": ["visibility_dependent", "avoid_rough_seas"], "notes": "Check operator reviews and sea conditions before booking.", "display_order": 60},
+    {"owner_kind": "city", "country_slug": "vietnam", "city_slug": "hoi-an", "activity_slug": "tailoring", "relevance_level": "signature", "seasonality": ["year_round"], "notes": "Allow time for at least two fittings; avoid final-day rush.", "display_order": 70},
+    {"owner_kind": "city", "country_slug": "vietnam", "city_slug": "ninh-binh", "activity_slug": "cave-exploration", "relevance_level": "recommended", "seasonality": ["dry_weather_best"], "notes": "Boat caves and viewpoints are weather-sensitive.", "display_order": 80},
+    {"owner_kind": "city", "country_slug": "vietnam", "city_slug": "ho-chi-minh-city", "activity_slug": "digital-nomad", "relevance_level": "recommended", "seasonality": ["year_round"], "notes": "Strong cafés, coworking, apartments, and food delivery; heat and rain affect neighborhood choice.", "display_order": 90}
+  ]
+}
