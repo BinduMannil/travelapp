@@ -25,6 +25,6 @@
     { "key": "vending_machine",  "label": "Vending machine",                  "accepts": {"cash_jpy":"yes","suica_ic":"yes","visa":"rare","mastercard":"rare","amex":"rare","jcb":"rare","apple_pay":"rare","google_pay":"rare","paypay":"rare","alipay":"rare","wise":"rare"} },
     { "key": "street_market",    "label": "Street market / yatai",            "accepts": {"cash_jpy":"yes","suica_ic":"rare","visa":"rare","mastercard":"rare","amex":"rare","jcb":"rare","apple_pay":"rare","google_pay":"rare","paypay":"sometimes","alipay":"rare","wise":"rare"} }
   ],
-  "atm_notes": "7-Eleven (Seven Bank) ATMs accept Visa/Mastercard/Amex/UnionPay from foreign cards and have an English menu — there's one in most konbini. Japan Post ATMs also work. Most other ATMs reject foreign cards. Daily withdrawal limits are often set by your home bank, not the ATM.",
-  "tax_refund_note": "Visitors on a short-stay visa can shop tax-free at stores displaying the 'Japan. Tax-free Shop' sign, with a minimum ¥5,500 per store per day. Bring your passport. From 2026 the system moves to a refund-on-departure model — check the latest process at the airport."
+  "atm_notes": "7-Eleven (Seven Bank) ATMs accept Visa/Mastercard/Amex/UnionPay from foreign cards and have an English menu — there\u0027s one in most konbini. Japan Post ATMs also work. Most other ATMs reject foreign cards. Daily withdrawal limits are often set by your home bank, not the ATM.",
+  "tax_refund_note": "Visitors on a short-stay visa can shop tax-free at stores displaying the \u0027Japan. Tax-free Shop\u0027 sign, with a minimum ¥5,500 per store per day. Bring your passport. From 2026 the system moves to a refund-on-departure model — check the latest process at the airport."
 }

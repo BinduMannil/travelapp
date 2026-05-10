@@ -42,8 +42,8 @@
         "Vietnamese phở (in concept, not flavour)"
       ],
       "vegan_version": true,
-      "vegan_notes": "Hard to find — most broths use pork or fish. T's Tantan and Afuri have proper vegan bowls.",
-      "must_try_form": "Tonkotsu at a specialist. Don't linger — ramen is meant to be eaten in under 15 minutes.",
+      "vegan_notes": "Hard to find — most broths use pork or fish. T\u0027s Tantan and Afuri have proper vegan bowls.",
+      "must_try_form": "Tonkotsu at a specialist. Don\u0027t linger — ramen is meant to be eaten in under 15 minutes.",
       "where_in_tokyo": [
         "ichiran-shibuya",
         "afuri-ebisu",
@@ -124,7 +124,7 @@
       ],
       "vegan_version": true,
       "vegan_notes": "Many yakitori spots also grill vegetable skewers (yakimono) — shishito peppers, shiitake, asparagus.",
-      "must_try_form": "Omakase at a smoky counter. Don't sauce the skin skewer — salt-only is sacrilege otherwise.",
+      "must_try_form": "Omakase at a smoky counter. Don\u0027t sauce the skin skewer — salt-only is sacrilege otherwise.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Yakitori_by_yoppy_in_Tokyo.jpg",
       "palette": "kintsugi",
       "hero_image_urls": [
@@ -170,7 +170,7 @@
       ],
       "vegan_version": false,
       "vegan_notes": null,
-      "must_try_form": "Straight off the pan at a stall — they're dangerously hot for the first minute.",
+      "must_try_form": "Straight off the pan at a stall — they\u0027re dangerously hot for the first minute.",
       "hero_image_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Takoyaki_by_yoppy_in_Osaka.jpg",
       "palette": "kintsugi",
       "hero_image_urls": [
@@ -184,7 +184,7 @@
       "name": "Soba",
       "romaji": "Soba",
       "native_script": "蕎麦",
-      "origin": "Edo-era staple; Tokyo's water is still said to make the best soba noodles.",
+      "origin": "Edo-era staple; Tokyo\u0027s water is still said to make the best soba noodles.",
       "originated_here": true,
       "made_of": "Buckwheat noodles, served cold with dipping sauce (zaru soba) or in a hot broth (kake soba). 100% buckwheat (jūwari) is gluten-free; 80/20 blend (nihachi) is not.",
       "similar_to": [
@@ -257,7 +257,7 @@
       "native_script": "和牛",
       "origin": "Four Japanese cattle breeds, with Kobe, Matsusaka, Ōmi, and Hida beef as the prestige regional grades.",
       "originated_here": true,
-      "made_of": "Marbled beef from Japanese native breeds, graded A1-A5 for fat quality. The intramuscular fat melts at body temperature, which is why you see the 'melts in the mouth' cliché.",
+      "made_of": "Marbled beef from Japanese native breeds, graded A1-A5 for fat quality. The intramuscular fat melts at body temperature, which is why you see the \u0027melts in the mouth\u0027 cliché.",
       "similar_to": [
         "American Kobe-style",
         "Australian Wagyu (often crossbred)"

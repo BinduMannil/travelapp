@@ -37,7 +37,7 @@
       "abv": "5%",
       "made_of": "Crisp Japanese-style lagers (Asahi Super Dry, Kirin Ichiban, Sapporo, Yebisu) dominate; the craft scene is now strong with Hitachino Nest, Y. Market, and Far Yeast.",
       "popularity": "5",
-      "how_to_try": "Start a meal with a 'toriaezu, nama!' (a draft beer to begin) — the universal first order. For craft, try Spring Valley Brewery (Daikanyama) or T.Y. Harbor (Tennoz Isle).",
+      "how_to_try": "Start a meal with a \u0027toriaezu, nama!\u0027 (a draft beer to begin) — the universal first order. For craft, try Spring Valley Brewery (Daikanyama) or T.Y. Harbor (Tennoz Isle).",
       "where_to_try": "Anywhere — but a beer garden on a department-store rooftop in summer is the move.",
       "palette": "kintsugi",
       "hero_image_urls": [
@@ -55,8 +55,8 @@
       "abv": "40–48%",
       "made_of": "Built on Scottish single-malt templates by Yamazaki (Suntory, founded 1923), Hakushu, Nikka Yoichi, and Nikka Miyagikyo. Stocks are tight — many age statements have been discontinued.",
       "popularity": "4",
-      "how_to_try": "A 'highball' (whisky + soda + ice) is the everyday drink — try it with Suntory Kakubin. For the serious stuff, find a hotel bar with a Yamazaki 12 or Hibiki Harmony pour.",
-      "where_to_try": "Bar Zoetrope (Shinjuku — 300+ Japanese whiskies), Shot Bar Zoetrope, the Park Hyatt's New York Bar.",
+      "how_to_try": "A \u0027highball\u0027 (whisky + soda + ice) is the everyday drink — try it with Suntory Kakubin. For the serious stuff, find a hotel bar with a Yamazaki 12 or Hibiki Harmony pour.",
+      "where_to_try": "Bar Zoetrope (Shinjuku — 300+ Japanese whiskies), Shot Bar Zoetrope, the Park Hyatt\u0027s New York Bar.",
       "palette": "sumi",
       "hero_image_urls": [
         "https://commons.wikimedia.org/wiki/Special:FilePath/Yamazaki_Distillery_Pot_Stills.jpg",
@@ -72,7 +72,7 @@
       "romaji": "Shōchū",
       "category": "alcohol",
       "abv": "25%",
-      "made_of": "Distilled spirit made from sweet potato (imo), barley (mugi), rice (kome), or buckwheat (soba). Earthier than sake, less aggressive than vodka. Kyushu's signature drink.",
+      "made_of": "Distilled spirit made from sweet potato (imo), barley (mugi), rice (kome), or buckwheat (soba). Earthier than sake, less aggressive than vodka. Kyushu\u0027s signature drink.",
       "popularity": "4",
       "how_to_try": "On the rocks (rokku), with hot water (oyu-wari) for imo shōchū in winter, or with cold water (mizu-wari).",
       "where_to_try": "Any Kyushu-style izakaya; Imo Honten chain in Tokyo specialises in it.",
@@ -109,7 +109,7 @@
       "abv": null,
       "made_of": "Stone-ground powder from shade-grown tencha leaves, whisked with hot water using a bamboo chasen. The base of the tea ceremony.",
       "popularity": "5",
-      "how_to_try": "Order usucha (thin) at any tea house; it's bitter, vegetal, and meant to be sipped in three. Or a matcha latte from % Arabica or Mosu Cafe (Toranomon).",
+      "how_to_try": "Order usucha (thin) at any tea house; it\u0027s bitter, vegetal, and meant to be sipped in three. Or a matcha latte from % Arabica or Mosu Cafe (Toranomon).",
       "where_to_try": "Hama-rikyū Garden tea house, Higashiya Ginza, Nakamura Tōkichi (Kyoto day trip).",
       "palette": "matcha",
       "hero_image_urls": [
@@ -181,8 +181,8 @@
       "abv": null,
       "made_of": "Old-school 1960s coffee parlours: dark roasts, siphon brewing, smoking permitted, jazz on vinyl. The original Japanese coffee culture.",
       "popularity": "4",
-      "how_to_try": "Order the 'blend' (mixed dark roast) and a thick slice of pudding (purin). No laptops; just the cup, the chair, and a record.",
-      "where_to_try": "Café de l'Ambre (Ginza, since 1948), Cafe Tom (Yotsuya), Gallery Cafe Bar Kissa Sakaiki (Yanaka).",
+      "how_to_try": "Order the \u0027blend\u0027 (mixed dark roast) and a thick slice of pudding (purin). No laptops; just the cup, the chair, and a record.",
+      "where_to_try": "Café de l\u0027Ambre (Ginza, since 1948), Cafe Tom (Yotsuya), Gallery Cafe Bar Kissa Sakaiki (Yanaka).",
       "palette": "sumi",
       "hero_image_urls": [
         "https://commons.wikimedia.org/wiki/Special:FilePath/Kissaten_interior_with_jazz_records.jpg",

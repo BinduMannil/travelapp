@@ -14,8 +14,8 @@
     "name": "Shinjuku",
     "vibe": ["business", "nightlife", "mega-station", "eclectic"],
     "best_for": ["business travellers", "night-owls", "solo drinkers"],
-    "summary": "Home to the world's busiest station and everything from skyline bars to Golden Gai's 200 shoebox-sized pubs. Kabukichō is the red-light fringe — lively but watch for touts.",
-    "description": "East side is neon, food, and nightlife (Golden Gai, Omoide Yokocho). West side is skyscrapers with free observation decks at the Metropolitan Government Building. South side has Shinjuku Gyoen for decompressing. Ni-chōme just past Kabukichō is Asia's densest LGBTQ nightlife strip.",
+    "summary": "Home to the world\u0027s busiest station and everything from skyline bars to Golden Gai\u0027s 200 shoebox-sized pubs. Kabukichō is the red-light fringe — lively but watch for touts.",
+    "description": "East side is neon, food, and nightlife (Golden Gai, Omoide Yokocho). West side is skyscrapers with free observation decks at the Metropolitan Government Building. South side has Shinjuku Gyoen for decompressing. Ni-chōme just past Kabukichō is Asia\u0027s densest LGBTQ nightlife strip.",
     "transit_hubs": ["Shinjuku Station (JR, Odakyu, Keio, subway)"],
     "display_order": 2
   },
@@ -24,7 +24,7 @@
     "name": "Ginza",
     "vibe": ["luxury", "fine-dining", "shopping", "refined"],
     "best_for": ["couples", "foodies", "shoppers"],
-    "summary": "Tokyo's luxury boulevard — flagship fashion houses, Michelin sushi counters, and Kabukiza theatre, all with a calmer pace than the youthful hubs.",
+    "summary": "Tokyo\u0027s luxury boulevard — flagship fashion houses, Michelin sushi counters, and Kabukiza theatre, all with a calmer pace than the youthful hubs.",
     "description": "Chūō-dōri, the main street, is pedestrianised on weekends (hokōsha tengoku). Stop at Itoya for stationery nerdery, Ginza Six for luxury + a top-floor rooftop garden, and Ginza Kyubey or Sukiyabashi Jiro Roppongi branch for the big sushi experience. Kabukiza theatre offers single-act tickets (¥1,500-¥2,500).",
     "transit_hubs": ["Ginza Station (Marunouchi, Ginza, Hibiya lines)"],
     "display_order": 3
@@ -35,7 +35,7 @@
     "vibe": ["historic", "traditional", "tourist-classic"],
     "best_for": ["first-timers", "families", "cultural travellers"],
     "summary": "Old Tokyo vibes anchored by Sensō-ji temple. Best visited at dawn or after 18:00 when the Nakamise-dōri shopping street thins.",
-    "description": "Beyond Sensō-ji, walk the covered arcades for senbei (rice crackers) and tenugui (hand towels). Cross the river to Tokyo Skytree. Hop on a Sumida River cruise to Hamarikyū or Odaiba. Kappabashi's kitchenware street is nearby.",
+    "description": "Beyond Sensō-ji, walk the covered arcades for senbei (rice crackers) and tenugui (hand towels). Cross the river to Tokyo Skytree. Hop on a Sumida River cruise to Hamarikyū or Odaiba. Kappabashi\u0027s kitchenware street is nearby.",
     "transit_hubs": ["Asakusa Station (Ginza, Asakusa, Tobu Skytree lines)"],
     "display_order": 4
   },
@@ -45,7 +45,7 @@
     "vibe": ["youthful", "fashion", "kawaii", "shopping"],
     "best_for": ["teens and twenties", "fashion hunters", "cultural travellers"],
     "summary": "Youth fashion, crêperies, and the ceremonial entrance to Meiji Jingū — Harajuku runs from sacred to sugar-rush in the span of 500 metres.",
-    "description": "Takeshita-dōri is the rainbow-cotton-candy tourist lane; Ura-Harajuku is the indie side street grid with quieter coffee and vintage. Omotesandō continues south as Tokyo's 'Champs-Élysées' — Prada Aoyama, Dior, Louis Vuitton flagships. Meiji Jingū's forest sits right next door.",
+    "description": "Takeshita-dōri is the rainbow-cotton-candy tourist lane; Ura-Harajuku is the indie side street grid with quieter coffee and vintage. Omotesandō continues south as Tokyo\u0027s \u0027Champs-Élysées\u0027 — Prada Aoyama, Dior, Louis Vuitton flagships. Meiji Jingū\u0027s forest sits right next door.",
     "transit_hubs": ["Harajuku Station (JR Yamanote)", "Meiji-Jingūmae (Chiyoda line)"],
     "display_order": 5
   },
@@ -54,8 +54,8 @@
     "name": "Akihabara",
     "vibe": ["anime", "electronics", "retro-gaming", "otaku"],
     "best_for": ["anime / manga fans", "retro-game collectors", "solo"],
-    "summary": "Neon-lit Electric Town with Super Potato (retro games), Mandarake (vintage manga and figures), and Yodobashi-Akiba's mega electronics floors.",
-    "description": "Chūō-dōri is pedestrian on Sundays. Stick to reputable shops and skip the 'free drink' invitations from street promoters — the reputable maid cafés like @home put their prices plainly outside. Try 2K540 near Okachimachi for craft workshops.",
+    "summary": "Neon-lit Electric Town with Super Potato (retro games), Mandarake (vintage manga and figures), and Yodobashi-Akiba\u0027s mega electronics floors.",
+    "description": "Chūō-dōri is pedestrian on Sundays. Stick to reputable shops and skip the \u0027free drink\u0027 invitations from street promoters — the reputable maid cafés like @home put their prices plainly outside. Try 2K540 near Okachimachi for craft workshops.",
     "transit_hubs": ["Akihabara Station (JR Yamanote, Hibiya, Tsukuba Express)"],
     "display_order": 6
   },
@@ -64,8 +64,8 @@
     "name": "Roppongi",
     "vibe": ["expat", "art", "nightlife", "international"],
     "best_for": ["couples", "art lovers", "late-night"],
-    "summary": "Where Tokyo's international scene lives and plays. Three world-class museums form the 'Art Triangle', while the streets below keep going past 03:00.",
-    "description": "Mori Art Museum on the 53rd floor of Roppongi Hills is the Tokyo skyline plus contemporary art in one ticket. The National Art Center has no permanent collection but hosts the city's biggest touring shows. Avoid club touts — if you're nudged in, you'll likely be overcharged.",
+    "summary": "Where Tokyo\u0027s international scene lives and plays. Three world-class museums form the \u0027Art Triangle\u0027, while the streets below keep going past 03:00.",
+    "description": "Mori Art Museum on the 53rd floor of Roppongi Hills is the Tokyo skyline plus contemporary art in one ticket. The National Art Center has no permanent collection but hosts the city\u0027s biggest touring shows. Avoid club touts — if you\u0027re nudged in, you\u0027ll likely be overcharged.",
     "transit_hubs": ["Roppongi (Hibiya, Oedo lines)"],
     "display_order": 7
   },
@@ -74,7 +74,7 @@
     "name": "Daikanyama & Nakameguro",
     "vibe": ["indie", "design", "cafe-culture", "sakura"],
     "best_for": ["couples", "solo", "design travellers"],
-    "summary": "Low-rise, tree-lined, and independent. Tsutaya's flagship bookstore complex, hidden menswear boutiques, and the Meguro River — Tokyo's most photographed cherry-blossom canal.",
+    "summary": "Low-rise, tree-lined, and independent. Tsutaya\u0027s flagship bookstore complex, hidden menswear boutiques, and the Meguro River — Tokyo\u0027s most photographed cherry-blossom canal.",
     "description": "Daikanyama T-Site (Tsutaya) is worth 90 minutes for magazines, stationery, and a great café. Walk 12 minutes down to Nakameguro for riverside cafés and shops. In late March / early April the river glows with pink illuminations at night.",
     "transit_hubs": ["Daikanyama (Tokyu Toyoko)", "Nakameguro (Hibiya, Tokyu Toyoko)"],
     "display_order": 8
@@ -84,7 +84,7 @@
     "name": "Shimokitazawa",
     "vibe": ["bohemian", "vintage", "indie-music", "thrifting"],
     "best_for": ["solo", "twenties", "music fans"],
-    "summary": "Tokyo's Brooklyn, 10 minutes from Shinjuku — narrow alleys packed with vintage stores, tiny live-house venues, and third-wave coffee.",
+    "summary": "Tokyo\u0027s Brooklyn, 10 minutes from Shinjuku — narrow alleys packed with vintage stores, tiny live-house venues, and third-wave coffee.",
     "description": "Spend an afternoon thrifting at Flamingo, Chicago, and Stick-Out; dinner at Shirube for creative izakaya; late set at Club Que or Basement Bar. The new Reload complex brings designer shops to the formerly scruffy north side.",
     "transit_hubs": ["Shimokitazawa (Odakyu, Keio Inokashira)"],
     "display_order": 9
@@ -95,7 +95,7 @@
     "vibe": ["old-town", "quiet", "cats", "temples"],
     "best_for": ["cultural travellers", "solo", "photographers"],
     "summary": "One of the few districts to survive World War II bombing — low wooden houses, small temples, and a stray-cat population that inspired a resident cat guidebook.",
-    "description": "Yanaka Ginza shopping street is best at 17:00 as croquette and skewer shops ramp up. Wander the cemetery (peaceful, with cherry trees). Take an old-fashioned public bath at Daikoku-yu. Walk to Nezu Shrine's orange torii tunnel for the underrated alternative to Kyoto's Fushimi Inari.",
+    "description": "Yanaka Ginza shopping street is best at 17:00 as croquette and skewer shops ramp up. Wander the cemetery (peaceful, with cherry trees). Take an old-fashioned public bath at Daikoku-yu. Walk to Nezu Shrine\u0027s orange torii tunnel for the underrated alternative to Kyoto\u0027s Fushimi Inari.",
     "transit_hubs": ["Nippori (JR Yamanote)", "Sendagi (Chiyoda line)"],
     "display_order": 10
   },
