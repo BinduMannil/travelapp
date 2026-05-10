@@ -3,9 +3,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
+import { VietnamCityExperience } from "@/components/vietnam/VietnamCityExperience";
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { CITY_INTELLIGENCE } from "@/lib/destination/intelligence";
+import { getVietnamCity, VIETNAM_CITIES } from "@/lib/vietnam/frontend";
 
 const CITY_IMAGES = {
   hero:
@@ -228,6 +230,9 @@ export default async function CityPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityExperience city={vietnamCity} />;
+
   const city = CITIES[slug];
   if (!city) {
     const planned = PLANNED_CITIES[slug];
@@ -486,9 +491,11 @@ export default async function CityPage({
 }
 
 export function generateStaticParams() {
-  return [...Object.keys(CITIES), ...Object.keys(PLANNED_CITIES)].map((slug) => ({
-    slug,
-  }));
+  return [
+    ...Object.keys(CITIES),
+    ...Object.keys(PLANNED_CITIES),
+    ...VIETNAM_CITIES.map((city) => city.slug),
+  ].map((slug) => ({ slug }));
 }
 
 function PlannedCityPage({

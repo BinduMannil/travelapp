@@ -4,6 +4,7 @@ import { CoverTile } from "@/components/common/CoverTile";
 import { CountryMap } from "@/components/country/CountryMap";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
+import { VietnamCountryExperience } from "@/components/vietnam/VietnamCountryExperience";
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { COUNTRY_INTELLIGENCE } from "@/lib/destination/intelligence";
@@ -18,6 +19,13 @@ const COUNTRIES: Record<
     primaryCity: "tokyo",
     intro:
       "Country-level guidance that every city page inherits. City pages override only where local details differ.",
+  },
+  vietnam: {
+    name: "Vietnam",
+    tagline: "VIỆT NAM",
+    primaryCity: "ho-chi-minh-city",
+    intro:
+      "A country-level travel companion for Vietnam's street energy, regional weather, motorbike culture, coffee, beaches, mountains, and long-route planning.",
   },
 };
 
@@ -171,6 +179,7 @@ export default async function CountryPage({
   const { slug } = await params;
   const country = COUNTRIES[slug];
   if (!country) notFound();
+  if (slug === "vietnam") return <VietnamCountryExperience />;
   const identity = getDestinationIdentity(slug);
   const intelligence = COUNTRY_INTELLIGENCE[slug];
 
