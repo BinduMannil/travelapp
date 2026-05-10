@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
+import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
 import { VietnamCityExperience } from "@/components/vietnam/VietnamCityExperience";
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
+import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { CITY_INTELLIGENCE } from "@/lib/destination/intelligence";
 import { getVietnamCity, VIETNAM_CITIES } from "@/lib/vietnam/frontend";
@@ -241,6 +243,10 @@ export default async function CityPage({
   }
   const identity = getDestinationIdentity(slug);
   const intelligence = CITY_INTELLIGENCE[slug];
+  const legalSocialRisks = await getLegalSocialRisksLive({
+    countrySlug: city.countrySlug,
+    citySlug: slug,
+  });
 
   return (
     <main
@@ -376,6 +382,12 @@ export default async function CityPage({
       {intelligence ? (
         <EditorialIntelligence identity={identity} intelligence={intelligence} />
       ) : null}
+
+      <SocialRiskBriefing
+        risks={legalSocialRisks}
+        destinationName={city.name}
+        compact
+      />
 
       <section className="relative min-h-[48rem] overflow-hidden py-32 sm:py-44">
         <img

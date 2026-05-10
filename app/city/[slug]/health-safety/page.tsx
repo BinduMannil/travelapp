@@ -2,11 +2,13 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { InsuranceCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
 import {
   getCity,
   getCountryForCity,
   getCountryHealthSafety,
 } from "@/lib/data/seed";
+import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
 import { PageHero } from "@/components/layout/PageHero";
 import { formatLongDate } from "@/lib/legal/constants";
 
@@ -30,6 +32,10 @@ export default async function HealthSafetyPage({
 
   const data = getCountryHealthSafety(countrySlug);
   if (!data) notFound();
+  const legalSocialRisks = await getLegalSocialRisksLive({
+    countrySlug,
+    citySlug: slug,
+  });
 
   return (
     <main className="editorial-page">
@@ -45,6 +51,17 @@ export default async function HealthSafetyPage({
         subtitle="安 全"
         lede={`Emergency numbers, hazards, medications, embassies, LGBTQ+ context, and printable dietary cards.`}
         palette="enji"
+      />
+      <SocialRiskBriefing
+        risks={legalSocialRisks}
+        destinationName={city.name}
+        focusCategories={[
+          "drugs_medication_controlled_substances",
+          "police_official_interaction",
+          "public_conduct",
+          "photography_filming",
+          "lgbtq_relationships",
+        ]}
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
 <section className="mt-8 rounded-lg border border-rose-200 bg-rose-50 p-5">

@@ -6,7 +6,9 @@ import {
   getVisaRuleset,
 } from "@/lib/data/seed";
 import { VisaPicker } from "@/components/city/VisaPicker";
+import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
 import { PageHero } from "@/components/layout/PageHero";
+import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
 
 export function generateMetadata(): Metadata {
   return {
@@ -28,6 +30,10 @@ export default async function VisaPage({
 
   const ruleset = getVisaRuleset(countrySlug);
   if (!ruleset) notFound();
+  const legalSocialRisks = await getLegalSocialRisksLive({
+    countrySlug,
+    citySlug: slug,
+  });
 
   return (
     <main className="editorial-page">
@@ -78,6 +84,17 @@ export default async function VisaPage({
           </div>
         </div>
       </section>
+
+      <SocialRiskBriefing
+        risks={legalSocialRisks}
+        destinationName={city.name}
+        compact
+        focusCategories={[
+          "immigration_entry",
+          "police_official_interaction",
+          "drugs_medication_controlled_substances",
+        ]}
+      />
     </main>
   );
 }

@@ -4,8 +4,10 @@ import { CoverTile } from "@/components/common/CoverTile";
 import { CountryMap } from "@/components/country/CountryMap";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
+import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
 import { VietnamCountryExperience } from "@/components/vietnam/VietnamCountryExperience";
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
+import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { COUNTRY_INTELLIGENCE } from "@/lib/destination/intelligence";
 
@@ -18,7 +20,7 @@ const COUNTRIES: Record<
     tagline: "日 本",
     primaryCity: "tokyo",
     intro:
-      "Country-level guidance that every city page inherits. City pages override only where local details differ.",
+      "A country of quiet ceremony, precise cities, seasonal rituals, rail journeys, mountain edges, island weather, food culture, and tiny etiquette shifts that change the trip.",
   },
   vietnam: {
     name: "Vietnam",
@@ -182,6 +184,7 @@ export default async function CountryPage({
   if (slug === "vietnam") return <VietnamCountryExperience />;
   const identity = getDestinationIdentity(slug);
   const intelligence = COUNTRY_INTELLIGENCE[slug];
+  const legalSocialRisks = await getLegalSocialRisksLive({ countrySlug: slug });
 
   return (
     <main className="editorial-page">
@@ -239,6 +242,11 @@ export default async function CountryPage({
       {intelligence ? (
         <EditorialIntelligence identity={identity} intelligence={intelligence} />
       ) : null}
+
+      <SocialRiskBriefing
+        risks={legalSocialRisks}
+        destinationName={country.name}
+      />
 
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
