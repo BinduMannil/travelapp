@@ -9,6 +9,7 @@ import {
   type PriceBand,
 } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
+import { formatTag } from "@/lib/copy/formatting";
 import {
   CurrencyProvider,
   CurrencySelector,
@@ -96,7 +97,7 @@ export default async function RestaurantsPage({
     .sort((a, b) => b[1] - a[1])
     .map(([slug, count]) => ({
       slug,
-      label: CUISINE_LABELS[slug] ?? slug,
+      label: CUISINE_LABELS[slug] ?? formatTag(slug),
       count,
     }));
 
@@ -110,7 +111,7 @@ export default async function RestaurantsPage({
     .sort((a, b) => b[1] - a[1])
     .map(([slug, count]) => ({
       slug,
-      label: DIETARY_LABELS[slug] ?? slug,
+      label: DIETARY_LABELS[slug] ?? formatTag(slug),
       count,
     }));
 

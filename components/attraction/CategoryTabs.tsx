@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { formatTag } from "@/lib/copy/formatting";
 import { cn } from "@/lib/utils";
 
 export type CategoryTab = { slug: string; label: string; count: number };
@@ -55,7 +56,7 @@ export function CategoryTabs({
             activeCategory === t.slug && "font-bold",
           )}
         >
-          {t.label}
+          {formatTag(t.label)}
           <span className={cn("ml-1 text-xs", activeCategory === t.slug ? "text-sumi-800" : "text-sumi-600")}>{t.count}</span>
         </button>
       ))}

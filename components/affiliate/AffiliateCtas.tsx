@@ -149,9 +149,9 @@ export function FlightCta({
     <Card
       kanji="空"
       eyebrow="Flights"
-      title={`Compare flights to ${destinationLabel}`}
+      title={`Compare Flights to ${destinationLabel}`}
       body="Skyscanner compares 1,200+ airlines and travel sites in one search. Flexible-date view catches the cheap weeks."
-      button="Search flights"
+      button="Search Flights"
       href={`https://www.skyscanner.net/transport/flights-to/${destinationIata}/`}
       partner="skyscanner"
       source={source}
@@ -165,8 +165,8 @@ export function EsimCta({ source }: { source?: string } = {}) {
   return (
     <Card
       kanji="通"
-      eyebrow="eSIM for Japan"
-      title="Arrive online"
+      eyebrow="eSIM For Japan"
+      title="Arrive Online"
       body="Airalo's Moshi Moshi eSIM activates the moment you land — 5 GB for 30 days, cheaper than most airport SIM counters."
       button="Get an eSIM"
       href="https://www.airalo.com/japan-esim"
@@ -182,7 +182,7 @@ export function CarRentalCta({ source }: { source?: string } = {}) {
   return (
     <Card
       kanji="車"
-      eyebrow="Rental cars"
+      eyebrow="Rental Cars"
       title="Rent a car for the countryside"
       body="Discover Cars aggregates Nippon Rent-A-Car, Times, Toyota Rent a Car, and the big internationals. Full insurance coverage included in the rate."
       button="Compare cars"

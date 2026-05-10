@@ -16,15 +16,15 @@ const REQUIREMENT_COPY: Record<
     tone: "bg-emerald-100 text-emerald-900 border-emerald-300",
   },
   visa_required: {
-    label: "Visa required",
+    label: "Visa Required",
     tone: "bg-rose-100 text-rose-900 border-rose-300",
   },
   evisa_or_visa: {
-    label: "eVisa or visa",
+    label: "eVisa or Visa",
     tone: "bg-amber-100 text-amber-900 border-amber-300",
   },
   visa_waiver_registration: {
-    label: "Visa-free with pre-registration",
+    label: "Visa-Free with Pre-Registration",
     tone: "bg-sky-100 text-sky-900 border-sky-300",
   },
 };
@@ -73,14 +73,14 @@ export function VisaPicker({
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="text-sm font-medium text-sumi-800">
-            Your citizenship
+            Your Citizenship
           </span>
           <select
             value={citizenship}
             onChange={(e) => handleCitizenship(e.target.value)}
             className="mt-2 w-full rounded-md border border-washi-300 bg-white px-3 py-2"
           >
-            <option value="">Select your passport country…</option>
+            <option value="">Select Your Passport Country…</option>
             {sorted.map((r) => (
               <option key={r.citizenship} value={r.citizenship}>
                 {r.name}
@@ -91,9 +91,9 @@ export function VisaPicker({
 
         <label className="block">
           <span className="text-sm font-medium text-sumi-800">
-            Where you live{" "}
+            Where You Live{" "}
             <span className="text-xs font-normal text-sumi-700">
-              (optional)
+              (Optional)
             </span>
           </span>
           <select
@@ -101,7 +101,7 @@ export function VisaPicker({
             onChange={(e) => handleResidence(e.target.value)}
             className="mt-2 w-full rounded-md border border-washi-300 bg-white px-3 py-2"
           >
-            <option value="">Same as my passport country</option>
+            <option value="">Same as My Passport Country</option>
             {sorted.map((r) => (
               <option key={r.citizenship} value={r.citizenship}>
                 {r.name}
@@ -174,4 +174,3 @@ export function VisaPicker({
     </div>
   );
 }
-

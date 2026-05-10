@@ -119,7 +119,7 @@ export function VietnamCountryExperience() {
               <Link href="/" className="hover:text-orange-100">Home</Link> · Vietnam
             </nav>
             <p className="mt-12 text-xs font-black uppercase tracking-[0.38em] text-amber-300">
-              Pilot country · street alive
+              PILOT COUNTRY · STREET ALIVE
             </p>
             <h1 className="mt-5 max-w-4xl font-display text-[clamp(4.2rem,14vw,12rem)] font-black leading-[0.82] text-orange-50">
               Vietnam

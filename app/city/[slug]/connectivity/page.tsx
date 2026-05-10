@@ -50,7 +50,7 @@ const AVAILABILITY_META: Record<
     kanji: "発",
   },
   airport_pickup: {
-    label: "Reserve · collect on arrival",
+    label: "Reserve · Collect on Arrival",
     tint: "bg-kintsugi-300/25 text-enji-700 ring-kintsugi-400/50",
     kanji: "着",
   },
@@ -60,7 +60,7 @@ const AVAILABILITY_META: Record<
     kanji: "内",
   },
   on_site: {
-    label: "Free · no purchase",
+    label: "Free · No Purchase",
     tint: "bg-washi-200 text-sumi-800 ring-washi-300",
     kanji: "無",
   },
@@ -134,7 +134,7 @@ export default async function ConnectivityPage({
             <div className="rounded-2xl border border-kintsugi-400/50 bg-kintsugi-300/15 p-4">
               <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-enji-700">
                 <span className="font-display text-lg leading-none">着</span>
-                Reserve · collect on arrival
+                Reserve · Collect on Arrival
               </div>
               <p className="mt-2 text-sm text-sumi-900">
                 {pickup.length > 0

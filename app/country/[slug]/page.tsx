@@ -7,6 +7,7 @@ import { EditorialIntelligence } from "@/components/destination/EditorialIntelli
 import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
 import { VietnamCountryExperience } from "@/components/vietnam/VietnamCountryExperience";
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
+import { formatNavigationLabel, formatTitleCase } from "@/lib/copy/formatting";
 import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { COUNTRY_INTELLIGENCE } from "@/lib/destination/intelligence";
@@ -53,24 +54,24 @@ type Section = {
 };
 
 const SECTIONS: Section[] = [
-  { slug: "itinerary", label: "Japan itinerary builder", kanji: "道", palette: "matcha", blurb: "Dates · season · pace · activities · cities", ready: true },
-  { slug: "cuisine", label: "Must-try cuisine", kanji: "食", palette: "enji", blurb: "12 dishes · origin · vegan notes", ready: true },
-  { slug: "famous-for", label: "Famous for", kanji: "和", palette: "kintsugi", blurb: "Knives, whisky, anime, denim, wagashi", ready: true },
-  { slug: "languages", label: "Languages spoken", kanji: "語", palette: "aizome", blurb: "All spoken by share · English band", ready: true },
-  { slug: "visa", label: "Visa requirements", kanji: "旅", palette: "sumi", blurb: "", ready: false },
-  { slug: "health-safety", label: "Health & safety", kanji: "守", palette: "enji", blurb: "", ready: false },
-  { slug: "customs", label: "Customs & duty-free", kanji: "関", palette: "matcha", blurb: "", ready: false },
-  { slug: "holidays", label: "Public holidays", kanji: "祝", palette: "sakura", blurb: "", ready: false },
-  { slug: "calendar", label: "Festivals & events", kanji: "祭", palette: "enji", blurb: "", ready: false },
-  { slug: "tipping", label: "Tipping culture", kanji: "心", palette: "kintsugi", blurb: "", ready: false },
-  { slug: "costs", label: "Cost of living", kanji: "円", palette: "ocean", blurb: "", ready: false },
-  { slug: "good-to-know", label: "Good to know", kanji: "知", palette: "washi", blurb: "", ready: false },
+  { slug: "itinerary", label: "Japan Itinerary Builder", kanji: "道", palette: "matcha", blurb: "Dates · Seasons · Pace · Activities · Cities", ready: true },
+  { slug: "cuisine", label: "Must-Try Cuisine", kanji: "食", palette: "enji", blurb: "12 Dishes · Origin · Vegan Notes", ready: true },
+  { slug: "famous-for", label: "Famous For", kanji: "和", palette: "kintsugi", blurb: "Knives · Whisky · Anime · Denim · Wagashi", ready: true },
+  { slug: "languages", label: "Languages Spoken", kanji: "語", palette: "aizome", blurb: "Language Share · English Comfort Band", ready: true },
+  { slug: "visa", label: "Visa Requirements", kanji: "旅", palette: "sumi", blurb: "", ready: false },
+  { slug: "health-safety", label: "Health & Safety", kanji: "守", palette: "enji", blurb: "", ready: false },
+  { slug: "customs", label: "Customs & Duty-Free", kanji: "関", palette: "matcha", blurb: "", ready: false },
+  { slug: "holidays", label: "Public Holidays", kanji: "祝", palette: "sakura", blurb: "", ready: false },
+  { slug: "calendar", label: "Festivals & Events", kanji: "祭", palette: "enji", blurb: "", ready: false },
+  { slug: "tipping", label: "Tipping Culture", kanji: "心", palette: "kintsugi", blurb: "", ready: false },
+  { slug: "costs", label: "Cost of Living", kanji: "円", palette: "ocean", blurb: "", ready: false },
+  { slug: "good-to-know", label: "Good to Know", kanji: "知", palette: "washi", blurb: "", ready: false },
   { slug: "connectivity", label: "Connectivity & SIM", kanji: "信", palette: "matcha", blurb: "", ready: false },
-  { slug: "power", label: "Plugs & power", kanji: "電", palette: "sumi", blurb: "", ready: false },
-  { slug: "transit-passes", label: "Transit passes", kanji: "券", palette: "aizome", blurb: "", ready: false },
-  { slug: "payments", label: "Payments & cards", kanji: "現", palette: "kintsugi", blurb: "", ready: false },
-  { slug: "lgbtq", label: "LGBTQ+ info", kanji: "彩", palette: "ume", blurb: "", ready: false },
-  { slug: "hazards", label: "Natural hazards", kanji: "震", palette: "enji", blurb: "", ready: false },
+  { slug: "power", label: "Plugs & Power", kanji: "電", palette: "sumi", blurb: "", ready: false },
+  { slug: "transit-passes", label: "Transit Passes", kanji: "券", palette: "aizome", blurb: "", ready: false },
+  { slug: "payments", label: "Payments & Cards", kanji: "現", palette: "kintsugi", blurb: "", ready: false },
+  { slug: "lgbtq", label: "LGBTQ+ Info", kanji: "彩", palette: "ume", blurb: "", ready: false },
+  { slug: "hazards", label: "Natural Hazards", kanji: "震", palette: "enji", blurb: "", ready: false },
 ];
 
 function SectionCard({
@@ -90,7 +91,7 @@ function SectionCard({
       />
       <div className="p-4">
         <div className="font-display text-base font-semibold text-sumi-900">
-          {section.label}
+          {formatNavigationLabel(section.label)}
         </div>
         {section.ready ? (
           <p className="mt-1 text-xs text-sumi-700">{section.blurb}</p>
@@ -130,7 +131,7 @@ function CityDirectory() {
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-enji-700">
-              City directory
+              CITY DIRECTORY
             </p>
             <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-sumi-950 sm:text-5xl">
               Every Japan city starts from here.
@@ -154,7 +155,7 @@ function CityDirectory() {
                       {city.meta}
                     </div>
                     <div className="mt-2 font-display text-2xl font-semibold text-sumi-950 group-hover:text-enji-700">
-                      {city.name}
+                      {formatTitleCase(city.name)}
                     </div>
                   </div>
                   <span className="text-sm text-enji-700 transition group-hover:translate-x-1">
@@ -162,7 +163,7 @@ function CityDirectory() {
                   </span>
                 </div>
                 <div className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-sumi-500">
-                  {city.ready ? "Full guide live" : "Guide planned"}
+                  {city.ready ? "Full Guide Live" : "Guide Planned"}
                 </div>
               </Link>
             ))}

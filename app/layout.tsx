@@ -73,7 +73,7 @@ export default async function RootLayout({
                     sources before you travel.
                   </p>
                   <p className="mt-3 text-[10px]">
-                    Seed data for the Tokyo pilot · rates live from Frankfurter ·{" "}
+                    Tokyo Pilot Data · Live Exchange Rates ·{" "}
                     <span className="whitespace-nowrap">
                       Reviewed {formatReviewedAt()}
                     </span>

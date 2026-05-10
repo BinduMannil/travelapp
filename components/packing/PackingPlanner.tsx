@@ -24,12 +24,12 @@ const TRIP_TYPES: Array<{ slug: string; label: string }> = [
 
 const ACTIVITIES: Array<{ slug: string; label: string }> = [
   { slug: "hiking", label: "Hiking / Mt. Takao" },
-  { slug: "onsen", label: "Onsen / hot springs" },
-  { slug: "pool", label: "Pool / beach" },
-  { slug: "vegan", label: "Vegan / vegetarian diet" },
-  { slug: "halal", label: "Halal diet" },
-  { slug: "gluten_free", label: "Gluten-free diet" },
-  { slug: "allergy", label: "Other food allergy" },
+  { slug: "onsen", label: "Onsen / Hot Springs" },
+  { slug: "pool", label: "Pool / Beach" },
+  { slug: "vegan", label: "Vegan / Vegetarian Diet" },
+  { slug: "halal", label: "Halal Diet" },
+  { slug: "gluten_free", label: "Gluten-Free Diet" },
+  { slug: "allergy", label: "Other Food Allergy" },
 ];
 
 function todayPlus(days: number) {
@@ -74,7 +74,7 @@ export function PackingPlanner({
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[24rem_minmax(0,1fr)] lg:items-start">
       <form className="rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-6 shadow-editorial-deep">
         <div className="mb-6 border-b border-sumi-900/10 pb-5">
-          <p className="luxury-kicker text-enji-600">Planner</p>
+          <p className="luxury-kicker text-enji-600">PLANNER</p>
           <h2 className="mt-2 font-display text-3xl font-semibold leading-tight text-sumi-900">
             Tell Journee the shape of the trip.
           </h2>

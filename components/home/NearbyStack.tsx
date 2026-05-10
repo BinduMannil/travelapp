@@ -42,7 +42,7 @@ export function NearbyStack({ cards }: { cards: NearbyCard[] }) {
   return (
     <div>
       <div className="flex items-center justify-between border-b border-washi-50/15 pb-3 text-[11px] uppercase tracking-[0.3em] text-washi-50/70">
-        <span>Nearby · same visa</span>
+        <span>Nearby · Same Visa</span>
         <span className="tabular-nums text-washi-50/90">
           {String(active + 1).padStart(2, "0")}
           <span className="text-washi-50/30">/{String(cards.length).padStart(2, "0")}</span>
