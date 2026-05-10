@@ -262,116 +262,185 @@ export function CinematicDiscovery() {
   const [activeId, setActiveId] = useState(DISCOVERY_MOODS[0].id);
   const reduceMotion = useReducedMotion();
   const active = DISCOVERY_MOODS.find((mood) => mood.id === activeId) ?? DISCOVERY_MOODS[0];
-  const identity = getDestinationIdentity(active.identity, "global");
+  const heroMood = DISCOVERY_MOODS[0];
+  const heroIdentity = getDestinationIdentity("global", "global");
+  const activeIdentity = getDestinationIdentity(active.identity, "global");
 
   return (
     <>
       <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-sumi-900 text-white">
-        <KaleidoscopeBackdrop active={active} reduceMotion={reduceMotion} />
+        <KaleidoscopeBackdrop active={heroMood} reduceMotion={reduceMotion} />
         <motion.div
           className="absolute inset-0 -z-20"
-          style={{ background: active.gradient }}
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(4,7,8,.86), rgba(12,21,22,.48) 48%, rgba(189,118,52,.16)), linear-gradient(0deg, rgba(5,7,7,.78), transparent 62%)",
+          }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.55 }}
         />
         <motion.div
-          key={`${active.id}-texture`}
+          key="global-hero-texture"
           className="absolute inset-0 -z-10 opacity-70"
-          style={{ backgroundImage: identity.texture }}
+          style={{ backgroundImage: heroIdentity.texture }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.7 }}
           transition={{ duration: 0.7 }}
         />
-        <AmbientDestinationMotion key={active.id} identity={identity} />
+        <AmbientDestinationMotion identity={heroIdentity} />
 
         <div className="absolute inset-0 -z-[1] bg-[radial-gradient(circle_at_72%_24%,rgba(255,255,255,.12),transparent_26%),linear-gradient(90deg,rgba(3,5,5,.82),rgba(3,5,5,.52)_44%,rgba(3,5,5,.22)),linear-gradient(0deg,rgba(4,5,5,.9),rgba(4,5,5,.2)_42%,rgba(4,5,5,.42))]" />
 
-        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-12 pt-24 sm:pb-16 lg:grid-cols-[1.02fr_.98fr] lg:items-end lg:gap-14">
+        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end px-6 pb-16 pt-24 sm:pb-20 lg:items-end">
           <motion.div
-            key={`${active.id}-copy`}
-            className="max-w-3xl"
+            className="max-w-4xl"
             initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
-            <p className="luxury-kicker text-kintsugi-300">Journee global travel discovery</p>
-            <h1 className="luxury-display mt-5 max-w-[11ch] text-[clamp(3rem,7.2vw,6.8rem)] font-semibold text-white">
-              {active.headline}
+            <p className="luxury-kicker text-kintsugi-300">JOURNEE GLOBAL TRAVEL DISCOVERY</p>
+            <h1 className="luxury-display mt-5 max-w-[12ch] text-[clamp(3.4rem,8.6vw,8.4rem)] font-semibold leading-[0.9] text-white">
+              Where should the world take you next?
             </h1>
-            <p className="luxury-lede mt-7 max-w-2xl text-washi-50/88">{active.body}</p>
+            <p className="luxury-lede mt-7 max-w-2xl text-washi-50/88">
+              Discover destinations by budget, visa, weather, mood and travel style, then step into each place through cinematic intelligence built for real decisions.
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href={active.primaryHref ?? `/discover?mood=${active.id}`}
+                href="/discover"
                 className="rounded-full bg-white px-7 py-3 text-sm font-bold text-sumi-900 shadow-editorial-deep transition hover:bg-kintsugi-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
               >
-                Start discovering
+                Start Discovering
               </Link>
               <Link
                 href="/city/tokyo"
                 className="rounded-full border border-white/45 px-7 py-3 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/12 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
               >
-                View pilot city
+                View Pilot City
               </Link>
             </div>
           </motion.div>
+        </div>
+      </section>
 
-          <aside className="rounded-[1.35rem] border border-white/24 bg-black/42 p-5 shadow-editorial-deep backdrop-blur-xl sm:p-7">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="luxury-kicker text-kintsugi-300/86">Search by feeling</p>
-                <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-white">
-                  {active.eyebrow}
-                </h2>
+      <section className="relative isolate overflow-hidden bg-[#070909] px-6 py-24 text-white sm:py-32">
+        <div
+          className="absolute inset-0 -z-30 opacity-30"
+          style={{
+            backgroundImage: `url(${active.image})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+          aria-hidden
+        />
+        <motion.div
+          key={`${active.id}-feeling-gradient`}
+          className="absolute inset-0 -z-20"
+          style={{ background: active.gradient }}
+          initial={{ opacity: 0.72 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.55 }}
+        />
+        <motion.div
+          key={`${active.id}-feeling-texture`}
+          className="absolute inset-0 -z-10 opacity-45"
+          style={{ backgroundImage: activeIdentity.texture }}
+          initial={{ opacity: 0.2 }}
+          animate={{ opacity: 0.45 }}
+          transition={{ duration: 0.55 }}
+        />
+        <AmbientDestinationMotion key={`${active.id}-feeling-motion`} identity={activeIdentity} variant="section" />
+
+        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div>
+            <p className="luxury-kicker text-kintsugi-300">SEARCH BY FEELING</p>
+            <h2 className="mt-4 max-w-2xl font-display text-[clamp(2.8rem,6vw,6rem)] font-semibold leading-[0.95] text-white">
+              Choose the mood, then let the map change.
+            </h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-white/72">
+              Each feeling shifts the image, atmosphere and suggested paths, so discovery starts with the kind of trip you want to feel before you choose a place.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-stretch">
+            <motion.div
+              key={`${active.id}-main-image`}
+              className="relative min-h-[34rem] overflow-hidden rounded-[1.8rem] border border-white/16 bg-black shadow-editorial-deep"
+              initial={reduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+            >
+              <img
+                src={active.image}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover saturate-[1.18]"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.28)_42%,rgba(0,0,0,.84)),linear-gradient(90deg,rgba(0,0,0,.54),transparent)]" />
+              <div className="absolute bottom-0 p-7 sm:p-9">
+                <p className="luxury-kicker text-kintsugi-300/90">{active.eyebrow}</p>
+                <h3 className="mt-3 max-w-xl font-display text-[clamp(2.5rem,5vw,5.2rem)] font-semibold leading-[0.92] text-white">
+                  {active.headline}
+                </h3>
+                <p className="mt-5 max-w-xl text-base leading-8 text-white/78">{active.body}</p>
+                <p className="mt-5 max-w-lg rounded-full border border-white/18 bg-black/28 px-5 py-3 text-sm font-semibold text-white/76 backdrop-blur-md">
+                  {active.atmosphere}
+                </p>
               </div>
-              <p className="max-w-xs text-xs leading-5 text-white/62 sm:text-right">{active.atmosphere}</p>
-            </div>
+            </motion.div>
 
-            <div className="mt-7 grid gap-3" aria-live="polite">
-              {active.suggestions.map((suggestion) => (
-                <Link
-                  key={suggestion.href}
-                  href={suggestion.href}
-                  className="rounded-2xl border border-white/18 bg-white/[0.09] px-4 py-3 text-sm font-medium text-white/88 transition hover:border-kintsugi-300/70 hover:bg-white/[0.15] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
-                >
-                  {suggestion.label}
-                </Link>
-              ))}
-            </div>
+            <div className="rounded-[1.35rem] border border-white/18 bg-black/34 p-5 shadow-editorial-deep backdrop-blur-xl sm:p-6">
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                {DISCOVERY_MOODS.map((mood) => {
+                  const selected = mood.id === active.id;
 
-            <div className="mt-7 grid gap-3 sm:grid-cols-2">
-              {DISCOVERY_MOODS.map((mood) => {
-                const selected = mood.id === active.id;
-
-                return (
-                  <button
-                    key={mood.id}
-                    type="button"
-                    aria-pressed={selected}
-                    onClick={() => setActiveId(mood.id)}
-                    className={`group relative min-h-[8rem] overflow-hidden rounded-[1.05rem] border p-0 text-left shadow-editorial-deep transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300 ${
-                      selected
-                        ? "border-kintsugi-300/85 ring-1 ring-kintsugi-300/60"
-                        : "border-white/16 hover:border-white/42"
-                    }`}
-                  >
-                    <img
-                      src={mood.cardImage}
-                      alt=""
-                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                    <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.68))]" />
-                    <span className="relative flex min-h-[8rem] flex-col justify-end p-4">
-                      <span className="luxury-kicker text-kintsugi-300/86">{mood.eyebrow}</span>
-                      <span className="mt-2 font-display text-2xl font-semibold leading-none text-white">
-                        {mood.label}
+                  return (
+                    <button
+                      key={mood.id}
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => setActiveId(mood.id)}
+                      className={`group relative min-h-[7.4rem] overflow-hidden rounded-[1.05rem] border p-0 text-left shadow-editorial-deep transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300 ${
+                        selected
+                          ? "border-kintsugi-300/90 ring-2 ring-kintsugi-300/55"
+                          : "border-white/16 hover:border-white/42"
+                      }`}
+                    >
+                      <img
+                        src={mood.cardImage}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                      <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.74))]" />
+                      <span className="relative flex min-h-[7.4rem] flex-col justify-end p-4">
+                        <span className="luxury-kicker text-kintsugi-300/86">{mood.eyebrow}</span>
+                        <span className="mt-2 font-display text-2xl font-semibold leading-none text-white">
+                          {mood.label}
+                        </span>
                       </span>
-                    </span>
-                  </button>
-                );
-              })}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="mt-6 border-t border-white/12 pt-5" aria-live="polite">
+                <p className="luxury-kicker text-kintsugi-300/82">WHAT THIS HELPS DISCOVER</p>
+                <p className="mt-3 text-sm leading-7 text-white/72">{active.atmosphere}</p>
+                <div className="mt-5 grid gap-3">
+                  {active.suggestions.map((suggestion) => (
+                    <Link
+                      key={suggestion.href}
+                      href={suggestion.href}
+                      className="rounded-2xl border border-white/18 bg-white/[0.08] px-4 py-3 text-sm font-semibold text-white/86 transition hover:border-kintsugi-300/70 hover:bg-white/[0.14] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
+                    >
+                      {suggestion.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-          </aside>
+          </div>
         </div>
       </section>
 
