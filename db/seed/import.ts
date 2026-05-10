@@ -689,6 +689,77 @@ type InternalReviewsFeedbackPayload = {
   quick_feedback: InternalQuickFeedbackSeed[];
 };
 
+type PackingItemSeed = {
+  item_key: string;
+  label: string;
+  packing_category:
+    | "clothing"
+    | "footwear"
+    | "weather_layers"
+    | "rain_cold_heat"
+    | "activity_gear"
+    | "religious_cultural"
+    | "nightlife_dining"
+    | "beach_swimming"
+    | "trekking_hiking"
+    | "scooter_motorbike"
+    | "digital_nomad_tech"
+    | "family_baby"
+    | "safety_emergency"
+    | "medical_health"
+    | "country_practical"
+    | "documents"
+    | "toiletries"
+    | "other";
+  default_importance: "essential" | "recommended" | "situational" | "nice_to_have";
+  default_required: boolean;
+  weight_grams?: number | null;
+  pack_weight_priority: number;
+  reusable: boolean;
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
+type DestinationPackingRuleSeed = {
+  owner_kind: "country" | "city" | "region";
+  country_slug: string;
+  city_slug?: string | null;
+  region_key?: string | null;
+  rule_key: string;
+  item_key: string;
+  activity_tags: string[];
+  weather_conditions: string[];
+  seasonality: string[];
+  traveler_profiles: string[];
+  itinerary_styles: string[];
+  transportation_styles: string[];
+  cultural_context_tags: string[];
+  clothing_context: string[];
+  importance: "essential" | "recommended" | "situational" | "nice_to_have";
+  required: boolean;
+  priority: number;
+  pack_weight_priority: number;
+  recommendation_note: string;
+  cultural_notes?: string | null;
+  weather_notes?: string | null;
+  activity_notes?: string | null;
+  region_override_note?: string | null;
+  quantity_hint?: string | null;
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type PackingIntelligencePayload = {
+  items: PackingItemSeed[];
+  rules: DestinationPackingRuleSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -2117,6 +2188,114 @@ async function main() {
 
   console.log(
     `Imported internal reviews: ${internalReviewsFeedback.reviews.length}; quick feedback: ${internalReviewsFeedback.quick_feedback.length}`,
+  );
+
+  // --- Smart packing and clothing intelligence --------------------------
+  const packingPayloads = await Promise.all([
+    readJson<PackingIntelligencePayload>(
+      resolve(root, "japan/packing_intelligence.json"),
+    ),
+    readJson<PackingIntelligencePayload>(
+      resolve(root, "vietnam/packing_intelligence.json"),
+    ),
+  ]);
+  const packingItems = packingPayloads.flatMap((payload) => payload.items);
+  const packingRules = packingPayloads.flatMap((payload) => payload.rules);
+
+  for (const item of packingItems) {
+    const { error } = await supabase.from("packing_items").upsert(
+      {
+        item_key: item.item_key,
+        label: item.label,
+        packing_category: item.packing_category,
+        default_importance: item.default_importance,
+        default_required: item.default_required,
+        weight_grams: item.weight_grams ?? null,
+        pack_weight_priority: item.pack_weight_priority,
+        reusable: item.reusable,
+        source_label: item.source_label ?? null,
+        source_url: item.source_url ?? null,
+        reviewed_at: item.reviewed_at ?? null,
+        metadata: item.metadata ?? {},
+      },
+      { onConflict: "item_key" },
+    );
+    if (error) throw error;
+  }
+
+  for (const rule of packingRules) {
+    const { data: itemRow, error: itemErr } = await supabase
+      .from("packing_items")
+      .select("id")
+      .eq("item_key", rule.item_key)
+      .single<RowId>();
+    if (itemErr) throw itemErr;
+    if (!itemRow) {
+      throw new Error(`Packing item not found for rule: ${rule.item_key}`);
+    }
+
+    const countryId = await resolveCountryId(rule.country_slug);
+    let cityRuleId: string | null = null;
+    if (rule.owner_kind === "city") {
+      if (!rule.city_slug) {
+        throw new Error(`Missing city_slug for packing rule: ${rule.rule_key}`);
+      }
+      cityRuleId = await resolveCityId(rule.country_slug, rule.city_slug);
+    }
+
+    let deleteQuery = supabase
+      .from("destination_packing_rules")
+      .delete()
+      .eq("owner_kind", rule.owner_kind)
+      .eq("rule_key", rule.rule_key);
+    if (rule.owner_kind === "city") {
+      deleteQuery = deleteQuery.eq("city_id", cityRuleId);
+    } else {
+      deleteQuery = deleteQuery.eq("country_id", countryId);
+    }
+    if (rule.owner_kind === "region") {
+      deleteQuery = deleteQuery.eq("region_key", rule.region_key ?? "");
+    }
+    const { error: deleteErr } = await deleteQuery;
+    if (deleteErr) throw deleteErr;
+
+    const { error } = await supabase.from("destination_packing_rules").insert({
+      owner_kind: rule.owner_kind,
+      country_id: rule.owner_kind === "city" ? null : countryId,
+      city_id: rule.owner_kind === "city" ? cityRuleId : null,
+      region_key: rule.owner_kind === "region" ? rule.region_key ?? null : null,
+      rule_key: rule.rule_key,
+      item_id: itemRow.id,
+      activity_tags: rule.activity_tags,
+      weather_conditions: rule.weather_conditions,
+      seasonality: rule.seasonality,
+      traveler_profiles: rule.traveler_profiles,
+      itinerary_styles: rule.itinerary_styles,
+      transportation_styles: rule.transportation_styles,
+      cultural_context_tags: rule.cultural_context_tags,
+      clothing_context: rule.clothing_context,
+      importance: rule.importance,
+      required: rule.required,
+      priority: rule.priority,
+      pack_weight_priority: rule.pack_weight_priority,
+      recommendation_note: rule.recommendation_note,
+      cultural_notes: rule.cultural_notes ?? null,
+      weather_notes: rule.weather_notes ?? null,
+      activity_notes: rule.activity_notes ?? null,
+      region_override_note: rule.region_override_note ?? null,
+      quantity_hint: rule.quantity_hint ?? null,
+      source_label: rule.source_label ?? null,
+      source_url: rule.source_url ?? null,
+      reviewed_at: rule.reviewed_at ?? null,
+      confidence_level: rule.confidence_level,
+      display_order: rule.display_order,
+      metadata: rule.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted packing items: ${packingItems.length}; packing rules: ${packingRules.length}`,
   );
 }
 
