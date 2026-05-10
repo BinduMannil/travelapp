@@ -1,0 +1,277 @@
+{
+  "events": [
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "event_key": "new-year-shogatsu",
+      "name": "New Year (Shogatsu)",
+      "event_kind": "holiday",
+      "starts_on": "2026-01-01",
+      "ends_on": "2026-01-03",
+      "recurrence_note": "Annual public holiday period centered on January 1, with many businesses extending closures through January 3.",
+      "date_note": "January 1 is the national holiday; practical closures often run longer.",
+      "traveler_summary": "Japan's New Year period is family-centered and can affect restaurants, shops, museums, and transport patterns.",
+      "cultural_context": "Many people visit shrines and temples for hatsumode, the first visit of the year, and spend time with family.",
+      "practical_guidance": [
+        "Book intercity rail and hotels early if traveling around the holiday period.",
+        "Check restaurant, museum, and attraction hours directly because closures vary.",
+        "Expect shrine and temple areas to be busy and follow posted queueing instructions."
+      ],
+      "etiquette_notes": [
+        "Move slowly and respectfully at shrine and temple queues.",
+        "Avoid blocking worship areas for photos.",
+        "Follow local instructions for purification, offerings, and no-photo zones."
+      ],
+      "public_closure_level": "major",
+      "tourism_surge_level": "moderate",
+      "transport_impact_level": "major",
+      "crowd_level": "high",
+      "risk_level": "low",
+      "source_label": "Japan National Tourism Organization",
+      "source_url": "https://www.japan.travel/en/guide/japanese-manners-dos-and-donts/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 10,
+      "metadata": {
+        "traveler_use_cases": ["closures", "religious_site_behavior", "crowds"]
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "event_key": "golden-week",
+      "name": "Golden Week",
+      "event_kind": "national_celebration",
+      "starts_on": "2026-04-29",
+      "ends_on": "2026-05-06",
+      "recurrence_note": "Annual cluster of national holidays from late April into early May.",
+      "date_note": "Exact long-weekend pattern changes by year.",
+      "traveler_summary": "Golden Week is one of Japan's busiest domestic travel periods and can strain hotels, trains, highways, and popular attractions.",
+      "cultural_context": "Multiple national holidays fall close together, creating a peak period for domestic leisure travel.",
+      "practical_guidance": [
+        "Reserve hotels, restaurants, and long-distance rail as early as possible.",
+        "Avoid same-day assumptions for popular attractions and transport.",
+        "Build extra buffer time around major stations and intercity moves."
+      ],
+      "etiquette_notes": [
+        "Queue patiently at stations, elevators, and attractions.",
+        "Keep luggage compact on crowded trains where possible."
+      ],
+      "public_closure_level": "moderate",
+      "tourism_surge_level": "major",
+      "transport_impact_level": "major",
+      "crowd_level": "extreme",
+      "risk_level": "low",
+      "source_label": "Japan National Tourism Organization",
+      "source_url": "https://www.japan.travel/en/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 20,
+      "metadata": {
+        "traveler_use_cases": ["tourism_surge", "transport_impact", "advance_booking"]
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "event_key": "obon",
+      "name": "Obon",
+      "event_kind": "religious_observance",
+      "starts_on": null,
+      "ends_on": null,
+      "recurrence_note": "Annual Buddhist observance usually marked in mid-August in many regions, with regional variation.",
+      "date_note": "Dates vary by region and family tradition.",
+      "traveler_summary": "Obon can create heavy domestic travel as people return to family homes and visit ancestral graves.",
+      "cultural_context": "The observance honors ancestors and is often tied to family gatherings, memorial visits, and local festivals.",
+      "practical_guidance": [
+        "Expect crowded trains, domestic flights, and highways around the main holiday window.",
+        "Check local festival schedules because some neighborhoods host evening dances or events.",
+        "Treat cemeteries, temples, and memorial spaces quietly and respectfully."
+      ],
+      "etiquette_notes": [
+        "Do not interrupt private family observances for photos.",
+        "Keep voices low around temples, graves, and memorial areas."
+      ],
+      "public_closure_level": "limited",
+      "tourism_surge_level": "moderate",
+      "transport_impact_level": "major",
+      "crowd_level": "high",
+      "risk_level": "low",
+      "source_label": "Japan National Tourism Organization",
+      "source_url": "https://www.japan.travel/en/guide/japanese-manners-dos-and-donts/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 30,
+      "metadata": {
+        "traveler_use_cases": ["religious_observance", "transport_impact", "local_festivals"]
+      }
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "event_key": "sanja-matsuri",
+      "name": "Sanja Matsuri",
+      "event_kind": "festival",
+      "starts_on": null,
+      "ends_on": null,
+      "recurrence_note": "Usually held over a weekend in May in Asakusa.",
+      "date_note": "Confirm exact dates each year with official Tokyo event listings.",
+      "traveler_summary": "Sanja Matsuri brings major crowds to Asakusa around Senso-ji and Asakusa Shrine.",
+      "cultural_context": "The festival is a major Tokyo shrine festival with mikoshi processions and dense neighborhood participation.",
+      "practical_guidance": [
+        "Use nearby stations flexibly and expect crowd controls.",
+        "Avoid stepping into procession routes unless directed.",
+        "Keep bags close and leave extra time for movement around Asakusa."
+      ],
+      "etiquette_notes": [
+        "Do not touch festival objects or join carrying groups unless invited.",
+        "Follow police, station staff, and event marshal instructions."
+      ],
+      "public_closure_level": "limited",
+      "tourism_surge_level": "moderate",
+      "transport_impact_level": "moderate",
+      "crowd_level": "extreme",
+      "risk_level": "low",
+      "source_label": "Go Tokyo",
+      "source_url": "https://www.gotokyo.org/en/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 40,
+      "metadata": {
+        "district": "Asakusa",
+        "traveler_use_cases": ["crowds", "festival_etiquette", "transport_impact"]
+      }
+    }
+  ],
+  "sensitivity_notes": [
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "note_key": "shrine-temple-etiquette",
+      "sensitivity_category": "religious_site_behavior",
+      "title": "Shrine and Temple Etiquette",
+      "traveler_summary": "Shrines and temples are active religious and cultural spaces, even when they are also major tourist sites.",
+      "why_it_matters": "Quiet behavior, respectful photography, and attention to posted rules help travelers avoid accidental disrespect.",
+      "avoid": [
+        "Blocking worshippers for photos.",
+        "Photographing interiors, ceremonies, or worshippers where signs restrict it.",
+        "Touching ritual objects, ropes, gates, or offerings casually."
+      ],
+      "practical_safe_behavior": [
+        "Follow posted photo rules and staff directions.",
+        "Step aside after taking photos so worshippers can pass.",
+        "Keep voices low and treat queues as part of the visit."
+      ],
+      "examples": [
+        "At a crowded New Year shrine visit, take photos from the side rather than from the front of the prayer area.",
+        "At temples with no-photo signs inside halls, keep the camera away even if other visitors ignore the sign."
+      ],
+      "risk_level": "low",
+      "source_label": "Japan National Tourism Organization",
+      "source_url": "https://www.japan.travel/en/us/blog/shrine-temple-visits-best-practices/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "display_order": 10,
+      "metadata": {
+        "ui_group": "Religious Site Behavior"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "note_key": "quiet-public-conduct",
+      "sensitivity_category": "local_behavioral_expectations",
+      "title": "Quiet Public Conduct and Queueing",
+      "traveler_summary": "Public transport, shops, elevators, and attractions often rely on quiet voices and orderly queueing.",
+      "why_it_matters": "Loud calls, blocking paths, or pushing into queues can create friction quickly in crowded settings.",
+      "avoid": [
+        "Taking phone calls in quiet train cars.",
+        "Stopping suddenly in station walkways to check maps.",
+        "Cutting queues or spreading luggage across seats."
+      ],
+      "practical_safe_behavior": [
+        "Step to the side before checking directions.",
+        "Queue where locals are queueing and follow floor markings.",
+        "Use a low voice on trains, buses, and in small restaurants."
+      ],
+      "examples": [
+        "At a busy Tokyo station, move near a pillar or wall before reviewing directions.",
+        "On trains, use messaging rather than speakerphone or loud calls."
+      ],
+      "risk_level": "low",
+      "source_label": "Japan National Tourism Organization",
+      "source_url": "https://www.japan.travel/en/guide/japanese-manners-dos-and-donts/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "display_order": 20,
+      "metadata": {
+        "ui_group": "Local Behavioral Expectations"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "note_key": "war-memory-sites",
+      "sensitivity_category": "conflict_war_history",
+      "title": "War Memory and Memorial Sites",
+      "traveler_summary": "Memorials, museums, and sites connected to wartime history should be approached with a calm and respectful tone.",
+      "why_it_matters": "These places may hold personal, national, and international meaning for visitors and local communities.",
+      "avoid": [
+        "Making jokes, staged poses, or casual content at memorials.",
+        "Arguing with staff or visitors about historical interpretation in solemn spaces.",
+        "Filming grieving visitors or private ceremonies."
+      ],
+      "practical_safe_behavior": [
+        "Read posted guidance before photographing or recording.",
+        "Keep discussion measured and move sensitive conversations away from memorial areas.",
+        "Use official museum context when summarizing what you learned."
+      ],
+      "examples": [
+        "At a peace memorial, keep videos informational rather than performative.",
+        "If a group is holding a ceremony, give them space and do not film faces without consent."
+      ],
+      "risk_level": "low",
+      "source_label": "Hiroshima Peace Memorial Museum",
+      "source_url": "https://hpmmuseum.jp/?lang=eng",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 30,
+      "metadata": {
+        "ui_group": "Historical Sensitivity"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "note_key": "national-symbols-respect",
+      "sensitivity_category": "national_pride",
+      "title": "National Symbols and Local Pride",
+      "traveler_summary": "Treat flags, ceremonies, local traditions, and regional identity markers with basic respect.",
+      "why_it_matters": "Respectful behavior around national and local symbols helps travelers avoid unnecessary offense.",
+      "avoid": [
+        "Using flags, monuments, or ceremonial spaces as comedy props.",
+        "Mocking local mascots, rituals, uniforms, or formal events in public content.",
+        "Ignoring staff instructions during ceremonies or formal visits."
+      ],
+      "practical_safe_behavior": [
+        "Observe quietly before photographing formal events.",
+        "Ask permission before filming people in traditional dress or uniforms.",
+        "Keep social posts factual and respectful."
+      ],
+      "examples": [
+        "At a local festival, photograph the procession without stepping into the route.",
+        "At a public ceremony, wait until others move before leaving or filming."
+      ],
+      "risk_level": "low",
+      "source_label": "Japan National Tourism Organization",
+      "source_url": "https://www.japan.travel/en/guide/japanese-manners-dos-and-donts/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 40,
+      "metadata": {
+        "ui_group": "National Pride Topics"
+      }
+    }
+  ]
+}

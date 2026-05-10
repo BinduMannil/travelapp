@@ -332,6 +332,80 @@ type AffiliateOpportunitiesPayload = {
   opportunities: AffiliateOpportunitySeed[];
 };
 
+type CulturalEventSeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  event_key: string;
+  name: string;
+  event_kind:
+    | "holiday"
+    | "festival"
+    | "national_celebration"
+    | "regional_celebration"
+    | "religious_observance"
+    | "mourning_period"
+    | "commemoration"
+    | "other";
+  starts_on?: string | null;
+  ends_on?: string | null;
+  recurrence_note?: string | null;
+  date_note?: string | null;
+  traveler_summary: string;
+  cultural_context?: string | null;
+  practical_guidance: string[];
+  etiquette_notes: string[];
+  public_closure_level: "none" | "limited" | "moderate" | "major";
+  tourism_surge_level: "none" | "limited" | "moderate" | "major";
+  transport_impact_level: "none" | "limited" | "moderate" | "major";
+  crowd_level: "low" | "moderate" | "high" | "extreme";
+  risk_level: "low" | "moderate" | "high" | "critical";
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type CulturalSensitivityNoteSeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  note_key: string;
+  sensitivity_category:
+    | "cultural_etiquette"
+    | "historical_sensitivity"
+    | "political_sensitivity"
+    | "social_taboo"
+    | "national_pride"
+    | "restricted_discussion"
+    | "protest_sensitivity"
+    | "conflict_war_history"
+    | "religious_site_behavior"
+    | "local_behavioral_expectations"
+    | "alcohol_religious_observance"
+    | "other";
+  title: string;
+  traveler_summary: string;
+  why_it_matters?: string | null;
+  avoid: string[];
+  practical_safe_behavior: string[];
+  examples: string[];
+  risk_level: "low" | "moderate" | "high" | "critical";
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type CulturalIntelligencePayload = {
+  events: CulturalEventSeed[];
+  sensitivity_notes: CulturalSensitivityNoteSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -1121,6 +1195,85 @@ async function main() {
 
   console.log(
     `Upserted affiliate opportunities: ${affiliateOpportunities.opportunities.length}`,
+  );
+
+  // --- Cultural, historical, and sensitivity intelligence ---------------
+  const culturalPayloads = await Promise.all([
+    readJson<CulturalIntelligencePayload>(
+      resolve(root, "japan/cultural_intelligence.json"),
+    ),
+    readJson<CulturalIntelligencePayload>(
+      resolve(root, "vietnam/cultural_intelligence.json"),
+    ),
+  ]);
+  const culturalEvents = culturalPayloads.flatMap((payload) => payload.events);
+  const culturalSensitivityNotes = culturalPayloads.flatMap(
+    (payload) => payload.sensitivity_notes,
+  );
+
+  for (const event of culturalEvents) {
+    const owner = await deleteOwnerRows("cultural_events", event, {
+      event_key: event.event_key,
+    });
+    const { error } = await supabase.from("cultural_events").insert({
+      owner_kind: event.owner_kind,
+      country_id: owner.countryId,
+      city_id: owner.cityId,
+      event_key: event.event_key,
+      name: event.name,
+      event_kind: event.event_kind,
+      starts_on: event.starts_on ?? null,
+      ends_on: event.ends_on ?? null,
+      recurrence_note: event.recurrence_note ?? null,
+      date_note: event.date_note ?? null,
+      traveler_summary: event.traveler_summary,
+      cultural_context: event.cultural_context ?? null,
+      practical_guidance: event.practical_guidance,
+      etiquette_notes: event.etiquette_notes,
+      public_closure_level: event.public_closure_level,
+      tourism_surge_level: event.tourism_surge_level,
+      transport_impact_level: event.transport_impact_level,
+      crowd_level: event.crowd_level,
+      risk_level: event.risk_level,
+      source_label: event.source_label ?? null,
+      source_url: event.source_url ?? null,
+      reviewed_at: event.reviewed_at ?? null,
+      confidence_level: event.confidence_level,
+      display_order: event.display_order,
+      metadata: event.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  for (const note of culturalSensitivityNotes) {
+    const owner = await deleteOwnerRows("cultural_sensitivity_notes", note, {
+      note_key: note.note_key,
+    });
+    const { error } = await supabase.from("cultural_sensitivity_notes").insert({
+      owner_kind: note.owner_kind,
+      country_id: owner.countryId,
+      city_id: owner.cityId,
+      note_key: note.note_key,
+      sensitivity_category: note.sensitivity_category,
+      title: note.title,
+      traveler_summary: note.traveler_summary,
+      why_it_matters: note.why_it_matters ?? null,
+      avoid: note.avoid,
+      practical_safe_behavior: note.practical_safe_behavior,
+      examples: note.examples,
+      risk_level: note.risk_level,
+      source_label: note.source_label ?? null,
+      source_url: note.source_url ?? null,
+      reviewed_at: note.reviewed_at ?? null,
+      confidence_level: note.confidence_level,
+      display_order: note.display_order,
+      metadata: note.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted cultural events: ${culturalEvents.length}; sensitivity notes: ${culturalSensitivityNotes.length}`,
   );
 }
 
