@@ -103,7 +103,7 @@ export default async function AttractionDetailPage({
   ) as "enji" | "aizome" | "matcha" | "sumi" | "ume" | "kintsugi" | "sakura" | "ocean" | "forest";
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -122,12 +122,12 @@ export default async function AttractionDetailPage({
         palette={heroPalette}
       />
 
-      <div className="mx-auto max-w-4xl px-6 py-12">
-      <div className="flex flex-wrap gap-1 text-xs">
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <div className="flex flex-wrap gap-2 text-xs">
         {a.significance.map((s) => (
           <span
             key={s}
-            className="rounded-full bg-washi-100 px-2.5 py-1 text-sumi-700"
+            className="rounded-full border border-white/18 bg-white/12 px-3 py-1 font-semibold text-white/86 backdrop-blur"
           >
             {SIGNIFICANCE_LABEL[s] ?? s}
           </span>
@@ -142,7 +142,7 @@ export default async function AttractionDetailPage({
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
-        <section className="mt-4 grid grid-cols-1 gap-3 rounded-lg border border-washi-200 bg-washi-100 p-4 text-sm sm:grid-cols-4">
+        <section className="mt-6 grid grid-cols-1 gap-3 rounded-[1.25rem] border border-washi-200 bg-washi-100 p-4 text-sm shadow-editorial-deep sm:grid-cols-4">
           <Fact label="Adult ticket">
             {a.cost_adult_minor === 0 ? (
               "Free"
@@ -165,13 +165,13 @@ export default async function AttractionDetailPage({
           <Fact label="Setting">{a.indoor ? "Indoor" : "Outdoor"}</Fact>
         </section>
 
-        <section className="mt-6 space-y-3">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <section className="mt-8 rounded-[1.25rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-5 shadow-editorial-deep">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
             About
           </h2>
-          <p className="leading-relaxed text-sumi-900">{a.description}</p>
+          <p className="mt-3 leading-7 text-sumi-900">{a.description}</p>
           {a.best_time_notes && (
-            <div className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
+            <div className="mt-5 rounded-[1rem] border border-amber-200 bg-amber-50 p-4 text-amber-900">
               <div className="text-xs font-semibold uppercase tracking-[0.25em]">
                 Best time to visit
               </div>
@@ -180,9 +180,9 @@ export default async function AttractionDetailPage({
           )}
         </section>
 
-        <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
               Dress code
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -192,16 +192,16 @@ export default async function AttractionDetailPage({
               <p className="mt-1 text-xs text-sumi-700">{a.dress_notes}</p>
             )}
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
               Photography
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
               {a.photography_allowed ? "Allowed" : "Restricted"}
             </p>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
               Accessibility
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -223,8 +223,8 @@ export default async function AttractionDetailPage({
               </p>
             )}
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
               Inclusive
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -236,8 +236,8 @@ export default async function AttractionDetailPage({
           </div>
         </section>
 
-        <section className="mt-8 rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <section className="mt-8 rounded-[1.25rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial-deep">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
             Tickets &amp; booking
           </h3>
           <div className="mt-3 flex flex-wrap gap-2 text-sm">

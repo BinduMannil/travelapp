@@ -30,13 +30,13 @@ export function PreferencesMenu() {
   } = usePreferences();
 
   return (
-    <div className="flex items-center gap-1 text-xs sm:gap-2 sm:text-sm">
-      <label className="inline-flex items-center gap-1">
-        <span className="hidden text-sumi-700 sm:inline">Currency</span>
+    <div className="flex flex-wrap items-center gap-4 text-sm sm:gap-5">
+      <label className="inline-flex items-center gap-3">
+        <span className="font-semibold text-white/78">Currency</span>
         <select
           value={currency}
           onChange={(e) => setCurrency(e.target.value)}
-          className="rounded-md border border-washi-200 bg-white px-2 py-1 tabular-nums"
+          className="min-w-[5.75rem] rounded-full border border-white/24 bg-white px-4 py-2.5 font-semibold text-sumi-900 tabular-nums shadow-sm focus:outline-none focus:ring-2 focus:ring-kintsugi-300"
           aria-label="Currency"
         >
           {CURRENCIES.map((c) => (
@@ -50,16 +50,16 @@ export function PreferencesMenu() {
       <div
         role="radiogroup"
         aria-label="Temperature unit"
-        className="inline-flex overflow-hidden rounded-md border border-washi-200"
+        className="inline-flex gap-1 overflow-hidden rounded-full border border-white/28 bg-white/10 p-1.5"
       >
         <button
           type="button"
           aria-pressed={tempUnit === "c"}
           onClick={() => setTempUnit("c")}
-          className={`px-2 py-1 ${
+          className={`min-w-11 rounded-full px-3.5 py-2 font-semibold transition ${
             tempUnit === "c"
-              ? "bg-sumi-900 text-white"
-              : "bg-white text-sumi-800 hover:bg-washi-100"
+              ? "bg-kintsugi-300 text-sumi-900"
+              : "text-white hover:bg-white/16"
           }`}
         >
           °C
@@ -68,10 +68,10 @@ export function PreferencesMenu() {
           type="button"
           aria-pressed={tempUnit === "f"}
           onClick={() => setTempUnit("f")}
-          className={`px-2 py-1 ${
+          className={`min-w-11 rounded-full px-3.5 py-2 font-semibold transition ${
             tempUnit === "f"
-              ? "bg-sumi-900 text-white"
-              : "bg-white text-sumi-800 hover:bg-washi-100"
+              ? "bg-kintsugi-300 text-sumi-900"
+              : "text-white hover:bg-white/16"
           }`}
         >
           °F
@@ -81,16 +81,16 @@ export function PreferencesMenu() {
       <div
         role="radiogroup"
         aria-label="Distance unit"
-        className="inline-flex overflow-hidden rounded-md border border-washi-200"
+        className="inline-flex gap-1 overflow-hidden rounded-full border border-white/28 bg-white/10 p-1.5"
       >
         <button
           type="button"
           aria-pressed={distanceUnit === "km"}
           onClick={() => setDistanceUnit("km")}
-          className={`px-2 py-1 ${
+          className={`min-w-11 rounded-full px-3.5 py-2 font-semibold transition ${
             distanceUnit === "km"
-              ? "bg-sumi-900 text-white"
-              : "bg-white text-sumi-800 hover:bg-washi-100"
+              ? "bg-kintsugi-300 text-sumi-900"
+              : "text-white hover:bg-white/16"
           }`}
         >
           km
@@ -99,10 +99,10 @@ export function PreferencesMenu() {
           type="button"
           aria-pressed={distanceUnit === "mi"}
           onClick={() => setDistanceUnit("mi")}
-          className={`px-2 py-1 ${
+          className={`min-w-11 rounded-full px-3.5 py-2 font-semibold transition ${
             distanceUnit === "mi"
-              ? "bg-sumi-900 text-white"
-              : "bg-white text-sumi-800 hover:bg-washi-100"
+              ? "bg-kintsugi-300 text-sumi-900"
+              : "text-white hover:bg-white/16"
           }`}
         >
           mi

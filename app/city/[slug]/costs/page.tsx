@@ -24,7 +24,7 @@ export default async function CostsPage({
   const items = getPriceItems(slug);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -38,9 +38,9 @@ export default async function CostsPage({
         lede="Typical prices for common travel purchases, converted into the display currency you picked on the home page."
         palette="sumi"
       />
-      <section className="mx-auto max-w-5xl px-6 py-12">
+      <section className="mx-auto max-w-6xl px-6 py-20">
         <CostTable items={items} />
-        <p className="mt-10 text-xs text-sumi-700">
+        <p className="mt-10 max-w-3xl text-xs leading-6 text-white/62">
           Prices are typical ranges for central {city.name}. Individual
           businesses vary — treat as a planning guide, not a guarantee.
         </p>

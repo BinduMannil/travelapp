@@ -27,7 +27,7 @@ export default async function PackingPage({
   const climate = getClimate(slug);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -42,7 +42,7 @@ export default async function PackingPage({
         palette="ume"
       />
 
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="mx-auto max-w-6xl px-6 py-20">
         <PackingPlanner climate={climate} rules={DEFAULT_RULES} />
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2">

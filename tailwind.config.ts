@@ -62,6 +62,15 @@ export default {
           500: "#d5a400",
           600: "#a17d00",
         },
+        editorial: {
+          ink: "#171412",
+          paper: "#f8f3e8",
+          pearl: "#fffdf6",
+          mist: "#d9d1c3",
+          gold: "#c89b3c",
+          oxblood: "#8d1424",
+          forest: "#233126",
+        },
         // Keep the original brand scale as an alias so existing styles
         // don't break; tuned toward Japan aizome + sakura for now.
         brand: {
@@ -100,6 +109,10 @@ export default {
       },
       backgroundSize: {
         seigaiha: "48px 24px",
+      },
+      boxShadow: {
+        editorial: "0 18px 60px rgba(28, 25, 23, 0.12)",
+        "editorial-deep": "0 26px 90px rgba(12, 10, 8, 0.38)",
       },
     },
   },

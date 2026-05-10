@@ -54,7 +54,7 @@ export default async function CalendarPage({
   if (!data) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

@@ -53,7 +53,7 @@ export default async function NearbyPage({
   const foreign = routes.filter((r) => !r.in_same_country);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

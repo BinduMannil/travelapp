@@ -22,7 +22,7 @@ export default async function EmergencyPage({
   if (!city || !data) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

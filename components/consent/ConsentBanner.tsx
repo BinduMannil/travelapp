@@ -113,48 +113,47 @@ export function ConsentBanner() {
     <div
       role="region"
       aria-label="Cookie notice"
-      className="fixed inset-x-3 bottom-3 z-40 rounded-2xl border border-washi-200 bg-white p-4 shadow-2xl sm:inset-x-auto sm:bottom-4 sm:left-4 sm:right-4 sm:flex sm:max-w-3xl sm:gap-4 sm:p-5 md:mx-auto"
+      className="fixed inset-x-3 bottom-3 z-40 mx-auto max-w-5xl rounded-[1.15rem] border border-white/18 bg-[linear-gradient(135deg,rgba(20,18,15,0.96),rgba(44,31,25,0.94))] p-3 text-white shadow-editorial-deep backdrop-blur-xl sm:bottom-4 sm:flex sm:items-center sm:gap-4 sm:p-4"
     >
-      <div className="flex-1 text-sm text-sumi-900">
-        <strong className="font-display font-semibold">
+      <div className="min-w-0 flex-1 text-xs leading-5 text-white/76 sm:text-[13px]">
+        <strong className="font-semibold text-white">
           Cookies & affiliate disclosure.
         </strong>{" "}
-        We use cookies to remember your currency and temperature preferences,
-        and tag outbound partner links with an affiliate ID. Nothing is
+        We remember preferences and tag outbound partner links. Nothing is
         personal or cross-site.{" "}
         <Link
           href="/legal/privacy"
-          className="underline underline-offset-2 hover:text-enji-600"
+          className="font-medium text-kintsugi-200 underline decoration-kintsugi-400/55 underline-offset-4 hover:text-white"
         >
           Privacy policy
         </Link>{" "}
-        ·{" "}
+        <span className="text-white/35">·</span>{" "}
         <Link
           href="/legal/affiliate-disclosure"
-          className="underline underline-offset-2 hover:text-enji-600"
+          className="font-medium text-kintsugi-200 underline decoration-kintsugi-400/55 underline-offset-4 hover:text-white"
         >
           Affiliate disclosure
         </Link>
       </div>
-      <div className="mt-3 flex flex-wrap items-center gap-2 sm:mt-0 sm:shrink-0">
+      <div className="mt-3 grid grid-cols-3 gap-2 sm:mt-0 sm:flex sm:shrink-0 sm:items-center">
         <button
           type="button"
           onClick={rejectAll}
-          className="rounded-full border border-sumi-200 px-4 py-1.5 text-xs font-medium text-sumi-900 hover:bg-washi-100"
+          className="inline-flex min-h-9 items-center justify-center rounded-full border border-white/22 px-4 text-xs font-semibold text-white/82 transition hover:border-white/45 hover:bg-white/10"
         >
           Reject
         </button>
         <button
           type="button"
           onClick={openPreferences}
-          className="rounded-full border border-sumi-200 bg-washi-100 px-4 py-1.5 text-xs font-medium text-sumi-900 hover:bg-washi-200"
+          className="inline-flex min-h-9 items-center justify-center rounded-full border border-white/22 bg-white/10 px-4 text-xs font-semibold text-white transition hover:border-kintsugi-300 hover:bg-white/16"
         >
           Customise
         </button>
         <button
           type="button"
           onClick={acceptAll}
-          className="rounded-full bg-enji-600 px-4 py-1.5 text-xs font-semibold text-white hover:bg-enji-700"
+          className="inline-flex min-h-9 items-center justify-center rounded-full bg-kintsugi-300 px-4 text-xs font-bold text-sumi-950 transition hover:bg-white"
         >
           Accept
         </button>

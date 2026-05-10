@@ -26,7 +26,7 @@ export default async function WeatherPage({
   const off = rows.filter((r) => r.season_label === "off").map((r) => r.month);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

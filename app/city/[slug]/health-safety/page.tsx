@@ -32,7 +32,7 @@ export default async function HealthSafetyPage({
   if (!data) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

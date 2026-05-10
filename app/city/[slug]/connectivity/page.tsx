@@ -91,7 +91,7 @@ export default async function ConnectivityPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

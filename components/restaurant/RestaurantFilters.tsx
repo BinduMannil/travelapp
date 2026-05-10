@@ -33,13 +33,13 @@ export function RestaurantFilters({
       if (value && params.get(key) !== value) params.set(key, value);
       else params.delete(key);
       const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname);
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
     },
     [pathname, router, searchParams],
   );
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-6">
       <FilterRow label="Price">
         <Pill
           active={active.price === null}
@@ -54,7 +54,7 @@ export function RestaurantFilters({
             onClick={() => toggle("price", b.band)}
           >
             {b.band}
-            <span className="ml-1 text-xs text-sumi-700">{b.count}</span>
+            <span className={cn("ml-1 text-xs", active.price === b.band ? "text-sumi-800" : "text-sumi-600")}>{b.count}</span>
           </Pill>
         ))}
       </FilterRow>
@@ -73,7 +73,7 @@ export function RestaurantFilters({
             onClick={() => toggle("cuisine", c.slug)}
           >
             {c.label}
-            <span className="ml-1 text-xs text-sumi-700">{c.count}</span>
+            <span className={cn("ml-1 text-xs", active.cuisine === c.slug ? "text-sumi-800" : "text-sumi-600")}>{c.count}</span>
           </Pill>
         ))}
       </FilterRow>
@@ -92,7 +92,7 @@ export function RestaurantFilters({
             onClick={() => toggle("diet", d.slug)}
           >
             {d.label}
-            <span className="ml-1 text-xs text-sumi-700">{d.count}</span>
+            <span className={cn("ml-1 text-xs", active.diet === d.slug ? "text-sumi-800" : "text-sumi-600")}>{d.count}</span>
           </Pill>
         ))}
       </FilterRow>
@@ -123,11 +123,11 @@ function FilterRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <span className="w-24 shrink-0 text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+    <div className="grid gap-3 border-b border-white/10 pb-5 last:border-b-0 last:pb-0 sm:grid-cols-[7.5rem_1fr] sm:items-start">
+      <span className="pt-2 text-[0.68rem] font-bold uppercase tracking-[0.28em] text-kintsugi-300">
         {label}
       </span>
-      <div className="flex flex-wrap gap-1.5">{children}</div>
+      <div className="flex flex-wrap gap-2.5">{children}</div>
     </div>
   );
 }
@@ -145,11 +145,10 @@ function Pill({
     <button
       type="button"
       onClick={onClick}
+      data-active={active}
       className={cn(
-        "rounded-full border px-3 py-1 text-sm",
-        active
-          ? "border-brand-500 bg-brand-50 text-brand-800"
-          : "border-washi-200 bg-white text-sumi-800 hover:border-washi-300",
+        "editorial-pill px-4 py-2 text-sm font-semibold leading-none",
+        active && "font-bold",
       )}
     >
       {children}

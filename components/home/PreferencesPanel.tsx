@@ -4,20 +4,22 @@ import { PreferencesMenu } from "@/components/layout/PreferencesMenu";
 
 export function PreferencesPanel() {
   return (
-    <section className="overflow-hidden rounded-3xl border border-washi-200 bg-gradient-to-br from-white via-washi-50 to-sakura-50 p-6 shadow-sm">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sumi-700">
+    <section className="scene-glass overflow-hidden rounded-[1.35rem] p-6 shadow-editorial-deep sm:p-8">
+      <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div className="max-w-xl">
+          <p className="luxury-kicker text-kintsugi-300">
             Your preferences
           </p>
-          <h2 className="mt-2 font-display text-xl font-semibold text-sumi-900">
+          <h2 className="mt-2 font-display text-2xl font-semibold text-white">
             Set once. Applied everywhere.
           </h2>
-          <p className="mt-1 text-sm text-sumi-700">
+          <p className="mt-2 text-sm leading-6 text-white/72">
             Currency, temperature and distance units sync across every page.
           </p>
         </div>
-        <PreferencesMenu />
+        <div className="lg:justify-self-end">
+          <PreferencesMenu />
+        </div>
       </div>
     </section>
   );

@@ -5,6 +5,7 @@ import {
   DIETARY_LABELS,
   getCity,
   getRestaurants,
+  popularityScore,
   type PriceBand,
 } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
@@ -115,9 +116,10 @@ export default async function RestaurantsPage({
 
   const snapshot = await getFxSnapshot("JPY");
   const rates = snapshotToRates(snapshot);
+  const featured = [...all].sort((a, b) => popularityScore(b) - popularityScore(a)).slice(0, 2);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -131,16 +133,35 @@ export default async function RestaurantsPage({
         lede={`Ranked by a composite of Google star rating, Tabelog score, and Michelin / Bib Gourmand recognition. Filter by price, cuisine, dietary, walk-in.`}
         palette="kintsugi"
       />
-      <div className="mx-auto max-w-6xl px-6 py-12">
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_8%,rgba(200,155,60,.16),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(141,20,36,.22),transparent_38%)]" />
+        <div className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
 <CurrencyProvider
         rates={rates}
         defaultCurrency={city.default_currency ?? "JPY"}
       >
-        <div className="mt-6 flex items-center justify-end">
+        <section className="mb-20 grid gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+          <div>
+            <p className="luxury-kicker text-kintsugi-300">Tokyo table culture</p>
+            <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] font-semibold text-white">
+              Begin with the rooms that define the night.
+            </h2>
+            <p className="mt-7 text-base leading-8 text-white/64">
+              The ranking stays practical, but the entry point should feel like a reservation diary: counters, quiet rooms, steam, craft and glow.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2">
+            {featured.map((r) => (
+              <RestaurantCard key={r.slug} citySlug={slug} restaurant={r} />
+            ))}
+          </div>
+        </section>
+
+        <div className="flex items-center justify-end">
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
-        <section className="mt-4 rounded-lg border border-washi-200 bg-washi-100 p-4">
+        <section className="scene-glass mt-6 rounded-[1.35rem] p-5 sm:p-7">
           <RestaurantFilters
             priceBands={priceBands}
             cuisines={cuisines}
@@ -154,18 +175,19 @@ export default async function RestaurantsPage({
           />
         </section>
 
-        <section className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <section className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
           {filtered.map((r) => (
             <RestaurantCard key={r.slug} citySlug={slug} restaurant={r} />
           ))}
         </section>
 
         {filtered.length === 0 && (
-          <p className="mt-8 rounded-lg border border-dashed border-washi-300 p-6 text-center text-sumi-700">
+          <p className="mt-8 rounded-lg border border-dashed border-white/20 p-6 text-center text-white/70">
             No restaurants match those filters. Try loosening one.
           </p>
         )}
       </CurrencyProvider>
+    </div>
     </div>
     </main>
   );

@@ -46,7 +46,7 @@ export default async function PaymentsPage({
   if (!payments) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

@@ -54,27 +54,13 @@ export default async function RootLayout({
                   </span>
                 </Link>
                 <div className="flex items-center gap-5">
-                  <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">
-                    <Link
-                      href="/country/japan"
-                      className="transition hover:text-enji-600"
-                    >
-                      Japan
-                    </Link>
-                    <Link
-                      href="/city/tokyo"
-                      className="transition hover:text-enji-600"
-                    >
-                      Tokyo
-                    </Link>
-                  </nav>
                   <LanguagePicker />
                 </div>
               </div>
             </header>
             <div className="min-h-[calc(100vh-64px)]">{children}</div>
-            <footer className="mt-16 border-t border-sumi-100 bg-white py-10 text-sumi-700">
-              <div className="mx-auto grid max-w-6xl gap-6 px-6 sm:grid-cols-[1fr_auto]">
+            <footer className="mt-10 border-t border-sumi-100 bg-white py-8 text-sumi-700">
+              <div className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-[1fr_auto] sm:items-start">
                 <div>
                   <div className="font-display text-sm font-semibold text-sumi-900">
                     {LEGAL.brand}

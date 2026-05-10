@@ -36,7 +36,7 @@ export default async function NeighborhoodDetailPage({
   );
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -51,51 +51,63 @@ export default async function NeighborhoodDetailPage({
         lede={n.summary}
         palette="aizome"
       />
-      <div className="mx-auto max-w-4xl px-6 py-12">
-      <section className="rounded-lg border border-washi-200 p-5">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <section className="rounded-[1.4rem] border border-white/15 bg-[linear-gradient(180deg,rgba(255,253,246,0.99),rgba(247,240,225,0.96))] p-6 shadow-editorial-deep sm:p-8">
+        <h2 className="text-xs font-semibold uppercase tracking-[0.32em] text-enji-700">
           The gist
         </h2>
-        <p className="mt-2 text-sumi-900">{n.description}</p>
+        <p className="mt-4 max-w-3xl text-base leading-8 text-sumi-900 sm:text-lg">
+          {n.description}
+        </p>
       </section>
 
-      <section className="mt-6 grid gap-4 sm:grid-cols-2">
-        <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+      <section className="mt-8 grid gap-5 md:grid-cols-2">
+        <article className="rounded-[1.2rem] border border-washi-200/80 bg-washi-50/95 p-5 shadow-editorial sm:p-6">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-enji-700">
             Best for
           </h3>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-sumi-800">
+          <ul className="mt-4 space-y-3 text-sm leading-6 text-sumi-900">
             {n.best_for.map((b) => (
-              <li key={b}>{b}</li>
+              <li key={b} className="flex gap-3">
+                <span className="mt-2 h-px w-6 shrink-0 bg-kintsugi-500" />
+                <span>{b}</span>
+              </li>
             ))}
           </ul>
         </article>
-        <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <article className="rounded-[1.2rem] border border-washi-200/80 bg-washi-50/95 p-5 shadow-editorial sm:p-6">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.3em] text-enji-700">
             Transit
           </h3>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-sumi-800">
+          <ul className="mt-4 space-y-3 text-sm leading-6 text-sumi-900">
             {n.transit_hubs.map((t) => (
-              <li key={t}>{t}</li>
+              <li key={t} className="flex gap-3">
+                <span className="mt-2 h-px w-6 shrink-0 bg-aizome-500" />
+                <span>{t}</span>
+              </li>
             ))}
           </ul>
         </article>
       </section>
 
       {attractionsHere.length > 0 && (
-        <section className="mt-8">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <section className="mt-12 rounded-[1.4rem] border border-white/12 bg-black/25 p-5 shadow-editorial-deep sm:p-7">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-300">
             Attractions here
           </h2>
-          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {attractionsHere.map((a) => (
               <Link
                 key={a.slug}
                 href={`/city/${slug}/attractions/${a.slug}`}
-                className="rounded-lg border border-washi-200 p-3 hover:border-brand-500 hover:bg-brand-50"
+                className="group rounded-[1.1rem] border border-washi-200/80 bg-washi-50/95 p-5 shadow-editorial transition hover:-translate-y-0.5 hover:border-kintsugi-500 hover:bg-white focus:outline-none focus:ring-2 focus:ring-kintsugi-400"
               >
-                <div className="font-medium">{a.name}</div>
-                <div className="text-xs text-sumi-700">{a.summary}</div>
+                <div className="font-display text-xl font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
+                  {a.name}
+                </div>
+                <div className="mt-2 text-sm leading-6 text-sumi-800">
+                  {a.summary}
+                </div>
               </Link>
             ))}
           </div>

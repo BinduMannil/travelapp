@@ -4,6 +4,29 @@ import { AffiliateLink } from "./AffiliateLink";
 // (health-safety, connectivity, arrival, payments, nearby cities, etc.).
 // Each renders a small card with a headline and one primary outbound button.
 
+const AFFILIATE_IMAGES = {
+  hotel:
+    "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=82",
+  flight:
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=82",
+  insurance:
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82",
+  esim:
+    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82",
+  car:
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82",
+  tours:
+    "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1200&q=82",
+  transfer:
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=82",
+  stay:
+    "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=82",
+  luggage:
+    "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=82",
+  money:
+    "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=82",
+};
+
 function Card({
   kanji,
   eyebrow,
@@ -14,6 +37,7 @@ function Card({
   partner,
   source,
   accent = "enji",
+  imageUrl,
 }: {
   kanji: string;
   eyebrow: string;
@@ -40,61 +64,58 @@ function Card({
     | "rentalcars";
   source?: string;
   accent?: "enji" | "aizome" | "matcha" | "kintsugi" | "ume";
+  imageUrl: string;
 }) {
-  // Editorial Japanese palette: every card is a sheet of washi (paper)
-  // marked with a single accent — a top stripe (like a book spine or
-  // hanko border), a tinted kanji badge, and an ink-stamp button.
-  const accentStripe: Record<string, string> = {
-    enji: "bg-enji-600",
-    aizome: "bg-aizome-600",
-    matcha: "bg-matcha-600",
-    kintsugi: "bg-kintsugi-500",
-    ume: "bg-enji-700",
-  };
-  const accentKanji: Record<string, string> = {
-    enji: "bg-enji-50 text-enji-700 ring-enji-200",
-    aizome: "bg-aizome-50 text-aizome-700 ring-aizome-200",
-    matcha: "bg-matcha-100 text-matcha-700 ring-matcha-400/40",
-    kintsugi: "bg-kintsugi-300/25 text-enji-700 ring-kintsugi-400/50",
-    ume: "bg-washi-200 text-enji-700 ring-enji-200",
-  };
   const accentBtn: Record<string, string> = {
-    enji: "bg-enji-600 hover:bg-enji-700",
-    aizome: "bg-aizome-600 hover:bg-aizome-700",
-    matcha: "bg-matcha-600 hover:bg-matcha-700",
-    kintsugi: "bg-kintsugi-500 hover:bg-enji-700",
-    ume: "bg-enji-700 hover:bg-enji-900",
+    enji: "bg-enji-600/95 hover:bg-enji-500",
+    aizome: "bg-aizome-600/95 hover:bg-aizome-500",
+    matcha: "bg-matcha-700/95 hover:bg-matcha-600",
+    kintsugi: "bg-kintsugi-500/95 hover:bg-kintsugi-400 text-sumi-900",
+    ume: "bg-enji-700/95 hover:bg-enji-600",
+  };
+  const accentRing: Record<string, string> = {
+    enji: "border-enji-300/40",
+    aizome: "border-aizome-100/35",
+    matcha: "border-matcha-100/35",
+    kintsugi: "border-kintsugi-300/55",
+    ume: "border-sakura-200/45",
   };
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-washi-200 bg-washi-50 p-6 shadow-sm">
-      <span
-        aria-hidden
-        className={`absolute inset-x-0 top-0 h-1 ${accentStripe[accent]}`}
+    <article className={`group relative flex min-h-[28rem] overflow-hidden rounded-[1.35rem] border ${accentRing[accent]} bg-sumi-900 text-white shadow-editorial-deep`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={imageUrl}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        loading="lazy"
       />
-      <div className="flex items-center gap-3">
-        <span
-          className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl font-display text-xl font-bold ring-1 ${accentKanji[accent]}`}
-        >
-          {kanji}
-        </span>
-        <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
-          {eyebrow}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.35)_36%,rgba(0,0,0,.88)),linear-gradient(90deg,rgba(0,0,0,.36),transparent)]" />
+      <div className="relative flex w-full flex-col justify-end p-5 sm:p-7">
+        <div className="rounded-[1.05rem] border border-white/18 bg-black/32 p-5 shadow-editorial-deep backdrop-blur-xl sm:p-6">
+          <div className="flex items-center justify-between gap-4">
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-kintsugi-300">
+              {eyebrow}
+            </div>
+            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/25 bg-white/12 font-display text-2xl font-semibold text-white">
+              {kanji}
+            </span>
+          </div>
+          <h3 className="editorial-module-title mt-5 font-display font-semibold text-white">
+            {title}
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-white/76">{body}</p>
+          <AffiliateLink
+            href={href}
+            partner={partner}
+            source={source}
+            className={`mt-5 inline-flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-bold text-white transition ${accentBtn[accent]}`}
+          >
+            {button} →
+          </AffiliateLink>
         </div>
       </div>
-      <h3 className="mt-4 font-display text-xl font-semibold leading-snug text-sumi-900">
-        {title}
-      </h3>
-      <p className="mt-2 flex-1 text-sm leading-relaxed text-sumi-700">{body}</p>
-      <AffiliateLink
-        href={href}
-        partner={partner}
-        source={source}
-        className={`mt-5 inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold text-white transition ${accentBtn[accent]}`}
-      >
-        {button} →
-      </AffiliateLink>
-    </div>
+    </article>
   );
 }
 
@@ -110,28 +131,32 @@ export function InsuranceCta({ source }: { source?: string } = {}) {
       partner="safetywing"
       source={source}
       accent="enji"
+      imageUrl={AFFILIATE_IMAGES.insurance}
     />
   );
 }
 
 export function FlightCta({
   destinationIata = "TYO",
+  destinationLabel = "Tokyo",
   source,
 }: {
   destinationIata?: string;
+  destinationLabel?: string;
   source?: string;
 } = {}) {
   return (
     <Card
       kanji="空"
       eyebrow="Flights"
-      title="Compare flights to Tokyo"
+      title={`Compare flights to ${destinationLabel}`}
       body="Skyscanner compares 1,200+ airlines and travel sites in one search. Flexible-date view catches the cheap weeks."
       button="Search flights"
       href={`https://www.skyscanner.net/transport/flights-to/${destinationIata}/`}
       partner="skyscanner"
       source={source}
       accent="aizome"
+      imageUrl={AFFILIATE_IMAGES.flight}
     />
   );
 }
@@ -148,6 +173,7 @@ export function EsimCta({ source }: { source?: string } = {}) {
       partner="airalo"
       source={source}
       accent="matcha"
+      imageUrl={AFFILIATE_IMAGES.esim}
     />
   );
 }
@@ -164,6 +190,7 @@ export function CarRentalCta({ source }: { source?: string } = {}) {
       partner="discovercars"
       source={source}
       accent="aizome"
+      imageUrl={AFFILIATE_IMAGES.car}
     />
   );
 }
@@ -186,6 +213,7 @@ export function ToursCta({
       partner="getyourguide"
       source={source}
       accent="kintsugi"
+      imageUrl={AFFILIATE_IMAGES.tours}
     />
   );
 }
@@ -208,6 +236,7 @@ export function HotelCta({
       partner="booking"
       source={source}
       accent="ume"
+      imageUrl={AFFILIATE_IMAGES.hotel}
     />
   );
 }
@@ -233,6 +262,7 @@ export function PrivateStayCta({
       partner="booking"
       source={source}
       accent="matcha"
+      imageUrl={AFFILIATE_IMAGES.stay}
     />
   );
 }
@@ -255,6 +285,7 @@ export function AirportTransferCta({
       partner="welcomepickups"
       source={source}
       accent="enji"
+      imageUrl={AFFILIATE_IMAGES.transfer}
     />
   );
 }
@@ -271,6 +302,7 @@ export function LuggageCta({ source }: { source?: string } = {}) {
       partner="bounce"
       source={source}
       accent="matcha"
+      imageUrl={AFFILIATE_IMAGES.luggage}
     />
   );
 }
@@ -287,6 +319,7 @@ export function FxCardCta({ source }: { source?: string } = {}) {
       partner="wise"
       source={source}
       accent="kintsugi"
+      imageUrl={AFFILIATE_IMAGES.money}
     />
   );
 }
