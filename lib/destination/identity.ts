@@ -54,6 +54,174 @@ const DESTINATION_IDENTITIES: Record<string, DestinationIdentity> = {
       line: "World register",
     },
   },
+  islands: {
+    slug: "islands",
+    label: "Oceanic warmth / tide glow",
+    mood: "Warm water, ferry light, reef days and slow coastal mornings.",
+    typographyMood:
+      "Generous display type with soft spacing and clear practical prompts, like an editorial beach atlas.",
+    texture:
+      "linear-gradient(120deg, rgba(255,255,255,.07) 0 1px, transparent 1px 20px), radial-gradient(circle at 18% 16%, rgba(87,180,176,.24), transparent 34%), radial-gradient(circle at 84% 22%, rgba(224,156,83,.2), transparent 32%)",
+    motion: {
+      system: "jungle-mist",
+      intensity: "quiet",
+    },
+    colors: {
+      ink: "#061012",
+      ground: "#0b2529",
+      panel: "rgba(6, 18, 20, 0.64)",
+      ivory: "#f5efe4",
+      accent: "#dfb66b",
+      accentSoft: "#f0d6a0",
+      secondary: "#57b4b0",
+      tertiary: "#1f706d",
+    },
+    chartPalette: ["#dfb66b", "#57b4b0", "#1f706d", "#f5efe4", "#c47745", "#84a87e"],
+    accents: {
+      glyph: "~",
+      line: "Tide register",
+    },
+  },
+  cities: {
+    slug: "cities",
+    label: "Neon glass / transit rhythm",
+    mood: "Skyline weather, late trains, food streets and neighborhood energy.",
+    typographyMood:
+      "Crisp editorial hierarchy with bright accents and tactile controls for fast city comparison.",
+    texture:
+      "linear-gradient(135deg, rgba(255,255,255,.07) 0 1px, transparent 1px 12px), radial-gradient(circle at 14% 18%, rgba(42,199,201,.18), transparent 34%), radial-gradient(circle at 86% 24%, rgba(229,54,102,.18), transparent 30%)",
+    motion: {
+      system: "sakura-neon",
+      intensity: "quiet",
+    },
+    colors: {
+      ink: "#07080b",
+      ground: "#101722",
+      panel: "rgba(8, 11, 15, 0.64)",
+      ivory: "#f5efe4",
+      accent: "#d8ad4f",
+      accentSoft: "#f1d99c",
+      secondary: "#e53666",
+      tertiary: "#2ac7c9",
+    },
+    chartPalette: ["#d8ad4f", "#e53666", "#2ac7c9", "#f5efe4", "#5f96a5", "#7a5068"],
+    accents: {
+      glyph: "◇",
+      line: "City signal",
+    },
+  },
+  deserts: {
+    slug: "deserts",
+    label: "Dune amber / dusk heat",
+    mood: "Courtyard shade, long road light, dune edges and evening rituals.",
+    typographyMood:
+      "Warm serif weight, restrained captions and practical timing notes with strong contrast.",
+    texture:
+      "linear-gradient(135deg, rgba(255,236,198,.08) 0 1px, transparent 1px 14px), radial-gradient(circle at 20% 18%, rgba(198,117,50,.24), transparent 34%), radial-gradient(circle at 78% 10%, rgba(212,167,91,.18), transparent 28%)",
+    motion: {
+      system: "desert-haze",
+      intensity: "quiet",
+    },
+    colors: {
+      ink: "#120906",
+      ground: "#21120c",
+      panel: "rgba(30, 16, 10, 0.64)",
+      ivory: "#f8ead4",
+      accent: "#d4a75b",
+      accentSoft: "#efd39d",
+      secondary: "#c67532",
+      tertiary: "#74411e",
+    },
+    chartPalette: ["#d4a75b", "#c67532", "#74411e", "#f8ead4", "#8e382b", "#d9a06e"],
+    accents: {
+      glyph: "△",
+      line: "Dusk register",
+    },
+  },
+  forests: {
+    slug: "forests",
+    label: "Canopy green / rain mist",
+    mood: "Lodge mornings, wet trails, green corridors and quiet rain strategy.",
+    typographyMood:
+      "Deep calm display type with clear spacing and gentle but readable information layers.",
+    texture:
+      "linear-gradient(120deg, rgba(255,255,255,.06) 0 1px, transparent 1px 18px), radial-gradient(circle at 20% 12%, rgba(105,130,76,.2), transparent 34%), radial-gradient(circle at 82% 22%, rgba(49,91,81,.22), transparent 32%)",
+    motion: {
+      system: "jungle-mist",
+      intensity: "quiet",
+    },
+    colors: {
+      ink: "#050c09",
+      ground: "#102016",
+      panel: "rgba(8, 18, 12, 0.64)",
+      ivory: "#f4efe5",
+      accent: "#d1aa63",
+      accentSoft: "#ead6a4",
+      secondary: "#69824c",
+      tertiary: "#315b51",
+    },
+    chartPalette: ["#d1aa63", "#69824c", "#315b51", "#f4efe5", "#7c8f7c", "#5f96a5"],
+    accents: {
+      glyph: "◜",
+      line: "Canopy register",
+    },
+  },
+  villages: {
+    slug: "villages",
+    label: "Local craft / warm lamps",
+    mood: "Market mornings, handmade texture, family stays and slower local rhythms.",
+    typographyMood:
+      "Warm editorial pacing with calm labels, avoiding rustic novelty while keeping human texture.",
+    texture:
+      "linear-gradient(135deg, rgba(255,236,198,.08) 0 1px, transparent 1px 15px), radial-gradient(circle at 18% 18%, rgba(196,136,66,.22), transparent 34%), radial-gradient(circle at 82% 18%, rgba(95,91,55,.18), transparent 30%)",
+    motion: {
+      system: "lantern-fog",
+      intensity: "quiet",
+    },
+    colors: {
+      ink: "#0f0a06",
+      ground: "#20160e",
+      panel: "rgba(28, 19, 12, 0.64)",
+      ivory: "#f7ead7",
+      accent: "#c89b4e",
+      accentSoft: "#efd39d",
+      secondary: "#9b6b4a",
+      tertiary: "#5f5b37",
+    },
+    chartPalette: ["#c89b4e", "#9b6b4a", "#5f5b37", "#f7ead7", "#315b51", "#d9a06e"],
+    accents: {
+      glyph: "□",
+      line: "Village register",
+    },
+  },
+  mountains: {
+    slug: "mountains",
+    label: "Alpine air / glacier light",
+    mood: "Rail passes, high valleys, snow windows and shoulder-season clarity.",
+    typographyMood:
+      "Open spacing and crisp editorial type with enough restraint for practical terrain details.",
+    texture:
+      "linear-gradient(135deg, rgba(255,255,255,.08) 0 1px, transparent 1px 16px), radial-gradient(circle at 15% 10%, rgba(145,202,215,.2), transparent 30%), radial-gradient(circle at 84% 28%, rgba(216,196,140,.14), transparent 30%)",
+    motion: {
+      system: "aurora-snow",
+      intensity: "quiet",
+    },
+    colors: {
+      ink: "#071113",
+      ground: "#0d1b1d",
+      panel: "rgba(9, 24, 27, 0.6)",
+      ivory: "#eff7f4",
+      accent: "#9ad3df",
+      accentSoft: "#c9e8ed",
+      secondary: "#1f5b50",
+      tertiary: "#d8c48c",
+    },
+    chartPalette: ["#9ad3df", "#1f5b50", "#eff7f4", "#d8c48c", "#547784", "#b9d3c8"],
+    accents: {
+      glyph: "△",
+      line: "Alpine register",
+    },
+  },
   tokyo: {
     slug: "tokyo",
     label: "Lacquer noir / neon ivory",
