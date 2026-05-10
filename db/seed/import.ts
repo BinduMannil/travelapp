@@ -140,6 +140,133 @@ type LegalSocialRiskPayload = {
   risks: LegalSocialRiskSeed[];
 };
 
+type OwnerKind = "country" | "city";
+
+type DestinationIdentitySeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  palette_key: string;
+  color_palette: Record<string, string>;
+  script_style_key?: string | null;
+  texture_key?: string | null;
+  background_style_key?: string | null;
+  ambient_motion_key?: string | null;
+  icon_system_key?: string | null;
+  photography_mood?: string | null;
+  accent_symbols: string[];
+  typography_notes?: string | null;
+  source?: string;
+  reviewed_at?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
+type DestinationIdentityPayload = {
+  profiles: DestinationIdentitySeed[];
+};
+
+type TravelActivitySeed = {
+  slug: string;
+  label: string;
+  activity_group: string;
+  description?: string | null;
+  traveler_types: string[];
+  intensity?: "low" | "moderate" | "high" | null;
+  indoor?: boolean | null;
+  family_friendly?: boolean | null;
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type DestinationActivitySeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  activity_slug: string;
+  relevance_level: "signature" | "recommended" | "available" | "niche";
+  seasonality: string[];
+  notes?: string | null;
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type TravelActivitiesPayload = {
+  activities: TravelActivitySeed[];
+  destination_map: DestinationActivitySeed[];
+};
+
+type PriceBenchmarkSeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  benchmark_key: string;
+  category: string;
+  label: string;
+  amount_low_minor?: number | null;
+  amount_typical_minor: number;
+  amount_high_minor?: number | null;
+  currency: string;
+  unit: string;
+  traveler_context?: string | null;
+  notes?: string | null;
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type PriceBenchmarksPayload = {
+  benchmarks: PriceBenchmarkSeed[];
+};
+
+type LocalAppSeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  slug: string;
+  name: string;
+  category: string;
+  purpose: string;
+  free: boolean;
+  ios_url?: string | null;
+  android_url?: string | null;
+  web_url?: string | null;
+  offline_useful: boolean;
+  setup_before_arrival: boolean;
+  traveler_notes?: string | null;
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type LocalAppsPayload = {
+  apps: LocalAppSeed[];
+};
+
+type PhrasebookSeed = {
+  owner_kind: OwnerKind;
+  country_slug: string;
+  city_slug?: string | null;
+  phrase_key: string;
+  category: string;
+  source_language: string;
+  target_language: string;
+  source_text: string;
+  translated_text: string;
+  transliteration?: string | null;
+  literal_translation?: string | null;
+  usage_notes?: string | null;
+  formality?: "casual" | "polite" | "formal" | "emergency" | null;
+  audio_url?: string | null;
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type PhrasebookPayload = {
+  phrases: PhrasebookSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -272,6 +399,63 @@ async function main() {
   if (!cityRow) throw new Error("City upsert returned no row");
   const cityId = cityRow.id;
   console.log(`Upserted city: ${cityRow.slug}`);
+
+  async function resolveOwner(input: {
+    owner_kind: OwnerKind;
+    country_slug: string;
+    city_slug?: string | null;
+  }): Promise<{ countryId: string | null; cityId: string | null }> {
+    const { data: ownerCountry, error: ownerCountryErr } = await supabase
+      .from("countries")
+      .select("id")
+      .eq("slug", input.country_slug)
+      .single<RowId>();
+    if (ownerCountryErr) throw ownerCountryErr;
+    if (!ownerCountry) {
+      throw new Error(`Country not found for owner: ${input.country_slug}`);
+    }
+
+    if (input.owner_kind === "country") {
+      return { countryId: ownerCountry.id, cityId: null };
+    }
+
+    if (!input.city_slug) {
+      throw new Error(`Missing city_slug for city-owned seed row`);
+    }
+
+    const { data: ownerCity, error: ownerCityErr } = await supabase
+      .from("cities")
+      .select("id")
+      .eq("country_id", ownerCountry.id)
+      .eq("slug", input.city_slug)
+      .single<RowId>();
+    if (ownerCityErr) throw ownerCityErr;
+    if (!ownerCity) {
+      throw new Error(`City not found for owner: ${input.city_slug}`);
+    }
+    return { countryId: null, cityId: ownerCity.id };
+  }
+
+  async function deleteOwnerRows(
+    table: string,
+    owner: { owner_kind: OwnerKind; country_slug: string; city_slug?: string | null },
+    extra: Record<string, string>,
+  ) {
+    const resolved = await resolveOwner(owner);
+    let query = supabase.from(table).delete().eq("owner_kind", owner.owner_kind);
+    query = resolved.countryId
+      ? query.eq("country_id", resolved.countryId)
+      : query.is("country_id", null);
+    query = resolved.cityId
+      ? query.eq("city_id", resolved.cityId)
+      : query.is("city_id", null);
+    for (const [key, value] of Object.entries(extra)) {
+      query = query.eq(key, value);
+    }
+    const { error } = await query;
+    if (error) throw error;
+    return resolved;
+  }
 
   // --- Neighborhoods -----------------------------------------------------
   const neighborhoods = await readJson<NeighborhoodSeed[]>(
@@ -544,6 +728,195 @@ async function main() {
   }
 
   console.log(`Upserted legal/social risks: ${legalSocialRisks.risks.length}`);
+
+  // --- Destination identity profiles -----------------------------------
+  const destinationIdentity = await readJson<DestinationIdentityPayload>(
+    resolve(root, "japan/destination_identity.json"),
+  );
+
+  for (const profile of destinationIdentity.profiles) {
+    const owner = await deleteOwnerRows(
+      "destination_identity_profiles",
+      profile,
+      {},
+    );
+    const { error } = await supabase
+      .from("destination_identity_profiles")
+      .insert({
+        owner_kind: profile.owner_kind,
+        country_id: owner.countryId,
+        city_id: owner.cityId,
+        palette_key: profile.palette_key,
+        color_palette: profile.color_palette,
+        script_style_key: profile.script_style_key ?? null,
+        texture_key: profile.texture_key ?? null,
+        background_style_key: profile.background_style_key ?? null,
+        ambient_motion_key: profile.ambient_motion_key ?? null,
+        icon_system_key: profile.icon_system_key ?? null,
+        photography_mood: profile.photography_mood ?? null,
+        accent_symbols: profile.accent_symbols,
+        typography_notes: profile.typography_notes ?? null,
+        source: profile.source ?? "seed",
+        reviewed_at: profile.reviewed_at ?? null,
+        metadata: profile.metadata ?? {},
+      });
+    if (error) throw error;
+  }
+
+  console.log(`Upserted identity profiles: ${destinationIdentity.profiles.length}`);
+
+  // --- Travel activities taxonomy --------------------------------------
+  const travelActivities = await readJson<TravelActivitiesPayload>(
+    resolve(root, "japan/travel_activities.json"),
+  );
+
+  for (const activity of travelActivities.activities) {
+    const { error } = await supabase.from("travel_activities").upsert(
+      {
+        slug: activity.slug,
+        label: activity.label,
+        activity_group: activity.activity_group,
+        description: activity.description ?? null,
+        traveler_types: activity.traveler_types,
+        intensity: activity.intensity ?? null,
+        indoor: activity.indoor ?? null,
+        family_friendly: activity.family_friendly ?? null,
+        display_order: activity.display_order,
+        metadata: activity.metadata ?? {},
+      },
+      { onConflict: "slug" },
+    );
+    if (error) throw error;
+  }
+
+  for (const mapRow of travelActivities.destination_map) {
+    const { data: activityRow, error: activityErr } = await supabase
+      .from("travel_activities")
+      .select("id")
+      .eq("slug", mapRow.activity_slug)
+      .single<RowId>();
+    if (activityErr) throw activityErr;
+    if (!activityRow) {
+      throw new Error(`Activity not found for map: ${mapRow.activity_slug}`);
+    }
+
+    const owner = await deleteOwnerRows("destination_activity_map", mapRow, {
+      activity_id: activityRow.id,
+    });
+    const { error } = await supabase.from("destination_activity_map").insert({
+      activity_id: activityRow.id,
+      owner_kind: mapRow.owner_kind,
+      country_id: owner.countryId,
+      city_id: owner.cityId,
+      relevance_level: mapRow.relevance_level,
+      seasonality: mapRow.seasonality,
+      notes: mapRow.notes ?? null,
+      display_order: mapRow.display_order,
+      metadata: mapRow.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted travel activities: ${travelActivities.activities.length}; mapped: ${travelActivities.destination_map.length}`,
+  );
+
+  // --- Price benchmarks -------------------------------------------------
+  const priceBenchmarks = await readJson<PriceBenchmarksPayload>(
+    resolve(root, "tokyo/price_benchmarks.json"),
+  );
+
+  for (const benchmark of priceBenchmarks.benchmarks) {
+    const owner = await deleteOwnerRows("price_benchmarks", benchmark, {
+      benchmark_key: benchmark.benchmark_key,
+    });
+    const { error } = await supabase.from("price_benchmarks").insert({
+      owner_kind: benchmark.owner_kind,
+      country_id: owner.countryId,
+      city_id: owner.cityId,
+      benchmark_key: benchmark.benchmark_key,
+      category: benchmark.category,
+      label: benchmark.label,
+      amount_low_minor: benchmark.amount_low_minor ?? null,
+      amount_typical_minor: benchmark.amount_typical_minor,
+      amount_high_minor: benchmark.amount_high_minor ?? null,
+      currency: benchmark.currency,
+      unit: benchmark.unit,
+      traveler_context: benchmark.traveler_context ?? null,
+      notes: benchmark.notes ?? null,
+      source_label: benchmark.source_label ?? null,
+      source_url: benchmark.source_url ?? null,
+      reviewed_at: benchmark.reviewed_at ?? null,
+      confidence_level: benchmark.confidence_level,
+      display_order: benchmark.display_order,
+      metadata: benchmark.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(`Upserted price benchmarks: ${priceBenchmarks.benchmarks.length}`);
+
+  // --- Local apps directory --------------------------------------------
+  const localApps = await readJson<LocalAppsPayload>(
+    resolve(root, "tokyo/local_apps.json"),
+  );
+
+  for (const app of localApps.apps) {
+    const owner = await deleteOwnerRows("local_apps", app, { slug: app.slug });
+    const { error } = await supabase.from("local_apps").insert({
+      owner_kind: app.owner_kind,
+      country_id: owner.countryId,
+      city_id: owner.cityId,
+      slug: app.slug,
+      name: app.name,
+      category: app.category,
+      purpose: app.purpose,
+      free: app.free,
+      ios_url: app.ios_url ?? null,
+      android_url: app.android_url ?? null,
+      web_url: app.web_url ?? null,
+      offline_useful: app.offline_useful,
+      setup_before_arrival: app.setup_before_arrival,
+      traveler_notes: app.traveler_notes ?? null,
+      display_order: app.display_order,
+      metadata: app.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(`Upserted local apps: ${localApps.apps.length}`);
+
+  // --- Phrasebook -------------------------------------------------------
+  const phrasebook = await readJson<PhrasebookPayload>(
+    resolve(root, "japan/phrasebook.json"),
+  );
+
+  for (const phrase of phrasebook.phrases) {
+    const owner = await deleteOwnerRows("phrasebook_entries", phrase, {
+      phrase_key: phrase.phrase_key,
+    });
+    const { error } = await supabase.from("phrasebook_entries").insert({
+      owner_kind: phrase.owner_kind,
+      country_id: owner.countryId,
+      city_id: owner.cityId,
+      phrase_key: phrase.phrase_key,
+      category: phrase.category,
+      source_language: phrase.source_language,
+      target_language: phrase.target_language,
+      source_text: phrase.source_text,
+      translated_text: phrase.translated_text,
+      transliteration: phrase.transliteration ?? null,
+      literal_translation: phrase.literal_translation ?? null,
+      usage_notes: phrase.usage_notes ?? null,
+      formality: phrase.formality ?? null,
+      audio_url: phrase.audio_url ?? null,
+      display_order: phrase.display_order,
+      metadata: phrase.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(`Upserted phrasebook entries: ${phrasebook.phrases.length}`);
 }
 
 main().catch((err) => {
