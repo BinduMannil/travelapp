@@ -44,6 +44,8 @@ type CitySeed = {
 };
 
 type NeighborhoodSeed = {
+  country_slug?: string;
+  city_slug?: string;
   slug: string;
   name: string;
   vibe: string[];
@@ -406,6 +408,128 @@ type CulturalIntelligencePayload = {
   sensitivity_notes: CulturalSensitivityNoteSeed[];
 };
 
+type NeighborhoodIntelligenceSeed = {
+  country_slug: string;
+  city_slug: string;
+  neighborhood_slug: string;
+  vibe_tags: string[];
+  luxury_level: "budget" | "mid_range" | "upscale" | "luxury" | "mixed";
+  wealth_profile:
+    | "working_class"
+    | "mixed"
+    | "middle_income"
+    | "upper_middle_affluent"
+    | "high_net_worth"
+    | "tourist_economy";
+  local_expat_mix:
+    | "mostly_local"
+    | "local_leaning"
+    | "mixed"
+    | "expat_leaning"
+    | "mostly_expat";
+  tourism_level: "local" | "low" | "moderate" | "high" | "tourist_core";
+  nightlife_intensity: "low" | "moderate" | "high" | "extreme";
+  digital_nomad_friendliness: "low" | "moderate" | "high" | "excellent";
+  family_friendliness: "low" | "moderate" | "high" | "excellent";
+  cafe_culture: "low" | "moderate" | "high" | "excellent";
+  shopping_level: "low" | "moderate" | "high" | "luxury";
+  transport_quality: "limited" | "basic" | "good" | "excellent";
+  walkability: "limited" | "basic" | "good" | "excellent";
+  safety_at_night: "low" | "moderate" | "good" | "high" | "varies";
+  dress_expectations: string[];
+  language_accessibility: "low" | "moderate" | "good" | "high";
+  setting_tags: string[];
+  atmosphere_scores: Record<string, number>;
+  social_expectations: string[];
+  safety_notes: string[];
+  recommended_for: string[];
+  avoid_if: string[];
+  traveler_type_fit: Record<string, number>;
+  what_it_feels_like: string;
+  practical_notes: string[];
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type SocialRealityNoteSeed = {
+  owner_kind: "city" | "neighborhood";
+  country_slug: string;
+  city_slug: string;
+  neighborhood_slug?: string | null;
+  note_key: string;
+  reality_category:
+    | "local_behavior"
+    | "social_norms"
+    | "work_culture"
+    | "networking_culture"
+    | "public_behavior"
+    | "rude_behavior"
+    | "normal_behavior"
+    | "class_signals"
+    | "appearance_expectations"
+    | "reservation_culture"
+    | "nightlife_behavior"
+    | "queue_culture"
+    | "bargaining_culture"
+    | "noise_expectations"
+    | "transport_behavior"
+    | "cafe_culture"
+    | "other";
+  title: string;
+  traveler_summary: string;
+  what_is_normal: string[];
+  what_is_rude: string[];
+  practical_guidance: string[];
+  examples: string[];
+  social_context?: string | null;
+  risk_level: "low" | "moderate" | "high" | "critical";
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type NeighborhoodRelationshipSeed = {
+  country_slug: string;
+  city_slug: string;
+  from_neighborhood_slug: string;
+  to_neighborhood_slug: string;
+  relationship_kind:
+    | "nearby"
+    | "upscale_contrast"
+    | "budget_contrast"
+    | "tourist_stay"
+    | "local_hangout"
+    | "digital_nomad_base"
+    | "hidden_local_area"
+    | "nightlife_alternative"
+    | "shopping_alternative"
+    | "transit_link"
+    | "atmosphere_contrast"
+    | "other";
+  traveler_summary: string;
+  distance_note?: string | null;
+  practical_use: string[];
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type NeighborhoodSocialRealityPayload = {
+  neighborhood_intelligence: NeighborhoodIntelligenceSeed[];
+  social_reality_notes: SocialRealityNoteSeed[];
+  neighborhood_relationships: NeighborhoodRelationshipSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -501,6 +625,7 @@ async function main() {
   );
 
   const root = resolve(process.cwd(), "db/seed");
+  const cityIds = new Map<string, string>();
 
   // --- Countries ---------------------------------------------------------
   const japan = await readJson<CountrySeed>(resolve(root, "japan/country.json"));
@@ -537,6 +662,7 @@ async function main() {
   if (cityErr) throw cityErr;
   if (!cityRow) throw new Error("City upsert returned no row");
   const cityId = cityRow.id;
+  cityIds.set(`${country_slug}:${cityRow.slug}`, cityId);
   console.log(`Upserted city: ${cityRow.slug}`);
 
   // --- Vietnam country + city pilot stack -------------------------------
@@ -563,11 +689,22 @@ async function main() {
     if (vietnamCountrySlug !== vietnamCountryRow.slug) {
       throw new Error(`Unexpected Vietnam city country: ${vietnamCountrySlug}`);
     }
-    const { error } = await supabase.from("cities").upsert(
+    const { data: upsertedVietnamCity, error } = await supabase
+      .from("cities")
+      .upsert(
       { ...vietnamCityFields, country_id: vietnamCountryRow.id },
       { onConflict: "country_id,slug" },
-    );
+      )
+      .select("id, slug")
+      .single<RowId & { slug: string }>();
     if (error) throw error;
+    if (!upsertedVietnamCity) {
+      throw new Error(`Vietnam city upsert returned no row: ${vietnamCity.slug}`);
+    }
+    cityIds.set(
+      `${vietnamCountrySlug}:${upsertedVietnamCity.slug}`,
+      upsertedVietnamCity.id,
+    );
   }
   console.log(`Upserted Vietnam cities: ${vietnamCities.length}`);
 
@@ -628,6 +765,56 @@ async function main() {
     return resolved;
   }
 
+  async function resolveCityId(countrySlug: string, citySlug: string) {
+    const cached = cityIds.get(`${countrySlug}:${citySlug}`);
+    if (cached) return cached;
+
+    const { data: ownerCountry, error: countryLookupErr } = await supabase
+      .from("countries")
+      .select("id")
+      .eq("slug", countrySlug)
+      .single<RowId>();
+    if (countryLookupErr) throw countryLookupErr;
+    if (!ownerCountry) {
+      throw new Error(`Country not found for city lookup: ${countrySlug}`);
+    }
+
+    const { data: ownerCity, error: cityLookupErr } = await supabase
+      .from("cities")
+      .select("id")
+      .eq("country_id", ownerCountry.id)
+      .eq("slug", citySlug)
+      .single<RowId>();
+    if (cityLookupErr) throw cityLookupErr;
+    if (!ownerCity) {
+      throw new Error(`City not found for lookup: ${countrySlug}/${citySlug}`);
+    }
+
+    cityIds.set(`${countrySlug}:${citySlug}`, ownerCity.id);
+    return ownerCity.id;
+  }
+
+  async function resolveNeighborhoodId(input: {
+    country_slug: string;
+    city_slug: string;
+    neighborhood_slug: string;
+  }) {
+    const resolvedCityId = await resolveCityId(input.country_slug, input.city_slug);
+    const { data, error } = await supabase
+      .from("neighborhoods")
+      .select("id")
+      .eq("city_id", resolvedCityId)
+      .eq("slug", input.neighborhood_slug)
+      .single<RowId>();
+    if (error) throw error;
+    if (!data) {
+      throw new Error(
+        `Neighborhood not found: ${input.country_slug}/${input.city_slug}/${input.neighborhood_slug}`,
+      );
+    }
+    return { cityId: resolvedCityId, neighborhoodId: data.id };
+  }
+
   // --- Neighborhoods -----------------------------------------------------
   const neighborhoods = await readJson<NeighborhoodSeed[]>(
     resolve(root, "tokyo/neighborhoods.json"),
@@ -660,6 +847,37 @@ async function main() {
   }
 
   console.log(`Upserted neighborhoods: ${neighborhoods.length}`);
+
+  const vietnamNeighborhoods = await readJson<NeighborhoodSeed[]>(
+    resolve(root, "vietnam/neighborhoods.json"),
+  );
+
+  for (const neighborhood of vietnamNeighborhoods) {
+    if (!neighborhood.country_slug || !neighborhood.city_slug) {
+      throw new Error(`Missing Vietnam neighborhood owner: ${neighborhood.slug}`);
+    }
+    const vietnamNeighborhoodCityId = await resolveCityId(
+      neighborhood.country_slug,
+      neighborhood.city_slug,
+    );
+    const { error } = await supabase.from("neighborhoods").upsert(
+      {
+        city_id: vietnamNeighborhoodCityId,
+        slug: neighborhood.slug,
+        name: neighborhood.name,
+        summary: neighborhood.summary,
+        vibe: neighborhood.vibe,
+        best_for: neighborhood.best_for,
+        description: neighborhood.description,
+        transit_hubs: neighborhood.transit_hubs,
+        display_order: neighborhood.display_order,
+      },
+      { onConflict: "city_id,slug" },
+    );
+    if (error) throw error;
+  }
+
+  console.log(`Upserted Vietnam neighborhoods: ${vietnamNeighborhoods.length}`);
 
   async function upsertPlace(input: {
     slug: string;
@@ -1274,6 +1492,164 @@ async function main() {
 
   console.log(
     `Upserted cultural events: ${culturalEvents.length}; sensitivity notes: ${culturalSensitivityNotes.length}`,
+  );
+
+  // --- Neighborhood and social reality intelligence ---------------------
+  const neighborhoodRealityPayloads = await Promise.all([
+    readJson<NeighborhoodSocialRealityPayload>(
+      resolve(root, "japan/neighborhood_social_reality.json"),
+    ),
+    readJson<NeighborhoodSocialRealityPayload>(
+      resolve(root, "vietnam/neighborhood_social_reality.json"),
+    ),
+  ]);
+  const neighborhoodIntelligence = neighborhoodRealityPayloads.flatMap(
+    (payload) => payload.neighborhood_intelligence,
+  );
+  const socialRealityNotes = neighborhoodRealityPayloads.flatMap(
+    (payload) => payload.social_reality_notes,
+  );
+  const neighborhoodRelationships = neighborhoodRealityPayloads.flatMap(
+    (payload) => payload.neighborhood_relationships,
+  );
+
+  for (const profile of neighborhoodIntelligence) {
+    const owner = await resolveNeighborhoodId(profile);
+    const { error: deleteErr } = await supabase
+      .from("neighborhood_intelligence")
+      .delete()
+      .eq("neighborhood_id", owner.neighborhoodId);
+    if (deleteErr) throw deleteErr;
+
+    const { error } = await supabase.from("neighborhood_intelligence").insert({
+      city_id: owner.cityId,
+      neighborhood_id: owner.neighborhoodId,
+      vibe_tags: profile.vibe_tags,
+      luxury_level: profile.luxury_level,
+      wealth_profile: profile.wealth_profile,
+      local_expat_mix: profile.local_expat_mix,
+      tourism_level: profile.tourism_level,
+      nightlife_intensity: profile.nightlife_intensity,
+      digital_nomad_friendliness: profile.digital_nomad_friendliness,
+      family_friendliness: profile.family_friendliness,
+      cafe_culture: profile.cafe_culture,
+      shopping_level: profile.shopping_level,
+      transport_quality: profile.transport_quality,
+      walkability: profile.walkability,
+      safety_at_night: profile.safety_at_night,
+      dress_expectations: profile.dress_expectations,
+      language_accessibility: profile.language_accessibility,
+      setting_tags: profile.setting_tags,
+      atmosphere_scores: profile.atmosphere_scores,
+      social_expectations: profile.social_expectations,
+      safety_notes: profile.safety_notes,
+      recommended_for: profile.recommended_for,
+      avoid_if: profile.avoid_if,
+      traveler_type_fit: profile.traveler_type_fit,
+      what_it_feels_like: profile.what_it_feels_like,
+      practical_notes: profile.practical_notes,
+      source_label: profile.source_label ?? null,
+      source_url: profile.source_url ?? null,
+      reviewed_at: profile.reviewed_at ?? null,
+      confidence_level: profile.confidence_level,
+      display_order: profile.display_order,
+      metadata: profile.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  for (const note of socialRealityNotes) {
+    const cityOwnerId = await resolveCityId(note.country_slug, note.city_slug);
+    let noteNeighborhoodId: string | null = null;
+    if (note.owner_kind === "neighborhood") {
+      if (!note.neighborhood_slug) {
+        throw new Error(`Missing neighborhood_slug for social note: ${note.note_key}`);
+      }
+      noteNeighborhoodId = (
+        await resolveNeighborhoodId({
+          country_slug: note.country_slug,
+          city_slug: note.city_slug,
+          neighborhood_slug: note.neighborhood_slug,
+        })
+      ).neighborhoodId;
+    }
+
+    let deleteQuery = supabase
+      .from("social_reality_notes")
+      .delete()
+      .eq("owner_kind", note.owner_kind)
+      .eq("city_id", cityOwnerId)
+      .eq("note_key", note.note_key);
+    deleteQuery = noteNeighborhoodId
+      ? deleteQuery.eq("neighborhood_id", noteNeighborhoodId)
+      : deleteQuery.is("neighborhood_id", null);
+    const { error: deleteErr } = await deleteQuery;
+    if (deleteErr) throw deleteErr;
+
+    const { error } = await supabase.from("social_reality_notes").insert({
+      owner_kind: note.owner_kind,
+      city_id: cityOwnerId,
+      neighborhood_id: noteNeighborhoodId,
+      note_key: note.note_key,
+      reality_category: note.reality_category,
+      title: note.title,
+      traveler_summary: note.traveler_summary,
+      what_is_normal: note.what_is_normal,
+      what_is_rude: note.what_is_rude,
+      practical_guidance: note.practical_guidance,
+      examples: note.examples,
+      social_context: note.social_context ?? null,
+      risk_level: note.risk_level,
+      source_label: note.source_label ?? null,
+      source_url: note.source_url ?? null,
+      reviewed_at: note.reviewed_at ?? null,
+      confidence_level: note.confidence_level,
+      display_order: note.display_order,
+      metadata: note.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  for (const relationship of neighborhoodRelationships) {
+    const fromOwner = await resolveNeighborhoodId({
+      country_slug: relationship.country_slug,
+      city_slug: relationship.city_slug,
+      neighborhood_slug: relationship.from_neighborhood_slug,
+    });
+    const toOwner = await resolveNeighborhoodId({
+      country_slug: relationship.country_slug,
+      city_slug: relationship.city_slug,
+      neighborhood_slug: relationship.to_neighborhood_slug,
+    });
+
+    const { error: deleteErr } = await supabase
+      .from("neighborhood_relationships")
+      .delete()
+      .eq("from_neighborhood_id", fromOwner.neighborhoodId)
+      .eq("to_neighborhood_id", toOwner.neighborhoodId)
+      .eq("relationship_kind", relationship.relationship_kind);
+    if (deleteErr) throw deleteErr;
+
+    const { error } = await supabase.from("neighborhood_relationships").insert({
+      city_id: fromOwner.cityId,
+      from_neighborhood_id: fromOwner.neighborhoodId,
+      to_neighborhood_id: toOwner.neighborhoodId,
+      relationship_kind: relationship.relationship_kind,
+      traveler_summary: relationship.traveler_summary,
+      distance_note: relationship.distance_note ?? null,
+      practical_use: relationship.practical_use,
+      source_label: relationship.source_label ?? null,
+      source_url: relationship.source_url ?? null,
+      reviewed_at: relationship.reviewed_at ?? null,
+      confidence_level: relationship.confidence_level,
+      display_order: relationship.display_order,
+      metadata: relationship.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted neighborhood intelligence: ${neighborhoodIntelligence.length}; social notes: ${socialRealityNotes.length}; relationships: ${neighborhoodRelationships.length}`,
   );
 }
 
