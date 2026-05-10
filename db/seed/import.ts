@@ -109,6 +109,37 @@ type RestaurantSeed = {
   source: string;
 };
 
+type LegalSocialRiskSeed = {
+  country_slug: string;
+  city_slug?: string | null;
+  risk_category:
+    | "social_media_online_speech"
+    | "alcohol_public_behavior"
+    | "public_conduct"
+    | "lgbtq_relationships"
+    | "drugs_medication_controlled_substances"
+    | "police_official_interaction"
+    | "immigration_entry"
+    | "photography_filming"
+    | "local_sensitivities";
+  risk_level: "low" | "moderate" | "high" | "critical";
+  traveler_summary: string;
+  what_not_to_do: string[];
+  practical_safe_behavior: string[];
+  examples: string[];
+  source_label: string;
+  source_url: string;
+  reviewed_at: string;
+  confidence_level: "low" | "medium" | "high";
+  legal_disclaimer: string;
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type LegalSocialRiskPayload = {
+  risks: LegalSocialRiskSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -447,6 +478,72 @@ async function main() {
   }
 
   console.log(`Upserted restaurants: ${restaurants.length}`);
+
+  // --- Legal & social risk intelligence --------------------------------
+  const legalSocialRisks = await readJson<LegalSocialRiskPayload>(
+    resolve(root, "japan/legal_social_risks.json"),
+  );
+
+  for (const risk of legalSocialRisks.risks) {
+    const { data: riskCountry, error: riskCountryErr } = await supabase
+      .from("countries")
+      .select("id")
+      .eq("slug", risk.country_slug)
+      .single<RowId>();
+    if (riskCountryErr) throw riskCountryErr;
+    if (!riskCountry) {
+      throw new Error(`Country not found for risk: ${risk.country_slug}`);
+    }
+
+    let riskCityId: string | null = null;
+    if (risk.city_slug) {
+      const { data: riskCity, error: riskCityErr } = await supabase
+        .from("cities")
+        .select("id")
+        .eq("country_id", riskCountry.id)
+        .eq("slug", risk.city_slug)
+        .single<RowId>();
+      if (riskCityErr) throw riskCityErr;
+      if (!riskCity) {
+        throw new Error(`City not found for risk: ${risk.city_slug}`);
+      }
+      riskCityId = riskCity.id;
+    }
+
+    let deleteQuery = supabase
+      .from("legal_social_risks")
+      .delete()
+      .eq("country_id", riskCountry.id)
+      .eq("risk_category", risk.risk_category);
+    deleteQuery = riskCityId
+      ? deleteQuery.eq("city_id", riskCityId)
+      : deleteQuery.is("city_id", null);
+    const { error: deleteErr } = await deleteQuery;
+    if (deleteErr) throw deleteErr;
+
+    const { error: insertErr } = await supabase
+      .from("legal_social_risks")
+      .insert({
+        country_id: riskCountry.id,
+        city_id: riskCityId,
+        risk_category: risk.risk_category,
+        risk_level: risk.risk_level,
+        traveler_summary: risk.traveler_summary,
+        what_not_to_do: risk.what_not_to_do,
+        practical_safe_behavior: risk.practical_safe_behavior,
+        examples: risk.examples,
+        source_label: risk.source_label,
+        source_url: risk.source_url,
+        reviewed_at: risk.reviewed_at,
+        confidence_level: risk.confidence_level,
+        legal_disclaimer: risk.legal_disclaimer,
+        display_order: risk.display_order,
+        metadata: risk.metadata ?? {},
+      });
+    if (insertErr) throw insertErr;
+  }
+
+  console.log(`Upserted legal/social risks: ${legalSocialRisks.risks.length}`);
 }
 
 main().catch((err) => {
