@@ -760,6 +760,90 @@ type PackingIntelligencePayload = {
   rules: DestinationPackingRuleSeed[];
 };
 
+type TravelAlertSeed = {
+  alert_key: string;
+  alert_type:
+    | "weather"
+    | "disaster"
+    | "political"
+    | "transport"
+    | "health"
+    | "internet_connectivity"
+    | "airport"
+    | "embassy"
+    | "legal_social"
+    | "public_safety";
+  scope_kind:
+    | "global"
+    | "country"
+    | "city"
+    | "neighborhood"
+    | "airport"
+    | "transport"
+    | "route";
+  country_slug?: string | null;
+  city_slug?: string | null;
+  neighborhood_slug?: string | null;
+  place_slug?: string | null;
+  entity_reference?: string | null;
+  title: string;
+  short_summary: string;
+  traveler_impact: string;
+  severity_level: "low" | "moderate" | "high" | "critical";
+  urgency_level: "info" | "watch" | "plan_around" | "avoid_area" | "urgent";
+  starts_at?: string | null;
+  ends_at?: string | null;
+  affected_regions: string[];
+  affected_transport: string[];
+  impact_categories: string[];
+  airport_disruption?: boolean;
+  train_disruption?: boolean;
+  road_closures?: boolean;
+  ferry_impact?: boolean;
+  nightlife_restrictions?: boolean;
+  beach_closures?: boolean;
+  atm_payment_disruption?: boolean;
+  internet_disruption?: boolean;
+  embassy_recommendations: string[];
+  evacuation_guidance?: string | null;
+  curfew_rules?: string | null;
+  source_label: string;
+  source_url: string;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  update_frequency: "real_time" | "hourly" | "daily" | "as_needed" | "manual";
+  active_status: "active" | "monitoring" | "inactive" | "resolved" | "archived";
+  status: "draft" | "published" | "archived";
+  created_by?: string | null;
+  reviewed_by?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
+type TravelAlertBannerSeed = {
+  alert_key: string;
+  banner_key: string;
+  placement: "homepage" | "country" | "city" | "itinerary" | "contextual_route";
+  country_slug?: string | null;
+  city_slug?: string | null;
+  neighborhood_slug?: string | null;
+  route_context?: Record<string, unknown>;
+  title: string;
+  short_summary: string;
+  display_style: "info" | "warning" | "urgent" | "critical";
+  priority: number;
+  starts_at?: string | null;
+  ends_at?: string | null;
+  cta_label?: string | null;
+  cta_url?: string | null;
+  active: boolean;
+  metadata?: Record<string, unknown>;
+};
+
+type TravelAlertsPayload = {
+  alerts: TravelAlertSeed[];
+  banners: TravelAlertBannerSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -2296,6 +2380,168 @@ async function main() {
 
   console.log(
     `Upserted packing items: ${packingItems.length}; packing rules: ${packingRules.length}`,
+  );
+
+  // --- Live travel alerts and crisis intelligence -----------------------
+  const travelAlerts = await readJson<TravelAlertsPayload>(
+    resolve(root, "internal/travel_alerts.json"),
+  );
+
+  for (const alert of travelAlerts.alerts) {
+    let alertCountryId: string | null = null;
+    let alertCityId: string | null = null;
+    let alertNeighborhoodId: string | null = null;
+    let alertPlaceId: string | null = null;
+
+    if (alert.country_slug) {
+      alertCountryId = await resolveCountryId(alert.country_slug);
+    }
+    if (alert.city_slug) {
+      if (!alert.country_slug) {
+        throw new Error(`Missing country_slug for alert city: ${alert.alert_key}`);
+      }
+      alertCityId = await resolveCityId(alert.country_slug, alert.city_slug);
+    }
+    if (alert.neighborhood_slug) {
+      if (!alert.country_slug || !alert.city_slug) {
+        throw new Error(
+          `Missing country/city slug for alert neighborhood: ${alert.alert_key}`,
+        );
+      }
+      const resolvedNeighborhood = await resolveNeighborhoodId({
+        country_slug: alert.country_slug,
+        city_slug: alert.city_slug,
+        neighborhood_slug: alert.neighborhood_slug,
+      });
+      alertCityId = resolvedNeighborhood.cityId;
+      alertNeighborhoodId = resolvedNeighborhood.neighborhoodId;
+    }
+    if (alert.place_slug) {
+      if (!alert.country_slug || !alert.city_slug) {
+        throw new Error(`Missing country/city slug for alert place: ${alert.alert_key}`);
+      }
+      const resolvedPlace = await resolvePlaceId({
+        country_slug: alert.country_slug,
+        city_slug: alert.city_slug,
+        place_slug: alert.place_slug,
+      });
+      alertCityId = resolvedPlace.cityId;
+      alertPlaceId = resolvedPlace.placeId;
+    }
+
+    const { error } = await supabase.from("travel_alerts").upsert(
+      {
+        alert_key: alert.alert_key,
+        alert_type: alert.alert_type,
+        scope_kind: alert.scope_kind,
+        country_id: alertCountryId,
+        city_id: alertCityId,
+        neighborhood_id: alertNeighborhoodId,
+        place_id: alertPlaceId,
+        entity_reference: alert.entity_reference ?? null,
+        title: alert.title,
+        short_summary: alert.short_summary,
+        traveler_impact: alert.traveler_impact,
+        severity_level: alert.severity_level,
+        urgency_level: alert.urgency_level,
+        starts_at: alert.starts_at ?? null,
+        ends_at: alert.ends_at ?? null,
+        affected_regions: alert.affected_regions,
+        affected_transport: alert.affected_transport,
+        impact_categories: alert.impact_categories,
+        airport_disruption: alert.airport_disruption ?? false,
+        train_disruption: alert.train_disruption ?? false,
+        road_closures: alert.road_closures ?? false,
+        ferry_impact: alert.ferry_impact ?? false,
+        nightlife_restrictions: alert.nightlife_restrictions ?? false,
+        beach_closures: alert.beach_closures ?? false,
+        atm_payment_disruption: alert.atm_payment_disruption ?? false,
+        internet_disruption: alert.internet_disruption ?? false,
+        embassy_recommendations: alert.embassy_recommendations,
+        evacuation_guidance: alert.evacuation_guidance ?? null,
+        curfew_rules: alert.curfew_rules ?? null,
+        source_label: alert.source_label,
+        source_url: alert.source_url,
+        reviewed_at: alert.reviewed_at ?? null,
+        confidence_level: alert.confidence_level,
+        update_frequency: alert.update_frequency,
+        active_status: alert.active_status,
+        status: alert.status,
+        created_by: alert.created_by ?? null,
+        reviewed_by: alert.reviewed_by ?? null,
+        metadata: alert.metadata ?? {},
+      },
+      { onConflict: "alert_key" },
+    );
+    if (error) throw error;
+  }
+
+  for (const banner of travelAlerts.banners) {
+    const { data: alertRow, error: alertErr } = await supabase
+      .from("travel_alerts")
+      .select("id")
+      .eq("alert_key", banner.alert_key)
+      .single<RowId>();
+    if (alertErr) throw alertErr;
+    if (!alertRow) {
+      throw new Error(`Alert not found for banner: ${banner.alert_key}`);
+    }
+
+    let bannerCountryId: string | null = null;
+    let bannerCityId: string | null = null;
+    let bannerNeighborhoodId: string | null = null;
+
+    if (banner.country_slug) {
+      bannerCountryId = await resolveCountryId(banner.country_slug);
+    }
+    if (banner.city_slug) {
+      if (!banner.country_slug) {
+        throw new Error(`Missing country_slug for banner city: ${banner.banner_key}`);
+      }
+      bannerCityId = await resolveCityId(banner.country_slug, banner.city_slug);
+    }
+    if (banner.neighborhood_slug) {
+      if (!banner.country_slug || !banner.city_slug) {
+        throw new Error(
+          `Missing country/city slug for banner neighborhood: ${banner.banner_key}`,
+        );
+      }
+      const resolvedNeighborhood = await resolveNeighborhoodId({
+        country_slug: banner.country_slug,
+        city_slug: banner.city_slug,
+        neighborhood_slug: banner.neighborhood_slug,
+      });
+      bannerCityId = resolvedNeighborhood.cityId;
+      bannerNeighborhoodId = resolvedNeighborhood.neighborhoodId;
+    }
+
+    const { error } = await supabase.from("travel_alert_banners").upsert(
+      {
+        alert_id: alertRow.id,
+        banner_key: banner.banner_key,
+        placement: banner.placement,
+        country_id: bannerCountryId,
+        city_id: bannerCityId,
+        neighborhood_id: bannerNeighborhoodId,
+        route_context: banner.route_context ?? {},
+        title: banner.title,
+        short_summary: banner.short_summary,
+        display_style: banner.display_style,
+        priority: banner.priority,
+        starts_at: banner.starts_at ?? null,
+        ends_at: banner.ends_at ?? null,
+        cta_label: banner.cta_label ?? null,
+        cta_url: banner.cta_url ?? null,
+        active: banner.active,
+        metadata: banner.metadata ?? {},
+      },
+      { onConflict: "banner_key" },
+    );
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted travel alerts: ${travelAlerts.alerts.length}; banners: ${travelAlerts.banners.length}`,
   );
 }
 
