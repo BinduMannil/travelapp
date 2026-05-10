@@ -585,6 +585,110 @@ type FieldNotesPayload = {
   notes: FieldNoteSeed[];
 };
 
+type InternalReviewEntityType =
+  | "country"
+  | "city"
+  | "neighborhood"
+  | "place"
+  | "hotel_stay"
+  | "restaurant"
+  | "attraction_site"
+  | "activity_tour"
+  | "transport_provider_route"
+  | "airport_arrival_experience"
+  | "local_app_service";
+
+type InternalReviewLifecycle =
+  | "draft"
+  | "submitted"
+  | "internal_visible"
+  | "approved_for_public"
+  | "rejected"
+  | "archived";
+
+type InternalVisibilityStatus = "private" | "internal" | "approved" | "rejected";
+
+type InternalReviewSeed = {
+  reviewer_user_id?: string | null;
+  reviewer_display_name?: string | null;
+  entity_type: InternalReviewEntityType;
+  entity_reference?: string | null;
+  country_slug: string;
+  city_slug?: string | null;
+  neighborhood_slug?: string | null;
+  place_slug?: string | null;
+  local_app_slug?: string | null;
+  visit_date?: string | null;
+  trip_context?: string | null;
+  rating_overall?: number | null;
+  rating_value_for_money?: number | null;
+  rating_safety?: number | null;
+  rating_cleanliness?: number | null;
+  rating_service?: number | null;
+  rating_location_convenience?: number | null;
+  rating_family_friendliness?: number | null;
+  rating_solo_friendliness?: number | null;
+  rating_digital_nomad_friendliness?: number | null;
+  review_title: string;
+  short_summary: string;
+  detailed_review?: string | null;
+  pros: string[];
+  cons: string[];
+  recommended_for: string[];
+  avoid_if: string[];
+  price_paid_minor?: number | null;
+  currency?: string | null;
+  booking_platform_used?: string | null;
+  affiliate_provider_link_reference?: string | null;
+  photo_references?: Array<Record<string, unknown>>;
+  tags: string[];
+  confidence_level: "low" | "medium" | "high";
+  visibility_status: InternalVisibilityStatus;
+  moderation_status: InternalReviewLifecycle;
+  reviewed_by?: string | null;
+  reviewed_at?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
+type InternalQuickFeedbackSeed = {
+  reviewer_user_id?: string | null;
+  reviewer_display_name?: string | null;
+  entity_type: InternalReviewEntityType;
+  entity_reference?: string | null;
+  country_slug: string;
+  city_slug?: string | null;
+  neighborhood_slug?: string | null;
+  place_slug?: string | null;
+  local_app_slug?: string | null;
+  thumbs_direction?: "up" | "down" | null;
+  saved?: boolean;
+  would_return?: boolean | null;
+  overrated?: boolean;
+  tourist_trap?: boolean;
+  worth_it?: boolean;
+  avoid?: boolean;
+  cash_needed?: boolean;
+  card_worked?: boolean;
+  felt_safe?: boolean | null;
+  felt_unsafe?: boolean | null;
+  english_friendly?: boolean | null;
+  good_for_work?: boolean;
+  good_for_families?: boolean;
+  good_for_solo_travelers?: boolean;
+  tags?: string[];
+  note?: string | null;
+  visibility_status: InternalVisibilityStatus;
+  moderation_status: InternalReviewLifecycle;
+  reviewed_by?: string | null;
+  reviewed_at?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
+type InternalReviewsFeedbackPayload = {
+  reviews: InternalReviewSeed[];
+  quick_feedback: InternalQuickFeedbackSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -894,6 +998,93 @@ async function main() {
       );
     }
     return { cityId: resolvedCityId, placeId: data.id };
+  }
+
+  async function resolveLocalAppId(input: {
+    country_slug: string;
+    city_slug?: string | null;
+    local_app_slug: string;
+  }) {
+    const countryId = await resolveCountryId(input.country_slug);
+    let query = supabase
+      .from("local_apps")
+      .select("id")
+      .eq("slug", input.local_app_slug);
+
+    if (input.city_slug) {
+      const appCityId = await resolveCityId(input.country_slug, input.city_slug);
+      query = query.eq("owner_kind", "city").eq("city_id", appCityId);
+    } else {
+      query = query.eq("owner_kind", "country").eq("country_id", countryId);
+    }
+
+    const { data, error } = await query.single<RowId>();
+    if (error) throw error;
+    if (!data) {
+      throw new Error(
+        `Local app not found: ${input.country_slug}/${input.city_slug ?? "country"}/${input.local_app_slug}`,
+      );
+    }
+    return data.id;
+  }
+
+  async function resolveReviewTargets(input: {
+    country_slug: string;
+    city_slug?: string | null;
+    neighborhood_slug?: string | null;
+    place_slug?: string | null;
+    local_app_slug?: string | null;
+  }) {
+    const countryId = await resolveCountryId(input.country_slug);
+    let reviewCityId: string | null = null;
+    let reviewNeighborhoodId: string | null = null;
+    let reviewPlaceId: string | null = null;
+    let reviewLocalAppId: string | null = null;
+
+    if (input.city_slug) {
+      reviewCityId = await resolveCityId(input.country_slug, input.city_slug);
+    }
+    if (input.neighborhood_slug) {
+      if (!input.city_slug) {
+        throw new Error(
+          `Missing city_slug for review neighborhood: ${input.neighborhood_slug}`,
+        );
+      }
+      const resolvedNeighborhood = await resolveNeighborhoodId({
+        country_slug: input.country_slug,
+        city_slug: input.city_slug,
+        neighborhood_slug: input.neighborhood_slug,
+      });
+      reviewCityId = resolvedNeighborhood.cityId;
+      reviewNeighborhoodId = resolvedNeighborhood.neighborhoodId;
+    }
+    if (input.place_slug) {
+      if (!input.city_slug) {
+        throw new Error(`Missing city_slug for review place: ${input.place_slug}`);
+      }
+      const resolvedPlace = await resolvePlaceId({
+        country_slug: input.country_slug,
+        city_slug: input.city_slug,
+        place_slug: input.place_slug,
+      });
+      reviewCityId = resolvedPlace.cityId;
+      reviewPlaceId = resolvedPlace.placeId;
+    }
+    if (input.local_app_slug) {
+      reviewLocalAppId = await resolveLocalAppId({
+        country_slug: input.country_slug,
+        city_slug: input.city_slug,
+        local_app_slug: input.local_app_slug,
+      });
+    }
+
+    return {
+      countryId,
+      cityId: reviewCityId,
+      neighborhoodId: reviewNeighborhoodId,
+      placeId: reviewPlaceId,
+      localAppId: reviewLocalAppId,
+    };
   }
 
   // --- Neighborhoods -----------------------------------------------------
@@ -1808,6 +1999,125 @@ async function main() {
   }
 
   console.log(`Imported internal field notes: ${fieldNotes.notes.length}`);
+
+  // --- Internal reviews and shared feedback -----------------------------
+  const internalReviewsFeedback = await readJson<InternalReviewsFeedbackPayload>(
+    resolve(root, "internal/reviews_feedback.json"),
+  );
+
+  for (const review of internalReviewsFeedback.reviews) {
+    const target = await resolveReviewTargets(review);
+    const entityId =
+      review.entity_type === "country"
+        ? target.countryId
+        : review.entity_type === "city"
+          ? target.cityId
+          : review.entity_type === "neighborhood"
+            ? target.neighborhoodId
+            : review.entity_type === "local_app_service"
+              ? target.localAppId
+              : target.placeId;
+
+    const { error } = await supabase.from("internal_reviews").insert({
+      reviewer_user_id: review.reviewer_user_id ?? null,
+      reviewer_display_name: review.reviewer_display_name ?? null,
+      entity_type: review.entity_type,
+      entity_id: entityId,
+      entity_reference: review.entity_reference ?? null,
+      country_id: target.countryId,
+      city_id: target.cityId,
+      neighborhood_id: target.neighborhoodId,
+      place_id: target.placeId,
+      local_app_id: target.localAppId,
+      visit_date: review.visit_date ?? null,
+      trip_context: review.trip_context ?? null,
+      rating_overall: review.rating_overall ?? null,
+      rating_value_for_money: review.rating_value_for_money ?? null,
+      rating_safety: review.rating_safety ?? null,
+      rating_cleanliness: review.rating_cleanliness ?? null,
+      rating_service: review.rating_service ?? null,
+      rating_location_convenience: review.rating_location_convenience ?? null,
+      rating_family_friendliness: review.rating_family_friendliness ?? null,
+      rating_solo_friendliness: review.rating_solo_friendliness ?? null,
+      rating_digital_nomad_friendliness:
+        review.rating_digital_nomad_friendliness ?? null,
+      review_title: review.review_title,
+      short_summary: review.short_summary,
+      detailed_review: review.detailed_review ?? null,
+      pros: review.pros,
+      cons: review.cons,
+      recommended_for: review.recommended_for,
+      avoid_if: review.avoid_if,
+      price_paid_minor: review.price_paid_minor ?? null,
+      currency: review.currency ?? null,
+      booking_platform_used: review.booking_platform_used ?? null,
+      affiliate_provider_link_reference:
+        review.affiliate_provider_link_reference ?? null,
+      photo_references: review.photo_references ?? [],
+      tags: review.tags,
+      confidence_level: review.confidence_level,
+      visibility_status: review.visibility_status,
+      moderation_status: review.moderation_status,
+      reviewed_by: review.reviewed_by ?? null,
+      reviewed_at: review.reviewed_at ?? null,
+      metadata: review.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  for (const feedback of internalReviewsFeedback.quick_feedback) {
+    const target = await resolveReviewTargets(feedback);
+    const entityId =
+      feedback.entity_type === "country"
+        ? target.countryId
+        : feedback.entity_type === "city"
+          ? target.cityId
+          : feedback.entity_type === "neighborhood"
+            ? target.neighborhoodId
+            : feedback.entity_type === "local_app_service"
+              ? target.localAppId
+              : target.placeId;
+
+    const { error } = await supabase.from("internal_quick_feedback").insert({
+      reviewer_user_id: feedback.reviewer_user_id ?? null,
+      reviewer_display_name: feedback.reviewer_display_name ?? null,
+      entity_type: feedback.entity_type,
+      entity_id: entityId,
+      entity_reference: feedback.entity_reference ?? null,
+      country_id: target.countryId,
+      city_id: target.cityId,
+      neighborhood_id: target.neighborhoodId,
+      place_id: target.placeId,
+      local_app_id: target.localAppId,
+      thumbs_direction: feedback.thumbs_direction ?? null,
+      saved: feedback.saved ?? false,
+      would_return: feedback.would_return ?? null,
+      overrated: feedback.overrated ?? false,
+      tourist_trap: feedback.tourist_trap ?? false,
+      worth_it: feedback.worth_it ?? false,
+      avoid: feedback.avoid ?? false,
+      cash_needed: feedback.cash_needed ?? false,
+      card_worked: feedback.card_worked ?? false,
+      felt_safe: feedback.felt_safe ?? null,
+      felt_unsafe: feedback.felt_unsafe ?? null,
+      english_friendly: feedback.english_friendly ?? null,
+      good_for_work: feedback.good_for_work ?? false,
+      good_for_families: feedback.good_for_families ?? false,
+      good_for_solo_travelers: feedback.good_for_solo_travelers ?? false,
+      tags: feedback.tags ?? [],
+      note: feedback.note ?? null,
+      visibility_status: feedback.visibility_status,
+      moderation_status: feedback.moderation_status,
+      reviewed_by: feedback.reviewed_by ?? null,
+      reviewed_at: feedback.reviewed_at ?? null,
+      metadata: feedback.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(
+    `Imported internal reviews: ${internalReviewsFeedback.reviews.length}; quick feedback: ${internalReviewsFeedback.quick_feedback.length}`,
+  );
 }
 
 main().catch((err) => {
