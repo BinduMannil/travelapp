@@ -530,6 +530,61 @@ type NeighborhoodSocialRealityPayload = {
   neighborhood_relationships: NeighborhoodRelationshipSeed[];
 };
 
+type FieldNoteSeed = {
+  country_slug: string;
+  city_slug?: string | null;
+  neighborhood_slug?: string | null;
+  place_slug?: string | null;
+  note_category:
+    | "price_observation"
+    | "payment_observation"
+    | "safety_observation"
+    | "scam_warning"
+    | "local_app_note"
+    | "transport_note"
+    | "legal_social_risk_note"
+    | "food_restaurant_note"
+    | "neighborhood_reality"
+    | "cultural_observation"
+    | "general_observation"
+    | "other";
+  short_note: string;
+  long_note?: string | null;
+  price_observation?: Record<string, unknown>;
+  payment_observation?: string | null;
+  safety_observation?: string | null;
+  scam_warning?: string | null;
+  local_app_note?: string | null;
+  transport_note?: string | null;
+  legal_social_risk_note?: string | null;
+  food_restaurant_note?: string | null;
+  photo_references?: Array<Record<string, unknown>>;
+  source_type:
+    | "personal_observation"
+    | "official_source"
+    | "local_advice"
+    | "receipt"
+    | "screenshot";
+  confidence_level: "low" | "medium" | "high";
+  review_status:
+    | "unreviewed"
+    | "needs_followup"
+    | "approved"
+    | "rejected"
+    | "promoted";
+  created_by?: string | null;
+  reviewed_by?: string | null;
+  observed_at?: string | null;
+  reviewed_at?: string | null;
+  source_label?: string | null;
+  source_url?: string | null;
+  metadata?: Record<string, unknown>;
+};
+
+type FieldNotesPayload = {
+  notes: FieldNoteSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -765,10 +820,7 @@ async function main() {
     return resolved;
   }
 
-  async function resolveCityId(countrySlug: string, citySlug: string) {
-    const cached = cityIds.get(`${countrySlug}:${citySlug}`);
-    if (cached) return cached;
-
+  async function resolveCountryId(countrySlug: string) {
     const { data: ownerCountry, error: countryLookupErr } = await supabase
       .from("countries")
       .select("id")
@@ -776,13 +828,21 @@ async function main() {
       .single<RowId>();
     if (countryLookupErr) throw countryLookupErr;
     if (!ownerCountry) {
-      throw new Error(`Country not found for city lookup: ${countrySlug}`);
+      throw new Error(`Country not found for lookup: ${countrySlug}`);
     }
+    return ownerCountry.id;
+  }
+
+  async function resolveCityId(countrySlug: string, citySlug: string) {
+    const cached = cityIds.get(`${countrySlug}:${citySlug}`);
+    if (cached) return cached;
+
+    const countryId = await resolveCountryId(countrySlug);
 
     const { data: ownerCity, error: cityLookupErr } = await supabase
       .from("cities")
       .select("id")
-      .eq("country_id", ownerCountry.id)
+      .eq("country_id", countryId)
       .eq("slug", citySlug)
       .single<RowId>();
     if (cityLookupErr) throw cityLookupErr;
@@ -813,6 +873,27 @@ async function main() {
       );
     }
     return { cityId: resolvedCityId, neighborhoodId: data.id };
+  }
+
+  async function resolvePlaceId(input: {
+    country_slug: string;
+    city_slug: string;
+    place_slug: string;
+  }) {
+    const resolvedCityId = await resolveCityId(input.country_slug, input.city_slug);
+    const { data, error } = await supabase
+      .from("places")
+      .select("id")
+      .eq("city_id", resolvedCityId)
+      .eq("slug", input.place_slug)
+      .single<RowId>();
+    if (error) throw error;
+    if (!data) {
+      throw new Error(
+        `Place not found: ${input.country_slug}/${input.city_slug}/${input.place_slug}`,
+      );
+    }
+    return { cityId: resolvedCityId, placeId: data.id };
   }
 
   // --- Neighborhoods -----------------------------------------------------
@@ -1651,6 +1732,82 @@ async function main() {
   console.log(
     `Upserted neighborhood intelligence: ${neighborhoodIntelligence.length}; social notes: ${socialRealityNotes.length}; relationships: ${neighborhoodRelationships.length}`,
   );
+
+  // --- Internal field notes ---------------------------------------------
+  const fieldNotes = await readJson<FieldNotesPayload>(
+    resolve(root, "internal/field_notes.json"),
+  );
+
+  for (const note of fieldNotes.notes) {
+    const countryId = await resolveCountryId(note.country_slug);
+    let noteCityId: string | null = null;
+    let noteNeighborhoodId: string | null = null;
+    let notePlaceId: string | null = null;
+
+    if (note.city_slug) {
+      noteCityId = await resolveCityId(note.country_slug, note.city_slug);
+    }
+
+    if (note.neighborhood_slug) {
+      if (!note.city_slug) {
+        throw new Error(
+          `Missing city_slug for field note neighborhood: ${note.neighborhood_slug}`,
+        );
+      }
+      const resolvedNeighborhood = await resolveNeighborhoodId({
+        country_slug: note.country_slug,
+        city_slug: note.city_slug,
+        neighborhood_slug: note.neighborhood_slug,
+      });
+      noteCityId = resolvedNeighborhood.cityId;
+      noteNeighborhoodId = resolvedNeighborhood.neighborhoodId;
+    }
+
+    if (note.place_slug) {
+      if (!note.city_slug) {
+        throw new Error(`Missing city_slug for field note place: ${note.place_slug}`);
+      }
+      const resolvedPlace = await resolvePlaceId({
+        country_slug: note.country_slug,
+        city_slug: note.city_slug,
+        place_slug: note.place_slug,
+      });
+      noteCityId = resolvedPlace.cityId;
+      notePlaceId = resolvedPlace.placeId;
+    }
+
+    const { error } = await supabase.from("field_notes").insert({
+      country_id: countryId,
+      city_id: noteCityId,
+      neighborhood_id: noteNeighborhoodId,
+      place_id: notePlaceId,
+      note_category: note.note_category,
+      short_note: note.short_note,
+      long_note: note.long_note ?? null,
+      price_observation: note.price_observation ?? {},
+      payment_observation: note.payment_observation ?? null,
+      safety_observation: note.safety_observation ?? null,
+      scam_warning: note.scam_warning ?? null,
+      local_app_note: note.local_app_note ?? null,
+      transport_note: note.transport_note ?? null,
+      legal_social_risk_note: note.legal_social_risk_note ?? null,
+      food_restaurant_note: note.food_restaurant_note ?? null,
+      photo_references: note.photo_references ?? [],
+      source_type: note.source_type,
+      confidence_level: note.confidence_level,
+      review_status: note.review_status,
+      created_by: note.created_by ?? null,
+      reviewed_by: note.reviewed_by ?? null,
+      observed_at: note.observed_at ?? null,
+      reviewed_at: note.reviewed_at ?? null,
+      source_label: note.source_label ?? null,
+      source_url: note.source_url ?? null,
+      metadata: note.metadata ?? {},
+    });
+    if (error) throw error;
+  }
+
+  console.log(`Imported internal field notes: ${fieldNotes.notes.length}`);
 }
 
 main().catch((err) => {
