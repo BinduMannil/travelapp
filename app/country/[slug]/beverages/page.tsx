@@ -1,8 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getCountry, getCountryBeverages } from "@/lib/data/seed";
-import { PageHero } from "@/components/layout/PageHero";
+import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { BeverageCard } from "@/components/beverages/BeverageCard";
+import { getDestinationIdentity } from "@/lib/destination/identity";
 
 const CATEGORY_LABEL: Record<string, string> = {
   tea: "Tea",
@@ -11,6 +14,17 @@ const CATEGORY_LABEL: Record<string, string> = {
 };
 
 const CATEGORY_ORDER = ["alcohol", "tea", "coffee"] as const;
+
+const DRINK_IMAGES = {
+  hero:
+    "https://images.unsplash.com/photo-1515823662972-da6a2e4d3002?auto=format&fit=crop&w=2400&q=85",
+  tea:
+    "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=1800&q=84",
+  bar:
+    "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1800&q=84",
+  coffee:
+    "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1800&q=84",
+};
 
 export function generateMetadata(): Metadata {
   return {
@@ -30,109 +44,145 @@ export default async function BeveragesPage({
   const data = getCountryBeverages(slug);
   if (!country || !data) notFound();
 
+  const identity = getDestinationIdentity(slug);
   const grouped = new Map<string, typeof data.drinks>();
-  for (const d of data.drinks) {
-    const list = grouped.get(d.category) ?? [];
-    list.push(d);
-    grouped.set(d.category, list);
+  for (const drink of data.drinks) {
+    const list = grouped.get(drink.category) ?? [];
+    list.push(drink);
+    grouped.set(drink.category, list);
   }
 
   return (
-    <main>
-      <PageHero
-        crumbs={[
-          { label: "Home", href: "/" },
-          { label: country.name, href: `/country/${slug}` },
-          { label: "Tea, coffee & alcohol" },
-        ]}
-        kanji="酒"
-        eyebrow="Tea, coffee & alcohol"
-        title="What people drink here"
-        subtitle="飲 物"
-        lede={data.summary}
-        palette="kintsugi"
-      />
+    <main className="editorial-page">
+      <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-sumi-900">
+        <img
+          src={DRINK_IMAGES.hero}
+          alt={`${country.name} bar and drink atmosphere`}
+          className="image-drift absolute inset-0 -z-20 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,7,6,.96),rgba(8,7,6,.62)_48%,rgba(8,7,6,.18)),linear-gradient(0deg,rgba(8,7,6,.9),transparent_52%)]" />
+        <div className="absolute inset-0 -z-10 opacity-70" style={{ backgroundImage: identity.texture }} />
+        <AmbientDestinationMotion identity={identity} />
+        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-12 px-6 pb-20 pt-24 lg:grid-cols-[1fr_.92fr] lg:items-end">
+          <div>
+            <nav className="luxury-kicker text-white/56">
+              <Link href="/" className="hover:text-kintsugi-300">
+                Home
+              </Link>{" "}
+              ·{" "}
+              <Link href={`/country/${slug}`} className="hover:text-kintsugi-300">
+                {country.name}
+              </Link>{" "}
+              · Tea, coffee & alcohol
+            </nav>
+            <p className="luxury-kicker mt-8 text-kintsugi-300">Drink culture</p>
+            <h1 className="luxury-display mt-4 text-[clamp(4rem,11vw,10rem)] font-semibold text-white">
+              What Japan pours
+            </h1>
+            <p className="luxury-lede mt-8 max-w-2xl text-white/82">{data.summary}</p>
+          </div>
 
-      <div className="mx-auto max-w-4xl px-6 py-12">
-        {/* Tea-or-coffee verdict card */}
-        <section className="overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm">
-          <div className="grid items-stretch sm:grid-cols-[140px_1fr]">
-            <div
-              className={`flex items-center justify-center bg-gradient-to-br p-6 font-display text-5xl text-white ${
-                data.tea_or_coffee.verdict === "tea"
-                  ? "from-matcha-500 via-matcha-700 to-aizome-900"
+          <aside className="scene-glass rounded-[1.35rem] p-6 sm:p-8">
+            <p className="luxury-kicker text-kintsugi-300">Tea or coffee?</p>
+            <div className="mt-5 flex items-end gap-5">
+              <div className="font-display text-[clamp(5rem,13vw,8rem)] font-semibold leading-none text-white">
+                {data.tea_or_coffee.verdict === "tea"
+                  ? "茶"
                   : data.tea_or_coffee.verdict === "coffee"
-                    ? "from-sumi-700 via-sumi-900 to-black"
-                    : "from-kintsugi-300 via-kintsugi-500 to-enji-700"
-              }`}
-            >
-              {data.tea_or_coffee.verdict === "tea"
-                ? "茶"
-                : data.tea_or_coffee.verdict === "coffee"
-                  ? "珈"
-                  : "両"}
-            </div>
-            <div className="p-5 sm:p-6">
-              <div className="text-[11px] uppercase tracking-[0.25em] text-sumi-700">
-                Tea or coffee?
+                    ? "珈"
+                    : "両"}
               </div>
-              <h2 className="mt-1 font-display text-xl font-semibold text-sumi-900">
+              <h2 className="pb-3 font-display text-3xl font-semibold leading-tight text-white">
                 {data.tea_or_coffee.headline}
               </h2>
-              <p className="mt-3 text-sumi-800">{data.tea_or_coffee.body}</p>
-
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                <Note label="Tea culture" tint="matcha">
-                  {data.tea_or_coffee.tea_culture_notes}
-                </Note>
-                <Note label="Coffee culture" tint="sumi">
-                  {data.tea_or_coffee.coffee_culture_notes}
-                </Note>
-              </div>
             </div>
-          </div>
-        </section>
+            <p className="mt-6 text-sm leading-7 text-white/70">{data.tea_or_coffee.body}</p>
+          </aside>
+        </div>
+      </section>
 
-        <p className="mt-8 text-[11px] uppercase tracking-[0.25em] text-sumi-700">
-          Tap any drink for how to order it and where locals go.
-        </p>
-
-        {CATEGORY_ORDER.filter((c) => grouped.has(c)).map((cat) => (
-          <section key={cat} id={`cat-${cat}`} className="mt-6">
-            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-              {CATEGORY_LABEL[cat]}
+      <section className="journee-scene relative overflow-hidden py-32 sm:py-44">
+        <img
+          src={DRINK_IMAGES.tea}
+          alt=""
+          className="absolute right-0 top-16 h-[34rem] w-[54vw] object-cover opacity-20"
+          loading="lazy"
+        />
+        <div className="relative mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
+          <div>
+            <p className="luxury-kicker text-kintsugi-300">Cultural default</p>
+            <h2 className="luxury-display mt-4 text-[clamp(2.8rem,6vw,6rem)] font-semibold text-white">
+              Green tea is hospitality, not just a drink.
             </h2>
-            <div className="mt-3 space-y-3">
-              {(grouped.get(cat) ?? []).map((d) => (
-                <BeverageCard key={d.slug} drink={d} />
-              ))}
-            </div>
-          </section>
-        ))}
-      </div>
+            <p className="mt-7 max-w-lg text-base leading-8 text-white/68">
+              Tea sits inside meals, ceremony and convenience-store routine. Coffee is serious too, but it is layered on top of a tea country.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            <DrinkCultureNote label="Tea culture">
+              {data.tea_or_coffee.tea_culture_notes}
+            </DrinkCultureNote>
+            <DrinkCultureNote label="Coffee culture">
+              {data.tea_or_coffee.coffee_culture_notes}
+            </DrinkCultureNote>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#11100e] py-32 sm:py-44">
+        <div
+          className="absolute inset-0 opacity-18"
+          style={{
+            backgroundImage: `url(${DRINK_IMAGES.bar})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,16,14,.96),rgba(17,16,14,.86),rgba(17,16,14,.98))]" />
+        <div className="relative mx-auto max-w-7xl space-y-28 px-6">
+          {CATEGORY_ORDER.filter((category) => grouped.has(category)).map((category, categoryIndex) => (
+            <section key={category} id={`cat-${category}`} className="scroll-mt-24">
+              <div className={`grid gap-14 lg:grid-cols-[.78fr_1.22fr] ${categoryIndex % 2 === 1 ? "lg:grid-cols-[1.18fr_.82fr]" : ""}`}>
+                <div className={categoryIndex % 2 === 1 ? "lg:order-2" : ""}>
+                  <p className="luxury-kicker text-kintsugi-300">{CATEGORY_LABEL[category]}</p>
+                  <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5vw,5.4rem)] font-semibold text-white">
+                    {category === "alcohol"
+                      ? "Bars, izakaya and the first pour."
+                      : category === "tea"
+                        ? "Ceremony, bottles and quiet meals."
+                        : "Kissaten, pour-over and city mornings."}
+                  </h2>
+                  <p className="mt-7 max-w-lg text-base leading-8 text-white/68">
+                    Tap any drink for how to order it and where locals go. The list stays useful, but the pacing follows the room.
+                  </p>
+                </div>
+                <div className="grid gap-8">
+                  {(grouped.get(category) ?? []).map((drink, index) => (
+                    <div key={drink.slug} className={index % 2 === 1 ? "lg:ml-16" : ""}>
+                      <BeverageCard drink={drink} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
 
-function Note({
+function DrinkCultureNote({
   label,
-  tint,
   children,
 }: {
   label: string;
-  tint: "matcha" | "sumi";
   children: React.ReactNode;
 }) {
-  const tintClass =
-    tint === "matcha"
-      ? "border-matcha-400/40 bg-matcha-100/60"
-      : "border-sumi-100 bg-washi-100";
   return (
-    <div className={`rounded-lg border p-3 ${tintClass}`}>
-      <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
-        {label}
-      </div>
-      <p className="mt-1 text-sumi-900">{children}</p>
-    </div>
+    <article className="scene-glass min-h-80 rounded-[1.35rem] p-6 sm:p-8">
+      <p className="luxury-kicker text-kintsugi-300">{label}</p>
+      <p className="mt-6 text-base leading-8 text-white/72">{children}</p>
+    </article>
   );
 }

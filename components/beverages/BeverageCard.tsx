@@ -27,15 +27,15 @@ export function BeverageCard({ drink }: { drink: Beverage }) {
   const stars = Math.max(1, Math.min(5, parseInt(drink.popularity, 10) || 3));
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-300 hover:shadow-lg">
+    <article className="group overflow-hidden rounded-[1.25rem] border border-white/14 bg-white/[0.06] shadow-editorial-deep backdrop-blur-xl transition hover:-translate-y-1 hover:border-kintsugi-300/60 hover:bg-white/[0.1]">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
-        className="flex w-full items-stretch gap-0 text-left"
+        className="grid w-full text-left sm:grid-cols-[14rem_1fr]"
       >
         <div
-          className={`relative w-28 shrink-0 overflow-hidden bg-gradient-to-br sm:w-36 ${gradient}`}
+          className={`relative min-h-64 overflow-hidden bg-gradient-to-br sm:min-h-full ${gradient}`}
         >
           {images.length > 0 && !allFailed ? (
             <ImageCarousel
@@ -49,39 +49,44 @@ export function BeverageCard({ drink }: { drink: Beverage }) {
               {drink.kanji}
             </div>
           )}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-          <div className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-xs text-white backdrop-blur-sm">
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.2)_40%,rgba(0,0,0,.84))]" />
+          <div className="absolute bottom-4 right-5 font-display text-7xl font-semibold leading-none text-white/26">
+            {drink.kanji}
+          </div>
+          <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/55 px-3 py-1 font-display text-sm text-white backdrop-blur-sm">
             {drink.kanji}
           </div>
         </div>
 
-        <div className="flex-1 p-4 sm:p-5">
+        <div className="flex min-h-64 flex-col justify-between p-5 sm:p-7">
+          <div>
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <div>
-              <h3 className="font-display text-lg font-semibold text-sumi-900">
+              <h3 className="font-display text-[clamp(1.65rem,4vw,2.55rem)] font-semibold leading-tight text-white">
                 {drink.name}{" "}
-                <span className="font-display text-sumi-700">
+                <span className="font-display text-white/50">
                   {drink.native_script}
                 </span>
               </h3>
-              <div className="text-[11px] uppercase tracking-[0.2em] text-sumi-700">
+              <div className="mt-2 text-[0.68rem] font-bold uppercase tracking-[0.26em] text-kintsugi-300/80">
                 <em>{drink.romaji}</em>
                 {drink.abv && <span> · {drink.abv} ABV</span>}
               </div>
             </div>
             <div
               aria-label={`Popularity ${stars} of 5`}
-              className="text-xs tabular-nums tracking-tight text-kintsugi-500"
+              className="text-xs tabular-nums tracking-tight text-kintsugi-300"
             >
               {"★".repeat(stars)}
-              <span className="text-washi-300">{"★".repeat(5 - stars)}</span>
+              <span className="text-white/20">{"★".repeat(5 - stars)}</span>
             </div>
           </div>
 
-          <p className="mt-2 line-clamp-2 text-sumi-800">{drink.made_of}</p>
+          <p className="mt-4 line-clamp-3 text-sm leading-7 text-white/70">{drink.made_of}</p>
+          </div>
 
-          <div className="mt-3 text-[10px] uppercase tracking-[0.2em] text-enji-600">
-            {expanded ? "Tap to collapse ▴" : "Tap for how + where to try ▾"}
+          <div className="mt-8 text-[0.64rem] font-bold uppercase tracking-[0.26em] text-kintsugi-300">
+            {expanded ? "Collapse" : "How + where to try"} →
           </div>
         </div>
       </button>
@@ -92,7 +97,7 @@ export function BeverageCard({ drink }: { drink: Beverage }) {
         }`}
       >
         <div className="min-h-0 overflow-hidden">
-          <div className="border-t border-washi-200 px-4 py-4 sm:px-5">
+          <div className="border-t border-white/12 px-5 py-5 sm:px-7">
             <Row label="How to try it">{drink.how_to_try}</Row>
             <Row label="Where">{drink.where_to_try}</Row>
           </div>
@@ -111,10 +116,10 @@ function Row({
 }) {
   return (
     <div className="mt-2 first:mt-0">
-      <span className="mr-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+      <span className="mr-2 text-[0.64rem] font-bold uppercase tracking-[0.24em] text-kintsugi-300">
         {label}
       </span>
-      <span className="text-sumi-900">{children}</span>
+      <span className="text-sm leading-7 text-white/76">{children}</span>
     </div>
   );
 }

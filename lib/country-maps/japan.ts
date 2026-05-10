@@ -86,8 +86,7 @@ export type CityPin = {
   region: string;
   /** x, y in the viewBox. */
   pos: [number, number];
-  /** Only Tokyo has a full city page today; anchor the rest to the
-   *  same country page until we roll them out. */
+  /** Root city route. Cities without full content render a planned guide page. */
   href: string;
   published?: boolean;
 };
@@ -98,14 +97,14 @@ export const JAPAN_CITY_PINS: CityPin[] = [
     name: "Sapporo",
     region: "Hokkaidō",
     pos: [292, 96],
-    href: "/country/japan",
+    href: "/city/sapporo",
   },
   {
     slug: "sendai",
     name: "Sendai",
     region: "Tōhoku",
     pos: [238, 212],
-    href: "/country/japan",
+    href: "/city/sendai",
   },
   {
     slug: "tokyo",
@@ -120,42 +119,42 @@ export const JAPAN_CITY_PINS: CityPin[] = [
     name: "Yokohama",
     region: "Kantō",
     pos: [250, 284],
-    href: "/country/japan",
+    href: "/city/yokohama",
   },
   {
     slug: "nagoya",
     name: "Nagoya",
     region: "Chūbu",
     pos: [212, 308],
-    href: "/country/japan",
+    href: "/city/nagoya",
   },
   {
     slug: "kyoto",
     name: "Kyoto",
     region: "Kansai",
     pos: [182, 326],
-    href: "/country/japan",
+    href: "/city/kyoto",
   },
   {
     slug: "osaka",
     name: "Osaka",
     region: "Kansai",
     pos: [172, 338],
-    href: "/country/japan",
+    href: "/city/osaka",
   },
   {
     slug: "hiroshima",
     name: "Hiroshima",
     region: "Chūgoku",
     pos: [112, 398],
-    href: "/country/japan",
+    href: "/city/hiroshima",
   },
   {
     slug: "fukuoka",
     name: "Fukuoka",
     region: "Kyūshū",
     pos: [54, 505],
-    href: "/country/japan",
+    href: "/city/fukuoka",
   },
 ];
 
@@ -171,12 +170,12 @@ export const JAPAN_OFFSHORE: Array<{
     slug: "okinawa",
     name: "Okinawa (Naha)",
     note: "1,550 km SW of Tokyo",
-    href: "/country/japan",
+    href: "/city/okinawa",
   },
   {
     slug: "hakodate",
     name: "Hakodate",
     note: "Southern Hokkaidō",
-    href: "/country/japan",
+    href: "/city/hakodate",
   },
 ];

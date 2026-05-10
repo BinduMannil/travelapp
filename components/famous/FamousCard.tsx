@@ -29,15 +29,15 @@ export function FamousCard({ item }: { item: FamousItem }) {
       : [];
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-300 hover:shadow-lg">
+    <article className="group overflow-hidden rounded-[1.25rem] border border-white/14 bg-white/[0.06] shadow-editorial-deep backdrop-blur-xl transition hover:-translate-y-1 hover:border-kintsugi-300/60 hover:bg-white/[0.1]">
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
-        className="flex w-full items-stretch gap-0 text-left"
+        className="grid w-full text-left sm:grid-cols-[15rem_1fr]"
       >
         <div
-          className={`relative w-24 shrink-0 overflow-hidden bg-gradient-to-br sm:w-32 ${gradient}`}
+          className={`relative min-h-64 overflow-hidden bg-gradient-to-br sm:min-h-full ${gradient}`}
         >
           {images.length > 0 && !allFailed ? (
             <ImageCarousel
@@ -51,19 +51,24 @@ export function FamousCard({ item }: { item: FamousItem }) {
               {kanji}
             </div>
           )}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
-          <div className="absolute left-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-xs text-white backdrop-blur-sm">
+          <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.18)_38%,rgba(0,0,0,.82))]" />
+          <div className="absolute bottom-4 right-5 font-display text-7xl font-semibold leading-none text-white/26">
+            {kanji}
+          </div>
+          <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/55 px-3 py-1 font-display text-sm text-white backdrop-blur-sm">
             {kanji}
           </div>
         </div>
 
-        <div className="flex-1 p-4">
-          <h3 className="font-display text-base font-semibold text-sumi-900">
+        <div className="flex min-h-64 flex-col justify-between p-5 sm:p-7">
+          <div>
+          <h3 className="font-display text-[clamp(1.65rem,4vw,2.55rem)] font-semibold leading-tight text-white">
             {item.name}
           </h3>
-          <p className="mt-1 line-clamp-2 text-sumi-800">{item.why}</p>
-          <div className="mt-2 text-[10px] uppercase tracking-[0.2em] text-enji-600">
-            {expanded ? "Tap to collapse ▴" : "Tap for where to find it ▾"}
+          <p className="mt-4 line-clamp-3 text-sm leading-7 text-white/70">{item.why}</p>
+          </div>
+          <div className="mt-8 text-[0.64rem] font-bold uppercase tracking-[0.26em] text-kintsugi-300">
+            {expanded ? "Collapse" : "Where to find it"} →
           </div>
         </div>
       </button>
@@ -74,11 +79,11 @@ export function FamousCard({ item }: { item: FamousItem }) {
         }`}
       >
         <div className="min-h-0 overflow-hidden">
-          <div className="border-t border-washi-200 px-4 py-3">
-            <p className="text-sumi-900">{item.why}</p>
+          <div className="border-t border-white/12 px-5 py-5 sm:px-7">
+            <p className="text-sm leading-7 text-white/78">{item.why}</p>
             {item.where_to_buy && (
-              <p className="mt-3 text-sumi-800">
-                <span className="mr-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+              <p className="mt-4 text-sm leading-7 text-white/72">
+                <span className="mr-2 text-[0.64rem] font-bold uppercase tracking-[0.24em] text-kintsugi-300">
                   Where
                 </span>
                 {item.where_to_buy}

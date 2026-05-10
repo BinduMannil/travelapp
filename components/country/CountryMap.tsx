@@ -20,6 +20,15 @@ const REGION_FILL: Record<string, string> = {
   sumi: "fill-sumi-700/30",
 };
 
+const JAPAN_STATS = [
+  { label: "Population", value: "124M" },
+  { label: "Area", value: "377,975 km²" },
+  { label: "Islands", value: "14,000+" },
+  { label: "Currency", value: "JPY" },
+  { label: "Time zone", value: "UTC+9" },
+  { label: "Major cities", value: `${JAPAN_CITY_PINS.length + JAPAN_OFFSHORE.length}` },
+];
+
 /**
  * Editorial interactive country map (Japan today — drop in other
  * countries by adding a data file under `lib/country-maps/`). Clickable
@@ -31,8 +40,8 @@ const REGION_FILL: Record<string, string> = {
  *  - Hover a pin → the label expands and the region tint deepens.
  *  - Tap a region label or offshore card → scrolls to that pin (via
  *    focus state) so keyboard users still get feedback.
- *  - Published pins are enji-coloured; unpublished are washi with a
- *    dotted ring to signal "coming soon" without silently failing.
+ *  - Published pins are enji-coloured; planned guides are washi with a
+ *    dotted ring, but still link to their city landing page.
  */
 export function CountryMap({
   countryName = "Japan",
@@ -57,6 +66,22 @@ export function CountryMap({
             {countryName} is something we have written at depth. Tap any
             city on the map to jump straight into the on-the-ground guide.
           </p>
+
+          <div className="mt-8 grid max-w-md grid-cols-2 gap-3 sm:grid-cols-3">
+            {JAPAN_STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="border-l border-washi-300 bg-white/70 px-3 py-3"
+              >
+                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sumi-600">
+                  {stat.label}
+                </div>
+                <div className="mt-1 font-display text-xl font-semibold text-sumi-950">
+                  {stat.value}
+                </div>
+              </div>
+            ))}
+          </div>
 
           <ul className="mt-8 space-y-2 text-xs">
             {JAPAN_REGIONS.map((r) => (
@@ -157,9 +182,10 @@ export function CountryMap({
           {/* Offshore annotations */}
           <div className="mt-6 grid gap-2 sm:grid-cols-2">
             {JAPAN_OFFSHORE.map((o) => (
-              <div
+              <Link
                 key={o.slug}
-                className="rounded-xl border border-dashed border-washi-300 bg-white p-3"
+                href={o.href}
+                className="rounded-xl border border-dashed border-washi-300 bg-white p-3 transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-md"
               >
                 <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
                   {o.note}
@@ -170,7 +196,7 @@ export function CountryMap({
                 <div className="mt-1 text-[10px] italic text-sumi-600">
                   City guide rolls out in the next content pass.
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -259,14 +285,10 @@ function MapPin({
           100% { transform: scale(2.4); opacity: 0; }
         }
       `}</style>
-      {isPublished ? (
-        <Link href={city.href} aria-label={`Open ${city.name} guide`}>
-          {dot}
-        </Link>
-      ) : (
-        <title>{`${city.name} · coming soon`}</title>
-      )}
-      {!isPublished && dot}
+      <Link href={city.href} aria-label={`Open ${city.name} guide`}>
+        {dot}
+      </Link>
+      {!isPublished ? <title>{`${city.name} · guide planned`}</title> : null}
     </g>
   );
 }
