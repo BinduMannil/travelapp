@@ -606,7 +606,11 @@ type InternalReviewLifecycle =
   | "rejected"
   | "archived";
 
-type InternalVisibilityStatus = "private" | "internal" | "approved" | "rejected";
+type InternalVisibilityStatus =
+  | "private"
+  | "internal"
+  | "approved"
+  | "rejected";
 
 type InternalReviewSeed = {
   reviewer_user_id?: string | null;
@@ -711,7 +715,11 @@ type PackingItemSeed = {
     | "documents"
     | "toiletries"
     | "other";
-  default_importance: "essential" | "recommended" | "situational" | "nice_to_have";
+  default_importance:
+    | "essential"
+    | "recommended"
+    | "situational"
+    | "nice_to_have";
   default_required: boolean;
   weight_grams?: number | null;
   pack_weight_priority: number;
@@ -844,6 +852,153 @@ type TravelAlertsPayload = {
   banners: TravelAlertBannerSeed[];
 };
 
+type AirportSeed = {
+  country_slug: string;
+  city_slug?: string | null;
+  iata_code: string;
+  icao_code?: string | null;
+  name: string;
+  city_served?: string | null;
+  timezone?: string | null;
+  lat?: number | null;
+  lon?: number | null;
+  official_url?: string | null;
+  profile_summary?: string | null;
+  arrivals_summary?: string | null;
+  departures_summary?: string | null;
+  terminal_map_url?: string | null;
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  metadata?: Record<string, unknown>;
+};
+
+type AirportTerminalSeed = {
+  airport_iata_code: string;
+  terminal_key: string;
+  name: string;
+  terminal_type: "domestic" | "international" | "mixed" | "cargo" | "other";
+  arrivals_available: boolean;
+  departures_available: boolean;
+  terminal_map_url?: string | null;
+  sim_esim_locations: string[];
+  atm_locations: string[];
+  exchange_counters: string[];
+  lounges: string[];
+  sleep_rest_areas: string[];
+  prayer_rooms: string[];
+  family_facilities: string[];
+  accessibility_support: string[];
+  traveler_notes: string[];
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type AirportOperationsSeed = {
+  airport_iata_code: string;
+  terminal_key?: string | null;
+  intelligence_key: string;
+  immigration_strictness: "low" | "moderate" | "high" | "very_high" | "varies";
+  immigration_wait_min_minutes?: number | null;
+  immigration_wait_max_minutes?: number | null;
+  egate_available?: boolean | null;
+  fast_track_available?: boolean | null;
+  hotel_booking_checks: "rare" | "sometimes" | "common" | "strict" | "unknown";
+  onward_ticket_checks: "rare" | "sometimes" | "common" | "strict" | "unknown";
+  proof_of_funds_checks: "rare" | "sometimes" | "common" | "strict" | "unknown";
+  english_support_level: "low" | "moderate" | "good" | "high" | "varies";
+  common_traveler_issues: string[];
+  customs_strictness: "low" | "moderate" | "high" | "very_high" | "varies";
+  baggage_wait_min_minutes?: number | null;
+  baggage_wait_max_minutes?: number | null;
+  luggage_belts_count?: number | null;
+  congestion_notes: string[];
+  customs_routing?: string | null;
+  late_night_operations?: string | null;
+  airport_closure_patterns?: string | null;
+  peak_crowd_times: string[];
+  operational_metrics?: Record<string, unknown>;
+  queue_estimates?: Record<string, unknown>;
+  traveler_notes: string[];
+  traveler_type_support?: Record<string, unknown>;
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type AirportTransportNodeSeed = {
+  airport_iata_code: string;
+  terminal_key?: string | null;
+  node_key: string;
+  node_type:
+    | "official_taxi"
+    | "ride_hailing"
+    | "metro_train"
+    | "shuttle_bus"
+    | "public_bus"
+    | "ferry"
+    | "scooter_rental"
+    | "walking_route"
+    | "car_rental"
+    | "other";
+  name: string;
+  pickup_location?: string | null;
+  walking_instructions?: string | null;
+  operating_hours?: string | null;
+  late_night_reliability: "low" | "moderate" | "good" | "high" | "unknown";
+  payment_notes?: string | null;
+  official: boolean;
+  traveler_notes: string[];
+  risk_notes: string[];
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type AirportRiskNoteSeed = {
+  airport_iata_code: string;
+  terminal_key?: string | null;
+  risk_key: string;
+  risk_category:
+    | "fake_taxi"
+    | "sim_kiosk_overpricing"
+    | "baggage_scam"
+    | "unofficial_transport"
+    | "currency_exchange_trap"
+    | "late_night_arrival"
+    | "crowding"
+    | "other";
+  risk_level: "low" | "moderate" | "high" | "critical";
+  traveler_summary: string;
+  what_to_do: string[];
+  avoid: string[];
+  source_label?: string | null;
+  source_url?: string | null;
+  reviewed_at?: string | null;
+  confidence_level: "low" | "medium" | "high";
+  display_order: number;
+  metadata?: Record<string, unknown>;
+};
+
+type AirportOperationsPayload = {
+  airports: AirportSeed[];
+  terminals: AirportTerminalSeed[];
+  operations: AirportOperationsSeed[];
+  transport_nodes: AirportTransportNodeSeed[];
+  risk_notes: AirportRiskNoteSeed[];
+};
+
 type RowId = { id: string };
 
 function slugify(value: string): string {
@@ -900,9 +1055,9 @@ async function replacePlaceTags(
   const tagIds = await Promise.all(
     unique.map((tag) => upsertPlaceTag(supabase, tag.slug, tag.tagKind)),
   );
-  const { error } = await supabase.from("place_tag_map").insert(
-    tagIds.map((tagId) => ({ place_id: placeId, tag_id: tagId })),
-  );
+  const { error } = await supabase
+    .from("place_tag_map")
+    .insert(tagIds.map((tagId) => ({ place_id: placeId, tag_id: tagId })));
   if (error) throw error;
 }
 
@@ -942,7 +1097,9 @@ async function main() {
   const cityIds = new Map<string, string>();
 
   // --- Countries ---------------------------------------------------------
-  const japan = await readJson<CountrySeed>(resolve(root, "japan/country.json"));
+  const japan = await readJson<CountrySeed>(
+    resolve(root, "japan/country.json"),
+  );
   const { data: countryRow, error: countryErr } = await supabase
     .from("countries")
     .upsert(japan, { onConflict: "slug" })
@@ -999,21 +1156,24 @@ async function main() {
     resolve(root, "vietnam/cities.json"),
   );
   for (const vietnamCity of vietnamCities) {
-    const { country_slug: vietnamCountrySlug, ...vietnamCityFields } = vietnamCity;
+    const { country_slug: vietnamCountrySlug, ...vietnamCityFields } =
+      vietnamCity;
     if (vietnamCountrySlug !== vietnamCountryRow.slug) {
       throw new Error(`Unexpected Vietnam city country: ${vietnamCountrySlug}`);
     }
     const { data: upsertedVietnamCity, error } = await supabase
       .from("cities")
       .upsert(
-      { ...vietnamCityFields, country_id: vietnamCountryRow.id },
-      { onConflict: "country_id,slug" },
+        { ...vietnamCityFields, country_id: vietnamCountryRow.id },
+        { onConflict: "country_id,slug" },
       )
       .select("id, slug")
       .single<RowId & { slug: string }>();
     if (error) throw error;
     if (!upsertedVietnamCity) {
-      throw new Error(`Vietnam city upsert returned no row: ${vietnamCity.slug}`);
+      throw new Error(
+        `Vietnam city upsert returned no row: ${vietnamCity.slug}`,
+      );
     }
     cityIds.set(
       `${vietnamCountrySlug}:${upsertedVietnamCity.slug}`,
@@ -1060,11 +1220,18 @@ async function main() {
 
   async function deleteOwnerRows(
     table: string,
-    owner: { owner_kind: OwnerKind; country_slug: string; city_slug?: string | null },
+    owner: {
+      owner_kind: OwnerKind;
+      country_slug: string;
+      city_slug?: string | null;
+    },
     extra: Record<string, string>,
   ) {
     const resolved = await resolveOwner(owner);
-    let query = supabase.from(table).delete().eq("owner_kind", owner.owner_kind);
+    let query = supabase
+      .from(table)
+      .delete()
+      .eq("owner_kind", owner.owner_kind);
     query = resolved.countryId
       ? query.eq("country_id", resolved.countryId)
       : query.is("country_id", null);
@@ -1118,7 +1285,10 @@ async function main() {
     city_slug: string;
     neighborhood_slug: string;
   }) {
-    const resolvedCityId = await resolveCityId(input.country_slug, input.city_slug);
+    const resolvedCityId = await resolveCityId(
+      input.country_slug,
+      input.city_slug,
+    );
     const { data, error } = await supabase
       .from("neighborhoods")
       .select("id")
@@ -1139,7 +1309,10 @@ async function main() {
     city_slug: string;
     place_slug: string;
   }) {
-    const resolvedCityId = await resolveCityId(input.country_slug, input.city_slug);
+    const resolvedCityId = await resolveCityId(
+      input.country_slug,
+      input.city_slug,
+    );
     const { data, error } = await supabase
       .from("places")
       .select("id")
@@ -1167,7 +1340,10 @@ async function main() {
       .eq("slug", input.local_app_slug);
 
     if (input.city_slug) {
-      const appCityId = await resolveCityId(input.country_slug, input.city_slug);
+      const appCityId = await resolveCityId(
+        input.country_slug,
+        input.city_slug,
+      );
       query = query.eq("owner_kind", "city").eq("city_id", appCityId);
     } else {
       query = query.eq("owner_kind", "country").eq("country_id", countryId);
@@ -1215,7 +1391,9 @@ async function main() {
     }
     if (input.place_slug) {
       if (!input.city_slug) {
-        throw new Error(`Missing city_slug for review place: ${input.place_slug}`);
+        throw new Error(
+          `Missing city_slug for review place: ${input.place_slug}`,
+        );
       }
       const resolvedPlace = await resolvePlaceId({
         country_slug: input.country_slug,
@@ -1281,7 +1459,9 @@ async function main() {
 
   for (const neighborhood of vietnamNeighborhoods) {
     if (!neighborhood.country_slug || !neighborhood.city_slug) {
-      throw new Error(`Missing Vietnam neighborhood owner: ${neighborhood.slug}`);
+      throw new Error(
+        `Missing Vietnam neighborhood owner: ${neighborhood.slug}`,
+      );
     }
     const vietnamNeighborhoodCityId = await resolveCityId(
       neighborhood.country_slug,
@@ -1555,7 +1735,9 @@ async function main() {
     ),
   ]);
   const destinationIdentity = {
-    profiles: destinationIdentityPayloads.flatMap((payload) => payload.profiles),
+    profiles: destinationIdentityPayloads.flatMap(
+      (payload) => payload.profiles,
+    ),
   };
 
   for (const profile of destinationIdentity.profiles) {
@@ -1587,7 +1769,9 @@ async function main() {
     if (error) throw error;
   }
 
-  console.log(`Upserted identity profiles: ${destinationIdentity.profiles.length}`);
+  console.log(
+    `Upserted identity profiles: ${destinationIdentity.profiles.length}`,
+  );
 
   // --- Travel activities taxonomy --------------------------------------
   const travelActivityPayloads = await Promise.all([
@@ -1697,7 +1881,9 @@ async function main() {
     if (error) throw error;
   }
 
-  console.log(`Upserted price benchmarks: ${priceBenchmarks.benchmarks.length}`);
+  console.log(
+    `Upserted price benchmarks: ${priceBenchmarks.benchmarks.length}`,
+  );
 
   // --- Local apps directory --------------------------------------------
   const localAppPayloads = await Promise.all([
@@ -1990,7 +2176,9 @@ async function main() {
     let noteNeighborhoodId: string | null = null;
     if (note.owner_kind === "neighborhood") {
       if (!note.neighborhood_slug) {
-        throw new Error(`Missing neighborhood_slug for social note: ${note.note_key}`);
+        throw new Error(
+          `Missing neighborhood_slug for social note: ${note.note_key}`,
+        );
       }
       noteNeighborhoodId = (
         await resolveNeighborhoodId({
@@ -2111,7 +2299,9 @@ async function main() {
 
     if (note.place_slug) {
       if (!note.city_slug) {
-        throw new Error(`Missing city_slug for field note place: ${note.place_slug}`);
+        throw new Error(
+          `Missing city_slug for field note place: ${note.place_slug}`,
+        );
       }
       const resolvedPlace = await resolvePlaceId({
         country_slug: note.country_slug,
@@ -2156,9 +2346,10 @@ async function main() {
   console.log(`Imported internal field notes: ${fieldNotes.notes.length}`);
 
   // --- Internal reviews and shared feedback -----------------------------
-  const internalReviewsFeedback = await readJson<InternalReviewsFeedbackPayload>(
-    resolve(root, "internal/reviews_feedback.json"),
-  );
+  const internalReviewsFeedback =
+    await readJson<InternalReviewsFeedbackPayload>(
+      resolve(root, "internal/reviews_feedback.json"),
+    );
 
   for (const review of internalReviewsFeedback.reviews) {
     const target = await resolveReviewTargets(review);
@@ -2347,7 +2538,8 @@ async function main() {
       owner_kind: rule.owner_kind,
       country_id: rule.owner_kind === "city" ? null : countryId,
       city_id: rule.owner_kind === "city" ? cityRuleId : null,
-      region_key: rule.owner_kind === "region" ? rule.region_key ?? null : null,
+      region_key:
+        rule.owner_kind === "region" ? (rule.region_key ?? null) : null,
       rule_key: rule.rule_key,
       item_id: itemRow.id,
       activity_tags: rule.activity_tags,
@@ -2398,7 +2590,9 @@ async function main() {
     }
     if (alert.city_slug) {
       if (!alert.country_slug) {
-        throw new Error(`Missing country_slug for alert city: ${alert.alert_key}`);
+        throw new Error(
+          `Missing country_slug for alert city: ${alert.alert_key}`,
+        );
       }
       alertCityId = await resolveCityId(alert.country_slug, alert.city_slug);
     }
@@ -2418,7 +2612,9 @@ async function main() {
     }
     if (alert.place_slug) {
       if (!alert.country_slug || !alert.city_slug) {
-        throw new Error(`Missing country/city slug for alert place: ${alert.alert_key}`);
+        throw new Error(
+          `Missing country/city slug for alert place: ${alert.alert_key}`,
+        );
       }
       const resolvedPlace = await resolvePlaceId({
         country_slug: alert.country_slug,
@@ -2496,7 +2692,9 @@ async function main() {
     }
     if (banner.city_slug) {
       if (!banner.country_slug) {
-        throw new Error(`Missing country_slug for banner city: ${banner.banner_key}`);
+        throw new Error(
+          `Missing country_slug for banner city: ${banner.banner_key}`,
+        );
       }
       bannerCityId = await resolveCityId(banner.country_slug, banner.city_slug);
     }
@@ -2542,6 +2740,214 @@ async function main() {
 
   console.log(
     `Upserted travel alerts: ${travelAlerts.alerts.length}; banners: ${travelAlerts.banners.length}`,
+  );
+
+  // --- Airport operations and arrival intelligence ----------------------
+  const airportOperations = await readJson<AirportOperationsPayload>(
+    resolve(root, "internal/airport_operations.json"),
+  );
+  const airportIds = new Map<string, string>();
+  const terminalIds = new Map<string, string>();
+
+  for (const airport of airportOperations.airports) {
+    const countryId = await resolveCountryId(airport.country_slug);
+    const airportCityId = airport.city_slug
+      ? await resolveCityId(airport.country_slug, airport.city_slug)
+      : null;
+    const { data, error } = await supabase
+      .from("airports")
+      .upsert(
+        {
+          country_id: countryId,
+          city_id: airportCityId,
+          iata_code: airport.iata_code,
+          icao_code: airport.icao_code ?? null,
+          name: airport.name,
+          city_served: airport.city_served ?? null,
+          timezone: airport.timezone ?? null,
+          lat: airport.lat ?? null,
+          lon: airport.lon ?? null,
+          official_url: airport.official_url ?? null,
+          profile_summary: airport.profile_summary ?? null,
+          arrivals_summary: airport.arrivals_summary ?? null,
+          departures_summary: airport.departures_summary ?? null,
+          terminal_map_url: airport.terminal_map_url ?? null,
+          source_label: airport.source_label ?? null,
+          source_url: airport.source_url ?? null,
+          reviewed_at: airport.reviewed_at ?? null,
+          confidence_level: airport.confidence_level,
+          metadata: airport.metadata ?? {},
+        },
+        { onConflict: "iata_code" },
+      )
+      .select("id, iata_code")
+      .single<RowId & { iata_code: string }>();
+    if (error) throw error;
+    if (!data)
+      throw new Error(`Airport upsert returned no row: ${airport.iata_code}`);
+    airportIds.set(data.iata_code, data.id);
+  }
+
+  for (const terminal of airportOperations.terminals) {
+    const airportId = airportIds.get(terminal.airport_iata_code);
+    if (!airportId) {
+      throw new Error(
+        `Airport not found for terminal: ${terminal.airport_iata_code}`,
+      );
+    }
+    const { data, error } = await supabase
+      .from("airport_terminals")
+      .upsert(
+        {
+          airport_id: airportId,
+          terminal_key: terminal.terminal_key,
+          name: terminal.name,
+          terminal_type: terminal.terminal_type,
+          arrivals_available: terminal.arrivals_available,
+          departures_available: terminal.departures_available,
+          terminal_map_url: terminal.terminal_map_url ?? null,
+          sim_esim_locations: terminal.sim_esim_locations,
+          atm_locations: terminal.atm_locations,
+          exchange_counters: terminal.exchange_counters,
+          lounges: terminal.lounges,
+          sleep_rest_areas: terminal.sleep_rest_areas,
+          prayer_rooms: terminal.prayer_rooms,
+          family_facilities: terminal.family_facilities,
+          accessibility_support: terminal.accessibility_support,
+          traveler_notes: terminal.traveler_notes,
+          source_label: terminal.source_label ?? null,
+          source_url: terminal.source_url ?? null,
+          reviewed_at: terminal.reviewed_at ?? null,
+          confidence_level: terminal.confidence_level,
+          display_order: terminal.display_order,
+          metadata: terminal.metadata ?? {},
+        },
+        { onConflict: "airport_id,terminal_key" },
+      )
+      .select("id")
+      .single<RowId>();
+    if (error) throw error;
+    if (!data) {
+      throw new Error(
+        `Terminal upsert returned no row: ${terminal.terminal_key}`,
+      );
+    }
+    terminalIds.set(
+      `${terminal.airport_iata_code}:${terminal.terminal_key}`,
+      data.id,
+    );
+  }
+
+  function terminalIdFor(airportIata: string, terminalKey?: string | null) {
+    if (!terminalKey) return null;
+    return terminalIds.get(`${airportIata}:${terminalKey}`) ?? null;
+  }
+
+  for (const op of airportOperations.operations) {
+    const airportId = airportIds.get(op.airport_iata_code);
+    if (!airportId)
+      throw new Error(`Airport not found for ops: ${op.airport_iata_code}`);
+    const { error } = await supabase
+      .from("airport_operations_intelligence")
+      .upsert(
+        {
+          airport_id: airportId,
+          terminal_id: terminalIdFor(op.airport_iata_code, op.terminal_key),
+          intelligence_key: op.intelligence_key,
+          immigration_strictness: op.immigration_strictness,
+          immigration_wait_min_minutes: op.immigration_wait_min_minutes ?? null,
+          immigration_wait_max_minutes: op.immigration_wait_max_minutes ?? null,
+          egate_available: op.egate_available ?? null,
+          fast_track_available: op.fast_track_available ?? null,
+          hotel_booking_checks: op.hotel_booking_checks,
+          onward_ticket_checks: op.onward_ticket_checks,
+          proof_of_funds_checks: op.proof_of_funds_checks,
+          english_support_level: op.english_support_level,
+          common_traveler_issues: op.common_traveler_issues,
+          customs_strictness: op.customs_strictness,
+          baggage_wait_min_minutes: op.baggage_wait_min_minutes ?? null,
+          baggage_wait_max_minutes: op.baggage_wait_max_minutes ?? null,
+          luggage_belts_count: op.luggage_belts_count ?? null,
+          congestion_notes: op.congestion_notes,
+          customs_routing: op.customs_routing ?? null,
+          late_night_operations: op.late_night_operations ?? null,
+          airport_closure_patterns: op.airport_closure_patterns ?? null,
+          peak_crowd_times: op.peak_crowd_times,
+          operational_metrics: op.operational_metrics ?? {},
+          queue_estimates: op.queue_estimates ?? {},
+          traveler_notes: op.traveler_notes,
+          traveler_type_support: op.traveler_type_support ?? {},
+          source_label: op.source_label ?? null,
+          source_url: op.source_url ?? null,
+          reviewed_at: op.reviewed_at ?? null,
+          confidence_level: op.confidence_level,
+          display_order: op.display_order,
+          metadata: op.metadata ?? {},
+        },
+        { onConflict: "airport_id,intelligence_key" },
+      );
+    if (error) throw error;
+  }
+
+  for (const node of airportOperations.transport_nodes) {
+    const airportId = airportIds.get(node.airport_iata_code);
+    if (!airportId)
+      throw new Error(`Airport not found for node: ${node.airport_iata_code}`);
+    const { error } = await supabase.from("airport_transport_nodes").upsert(
+      {
+        airport_id: airportId,
+        terminal_id: terminalIdFor(node.airport_iata_code, node.terminal_key),
+        node_key: node.node_key,
+        node_type: node.node_type,
+        name: node.name,
+        pickup_location: node.pickup_location ?? null,
+        walking_instructions: node.walking_instructions ?? null,
+        operating_hours: node.operating_hours ?? null,
+        late_night_reliability: node.late_night_reliability,
+        payment_notes: node.payment_notes ?? null,
+        official: node.official,
+        traveler_notes: node.traveler_notes,
+        risk_notes: node.risk_notes,
+        source_label: node.source_label ?? null,
+        source_url: node.source_url ?? null,
+        reviewed_at: node.reviewed_at ?? null,
+        confidence_level: node.confidence_level,
+        display_order: node.display_order,
+        metadata: node.metadata ?? {},
+      },
+      { onConflict: "airport_id,node_key" },
+    );
+    if (error) throw error;
+  }
+
+  for (const risk of airportOperations.risk_notes) {
+    const airportId = airportIds.get(risk.airport_iata_code);
+    if (!airportId)
+      throw new Error(`Airport not found for risk: ${risk.airport_iata_code}`);
+    const { error } = await supabase.from("airport_risk_notes").upsert(
+      {
+        airport_id: airportId,
+        terminal_id: terminalIdFor(risk.airport_iata_code, risk.terminal_key),
+        risk_key: risk.risk_key,
+        risk_category: risk.risk_category,
+        risk_level: risk.risk_level,
+        traveler_summary: risk.traveler_summary,
+        what_to_do: risk.what_to_do,
+        avoid: risk.avoid,
+        source_label: risk.source_label ?? null,
+        source_url: risk.source_url ?? null,
+        reviewed_at: risk.reviewed_at ?? null,
+        confidence_level: risk.confidence_level,
+        display_order: risk.display_order,
+        metadata: risk.metadata ?? {},
+      },
+      { onConflict: "airport_id,risk_key" },
+    );
+    if (error) throw error;
+  }
+
+  console.log(
+    `Upserted airports: ${airportOperations.airports.length}; terminals: ${airportOperations.terminals.length}; operations: ${airportOperations.operations.length}; transport nodes: ${airportOperations.transport_nodes.length}; risk notes: ${airportOperations.risk_notes.length}`,
   );
 }
 
