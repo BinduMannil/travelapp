@@ -49,42 +49,69 @@ const DECISION_LAYERS: Array<{
   body: string;
   signal: string;
   href: string;
+  image: string;
+  accent: string;
+  glyph: string;
 }> = [
   {
     title: "Budget",
     body: "See what a day actually costs before falling in love with the photo.",
     signal: "daily spend",
     href: "/city/tokyo/costs",
+    image:
+      "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=84",
+    accent: "from-kintsugi-300/32 via-transparent to-transparent",
+    glyph: "$",
   },
   {
     title: "Visa",
     body: "Start with what your passport can do, then discover places inside that freedom.",
     signal: "passport fit",
     href: "/city/tokyo/visa",
+    image:
+      "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=84",
+    accent: "from-aizome-400/28 via-transparent to-transparent",
+    glyph: "V",
   },
   {
     title: "Weather",
     body: "Match mood to season: beaches, snow, desert air, festival windows.",
     signal: "best month",
     href: "/city/tokyo/weather",
+    image:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=84",
+    accent: "from-ocean-400/28 via-transparent to-transparent",
+    glyph: "W",
   },
   {
     title: "Travel style",
     body: "Food, design, family, nightlife, wellness, culture, rail, outdoors.",
     signal: "trip shape",
     href: "/city/tokyo/itinerary",
+    image:
+      "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1200&q=84",
+    accent: "from-ume-400/24 via-transparent to-transparent",
+    glyph: "T",
   },
   {
     title: "Safety",
     body: "Know health, emergency, scams, medication, LGBTQ+ and accessibility context.",
     signal: "confidence",
     href: "/city/tokyo/health-safety",
+    image:
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=84",
+    accent: "from-matcha-400/24 via-transparent to-transparent",
+    glyph: "S",
   },
   {
     title: "Practical fit",
     body: "Transit, payments, connectivity, packing and arrival logistics in one place.",
     signal: "friction",
     href: "/city/tokyo/transit",
+    image:
+      "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=84",
+    accent: "from-sakura-400/24 via-transparent to-transparent",
+    glyph: "P",
   },
 ];
 
@@ -154,33 +181,121 @@ export default function HomePage() {
     <main className="bg-[#090b0b] text-washi-50">
       <CinematicDiscovery />
 
-      <section className="relative overflow-hidden bg-[#101313] py-32 sm:py-44">
-        <div className="absolute inset-y-0 left-0 w-[58vw] opacity-18" style={{ backgroundImage: `url(${GLOBAL_IMAGES.desert})`, backgroundSize: "cover", backgroundPosition: "center" }} />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,19,19,.76),rgba(16,19,19,.94)_48%,rgba(16,19,19,.98))]" />
-        <div className="relative mx-auto grid max-w-7xl gap-20 px-6 lg:grid-cols-[.68fr_1.32fr] lg:items-start">
-          <div>
-            <p className="luxury-kicker text-kintsugi-300">Decision intelligence</p>
-            <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] font-semibold text-white">
-              Discovery should start with the trip you can actually take.
-            </h2>
-            <p className="mt-7 max-w-md text-base leading-8 text-white/62">
-              The pilot data is Tokyo, but the product model is global: every destination is evaluated through practical constraints and emotional fit.
-            </p>
+      <section className="relative overflow-hidden bg-[#11100d] py-28 sm:py-40">
+        <div
+          className="image-drift absolute inset-0 opacity-62"
+          style={{
+            backgroundImage: `url(${GLOBAL_IMAGES.city})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+          aria-hidden
+        />
+        <div
+          className="absolute inset-y-0 right-0 hidden w-[42vw] opacity-70 mix-blend-screen lg:block"
+          style={{
+            backgroundImage: `url(${GLOBAL_IMAGES.islands})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            clipPath: "polygon(22% 0, 100% 0, 100% 100%, 0 100%)",
+          }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_12%,rgba(216,173,79,.24),transparent_30%),radial-gradient(circle_at_18%_72%,rgba(95,150,165,.24),transparent_34%),linear-gradient(90deg,rgba(7,8,8,.88),rgba(7,8,8,.68)_42%,rgba(7,8,8,.74)),linear-gradient(0deg,rgba(7,8,8,.94),rgba(7,8,8,.3)_48%,rgba(7,8,8,.74))]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-kintsugi-300/40 to-transparent" aria-hidden />
+
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="mb-16 grid gap-8 lg:grid-cols-[.92fr_1.08fr] lg:items-end">
+            <div>
+              <p className="luxury-kicker text-kintsugi-300">Decision intelligence</p>
+              <h2 className="luxury-display mt-4 max-w-4xl text-[clamp(2.65rem,5vw,5.2rem)] font-semibold leading-[0.98] text-white">
+                Choose with your eyes open.
+              </h2>
+            </div>
+            <div className="max-w-2xl lg:ml-auto">
+              <p className="font-display text-[clamp(1.55rem,2.7vw,2.7rem)] font-semibold leading-tight text-white">
+                Fall for the place, then test the trip.
+              </p>
+              <p className="mt-5 text-base leading-8 text-white/76">
+                Journee turns practical constraints into decision lenses: budget, passport freedom, seasonal weather, trip style, safety and arrival friction, all before the destination becomes expensive wishful thinking.
+              </p>
+            </div>
           </div>
-          <div className="grid gap-5 md:grid-cols-2">
-            {DECISION_LAYERS.map((layer) => (
-              <Link
-                key={layer.title}
-                href={layer.href}
-                className="group scene-glass rounded-[1.15rem] p-6 transition hover:-translate-y-1 hover:border-kintsugi-300/60 hover:bg-white/[0.12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
-              >
-                <p className="luxury-kicker text-kintsugi-300/78">{layer.signal}</p>
-                <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-white group-hover:text-kintsugi-300">
-                  {layer.title}
-                </h3>
-                <p className="mt-3 text-sm leading-7 text-white/62">{layer.body}</p>
-              </Link>
-            ))}
+
+          <div className="grid gap-6 lg:grid-cols-[1.08fr_.92fr] lg:items-stretch">
+            <Link
+              href={DECISION_LAYERS[0].href}
+              className="group relative min-h-[32rem] overflow-hidden rounded-[1.55rem] border border-white/18 bg-sumi-900 shadow-editorial-deep transition hover:-translate-y-1 hover:border-kintsugi-300/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
+            >
+              <img
+                src={DECISION_LAYERS[0].image}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover saturate-[1.16] transition duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.24)_34%,rgba(0,0,0,.86)),linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.12))]" />
+              <div className="relative flex min-h-[32rem] flex-col justify-between p-7 sm:p-10">
+                <div className="flex items-start justify-between gap-5">
+                  <p className="luxury-kicker rounded-full border border-white/22 bg-black/30 px-4 py-2 text-kintsugi-300 backdrop-blur">
+                    Primary lens
+                  </p>
+                  <span className="rounded-full border border-white/22 bg-white/12 px-4 py-2 text-sm font-semibold text-white backdrop-blur">
+                    {DECISION_LAYERS[0].signal}
+                  </span>
+                </div>
+                <div className="max-w-2xl">
+                  <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-kintsugi-300/60 bg-black/35 font-display text-3xl font-semibold text-kintsugi-300 backdrop-blur">
+                    {DECISION_LAYERS[0].glyph}
+                  </div>
+                  <h3 className="font-display text-[clamp(3.2rem,7vw,6.4rem)] font-semibold leading-[0.9] text-white">
+                    {DECISION_LAYERS[0].title}
+                  </h3>
+                  <p className="mt-5 max-w-xl text-base leading-8 text-white/82">
+                    {DECISION_LAYERS[0].body}
+                  </p>
+                  <span className="mt-8 inline-flex rounded-full bg-white px-6 py-3 text-sm font-bold text-sumi-900 transition group-hover:bg-kintsugi-300">
+                    Open cost lens →
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            <div className="grid gap-6 sm:grid-cols-2">
+              {DECISION_LAYERS.slice(1).map((layer, index) => (
+                <Link
+                  key={layer.title}
+                  href={layer.href}
+                  className={`group relative overflow-hidden rounded-[1.25rem] border border-white/16 bg-black/36 shadow-editorial-deep backdrop-blur-xl transition hover:-translate-y-1 hover:border-kintsugi-300/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300 ${
+                    index === 1 || index === 3 ? "sm:translate-y-8" : ""
+                  } ${index === 4 ? "sm:col-span-2" : ""}`}
+                >
+                  <div className="absolute inset-0">
+                    <img
+                      src={layer.image}
+                      alt=""
+                      className="h-full w-full object-cover opacity-48 saturate-[1.18] transition duration-700 group-hover:scale-105 group-hover:opacity-62"
+                      loading="lazy"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${layer.accent}`} />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.24),rgba(0,0,0,.72))]" />
+                  </div>
+                  <div className="relative flex min-h-[15.5rem] flex-col justify-between p-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/24 bg-black/34 font-display text-xl font-semibold text-kintsugi-300 backdrop-blur">
+                        {layer.glyph}
+                      </span>
+                      <span className="luxury-kicker text-kintsugi-300/88">{layer.signal}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-display text-[clamp(1.8rem,3vw,2.7rem)] font-semibold leading-none text-white group-hover:text-kintsugi-300">
+                        {layer.title}
+                      </h3>
+                      <p className="mt-4 text-sm leading-7 text-white/76">{layer.body}</p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -228,7 +343,7 @@ export default function HomePage() {
               Tokyo is the proof of detail, not the homepage identity.
             </h2>
             <p className="luxury-lede mt-6 max-w-xl text-white/70">
-              The first complete content stack demonstrates how Journee will treat every destination: immersive city hub, country intelligence and topic-specific subpages.
+              Tokyo is the first fully composed editorial destination, showing how Journee can turn any place into atmosphere, context, and practical travel intelligence.
             </p>
           </div>
           <div className="space-y-8">

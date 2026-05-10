@@ -81,7 +81,7 @@ export default async function FamousForPage({
               ))}
             </nav>
             <p className="mt-7 border-t border-white/12 pt-5 text-sm leading-7 text-white/64">
-              Tap any module for where to find it. The structure stays practical, but the page should feel like a collector&rsquo;s field notebook.
+              Follow each cultural world into the places, rituals, and details that make it worth seeking out.
             </p>
           </aside>
         </div>

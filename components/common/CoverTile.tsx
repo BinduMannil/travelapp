@@ -2,7 +2,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * CoverTile — a country-rooted visual placeholder for entity cards.
+ * CoverTile — a country-rooted visual treatment for editorial entity cards.
  *
  * Uses:
  *  - an `imageUrl` (preferred) wrapped in a soft overlay, OR

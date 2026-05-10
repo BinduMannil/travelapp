@@ -432,7 +432,7 @@ export default async function DiscoverPage({ searchParams }: DiscoverPageProps) 
               <div>
                 <p className="luxury-kicker text-kintsugi-300/78">Places</p>
                 <h2 className="mt-2 font-display text-3xl font-semibold text-white">
-                  {selectedCountry ? selectedCountry.name : "World sample"}
+                  {selectedCountry ? selectedCountry.name : "Global atlas"}
                 </h2>
               </div>
             </div>
