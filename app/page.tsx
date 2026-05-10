@@ -1,13 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { PreferencesPanel } from "@/components/home/PreferencesPanel";
-import { CoverTile } from "@/components/common/CoverTile";
-import { NearbyStack, type NearbyCard } from "@/components/home/NearbyStack";
+import { EditorialCard } from "@/components/common/CoverTile";
 import {
   FlightCta,
   HotelCta,
   InsuranceCta,
 } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
+import { getDestinationIdentity } from "@/lib/destination/identity";
 
 type Palette =
   | "enji"
@@ -21,18 +23,84 @@ type Palette =
   | "ocean"
   | "forest";
 
-const NEARBY_STACK: NearbyCard[] = [
-  { label: "Kyoto", sublabel: "2h 20m · Shinkansen", palette: "enji", kanji: "京", href: "/city/tokyo/nearby#kyoto" },
-  { label: "Osaka", sublabel: "2h 45m · Shinkansen", palette: "kintsugi", kanji: "阪", href: "/city/tokyo/nearby#osaka" },
-  { label: "Hakone", sublabel: "1h 25m · Romancecar", palette: "matcha", kanji: "箱", href: "/city/tokyo/nearby#hakone" },
-  { label: "Nikko", sublabel: "1h 55m · Tobu SPACIA", palette: "forest", kanji: "光", href: "/city/tokyo/nearby#nikko" },
+const GLOBAL_IMAGES = {
+  hero:
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=85",
+  mountains:
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=84",
+  islands:
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=84",
+  city:
+    "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=1400&q=84",
+  desert:
+    "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=1400&q=84",
+  forest:
+    "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1400&q=84",
+  village:
+    "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1400&q=84",
+  culture:
+    "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1400&q=84",
+  tokyo:
+    "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1600&q=84",
+  food:
+    "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=1600&q=84",
+};
+
+const DISCOVERY_MOODS: Array<{
+  label: string;
+  mood: string;
+  image: string;
+}> = [
+  { label: "Mountains", mood: "Thin air, rail passes, shoulder-season light", image: GLOBAL_IMAGES.mountains },
+  { label: "Islands", mood: "Warm water, slow mornings, monsoon timing", image: GLOBAL_IMAGES.islands },
+  { label: "Cities", mood: "Food, transit, neighborhoods, late nights", image: GLOBAL_IMAGES.city },
+  { label: "Deserts", mood: "Heat windows, road miles, dusk rituals", image: GLOBAL_IMAGES.desert },
+  { label: "Forests", mood: "Mist, trails, lodges, rain strategy", image: GLOBAL_IMAGES.forest },
+  { label: "Villages", mood: "Craft, markets, quiet stays, local rhythm", image: GLOBAL_IMAGES.village },
 ];
 
-const STATS: Array<{ value: string; label: string; sublabel: string; href: string }> = [
-  { value: "12", label: "Attractions", sublabel: "Ranked by importance", href: "/city/tokyo/attractions" },
-  { value: "12", label: "Restaurants", sublabel: "Google + Tabelog + Michelin", href: "/city/tokyo/restaurants" },
-  { value: "10", label: "Onsen venues", sublabel: "With tattoo policies", href: "/city/tokyo/wellness" },
-  { value: "35", label: "Visa passports", sublabel: "Official + stay limits", href: "/city/tokyo/visa" },
+const DECISION_LAYERS: Array<{
+  title: string;
+  body: string;
+  signal: string;
+  href: string;
+}> = [
+  {
+    title: "Budget",
+    body: "See what a day actually costs before falling in love with the photo.",
+    signal: "daily spend",
+    href: "/city/tokyo/costs",
+  },
+  {
+    title: "Visa",
+    body: "Start with what your passport can do, then discover places inside that freedom.",
+    signal: "passport fit",
+    href: "/city/tokyo/visa",
+  },
+  {
+    title: "Weather",
+    body: "Match mood to season: beaches, snow, desert air, festival windows.",
+    signal: "best month",
+    href: "/city/tokyo/weather",
+  },
+  {
+    title: "Travel style",
+    body: "Food, design, family, nightlife, wellness, culture, rail, outdoors.",
+    signal: "trip shape",
+    href: "/city/tokyo/itinerary",
+  },
+  {
+    title: "Safety",
+    body: "Know health, emergency, scams, medication, LGBTQ+ and accessibility context.",
+    signal: "confidence",
+    href: "/city/tokyo/health-safety",
+  },
+  {
+    title: "Practical fit",
+    body: "Transit, payments, connectivity, packing and arrival logistics in one place.",
+    signal: "friction",
+    href: "/city/tokyo/transit",
+  },
 ];
 
 const PILOT_FEATURES: Array<{
@@ -40,339 +108,320 @@ const PILOT_FEATURES: Array<{
   href: string;
   kanji: string;
   palette: Palette;
-}> = [
-  { label: "Attractions", href: "/city/tokyo/attractions", kanji: "寺", palette: "enji" },
-  { label: "Restaurants", href: "/city/tokyo/restaurants", kanji: "食", palette: "kintsugi" },
-  { label: "Neighborhoods", href: "/city/tokyo/neighborhoods", kanji: "街", palette: "aizome" },
-  { label: "Hotels", href: "/city/tokyo/hotels", kanji: "宿", palette: "sumi" },
-  { label: "Onsen & wellness", href: "/city/tokyo/wellness", kanji: "湯", palette: "enji" },
-  { label: "Itineraries", href: "/city/tokyo/itinerary", kanji: "旅", palette: "matcha" },
-  { label: "Packing list", href: "/city/tokyo/packing", kanji: "装", palette: "ume" },
-  { label: "Daily costs", href: "/city/tokyo/costs", kanji: "円", palette: "ocean" },
-];
-
-const TIMELINE: Array<{
-  days: string;
-  title: string;
   body: string;
-  href: string;
-  palette: "enji" | "aizome" | "matcha" | "kintsugi" | "sumi";
-  kanji: string;
+  imageUrl: string;
+  meta: string;
 }> = [
   {
-    days: "Day 01",
-    title: "Old Tokyo",
-    body: "Sensō-ji at dawn, Nakamise snacks, river walk to Skytree. Closed out with Gonpachi.",
-    href: "/city/tokyo/itinerary/first-timer-3-days",
+    label: "Tokyo city hub",
+    href: "/city/tokyo",
+    kanji: "東",
+    palette: "sumi",
+    body: "A fully detailed pilot city showing how Journee turns one destination into atmosphere, intelligence and practical trip decisions.",
+    imageUrl: GLOBAL_IMAGES.tokyo,
+    meta: "Pilot destination",
+  },
+  {
+    label: "Japan country intelligence",
+    href: "/country/japan",
+    kanji: "日",
     palette: "enji",
-    kanji: "古",
+    body: "Country-level guidance for language, cuisine, culture, residency, routes and national travel context.",
+    imageUrl: GLOBAL_IMAGES.culture,
+    meta: "Country layer",
   },
   {
-    days: "Day 02",
-    title: "Harajuku → Shibuya",
-    body: "Meiji Jingū forest, Ura-Harajuku indie shops, AFURI ramen, Shibuya Sky at sunset.",
-    href: "/city/tokyo/itinerary/first-timer-3-days",
+    label: "Cuisine storytelling",
+    href: "/country/japan/cuisine",
+    kanji: "食",
     palette: "kintsugi",
-    kanji: "渋",
-  },
-  {
-    days: "Day 03",
-    title: "Art + Ginza",
-    body: "teamLab Planets, Tsukiji late morning, Ginza Chūō-dōri stroll, Michelin dinner.",
-    href: "/city/tokyo/itinerary/first-timer-3-days",
-    palette: "aizome",
-    kanji: "銀",
+    body: "Food pages as editorial journeys, not inventory: feature dishes, cultural rhythm, etiquette and where to try them.",
+    imageUrl: GLOBAL_IMAGES.food,
+    meta: "Subpage example",
   },
 ];
 
-const INCLUDED: Array<{ title: string; body: string; kanji: string; href: string }> = [
+const PRODUCT_HIERARCHY = [
   {
-    title: "Visa for your passport",
-    body: "35 citizenships indexed, with stay limits and official sources.",
-    kanji: "旅",
-    href: "/city/tokyo/visa",
+    label: "Homepage",
+    title: "Global discovery",
+    body: "Compare the whole world by mood, budget, visa, weather and travel style.",
   },
   {
-    title: "Packing that fits your dates",
-    body: "Tuned to Tokyo's climate + your planned activities + kids if any.",
-    kanji: "装",
-    href: "/city/tokyo/packing",
+    label: "Country",
+    title: "Country intelligence",
+    body: "Understand national culture, language, rules, cuisine, residency and travel context.",
   },
   {
-    title: "Airport → city",
-    body: "N'EX, Skyliner, Keikyu, bus, taxi — all timed and priced.",
-    kanji: "着",
-    href: "/city/tokyo/arrival",
+    label: "City",
+    title: "Destination hub",
+    body: "Enter the place itself: atmosphere, neighborhoods, stays, food, transit and timing.",
   },
   {
-    title: "Tipping + payments",
-    body: "No tipping here. And the method × venue acceptance matrix.",
-    kanji: "円",
-    href: "/city/tokyo/payments",
+    label: "Subpage",
+    title: "Topic depth",
+    body: "Go deep on visa, safety, restaurants, payments, packing, weather, culture and transport.",
   },
 ];
 
-const COUNTRY_FEATURES: Array<{
-  label: string;
-  kanji: string;
-  href: string;
-  hint: string;
-}> = [
-  { label: "Must-try cuisine", kanji: "食", href: "/country/japan/cuisine", hint: "12 dishes · origin · vegan notes" },
-  { label: "Famous for", kanji: "和", href: "/country/japan/famous-for", hint: "Knives, whisky, anime, denim" },
-  { label: "Tea, coffee & alcohol", kanji: "酒", href: "/country/japan/beverages", hint: "Sake, whisky, matcha, kissaten" },
-  { label: "Languages", kanji: "語", href: "/country/japan/languages", hint: "All spoken, by share" },
+const DISCOVERY_PROMPTS = [
+  { label: "Warm Islands Under $150/Day", href: "/discover?feel=warm-islands" },
+  { label: "Visa-Easy Culture Capitals", href: "/discover?feel=visa-easy-culture" },
+  { label: "Cool-Weather Food Cities", href: "/discover?feel=cool-food-cities" },
+  { label: "Quiet Villages With Rail Access", href: "/discover?feel=quiet-rail-villages" },
 ];
 
 export default function HomePage() {
+  const identity = getDestinationIdentity("global");
+
   return (
-    <main className="bg-washi-50">
-      {/* HERO — sumi ground with crimson accent; editorial serif display */}
-      <section className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-20 bg-sumi-900" />
-        <div
-          className="absolute inset-0 -z-10 bg-gradient-to-br from-enji-700/50 via-sumi-900 to-aizome-900/80"
-          aria-hidden
+    <main className="bg-[#090b0b] text-washi-50">
+      <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-sumi-900 text-white">
+        <img
+          src={GLOBAL_IMAGES.hero}
+          alt="A cinematic global travel landscape with mountains and open road"
+          className="image-drift absolute inset-0 -z-30 h-full w-full object-cover"
         />
-        <div
-          className="absolute inset-0 -z-10 opacity-50 mix-blend-screen"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 22% 18%, rgba(234,186,89,.35), transparent 45%), radial-gradient(circle at 82% 8%, rgba(185,12,35,.55), transparent 55%), radial-gradient(circle at 58% 92%, rgba(46,79,115,.45), transparent 55%)",
-          }}
-          aria-hidden
-        />
-        {/* faint seigaiha wave texture */}
-        <div
-          className="absolute inset-0 -z-10 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 50% 100%, rgba(255,255,255,.85) 0 26%, transparent 27%), radial-gradient(circle at 0% 100%, rgba(255,255,255,.85) 0 26%, transparent 27%), radial-gradient(circle at 100% 100%, rgba(255,255,255,.85) 0 26%, transparent 27%)",
-            backgroundSize: "64px 32px",
-          }}
-          aria-hidden
-        />
+        <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(7,9,9,.94),rgba(7,9,9,.58)_48%,rgba(7,9,9,.18)),linear-gradient(0deg,rgba(7,9,9,.86),transparent_54%)]" />
+        <div className="absolute inset-0 -z-10 opacity-70" style={{ backgroundImage: identity.texture }} />
+        <AmbientDestinationMotion identity={identity} />
 
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-20 pt-20 text-washi-50 sm:pt-24 lg:grid-cols-[1.15fr_1fr] lg:gap-10">
-          {/* Left — editorial type + CTA */}
-          <div>
-            <p className="text-xs uppercase tracking-[0.4em] text-washi-200/80">
-              Travel companion · <span className="text-enji-100">東京</span> Tokyo pilot
-            </p>
-            <h1 className="mt-6 font-display text-[clamp(3rem,11vw,8.5rem)] font-bold leading-[0.9] tracking-tight">
-              <span className="block text-washi-50">Tokyo.</span>
-              <span className="mt-1 block font-display text-[0.42em] font-normal tracking-[0.3em] text-sakura-200">
-                東 京
-              </span>
+        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-14 px-6 pb-20 pt-24 sm:pb-24 lg:grid-cols-[1.08fr_.92fr] lg:items-end">
+          <div className="max-w-3xl">
+            <p className="luxury-kicker text-kintsugi-300">Journee global travel discovery</p>
+            <h1 className="luxury-display mt-5 text-[clamp(3.25rem,8.4vw,7.6rem)] font-semibold text-white">
+              Where should the world take you next?
             </h1>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-washi-50/85 sm:text-xl">
-              Seasons, visas for your passport, transit passes, tipping,
-              must-try dishes, onsen etiquette, packing tuned to your dates —
-              ranked by people who&rsquo;ve actually been.
+            <p className="luxury-lede mt-8 max-w-2xl text-washi-50/84">
+              Discover destinations by budget, visa, weather, mood and travel style, then enter each country and city through cinematic intelligence built for real decisions.
             </p>
-
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
-                href="/city/tokyo"
-                className="rounded-full bg-enji-600 px-7 py-3 font-semibold text-white shadow-xl shadow-enji-900/40 transition hover:bg-enji-700"
+                href="/discover"
+                className="rounded-full bg-white px-7 py-3 text-sm font-bold text-sumi-900 shadow-editorial-deep transition hover:bg-kintsugi-300"
               >
-                Explore Tokyo →
+                Start Discovering →
               </Link>
               <Link
-                href="/country/japan"
-                className="rounded-full border border-washi-50/40 px-7 py-3 font-medium text-washi-50 backdrop-blur transition hover:bg-washi-50/10"
+                href="/city/tokyo"
+                className="rounded-full border border-white/45 px-7 py-3 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-white/12"
               >
-                About Japan
+                View Pilot City
               </Link>
             </div>
           </div>
 
-          {/* Right — nearby destinations fan (interactive) */}
-          <div className="relative">
-            <NearbyStack cards={NEARBY_STACK} />
-          </div>
+          <aside className="rounded-[1.35rem] border border-white/16 bg-black/28 p-5 shadow-editorial-deep backdrop-blur-xl sm:p-7">
+            <p className="luxury-kicker text-white/50">Search by feeling</p>
+            <div className="mt-6 grid gap-4">
+              {DISCOVERY_PROMPTS.map((prompt) => (
+                <Link
+                  key={prompt.href}
+                  href={prompt.href}
+                  className="rounded-2xl border border-white/12 bg-white/[0.07] p-4 text-sm text-white/74 transition hover:border-kintsugi-300/60 hover:bg-white/[0.12] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
+                >
+                  {prompt.label}
+                </Link>
+              ))}
+            </div>
+          </aside>
         </div>
       </section>
 
-      {/* STATS — washi/gold glass pill bridging hero and body */}
-      <section className="relative z-10 mx-auto -mt-12 max-w-6xl px-6">
-        <div className="grid gap-3 rounded-3xl border border-washi-200 bg-washi-50/90 p-4 shadow-xl backdrop-blur sm:grid-cols-2 sm:p-5 lg:grid-cols-4">
-          {STATS.map((s) => (
-            <Link
-              key={s.label}
-              href={s.href}
-              className="group flex items-center gap-4 rounded-2xl px-3 py-2 transition hover:bg-white"
-            >
-              <span className="font-display text-4xl font-bold tabular-nums bg-gradient-to-br from-enji-600 to-sumi-900 bg-clip-text text-transparent">
-                {s.value}
-              </span>
-              <div>
-                <div className="text-sm font-semibold text-sumi-900">
-                  {s.label}
-                </div>
-                <div className="text-xs text-sumi-700">{s.sublabel}</div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* PREFERENCES — washi card */}
-      <section className="mx-auto mt-8 max-w-6xl px-6">
+      <section id="discover" className="relative z-10 mx-auto -mt-6 max-w-5xl px-6">
         <PreferencesPanel />
       </section>
 
-      {/* MONETISATION STRIP — booking / flights / insurance one-liners */}
-      <section className="mx-auto mt-6 max-w-6xl px-6">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <HotelCta city="Tokyo" source="home-strip" />
-          <FlightCta source="home-strip" />
-          <InsuranceCta source="home-strip" />
-        </div>
-        <div className="mt-3">
-          <AffiliateDisclosure />
-        </div>
-      </section>
-
-      {/* TIMELINE */}
-      <section className="mt-20 bg-sumi-900 py-20 text-washi-50">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="flex items-end justify-between gap-6 border-b border-washi-50/10 pb-6">
+      <section className="journee-scene relative overflow-hidden py-32 sm:py-44">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_8%,rgba(95,150,165,.18),transparent_34%),radial-gradient(circle_at_82%_35%,rgba(209,170,99,.18),transparent_36%)]" />
+        <div className="relative mx-auto max-w-7xl px-6">
+          <div className="mb-20 grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-washi-50/60">
-                A first-timer&rsquo;s three days
-              </p>
-              <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-                One city. Deep.
+              <p className="luxury-kicker text-kintsugi-300">World moods</p>
+              <h2 className="luxury-display mt-4 text-[clamp(2.8rem,6vw,6rem)] font-semibold text-white">
+                The world opens in different climates.
               </h2>
             </div>
-            <Link
-              href="/city/tokyo/itinerary"
-              className="hidden rounded-full border border-washi-50/30 px-4 py-2 text-sm hover:bg-washi-50/10 sm:inline-block"
-            >
-              All itineraries →
-            </Link>
-          </div>
-
-          <ol className="mt-10 grid gap-8 md:grid-cols-3">
-            {TIMELINE.map((t) => (
-              <li key={t.days} className="group">
-                <div className="relative overflow-hidden rounded-2xl">
-                  <CoverTile palette={t.palette} kanji={t.kanji} aspect="4/3" />
-                  <span className="absolute right-4 top-4 rounded-full bg-sumi-900/50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-washi-50 backdrop-blur-md">
-                    {t.days}
-                  </span>
-                </div>
-                <h3 className="mt-5 font-display text-2xl font-semibold">
-                  {t.title}
-                </h3>
-                <p className="mt-2 text-sm text-washi-50/80">{t.body}</p>
-                <Link
-                  href={t.href}
-                  className="mt-3 inline-block text-sm font-semibold text-kintsugi-300 underline-offset-4 hover:underline"
-                >
-                  See day plan →
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* FEATURE TILES — cover-style cards */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
-        <header className="flex items-baseline justify-between">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sumi-700">
-              Inside Tokyo
+            <p className="max-w-2xl text-base leading-8 text-white/64 lg:ml-auto">
+              Journee is built to compare unlike places without flattening them: mountains, islands, megacities, villages, deserts, forests, beaches and cultural capitals each deserve their own visual and practical rhythm.
             </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-              Jump straight in
-            </h2>
           </div>
-          <Link
-            href="/city/tokyo"
-            className="hidden text-sm font-semibold text-enji-600 hover:underline sm:inline"
-          >
-            All 25 sections →
-          </Link>
-        </header>
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-          {PILOT_FEATURES.map((f) => (
-            <Link
-              key={f.href}
-              href={f.href}
-              className="group block overflow-hidden rounded-2xl border border-washi-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-lg"
-            >
-              <CoverTile palette={f.palette} kanji={f.kanji} aspect="3/2" />
-              <div className="p-4">
-                <div className="font-display text-base font-semibold text-sumi-900">
-                  {f.label}
+
+          <div className="grid gap-8 lg:grid-cols-[1.28fr_.72fr] lg:items-start">
+            <article className="group relative min-h-[42rem] overflow-hidden rounded-[1.5rem] border border-white/12 bg-sumi-900 shadow-editorial-deep">
+              <img
+                src={DISCOVERY_MOODS[0].image}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.2)_44%,rgba(0,0,0,.88)),linear-gradient(90deg,rgba(0,0,0,.64),transparent)]" />
+              <div className="relative flex min-h-[42rem] flex-col justify-end p-7 sm:p-10">
+                <div className="max-w-2xl border-l border-kintsugi-300/70 pl-6">
+                  <p className="luxury-kicker text-kintsugi-300/82">Discovery mood</p>
+                  <h3 className="mt-4 font-display text-[clamp(3.2rem,8vw,6.4rem)] font-semibold leading-[0.96] text-white">
+                    {DISCOVERY_MOODS[0].label}
+                  </h3>
+                  <p className="mt-5 max-w-lg text-base leading-8 text-white/72">{DISCOVERY_MOODS[0].mood}</p>
                 </div>
               </div>
-            </Link>
-          ))}
+            </article>
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:mt-20 lg:grid-cols-1">
+              {DISCOVERY_MOODS.slice(1).map((mood, index) => (
+              <article key={mood.label} className={`group relative min-h-[15rem] overflow-hidden rounded-[1.2rem] border border-white/12 bg-sumi-900 shadow-editorial-deep ${index === 1 ? "lg:-ml-14" : ""}`}>
+                <img
+                  src={mood.image}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.38)_44%,rgba(0,0,0,.9))]" />
+                <div className="relative flex min-h-[15rem] flex-col justify-end p-5">
+                  <p className="luxury-kicker text-kintsugi-300/82">Discovery mood</p>
+                  <h3 className="mt-3 font-display text-3xl font-semibold leading-tight text-white">
+                    {mood.label}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-white/68">{mood.mood}</p>
+                </div>
+              </article>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* WHAT'S INCLUDED */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sumi-700">
-            What&rsquo;s included
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-            The tedious bits, done for you
-          </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {INCLUDED.map((i) => (
+      <section className="relative overflow-hidden bg-[#101313] py-32 sm:py-44">
+        <div className="absolute inset-y-0 left-0 w-[58vw] opacity-18" style={{ backgroundImage: `url(${GLOBAL_IMAGES.desert})`, backgroundSize: "cover", backgroundPosition: "center" }} />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,19,19,.76),rgba(16,19,19,.94)_48%,rgba(16,19,19,.98))]" />
+        <div className="relative mx-auto grid max-w-7xl gap-20 px-6 lg:grid-cols-[.68fr_1.32fr] lg:items-start">
+          <div>
+            <p className="luxury-kicker text-kintsugi-300">Decision intelligence</p>
+            <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] font-semibold text-white">
+              Discovery should start with the trip you can actually take.
+            </h2>
+            <p className="mt-7 max-w-md text-base leading-8 text-white/62">
+              The pilot data is Tokyo, but the product model is global: every destination is evaluated through practical constraints and emotional fit.
+            </p>
+          </div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {DECISION_LAYERS.map((layer) => (
               <Link
-                key={i.title}
-                href={i.href}
-                className="group flex flex-col rounded-2xl border border-washi-200 bg-washi-50 p-6 transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-lg"
+                key={layer.title}
+                href={layer.href}
+                className="group scene-glass rounded-[1.15rem] p-6 transition hover:-translate-y-1 hover:border-kintsugi-300/60 hover:bg-white/[0.12] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
               >
-                <span className="font-display text-4xl font-bold text-enji-600 transition group-hover:text-enji-700">
-                  {i.kanji}
-                </span>
-                <h3 className="mt-4 font-display text-lg font-semibold text-sumi-900">
-                  {i.title}
+                <p className="luxury-kicker text-kintsugi-300/78">{layer.signal}</p>
+                <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-white group-hover:text-kintsugi-300">
+                  {layer.title}
                 </h3>
-                <p className="mt-2 text-sm text-sumi-700">{i.body}</p>
-                <div className="mt-4 text-sm font-semibold text-enji-600 group-hover:underline">
-                  Open →
-                </div>
+                <p className="mt-3 text-sm leading-7 text-white/62">{layer.body}</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ABOUT JAPAN */}
-      <section className="bg-washi-100 py-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sumi-700">
-            About Japan · 日本について
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-            Culture that shapes every trip
-          </h2>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {COUNTRY_FEATURES.map((f) => (
-              <Link
-                key={f.href}
-                href={f.href}
-                className="group flex items-center gap-4 rounded-2xl border border-washi-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-lg"
-              >
-                <span className="grid h-14 w-14 place-items-center rounded-xl bg-gradient-to-br from-enji-600 to-sumi-900 font-display text-2xl font-bold text-white">
-                  {f.kanji}
+      <section className="relative overflow-hidden bg-sumi-900 py-28 text-washi-50 sm:py-40">
+        <div
+          className="absolute inset-0 opacity-24"
+          style={{
+            backgroundImage: `url(${GLOBAL_IMAGES.city})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(28,25,23,.94),rgba(28,25,23,.82)),linear-gradient(90deg,rgba(95,150,165,.24),transparent)]" />
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="mb-14 grid gap-8 lg:grid-cols-[.9fr_1.1fr] lg:items-end">
+            <div>
+              <p className="luxury-kicker text-kintsugi-300">Curated travel desk</p>
+              <h2 className="luxury-display mt-4 text-[clamp(2.8rem,6vw,5.7rem)] font-semibold text-white">
+                Plan the trip after the place chooses you.
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base leading-8 text-white/72 lg:ml-auto">
+              Flights, stays and protection belong inside discovery, not bolted on afterward. Journee keeps the practical layer close without letting it become the brand.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            <HotelCta city="your next destination" source="home-global" />
+            <FlightCta destinationLabel="anywhere" destinationIata="anywhere" source="home-global" />
+            <InsuranceCta source="home-global" />
+          </div>
+          <div className="mt-5 max-w-3xl text-white/72 [&_*]:text-white/72 [&_a]:text-kintsugi-300">
+            <AffiliateDisclosure />
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#0b0a09] py-28 text-washi-50 sm:py-40">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_12%,rgba(209,170,99,.18),transparent_32%)]" aria-hidden />
+        <div className="relative mx-auto grid max-w-6xl gap-16 px-6 lg:grid-cols-[.78fr_1.22fr] lg:items-center">
+          <div>
+            <p className="luxury-kicker text-kintsugi-300">Pilot depth</p>
+            <h2 className="luxury-display mt-4 text-[clamp(2.8rem,6vw,5.8rem)] font-semibold text-white">
+              Tokyo is the proof of detail, not the homepage identity.
+            </h2>
+            <p className="luxury-lede mt-6 max-w-xl text-white/70">
+              The first complete content stack demonstrates how Journee will treat every destination: immersive city hub, country intelligence and topic-specific subpages.
+            </p>
+          </div>
+          <div className="space-y-8">
+            <div className="grid gap-8 lg:grid-cols-2">
+              {PILOT_FEATURES.slice(0, 2).map((f) => (
+                <EditorialCard
+                  key={f.href}
+                  href={f.href}
+                  imageUrl={f.imageUrl}
+                  imageAlt={f.label}
+                  eyebrow={f.meta}
+                  title={f.label}
+                  body={f.body}
+                  meta={f.meta}
+                  palette={f.palette}
+                  kanji={f.kanji}
+                  aspect="3/2"
+                  variant="overlay"
+                  className="sm:min-h-[34rem]"
+                />
+              ))}
+            </div>
+            <Link
+              href={PILOT_FEATURES[2].href}
+              className="group flex items-center justify-between gap-5 rounded-[1.1rem] border border-white/10 bg-white/[0.045] p-5 text-white backdrop-blur transition hover:border-kintsugi-300/50 hover:bg-white/[0.08]"
+            >
+              <span>
+                <span className="luxury-kicker text-kintsugi-300/78">{PILOT_FEATURES[2].meta}</span>
+                <span className="mt-2 block font-display text-xl font-semibold leading-tight group-hover:text-kintsugi-300">
+                  {PILOT_FEATURES[2].label}
                 </span>
-                <div>
-                  <div className="font-display font-semibold text-sumi-900">
-                    {f.label}
-                  </div>
-                  <div className="text-xs text-sumi-700">{f.hint}</div>
+              </span>
+              <span className="text-kintsugi-300 transition group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden bg-[#101313] py-28 sm:py-40">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="mb-14 max-w-3xl">
+            <p className="luxury-kicker text-kintsugi-300">Product hierarchy</p>
+            <h2 className="luxury-display mt-4 text-[clamp(2.6rem,5vw,5.2rem)] font-semibold text-white">
+              One system, many scales of travel intelligence.
+            </h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {PRODUCT_HIERARCHY.map((item, index) => (
+              <article key={item.label} className="rounded-[1.15rem] border border-white/12 bg-white/[0.055] p-6 backdrop-blur-xl">
+                <div className="font-display text-3xl font-semibold text-kintsugi-300/64 tabular-nums">
+                  {String(index + 1).padStart(2, "0")}
                 </div>
-              </Link>
+                <p className="luxury-kicker mt-6 text-white/42">{item.label}</p>
+                <h3 className="mt-3 font-display text-2xl font-semibold leading-tight text-white">{item.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-white/62">{item.body}</p>
+              </article>
             ))}
           </div>
         </div>
