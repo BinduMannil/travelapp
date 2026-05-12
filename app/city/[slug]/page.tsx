@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PlacePreviewExperience } from "@/components/city/PlacePreviewExperience";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
 import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
@@ -8,6 +9,7 @@ import { VietnamCityExperience } from "@/components/vietnam/VietnamCityExperienc
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
 import { formatNavigationLabel } from "@/lib/copy/formatting";
 import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { CITY_INTELLIGENCE } from "@/lib/destination/intelligence";
 import { getVietnamCity, VIETNAM_CITIES } from "@/lib/vietnam/frontend";
@@ -245,6 +247,8 @@ export default async function CityPage({
   const { slug } = await params;
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityExperience city={vietnamCity} />;
+  const place = getPlaceOption(slug);
+  if (place) return <PlacePreviewExperience place={place} />;
   notFound();
 
   const city = CITIES[slug];

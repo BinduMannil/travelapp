@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import {
   CUISINE_LABELS,
   DIETARY_LABELS,
@@ -49,6 +50,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string; restaurant: string }>;
 }): Promise<Metadata> {
   const { slug, restaurant } = await params;
+  if (getPlaceOption(slug)) notFound();
   const r = getRestaurant(slug, restaurant);
   if (!r) return { title: "Restaurant" };
   return {
@@ -65,6 +67,7 @@ export default async function RestaurantDetailPage({
   params: Promise<{ slug: string; restaurant: string }>;
 }) {
   const { slug, restaurant } = await params;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const r = getRestaurant(slug, restaurant);
   if (!city || !r) notFound();

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
 import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
@@ -34,6 +35,7 @@ export default async function TippingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="tipping" />;
   const city = getCity(slug);

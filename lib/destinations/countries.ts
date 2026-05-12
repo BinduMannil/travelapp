@@ -10,6 +10,18 @@ export type CountryOption = {
   accent: string;
 };
 
+export type PlaceBuildStatus = "live" | "queued";
+
+export type PlaceOption = {
+  slug: string;
+  countrySlug: string;
+  name: string;
+  kind: "city" | "town" | "village" | "island" | "region";
+  status: PlaceBuildStatus;
+  summary: string;
+  image?: string;
+};
+
 export const COUNTRY_OPTIONS: CountryOption[] = [
   {
     slug: "vietnam",
@@ -178,7 +190,71 @@ export const COUNTRY_OPTIONS: CountryOption[] = [
   },
 ];
 
+export const PLACE_OPTIONS: PlaceOption[] = [
+  { slug: "bangkok", countrySlug: "thailand", name: "Bangkok", kind: "city", status: "queued", summary: "Food streets, river ferries, temples, malls, nightlife, and first-arrival logistics." },
+  { slug: "chiang-mai", countrySlug: "thailand", name: "Chiang Mai", kind: "city", status: "queued", summary: "Northern temples, cafes, mountains, markets, elephants, and slower stays." },
+  { slug: "phuket", countrySlug: "thailand", name: "Phuket", kind: "island", status: "queued", summary: "Beaches, resorts, boat trips, nightlife, rain timing, and island transfers." },
+  { slug: "koh-samui", countrySlug: "thailand", name: "Koh Samui", kind: "island", status: "queued", summary: "Island resorts, beaches, wellness stays, scooters, ferries, and Gulf weather." },
+  { slug: "krabi", countrySlug: "thailand", name: "Krabi", kind: "town", status: "queued", summary: "Limestone cliffs, Railay, boat days, beaches, and island hopping." },
+  { slug: "jakarta", countrySlug: "indonesia", name: "Jakarta", kind: "city", status: "queued", summary: "Arrival logistics, food, malls, traffic, neighborhoods, and Java connections." },
+  { slug: "bali", countrySlug: "indonesia", name: "Bali", kind: "island", status: "queued", summary: "Ubud, Canggu, surf, temples, traffic, wellness, and island pacing." },
+  { slug: "yogyakarta", countrySlug: "indonesia", name: "Yogyakarta", kind: "city", status: "queued", summary: "Borobudur, Prambanan, arts, food, trains, and Java culture." },
+  { slug: "lombok", countrySlug: "indonesia", name: "Lombok", kind: "island", status: "queued", summary: "Beaches, Rinjani, surf towns, ferries, and quieter island days." },
+  { slug: "komodo", countrySlug: "indonesia", name: "Komodo", kind: "island", status: "queued", summary: "Boat trips, dragons, diving, Labuan Bajo, and weather-sensitive logistics." },
+  { slug: "tokyo", countrySlug: "japan", name: "Tokyo", kind: "city", status: "queued", summary: "Neighborhoods, restaurants, transit, shopping, hotels, and dense first-trip planning." },
+  { slug: "kyoto", countrySlug: "japan", name: "Kyoto", kind: "city", status: "queued", summary: "Temples, lanes, food, craft, crowds, buses, gardens, and early mornings." },
+  { slug: "osaka", countrySlug: "japan", name: "Osaka", kind: "city", status: "queued", summary: "Food, nightlife, shopping, day trips, hotels, and Kansai rail logic." },
+  { slug: "sapporo", countrySlug: "japan", name: "Sapporo", kind: "city", status: "queued", summary: "Hokkaido food, snow, beer, parks, winter logistics, and regional access." },
+  { slug: "okinawa", countrySlug: "japan", name: "Okinawa", kind: "region", status: "queued", summary: "Islands, beaches, driving, diving, culture, and subtropical weather." },
+  { slug: "seoul", countrySlug: "south-korea", name: "Seoul", kind: "city", status: "queued", summary: "Neighborhoods, food, skincare, palaces, transit, cafes, and late nights." },
+  { slug: "busan", countrySlug: "south-korea", name: "Busan", kind: "city", status: "queued", summary: "Beaches, seafood, markets, hillside villages, trains, and coastal rhythm." },
+  { slug: "jeju", countrySlug: "south-korea", name: "Jeju", kind: "island", status: "queued", summary: "Driving routes, beaches, waterfalls, food, hiking, and weather windows." },
+  { slug: "dubai", countrySlug: "united-arab-emirates", name: "Dubai", kind: "city", status: "queued", summary: "Architecture, beaches, shopping, restaurants, desert trips, and high-comfort logistics." },
+  { slug: "abu-dhabi", countrySlug: "united-arab-emirates", name: "Abu Dhabi", kind: "city", status: "queued", summary: "Museums, islands, mosques, beaches, luxury stays, and cultural planning." },
+  { slug: "ras-al-khaimah", countrySlug: "united-arab-emirates", name: "Ras Al Khaimah", kind: "city", status: "queued", summary: "Mountains, resorts, road trips, beaches, and desert edges." },
+  { slug: "rome", countrySlug: "italy", name: "Rome", kind: "city", status: "queued", summary: "Ancient sites, food, neighborhoods, museums, churches, and heat-aware pacing." },
+  { slug: "florence", countrySlug: "italy", name: "Florence", kind: "city", status: "queued", summary: "Art, food, hotels, day trips, Tuscan routes, and museum timing." },
+  { slug: "venice", countrySlug: "italy", name: "Venice", kind: "city", status: "queued", summary: "Canals, islands, crowds, hotels, boats, and early/late walking routes." },
+  { slug: "amalfi-coast", countrySlug: "italy", name: "Amalfi Coast", kind: "region", status: "queued", summary: "Villages, ferries, roads, hotels, beaches, and shoulder-season strategy." },
+  { slug: "sicily", countrySlug: "italy", name: "Sicily", kind: "island", status: "queued", summary: "Palermo, beaches, food, ruins, road trips, islands, and summer heat." },
+  { slug: "athens", countrySlug: "greece", name: "Athens", kind: "city", status: "queued", summary: "Ruins, neighborhoods, food, ferries, hotels, and city-to-island planning." },
+  { slug: "santorini", countrySlug: "greece", name: "Santorini", kind: "island", status: "queued", summary: "Views, crowds, hotels, beaches, ferries, and sunset logistics." },
+  { slug: "crete", countrySlug: "greece", name: "Crete", kind: "island", status: "queued", summary: "Road trips, beaches, villages, food, hikes, ruins, and multi-base planning." },
+  { slug: "mykonos", countrySlug: "greece", name: "Mykonos", kind: "island", status: "queued", summary: "Beaches, nightlife, hotels, ferries, prices, and summer crowd control." },
+  { slug: "zurich", countrySlug: "switzerland", name: "Zurich", kind: "city", status: "queued", summary: "Lake days, rail hub logic, museums, food, hotels, and Swiss arrival planning." },
+  { slug: "lucerne", countrySlug: "switzerland", name: "Lucerne", kind: "town", status: "queued", summary: "Lake, mountains, old town, rail, boats, and first Alpine day trips." },
+  { slug: "interlaken", countrySlug: "switzerland", name: "Interlaken", kind: "town", status: "queued", summary: "Jungfrau region access, adventure days, rail passes, and weather timing." },
+  { slug: "zermatt", countrySlug: "switzerland", name: "Zermatt", kind: "village", status: "queued", summary: "Matterhorn views, hiking, skiing, car-free logistics, and premium stays." },
+  { slug: "oslo", countrySlug: "norway", name: "Oslo", kind: "city", status: "queued", summary: "Museums, fjord saunas, food, transit, hotels, and Norway arrival logic." },
+  { slug: "bergen", countrySlug: "norway", name: "Bergen", kind: "city", status: "queued", summary: "Fjords, rain, rail, seafood, old wharf, and western Norway routes." },
+  { slug: "lofoten", countrySlug: "norway", name: "Lofoten", kind: "region", status: "queued", summary: "Islands, hikes, roads, weather, cabins, beaches, and northern light timing." },
+  { slug: "marrakech", countrySlug: "morocco", name: "Marrakech", kind: "city", status: "queued", summary: "Medina routes, riads, souks, food, gardens, rooftops, and arrival confidence." },
+  { slug: "fes", countrySlug: "morocco", name: "Fes", kind: "city", status: "queued", summary: "Old medina, craft, food, guides, riads, and careful navigation." },
+  { slug: "chefchaouen", countrySlug: "morocco", name: "Chefchaouen", kind: "town", status: "queued", summary: "Blue lanes, mountain setting, day trips, photos, and slower northern routes." },
+  { slug: "new-york-city", countrySlug: "united-states", name: "New York City", kind: "city", status: "queued", summary: "Neighborhoods, hotels, transit, food, museums, shows, and first-visit pacing." },
+  { slug: "los-angeles", countrySlug: "united-states", name: "Los Angeles", kind: "city", status: "queued", summary: "Neighborhood bases, driving, beaches, food, studios, museums, and sprawl logic." },
+  { slug: "san-francisco", countrySlug: "united-states", name: "San Francisco", kind: "city", status: "queued", summary: "Hills, food, transit, hotels, bay trips, weather layers, and safety planning." },
+  { slug: "las-vegas", countrySlug: "united-states", name: "Las Vegas", kind: "city", status: "queued", summary: "Hotels, shows, food, desert day trips, nightlife, and resort logistics." },
+  { slug: "toronto", countrySlug: "canada", name: "Toronto", kind: "city", status: "queued", summary: "Neighborhoods, food, hotels, transit, lakefront, and Niagara side trips." },
+  { slug: "vancouver", countrySlug: "canada", name: "Vancouver", kind: "city", status: "queued", summary: "Mountains, ocean, food, neighborhoods, rain, ferries, and outdoor days." },
+  { slug: "banff", countrySlug: "canada", name: "Banff", kind: "town", status: "queued", summary: "Lakes, hiking, winter, shuttles, wildlife, and park logistics." },
+  { slug: "montreal", countrySlug: "canada", name: "Montreal", kind: "city", status: "queued", summary: "Food, festivals, neighborhoods, winter, transit, and bilingual city texture." },
+  { slug: "lima", countrySlug: "peru", name: "Lima", kind: "city", status: "queued", summary: "Food, cliffs, neighborhoods, museums, arrival nights, and Peru route setup." },
+  { slug: "cusco", countrySlug: "peru", name: "Cusco", kind: "city", status: "queued", summary: "Altitude, ruins, food, hotels, trains, and Sacred Valley planning." },
+  { slug: "machu-picchu", countrySlug: "peru", name: "Machu Picchu", kind: "region", status: "queued", summary: "Tickets, trains, buses, hikes, weather, and Sacred Valley logistics." },
+  { slug: "cape-town", countrySlug: "south-africa", name: "Cape Town", kind: "city", status: "queued", summary: "Table Mountain, beaches, food, hotels, safety, wine trips, and coastal drives." },
+  { slug: "johannesburg", countrySlug: "south-africa", name: "Johannesburg", kind: "city", status: "queued", summary: "Arrival logistics, history, food, neighborhoods, safety, and safari connections." },
+  { slug: "kruger", countrySlug: "south-africa", name: "Kruger", kind: "region", status: "queued", summary: "Safari lodges, self-drive, seasons, wildlife, malaria checks, and flight logistics." },
+];
+
 export function getCountryOption(slug: string) {
   return COUNTRY_OPTIONS.find((country) => country.slug === slug) ?? null;
 }
 
+export function getPlacesForCountry(countrySlug: string) {
+  return PLACE_OPTIONS.filter((place) => place.countrySlug === countrySlug);
+}
+
+export function getPlaceOption(slug: string) {
+  return PLACE_OPTIONS.find((place) => place.slug === slug) ?? null;
+}

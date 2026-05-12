@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import { getAttraction, getCity } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import {
@@ -80,6 +81,7 @@ export default async function AttractionDetailPage({
   params: Promise<{ slug: string; attraction: string }>;
 }) {
   const { slug, attraction } = await params;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const a = getAttraction(slug, attraction);
   if (!city || !a) notFound();

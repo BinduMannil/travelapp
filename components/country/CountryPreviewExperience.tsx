@@ -1,10 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { Compass, Globe2, MapPinned, Sparkles } from "lucide-react";
-import { COUNTRY_OPTIONS, type CountryOption } from "@/lib/destinations/countries";
+import {
+  COUNTRY_OPTIONS,
+  getPlacesForCountry,
+  type CountryOption,
+} from "@/lib/destinations/countries";
 
 export function CountryPreviewExperience({ country }: { country: CountryOption }) {
   const nextCountries = COUNTRY_OPTIONS.filter((item) => item.slug !== country.slug).slice(0, 6);
+  const places = getPlacesForCountry(country.slug);
   const previewCards = [
     {
       title: "Country UI",
@@ -81,6 +86,45 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
           })}
         </div>
       </section>
+
+      {places.length ? (
+        <section className="px-6 pb-20 sm:pb-28">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: country.accent }}>
+                  Rollout checklist
+                </p>
+                <h2 className="mt-3 font-sans text-[clamp(2.4rem,6vw,5.5rem)] font-black leading-none text-orange-50">
+                  Cities, towns, villages, islands.
+                </h2>
+              </div>
+              <div className="text-sm font-bold text-orange-50/58">
+                {places.length} places queued
+              </div>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {places.map((place) => (
+                <Link
+                  key={place.slug}
+                  href={`/city/${place.slug}`}
+                  className="group border border-orange-100/14 bg-orange-50/[0.055] p-5 transition hover:-translate-y-1 hover:border-amber-300/70 hover:bg-orange-50/[0.095]"
+                >
+                  <div className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-50/46">
+                    {place.kind} · {place.status}
+                  </div>
+                  <div className="mt-2 font-sans text-2xl font-black leading-none text-orange-50 group-hover:text-amber-200">
+                    {place.name}
+                  </div>
+                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-orange-50/62">
+                    {place.summary}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="px-6 pb-24 sm:pb-32">
         <div className="mx-auto max-w-7xl border-t border-orange-100/14 pt-10">

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
 import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityShopping } from "@/lib/data/seed";
@@ -37,6 +38,7 @@ export default async function ShoppingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="shopping" />;
   const city = getCity(slug);

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import {
   getAttractions,
   getCity,
@@ -15,6 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string; neighborhood: string }>;
 }): Promise<Metadata> {
   const { slug, neighborhood } = await params;
+  if (getPlaceOption(slug)) notFound();
   const n = getNeighborhood(slug, neighborhood);
   if (!n) return { title: "Neighborhood" };
   return { title: n.name, description: n.summary };
@@ -26,6 +28,7 @@ export default async function NeighborhoodDetailPage({
   params: Promise<{ slug: string; neighborhood: string }>;
 }) {
   const { slug, neighborhood } = await params;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const n = getNeighborhood(slug, neighborhood);
   if (!city || !n) notFound();

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import {
   getAttraction,
   getCity,
@@ -23,6 +24,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string; template: string }>;
 }): Promise<Metadata> {
   const { slug, template } = await params;
+  if (getPlaceOption(slug)) notFound();
   const t = getItinerary(slug, template);
   if (!t) return { title: "Itinerary" };
   return { title: t.name, description: t.summary };
@@ -143,6 +145,7 @@ export default async function ItineraryDetailPage({
   params: Promise<{ slug: string; template: string }>;
 }) {
   const { slug, template } = await params;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const t = getItinerary(slug, template);
   if (!city || !t) notFound();
