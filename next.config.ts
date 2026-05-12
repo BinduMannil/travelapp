@@ -39,6 +39,31 @@ const nextConfig: NextConfig = {
         destination: "/atlas",
         permanent: true,
       },
+      {
+        source: "/country/japan/:path*",
+        destination: "/country/vietnam",
+        permanent: false,
+      },
+      {
+        source: "/destination/kyoto",
+        destination: "/country/vietnam",
+        permanent: false,
+      },
+      {
+        source: "/city/tokyo/:path*",
+        destination: "/city/ho-chi-minh-city",
+        permanent: false,
+      },
+      {
+        source: "/city/kyoto/:path*",
+        destination: "/city/hoi-an",
+        permanent: false,
+      },
+      {
+        source: "/city/osaka/:path*",
+        destination: "/city/da-nang",
+        permanent: false,
+      },
     ];
   },
 };

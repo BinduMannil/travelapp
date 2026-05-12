@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { Bell, CirclePlay, Search } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { useI18n } from "@/lib/i18n/context";
-import { LanguagePicker } from "@/components/layout/LanguagePicker";
-import { PreferencesMenu } from "@/components/layout/PreferencesMenu";
 
 const images = {
   hero:
@@ -36,7 +34,7 @@ const images = {
     "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1100&q=86",
   swiss:
     "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1100&q=86",
-  kyoto:
+  vietnam:
     "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1100&q=86",
   lofoten:
     "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1100&q=86",
@@ -47,7 +45,7 @@ const images = {
 const heroSlides = [
   { label: "Alpine lake", image: images.hero },
   { label: "Desert road", image: images.desert },
-  { label: "Kyoto sunset", image: images.kyoto },
+  { label: "Vietnam lanterns", image: images.vietnam },
   { label: "Tropical waterfall", image: images.waterfall },
   { label: "Coastal island", image: images.coast },
   { label: "Night city", image: images.nightCity },
@@ -76,43 +74,43 @@ const categories = [
 
 const recommended = [
   {
-    countryKey: "homepage.recommended.bali",
-    titleKey: "homepage.recommended.ubud",
+    countryKey: "Vietnam",
+    titleKey: "Ho Chi Minh City",
     rating: "4.8",
     reviews: "1,248",
-    copyKey: "homepage.recommended.ubudCopy",
-    image: images.ubud,
-    href: "/discover",
+    copyKey: "Street energy, coffee culture, District 1, District 3, Thao Dien, and practical first-arrival rhythm.",
+    image: images.nightCity,
+    href: "/city/ho-chi-minh-city",
     overlay: "from-black/96 via-black/68 to-transparent",
   },
   {
-    countryKey: "homepage.recommended.switzerland",
-    titleKey: "homepage.recommended.lauterbrunnen",
+    countryKey: "Vietnam",
+    titleKey: "Hanoi",
     rating: "4.9",
     reviews: "892",
-    copyKey: "homepage.recommended.lauterbrunnenCopy",
-    image: images.swiss,
-    href: "/discover",
+    copyKey: "Old Quarter lanes, French Quarter hotels, Tay Ho routines, egg coffee, and northern food culture.",
+    image: images.culture,
+    href: "/city/hanoi",
     overlay: "from-black/94 via-black/58 to-transparent",
   },
   {
-    countryKey: "homepage.recommended.japan",
-    titleKey: "homepage.recommended.kyoto",
+    countryKey: "Vietnam",
+    titleKey: "Hoi An & Da Nang",
     rating: "4.8",
     reviews: "1,124",
-    copyKey: "homepage.recommended.kyotoCopy",
-    image: images.kyoto,
-    href: "/country/japan",
+    copyKey: "Lantern streets, beach mornings, tailoring, cafes, and a softer Central Vietnam route.",
+    image: images.vietnam,
+    href: "/country/vietnam",
     overlay: "from-black/95 via-black/64 to-transparent",
   },
   {
-    countryKey: "homepage.recommended.norway",
-    titleKey: "homepage.recommended.lofoten",
+    countryKey: "Vietnam",
+    titleKey: "Sapa & Ninh Binh",
     rating: "4.9",
     reviews: "743",
-    copyKey: "homepage.recommended.lofotenCopy",
-    image: images.lofoten,
-    href: "/discover",
+    copyKey: "Northern mountains, rice terraces, karst rivers, boat caves, weather checks, and slower scenic travel.",
+    image: images.nature,
+    href: "/country/vietnam/itinerary",
     overlay: "from-black/92 via-black/54 to-transparent",
   },
 ];
@@ -134,77 +132,37 @@ const features = [
 
 const siteDirectory = [
   {
-    title: "Plan",
+    title: "Vietnam",
     links: [
-      { label: "Explore", href: "/discover" },
-      { label: "Atlas Map", href: "/atlas" },
-      { label: "Trips", href: "/trips" },
-      { label: "Journey Builder", href: "/trip-collaboration" },
-      { label: "Guides", href: "/guides" },
-      { label: "Search", href: "/search" },
-      { label: "Journal", href: "/journal" },
-      { label: "Profile", href: "/profile" },
-      { label: "Settings", href: "/settings" },
+      { label: "Country Guide", href: "/country/vietnam" },
+      { label: "Itinerary", href: "/country/vietnam/itinerary" },
+      { label: "Cuisine", href: "/country/vietnam/cuisine" },
+      { label: "Beverages", href: "/country/vietnam/beverages" },
+      { label: "Famous For", href: "/country/vietnam/famous-for" },
+      { label: "Language", href: "/country/vietnam/languages" },
     ],
   },
   {
-    title: "Book",
+    title: "Cities",
     links: [
-      { label: "Stays", href: "/stays" },
-      { label: "Flights", href: "/flights" },
-      { label: "Booking Checkout", href: "/booking" },
-      { label: "Booking Confirmation", href: "/booking/confirmation" },
-      { label: "Shibuya Food Walk", href: "/activities/shibuya-food-culture-walk" },
-      { label: "Airspace", href: "/airspace" },
-      { label: "Rail Journeys", href: "/rail-journeys" },
-      { label: "Yachts", href: "/yachts" },
-      { label: "Expeditions", href: "/expeditions" },
-      { label: "Aurora", href: "/aurora" },
+      { label: "Ho Chi Minh City", href: "/city/ho-chi-minh-city" },
+      { label: "Hanoi", href: "/city/hanoi" },
+      { label: "Da Nang", href: "/city/da-nang" },
+      { label: "Hoi An", href: "/city/hoi-an" },
+      { label: "Hue", href: "/city/hue" },
+      { label: "Sapa", href: "/city/sapa" },
+      { label: "Phu Quoc", href: "/city/phu-quoc" },
+      { label: "Can Tho", href: "/city/can-tho" },
     ],
   },
   {
-    title: "Travel Tools",
+    title: "Planning",
     links: [
-      { label: "Activity Feed", href: "/activity" },
-      { label: "Alerts", href: "/alerts" },
-      { label: "Budget", href: "/budget" },
-      { label: "Currency", href: "/currency" },
-      { label: "Documents", href: "/documents" },
-      { label: "Offline Access", href: "/offline" },
-      { label: "Visa", href: "/visa" },
-      { label: "Weather", href: "/weather" },
-      { label: "Concierge", href: "/concierge" },
-      { label: "Culture", href: "/culture" },
-    ],
-  },
-  {
-    title: "Destinations",
-    links: [
-      { label: "Japan", href: "/country/japan" },
-      { label: "Vietnam", href: "/country/vietnam" },
-      { label: "Japan Itinerary", href: "/country/japan/itinerary" },
-      { label: "Vietnam Itinerary", href: "/country/vietnam/itinerary" },
-      { label: "Japan Cuisine", href: "/country/japan/cuisine" },
-      { label: "Japan Beverages", href: "/country/japan/beverages" },
-      { label: "Japan Famous For", href: "/country/japan/famous-for" },
-      { label: "Japan Languages", href: "/country/japan/languages" },
-      { label: "Tokyo", href: "/city/tokyo" },
-      { label: "Kyoto", href: "/destination/kyoto" },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      { label: "Onboarding", href: "/onboarding" },
-      { label: "Support", href: "/support" },
-      { label: "Reviews", href: "/reviews" },
-      { label: "Suggestions", href: "/suggestions" },
-      { label: "Privacy", href: "/legal/privacy" },
-      { label: "Terms", href: "/legal/terms" },
-      { label: "Affiliate Disclosure", href: "/legal/affiliate-disclosure" },
-      { label: "Admin", href: "/admin" },
-      { label: "Field Notes", href: "/internal/field-notes" },
-      { label: "Mobile Travel Mode", href: "/internal/mobile-travel" },
+      { label: "Vietnam Route", href: "/country/vietnam/itinerary" },
+      { label: "Food Guide", href: "/country/vietnam/cuisine" },
+      { label: "Coffee & Drinks", href: "/country/vietnam/beverages" },
+      { label: "What Vietnam Is Known For", href: "/country/vietnam/famous-for" },
+      { label: "Vietnamese Phrases", href: "/country/vietnam/languages" },
     ],
   },
 ];
@@ -265,23 +223,6 @@ function HeaderNav() {
             alt=""
             className="h-10 w-10 rounded-full border border-white/20 object-cover sm:h-12 sm:w-12"
           />
-          <details className="group relative hidden sm:block">
-            <summary className="grid h-10 w-10 cursor-pointer list-none place-items-center rounded-full border border-white/18 bg-black/18 text-white backdrop-blur transition hover:border-[#d8aa4f]/60 hover:text-[#d8aa4f] [&::-webkit-details-marker]:hidden">
-              <span className="sr-only">{t("navigation.openPreferences")}</span>
-              <span className="text-[0.6rem] font-bold uppercase tracking-[0.12em]">
-                Prefs
-              </span>
-            </summary>
-            <div className="absolute right-0 top-[calc(100%+12px)] w-[min(88vw,34rem)] rounded-[1.2rem] border border-white/16 bg-[#081011]/94 p-4 shadow-2xl shadow-black/45 backdrop-blur-2xl">
-              <p className="mb-3 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-[#d8aa4f]">
-                {t("settings.travelPreferences")}
-              </p>
-              <div className="grid gap-3">
-                <LanguagePicker compact />
-                <PreferencesMenu compact />
-              </div>
-            </div>
-          </details>
         </div>
       </div>
     </header>
@@ -370,9 +311,9 @@ function DestinationCard({
   overlay,
 }: (typeof recommended)[number]) {
   const { t } = useI18n();
-  const country = t(countryKey);
-  const title = t(titleKey);
-  const copy = t(copyKey);
+  const country = countryKey.startsWith("homepage.") ? t(countryKey) : countryKey;
+  const title = titleKey.startsWith("homepage.") ? t(titleKey) : titleKey;
+  const copy = copyKey.startsWith("homepage.") ? t(copyKey) : copyKey;
 
   return (
     <Link
@@ -443,53 +384,6 @@ function FeatureStrip() {
             </article>
           );
         })}
-      </div>
-    </section>
-  );
-}
-
-function SiteDirectory() {
-  return (
-    <section id="site-directory" className="mx-auto mt-12 max-w-[1160px] px-4 sm:px-5">
-      <div className="border-t border-white/14 py-12 sm:py-16">
-        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]/88">
-              Directory
-            </p>
-            <h2 className="mt-3 font-sans text-[clamp(1.75rem,8vw,2.4rem)] font-medium leading-tight text-white">
-              Everything currently live.
-            </h2>
-          </div>
-          <Link
-            href="/support"
-            className="w-fit border-b border-white/24 pb-1 text-sm font-medium text-white/86 transition hover:text-white"
-          >
-            Need help?
-          </Link>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
-          {siteDirectory.map((group) => (
-            <div
-              key={group.title}
-              className="rounded-2xl border border-white/12 bg-white/[0.045] p-5 shadow-xl shadow-black/20"
-            >
-              <h3 className="font-sans text-lg font-semibold text-white">{group.title}</h3>
-              <div className="mt-4 grid gap-2">
-                {group.links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-xl px-3 py-2 text-sm font-medium text-white/68 transition hover:bg-white/[0.07] hover:text-[#d8aa4f]"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -646,7 +540,7 @@ export function JourneeWebExperience() {
             {t("homepage.recommended.title")}
           </h2>
           <Link
-            href="/discover"
+            href="/country/vietnam"
             className="hidden border-b border-white/24 pb-1 text-sm font-medium text-white/86 sm:inline-flex"
           >
             {t("homepage.discovery.viewAll")}

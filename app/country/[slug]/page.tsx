@@ -180,9 +180,11 @@ export default async function CountryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (slug === "vietnam") return <VietnamCountryExperience />;
+  notFound();
+
   const country = COUNTRIES[slug];
   if (!country) notFound();
-  if (slug === "vietnam") return <VietnamCountryExperience />;
   const identity = getDestinationIdentity(slug);
   const intelligence = COUNTRY_INTELLIGENCE[slug];
   const legalSocialRisks = await getLegalSocialRisksLive({ countrySlug: slug });
@@ -261,5 +263,5 @@ export default async function CountryPage({
 }
 
 export function generateStaticParams() {
-  return Object.keys(COUNTRIES).map((slug) => ({ slug }));
+  return [{ slug: "vietnam" }];
 }

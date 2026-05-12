@@ -363,29 +363,21 @@ export default function PrivacyPage() {
           with the UAE Data Office.
         </p>
 
-        <h3>5.6 Japan (APPI)</h3>
-        <p>
-          Japan&rsquo;s Act on the Protection of Personal Information applies
-          to personal data about Japanese residents. You have rights of
-          disclosure, correction, addition, deletion, suspension of use, and
-          suspension of third-party provision under Articles 28–30 APPI.
-        </p>
-
-        <h3>5.7 Singapore (PDPA)</h3>
+        <h3>5.6 Singapore (PDPA)</h3>
         <p>
           We comply with the Personal Data Protection Act 2012. You may
           withdraw consent, request access, and request correction. The
           Personal Data Protection Commission (PDPC) is the regulator.
         </p>
 
-        <h3>5.8 Australia (Privacy Act 1988)</h3>
+        <h3>5.7 Australia (Privacy Act 1988)</h3>
         <p>
           We comply with the 13 Australian Privacy Principles. You may
           complain to the Office of the Australian Information Commissioner
           (OAIC).
         </p>
 
-        <h3>5.9 South Africa (POPIA)</h3>
+        <h3>5.8 South Africa (POPIA)</h3>
         <p>
           We comply with the Protection of Personal Information Act 4 of
           2013. The Information Regulator supervises.
@@ -542,8 +534,7 @@ export default function PrivacyPage() {
         <ul>
           <li>
             An adequacy decision of the European Commission or the UK
-            government, where one exists (e.g. EU–UK, EU–Japan, UK–Japan,
-            EU–Switzerland);
+            government, where one exists (e.g. EU–UK, EU–Switzerland);
           </li>
           <li>
             Standard Contractual Clauses (SCCs) approved by the European

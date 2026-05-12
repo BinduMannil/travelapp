@@ -245,6 +245,7 @@ export default async function CityPage({
   const { slug } = await params;
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityExperience city={vietnamCity} />;
+  notFound();
 
   const city = CITIES[slug];
   if (!city) {
@@ -514,11 +515,7 @@ export default async function CityPage({
 }
 
 export function generateStaticParams() {
-  return [
-    ...Object.keys(CITIES),
-    ...Object.keys(PLANNED_CITIES),
-    ...VIETNAM_CITIES.map((city) => city.slug),
-  ].map((slug) => ({ slug }));
+  return VIETNAM_CITIES.map((city) => ({ slug: city.slug }));
 }
 
 function PlannedCityPage({
