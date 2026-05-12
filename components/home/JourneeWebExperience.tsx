@@ -389,6 +389,53 @@ function FeatureStrip() {
   );
 }
 
+function SiteDirectory() {
+  return (
+    <section id="site-directory" className="mx-auto mt-12 max-w-[1160px] px-4 sm:px-5">
+      <div className="border-t border-white/14 py-12 sm:py-16">
+        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]/88">
+              Vietnam directory
+            </p>
+            <h2 className="mt-3 font-sans text-[clamp(1.75rem,8vw,2.4rem)] font-medium leading-tight text-white">
+              Country and city pages currently live.
+            </h2>
+          </div>
+          <Link
+            href="/country/vietnam/itinerary"
+            className="w-fit border-b border-white/24 pb-1 text-sm font-medium text-white/86 transition hover:text-white"
+          >
+            Build the route
+          </Link>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {siteDirectory.map((group) => (
+            <div
+              key={group.title}
+              className="rounded-2xl border border-white/12 bg-white/[0.045] p-5 shadow-xl shadow-black/20"
+            >
+              <h3 className="font-sans text-lg font-semibold text-white">{group.title}</h3>
+              <div className="mt-4 grid gap-2">
+                {group.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-xl px-3 py-2 text-sm font-medium text-white/68 transition hover:bg-white/[0.07] hover:text-[#d8aa4f]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function JourneeWebExperience() {
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);

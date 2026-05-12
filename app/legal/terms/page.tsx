@@ -37,7 +37,7 @@ export default function TermsPage() {
         <p>
           <strong>Mandatory consumer-rights carve-out:</strong> if you are a
           consumer resident in the European Economic Area, the United Kingdom,
-          Switzerland, Australia, New Zealand, Brazil, Canada (including
+          Switzerland, Australia, New Zealand, Japan, Brazil, Canada (including
           Quebec), the United Arab Emirates, or a US state with comprehensive
           consumer-protection law, nothing in these Terms limits a right or
           remedy that cannot be limited under that law. Where a clause below
@@ -71,7 +71,7 @@ export default function TermsPage() {
           Terms; material changes are announced on this page with an updated
           &ldquo;Last reviewed&rdquo; date and, for account holders, by email.
           For consumers in jurisdictions requiring explicit re-acceptance of
-          material changes (EEA, UK, Switzerland, Brazil), we will ask
+          material changes (EEA, UK, Switzerland, Japan, Brazil), we will ask
           for it before the change takes effect for you.
         </p>
 
@@ -177,6 +177,10 @@ export default function TermsPage() {
           <li>
             For consumers in Australia, these Terms do not exclude or limit
             any consumer guarantee under the Australian Consumer Law.
+          </li>
+          <li>
+            For consumers in Japan, any mandatory consumer protections under
+            applicable local law continue to apply.
           </li>
           <li>
             You may cancel a subscription at any time; cancellation takes
