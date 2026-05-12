@@ -490,17 +490,17 @@ export function MobileTravelMode({
 
         <nav className="mt-5 grid grid-cols-2 gap-3" aria-label="Travel shortcuts">
           <FieldButton
-            href={`/city/${city.slug}/emergency`}
+            href={`/city/${city.slug}`}
             icon={ShieldAlert}
             label="Emergency"
             tone="urgent"
           />
-          <FieldButton href={`/city/${city.slug}/apps`} icon={Smartphone} label="Apps" />
-          <FieldButton href={`/city/${city.slug}/payments`} icon={BadgeDollarSign} label="Payments" />
-          <FieldButton href={`/city/${city.slug}/transit`} icon={TramFront} label="Transport" />
+          <FieldButton href={`/city/${city.slug}`} icon={Smartphone} label="Apps" />
+          <FieldButton href={`/city/${city.slug}`} icon={BadgeDollarSign} label="Payments" />
+          <FieldButton href={`/city/${city.slug}`} icon={TramFront} label="Transport" />
           <FieldButton href="#phrasebook" icon={Languages} label="Phrasebook" />
           <FieldButton href="#risks" icon={Shield} label="Legal / risks" />
-          <FieldButton href={`/city/${city.slug}/itinerary`} icon={ClipboardList} label="Itinerary" />
+          <FieldButton href="/country/vietnam/itinerary" icon={ClipboardList} label="Itinerary" />
           <FieldButton href="#field-note" icon={FilePenLine} label="Field notes" />
           <FieldButton href="#review" icon={Star} label="Reviews" />
           <FieldButton href="#quick-feedback" icon={Check} label="Fast feedback" />

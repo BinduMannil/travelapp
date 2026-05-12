@@ -132,6 +132,83 @@ const features = [
   },
 ];
 
+const siteDirectory = [
+  {
+    title: "Plan",
+    links: [
+      { label: "Explore", href: "/discover" },
+      { label: "Atlas Map", href: "/atlas" },
+      { label: "Trips", href: "/trips" },
+      { label: "Journey Builder", href: "/trip-collaboration" },
+      { label: "Guides", href: "/guides" },
+      { label: "Search", href: "/search" },
+      { label: "Journal", href: "/journal" },
+      { label: "Profile", href: "/profile" },
+      { label: "Settings", href: "/settings" },
+    ],
+  },
+  {
+    title: "Book",
+    links: [
+      { label: "Stays", href: "/stays" },
+      { label: "Flights", href: "/flights" },
+      { label: "Booking Checkout", href: "/booking" },
+      { label: "Booking Confirmation", href: "/booking/confirmation" },
+      { label: "Shibuya Food Walk", href: "/activities/shibuya-food-culture-walk" },
+      { label: "Airspace", href: "/airspace" },
+      { label: "Rail Journeys", href: "/rail-journeys" },
+      { label: "Yachts", href: "/yachts" },
+      { label: "Expeditions", href: "/expeditions" },
+      { label: "Aurora", href: "/aurora" },
+    ],
+  },
+  {
+    title: "Travel Tools",
+    links: [
+      { label: "Activity Feed", href: "/activity" },
+      { label: "Alerts", href: "/alerts" },
+      { label: "Budget", href: "/budget" },
+      { label: "Currency", href: "/currency" },
+      { label: "Documents", href: "/documents" },
+      { label: "Offline Access", href: "/offline" },
+      { label: "Visa", href: "/visa" },
+      { label: "Weather", href: "/weather" },
+      { label: "Concierge", href: "/concierge" },
+      { label: "Culture", href: "/culture" },
+    ],
+  },
+  {
+    title: "Destinations",
+    links: [
+      { label: "Japan", href: "/country/japan" },
+      { label: "Vietnam", href: "/country/vietnam" },
+      { label: "Japan Itinerary", href: "/country/japan/itinerary" },
+      { label: "Vietnam Itinerary", href: "/country/vietnam/itinerary" },
+      { label: "Japan Cuisine", href: "/country/japan/cuisine" },
+      { label: "Japan Beverages", href: "/country/japan/beverages" },
+      { label: "Japan Famous For", href: "/country/japan/famous-for" },
+      { label: "Japan Languages", href: "/country/japan/languages" },
+      { label: "Tokyo", href: "/city/tokyo" },
+      { label: "Kyoto", href: "/destination/kyoto" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Onboarding", href: "/onboarding" },
+      { label: "Support", href: "/support" },
+      { label: "Reviews", href: "/reviews" },
+      { label: "Suggestions", href: "/suggestions" },
+      { label: "Privacy", href: "/legal/privacy" },
+      { label: "Terms", href: "/legal/terms" },
+      { label: "Affiliate Disclosure", href: "/legal/affiliate-disclosure" },
+      { label: "Admin", href: "/admin" },
+      { label: "Field Notes", href: "/internal/field-notes" },
+      { label: "Mobile Travel Mode", href: "/internal/mobile-travel" },
+    ],
+  },
+];
+
 function HeaderNav() {
   const { t } = useI18n();
   const navLabels: Record<string, string> = {
@@ -371,6 +448,53 @@ function FeatureStrip() {
   );
 }
 
+function SiteDirectory() {
+  return (
+    <section id="site-directory" className="mx-auto mt-12 max-w-[1160px] px-4 sm:px-5">
+      <div className="border-t border-white/14 py-12 sm:py-16">
+        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]/88">
+              Directory
+            </p>
+            <h2 className="mt-3 font-sans text-[clamp(1.75rem,8vw,2.4rem)] font-medium leading-tight text-white">
+              Everything currently live.
+            </h2>
+          </div>
+          <Link
+            href="/support"
+            className="w-fit border-b border-white/24 pb-1 text-sm font-medium text-white/86 transition hover:text-white"
+          >
+            Need help?
+          </Link>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          {siteDirectory.map((group) => (
+            <div
+              key={group.title}
+              className="rounded-2xl border border-white/12 bg-white/[0.045] p-5 shadow-xl shadow-black/20"
+            >
+              <h3 className="font-sans text-lg font-semibold text-white">{group.title}</h3>
+              <div className="mt-4 grid gap-2">
+                {group.links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-xl px-3 py-2 text-sm font-medium text-white/68 transition hover:bg-white/[0.07] hover:text-[#d8aa4f]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function JourneeWebExperience() {
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
@@ -535,6 +659,7 @@ export function JourneeWebExperience() {
         </div>
       </section>
 
+      <SiteDirectory />
       <FeatureStrip />
     </main>
   );
