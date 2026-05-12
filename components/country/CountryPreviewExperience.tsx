@@ -1,5 +1,8 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import { Compass, Globe2, MapPinned, Sparkles } from "lucide-react";
 import {
   COUNTRY_OPTIONS,
@@ -7,9 +10,69 @@ import {
   type CountryOption,
 } from "@/lib/destinations/countries";
 
+const statusLabel = {
+  live: "Live",
+  queued: "Queued",
+};
+
 export function CountryPreviewExperience({ country }: { country: CountryOption }) {
-  const nextCountries = COUNTRY_OPTIONS.filter((item) => item.slug !== country.slug).slice(0, 6);
   const places = getPlacesForCountry(country.slug);
+  const nextCountries = COUNTRY_OPTIONS.filter((item) => item.slug !== country.slug);
+  const [placeKind, setPlaceKind] = useState("all");
+  const [placeStatus, setPlaceStatus] = useState("all");
+  const [placeQuery, setPlaceQuery] = useState("");
+  const [countryRegion, setCountryRegion] = useState("all");
+  const [countryStatus, setCountryStatus] = useState("all");
+  const [countryQuery, setCountryQuery] = useState("");
+
+  const placeKinds = useMemo(
+    () => ["all", ...Array.from(new Set(places.map((place) => place.kind))).sort()],
+    [places],
+  );
+  const placeStatuses = useMemo(
+    () => ["all", ...Array.from(new Set(places.map((place) => place.status))).sort()],
+    [places],
+  );
+  const countryRegions = useMemo(
+    () => ["all", ...Array.from(new Set(nextCountries.map((item) => item.region))).sort()],
+    [nextCountries],
+  );
+  const countryStatuses = useMemo(
+    () => ["all", ...Array.from(new Set(nextCountries.map((item) => item.status))).sort()],
+    [nextCountries],
+  );
+
+  const filteredPlaces = useMemo(() => {
+    const query = placeQuery.trim().toLowerCase();
+
+    return places.filter((place) => {
+      const matchesKind = placeKind === "all" || place.kind === placeKind;
+      const matchesStatus = placeStatus === "all" || place.status === placeStatus;
+      const matchesQuery =
+        !query ||
+        place.name.toLowerCase().includes(query) ||
+        place.summary.toLowerCase().includes(query);
+
+      return matchesKind && matchesStatus && matchesQuery;
+    });
+  }, [placeKind, placeQuery, placeStatus, places]);
+
+  const filteredCountries = useMemo(() => {
+    const query = countryQuery.trim().toLowerCase();
+
+    return nextCountries.filter((item) => {
+      const matchesRegion = countryRegion === "all" || item.region === countryRegion;
+      const matchesStatus = countryStatus === "all" || item.status === countryStatus;
+      const matchesQuery =
+        !query ||
+        item.name.toLowerCase().includes(query) ||
+        item.summary.toLowerCase().includes(query) ||
+        item.region.toLowerCase().includes(query);
+
+      return matchesRegion && matchesStatus && matchesQuery;
+    });
+  }, [countryQuery, countryRegion, countryStatus, nextCountries]);
+
   const previewCards = [
     {
       title: "Country UI",
@@ -100,11 +163,61 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 </h2>
               </div>
               <div className="text-sm font-bold text-orange-50/58">
-                {places.length} places queued
+                {filteredPlaces.length} of {places.length} places
               </div>
             </div>
+            <div className="mb-8 grid gap-3 border border-orange-100/14 bg-black/24 p-4 md:grid-cols-[1fr_12rem_12rem_auto] md:items-end">
+              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+                Search places
+                <input
+                  value={placeQuery}
+                  onChange={(event) => setPlaceQuery(event.currentTarget.value)}
+                  placeholder="Name or planning note"
+                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition placeholder:text-orange-50/30 focus:border-amber-300"
+                />
+              </label>
+              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+                Type
+                <select
+                  value={placeKind}
+                  onChange={(event) => setPlaceKind(event.currentTarget.value)}
+                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
+                >
+                  {placeKinds.map((kind) => (
+                    <option key={kind} value={kind}>
+                      {kind === "all" ? "All types" : kind}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+                Status
+                <select
+                  value={placeStatus}
+                  onChange={(event) => setPlaceStatus(event.currentTarget.value)}
+                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
+                >
+                  {placeStatuses.map((status) => (
+                    <option key={status} value={status}>
+                      {status === "all" ? "All statuses" : statusLabel[status as "live" | "queued"]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                onClick={() => {
+                  setPlaceKind("all");
+                  setPlaceStatus("all");
+                  setPlaceQuery("");
+                }}
+                className="h-11 border border-orange-100/16 px-4 text-sm font-bold text-orange-50/72 transition hover:border-amber-300 hover:text-amber-200"
+              >
+                Reset
+              </button>
+            </div>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {places.map((place) => (
+              {filteredPlaces.map((place) => (
                 <Link
                   key={place.slug}
                   href={`/city/${place.slug}`}
@@ -122,6 +235,11 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 </Link>
               ))}
             </div>
+            {!filteredPlaces.length ? (
+              <div className="mt-5 border border-orange-100/14 bg-orange-50/[0.045] p-5 text-sm font-semibold text-orange-50/64">
+                No places match those filters yet.
+              </div>
+            ) : null}
           </div>
         </section>
       ) : null}
@@ -131,8 +249,61 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
           <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: country.accent }}>
             Other countries
           </p>
+          <div className="mt-5 grid gap-3 border border-orange-100/14 bg-black/20 p-4 md:grid-cols-[1fr_12rem_12rem_auto] md:items-end">
+            <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+              Search countries
+              <input
+                value={countryQuery}
+                onChange={(event) => setCountryQuery(event.currentTarget.value)}
+                placeholder="Country, region, or focus"
+                className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition placeholder:text-orange-50/30 focus:border-amber-300"
+              />
+            </label>
+            <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+              Region
+              <select
+                value={countryRegion}
+                onChange={(event) => setCountryRegion(event.currentTarget.value)}
+                className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
+              >
+                {countryRegions.map((region) => (
+                  <option key={region} value={region}>
+                    {region === "all" ? "All regions" : region}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+              Status
+              <select
+                value={countryStatus}
+                onChange={(event) => setCountryStatus(event.currentTarget.value)}
+                className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
+              >
+                {countryStatuses.map((status) => (
+                  <option key={status} value={status}>
+                    {status === "all" ? "All statuses" : statusLabel[status as "live" | "queued"]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="button"
+              onClick={() => {
+                setCountryRegion("all");
+                setCountryStatus("all");
+                setCountryQuery("");
+              }}
+              className="h-11 border border-orange-100/16 px-4 text-sm font-bold text-orange-50/72 transition hover:border-amber-300 hover:text-amber-200"
+            >
+              Reset
+            </button>
+          </div>
+          <div className="mt-4 text-sm font-bold text-orange-50/50">
+            {filteredCountries.length} of {nextCountries.length} countries
+          </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {nextCountries.map((item) => (
+            {filteredCountries.map((item) => (
               <Link
                 key={item.slug}
                 href={`/country/${item.slug}`}
@@ -150,6 +321,11 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
               </Link>
             ))}
           </div>
+          {!filteredCountries.length ? (
+            <div className="mt-5 border border-orange-100/14 bg-orange-50/[0.045] p-5 text-sm font-semibold text-orange-50/64">
+              No countries match those filters yet.
+            </div>
+          ) : null}
         </div>
       </section>
     </main>

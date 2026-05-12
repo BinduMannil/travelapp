@@ -1,5 +1,8 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { useMemo, useState } from "react";
 import { Compass, MapPinned, Route, Sparkles } from "lucide-react";
 import {
   getCountryOption,
@@ -10,12 +13,40 @@ import {
 const fallbackImage =
   "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=86";
 
+const statusLabel = {
+  live: "Live",
+  queued: "Queued",
+};
+
 export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
   const country = getCountryOption(place.countrySlug);
-  const siblings = getPlacesForCountry(place.countrySlug)
-    .filter((item) => item.slug !== place.slug)
-    .slice(0, 8);
+  const siblings = getPlacesForCountry(place.countrySlug).filter((item) => item.slug !== place.slug);
+  const [kind, setKind] = useState("all");
+  const [status, setStatus] = useState("all");
+  const [query, setQuery] = useState("");
   const accent = country?.accent ?? "#F59E0B";
+  const siblingKinds = useMemo(
+    () => ["all", ...Array.from(new Set(siblings.map((item) => item.kind))).sort()],
+    [siblings],
+  );
+  const siblingStatuses = useMemo(
+    () => ["all", ...Array.from(new Set(siblings.map((item) => item.status))).sort()],
+    [siblings],
+  );
+  const filteredSiblings = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+
+    return siblings.filter((item) => {
+      const matchesKind = kind === "all" || item.kind === kind;
+      const matchesStatus = status === "all" || item.status === status;
+      const matchesQuery =
+        !normalizedQuery ||
+        item.name.toLowerCase().includes(normalizedQuery) ||
+        item.summary.toLowerCase().includes(normalizedQuery);
+
+      return matchesKind && matchesStatus && matchesQuery;
+    });
+  }, [kind, query, siblings, status]);
 
   return (
     <main className="min-h-screen bg-[#07120f] text-orange-50">
@@ -94,8 +125,61 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
             <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: accent }}>
               More in {country?.name ?? "this country"}
             </p>
+            <div className="mt-5 grid gap-3 border border-orange-100/14 bg-black/20 p-4 md:grid-cols-[1fr_12rem_12rem_auto] md:items-end">
+              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+                Search places
+                <input
+                  value={query}
+                  onChange={(event) => setQuery(event.currentTarget.value)}
+                  placeholder="Name or planning note"
+                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition placeholder:text-orange-50/30 focus:border-amber-300"
+                />
+              </label>
+              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+                Type
+                <select
+                  value={kind}
+                  onChange={(event) => setKind(event.currentTarget.value)}
+                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
+                >
+                  {siblingKinds.map((item) => (
+                    <option key={item} value={item}>
+                      {item === "all" ? "All types" : item}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
+                Status
+                <select
+                  value={status}
+                  onChange={(event) => setStatus(event.currentTarget.value)}
+                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
+                >
+                  {siblingStatuses.map((item) => (
+                    <option key={item} value={item}>
+                      {item === "all" ? "All statuses" : statusLabel[item as "live" | "queued"]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                onClick={() => {
+                  setKind("all");
+                  setStatus("all");
+                  setQuery("");
+                }}
+                className="h-11 border border-orange-100/16 px-4 text-sm font-bold text-orange-50/72 transition hover:border-amber-300 hover:text-amber-200"
+              >
+                Reset
+              </button>
+            </div>
+            <div className="mt-4 text-sm font-bold text-orange-50/50">
+              {filteredSiblings.length} of {siblings.length} places
+            </div>
             <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {siblings.map((item) => (
+              {filteredSiblings.map((item) => (
                 <Link
                   key={item.slug}
                   href={`/city/${item.slug}`}
@@ -113,10 +197,14 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
                 </Link>
               ))}
             </div>
+            {!filteredSiblings.length ? (
+              <div className="mt-5 border border-orange-100/14 bg-orange-50/[0.045] p-5 text-sm font-semibold text-orange-50/64">
+                No places match those filters yet.
+              </div>
+            ) : null}
           </div>
         </section>
       ) : null}
     </main>
   );
 }
-
