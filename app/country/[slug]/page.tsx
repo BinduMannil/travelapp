@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CoverTile } from "@/components/common/CoverTile";
 import { CountryMap } from "@/components/country/CountryMap";
+import { CountryPreviewExperience } from "@/components/country/CountryPreviewExperience";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
 import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
@@ -9,6 +10,7 @@ import { VietnamCountryExperience } from "@/components/vietnam/VietnamCountryExp
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
 import { formatNavigationLabel, formatTitleCase } from "@/lib/copy/formatting";
 import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
+import { getCountryOption } from "@/lib/destinations/countries";
 import { getDestinationIdentity } from "@/lib/destination/identity";
 import { COUNTRY_INTELLIGENCE } from "@/lib/destination/intelligence";
 
@@ -181,6 +183,8 @@ export default async function CountryPage({
 }) {
   const { slug } = await params;
   if (slug === "vietnam") return <VietnamCountryExperience />;
+  const countryOption = getCountryOption(slug);
+  if (countryOption) return <CountryPreviewExperience country={countryOption} />;
   notFound();
 
   const country = COUNTRIES[slug];

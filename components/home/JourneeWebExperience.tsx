@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Bell, CirclePlay, Search } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { COUNTRY_OPTIONS } from "@/lib/destinations/countries";
 import { useI18n } from "@/lib/i18n/context";
 
 const images = {
@@ -270,7 +271,6 @@ const siteDirectory = [
   },
 ];
 
-
 function HeaderNav() {
   const { t } = useI18n();
   const navLabels: Record<string, string> = {
@@ -367,6 +367,35 @@ function HeroSearch() {
           <Search className="h-6 w-6" />
         </button>
       </div>
+    </div>
+  );
+}
+
+function CountryDropdown() {
+  return (
+    <div className="relative z-20 mx-auto mt-5 max-w-[980px] px-4 sm:px-5">
+      <label className="grid gap-2 rounded-[1.25rem] border border-white/16 bg-black/28 p-4 shadow-xl shadow-black/25 backdrop-blur-xl sm:grid-cols-[auto_1fr] sm:items-center sm:gap-5">
+        <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d8aa4f]">
+          Countries
+        </span>
+        <select
+          defaultValue=""
+          onChange={(event) => {
+            const slug = event.currentTarget.value;
+            if (slug) window.location.assign(`/country/${slug}`);
+          }}
+          className="h-12 w-full border border-white/14 bg-[#07120f] px-4 text-sm font-semibold text-white outline-none transition hover:border-[#d8aa4f]/60 focus:border-[#d8aa4f]"
+        >
+          <option value="" disabled>
+            Pick a country to check
+          </option>
+          {COUNTRY_OPTIONS.map((country) => (
+            <option key={country.slug} value={country.slug}>
+              {country.name} · {country.status === "live" ? "Live" : "Queued"} · {country.region}
+            </option>
+          ))}
+        </select>
+      </label>
     </div>
   );
 }
@@ -540,11 +569,11 @@ function SiteDirectory() {
   );
 }
 
-
 export function JourneeWebExperience() {
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
   const { t } = useI18n();
+  const activeHero = heroSlides[activeHeroIndex] ?? heroSlides[0];
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -653,7 +682,7 @@ export function JourneeWebExperience() {
             <button
               key={slide.label}
               type="button"
-              aria-label={`Show ${slide.label}`}
+              aria-label={`Show ${slide.label}, ${slide.place}`}
               onClick={() => setActiveHeroIndex(index)}
               className={`h-1.5 rounded-full transition-all duration-500 ${
                 index === activeHeroIndex
@@ -663,9 +692,13 @@ export function JourneeWebExperience() {
             />
           ))}
         </div>
+        <div className="absolute bottom-[7.5rem] left-1/2 z-20 hidden -translate-x-1/2 rounded-full border border-white/14 bg-black/22 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white/78 backdrop-blur-md md:block">
+          {activeHero.label} · {activeHero.place}
+        </div>
       </section>
 
       <HeroSearch />
+      <CountryDropdown />
 
       <section id="journeys" className="mx-auto mt-8 max-w-[1160px] px-4 sm:mt-9 sm:px-5">
         <div className="mb-5 flex items-center justify-between gap-4">
