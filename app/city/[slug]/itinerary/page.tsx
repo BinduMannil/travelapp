@@ -1,14 +1,16 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity } from "@/lib/data/seed";
 import { JapanTripPlanner } from "@/components/itinerary/JapanTripPlanner";
 import { PageHero } from "@/components/layout/PageHero";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Japan itinerary builder",
+    title: "Vietnam city itinerary",
     description:
-      "Build a Japan-wide trip route from dates, season, pace, and activities.",
+      "Plan how a Vietnam city fits into the wider route by pace, region, weather, transfers, and activities.",
   };
 }
 
@@ -18,6 +20,8 @@ export default async function ItineraryListPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="itinerary" />;
   const city = getCity(slug);
   if (!city) notFound();
 

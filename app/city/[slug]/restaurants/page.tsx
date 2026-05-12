@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   CUISINE_LABELS,
   DIETARY_LABELS,
@@ -22,7 +24,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Restaurants",
     description:
-      "Popular Tokyo restaurants ranked by a composite of Google reviews, Tabelog, and Michelin, with price, cuisine, and dietary filters.",
+      "Vietnam city food planning with regional dishes, cafes, street food, price context, and local eating rhythm.",
   };
 }
 
@@ -62,6 +64,8 @@ export default async function RestaurantsPage({
   }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="restaurants" />;
   const sp = await searchParams;
   const city = getCity(slug);
   if (!city) notFound();

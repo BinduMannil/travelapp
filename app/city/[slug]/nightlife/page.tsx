@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityNightlife } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -30,7 +32,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Nightlife",
     description:
-      "Tokyo's nightlife layered: 18:00 izakaya → 22:00 jazz kissa → 02:00 Golden Gai. What to drink, where, and when.",
+      "Vietnam nightlife planning for dinner, rooftops, beer streets, cocktail rooms, late food, and safe rides home.",
   };
 }
 
@@ -40,6 +42,8 @@ export default async function NightlifePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="nightlife" />;
   const city = getCity(slug);
   const data = getCityNightlife(slug);
   if (!city || !data) notFound();

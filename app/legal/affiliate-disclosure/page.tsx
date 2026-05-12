@@ -90,9 +90,9 @@ export default function AffiliateDisclosurePage() {
             they are never purchased or incentivised.
           </li>
           <li>
-            Hotel listings are not ranked by commission. Attraction rankings
-            reflect our view of importance; restaurant rankings are driven by
-            a published composite of Google, Tabelog, and Michelin signals.
+            Hotel listings are not ranked by commission. Attraction and
+            restaurant rankings reflect editorial judgement, transparent
+            quality signals, and traveler usefulness.
           </li>
         </ul>
 

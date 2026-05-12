@@ -156,6 +156,21 @@ const CITY_PERSONALITY: Record<
   },
 };
 
+const CITY_DETAIL_LINKS = [
+  ["Arrival", "arrival", "Airport, station, transfer, SIM, first cash"],
+  ["Neighborhoods", "neighborhoods", "Where to sleep, eat, work, and walk"],
+  ["Hotels", "hotels", "Base logic before room choice"],
+  ["Restaurants", "restaurants", "Regional dishes, cafes, street food"],
+  ["Attractions", "attractions", "Anchors, markets, viewpoints, museums"],
+  ["Itinerary", "itinerary", "How this city fits the Vietnam route"],
+  ["Transit", "transit", "Grab, walking pockets, trains, transfers"],
+  ["Weather", "weather", "Heat, rain, humidity, storm timing"],
+  ["Costs", "costs", "Coffee, meals, rides, laundry, rooms"],
+  ["Health & safety", "health-safety", "Roads, food, heat, medication"],
+  ["Culture", "culture", "Phrases, manners, markets, dress"],
+  ["Hidden gems", "hidden-gems", "Cafes, alleys, small local walks"],
+] as const;
+
 export function VietnamCityExperience({ city }: { city: VietnamCity }) {
   const identity = getVietnamIdentity(city.slug);
   const color = identity?.color_palette ?? {
@@ -246,6 +261,41 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      <section className="px-6 pb-20 sm:pb-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: color.accent }}>
+                City planner
+              </p>
+              <h2 className="mt-3 font-sans text-[clamp(2.4rem,6vw,5.5rem)] font-black leading-none text-orange-50">
+                Build out {city.name}.
+              </h2>
+            </div>
+            <Link
+              href="/country/vietnam/itinerary"
+              className="w-fit border border-orange-100/18 bg-white/[0.06] px-4 py-2 text-sm font-bold text-orange-50/82 hover:border-amber-300 hover:text-amber-200"
+            >
+              Country route
+            </Link>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {CITY_DETAIL_LINKS.map(([label, slug, copy]) => (
+              <Link
+                key={slug}
+                href={`/city/${city.slug}/${slug}`}
+                className="group border border-orange-100/14 bg-orange-50/[0.055] p-5 transition hover:-translate-y-1 hover:border-amber-300/70 hover:bg-orange-50/[0.095]"
+              >
+                <div className="font-sans text-2xl font-black leading-none text-orange-50 group-hover:text-amber-200">
+                  {label}
+                </div>
+                <p className="mt-3 text-sm leading-6 text-orange-50/62">{copy}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

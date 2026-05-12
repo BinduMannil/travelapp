@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getNeighborhoods } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -9,7 +11,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Neighborhoods",
     description:
-      "Tokyo neighborhoods guide: where to stay, who each district suits, nearby stations, nightlife, shopping, food and local character.",
+      "Vietnam city neighborhoods guide: where to stay, eat, work, walk, go out, and keep transfers simple.",
   };
 }
 
@@ -49,6 +51,8 @@ export default async function NeighborhoodsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="neighborhoods" />;
   const city = getCity(slug);
   if (!city) notFound();
 

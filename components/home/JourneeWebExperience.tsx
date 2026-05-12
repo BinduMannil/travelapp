@@ -43,13 +43,116 @@ const images = {
 };
 
 const heroSlides = [
-  { label: "Alpine lake", image: images.hero },
-  { label: "Desert road", image: images.desert },
-  { label: "Vietnam lanterns", image: images.vietnam },
-  { label: "Tropical waterfall", image: images.waterfall },
-  { label: "Coastal island", image: images.coast },
-  { label: "Night city", image: images.nightCity },
-  { label: "Northern lights", image: images.lofoten },
+  {
+    label: "Lauterbrunnen Valley",
+    place: "Switzerland",
+    image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Kyoto",
+    place: "Japan",
+    image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Ho Chi Minh City",
+    place: "Vietnam",
+    image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Hoi An",
+    place: "Vietnam",
+    image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Ubud",
+    place: "Indonesia",
+    image: "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Marrakech",
+    place: "Morocco",
+    image: "https://images.unsplash.com/photo-1548018560-c7196548e84d?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Lofoten Islands",
+    place: "Norway",
+    image: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Dolomites",
+    place: "Italy",
+    image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Santorini",
+    place: "Greece",
+    image: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Dubai",
+    place: "United Arab Emirates",
+    image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "New York",
+    place: "United States",
+    image: "https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Patagonia",
+    place: "Argentina",
+    image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Banff",
+    place: "Canada",
+    image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Cape Town",
+    place: "South Africa",
+    image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Machu Picchu",
+    place: "Peru",
+    image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Seoul",
+    place: "South Korea",
+    image: "https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Bangkok",
+    place: "Thailand",
+    image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Faroe Islands",
+    place: "Denmark",
+    image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2400&q=88",
+  },
+  {
+    label: "Sahara Road",
+    place: "Morocco",
+    image: images.desert,
+  },
+  {
+    label: "Coastal Islands",
+    place: "The Tropics",
+    image: images.coast,
+  },
+  {
+    label: "Night Food Streets",
+    place: "Global Cities",
+    image: images.nightCity,
+  },
+  {
+    label: "Rainforest Falls",
+    place: "The Green Belt",
+    image: images.waterfall,
+  },
 ];
 
 const heroQuotes = [
@@ -166,6 +269,7 @@ const siteDirectory = [
     ],
   },
 ];
+
 
 function HeaderNav() {
   const { t } = useI18n();
@@ -435,6 +539,7 @@ function SiteDirectory() {
     </section>
   );
 }
+
 
 export function JourneeWebExperience() {
   const [activeHeroIndex, setActiveHeroIndex] = useState(0);

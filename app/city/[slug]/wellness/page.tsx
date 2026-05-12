@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   getCity,
   getCityWellness,
@@ -53,9 +55,9 @@ const fallbackWellnessImage =
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Wellness & onsen",
+    title: "Wellness",
     description:
-      "Where to actually bathe in Tokyo — urban onsen, community sentō, head spas, and shiatsu — with prices, hours, and tattoo policies.",
+      "Vietnam wellness planning for massage, spas, pools, beach resets, slow mornings, and recovery days.",
   };
 }
 
@@ -65,6 +67,8 @@ export default async function WellnessPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="wellness" />;
   const city = getCity(slug);
   const data = getCityWellness(slug);
   if (!city || !data) notFound();

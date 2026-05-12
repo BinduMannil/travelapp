@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityKids } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -17,7 +19,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "With kids",
     description:
-      "Family-friendly Tokyo — Disney, Ghibli, zoo, waterfront parks, rainy-day indoor attractions.",
+      "Vietnam family travel planning with shade, pools, short transfers, snacks, soft pacing, and kid-friendly anchors.",
   };
 }
 
@@ -27,6 +29,8 @@ export default async function KidsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="kids" />;
   const city = getCity(slug);
   const data = getCityKids(slug);
   if (!city || !data) notFound();

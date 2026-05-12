@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityShopping } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 import { ShoppingBubbleHero } from "@/components/shopping/ShoppingBubbleHero";
@@ -25,7 +27,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Shopping",
     description:
-      "Where to buy Japanese knives, stationery, vintage, retro games, craft, and everything else worth carrying home.",
+      "Vietnam shopping guide for coffee, textiles, tailoring, ceramics, lacquerware, markets, and design finds.",
   };
 }
 
@@ -35,6 +37,8 @@ export default async function ShoppingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="shopping" />;
   const city = getCity(slug);
   const data = getCityShopping(slug);
   if (!city || !data) notFound();

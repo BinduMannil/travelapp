@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   Clock3,
   HandCoins,
@@ -92,6 +94,8 @@ export default async function CulturePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="culture" />;
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();

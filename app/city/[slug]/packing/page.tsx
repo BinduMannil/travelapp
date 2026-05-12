@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getClimate } from "@/lib/data/seed";
 import { DEFAULT_RULES } from "@/lib/packing/rules";
 import { PackingPlanner } from "@/components/packing/PackingPlanner";
@@ -11,7 +13,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Packing list",
     description:
-      "A packing list computed from your travel dates, trip style, and planned activities — tuned to Tokyo's climate and culture.",
+      "A Vietnam packing guide tuned to heat, rain, temples, beaches, city days, and regional travel.",
   };
 }
 
@@ -21,6 +23,8 @@ export default async function PackingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="packing" />;
   const city = getCity(slug);
   if (!city) notFound();
 

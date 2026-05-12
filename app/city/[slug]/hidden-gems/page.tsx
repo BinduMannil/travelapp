@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityHiddenGems } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -32,7 +34,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Hidden gems",
     description:
-      "Tokyo hidden gems: jazz kissa, Golden Gai bars, quiet neighborhoods, small shrines, local shops and second-trip ideas.",
+      "Vietnam city hidden gems: quiet cafes, alleys, markets, local walks, smaller museums, and second-day ideas.",
   };
 }
 
@@ -42,6 +44,8 @@ export default async function HiddenGemsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="hidden-gems" />;
   const city = getCity(slug);
   const data = getCityHiddenGems(slug);
   if (!city || !data) notFound();

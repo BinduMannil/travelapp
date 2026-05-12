@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   getCity,
   getCountryConnectivity,
@@ -80,6 +82,8 @@ export default async function ConnectivityPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="connectivity" />;
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();

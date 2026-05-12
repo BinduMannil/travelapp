@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   getCity,
   getHotels,
@@ -126,6 +128,8 @@ export default async function HotelsPage({
   searchParams: Promise<{ tier?: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="hotels" />;
   const { tier } = await searchParams;
   const city = getCity(slug);
   if (!city) notFound();

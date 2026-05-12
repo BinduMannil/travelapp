@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { InsuranceCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
@@ -16,7 +18,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Health & safety",
     description:
-      "Japan travel safety guide with emergency numbers, earthquake safety, typhoon guidance, medication rules, women-only train cars, solo female travel tips, embassies, LGBTQ+ info, and dietary cards.",
+      "Vietnam health and safety planning with road safety, heat, food hygiene, medication checks, emergency prep, and practical travel notes.",
   };
 }
 
@@ -26,6 +28,8 @@ export default async function HealthSafetyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="health-safety" />;
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();

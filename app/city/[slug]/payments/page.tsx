@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { FxCardCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
@@ -28,7 +30,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Payments & cards",
     description:
-      "Can I pay by Apple Pay at a ramen shop? Yes/Often/Sometimes/Rarely across 11 methods × 9 venue types.",
+      "Vietnam payments guide for cash, cards, ATMs, QR habits, app payments, and small-shop planning.",
   };
 }
 
@@ -38,6 +40,8 @@ export default async function PaymentsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="payments" />;
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();

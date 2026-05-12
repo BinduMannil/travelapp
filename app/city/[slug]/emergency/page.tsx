@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityEmergency } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 
@@ -17,6 +19,8 @@ export default async function EmergencyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="emergency" />;
   const city = getCity(slug);
   const data = getCityEmergency(slug);
   if (!city || !data) notFound();

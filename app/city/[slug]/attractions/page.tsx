@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   ATTRACTION_CATEGORIES,
   getAttractions,
@@ -49,6 +51,8 @@ export default async function AttractionsPage({
   searchParams: Promise<{ category?: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="attractions" />;
   const { category } = await searchParams;
   const city = getCity(slug);
   if (!city) notFound();

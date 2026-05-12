@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getInterCityRoutes } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { formatLongDate } from "@/lib/legal/constants";
@@ -33,7 +35,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Nearby cities",
     description:
-      "Travel options to nearby cities with all modes compared — Shinkansen, bus, flight, rental — durations and prices in your currency.",
+      "Travel options to nearby Vietnam cities and regions with flight, rail, bus, car, boat, and transfer planning.",
   };
 }
 
@@ -43,6 +45,8 @@ export default async function NearbyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="nearby" />;
   const city = getCity(slug);
   if (!city) notFound();
 
