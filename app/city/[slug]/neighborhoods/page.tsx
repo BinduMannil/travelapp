@@ -9,7 +9,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Neighborhoods",
     description:
-      "Tokyo's districts at a glance — vibe, who each one suits best, and how to get there.",
+      "Tokyo neighborhoods guide: where to stay, who each district suits, nearby stations, nightlife, shopping, food and local character.",
   };
 }
 
@@ -67,7 +67,7 @@ export default async function NeighborhoodsPage({
         eyebrow="Neighborhoods"
         title={`Neighborhoods`}
         subtitle="地 区"
-        lede={`Pick the one that matches your speed. The right base changes your trip more than any single attraction.`}
+        lede={`Pick the area that matches your trip. The right Tokyo base can change your days more than any single attraction.`}
         palette="aizome"
       />
       <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
@@ -86,10 +86,10 @@ export default async function NeighborhoodsPage({
               />
               <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.78),rgba(0,0,0,0.26)_58%,rgba(0,0,0,0.68))]" />
               <div className="relative flex h-full min-h-[520px] max-w-2xl flex-col justify-end p-6 sm:p-9">
-                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                   First base
                 </p>
-                <h2 className="mt-4 font-display text-[clamp(3.2rem,8vw,6.8rem)] font-semibold leading-[0.9] text-white">
+                <h2 className="mt-4 font-sans text-[clamp(3.2rem,8vw,6.8rem)] font-semibold leading-[0.9] text-white">
                   {lead.name}
                 </h2>
                 <p className="mt-5 max-w-xl text-base leading-7 text-white/88 sm:text-lg">
@@ -110,10 +110,10 @@ export default async function NeighborhoodsPage({
 
             <aside className="grid gap-6">
               <div className="rounded-[1.45rem] border border-white/15 bg-[linear-gradient(180deg,rgba(35,31,26,0.92),rgba(13,13,12,0.94))] p-7 shadow-editorial-deep">
-                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                   Choose by rhythm
                 </p>
-                <h3 className="mt-5 font-display text-[clamp(2.4rem,4vw,4.2rem)] font-semibold leading-[0.95] text-white">
+                <h3 className="mt-5 font-sans text-[clamp(2.4rem,4vw,4.2rem)] font-semibold leading-[0.95] text-white">
                   The right district changes the whole trip.
                 </h3>
                 <p className="mt-5 text-sm leading-7 text-white/72">
@@ -138,10 +138,10 @@ export default async function NeighborhoodsPage({
                     />
                     <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.16),rgba(0,0,0,0.82))]" />
                     <div className="relative flex min-h-56 flex-col justify-end p-5">
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-kintsugi-200">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                         {n!.vibe[0]}
                       </p>
-                      <h3 className="mt-2 font-display text-3xl font-semibold leading-none text-white">
+                      <h3 className="mt-2 font-sans text-3xl font-semibold leading-none text-white">
                         {n!.name}
                       </h3>
                       <p className="mt-2 line-clamp-2 text-sm leading-6 text-white/78">
@@ -186,7 +186,7 @@ export default async function NeighborhoodsPage({
                       </span>
                     ))}
                   </div>
-                  <h2 className="max-w-xl font-display text-[clamp(2.45rem,5vw,4.6rem)] font-semibold leading-[0.95] text-white">
+                  <h2 className="max-w-xl font-sans text-[clamp(2.45rem,5vw,4.6rem)] font-semibold leading-[0.95] text-white">
                     {n.name}
                   </h2>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82 sm:text-base">

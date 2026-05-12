@@ -29,16 +29,16 @@ export type DestinationIntelligence = {
 export const CITY_INTELLIGENCE: Record<string, DestinationIntelligence> = {
   tokyo: {
     eyebrow: "City intelligence",
-    title: "The numbers keep Tokyo cinematic.",
+    title: "Tokyo at a practical scale.",
     lede:
-      "Scale, language and residency signals are held as editorial context: useful at a glance, but still wrapped in the mood of the city.",
+      "Population, density, language and residency context help travelers understand how Tokyo works before choosing where to stay and how to move.",
     metrics: [
       { label: "Metropolis size", value: "2,194 km²", detail: "Dense, layered, and stitched by rail." },
       { label: "Population", value: "14.1M", detail: "Tokyo Metropolis, with a far larger commuter orbit." },
       { label: "Density", value: "6.4k / km²", detail: "Practical pressure: book rooms and dinners early." },
       { label: "Tourism scale", value: "Primary gateway", detail: "Japan's main arrival, dining, shopping and onward rail hub." },
       { label: "Expat presence", value: "593k", detail: "Foreign residents, about 4.3% of Tokyo." },
-      { label: "Travel tempo", value: "High precision", detail: "Transit and reservations reward advance planning." },
+      { label: "Planning style", value: "Reserve early", detail: "Transit is easy; restaurants and popular museums need planning." },
     ],
     nationality: {
       label: "Foreign resident mix",
@@ -56,7 +56,7 @@ export const CITY_INTELLIGENCE: Record<string, DestinationIntelligence> = {
     },
     languages: {
       label: "Language environment",
-      note: "Share/proficiency signals can overlap; this reads as atmosphere, not a census pie.",
+      note: "Language estimates overlap by source; use this as practical traveler context, not a census total.",
       bars: [
         { label: "Japanese", value: 99 },
         { label: "English", value: 8 },
@@ -73,9 +73,9 @@ export const CITY_INTELLIGENCE: Record<string, DestinationIntelligence> = {
 export const COUNTRY_INTELLIGENCE: Record<string, DestinationIntelligence> = {
   japan: {
     eyebrow: "Country intelligence",
-    title: "National context, kept editorial.",
+    title: "Japan travel context at a glance.",
     lede:
-      "Japan's country layer sets the cultural, language and residency baseline that city pages inherit and reinterpret locally.",
+      "Country-level context helps with Japan trip planning: geography, language, population, tourism scale and how concentrated travel corridors can feel.",
     metrics: [
       { label: "Country size", value: "377,975 km²", detail: "An archipelago of 14,000+ islands." },
       { label: "Population", value: "124M", detail: "Large national scale with concentrated urban corridors." },

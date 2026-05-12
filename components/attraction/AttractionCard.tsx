@@ -66,7 +66,7 @@ export function AttractionCard({
       />
       <div className="p-5 sm:p-6">
         <header className="flex items-baseline justify-between gap-3">
-          <h2 className="font-display text-[clamp(1.3rem,4vw,1.85rem)] font-semibold leading-tight text-white group-hover:text-kintsugi-300">
+          <h2 className="font-sans text-[clamp(1.3rem,4vw,1.85rem)] font-semibold leading-tight text-white group-hover:text-kintsugi-300">
             {attraction.name}
           </h2>
           <span

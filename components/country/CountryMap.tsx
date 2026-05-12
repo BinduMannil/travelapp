@@ -12,12 +12,12 @@ import {
 } from "@/lib/country-maps/japan";
 
 const REGION_FILL: Record<string, string> = {
-  matcha: "fill-matcha-400/45",
-  aizome: "fill-aizome-400/45",
-  kintsugi: "fill-kintsugi-300/55",
-  enji: "fill-enji-400/40",
-  ume: "fill-sakura-300/55",
-  sumi: "fill-sumi-700/30",
+  matcha: "fill-matcha-500/34",
+  aizome: "fill-aizome-500/34",
+  kintsugi: "fill-kintsugi-400/42",
+  enji: "fill-enji-500/30",
+  ume: "fill-sakura-400/38",
+  sumi: "fill-sumi-700/24",
 };
 
 const JAPAN_STATS = [
@@ -51,49 +51,57 @@ export function CountryMap({
   const [hoveredCity, setHoveredCity] = useState<string | null>(null);
 
   return (
-    <section className="relative bg-washi-50">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+    <section className="relative isolate overflow-hidden bg-[#0b0907] px-4 py-20 text-washi-50 sm:px-6 sm:py-28">
+      <div
+        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_16%_12%,rgba(216,173,79,.18),transparent_32%),radial-gradient(circle_at_86%_48%,rgba(46,79,115,.24),transparent_34%),linear-gradient(180deg,rgba(11,9,7,.96),rgba(22,17,13,.9))]"
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:42px_42px]"
+        aria-hidden
+      />
+
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.88fr_1.32fr] lg:items-center xl:gap-16">
         {/* LEFT — editorial kicker */}
-        <div>
-          <div className="h-[2px] w-12 bg-aizome-600" aria-hidden />
-          <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight text-aizome-700 sm:text-5xl">
-            Discover
-            <br />
-            {countryName}
+        <div className="rounded-[1.75rem] border border-white/12 bg-white/[0.055] p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8 lg:p-9">
+          <div className="h-px w-16 bg-gradient-to-r from-kintsugi-300 to-transparent" aria-hidden />
+          <p className="luxury-kicker mt-6 text-kintsugi-300">Japan atlas</p>
+          <h2 className="mt-4 max-w-[10ch] font-sans text-[clamp(2.75rem,5.4vw,5.6rem)] font-semibold leading-[0.95] tracking-tight text-white">
+            Discover {countryName}
           </h2>
-          <p className="mt-6 max-w-sm text-sm leading-relaxed text-sumi-800 sm:text-base">
+          <p className="mt-6 max-w-md text-sm leading-7 text-washi-50/72 sm:text-base sm:leading-8">
             We are travellers at heart, so uncovering the best of{" "}
             {countryName} is something we have written at depth. Tap any
             city on the map to jump straight into the on-the-ground guide.
           </p>
 
-          <div className="mt-8 grid max-w-md grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
             {JAPAN_STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="border-l border-washi-300 bg-white/70 px-3 py-3"
+                className="rounded-2xl border border-white/10 bg-black/22 px-4 py-4"
               >
-                <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-sumi-600">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-washi-50/48">
                   {stat.label}
                 </div>
-                <div className="mt-1 font-display text-xl font-semibold text-sumi-950">
+                <div className="mt-1 font-sans text-xl font-semibold text-white">
                   {stat.value}
                 </div>
               </div>
             ))}
           </div>
 
-          <ul className="mt-8 space-y-2 text-xs">
+          <ul className="mt-8 grid grid-cols-2 gap-3 text-xs">
             {JAPAN_REGIONS.map((r) => (
               <li
                 key={r.slug}
-                className="flex items-center gap-3 text-sumi-700"
+                className="flex min-h-10 items-center gap-3 rounded-full border border-white/10 bg-white/[0.045] px-4 text-washi-50/74"
               >
                 <span
                   aria-hidden
                   className={`inline-block h-2.5 w-2.5 rounded-full ${REGION_FILL[r.accent].replace("/45", "").replace("/55", "").replace("/40", "").replace("/30", "").replace("fill-", "bg-")}`}
                 />
-                <span className="font-semibold uppercase tracking-[0.2em]">
+                <span className="font-semibold uppercase tracking-[0.12em]">
                   {r.label}
                 </span>
               </li>
@@ -102,22 +110,33 @@ export function CountryMap({
         </div>
 
         {/* RIGHT — the map */}
-        <div className="relative">
+        <div className="relative overflow-hidden rounded-[2rem] border border-kintsugi-300/22 bg-[#efe5d1] p-4 shadow-[0_36px_100px_rgba(0,0,0,.42)] sm:p-6 lg:p-8">
+          <div
+            className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,.62),transparent_24%),radial-gradient(circle_at_72%_62%,rgba(216,173,79,.18),transparent_28%),linear-gradient(135deg,rgba(255,255,255,.5),rgba(197,174,130,.2))]"
+            aria-hidden
+          />
+          <div
+            className="absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(75,54,33,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(75,54,33,.14)_1px,transparent_1px)] [background-size:28px_28px]"
+            aria-hidden
+          />
           <svg
             viewBox={JAPAN_MAP_VIEWBOX}
-            className="h-auto w-full"
+            className="relative h-auto w-full drop-shadow-[0_24px_38px_rgba(41,30,18,.22)]"
             role="img"
             aria-label={`${countryName} — clickable city map`}
           >
             {/* Water / background wash */}
             <defs>
+              <filter id="islandShadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="10" stdDeviation="7" floodColor="rgba(43,31,18,.24)" />
+              </filter>
               <pattern
                 id="dots"
-                width="6"
-                height="6"
+                width="9"
+                height="9"
                 patternUnits="userSpaceOnUse"
               >
-                <circle cx="1" cy="1" r="0.8" fill="rgba(46,79,115,.22)" />
+                <circle cx="1.5" cy="1.5" r="0.85" fill="rgba(46,79,115,.2)" />
               </pattern>
             </defs>
 
@@ -127,7 +146,8 @@ export function CountryMap({
                 key={`halo-${i}`}
                 d={island.path}
                 fill="url(#dots)"
-                transform="translate(-12 -12) scale(1.08)"
+                opacity="0.72"
+                transform="translate(-15 -15) scale(1.1)"
               />
             ))}
 
@@ -136,8 +156,9 @@ export function CountryMap({
               <g key={key}>
                 <path
                   d={island.path}
-                  className="fill-washi-100 stroke-sumi-200"
-                  strokeWidth={1}
+                  className="fill-[#fff7e7] stroke-[#7b684a]"
+                  filter="url(#islandShadow)"
+                  strokeWidth={1.35}
                 />
               </g>
             ))}
@@ -157,12 +178,12 @@ export function CountryMap({
                 key={`label-${i}`}
                 x={island.labelAt[0]}
                 y={island.labelAt[1]}
-                className="fill-sumi-700"
+                className="fill-[#594832]"
                 fontSize="11"
-                fontWeight="600"
-                letterSpacing="0.25em"
+                fontWeight="700"
+                letterSpacing="0.28em"
                 textAnchor="middle"
-                style={{ textTransform: "uppercase" }}
+                style={{ textTransform: "uppercase", paintOrder: "stroke", stroke: "rgba(255,247,231,.78)", strokeWidth: 3 }}
               >
                 {island.label.toUpperCase()}
               </text>
@@ -180,20 +201,20 @@ export function CountryMap({
           </svg>
 
           {/* Offshore annotations */}
-          <div className="mt-6 grid gap-2 sm:grid-cols-2">
+          <div className="relative mt-6 grid gap-3 border-t border-[#7b684a]/18 pt-5 sm:grid-cols-2">
             {JAPAN_OFFSHORE.map((o) => (
               <Link
                 key={o.slug}
                 href={o.href}
-                className="rounded-xl border border-dashed border-washi-300 bg-white p-3 transition hover:-translate-y-0.5 hover:border-enji-400 hover:shadow-md"
+                className="rounded-2xl border border-[#7b684a]/18 bg-white/58 p-4 text-[#2f271d] shadow-[0_14px_34px_rgba(63,46,28,.1)] backdrop-blur transition hover:-translate-y-0.5 hover:border-enji-500/45 hover:bg-white/78"
               >
-                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                <div className="text-[10px] font-black uppercase tracking-[0.12em] text-[#7a5a25]">
                   {o.note}
                 </div>
-                <div className="mt-0.5 font-display text-base font-semibold text-sumi-900">
+                <div className="mt-1 font-sans text-lg font-semibold text-[#1c1711]">
                   {o.name}
                 </div>
-                <div className="mt-1 text-[10px] italic text-sumi-600">
+                <div className="mt-2 text-xs leading-5 text-[#5e5140]">
                   City guide rolls out in the next content pass.
                 </div>
               </Link>
@@ -228,8 +249,8 @@ function MapPin({
         <circle
           cx={x}
           cy={y}
-          r={10}
-          className="fill-enji-500/20"
+          r={11}
+          className="fill-kintsugi-400/24"
           style={{
             animation: "pinPulse 2.2s ease-out infinite",
             transformOrigin: `${x}px ${y}px`,
@@ -240,24 +261,32 @@ function MapPin({
       <circle
         cx={x}
         cy={y}
-        r={hovered ? 6 : 4.5}
+        r={hovered ? 6.5 : 5}
         className={
           isPublished
-            ? "fill-enji-600 stroke-white"
-            : "fill-washi-50 stroke-sumi-400"
+            ? "fill-enji-700 stroke-[#fff8e8]"
+            : "fill-[#fff8e8] stroke-[#7b684a]"
         }
         strokeWidth={2}
         strokeDasharray={isPublished ? "0" : "2 2"}
-        style={{ transition: "r 150ms" }}
+        style={{
+          transition: "r 150ms",
+          filter: "drop-shadow(0 5px 6px rgba(41,30,18,.24))",
+        }}
       />
       {/* Label */}
       <g transform={`translate(${x + 10}, ${y + 4})`}>
         <text
           className={`${
-            hovered ? "fill-enji-700" : "fill-sumi-900"
+            hovered ? "fill-enji-800" : "fill-[#2d2419]"
           } font-semibold`}
           fontSize={hovered ? 13 : 11}
-          style={{ transition: "font-size 150ms" }}
+          style={{
+            transition: "font-size 150ms",
+            paintOrder: "stroke",
+            stroke: "rgba(255,248,232,.86)",
+            strokeWidth: 4,
+          }}
         >
           {city.name}
         </text>
@@ -267,8 +296,13 @@ function MapPin({
         <text
           x={x + 10}
           y={y + 18}
-          className="fill-sumi-500 italic"
+          className="fill-[#7a6a52] italic"
           fontSize={9}
+          style={{
+            paintOrder: "stroke",
+            stroke: "rgba(255,248,232,.72)",
+            strokeWidth: 3,
+          }}
         >
           guide soon
         </text>

@@ -280,7 +280,7 @@ export function JapanTripPlanner() {
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
                 <p className="luxury-kicker text-kintsugi-300">Japan route builder</p>
-                <h2 className="mt-3 max-w-3xl font-display text-[clamp(2.4rem,5vw,5.2rem)] font-semibold leading-none text-white">
+                <h2 className="mt-3 max-w-3xl font-sans text-[clamp(2.4rem,5vw,5.2rem)] font-semibold leading-none text-white">
                   Build the country route first.
                 </h2>
               </div>
@@ -289,7 +289,7 @@ export function JapanTripPlanner() {
 
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <label>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">Arrival</span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">Arrival</span>
                 <input
                   type="date"
                   value={startDate}
@@ -298,7 +298,7 @@ export function JapanTripPlanner() {
                 />
               </label>
               <label>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">Departure</span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">Departure</span>
                 <input
                   type="date"
                   value={endDate}
@@ -307,7 +307,7 @@ export function JapanTripPlanner() {
                 />
               </label>
               <label>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">Days if unknown</span>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">Days if unknown</span>
                 <input
                   type="number"
                   min={1}
@@ -322,14 +322,14 @@ export function JapanTripPlanner() {
             </div>
 
             <div className="mt-8">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">Trip pace</div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">Trip pace</div>
               <div className="mt-3 grid gap-3 sm:grid-cols-3">
                 {(["gentle", "balanced", "intense"] as Pace[]).map((option) => (
                   <button
                     key={option}
                     type="button"
                     onClick={() => setPace(option)}
-                    className={`border px-4 py-3 text-left font-display text-xl font-semibold capitalize transition ${
+                    className={`border px-4 py-3 text-left font-sans text-xl font-semibold capitalize transition ${
                       pace === option
                         ? "border-kintsugi-300 bg-kintsugi-300/14 text-white"
                         : "border-white/14 bg-white/[0.04] text-white/62 hover:border-white/35 hover:text-white"
@@ -342,7 +342,7 @@ export function JapanTripPlanner() {
             </div>
 
             <div className="mt-8">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">Activities</div>
+              <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">Activities</div>
               <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {INTERESTS.map((interest) => {
                   const active = interests.includes(interest.slug);
@@ -357,7 +357,7 @@ export function JapanTripPlanner() {
                           : "border-white/14 bg-white/[0.04] text-white/68 hover:border-white/35 hover:text-white"
                       }`}
                     >
-                      <span className="block font-display text-xl font-semibold">{interest.label}</span>
+                      <span className="block font-sans text-xl font-semibold">{interest.label}</span>
                       <span className="mt-1 block text-xs leading-5">{interest.detail}</span>
                     </button>
                   );
@@ -372,23 +372,23 @@ export function JapanTripPlanner() {
                 <SeasonIcon size={26} />
                 <p className="luxury-kicker">{season.label}</p>
               </div>
-              <h2 className="mt-5 font-display text-[clamp(2.5rem,5vw,5.2rem)] font-semibold leading-none text-white">
+              <h2 className="mt-5 font-sans text-[clamp(2.5rem,5vw,5.2rem)] font-semibold leading-none text-white">
                 {season.cue}
               </h2>
               <p className="mt-6 text-sm leading-7 text-white/72">{season.note}</p>
             </div>
             <div className="mt-8 grid grid-cols-3 gap-3 border-t border-white/15 pt-6 text-center">
               <div>
-                <div className="font-display text-3xl text-white">{days}</div>
-                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-white/62">Days</div>
+                <div className="font-sans text-3xl text-white">{days}</div>
+                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/62">Days</div>
               </div>
               <div>
-                <div className="font-display text-3xl text-white">{interests.length || "Any"}</div>
-                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-white/62">Interests</div>
+                <div className="font-sans text-3xl text-white">{interests.length || "Any"}</div>
+                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/62">Interests</div>
               </div>
               <div>
-                <div className="font-display text-3xl text-white">{ROUTES.length}</div>
-                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-white/62">Routes</div>
+                <div className="font-sans text-3xl text-white">{ROUTES.length}</div>
+                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/62">Routes</div>
               </div>
             </div>
           </aside>
@@ -399,7 +399,7 @@ export function JapanTripPlanner() {
             <RouteFeature route={best.route} days={days} season={season.label} />
             <div className="space-y-4">
               <p className="luxury-kicker text-kintsugi-300">Best country fit</p>
-              <h2 className="font-display text-[clamp(2.35rem,5vw,4.8rem)] font-semibold leading-none text-white">
+              <h2 className="font-sans text-[clamp(2.35rem,5vw,4.8rem)] font-semibold leading-none text-white">
                 {best.route.title}
               </h2>
               <p className="max-w-xl text-sm leading-7 text-white/68">
@@ -422,7 +422,7 @@ export function JapanTripPlanner() {
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="luxury-kicker text-kintsugi-300">Japan routes</p>
-              <h2 className="font-display text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none text-white">
+              <h2 className="font-sans text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none text-white">
                 Compare the whole-country options.
               </h2>
             </div>
@@ -457,7 +457,7 @@ function RouteFeature({
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,5,4,.9),rgba(6,5,4,.34)_52%,rgba(6,5,4,.76)),linear-gradient(0deg,rgba(6,5,4,.86),transparent_58%)]" />
       <div className="relative flex min-h-[34rem] flex-col justify-between p-7 sm:p-10">
         <div className="flex items-center justify-between gap-4">
-          <span className="border border-kintsugi-300/55 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-kintsugi-200 backdrop-blur">
+          <span className="border border-kintsugi-300/55 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-kintsugi-200 backdrop-blur">
             {season} recommendation
           </span>
           <span className="bg-washi-50 px-3 py-1 text-sm font-bold text-sumi-900">
@@ -472,7 +472,7 @@ function RouteFeature({
           <p className="mt-6 max-w-xl text-lg leading-8 text-white/82">{route.summary}</p>
           <div className="mt-8 flex flex-wrap gap-2">
             {route.interests.map((interest) => (
-              <span key={interest} className="border border-white/22 bg-white/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/84 backdrop-blur">
+              <span key={interest} className="border border-white/22 bg-white/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white/84 backdrop-blur">
                 {interest}
               </span>
             ))}
@@ -503,7 +503,7 @@ function RouteCard({
       </div>
       <div className="p-6">
         <p className="luxury-kicker text-kintsugi-300">{route.days[0]}-{route.days[1]} days · {route.pace}</p>
-        <h3 className="mt-3 font-display text-3xl font-semibold leading-none text-white">{route.title}</h3>
+        <h3 className="mt-3 font-sans text-3xl font-semibold leading-none text-white">{route.title}</h3>
         <p className="mt-4 text-sm leading-7 text-white/68">{route.summary}</p>
         <div className="mt-6 border-t border-white/12 pt-5">
           <div className="space-y-3">

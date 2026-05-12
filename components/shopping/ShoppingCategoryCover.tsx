@@ -41,7 +41,7 @@ export function ShoppingCategoryCover({
         onAllFailed={() => setAllFailed(true)}
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
-      <div className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-display text-xs text-white backdrop-blur-sm">
+      <div className="pointer-events-none absolute right-2 top-2 rounded-full bg-black/55 px-2 py-0.5 font-sans text-xs text-white backdrop-blur-sm">
         {kanji}
       </div>
     </div>

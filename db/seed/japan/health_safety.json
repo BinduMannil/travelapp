@@ -10,8 +10,8 @@
   "hazards": [
     {
       "type": "earthquake",
-      "title": "Earthquakes",
-      "body": "Small quakes are felt several times a month. Larger ones are rare but possible. Buildings in Japan are engineered for this.",
+      "title": "Earthquake Safety",
+      "body": "Small earthquakes are common in Japan. Major earthquakes are rare but possible, and buildings are designed with seismic safety in mind.",
       "what_to_do": "If you feel shaking, drop, cover under a sturdy table, and hold on. Do not run outside during the shake — falling debris is the bigger risk. Afterwards, leave gas and electricity alone and wait for the NERV Disaster Prevention app or local PA announcements."
     },
     {

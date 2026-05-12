@@ -85,6 +85,28 @@ export function formatTag(value: string | number | null | undefined) {
   return formatTitleCase(value);
 }
 
+export function formatSentenceCase(value: string | number | null | undefined) {
+  if (value === null || value === undefined) return "";
+  const text = String(value).trim().replace(/\s+/g, " ");
+  if (!text) return "";
+  return text.charAt(0).toLocaleUpperCase("en-US") + text.slice(1);
+}
+
+export function formatSourceLabel(value: string | number | null | undefined) {
+  if (value === null || value === undefined) return "";
+  const text = String(value).trim().replace(/\s+/g, " ");
+  if (!text) return "";
+
+  const colonIndex = text.indexOf(":");
+  if (colonIndex === -1) return text;
+
+  const organization = text.slice(0, colonIndex).trim();
+  const description = text.slice(colonIndex + 1).trim();
+  if (!description) return organization;
+
+  return `${organization}: ${formatTitleCase(description)}`;
+}
+
 export function formatNavigationLabel(value: string | number | null | undefined) {
   return formatTitleCase(value);
 }

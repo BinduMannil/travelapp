@@ -413,7 +413,7 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
               <span
                 aria-hidden
                 className={cn(
-                  "pointer-events-none absolute -right-2 -top-2 select-none font-display text-6xl font-bold leading-none opacity-15",
+                  "pointer-events-none absolute -right-2 -top-2 select-none font-sans text-6xl font-bold leading-none opacity-15",
                   seasonMeta.accent,
                 )}
               >
@@ -429,7 +429,7 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
                   </div>
                   <span
                     className={cn(
-                      "rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.2em]",
+                      "rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em]",
                       band.chip,
                     )}
                   >
@@ -466,7 +466,7 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
                   {row.cost_index.toFixed(2)}×
                 </div>
 
-                <div className="mt-4 text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+                <div className="mt-4 text-[10px] font-semibold uppercase tracking-[0.12em] text-sumi-700">
                   {SEASON_LABEL[row.season_label]} season
                 </div>
                 <p className="mt-2 text-xs leading-relaxed text-sumi-800">
@@ -479,7 +479,7 @@ export function MonthGrid({ rows }: { rows: ClimateRow[] }) {
       </div>
 
       {/* Temperature legend */}
-      <div className="mt-6 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+      <div className="mt-6 flex flex-wrap items-center gap-3 text-[10px] uppercase tracking-[0.12em] text-sumi-700">
         <span className="text-sumi-600">Colour scale</span>
         {TEMP_BANDS.map((b, i) => {
           const prev = i === 0 ? -5 : TEMP_BANDS[i - 1].upper;

@@ -9,8 +9,8 @@ import { cn } from "@/lib/utils";
  *  - a named palette gradient tuned to Japan's traditional colours
  *    (enji crimson, aizome indigo, sakura pink, matcha, sumi black,
  *    washi cream, kintsugi gold),
- *  - an optional kanji character as a typographic focal point — no
- *    emoji. Characters are pulled from the mapping helpers below.
+ *  - imagery and palette treatments only; decorative symbol marks are
+ *    intentionally suppressed so cards stay photo-led and editorial.
  */
 
 type Palette =
@@ -38,28 +38,13 @@ const GRADIENTS: Record<Palette, string> = {
   forest: "from-matcha-500 via-matcha-700 to-aizome-700",
 };
 
-const DEFAULT_TEXT_CLASS: Record<Palette, string> = {
-  enji: "text-white/85",
-  aizome: "text-white/85",
-  sakura: "text-white",
-  matcha: "text-white/90",
-  kintsugi: "text-white/90",
-  sumi: "text-white/80",
-  washi: "text-sumi-900/70",
-  ume: "text-white",
-  ocean: "text-white/85",
-  forest: "text-white/90",
-};
-
 export function CoverTile({
   palette,
-  kanji,
   imageUrl,
   imageAlt = "",
   badge,
   className,
   aspect = "16/9",
-  treatment = "editorial",
 }: {
   palette: Palette;
   kanji?: string;
@@ -121,22 +106,6 @@ export function CoverTile({
           backgroundSize: "64px 32px",
         }}
       />
-      {kanji && (
-        <div
-          className={cn(
-            "absolute inset-0 flex items-center justify-center font-display font-bold leading-none tracking-tighter",
-            DEFAULT_TEXT_CLASS[palette],
-            imageUrl && treatment === "editorial"
-              ? "text-[4rem] opacity-0"
-              : imageUrl
-                ? "text-[12vw] sm:text-[8vw] lg:text-7xl"
-                : "text-[22vw] sm:text-[14vw] lg:text-[10rem]",
-            "drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)]",
-          )}
-        >
-          {kanji}
-        </div>
-      )}
       {imageUrl && (
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/5" />
       )}
@@ -199,12 +168,12 @@ export function EditorialCard({
             {eyebrow && (
               <div className="luxury-kicker text-kintsugi-300">{eyebrow}</div>
             )}
-            <h3 className="editorial-card-title mt-2 font-display font-semibold text-white">
+            <h3 className="editorial-card-title mt-2 font-sans font-semibold text-white">
               {title}
             </h3>
             {body && <p className="mt-5 max-w-md text-sm leading-7 text-white/72">{body}</p>}
             {meta && (
-              <div className="mt-5 border-t border-white/14 pt-3 text-[0.68rem] font-bold uppercase tracking-[0.28em] text-white/64">
+              <div className="mt-5 border-t border-white/14 pt-3 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white/64">
                 {meta}
               </div>
             )}
@@ -235,12 +204,12 @@ export function EditorialCard({
         {eyebrow && (
           <div className="luxury-kicker text-sumi-700/70">{eyebrow}</div>
         )}
-        <h3 className="editorial-panel-title mt-2 font-display font-semibold text-sumi-900 group-hover:text-enji-700">
+        <h3 className="editorial-panel-title mt-2 font-sans font-semibold text-sumi-900 group-hover:text-enji-700">
           {title}
         </h3>
         {body && <p className="mt-3 text-sm text-sumi-700">{body}</p>}
         {meta && (
-          <div className="mt-5 border-t border-sumi-900/10 pt-3 text-[0.7rem] font-semibold uppercase tracking-[0.24em] text-sumi-700/70">
+          <div className="mt-5 border-t border-sumi-900/10 pt-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-sumi-700/70">
             {meta}
           </div>
         )}

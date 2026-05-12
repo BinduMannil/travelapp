@@ -70,7 +70,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
         <div className="absolute inset-0 bg-sumi-900/55" aria-hidden />
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-4 -top-8 select-none font-display text-[10rem] font-bold leading-none text-washi-50/[0.08] drop-shadow transition-transform duration-700 group-hover:-translate-x-3 group-hover:translate-y-1 group-hover:rotate-[-4deg]"
+          className="pointer-events-none absolute -right-4 -top-8 select-none font-sans text-[10rem] font-bold leading-none text-washi-50/[0.08] drop-shadow transition-transform duration-700 group-hover:-translate-x-3 group-hover:translate-y-1 group-hover:rotate-[-4deg]"
         >
           {kanji}
         </span>
@@ -82,7 +82,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
             {route.dest_name}
           </h2>
           {route.in_same_country && (
-            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-matcha-400">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-matcha-400">
               No extra visa
             </span>
           )}
@@ -124,7 +124,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
 
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-washi-50/65">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-washi-50/65">
                   Time
                 </div>
                 <div className="mt-0.5 text-2xl font-semibold tabular-nums text-washi-50">
@@ -132,7 +132,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-washi-50/65">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-washi-50/65">
                   Typical fare
                 </div>
                 <div className="mt-0.5 text-2xl font-semibold tabular-nums text-washi-50">
@@ -163,7 +163,7 @@ export function NearbyRouteCard({ route }: { route: InterCityRoute }) {
                 href={active.booking_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-kintsugi-300 transition hover:text-kintsugi-200"
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-300 transition hover:text-kintsugi-200"
               >
                 Book
                 <span aria-hidden>→</span>

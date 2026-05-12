@@ -1,17 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangle,
   BadgeDollarSign,
   BookOpenText,
   Bus,
+  Camera,
   Check,
   CircleDollarSign,
   ClipboardList,
+  Crosshair,
   FilePenLine,
+  Hotel,
   Languages,
+  Landmark,
   Map,
   MapPin,
   Plane,
@@ -23,7 +27,10 @@ import {
   ThumbsDown,
   ThumbsUp,
   TramFront,
+  Upload,
+  Utensils,
   WifiOff,
+  X,
 } from "lucide-react";
 
 type City = {
@@ -71,13 +78,20 @@ type RiskNote = {
 
 type Draft = {
   id: string;
-  kind: "field-note" | "review" | "quick-feedback";
+  kind: "field-note" | "review" | "quick-feedback" | "scam-warning" | "neighborhood-note";
   citySlug: string;
   cityName: string;
   createdAt: string;
   title: string;
   body: string;
   tags: string[];
+  locationLabel?: string;
+  photoNames?: string[];
+  gps?: {
+    latitude: number;
+    longitude: number;
+    accuracy: number;
+  } | null;
 };
 
 type MobileTravelModeProps = {
@@ -102,8 +116,8 @@ const NOTE_CATEGORIES = [
 ];
 
 const REVIEW_TYPES = [
-  "Hotel",
   "Restaurant",
+  "Hotel",
   "Attraction",
   "Neighborhood",
   "Transport",
@@ -118,6 +132,15 @@ const QUICK_FLAGS = [
   { label: "Felt Unsafe", icon: ShieldAlert },
   { label: "Cash Needed", icon: CircleDollarSign },
   { label: "Card Worked", icon: BadgeDollarSign },
+];
+
+const QUICK_ACTIONS = [
+  { label: "Scam", target: "#scam-warning", icon: ShieldAlert, tone: "border-red-300/40 bg-red-500/14 text-red-50" },
+  { label: "Neighborhood", target: "#neighborhood-note", icon: MapPin, tone: "border-sky-300/35 bg-sky-400/12 text-sky-50" },
+  { label: "Restaurant", target: "#review", icon: Utensils, tone: "border-orange-300/35 bg-orange-400/12 text-orange-50" },
+  { label: "Hotel", target: "#review", icon: Hotel, tone: "border-violet-300/35 bg-violet-400/12 text-violet-50" },
+  { label: "Attraction", target: "#review", icon: Landmark, tone: "border-amber-300/35 bg-amber-300/12 text-amber-50" },
+  { label: "Photo", target: "#evidence", icon: Camera, tone: "border-white/14 bg-white/[0.06] text-stone-50" },
 ];
 
 function formatVnd(amount: number) {
@@ -139,6 +162,10 @@ function nowLabel() {
 
 function makeDraftId() {
   return `draft-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function formatGps(gps: NonNullable<Draft["gps"]>) {
+  return `${gps.latitude.toFixed(5)}, ${gps.longitude.toFixed(5)} +/- ${Math.round(gps.accuracy)}m`;
 }
 
 function FieldButton({
@@ -189,6 +216,17 @@ export function MobileTravelMode({
   const [reviewText, setReviewText] = useState("");
   const [selectedFlags, setSelectedFlags] = useState<string[]>([]);
   const [quickTarget, setQuickTarget] = useState("");
+  const [locationLabel, setLocationLabel] = useState("");
+  const [gps, setGps] = useState<Draft["gps"]>(null);
+  const [gpsStatus, setGpsStatus] = useState("GPS optional");
+  const [photoNames, setPhotoNames] = useState<string[]>([]);
+  const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
+  const [scamTarget, setScamTarget] = useState("");
+  const [scamText, setScamText] = useState("");
+  const [neighborhoodName, setNeighborhoodName] = useState("");
+  const [neighborhoodText, setNeighborhoodText] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const photoPreviewsRef = useRef<string[]>([]);
 
   const city = useMemo(
     () => cities.find((item) => item.slug === citySlug) ?? cities[0],
@@ -211,6 +249,16 @@ export function MobileTravelMode({
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(drafts));
   }, [drafts, storageReady]);
 
+  useEffect(() => {
+    photoPreviewsRef.current = photoPreviews;
+  }, [photoPreviews]);
+
+  useEffect(() => {
+    return () => {
+      photoPreviewsRef.current.forEach((preview) => URL.revokeObjectURL(preview));
+    };
+  }, []);
+
   function saveDraft(draft: Omit<Draft, "id" | "createdAt" | "citySlug" | "cityName">) {
     const nextDraft: Draft = {
       ...draft,
@@ -224,6 +272,20 @@ export function MobileTravelMode({
     window.setTimeout(() => setSavedMessage(""), 2800);
   }
 
+  function sharedCaptureContext() {
+    return {
+      locationLabel: locationLabel.trim() || undefined,
+      photoNames,
+      gps,
+    };
+  }
+
+  function clearEvidence() {
+    photoPreviews.forEach((preview) => URL.revokeObjectURL(preview));
+    setPhotoPreviews([]);
+    setPhotoNames([]);
+  }
+
   function saveFieldNote() {
     const body = noteText.trim();
     if (!body) return;
@@ -232,6 +294,7 @@ export function MobileTravelMode({
       title: noteCategory,
       body,
       tags: [noteCategory, "private", "draft"],
+      ...sharedCaptureContext(),
     });
     setNoteText("");
   }
@@ -245,6 +308,7 @@ export function MobileTravelMode({
       title: `${reviewType}${place ? `: ${place}` : ""}`,
       body: body || "No written note yet.",
       tags: [reviewType, "internal-review", "private"],
+      ...sharedCaptureContext(),
     });
     setReviewPlace("");
     setReviewText("");
@@ -265,9 +329,83 @@ export function MobileTravelMode({
       title: quickTarget.trim() || "Quick field feedback",
       body: selectedFlags.join(" / ") || "No flags selected.",
       tags: ["quick-feedback", ...selectedFlags],
+      ...sharedCaptureContext(),
     });
     setSelectedFlags([]);
     setQuickTarget("");
+  }
+
+  function saveScamWarning() {
+    const target = scamTarget.trim();
+    const body = scamText.trim();
+    if (!target && !body) return;
+    saveDraft({
+      kind: "scam-warning",
+      title: target || "Scam warning",
+      body: body || "Potential scam observed. Needs review.",
+      tags: ["scam-warning", "safety", "private"],
+      ...sharedCaptureContext(),
+    });
+    setScamTarget("");
+    setScamText("");
+  }
+
+  function saveNeighborhoodNote() {
+    const target = neighborhoodName.trim();
+    const body = neighborhoodText.trim();
+    if (!target && !body) return;
+    saveDraft({
+      kind: "neighborhood-note",
+      title: target || "Neighborhood note",
+      body: body || "Neighborhood observation saved for review.",
+      tags: ["neighborhood", "field-note", "private"],
+      ...sharedCaptureContext(),
+    });
+    setNeighborhoodName("");
+    setNeighborhoodText("");
+  }
+
+  function handlePhotos(files: FileList | null) {
+    if (!files?.length) return;
+    const imageFiles = Array.from(files)
+      .filter((file) => file.type.startsWith("image/"))
+      .slice(0, 4);
+    const nextUrls = imageFiles.map((file) => URL.createObjectURL(file));
+    setPhotoNames((current) => [...current, ...imageFiles.map((file) => file.name)].slice(0, 4));
+    setPhotoPreviews((current) => {
+      const combined = [...current, ...nextUrls];
+      combined.slice(4).forEach((preview) => URL.revokeObjectURL(preview));
+      return combined.slice(0, 4);
+    });
+  }
+
+  function removePhoto(index: number) {
+    setPhotoPreviews((current) => {
+      const target = current[index];
+      if (target) URL.revokeObjectURL(target);
+      return current.filter((_, itemIndex) => itemIndex !== index);
+    });
+    setPhotoNames((current) => current.filter((_, itemIndex) => itemIndex !== index));
+  }
+
+  function captureLocation() {
+    if (!navigator.geolocation) {
+      setGpsStatus("GPS unavailable");
+      return;
+    }
+    setGpsStatus("Getting location...");
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setGps({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          accuracy: position.coords.accuracy,
+        });
+        setGpsStatus("Location saved");
+      },
+      () => setGpsStatus("Location skipped"),
+      { enableHighAccuracy: true, maximumAge: 60000, timeout: 8000 },
+    );
   }
 
   const cityDrafts = drafts.filter((draft) => draft.citySlug === city.slug);
@@ -282,10 +420,10 @@ export function MobileTravelMode({
         <div className="sticky top-0 z-20 -mx-4 border-b border-white/10 bg-[#070706]/92 px-4 pb-3 pt-3 backdrop-blur-xl">
           <div className="flex items-center justify-between gap-3">
             <div>
-              <p className="text-[0.64rem] font-black uppercase tracking-[0.28em] text-amber-200/70">
+              <p className="text-[0.64rem] font-black uppercase tracking-[0.12em] text-amber-200/70">
                 Journee internal
               </p>
-              <h1 className="mt-1 font-display text-2xl font-black leading-tight text-white">
+              <h1 className="mt-1 font-sans text-2xl font-black leading-tight text-white">
                 Travel Field Mode
               </h1>
             </div>
@@ -294,7 +432,7 @@ export function MobileTravelMode({
             </div>
           </div>
 
-          <label className="mt-4 block text-[0.65rem] font-black uppercase tracking-[0.22em] text-stone-400">
+          <label className="mt-4 block text-[0.65rem] font-black uppercase tracking-[0.12em] text-stone-400">
             Current city
           </label>
           <select
@@ -314,10 +452,10 @@ export function MobileTravelMode({
           <div className="border border-white/12 bg-[linear-gradient(145deg,rgba(245,197,107,.14),rgba(255,255,255,.045)),#11100e] p-5 shadow-2xl">
             <div className="flex items-start justify-between gap-5">
               <div>
-                <p className="text-[0.65rem] font-black uppercase tracking-[0.24em] text-amber-200/70">
+                <p className="text-[0.65rem] font-black uppercase tracking-[0.12em] text-amber-200/70">
                   Vietnam
                 </p>
-                <h2 className="mt-2 font-display text-4xl font-black leading-none text-white">
+                <h2 className="mt-2 font-sans text-4xl font-black leading-none text-white">
                   {city.name}
                 </h2>
               </div>
@@ -330,19 +468,19 @@ export function MobileTravelMode({
             <div className="mt-5 grid grid-cols-3 gap-2">
               <div className="border border-white/10 bg-black/30 p-3">
                 <div className="text-2xl font-black">{cityDrafts.length}</div>
-                <div className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-stone-400">
+                <div className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-stone-400">
                   City drafts
                 </div>
               </div>
               <div className="border border-white/10 bg-black/30 p-3">
                 <div className="text-2xl font-black">113</div>
-                <div className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-stone-400">
+                <div className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-stone-400">
                   Police
                 </div>
               </div>
               <div className="border border-white/10 bg-black/30 p-3">
                 <div className="text-2xl font-black">115</div>
-                <div className="text-[0.62rem] font-bold uppercase tracking-[0.16em] text-stone-400">
+                <div className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-stone-400">
                   Ambulance
                 </div>
               </div>
@@ -368,6 +506,34 @@ export function MobileTravelMode({
           <FieldButton href="#quick-feedback" icon={Check} label="Fast feedback" />
         </nav>
 
+        <section className="mt-5">
+          <p className="text-[0.65rem] font-black uppercase tracking-[0.12em] text-amber-200/70">
+            Swipe actions
+          </p>
+          <div className="-mx-1 mt-3 flex gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:none]">
+            {QUICK_ACTIONS.map((action) => {
+              const Icon = action.icon;
+              const handleClick = () => {
+                if (action.label === "Restaurant" || action.label === "Hotel" || action.label === "Attraction") {
+                  setReviewType(action.label);
+                }
+              };
+
+              return (
+                <a
+                  key={action.label}
+                  href={action.target}
+                  onClick={handleClick}
+                  className={`flex min-h-16 min-w-[9rem] shrink-0 items-center gap-3 rounded-2xl border px-4 text-sm font-black uppercase tracking-[0.12em] active:scale-[0.98] ${action.tone}`}
+                >
+                  <Icon size={19} />
+                  {action.label}
+                </a>
+              );
+            })}
+          </div>
+        </section>
+
         {savedMessage ? (
           <div className="mt-5 border border-emerald-300/30 bg-emerald-400/10 px-4 py-3 text-sm font-bold text-emerald-100">
             {savedMessage}
@@ -377,7 +543,7 @@ export function MobileTravelMode({
         <section id="quick-feedback" className="mt-7 scroll-mt-32">
           <div className="flex items-center gap-3">
             <Plus className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               One-tap feedback
             </h2>
           </div>
@@ -413,16 +579,105 @@ export function MobileTravelMode({
           <button
             type="button"
             onClick={saveQuickFeedback}
-            className="mt-3 min-h-14 w-full bg-amber-200 px-5 text-sm font-black uppercase tracking-[0.18em] text-black active:scale-[0.99]"
+            className="mt-3 min-h-14 w-full bg-amber-200 px-5 text-sm font-black uppercase tracking-[0.12em] text-black active:scale-[0.99]"
           >
             Save private feedback
           </button>
         </section>
 
+        <section id="capture-context" className="mt-9 scroll-mt-32">
+          <div className="flex items-center gap-3">
+            <MapPin className="text-amber-200" size={20} />
+            <h2 className="font-sans text-2xl font-black text-white">
+              Capture context
+            </h2>
+          </div>
+          <div className="mt-4 rounded-2xl border border-white/12 bg-white/[0.045] p-4">
+            <label className="text-[0.65rem] font-black uppercase tracking-[0.12em] text-stone-400">
+              Location label
+            </label>
+            <input
+              value={locationLabel}
+              onChange={(event) => setLocationLabel(event.target.value)}
+              placeholder="Neighborhood, station, hotel, terminal, street"
+              className="mt-2 min-h-14 w-full rounded-xl border border-white/12 bg-black/35 px-4 text-base text-white placeholder:text-stone-500 outline-none focus:border-amber-200"
+            />
+            <div className="mt-3 grid grid-cols-[1fr_auto] gap-3">
+              <div className="rounded-xl border border-white/10 bg-black/25 p-3 text-xs font-semibold leading-5 text-stone-300">
+                {gps ? formatGps(gps) : gpsStatus}
+              </div>
+              <button
+                type="button"
+                onClick={captureLocation}
+                className="flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white px-4 text-xs font-black uppercase tracking-[0.12em] text-black active:scale-[0.98]"
+              >
+                <Crosshair size={16} />
+                GPS
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section id="evidence" className="mt-9 scroll-mt-32">
+          <div className="flex items-center gap-3">
+            <Camera className="text-amber-200" size={20} />
+            <h2 className="font-sans text-2xl font-black text-white">
+              Photo evidence
+            </h2>
+          </div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            multiple
+            className="hidden"
+            onChange={(event) => handlePhotos(event.target.files)}
+          />
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex min-h-28 flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-white/18 bg-white/[0.045] text-sm font-black uppercase tracking-[0.12em] text-stone-100 active:scale-[0.98]"
+            >
+              <Upload size={23} />
+              Add Photo
+            </button>
+            {photoPreviews.map((preview, index) => (
+              <div
+                key={preview}
+                className="relative min-h-28 overflow-hidden rounded-2xl border border-white/12 bg-black"
+              >
+                <div
+                  className="h-full min-h-28 w-full bg-cover bg-center"
+                  style={{ backgroundImage: `url(${preview})` }}
+                  aria-hidden
+                />
+                <button
+                  type="button"
+                  onClick={() => removePhoto(index)}
+                  className="absolute right-2 top-2 grid h-9 w-9 place-items-center rounded-full bg-black/75 text-white"
+                  aria-label="Remove photo"
+                >
+                  <X size={17} />
+                </button>
+              </div>
+            ))}
+          </div>
+          {photoNames.length ? (
+            <button
+              type="button"
+              onClick={clearEvidence}
+              className="mt-3 min-h-11 w-full rounded-xl border border-white/12 bg-black/25 px-4 text-xs font-black uppercase tracking-[0.14em] text-stone-200 active:scale-[0.98]"
+            >
+              Clear evidence
+            </button>
+          ) : null}
+        </section>
+
         <section id="field-note" className="mt-9 scroll-mt-32">
           <div className="flex items-center gap-3">
             <FilePenLine className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               Field note
             </h2>
           </div>
@@ -444,16 +699,72 @@ export function MobileTravelMode({
           <button
             type="button"
             onClick={saveFieldNote}
-            className="mt-3 min-h-14 w-full bg-white px-5 text-sm font-black uppercase tracking-[0.18em] text-black active:scale-[0.99]"
+            className="mt-3 min-h-14 w-full bg-white px-5 text-sm font-black uppercase tracking-[0.12em] text-black active:scale-[0.99]"
           >
             Save private field note
+          </button>
+        </section>
+
+        <section id="scam-warning" className="mt-9 scroll-mt-32">
+          <div className="flex items-center gap-3">
+            <ShieldAlert className="text-red-200" size={20} />
+            <h2 className="font-sans text-2xl font-black text-white">
+              Quick scam warning
+            </h2>
+          </div>
+          <input
+            value={scamTarget}
+            onChange={(event) => setScamTarget(event.target.value)}
+            placeholder="Where / who / what was the setup?"
+            className="mt-4 min-h-14 w-full border border-red-200/20 bg-red-500/[0.08] px-4 text-base text-white placeholder:text-stone-500 outline-none focus:border-red-200"
+          />
+          <textarea
+            value={scamText}
+            onChange={(event) => setScamText(event.target.value)}
+            placeholder="Pattern, price, pressure tactic, safer behavior, exact location..."
+            className="mt-3 min-h-32 w-full resize-y border border-white/12 bg-white/[0.055] p-4 text-base leading-7 text-white placeholder:text-stone-500 outline-none focus:border-amber-200"
+          />
+          <button
+            type="button"
+            onClick={saveScamWarning}
+            className="mt-3 min-h-14 w-full bg-red-100 px-5 text-sm font-black uppercase tracking-[0.12em] text-red-950 active:scale-[0.99]"
+          >
+            Save scam warning
+          </button>
+        </section>
+
+        <section id="neighborhood-note" className="mt-9 scroll-mt-32">
+          <div className="flex items-center gap-3">
+            <MapPin className="text-amber-200" size={20} />
+            <h2 className="font-sans text-2xl font-black text-white">
+              Neighborhood note
+            </h2>
+          </div>
+          <input
+            value={neighborhoodName}
+            onChange={(event) => setNeighborhoodName(event.target.value)}
+            placeholder="Neighborhood / block / station exit"
+            className="mt-4 min-h-14 w-full border border-white/12 bg-white/[0.055] px-4 text-base text-white placeholder:text-stone-500 outline-none focus:border-amber-200"
+          />
+          <textarea
+            value={neighborhoodText}
+            onChange={(event) => setNeighborhoodText(event.target.value)}
+            placeholder="Vibe, safety feel, transport access, noise, tourist density, who it suits..."
+            className="mt-3 min-h-32 w-full resize-y border border-white/12 bg-white/[0.055] p-4 text-base leading-7 text-white placeholder:text-stone-500 outline-none focus:border-amber-200"
+          />
+          <button
+            type="button"
+            onClick={saveNeighborhoodNote}
+            className="mt-3 min-h-14 w-full bg-white px-5 text-sm font-black uppercase tracking-[0.12em] text-black active:scale-[0.99]"
+          >
+            Save neighborhood note
           </button>
         </section>
 
         <section id="review" className="mt-9 scroll-mt-32">
           <div className="flex items-center gap-3">
             <Star className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               Quick review
             </h2>
           </div>
@@ -483,7 +794,7 @@ export function MobileTravelMode({
           <button
             type="button"
             onClick={saveReview}
-            className="mt-3 min-h-14 w-full bg-white px-5 text-sm font-black uppercase tracking-[0.18em] text-black active:scale-[0.99]"
+            className="mt-3 min-h-14 w-full bg-white px-5 text-sm font-black uppercase tracking-[0.12em] text-black active:scale-[0.99]"
           >
             Save private review draft
           </button>
@@ -492,18 +803,18 @@ export function MobileTravelMode({
         <section id="phrasebook" className="mt-10 scroll-mt-32">
           <div className="flex items-center gap-3">
             <BookOpenText className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               Phrasebook
             </h2>
           </div>
           <div className="mt-4 grid gap-3">
             {fieldPhrases.map((phrase) => (
               <div key={phrase.phrase_key} className="border border-white/12 bg-white/[0.045] p-4">
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-stone-400">
+                <p className="text-xs font-bold uppercase tracking-[0.12em] text-stone-400">
                   {phrase.category}
                 </p>
                 <p className="mt-2 text-base font-bold text-white">{phrase.source_text}</p>
-                <p className="mt-1 font-display text-2xl font-black text-amber-100">
+                <p className="mt-1 font-sans text-2xl font-black text-amber-100">
                   {phrase.translated_text}
                 </p>
                 <p className="mt-1 text-sm text-stone-300">{phrase.transliteration}</p>
@@ -515,7 +826,7 @@ export function MobileTravelMode({
         <section id="risks" className="mt-10 scroll-mt-32">
           <div className="flex items-center gap-3">
             <Shield className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               Legal and social risks
             </h2>
           </div>
@@ -527,7 +838,7 @@ export function MobileTravelMode({
                   className="border border-white/12 bg-white/[0.045] p-4"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <h3 className="font-display text-xl font-black text-white">
+                    <h3 className="font-sans text-xl font-black text-white">
                       {risk.title ?? risk.risk_label ?? "Traveler risk"}
                     </h3>
                     <span className="border border-amber-200/30 px-2 py-1 text-[0.62rem] font-black uppercase tracking-[0.14em] text-amber-100">
@@ -557,7 +868,7 @@ export function MobileTravelMode({
         <section className="mt-10">
           <div className="flex items-center gap-3">
             <CircleDollarSign className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               Cash checks
             </h2>
           </div>
@@ -579,7 +890,7 @@ export function MobileTravelMode({
         <section className="mt-10">
           <div className="flex items-center gap-3">
             <Smartphone className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               App stack
             </h2>
           </div>
@@ -591,7 +902,7 @@ export function MobileTravelMode({
                 className="block min-h-20 border border-white/12 bg-white/[0.045] p-4"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <h3 className="font-display text-xl font-black text-white">
+                  <h3 className="font-sans text-xl font-black text-white">
                     {app.name}
                   </h3>
                   <span className="text-[0.62rem] font-black uppercase tracking-[0.14em] text-amber-100">
@@ -609,7 +920,7 @@ export function MobileTravelMode({
         <section className="mt-10">
           <div className="flex items-center gap-3">
             <Plane className="text-amber-200" size={20} />
-            <h2 className="font-display text-2xl font-black text-white">
+            <h2 className="font-sans text-2xl font-black text-white">
               Draft queue
             </h2>
           </div>
@@ -619,10 +930,10 @@ export function MobileTravelMode({
                 <div key={draft.id} className="border border-white/12 bg-white/[0.045] p-4">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-[0.62rem] font-black uppercase tracking-[0.18em] text-stone-500">
+                      <p className="text-[0.62rem] font-black uppercase tracking-[0.12em] text-stone-500">
                         {draft.kind} / {draft.cityName}
                       </p>
-                      <h3 className="mt-1 font-display text-xl font-black text-white">
+                      <h3 className="mt-1 font-sans text-xl font-black text-white">
                         {draft.title}
                       </h3>
                     </div>
@@ -631,6 +942,25 @@ export function MobileTravelMode({
                     </span>
                   </div>
                   <p className="mt-2 text-sm leading-6 text-stone-300">{draft.body}</p>
+                  {draft.locationLabel || draft.gps || draft.photoNames?.length ? (
+                    <div className="mt-3 flex flex-wrap gap-2 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-stone-300">
+                      {draft.locationLabel ? (
+                        <span className="border border-white/10 bg-black/25 px-2 py-1">
+                          {draft.locationLabel}
+                        </span>
+                      ) : null}
+                      {draft.gps ? (
+                        <span className="border border-white/10 bg-black/25 px-2 py-1">
+                          GPS
+                        </span>
+                      ) : null}
+                      {draft.photoNames?.length ? (
+                        <span className="border border-white/10 bg-black/25 px-2 py-1">
+                          {draft.photoNames.length} Photo{draft.photoNames.length === 1 ? "" : "s"}
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
               ))
             ) : (
@@ -643,7 +973,7 @@ export function MobileTravelMode({
         </section>
 
         <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-[#070706]/94 px-4 py-3 backdrop-blur-xl">
-          <div className="mx-auto grid max-w-3xl grid-cols-3 gap-2">
+          <div className="mx-auto grid max-w-3xl grid-cols-4 gap-2">
             <a
               href="#quick-feedback"
               className="flex min-h-12 items-center justify-center gap-2 bg-amber-200 px-3 text-xs font-black uppercase tracking-[0.12em] text-black"
@@ -664,6 +994,13 @@ export function MobileTravelMode({
             >
               <Bus size={16} />
               Review
+            </a>
+            <a
+              href="#scam-warning"
+              className="flex min-h-12 items-center justify-center gap-2 border border-red-200/20 bg-red-500/12 px-3 text-xs font-black uppercase tracking-[0.12em] text-red-50"
+            >
+              <ShieldAlert size={16} />
+              Scam
             </a>
           </div>
         </div>

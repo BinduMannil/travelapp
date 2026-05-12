@@ -45,15 +45,15 @@ export function BeverageCard({ drink }: { drink: Beverage }) {
               onAllFailed={() => setAllFailed(true)}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center font-display text-5xl font-bold text-white/90 drop-shadow">
+            <div className="absolute inset-0 flex items-center justify-center font-sans text-5xl font-bold text-white/90 drop-shadow">
               {drink.kanji}
             </div>
           )}
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.2)_40%,rgba(0,0,0,.84))]" />
-          <div className="absolute bottom-4 right-5 font-display text-7xl font-semibold leading-none text-white/26">
+          <div className="absolute bottom-4 right-5 font-sans text-7xl font-semibold leading-none text-white/26">
             {drink.kanji}
           </div>
-          <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/55 px-3 py-1 font-display text-sm text-white backdrop-blur-sm">
+          <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/55 px-3 py-1 font-sans text-sm text-white backdrop-blur-sm">
             {drink.kanji}
           </div>
         </div>
@@ -62,13 +62,13 @@ export function BeverageCard({ drink }: { drink: Beverage }) {
           <div>
           <div className="flex flex-wrap items-baseline justify-between gap-2">
             <div>
-              <h3 className="font-display text-[clamp(1.65rem,4vw,2.55rem)] font-semibold leading-tight text-white">
+              <h3 className="font-sans text-[clamp(1.65rem,4vw,2.55rem)] font-semibold leading-tight text-white">
                 {drink.name}{" "}
-                <span className="font-display text-white/50">
+                <span className="font-sans text-white/50">
                   {drink.native_script}
                 </span>
               </h3>
-              <div className="mt-2 text-[0.68rem] font-bold uppercase tracking-[0.26em] text-kintsugi-300/80">
+              <div className="mt-2 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300/80">
                 <em>{drink.romaji}</em>
                 {drink.abv && <span> · {drink.abv} ABV</span>}
               </div>
@@ -85,7 +85,7 @@ export function BeverageCard({ drink }: { drink: Beverage }) {
           <p className="mt-4 line-clamp-3 text-sm leading-7 text-white/70">{drink.made_of}</p>
           </div>
 
-          <div className="mt-8 text-[0.64rem] font-bold uppercase tracking-[0.26em] text-kintsugi-300">
+          <div className="mt-8 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
             {expanded ? "Collapse" : "How + where to try"} →
           </div>
         </div>
@@ -116,7 +116,7 @@ function Row({
 }) {
   return (
     <div className="mt-2 first:mt-0">
-      <span className="mr-2 text-[0.64rem] font-bold uppercase tracking-[0.24em] text-kintsugi-300">
+      <span className="mr-2 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
         {label}
       </span>
       <span className="text-sm leading-7 text-white/76">{children}</span>

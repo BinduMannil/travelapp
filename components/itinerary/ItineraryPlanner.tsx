@@ -217,7 +217,7 @@ export function ItineraryPlanner({
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div>
                 <p className="luxury-kicker text-kintsugi-300">Build by dates</p>
-                <h2 className="mt-3 font-display text-[clamp(2.3rem,4.5vw,4.6rem)] font-semibold leading-none text-white">
+                <h2 className="mt-3 font-sans text-[clamp(2.3rem,4.5vw,4.6rem)] font-semibold leading-none text-white">
                   Start with when you are going.
                 </h2>
               </div>
@@ -226,7 +226,7 @@ export function ItineraryPlanner({
 
             <div className="mt-7 grid gap-4 md:grid-cols-3">
               <label className="block">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">
                   Arrival
                 </span>
                 <input
@@ -237,7 +237,7 @@ export function ItineraryPlanner({
                 />
               </label>
               <label className="block">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">
                   Departure
                 </span>
                 <input
@@ -248,7 +248,7 @@ export function ItineraryPlanner({
                 />
               </label>
               <label className="block">
-                <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">
+                <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">
                   Days if dates unknown
                 </span>
                 <input
@@ -267,7 +267,7 @@ export function ItineraryPlanner({
             </div>
 
             <div className="mt-7">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-white/48">
+              <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/48">
                 Activities
               </div>
               <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -284,7 +284,7 @@ export function ItineraryPlanner({
                           : "border-white/14 bg-white/[0.04] text-white/68 hover:border-white/35 hover:text-white"
                       }`}
                     >
-                      <span className="block font-display text-xl font-semibold">
+                      <span className="block font-sans text-xl font-semibold">
                         {activity.label}
                       </span>
                       <span className="mt-1 block text-xs leading-5">
@@ -300,34 +300,34 @@ export function ItineraryPlanner({
           <aside className="scene-glass flex flex-col justify-between p-6 sm:p-8">
             <div>
               <p className="luxury-kicker text-kintsugi-300">Season read</p>
-              <h2 className="mt-4 font-display text-[clamp(2.5rem,4.8vw,5rem)] font-semibold leading-none text-white">
+              <h2 className="mt-4 font-sans text-[clamp(2.5rem,4.8vw,5rem)] font-semibold leading-none text-white">
                 {season.label}
               </h2>
-              <p className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/48">
+              <p className="mt-3 text-sm font-semibold uppercase tracking-[0.12em] text-white/48">
                 {season.tone}
               </p>
               <p className="mt-6 text-sm leading-7 text-white/72">{season.note}</p>
             </div>
             <div className="mt-8 grid grid-cols-3 gap-3 border-t border-white/15 pt-6 text-center">
               <div>
-                <div className="font-display text-3xl text-white">{days}</div>
-                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-white/62">
+                <div className="font-sans text-3xl text-white">{days}</div>
+                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/62">
                   Trip days
                 </div>
               </div>
               <div>
-                <div className="font-display text-3xl text-white">
+                <div className="font-sans text-3xl text-white">
                   {selectedActivities.length || "Any"}
                 </div>
-                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-white/62">
+                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/62">
                   Interests
                 </div>
               </div>
               <div>
-                <div className="font-display text-3xl text-white">
+                <div className="font-sans text-3xl text-white">
                   {templates.length}
                 </div>
-                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.24em] text-white/62">
+                <div className="mt-1 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/62">
                   Plans
                 </div>
               </div>
@@ -346,7 +346,7 @@ export function ItineraryPlanner({
             />
             <aside className="scene-glass p-6 sm:p-8">
               <p className="luxury-kicker text-kintsugi-300">Recommended edits</p>
-              <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-white">
+              <h2 className="mt-4 font-sans text-4xl font-semibold leading-tight text-white">
                 Adjust the route to the time of year.
               </h2>
               <div className="mt-7 space-y-4">
@@ -358,10 +358,10 @@ export function ItineraryPlanner({
                 ))}
               </div>
               <div className="mt-8 border-t border-white/12 pt-6">
-                <p className="text-xs uppercase tracking-[0.24em] text-white/42">
+                <p className="text-xs uppercase tracking-[0.12em] text-white/42">
                   Best current fit
                 </p>
-                <p className="mt-2 font-display text-3xl font-semibold text-white">
+                <p className="mt-2 font-sans text-3xl font-semibold text-white">
                   {featured.template.name}
                 </p>
               </div>
@@ -373,7 +373,7 @@ export function ItineraryPlanner({
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
               <p className="luxury-kicker text-kintsugi-300">Ranked plans</p>
-              <h2 className="mt-3 font-display text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none text-white">
+              <h2 className="mt-3 font-sans text-[clamp(2.4rem,5vw,5rem)] font-semibold leading-none text-white">
                 Pick the plan that fits your trip.
               </h2>
             </div>
@@ -426,7 +426,7 @@ function RecommendationFeature({
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,5,4,.9),rgba(6,5,4,.34)_52%,rgba(6,5,4,.72)),linear-gradient(0deg,rgba(6,5,4,.86),transparent_58%)]" />
       <div className="relative flex min-h-[34rem] flex-col justify-between p-7 sm:p-10">
         <div className="flex items-center justify-between gap-4">
-          <span className="border border-kintsugi-300/55 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-kintsugi-200 backdrop-blur">
+          <span className="border border-kintsugi-300/55 bg-black/30 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-kintsugi-200 backdrop-blur">
             Best match
           </span>
           <span className="bg-washi-50 px-3 py-1 text-sm font-bold text-sumi-900">
@@ -445,7 +445,7 @@ function RecommendationFeature({
             {[...new Set([...matches, ...template.trip_type_slugs])].map((tag) => (
               <span
                 key={tag}
-                className="border border-white/22 bg-white/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white/84 backdrop-blur"
+                className="border border-white/22 bg-white/12 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-white/84 backdrop-blur"
               >
                 {tag}
               </span>
@@ -491,7 +491,7 @@ function RecommendationCard({
       </div>
       <div className="relative p-6">
         <p className="luxury-kicker text-kintsugi-300">{scene.accent}</p>
-        <h2 className="mt-3 font-display text-3xl font-semibold leading-none text-white">
+        <h2 className="mt-3 font-sans text-3xl font-semibold leading-none text-white">
           {template.name}
         </h2>
         <p className="mt-4 text-sm leading-7 text-white/76">{scene.mood}</p>

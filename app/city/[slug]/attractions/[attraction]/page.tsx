@@ -166,13 +166,13 @@ export default async function AttractionDetailPage({
         </section>
 
         <section className="mt-8 rounded-[1.25rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-5 shadow-editorial-deep">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
             About
           </h2>
           <p className="mt-3 leading-7 text-sumi-900">{a.description}</p>
           {a.best_time_notes && (
             <div className="mt-5 rounded-[1rem] border border-amber-200 bg-amber-50 p-4 text-amber-900">
-              <div className="text-xs font-semibold uppercase tracking-[0.25em]">
+              <div className="text-xs font-semibold uppercase tracking-[0.12em]">
                 Best time to visit
               </div>
               <p className="mt-1 text-sm">{a.best_time_notes}</p>
@@ -182,7 +182,7 @@ export default async function AttractionDetailPage({
 
         <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Dress code
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -193,7 +193,7 @@ export default async function AttractionDetailPage({
             )}
           </div>
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Photography
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -201,7 +201,7 @@ export default async function AttractionDetailPage({
             </p>
           </div>
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Accessibility
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -224,7 +224,7 @@ export default async function AttractionDetailPage({
             )}
           </div>
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Inclusive
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -237,7 +237,7 @@ export default async function AttractionDetailPage({
         </section>
 
         <section className="mt-8 rounded-[1.25rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial-deep">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
             Tickets &amp; booking
           </h3>
           <div className="mt-3 flex flex-wrap gap-2 text-sm">
@@ -289,7 +289,7 @@ function Fact({
 }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+      <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
         {label}
       </div>
       <div className="mt-0.5 font-semibold tabular-nums">{children}</div>

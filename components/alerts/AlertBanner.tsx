@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import type { AlertSeverity, TravelAlert } from "@/lib/alerts";
+import { formatSourceLabel } from "@/lib/copy/formatting";
 
 const LS_KEY = "journee:alerts:dismissed";
 
@@ -125,14 +126,14 @@ export function AlertBanner({
             <div className="mx-auto flex max-w-7xl flex-wrap items-start gap-3 px-6 py-3">
               <span
                 aria-hidden
-                className={`grid h-7 w-7 shrink-0 place-items-center rounded-full ${s.pill} font-display text-sm font-bold`}
+                className={`grid h-7 w-7 shrink-0 place-items-center rounded-full ${s.pill} font-sans text-sm font-bold`}
               >
                 {s.icon}
               </span>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-baseline gap-2">
                   <span
-                    className={`rounded-full ${s.pill} px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.22em]`}
+                    className={`rounded-full ${s.pill} px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em]`}
                   >
                     {s.label}
                   </span>
@@ -149,7 +150,7 @@ export function AlertBanner({
                         rel="noopener noreferrer"
                         className="ml-1 inline-block underline underline-offset-2 opacity-100"
                       >
-                        {a.source_label ?? "Source"} →
+                        {formatSourceLabel(a.source_label) || "Source"} →
                       </a>
                     </>
                   )}

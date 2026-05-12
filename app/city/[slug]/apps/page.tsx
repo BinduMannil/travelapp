@@ -43,10 +43,10 @@ export default async function AppsPage({
         {lead && (
           <article className="rounded-[1.5rem] border border-white/15 bg-[radial-gradient(circle_at_20%_15%,rgba(204,61,104,0.2),transparent_32%),linear-gradient(135deg,rgba(18,26,35,0.96),rgba(11,11,10,0.98))] p-6 shadow-editorial-deep sm:p-8 lg:grid lg:grid-cols-[0.8fr_1.2fr] lg:gap-10">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                 Set up first
               </p>
-              <h2 className="mt-4 font-display text-[clamp(3rem,6vw,5.6rem)] font-semibold leading-[0.92] text-white">
+              <h2 className="mt-4 font-sans text-[clamp(3rem,6vw,5.6rem)] font-semibold leading-[0.92] text-white">
                 {lead.name}
               </h2>
               <p className="mt-5 text-lg font-medium leading-8 text-white/86">
@@ -107,13 +107,13 @@ export default async function AppsPage({
                 <div>
                   <p
                     className={[
-                      "text-[11px] font-semibold uppercase tracking-[0.28em]",
+                      "text-[11px] font-semibold uppercase tracking-[0.12em]",
                       index % 3 === 0 ? "text-enji-700" : "text-kintsugi-200",
                     ].join(" ")}
                   >
                     {app.purpose}
                   </p>
-                  <h2 className="mt-2 font-display text-3xl font-semibold leading-none">
+                  <h2 className="mt-2 font-sans text-3xl font-semibold leading-none">
                     {app.name}
                   </h2>
                 </div>

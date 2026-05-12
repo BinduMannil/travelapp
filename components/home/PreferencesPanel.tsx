@@ -10,7 +10,7 @@ export function PreferencesPanel() {
           <p className="luxury-kicker text-kintsugi-300">
             Your preferences
           </p>
-          <h2 className="mt-2 font-display text-2xl font-semibold text-white">
+          <h2 className="mt-2 font-sans text-2xl font-semibold text-white">
             Set once. Applied everywhere.
           </h2>
           <p className="mt-2 text-sm leading-6 text-white/72">

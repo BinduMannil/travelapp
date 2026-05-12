@@ -96,7 +96,7 @@ export default async function AttractionsPage({
               Begin with the places that change the room tone.
             </h2>
             <p className="mt-7 max-w-sm text-base leading-8 text-white/70">
-              The shortlist remains ranked and useful, but the entrance should feel like moving through temple air, city height and neighborhood texture.
+              Start with a few places that change the shape of the day: temples, museums, viewpoints, parks and neighborhoods worth planning around.
             </p>
           </div>
           <div className="grid gap-10 md:grid-cols-2 xl:gap-12">

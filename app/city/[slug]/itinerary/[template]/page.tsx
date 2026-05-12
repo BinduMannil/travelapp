@@ -93,7 +93,7 @@ function BlockLine({
       className={`relative grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-gradient-to-br shadow-sm sm:h-16 sm:w-16 ${gradient}`}
       aria-hidden
     >
-      <span className="font-display text-2xl font-bold text-white/90 drop-shadow sm:text-3xl">
+      <span className="font-sans text-2xl font-bold text-white/90 drop-shadow sm:text-3xl">
         {kanji}
       </span>
       <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-white/15" />
@@ -102,7 +102,7 @@ function BlockLine({
 
   return (
     <li className="flex items-start gap-4 rounded-2xl border border-transparent p-2 transition">
-      <div className="w-12 shrink-0 pt-2 text-right font-mono text-xs font-semibold tabular-nums text-enji-700 sm:w-14 sm:text-sm">
+      <div className="w-12 shrink-0 pt-2 text-right font-sans text-xs font-semibold tabular-nums text-enji-700 sm:w-14 sm:text-sm">
         {block.time}
       </div>
       {linkHref ? (
@@ -112,7 +112,7 @@ function BlockLine({
         >
           {thumb}
           <div className="flex-1 pt-1">
-            <div className="font-display text-lg font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
+            <div className="font-sans text-lg font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
               {block.title}
             </div>
             {block.note && (
@@ -124,7 +124,7 @@ function BlockLine({
         <div className="flex flex-1 items-start gap-4 p-2">
           {thumb}
           <div className="flex-1 pt-1">
-            <div className="font-display text-lg font-semibold leading-tight text-sumi-950">
+            <div className="font-sans text-lg font-semibold leading-tight text-sumi-950">
               {block.title}
             </div>
             {block.note && (
@@ -165,7 +165,7 @@ export default async function ItineraryDetailPage({
       />
       <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
       <div className="rounded-[1.25rem] border border-white/12 bg-black/25 p-5 shadow-editorial-deep sm:p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-300">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-300">
           Best for
         </p>
         <p className="mt-3 max-w-3xl text-base leading-7 text-white/86">
@@ -179,7 +179,7 @@ export default async function ItineraryDetailPage({
             key={sec.day}
             className="rounded-[1.4rem] border border-white/15 bg-[linear-gradient(180deg,rgba(255,253,246,0.99),rgba(247,240,225,0.96))] p-5 shadow-editorial-deep sm:p-7"
           >
-            <h2 className="font-display text-2xl font-semibold leading-tight text-sumi-950 sm:text-3xl">
+            <h2 className="font-sans text-2xl font-semibold leading-tight text-sumi-950 sm:text-3xl">
               {sec.title}
             </h2>
             <ul className="mt-6 space-y-3">

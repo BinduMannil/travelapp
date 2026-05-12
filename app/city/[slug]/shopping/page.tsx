@@ -97,7 +97,7 @@ export default async function ShoppingPage({
                 <div className="flex items-start gap-4">
                   <span
                     aria-hidden
-                    className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl border border-white/22 bg-white/[0.08] font-display text-4xl font-semibold ${
+                    className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl border border-white/22 bg-white/[0.08] font-sans text-4xl font-semibold ${
                       palette === "sumi"
                         ? "text-white"
                         : palette === "matcha"
@@ -112,10 +112,10 @@ export default async function ShoppingPage({
                     {c.kanji}
                   </span>
                   <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-kintsugi-200">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                       {c.picks.length} {c.picks.length === 1 ? "pick" : "picks"}
                     </p>
-                    <h2 className="mt-2 font-display text-[clamp(2.4rem,5vw,4.7rem)] font-semibold leading-[0.95] text-white">
+                    <h2 className="mt-2 font-sans text-[clamp(2.4rem,5vw,4.7rem)] font-semibold leading-[0.95] text-white">
                       {c.title}
                     </h2>
                   </div>
@@ -144,10 +144,10 @@ export default async function ShoppingPage({
                     key={p.name}
                     className="group flex flex-col rounded-[1.15rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,0.98),rgba(239,231,215,0.96))] p-5 text-sumi-950 shadow-editorial transition hover:-translate-y-0.5 hover:border-kintsugi-500 hover:shadow-editorial-deep"
                   >
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.24em] text-enji-700">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-enji-700">
                       {p.neighborhood}
                     </div>
-                    <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
+                    <h3 className="mt-2 font-sans text-2xl font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
                       {p.name}
                     </h3>
                     <p className="mt-3 flex-1 text-sm leading-7 text-sumi-800">
@@ -172,7 +172,7 @@ export default async function ShoppingPage({
       </div>
 
       <aside className="mt-16 rounded-[1.25rem] border border-kintsugi-300/35 bg-[linear-gradient(180deg,rgba(35,29,20,0.94),rgba(15,13,11,0.96))] p-6 text-sm leading-7 text-white/82 shadow-editorial-deep">
-        <div className="text-xs font-semibold uppercase tracking-[0.3em] text-kintsugi-200">
+        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
           Tax-free shopping
         </div>
         <p className="mt-2">{data.tax_free_note}</p>

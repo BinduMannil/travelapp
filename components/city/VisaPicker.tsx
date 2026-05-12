@@ -115,7 +115,7 @@ export function VisaPicker({
         <article
           className={`mt-6 rounded-lg border p-5 ${REQUIREMENT_COPY[rule.requirement].tone}`}
         >
-          <div className="text-xs uppercase tracking-[0.25em] opacity-80">
+          <div className="text-xs uppercase tracking-[0.12em] opacity-80">
             Result for {rule.name}
           </div>
           <div className="mt-1 flex flex-wrap items-baseline gap-3">

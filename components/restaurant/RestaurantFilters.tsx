@@ -124,7 +124,7 @@ function FilterRow({
 }) {
   return (
     <div className="grid gap-3 border-b border-white/10 pb-5 last:border-b-0 last:pb-0 sm:grid-cols-[7.5rem_1fr] sm:items-start">
-      <span className="pt-2 text-[0.68rem] font-bold uppercase tracking-[0.28em] text-kintsugi-300">
+      <span className="pt-2 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
         {label}
       </span>
       <div className="flex flex-wrap gap-2.5">{children}</div>

@@ -81,7 +81,7 @@ export default async function FamousForPage({
               ))}
             </nav>
             <p className="mt-7 border-t border-white/12 pt-5 text-sm leading-7 text-white/64">
-              Follow each cultural world into the places, rituals, and details that make it worth seeking out.
+              Use these categories to find the places behind Japan&apos;s craft, food, design, pop culture and regional specialties.
             </p>
           </aside>
         </div>
@@ -99,10 +99,10 @@ export default async function FamousForPage({
             <div className="lg:sticky lg:top-24">
               <p className="luxury-kicker text-kintsugi-300">{leadCategory.label}</p>
               <h2 className="luxury-display mt-4 text-[clamp(2.8rem,6vw,6rem)] font-semibold text-white">
-                Craft is not souvenir logic.
+                Craft starts with place.
               </h2>
               <p className="mt-7 max-w-lg text-base leading-8 text-white/68">
-                The best-known objects are rooted in region, workshop, material and ritual. They deserve slower pacing than a shop grid.
+                Japan&apos;s best-known objects are tied to region, workshop, material and technique. Treat them as part of the trip, not just things to buy.
               </p>
             </div>
             <div className="grid gap-8">

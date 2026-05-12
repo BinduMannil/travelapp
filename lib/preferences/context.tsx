@@ -14,9 +14,52 @@ import {
   formatPrice,
   type FxRate,
 } from "@/lib/currency/convert";
+import { useI18n } from "@/lib/i18n/context";
 
 export type TempUnit = "c" | "f";
 export type DistanceUnit = "km" | "mi";
+export type TravelCurrency =
+  | "USD"
+  | "EUR"
+  | "GBP"
+  | "AED"
+  | "JPY"
+  | "CAD"
+  | "AUD"
+  | "INR"
+  | "SGD"
+  | "CHF";
+
+export const TRAVEL_CURRENCIES: ReadonlyArray<TravelCurrency> = [
+  "USD",
+  "EUR",
+  "GBP",
+  "AED",
+  "JPY",
+  "CAD",
+  "AUD",
+  "INR",
+  "SGD",
+  "CHF",
+];
+
+export const TEMPERATURE_UNITS: ReadonlyArray<{
+  value: TempUnit;
+  label: string;
+  shortLabel: string;
+}> = [
+  { value: "c", label: "Celsius", shortLabel: "°C" },
+  { value: "f", label: "Fahrenheit", shortLabel: "°F" },
+];
+
+export const DISTANCE_UNITS: ReadonlyArray<{
+  value: DistanceUnit;
+  label: string;
+  shortLabel: string;
+}> = [
+  { value: "km", label: "Kilometers", shortLabel: "km" },
+  { value: "mi", label: "Miles", shortLabel: "mi" },
+];
 
 type PreferencesValue = {
   rates: ReadonlyArray<FxRate>;
@@ -36,6 +79,36 @@ const LS_KEYS = {
   distance: "travelapp:pref:distance",
 };
 
+function isTravelCurrency(value: string | null): value is TravelCurrency {
+  return TRAVEL_CURRENCIES.includes(value as TravelCurrency);
+}
+
+export function celsiusToFahrenheit(celsius: number) {
+  return celsius * 1.8 + 32;
+}
+
+export function kilometersToMiles(km: number) {
+  return km * 0.621371;
+}
+
+export function formatTemperatureValue(celsius: number, unit: TempUnit) {
+  if (unit === "f") return `${celsiusToFahrenheit(celsius).toFixed(0)}°F`;
+  return `${celsius.toFixed(1)}°C`;
+}
+
+export function formatDistanceValue(km: number, unit: DistanceUnit) {
+  if (unit === "mi") return `${kilometersToMiles(km).toFixed(1)} mi`;
+  return `${km.toFixed(1)} km`;
+}
+
+export function formatCurrencyValue(
+  amountMinor: number,
+  currency: string,
+  locale = "en-US",
+) {
+  return formatPrice(amountMinor, currency.toUpperCase(), locale);
+}
+
 export function PreferencesProvider({
   rates,
   defaultCurrency,
@@ -53,14 +126,16 @@ export function PreferencesProvider({
     const c = window.localStorage.getItem(LS_KEYS.currency);
     const t = window.localStorage.getItem(LS_KEYS.temp);
     const d = window.localStorage.getItem(LS_KEYS.distance);
-    if (c) setCurrencyState(c);
+    if (isTravelCurrency(c)) setCurrencyState(c);
     if (t === "c" || t === "f") setTempUnitState(t);
     if (d === "km" || d === "mi") setDistanceUnitState(d);
   }, []);
 
   const setCurrency = useCallback((c: string) => {
-    setCurrencyState(c);
-    window.localStorage.setItem(LS_KEYS.currency, c);
+    const next = c.toUpperCase();
+    if (!isTravelCurrency(next)) return;
+    setCurrencyState(next);
+    window.localStorage.setItem(LS_KEYS.currency, next);
   }, []);
   const setTempUnit = useCallback((u: TempUnit) => {
     setTempUnitState(u);
@@ -117,36 +192,31 @@ export function PriceDisplay({
   locale?: string;
 }) {
   const { rates, currency: target } = usePreferences();
+  const { intlLocale } = useI18n();
   const source = currency.toUpperCase();
   const targetUp = target.toUpperCase();
+  const displayLocale = locale ?? intlLocale;
 
-  const original = formatPrice(amountMinor, source, locale);
+  const original = formatPrice(amountMinor, source, displayLocale);
   if (targetUp === source) return <span>{original}</span>;
 
   const converted = convertMinor(amountMinor, source, targetUp, rates);
   if (converted === null) return <span title="Conversion unavailable">{original}</span>;
   return (
     <span title={`${original} · live rate`}>
-      {formatPrice(converted, targetUp, locale)}
+      {formatPrice(converted, targetUp, displayLocale)}
     </span>
   );
 }
 
 export function TempDisplay({ celsius }: { celsius: number }) {
   const { tempUnit } = usePreferences();
-  if (tempUnit === "f") {
-    const f = celsius * 1.8 + 32;
-    return <span className="tabular-nums">{f.toFixed(0)}°F</span>;
-  }
-  return <span className="tabular-nums">{celsius.toFixed(1)}°C</span>;
+  return <span className="tabular-nums">{formatTemperatureValue(celsius, tempUnit)}</span>;
 }
 
 export function DistanceDisplay({ km }: { km: number }) {
   const { distanceUnit } = usePreferences();
-  if (distanceUnit === "mi") {
-    return <span className="tabular-nums">{(km * 0.621371).toFixed(1)} mi</span>;
-  }
-  return <span className="tabular-nums">{km.toFixed(1)} km</span>;
+  return <span className="tabular-nums">{formatDistanceValue(km, distanceUnit)}</span>;
 }
 
 // --- Back-compat shims -----------------------------------------------------

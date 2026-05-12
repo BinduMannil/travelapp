@@ -30,7 +30,7 @@ export default function AffiliateDisclosurePage() {
 
   return (
     <main className="mx-auto max-w-3xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+      <nav className="text-xs uppercase tracking-[0.12em] text-sumi-700">
         <Link href="/" className="hover:text-enji-600">
           Home
         </Link>{" "}

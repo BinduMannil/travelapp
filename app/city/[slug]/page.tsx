@@ -46,15 +46,25 @@ const CITIES: Record<
 };
 
 const PLANNED_CITIES = Object.fromEntries(
-  [...JAPAN_CITY_PINS, ...JAPAN_OFFSHORE]
-    .filter((city) => !city.published)
+  [
+    ...JAPAN_CITY_PINS,
+    ...JAPAN_OFFSHORE,
+    {
+      slug: "hakone",
+      name: "Hakone",
+      country: "Japan",
+      countrySlug: "japan",
+      meta: "Fuji-Hakone-Izu",
+    },
+  ]
+    .filter((city) => !("published" in city && city.published))
     .map((city) => [
       city.slug,
       {
         name: city.name,
-        country: "Japan",
-        countrySlug: "japan",
-        meta: "region" in city ? city.region : city.note,
+        country: "country" in city ? city.country : "Japan",
+        countrySlug: "countrySlug" in city ? city.countrySlug : "japan",
+        meta: "region" in city ? city.region : "note" in city ? city.note : city.meta,
       },
     ]),
 ) as Record<
@@ -86,30 +96,30 @@ type Section = {
 const SECTIONS: Section[] = [
   { slug: "weather", label: "Weather & Seasons", kanji: "季", palette: "sakura", blurb: "Month-by-Month Climate · Peak vs Off", ready: true },
   { slug: "costs", label: "Daily Costs", kanji: "円", palette: "kintsugi", blurb: "Coffee · Metro · Taxi · SIM · Your Currency", ready: true },
-  { slug: "tipping", label: "Tipping", kanji: "心", palette: "enji", blurb: "Nearly never — here's every exception", ready: true },
-  { slug: "visa", label: "Visa for You", kanji: "旅", palette: "aizome", blurb: "35 Passports · Stay Limits · eVisa Links", ready: true },
+  { slug: "tipping", label: "Tipping", kanji: "心", palette: "enji", blurb: "When to Tip · When Not To · Local Etiquette", ready: true },
+  { slug: "visa", label: "Visa Requirements", kanji: "旅", palette: "aizome", blurb: "Passport Rules · Stay Limits · Official Links", ready: true },
   { slug: "apps", label: "Must-Have Apps", kanji: "携", palette: "ocean", blurb: "Install Before You Fly · 11 Picks", ready: true },
   { slug: "transit", label: "Getting Around", kanji: "交", palette: "sumi", blurb: "Metro · JR · Taxi · Bus · IC Card First", ready: true },
   { slug: "nearby", label: "Nearby Cities", kanji: "遠", palette: "forest", blurb: "Kyoto · Osaka · Hakone · Nikko · Mode Tabs", ready: true },
   { slug: "attractions", label: "Attractions", kanji: "観", palette: "enji", blurb: "12 Hand-Picked Places · Dress + Photo Rules", ready: true },
   { slug: "restaurants", label: "Restaurants", kanji: "食", palette: "kintsugi", blurb: "Ranked by Google + Tabelog + Michelin", ready: true },
-  { slug: "neighborhoods", label: "Neighborhoods", kanji: "街", palette: "aizome", blurb: "12 districts by vibe + transit", ready: true },
+  { slug: "neighborhoods", label: "Neighborhoods", kanji: "街", palette: "aizome", blurb: "Best Areas · Transit · Who Each District Suits", ready: true },
   { slug: "hotels", label: "Where to Stay", kanji: "宿", palette: "sumi", blurb: "Capsule → Aman · Tiered Stays", ready: true },
-  { slug: "payments", label: "Payments & Cards", kanji: "現", palette: "ocean", blurb: "11 Methods × 9 Venues · Acceptance Grid", ready: true },
-  { slug: "health-safety", label: "Health & safety", kanji: "守", palette: "enji", blurb: "Earthquake, meds, embassies, LGBTQ+", ready: true },
+  { slug: "payments", label: "Payments & Cards", kanji: "現", palette: "ocean", blurb: "Cash · IC Cards · Credit Cards · Where Each Works", ready: true },
+  { slug: "health-safety", label: "Health & Safety", kanji: "守", palette: "enji", blurb: "Earthquake Safety · Medication Rules · Emergency Help", ready: true },
   { slug: "arrival", label: "Arrival & Logistics", kanji: "着", palette: "aizome", blurb: "NRT/HND Transfers · Luggage · ATMs", ready: true },
   { slug: "connectivity", label: "Connectivity", kanji: "信", palette: "matcha", blurb: "eSIM / pocket Wi-Fi / plugs 100V", ready: true },
-  { slug: "culture", label: "People & language", kanji: "和", palette: "sakura", blurb: "Register, dress code, phrasebook", ready: true },
-  { slug: "good-to-know", label: "Good to know", kanji: "知", palette: "washi", blurb: "Etiquette, toilets, trash, escalators", ready: true },
-  { slug: "calendar", label: "Holidays & festivals", kanji: "祭", palette: "enji", blurb: "Public holidays + sakura + Obon", ready: true },
-  { slug: "packing", label: "Packing list", kanji: "装", palette: "ume", blurb: "Live — tuned to your dates + activities", ready: true },
-  { slug: "itinerary", label: "Itineraries", kanji: "道", palette: "kintsugi", blurb: "4 templates · 3 / 5 / 4 / 5 days", ready: true },
+  { slug: "culture", label: "People & Language", kanji: "和", palette: "sakura", blurb: "Japanese Phrases · Manners · Dress Codes", ready: true },
+  { slug: "good-to-know", label: "Good to Know", kanji: "知", palette: "washi", blurb: "Etiquette · Toilets · Trash · Escalators", ready: true },
+  { slug: "calendar", label: "Holidays & Festivals", kanji: "祭", palette: "enji", blurb: "Public Holidays · Cherry Blossoms · Obon", ready: true },
+  { slug: "packing", label: "Packing List", kanji: "装", palette: "ume", blurb: "Weather · Activities · Essentials", ready: true },
+  { slug: "itinerary", label: "Itineraries", kanji: "道", palette: "kintsugi", blurb: "Tokyo Trip Plans · 3 to 5 Days", ready: true },
   { slug: "wellness", label: "Wellness & Onsen", kanji: "湯", palette: "enji", blurb: "10 Venues · Tattoo Policies · Etiquette", ready: true },
-  { slug: "hidden-gems", label: "Hidden Gems", kanji: "秘", palette: "ume", blurb: "Deep Cuts · Jazz Kissa · Local Picks", ready: true },
+  { slug: "hidden-gems", label: "Hidden Gems", kanji: "秘", palette: "ume", blurb: "Tokyo Hidden Gems · Jazz Bars · Local Streets", ready: true },
   { slug: "shopping", label: "Shopping", kanji: "買", palette: "kintsugi", blurb: "Knives, stationery, vintage, depachika", ready: true },
   { slug: "nightlife", label: "Nightlife", kanji: "宵", palette: "sumi", blurb: "Golden Gai, jazz kissa, craft beer", ready: true },
-  { slug: "kids", label: "With kids", kanji: "幼", palette: "sakura", blurb: "Disney, Ghibli, zoo, rainy-day picks", ready: true },
-  { slug: "emergency", label: "Emergency quick-card", kanji: "急", palette: "enji", blurb: "Numbers, lost passport, scenarios", ready: true },
+  { slug: "kids", label: "With Kids", kanji: "幼", palette: "sakura", blurb: "Disney · Ghibli · Zoos · Rainy-Day Plans", ready: true },
+  { slug: "emergency", label: "Emergency Quick Card", kanji: "急", palette: "enji", blurb: "Emergency Numbers · Lost Passport · What to Do", ready: true },
 ];
 
 const sectionBySlug = Object.fromEntries(SECTIONS.map((section) => [section.slug, section]));
@@ -132,14 +142,14 @@ const EDITORIAL_FEATURES = [
   {
     slug: "neighborhoods",
     eyebrow: "Street register",
-    title: "Each district changes the tempo.",
+    title: "Choose the area that fits your trip.",
     image: CITY_IMAGES.alley,
     placement: "lg:col-span-5",
   },
   {
     slug: "hotels",
     eyebrow: "Stay well",
-    title: "Capsules to Aman, chosen by how the trip should feel.",
+    title: "Capsules, ryokan-style hotels and polished high-end stays.",
     image: CITY_IMAGES.hotel,
     placement: "lg:col-span-7",
   },
@@ -168,11 +178,11 @@ function SectionLink({
       className="group flex items-center justify-between gap-5 border-b border-white/12 py-4 transition hover:border-kintsugi-300/50"
     >
       <span className="flex items-center gap-4">
-        <span className="font-display text-2xl font-semibold text-kintsugi-300/56 tabular-nums">
+        <span className="font-sans text-2xl font-semibold text-kintsugi-300/56 tabular-nums">
           {String(index + 1).padStart(2, "0")}
         </span>
           <span>
-            <span className="block font-display text-xl font-semibold leading-tight text-white group-hover:text-kintsugi-300">
+            <span className="block font-sans text-xl font-semibold leading-tight text-white group-hover:text-kintsugi-300">
             {formatNavigationLabel(section.label)}
           </span>
           <span className="mt-1 block text-xs leading-relaxed text-white/56">
@@ -216,7 +226,7 @@ function GlassChapter({
       <div className="relative flex min-h-[31rem] flex-col justify-end p-5 sm:p-8">
         <div className="editorial-type-container max-w-xl border-l border-kintsugi-300/62 bg-black/18 py-1 pl-5 backdrop-blur-[2px]">
           <div className="luxury-kicker text-kintsugi-300">{eyebrow}</div>
-          <h2 className="editorial-feature-title mt-3 font-display font-semibold text-white">
+          <h2 className="editorial-feature-title mt-3 font-sans font-semibold text-white">
             {title}
           </h2>
           <p className="mt-4 max-w-md text-sm leading-7 text-white/78">{section.blurb}</p>
@@ -281,7 +291,7 @@ export default async function CityPage({
               {city.name}
             </h1>
             <p
-              className="mt-2 font-display text-xl tracking-[0.42em] sm:text-2xl"
+              className="mt-2 font-sans text-xl tracking-[0.12em] sm:text-2xl"
               style={{ color: identity.colors.accent }}
             >
               {city.tagline}
@@ -308,7 +318,7 @@ export default async function CityPage({
                     className="editorial-type-container rounded-2xl border border-white/16 bg-white/[0.11] p-4 transition hover:-translate-y-0.5 hover:border-kintsugi-300/70 hover:bg-white/[0.18] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
                     style={{ borderColor: "rgba(255,255,255,.12)" }}
                   >
-                    <div className="font-display text-4xl font-semibold text-white">{section.kanji}</div>
+                    <div className="font-sans text-4xl font-semibold text-white">{section.kanji}</div>
                     <div className="mt-2 text-sm font-bold leading-tight text-white">{formatNavigationLabel(section.label)}</div>
                     <div className="mt-1 text-xs leading-relaxed text-white/58">{section.blurb}</div>
                   </Link>
@@ -335,7 +345,7 @@ export default async function CityPage({
                 The city opens in scenes.
               </h2>
               <p className="mt-6 max-w-lg text-base leading-8 text-white/68">
-                Tokyo should not introduce itself as a grid. Start with the places, textures, rooms and tables that make the city feel alive.
+                Start with the Tokyo experiences travelers actually plan around: temples, restaurants, neighborhoods, hotels and late-night streets.
               </p>
             </div>
             <div className="space-y-8">
@@ -366,7 +376,7 @@ export default async function CityPage({
                     >
                       <span>
                         <span className="luxury-kicker text-kintsugi-300/78">{feature.eyebrow}</span>
-                        <span className="mt-2 block font-display text-xl font-semibold leading-tight group-hover:text-kintsugi-300">
+                        <span className="mt-2 block font-sans text-xl font-semibold leading-tight group-hover:text-kintsugi-300">
                           {formatNavigationLabel(section.label)}
                         </span>
                       </span>
@@ -403,10 +413,10 @@ export default async function CityPage({
           <div className="max-w-xl">
             <p className="luxury-kicker text-kintsugi-300">PRACTICAL INTELLIGENCE</p>
             <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] font-semibold text-white">
-              Logistics, folded into the journey.
+              Practical Tokyo planning, kept close.
             </h2>
             <p className="mt-6 max-w-lg text-base leading-8 text-white/72">
-              Visas, arrival, weather, packing and transit stay close at hand, but they sit inside the atmosphere of the trip rather than outside it.
+              Visa rules, airport arrival, weather, packing and Tokyo transit stay easy to reach while you plan the trip.
             </p>
           </div>
           <div className="scene-glass ml-auto w-full max-w-3xl rounded-[1.35rem] p-6 sm:p-8">
@@ -422,37 +432,37 @@ export default async function CityPage({
         </div>
       </section>
 
-      <section className="journee-scene relative overflow-hidden bg-[#11100e] py-32 sm:py-44">
+      <section className="journee-scene relative overflow-hidden bg-[#11100e] py-28 sm:py-36 lg:py-40">
         <AmbientDestinationMotion identity={identity} variant="section" />
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1.15fr_.85fr] lg:items-stretch">
-          <div className="grid min-h-[48rem] grid-rows-[1fr_.62fr] gap-8">
-            <div className="relative overflow-hidden rounded-[1.5rem]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 md:gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(22rem,.9fr)] lg:items-start">
+          <div className="grid gap-5 sm:gap-6 lg:h-[42rem] lg:grid-rows-[minmax(0,1fr)_13rem]">
+            <div className="relative min-h-[24rem] overflow-hidden rounded-[1.5rem] sm:min-h-[30rem] lg:min-h-0">
               <img src={CITY_IMAGES.night} alt="" className="h-full w-full object-cover" loading="lazy" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="editorial-type-container absolute bottom-0 p-6 sm:p-8">
                 <p className="luxury-kicker text-kintsugi-300">AFTER DARK</p>
-                <h2 className="mt-3 font-display text-[clamp(2.25rem,7cqw,3.6rem)] font-semibold leading-[1.02] text-white">
+                <h2 className="mt-3 font-sans text-[clamp(2.25rem,7cqw,3.6rem)] font-semibold leading-[1.02] text-white">
                   Neon, jazz rooms, late trains.
                 </h2>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-8">
-              <img src={CITY_IMAGES.sushi} alt="" className="h-full min-h-48 rounded-[1.3rem] object-cover" loading="lazy" />
-              <img src={CITY_IMAGES.alley} alt="" className="h-full min-h-48 rounded-[1.3rem] object-cover" loading="lazy" />
+            <div className="grid gap-5 sm:grid-cols-2 sm:gap-6">
+              <img src={CITY_IMAGES.sushi} alt="" className="h-56 w-full rounded-[1.3rem] object-cover sm:h-full" loading="lazy" />
+              <img src={CITY_IMAGES.alley} alt="" className="h-56 w-full rounded-[1.3rem] object-cover sm:h-full" loading="lazy" />
             </div>
           </div>
 
-          <div className="scene-glass flex flex-col justify-between rounded-[1.5rem] p-7 sm:p-10 lg:mt-24">
+          <div className="scene-glass flex min-h-0 flex-col justify-between rounded-[1.5rem] p-7 sm:p-9 lg:min-h-[42rem]">
             <div>
               <p className="luxury-kicker text-kintsugi-300">CULTURE IN MOTION</p>
-              <h2 className="luxury-display mt-4 text-[clamp(2.5rem,5vw,4.9rem)] font-semibold text-white">
+              <h2 className="luxury-display mt-4 text-[clamp(2.45rem,4.2vw,4.45rem)] font-semibold text-white">
                 Etiquette is part of the landscape.
               </h2>
               <p className="mt-6 max-w-xl text-base leading-8 text-white/68">
-                Language, payments, tipping, safety and small social cues should feel like travel intelligence gathered on the street, not static dashboard blocks.
+                Learn the everyday details that matter in Japan: basic phrases, payment habits, tipping customs, emergency help and social etiquette.
               </p>
             </div>
-            <div className="mt-12">
+            <div className="mt-10">
               {CULTURE_STACK.map((sectionSlug, index) => (
                 <SectionLink
                   key={sectionSlug}
@@ -480,10 +490,10 @@ export default async function CityPage({
             <div>
               <p className="luxury-kicker text-kintsugi-300">KEEP EXPLORING</p>
               <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] font-semibold text-white">
-                A living guide, not a dashboard.
+                Keep the essentials close.
               </h2>
               <p className="mt-6 max-w-lg text-base leading-8 text-white/68">
-                Every remaining chapter stays one click away, gathered as an editorial index over the city rather than a wall of matching cards.
+                Itineraries, nightlife, hidden gems, shopping, wellness, family plans, apps and emergency help stay one click away.
               </p>
             </div>
             <div className="scene-glass grid gap-x-10 rounded-[1.5rem] p-6 sm:p-8 md:grid-cols-2">
@@ -554,7 +564,7 @@ function PlannedCityPage({
               </Link>{" "}
               · {city.name}
             </nav>
-            <p className="mt-10 text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-300">
+            <p className="mt-10 text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-300">
               {city.meta}
             </p>
             <h1 className="luxury-display mt-5 text-[clamp(4rem,14vw,11rem)] font-semibold text-white">
@@ -581,10 +591,10 @@ function PlannedCityPage({
             </div>
           </div>
           <aside className="border border-white/12 bg-white/[0.07] p-6 shadow-editorial backdrop-blur-xl sm:p-8">
-            <div className="text-xs font-semibold uppercase tracking-[0.28em] text-white/48">
+            <div className="text-xs font-semibold uppercase tracking-[0.12em] text-white/48">
               Planned route
             </div>
-            <div className="mt-5 font-display text-4xl font-semibold text-white">
+            <div className="mt-5 font-sans text-4xl font-semibold text-white">
               /city/{slug}
             </div>
             <p className="mt-5 text-sm leading-7 text-white/58">

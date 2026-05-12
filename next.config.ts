@@ -15,7 +15,6 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
@@ -27,6 +26,20 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/explore",
+        destination: "/discover",
+        permanent: true,
+      },
+      {
+        source: "/map",
+        destination: "/atlas",
+        permanent: true,
+      },
+    ];
   },
 };
 

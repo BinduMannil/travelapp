@@ -41,7 +41,7 @@ export function NearbyStack({ cards }: { cards: NearbyCard[] }) {
 
   return (
     <div>
-      <div className="flex items-center justify-between border-b border-washi-50/15 pb-3 text-[11px] uppercase tracking-[0.3em] text-washi-50/70">
+      <div className="flex items-center justify-between border-b border-washi-50/15 pb-3 text-[11px] uppercase tracking-[0.12em] text-washi-50/70">
         <span>Nearby · Same Visa</span>
         <span className="tabular-nums text-washi-50/90">
           {String(active + 1).padStart(2, "0")}
@@ -121,10 +121,10 @@ function CardFace({
         className="!aspect-[3/4] rounded-2xl"
       />
       <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4">
-        <div className="text-[10px] uppercase tracking-[0.2em] text-washi-50/70">
+        <div className="text-[10px] uppercase tracking-[0.12em] text-washi-50/70">
           Day trip
         </div>
-        <div className="mt-1 font-display text-xl font-semibold text-washi-50">
+        <div className="mt-1 font-sans text-xl font-semibold text-washi-50">
           {card.label}
         </div>
         <div className="text-xs text-washi-50/80">{card.sublabel}</div>

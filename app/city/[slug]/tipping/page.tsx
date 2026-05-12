@@ -61,10 +61,10 @@ export default async function TippingPage({
       <section className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
         <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <aside className="rounded-[1.45rem] border border-white/14 bg-[linear-gradient(180deg,rgba(35,29,25,0.94),rgba(13,12,11,0.96))] p-7 shadow-editorial-deep">
-            <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
               Cultural rule
             </p>
-            <h2 className="mt-5 font-display text-[clamp(2.6rem,5vw,5rem)] font-semibold leading-[0.92] text-white">
+            <h2 className="mt-5 font-sans text-[clamp(2.6rem,5vw,5rem)] font-semibold leading-[0.92] text-white">
               When in doubt, do less.
             </h2>
             <p className="mt-5 text-sm leading-7 text-white/76">
@@ -75,10 +75,10 @@ export default async function TippingPage({
           </aside>
 
           <div className="rounded-[1.45rem] border border-white/15 bg-[linear-gradient(135deg,rgba(244,238,224,0.99),rgba(229,219,199,0.96))] p-6 text-sumi-950 shadow-editorial-deep sm:p-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-enji-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-enji-700">
               Quick answer
             </p>
-            <p className="mt-4 font-display text-[clamp(2.2rem,4vw,4rem)] font-semibold leading-[0.98]">
+            <p className="mt-4 font-sans text-[clamp(2.2rem,4vw,4rem)] font-semibold leading-[0.98]">
               {notExpected.length >= expected.length
                 ? "Most everyday situations do not need a tip."
                 : "Some situations may expect a gratuity."}
@@ -97,10 +97,10 @@ export default async function TippingPage({
             >
               <header className="flex flex-wrap items-start justify-between gap-4">
                 <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.3em] text-kintsugi-200">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                     {r.expected ? "Handled carefully" : "Usually no tip"}
                   </p>
-                  <h2 className="mt-2 font-display text-3xl font-semibold leading-none">
+                  <h2 className="mt-2 font-sans text-3xl font-semibold leading-none">
                     {CONTEXT_LABELS[r.context] ?? r.context}
                   </h2>
                 </div>

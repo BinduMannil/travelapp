@@ -180,7 +180,7 @@ export default async function HotelsPage({
                 <p className="luxury-kicker text-kintsugi-300">
                   Stay strategy
                 </p>
-                <h2 className="mt-4 max-w-lg font-display text-[clamp(2.15rem,4vw,3.6rem)] font-semibold leading-[1.02] text-white">
+                <h2 className="mt-4 max-w-lg font-sans text-[clamp(2.15rem,4vw,3.6rem)] font-semibold leading-[1.02] text-white">
                   Choose the room by the trip you want to have.
                 </h2>
                 <p className="mt-5 text-sm leading-7 text-white/76">
@@ -313,7 +313,7 @@ function HotelStayCard({
           <p className="luxury-kicker text-kintsugi-300">
             {hotel.neighborhood}
           </p>
-          <h2 className="mt-2 font-display text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-none text-white">
+          <h2 className="mt-2 font-sans text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-none text-white">
             {hotel.name}
           </h2>
         </div>
@@ -384,7 +384,7 @@ function FeaturedHotelCard({
       />
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(6,5,4,.9),rgba(6,5,4,.44)_55%,rgba(6,5,4,.18)),linear-gradient(0deg,rgba(6,5,4,.9),transparent_58%)]" />
       <div className="relative flex min-h-[34rem] flex-col justify-between p-7 sm:p-10">
-        <span className="w-fit rounded-full border border-kintsugi-300/60 bg-black/34 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-kintsugi-200 backdrop-blur">
+        <span className="w-fit rounded-full border border-kintsugi-300/60 bg-black/34 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-kintsugi-200 backdrop-blur">
           Signature stay
         </span>
         <div className="max-w-2xl">
@@ -421,7 +421,7 @@ function CompactHotelFeature({
         <p className="luxury-kicker text-kintsugi-300">
           {HOTEL_TIER_LABEL[hotel.tier]}
         </p>
-        <h3 className="mt-2 font-display text-3xl font-semibold leading-tight text-white">
+        <h3 className="mt-2 font-sans text-3xl font-semibold leading-tight text-white">
           {hotel.name}
         </h3>
       </div>

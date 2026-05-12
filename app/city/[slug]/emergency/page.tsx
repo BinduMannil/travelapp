@@ -38,7 +38,7 @@ export default async function EmergencyPage({
       />
       <div className="mx-auto max-w-4xl px-6 py-12">
 <section className="mt-8 rounded-2xl border-2 border-enji-600 bg-enji-50 p-6 shadow-sm">
-        <div className="text-xs font-semibold uppercase tracking-[0.25em] text-enji-700">
+        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-enji-700">
           Save these numbers offline
         </div>
         <ul className="mt-4 divide-y divide-enji-100 overflow-hidden rounded-xl bg-white shadow-sm">
@@ -51,7 +51,7 @@ export default async function EmergencyPage({
                   className="flex items-center justify-between gap-4 px-5 py-4 transition hover:bg-enji-50/60"
                 >
                   <div className="min-w-0 flex-1">
-                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sumi-700">
                       {n.label}
                     </div>
                     {n.notes && (
@@ -75,7 +75,7 @@ export default async function EmergencyPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="font-display text-2xl font-semibold text-sumi-900">
+        <h2 className="font-sans text-2xl font-semibold text-sumi-900">
           If this happens…
         </h2>
         <div className="mt-4 space-y-4">
@@ -85,7 +85,7 @@ export default async function EmergencyPage({
               className="group rounded-2xl border border-washi-200 bg-white open:shadow-md"
             >
               <summary className="cursor-pointer list-none p-5">
-                <span className="font-display text-lg font-semibold text-sumi-900 group-open:text-enji-700">
+                <span className="font-sans text-lg font-semibold text-sumi-900 group-open:text-enji-700">
                   {s.title}
                 </span>
                 <span className="float-right text-sumi-700 group-open:rotate-180 transition" aria-hidden>
@@ -103,7 +103,7 @@ export default async function EmergencyPage({
       </section>
 
       <section className="mt-10 rounded-2xl border border-washi-200 bg-washi-100/60 p-5">
-        <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
           Apps to install now
         </h3>
         <ul className="mt-3 space-y-2 text-sm text-sumi-900">

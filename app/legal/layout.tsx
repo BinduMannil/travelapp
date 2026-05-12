@@ -1,8 +1,6 @@
 /**
- * Legal pages share a single typographic rule: Montserrat only — no Noto
- * Serif JP display headings. The global stylesheet routes h1/h2 through
- * the display family for editorial pages, so we explicitly opt out here
- * with arbitrary variants on every heading level.
+ * Legal pages follow the same JOURNEE rule as the rest of the app:
+ * Montserrat only, with no alternate display families.
  */
 export default function LegalLayout({
   children,

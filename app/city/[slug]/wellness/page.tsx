@@ -95,7 +95,7 @@ export default async function WellnessPage({
       <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
       <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
         <aside className="rounded-[1.45rem] border border-white/14 bg-[linear-gradient(180deg,rgba(34,29,25,0.94),rgba(13,12,11,0.96))] p-7 shadow-editorial-deep">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+          <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
             Bath etiquette
           </h2>
           <ul className="mt-7 space-y-4 text-sm leading-7 text-white/78">
@@ -119,10 +119,10 @@ export default async function WellnessPage({
             />
             <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.45)_45%,rgba(0,0,0,0.91))]" />
             <div className="relative flex min-h-[540px] flex-col justify-end p-6 sm:p-9">
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                 {lead.neighborhood} · {WELLNESS_TYPE_LABEL[lead.type]}
               </p>
-              <h2 className="mt-4 max-w-3xl font-display text-[clamp(3rem,7vw,6.25rem)] font-semibold leading-[0.9] text-white">
+              <h2 className="mt-4 max-w-3xl font-sans text-[clamp(3rem,7vw,6.25rem)] font-semibold leading-[0.9] text-white">
                 {lead.name}
               </h2>
               <p className="mt-5 max-w-2xl rounded-2xl border border-white/14 bg-white/[0.08] p-4 text-sm leading-7 text-white/82 backdrop-blur">
@@ -169,10 +169,10 @@ export default async function WellnessPage({
                 />
                 <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.5)_42%,rgba(0,0,0,0.94))]" />
                 <div className="relative flex min-h-[430px] flex-col justify-end p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-200">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                     {v.neighborhood} · {WELLNESS_TYPE_LABEL[v.type]}
                   </p>
-                  <h2 className="mt-3 font-display text-[clamp(2.2rem,4.6vw,4.3rem)] font-semibold leading-[0.95] text-white">
+                  <h2 className="mt-3 font-sans text-[clamp(2.2rem,4.6vw,4.3rem)] font-semibold leading-[0.95] text-white">
                     {v.name}
                   </h2>
 

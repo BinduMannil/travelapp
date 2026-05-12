@@ -93,10 +93,10 @@ export default async function LanguagesPage({
           <aside className="scene-glass rounded-[1.35rem] p-6 sm:p-8">
             <p className="luxury-kicker text-kintsugi-300">English proficiency</p>
             <div className="mt-5 flex items-end gap-4">
-              <div className="font-display text-[clamp(4rem,10vw,7rem)] font-semibold leading-none text-white">
+              <div className="font-sans text-[clamp(4rem,10vw,7rem)] font-semibold leading-none text-white">
                 {payload.english_proficiency.band}
               </div>
-              <div className="pb-2 text-sm font-bold uppercase tracking-[0.22em] text-white/54">
+              <div className="pb-2 text-sm font-bold uppercase tracking-[0.12em] text-white/54">
                 {payload.english_proficiency.score} / 800
               </div>
             </div>
@@ -195,12 +195,12 @@ export default async function LanguagesPage({
 function LanguageFeature({ lang }: { lang: LanguageRow }) {
   return (
     <article className="scene-glass relative min-h-[36rem] overflow-hidden rounded-[1.55rem] p-7 sm:p-10">
-      <div className="absolute -right-8 -top-8 font-display text-[17rem] font-semibold leading-none text-white/[0.035]" aria-hidden>
+      <div className="absolute -right-8 -top-8 font-sans text-[17rem] font-semibold leading-none text-white/[0.035]" aria-hidden>
         語
       </div>
       <div className="relative flex min-h-[28rem] flex-col justify-end">
         <p className="luxury-kicker text-kintsugi-300">{ROLE_LABELS[lang.role]}</p>
-        <h2 className="mt-4 font-display text-[clamp(3.4rem,9vw,7.5rem)] font-semibold leading-[0.95] text-white">
+        <h2 className="mt-4 font-sans text-[clamp(3.4rem,9vw,7.5rem)] font-semibold leading-[0.95] text-white">
           {lang.name}
         </h2>
         <p className="mt-4 text-lg leading-8 text-white/72">{lang.script}</p>
@@ -217,12 +217,12 @@ function LanguageBand({ lang, index }: { lang: LanguageRow; index: number }) {
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <p className="luxury-kicker text-kintsugi-300">{ROLE_LABELS[lang.role] ?? lang.role}</p>
-          <h3 className="mt-3 font-display text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-tight text-white">
+          <h3 className="mt-3 font-sans text-[clamp(2rem,5vw,3.5rem)] font-semibold leading-tight text-white">
             {lang.name}
           </h3>
         </div>
         {lang.endangered && (
-          <span className="rounded-full border border-enji-300/40 bg-enji-500/20 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-sakura-100">
+          <span className="rounded-full border border-enji-300/40 bg-enji-500/20 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-sakura-100">
             Endangered
           </span>
         )}
@@ -237,10 +237,10 @@ function LanguageNote({ lang }: { lang: LanguageRow }) {
   return (
     <article className="border-t border-white/12 py-6">
       <div className="flex items-baseline justify-between gap-4">
-        <h3 className="font-display text-2xl font-semibold text-white">{lang.name}</h3>
+        <h3 className="font-sans text-2xl font-semibold text-white">{lang.name}</h3>
         <span className="text-sm font-semibold tabular-nums text-kintsugi-300">{formatPct(lang.speakers_pct)}</span>
       </div>
-      <p className="mt-2 text-[0.64rem] font-bold uppercase tracking-[0.24em] text-white/42">
+      <p className="mt-2 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-white/42">
         {ROLE_LABELS[lang.role] ?? lang.role} · {lang.script}
       </p>
       {lang.notes && <p className="mt-4 text-sm leading-7 text-white/66">{lang.notes}</p>}
@@ -253,7 +253,7 @@ function PercentLine({ value }: { value: number }) {
     <div className="mt-7">
       <div className="flex items-baseline justify-between gap-4">
         <span className="luxury-kicker text-white/44">Speaker share</span>
-        <span className="font-display text-3xl font-semibold text-kintsugi-300 tabular-nums">
+        <span className="font-sans text-3xl font-semibold text-kintsugi-300 tabular-nums">
           {formatPct(value)}
         </span>
       </div>

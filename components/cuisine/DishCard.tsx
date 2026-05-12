@@ -66,7 +66,7 @@ export function DishCard({
       {/* Faint kanji ghost in the background — drifts on hover */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -right-4 -top-4 select-none font-display text-[8rem] font-bold leading-none text-washi-50/[0.04] transition duration-700 group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:rotate-[-6deg] group-hover:text-washi-50/[0.08]"
+        className="pointer-events-none absolute -right-4 -top-4 select-none font-sans text-[8rem] font-bold leading-none text-washi-50/[0.04] transition duration-700 group-hover:translate-x-2 group-hover:-translate-y-2 group-hover:rotate-[-6deg] group-hover:text-washi-50/[0.08]"
       >
         {kanji}
       </span>
@@ -84,7 +84,7 @@ export function DishCard({
               onAllFailed={() => setAllFailed(true)}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center font-display text-5xl font-bold text-white/90 drop-shadow">
+            <div className="absolute inset-0 flex items-center justify-center font-sans text-5xl font-bold text-white/90 drop-shadow">
               {kanji}
             </div>
           )}
@@ -95,16 +95,16 @@ export function DishCard({
       {rank && rank <= 3 && (
         <div className="absolute left-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-washi-50 text-sumi-900 shadow-lg ring-2 ring-sumi-900">
           <div className="text-center leading-none">
-            <div className="text-[8px] font-bold uppercase tracking-[0.15em]">
+            <div className="text-[8px] font-bold uppercase tracking-[0.12em]">
               Top
             </div>
-            <div className="font-display text-lg font-bold">{rank}</div>
+            <div className="font-sans text-lg font-bold">{rank}</div>
           </div>
         </div>
       )}
 
       {/* Originated + vegan chips (top-right) */}
-      <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-1 text-[9px] uppercase tracking-[0.15em]">
+      <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-1 text-[9px] uppercase tracking-[0.12em]">
         {dish.originated_here && (
           <span className="rounded-full bg-kintsugi-500/90 px-2 py-0.5 font-semibold text-sumi-900">
             From {countryName}
@@ -125,14 +125,14 @@ export function DishCard({
         aria-controls={`dish-body-${dish.slug}`}
         className="relative z-[1] mt-12 flex flex-1 flex-col px-6 pb-5 text-center"
       >
-        <div className="text-[11px] uppercase tracking-[0.3em] text-washi-50/70">
+        <div className="text-[11px] uppercase tracking-[0.12em] text-washi-50/70">
           <em className="not-italic">{dish.romaji}</em>
         </div>
-        <h2 className="mt-1 font-display text-xl font-bold uppercase tracking-tight text-washi-50">
+        <h2 className="mt-1 font-sans text-xl font-bold uppercase tracking-tight text-washi-50">
           {dish.name}
         </h2>
-        {/* Script flourish — Italianno handwritten accent */}
-        <div className="mt-0.5 font-script text-2xl italic text-kintsugi-300">
+        {/* Accent flourish kept in the shared Montserrat system */}
+        <div className="mt-0.5 font-sans text-2xl italic text-kintsugi-300">
           {dish.native_script}
         </div>
 
@@ -140,7 +140,7 @@ export function DishCard({
           {dish.made_of}
         </p>
 
-        <div className="mt-5 inline-flex items-center justify-center gap-1 self-center rounded-full border border-washi-50/20 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-washi-50/80 transition group-hover:border-kintsugi-300 group-hover:text-kintsugi-300">
+        <div className="mt-5 inline-flex items-center justify-center gap-1 self-center rounded-full border border-washi-50/20 px-3 py-1 text-[10px] uppercase tracking-[0.12em] text-washi-50/80 transition group-hover:border-kintsugi-300 group-hover:text-kintsugi-300">
           {expanded ? "Show less" : "Show more"}
           <span
             aria-hidden
@@ -175,7 +175,7 @@ export function DishCard({
 
             {dish.where_in_tokyo && dish.where_in_tokyo.length > 0 && (
               <div className="mt-4">
-                <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-kintsugi-300">
+                <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-kintsugi-300">
                   Try in Tokyo
                 </div>
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -212,7 +212,7 @@ function Row({
   return (
     <div className="mt-3 first:mt-0">
       <div
-        className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${labelClass}`}
+        className={`text-[10px] font-semibold uppercase tracking-[0.12em] ${labelClass}`}
       >
         {label}
       </div>

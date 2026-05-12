@@ -144,7 +144,7 @@ export default async function RestaurantDetailPage({
         </section>
 
         <section className="mt-8 rounded-[1.25rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-5 shadow-editorial-deep">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
             Signature dishes
           </h2>
           <ul className="mt-3 grid gap-2 text-sumi-900 sm:grid-cols-3">
@@ -158,7 +158,7 @@ export default async function RestaurantDetailPage({
 
         {r.notes && (
           <section className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
-            <div className="text-xs font-semibold uppercase tracking-[0.25em]">
+            <div className="text-xs font-semibold uppercase tracking-[0.12em]">
               Good to know
             </div>
             <p className="mt-1 text-sm leading-relaxed">{r.notes}</p>
@@ -167,7 +167,7 @@ export default async function RestaurantDetailPage({
 
         <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Hours
             </h3>
             <p className="mt-2 text-sm text-sumi-900">{r.opening_hours}</p>
@@ -181,7 +181,7 @@ export default async function RestaurantDetailPage({
             )}
           </div>
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Dietary
             </h3>
             {r.dietary.length === 0 ? (
@@ -202,7 +202,7 @@ export default async function RestaurantDetailPage({
             )}
           </div>
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Accessibility
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -212,7 +212,7 @@ export default async function RestaurantDetailPage({
             </p>
           </div>
           <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Inclusive
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -224,7 +224,7 @@ export default async function RestaurantDetailPage({
 
         {r.reservation_url && (
           <section className="mt-8 rounded-[1.25rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial-deep">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-enji-600">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Book
             </h3>
             <a
@@ -258,7 +258,7 @@ function Fact({
 }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+      <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
         {label}
       </div>
       <div className="mt-0.5 font-semibold tabular-nums">{children}</div>

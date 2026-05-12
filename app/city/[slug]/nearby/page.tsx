@@ -82,7 +82,7 @@ export default async function NearbyPage({
 
         {domestic.length > 0 && (
           <section className="mt-6">
-            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Within Japan · Same Visa
             </h2>
             <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
@@ -95,7 +95,7 @@ export default async function NearbyPage({
 
         {foreign.length > 0 && (
           <section className="mt-8">
-            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
               International · Check Visa First
             </h2>
             <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">

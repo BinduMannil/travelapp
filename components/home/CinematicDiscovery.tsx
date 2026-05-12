@@ -51,8 +51,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "Global discovery",
     headline: "Where should the world take you next?",
     body:
-      "Move through islands, old towns, food markets, rail cities, deserts, forests and mountain light without flattening any place into a brochure.",
-    atmosphere: "Layered climates, cultural texture, shifting horizons",
+      "Explore islands, old towns, food markets, rail cities, deserts, forests and mountain regions with practical filters that help narrow the choice.",
+    atmosphere: "Weather, culture, transport and trip style",
     gradient:
       "linear-gradient(90deg, rgba(4,7,8,.9), rgba(19,31,32,.58) 48%, rgba(189,118,52,.2)), linear-gradient(0deg, rgba(5,7,7,.84), transparent 62%)",
     primaryHref: "/discover",
@@ -73,8 +73,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "Oceanic warmth",
     headline: "Let the coast set the pace.",
     body:
-      "Warm water, slow mornings, ferry light, reef days, monsoon timing and the quiet luxury of not rushing the horizon.",
-    atmosphere: "Tide glow, water reflections, soft tropical motion",
+      "Warm water, ferry routes, reef seasons, monsoon timing and beach towns where the pace stays easy.",
+    atmosphere: "Beach weather, ferry access and island pace",
     gradient:
       "linear-gradient(90deg, rgba(4,12,15,.94), rgba(11,50,54,.68) 48%, rgba(178,111,48,.24)), linear-gradient(0deg, rgba(5,8,8,.88), transparent 58%)",
     suggestions: [
@@ -94,8 +94,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "Urban afterglow",
     headline: "Follow the city after dark.",
     body:
-      "Food streets, late trains, skyline weather, hotel neighborhoods and the electricity of a place that keeps changing block by block.",
-    atmosphere: "Neon reflection, transit rhythm, rain-lit glass",
+      "Food streets, late trains, skyline views, hotel neighborhoods and walkable districts with strong local energy.",
+    atmosphere: "Urban food, nightlife, transit and hotel areas",
     gradient:
       "linear-gradient(90deg, rgba(7,8,11,.95), rgba(16,28,42,.72) 46%, rgba(183,51,88,.28)), linear-gradient(0deg, rgba(4,5,7,.9), transparent 58%)",
     suggestions: [
@@ -115,8 +115,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "Dusk and heat",
     headline: "Wait for the desert to cool.",
     body:
-      "Dune roads, courtyard shade, sunset rituals, stargazing nights and travel windows where heat becomes atmosphere, not friction.",
-    atmosphere: "Heat haze, brass light, long shadows",
+      "Dune roads, shaded courtyards, sunset drives, clear night skies and travel months when the heat is manageable.",
+    atmosphere: "Desert weather, road trips and shoulder seasons",
     gradient:
       "linear-gradient(90deg, rgba(16,9,6,.95), rgba(74,35,20,.7) 50%, rgba(198,117,50,.28)), linear-gradient(0deg, rgba(8,5,4,.9), transparent 60%)",
     suggestions: [
@@ -136,8 +136,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "Rain and green",
     headline: "Enter through the mist.",
     body:
-      "Green corridors, rain strategy, lodge mornings, trail towns, canopy shade and the kind of quiet that changes the trip's volume.",
-    atmosphere: "Mist layers, low rain, deep green movement",
+      "Rainforest lodges, trail towns, canopy walks, cooler mornings and places where rain planning matters.",
+    atmosphere: "Forest stays, trails, rain and cool mornings",
     gradient:
       "linear-gradient(90deg, rgba(5,12,9,.95), rgba(18,52,38,.72) 50%, rgba(105,130,76,.22)), linear-gradient(0deg, rgba(5,8,6,.9), transparent 58%)",
     suggestions: [
@@ -157,8 +157,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "Local rhythm",
     headline: "Choose the slower road.",
     body:
-      "Market mornings, craft streets, family-run stays, local kitchens and small places where the day has texture before it has an itinerary.",
-    atmosphere: "Warm lamps, craft texture, soft local-life glow",
+      "Market mornings, craft streets, family-run stays, local kitchens and smaller places where slow travel works.",
+    atmosphere: "Local stays, markets, craft towns and rail access",
     gradient:
       "linear-gradient(90deg, rgba(14,10,7,.95), rgba(58,39,24,.72) 48%, rgba(196,136,66,.24)), linear-gradient(0deg, rgba(7,5,4,.9), transparent 58%)",
     suggestions: [
@@ -178,8 +178,8 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     eyebrow: "High country",
     headline: "Go where the air changes.",
     body:
-      "Rail passes, alpine food towns, shoulder-season light, snow windows and landscapes that make distance feel ceremonial.",
-    atmosphere: "Thin air, cloud drift, glacier light",
+      "Rail passes, alpine towns, hiking bases, ski weeks, spa weekends and seasons with the right mountain weather.",
+    atmosphere: "Mountain weather, rail access, hiking and snow",
     gradient:
       "linear-gradient(90deg, rgba(5,10,12,.95), rgba(20,47,55,.72) 48%, rgba(151,196,205,.18)), linear-gradient(0deg, rgba(5,7,8,.9), transparent 58%)",
     suggestions: [
@@ -303,7 +303,7 @@ export function CinematicDiscovery() {
               Where should the world take you next?
             </h1>
             <p className="luxury-lede mt-7 max-w-2xl text-washi-50/88">
-              Discover destinations by budget, visa, weather, mood and travel style, then step into each place through cinematic intelligence built for real decisions.
+              Discover destinations by budget, visa rules, weather, mood and travel style, then open each place with the details you need to plan confidently.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -323,7 +323,7 @@ export function CinematicDiscovery() {
         </div>
       </section>
 
-      <section className="relative isolate overflow-hidden bg-[#070909] px-6 py-24 text-white sm:py-32">
+      <section className="relative isolate overflow-hidden bg-[#070909] px-5 py-24 text-white sm:px-8 sm:py-32 lg:px-10">
         <div
           className="absolute inset-0 -z-30 opacity-30"
           style={{
@@ -351,21 +351,21 @@ export function CinematicDiscovery() {
         />
         <AmbientDestinationMotion key={`${active.id}-feeling-motion`} identity={activeIdentity} variant="section" />
 
-        <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:items-center">
-          <div>
+        <div className="mx-auto max-w-7xl">
+          <div className="max-w-3xl">
             <p className="luxury-kicker text-kintsugi-300">SEARCH BY FEELING</p>
-            <h2 className="mt-4 max-w-2xl font-display text-[clamp(2.8rem,6vw,6rem)] font-semibold leading-[0.95] text-white">
+            <h2 className="mt-4 max-w-[13ch] font-sans text-[clamp(2.55rem,4.25vw,4.65rem)] font-semibold leading-[1] text-white">
               Choose the mood, then let the map change.
             </h2>
             <p className="mt-6 max-w-xl text-base leading-8 text-white/72">
-              Each feeling shifts the image, atmosphere and suggested paths, so discovery starts with the kind of trip you want to feel before you choose a place.
+              Each mood changes the image, suggestions and planning clues, so you can start with the kind of trip you want before choosing the destination.
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[1.05fr_.95fr] lg:items-stretch">
+          <div className="mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.16fr)_minmax(21rem,.84fr)] lg:items-start xl:gap-16">
             <motion.div
               key={`${active.id}-main-image`}
-              className="relative min-h-[34rem] overflow-hidden rounded-[1.8rem] border border-white/16 bg-black shadow-editorial-deep"
+              className="relative min-h-[29rem] w-full overflow-hidden rounded-[1.8rem] border border-white/16 bg-black shadow-editorial-deep sm:min-h-[33rem] lg:min-h-[36rem]"
               initial={reduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.55, ease: "easeOut" }}
@@ -377,68 +377,82 @@ export function CinematicDiscovery() {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.28)_42%,rgba(0,0,0,.84)),linear-gradient(90deg,rgba(0,0,0,.54),transparent)]" />
-              <div className="absolute bottom-0 p-7 sm:p-9">
+              <div className="absolute bottom-0 max-w-2xl p-7 sm:p-10 lg:p-12">
                 <p className="luxury-kicker text-kintsugi-300/90">{active.eyebrow}</p>
-                <h3 className="mt-3 max-w-xl font-display text-[clamp(2.5rem,5vw,5.2rem)] font-semibold leading-[0.92] text-white">
+                <h3 className="mt-3 max-w-xl font-sans text-[clamp(2.35rem,4.2vw,4.7rem)] font-semibold leading-[0.94] text-white">
                   {active.headline}
                 </h3>
                 <p className="mt-5 max-w-xl text-base leading-8 text-white/78">{active.body}</p>
-                <p className="mt-5 max-w-lg rounded-full border border-white/18 bg-black/28 px-5 py-3 text-sm font-semibold text-white/76 backdrop-blur-md">
-                  {active.atmosphere}
-                </p>
               </div>
             </motion.div>
 
-            <div className="rounded-[1.35rem] border border-white/18 bg-black/34 p-5 shadow-editorial-deep backdrop-blur-xl sm:p-6">
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                {DISCOVERY_MOODS.map((mood) => {
-                  const selected = mood.id === active.id;
+            <div className="grid gap-6">
+              <div className="rounded-[1.35rem] border border-white/18 bg-black/32 p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8">
+                <div className="flex items-end justify-between gap-5">
+                  <div>
+                    <p className="luxury-kicker text-kintsugi-300/82">MOOD LENS</p>
+                    <h3 className="mt-3 font-sans text-3xl font-semibold leading-tight text-white">
+                      {active.label}
+                    </h3>
+                  </div>
+                  <span className="rounded-full border border-white/16 px-3 py-1 text-[0.65rem] font-black uppercase tracking-[0.12em] text-white/68">
+                    Live
+                  </span>
+                </div>
 
-                  return (
-                    <button
-                      key={mood.id}
-                      type="button"
-                      aria-pressed={selected}
-                      onClick={() => setActiveId(mood.id)}
-                      className={`group relative min-h-[7.4rem] overflow-hidden rounded-[1.05rem] border p-0 text-left shadow-editorial-deep transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300 ${
-                        selected
-                          ? "border-kintsugi-300/90 ring-2 ring-kintsugi-300/55"
-                          : "border-white/16 hover:border-white/42"
-                      }`}
-                    >
-                      <img
-                        src={mood.cardImage}
-                        alt=""
-                        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-                      <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.74))]" />
-                      <span className="relative flex min-h-[7.4rem] flex-col justify-end p-4">
-                        <span className="luxury-kicker text-kintsugi-300/86">{mood.eyebrow}</span>
-                        <span className="mt-2 font-display text-2xl font-semibold leading-none text-white">
-                          {mood.label}
+                <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                  {DISCOVERY_MOODS.map((mood) => {
+                    const selected = mood.id === active.id;
+
+                    return (
+                      <button
+                        key={mood.id}
+                        type="button"
+                        aria-pressed={selected}
+                        onClick={() => setActiveId(mood.id)}
+                        className={`group relative min-h-[6.1rem] overflow-hidden rounded-[1.05rem] border p-0 text-left shadow-editorial-deep transition hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300 ${
+                          selected
+                            ? "border-kintsugi-300/90 ring-2 ring-kintsugi-300/55"
+                            : "border-white/16 hover:border-white/42"
+                        }`}
+                      >
+                        <img
+                          src={mood.cardImage}
+                          alt=""
+                          className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                        <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.72))]" />
+                        <span className="relative flex min-h-[6.1rem] flex-col justify-end p-4">
+                          <span className="luxury-kicker text-kintsugi-300/82">{mood.eyebrow}</span>
+                          <span className="mt-2 font-sans text-xl font-semibold leading-none text-white">
+                            {mood.label}
+                          </span>
                         </span>
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="mt-6 border-t border-white/12 pt-5" aria-live="polite">
-                <p className="luxury-kicker text-kintsugi-300/82">WHAT THIS HELPS DISCOVER</p>
-                <p className="mt-3 text-sm leading-7 text-white/72">{active.atmosphere}</p>
-                <div className="mt-5 grid gap-3">
-                  {active.suggestions.map((suggestion) => (
-                    <Link
-                      key={suggestion.href}
-                      href={suggestion.href}
-                      className="rounded-2xl border border-white/18 bg-white/[0.08] px-4 py-3 text-sm font-semibold text-white/86 transition hover:border-kintsugi-300/70 hover:bg-white/[0.14] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
-                    >
-                      {suggestion.label}
-                    </Link>
-                  ))}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
+
+              <div className="rounded-[1.35rem] border border-white/14 bg-white/[0.065] p-6 backdrop-blur-xl sm:p-7" aria-live="polite">
+                <p className="luxury-kicker text-kintsugi-300/82">WHAT THIS HELPS DISCOVER</p>
+                <p className="mt-4 text-sm leading-7 text-white/74">{active.atmosphere}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-[1.35rem] border border-white/12 bg-black/24 p-4 backdrop-blur-xl sm:p-5">
+            <div className="grid gap-4 sm:grid-cols-3">
+              {active.suggestions.map((suggestion) => (
+                <Link
+                  key={suggestion.href}
+                  href={suggestion.href}
+                  className="rounded-2xl border border-white/18 bg-white/[0.08] px-5 py-4 text-sm font-semibold text-white/86 transition hover:border-kintsugi-300/70 hover:bg-white/[0.14] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
+                >
+                  {suggestion.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>

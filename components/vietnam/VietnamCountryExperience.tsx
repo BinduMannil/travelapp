@@ -115,13 +115,13 @@ export function VietnamCountryExperience() {
 
         <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
-            <nav className="text-xs font-bold uppercase tracking-[0.32em] text-orange-100/60">
+            <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/60">
               <Link href="/" className="hover:text-orange-100">Home</Link> · Vietnam
             </nav>
-            <p className="mt-12 text-xs font-black uppercase tracking-[0.38em] text-amber-300">
+            <p className="mt-12 text-xs font-black uppercase tracking-[0.12em] text-amber-300">
               PILOT COUNTRY · STREET ALIVE
             </p>
-            <h1 className="mt-5 max-w-4xl font-display text-[clamp(4.2rem,14vw,12rem)] font-black leading-[0.82] text-orange-50">
+            <h1 className="mt-5 max-w-4xl font-sans text-[clamp(4.2rem,14vw,12rem)] font-black leading-[0.82] text-orange-50">
               Vietnam
             </h1>
             <p className="mt-8 max-w-2xl text-xl leading-9 text-orange-50/82">
@@ -137,10 +137,10 @@ export function VietnamCountryExperience() {
                 ["Language", "Vietnamese"],
               ].map(([label, value]) => (
                 <div key={label} className="border-l border-amber-300/55 bg-white/[0.06] px-4 py-3">
-                  <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-orange-100/48">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-orange-100/48">
                     {label}
                   </div>
-                  <div className="mt-1 font-display text-3xl font-black text-orange-50">
+                  <div className="mt-1 font-sans text-3xl font-black text-orange-50">
                     {value}
                   </div>
                 </div>
@@ -148,7 +148,7 @@ export function VietnamCountryExperience() {
             </div>
             <Link
               href="/country/vietnam/itinerary"
-              className="mt-5 flex items-center justify-between border border-amber-300/50 bg-amber-300 px-5 py-4 text-sm font-black uppercase tracking-[0.2em] text-slate-950"
+              className="mt-5 flex items-center justify-between border border-amber-300/50 bg-amber-300 px-5 py-4 text-sm font-black uppercase tracking-[0.12em] text-slate-950"
             >
               Build Vietnam route <Compass size={18} />
             </Link>
@@ -161,10 +161,10 @@ export function VietnamCountryExperience() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr]">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.34em] text-amber-300">
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">
                 City launchpad
               </p>
-              <h2 className="mt-4 font-display text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
+              <h2 className="mt-4 font-sans text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
                 Route by region, not checklist.
               </h2>
               <p className="mt-6 max-w-md text-sm leading-7 text-orange-50/70">
@@ -180,10 +180,10 @@ export function VietnamCountryExperience() {
                   href={`/city/${city.slug}`}
                   className="group border border-orange-100/14 bg-orange-50/[0.06] p-5 backdrop-blur transition hover:-translate-y-1 hover:border-amber-300/70 hover:bg-orange-50/[0.1]"
                 >
-                  <div className="text-[10px] font-black uppercase tracking-[0.22em] text-amber-300/80">
+                  <div className="text-[10px] font-black uppercase tracking-[0.12em] text-amber-300/80">
                     {VIETNAM_CITY_REGIONS[city.slug]}
                   </div>
-                  <div className="mt-2 font-display text-3xl font-black leading-none text-orange-50 group-hover:text-amber-200">
+                  <div className="mt-2 font-sans text-3xl font-black leading-none text-orange-50 group-hover:text-amber-200">
                     {city.name}
                   </div>
                   <p className="mt-4 line-clamp-3 text-sm leading-6 text-orange-50/62">
@@ -199,10 +199,10 @@ export function VietnamCountryExperience() {
       <section className="px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.34em] text-amber-300">
+            <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">
               Travel personality
             </p>
-            <h2 className="mt-4 font-display text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
+            <h2 className="mt-4 font-sans text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
               Humid, layered, street-driven.
             </h2>
           </div>
@@ -212,7 +212,7 @@ export function VietnamCountryExperience() {
               return (
                 <article key={section.title} className="border border-orange-100/14 bg-black/22 p-5">
                   <Icon className="text-amber-300" size={26} />
-                  <h3 className="mt-5 font-display text-2xl font-black text-orange-50">
+                  <h3 className="mt-5 font-sans text-2xl font-black text-orange-50">
                     {section.title}
                   </h3>
                   <p className="mt-3 text-sm leading-7 text-orange-50/64">
@@ -235,7 +235,7 @@ export function VietnamCountryExperience() {
             <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover saturate-150" loading="lazy" />
             <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(5,16,13,.92),rgba(5,16,13,.2)_62%)]" />
             <div className="absolute bottom-0 p-6 sm:p-8">
-              <h3 className="font-display text-4xl font-black text-orange-50">{title}</h3>
+              <h3 className="font-sans text-4xl font-black text-orange-50">{title}</h3>
               <p className="mt-4 max-w-sm text-sm leading-7 text-orange-50/76">{text}</p>
             </div>
           </article>
@@ -248,7 +248,7 @@ export function VietnamCountryExperience() {
             <div className="grid gap-3 sm:grid-cols-2">
               {VIETNAM_LOCAL_APPS.slice(0, 8).map((app) => (
                 <a key={app.slug} href={app.web_url ?? "#"} className="border border-orange-100/14 bg-white/[0.055] p-4">
-                  <div className="font-display text-2xl font-black text-orange-50">{app.name}</div>
+                  <div className="font-sans text-2xl font-black text-orange-50">{app.name}</div>
                   <p className="mt-2 text-xs leading-5 text-orange-50/62">{app.purpose}</p>
                 </a>
               ))}
@@ -275,8 +275,8 @@ export function VietnamCountryExperience() {
             <div className="grid gap-3">
               {VIETNAM_PHRASES.slice(0, 8).map((phrase) => (
                 <div key={phrase.phrase_key} className="border border-orange-100/12 bg-black/20 p-4">
-                  <div className="text-xs uppercase tracking-[0.22em] text-amber-300/75">{phrase.category}</div>
-                  <div className="mt-2 font-display text-2xl font-black text-orange-50">{phrase.translated_text}</div>
+                  <div className="text-xs uppercase tracking-[0.12em] text-amber-300/75">{phrase.category}</div>
+                  <div className="mt-2 font-sans text-2xl font-black text-orange-50">{phrase.translated_text}</div>
                   <div className="mt-1 text-sm italic text-orange-50/58">{phrase.transliteration}</div>
                   <p className="mt-2 text-sm text-orange-50/74">{phrase.source_text}</p>
                 </div>
@@ -288,10 +288,10 @@ export function VietnamCountryExperience() {
               <div className="grid gap-4">
                 {safetyNotes.map((note) => (
                   <article key={note.title} className="border-l border-amber-300/55 bg-white/[0.05] p-4">
-                    <div className="text-[10px] font-black uppercase tracking-[0.2em] text-amber-300/80">
+                    <div className="text-[10px] font-black uppercase tracking-[0.12em] text-amber-300/80">
                       {note.risk_level} risk
                     </div>
-                    <h3 className="mt-2 font-display text-2xl font-black text-orange-50">{note.title}</h3>
+                    <h3 className="mt-2 font-sans text-2xl font-black text-orange-50">{note.title}</h3>
                     <p className="mt-2 text-sm leading-7 text-orange-50/66">{note.traveler_summary}</p>
                   </article>
                 ))}
@@ -301,11 +301,11 @@ export function VietnamCountryExperience() {
               <div className="grid gap-3 sm:grid-cols-2">
                 {VIETNAM_AFFILIATE_OPPORTUNITIES.slice(0, 6).map((opportunity) => (
                   <div key={opportunity.opportunity_key} className="border border-orange-100/12 bg-white/[0.05] p-4">
-                    <div className="font-display text-2xl font-black capitalize text-orange-50">
+                    <div className="font-sans text-2xl font-black capitalize text-orange-50">
                       {opportunity.category.replaceAll("_", " ")}
                     </div>
                     <p className="mt-2 text-xs leading-5 text-orange-50/62">{opportunity.traveler_need}</p>
-                    <div className="mt-3 text-[10px] font-black uppercase tracking-[0.2em] text-amber-300">
+                    <div className="mt-3 text-[10px] font-black uppercase tracking-[0.12em] text-amber-300">
                       {opportunity.priority} priority
                     </div>
                   </div>
@@ -320,20 +320,20 @@ export function VietnamCountryExperience() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.34em] text-amber-300">Itinerary routes</p>
-              <h2 className="mt-4 font-display text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">Itinerary routes</p>
+              <h2 className="mt-4 font-sans text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
                 Pick the country rhythm.
               </h2>
             </div>
-            <Link href="/country/vietnam/itinerary" className="border border-amber-300/60 px-5 py-3 text-sm font-black uppercase tracking-[0.18em] text-amber-300">
+            <Link href="/country/vietnam/itinerary" className="border border-amber-300/60 px-5 py-3 text-sm font-black uppercase tracking-[0.12em] text-amber-300">
               Open route builder
             </Link>
           </div>
           <div className="grid gap-4 lg:grid-cols-3">
             {ROUTES.map((route) => (
               <article key={route.title} className="border border-orange-100/14 bg-black/24 p-5">
-                <div className="text-xs font-black uppercase tracking-[0.22em] text-amber-300">{route.days}</div>
-                <h3 className="mt-3 font-display text-3xl font-black text-orange-50">{route.title}</h3>
+                <div className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">{route.days}</div>
+                <h3 className="mt-3 font-sans text-3xl font-black text-orange-50">{route.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-orange-50/66">{route.mood}</p>
                 <p className="mt-5 text-xs leading-6 text-orange-50/48">{route.stops}</p>
               </article>
@@ -344,7 +344,7 @@ export function VietnamCountryExperience() {
 
       <section className="px-6 pb-24">
         <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-black uppercase tracking-[0.34em] text-amber-300">Travel activities</p>
+          <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">Travel activities</p>
           <div className="mt-5 flex flex-wrap gap-3">
             {VIETNAM_ACTIVITIES.map((activity) => (
               <span key={activity.slug} className="border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-bold text-orange-50/82">
@@ -370,7 +370,7 @@ function Panel({
   return (
     <section className="border border-orange-100/14 bg-black/28 p-5 shadow-2xl backdrop-blur sm:p-7">
       <div className="mb-6 flex items-center justify-between gap-4">
-        <h2 className="font-display text-4xl font-black text-orange-50">{title}</h2>
+        <h2 className="font-sans text-4xl font-black text-orange-50">{title}</h2>
         <Icon className="text-amber-300" size={28} />
       </div>
       {children}

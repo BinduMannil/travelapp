@@ -28,7 +28,6 @@ const AFFILIATE_IMAGES = {
 };
 
 function Card({
-  kanji,
   eyebrow,
   title,
   body,
@@ -87,21 +86,16 @@ function Card({
       <img
         src={imageUrl}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        className="absolute inset-0 h-full w-full object-cover brightness-[1.12] contrast-[1.08] saturate-[1.16] transition duration-700 group-hover:scale-105 group-hover:brightness-[1.18]"
         loading="lazy"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.35)_36%,rgba(0,0,0,.88)),linear-gradient(90deg,rgba(0,0,0,.36),transparent)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.2)_38%,rgba(0,0,0,.76)),linear-gradient(90deg,rgba(0,0,0,.24),transparent)]" />
       <div className="relative flex w-full flex-col justify-end p-5 sm:p-7">
         <div className="rounded-[1.05rem] border border-white/18 bg-black/32 p-5 shadow-editorial-deep backdrop-blur-xl sm:p-6">
-          <div className="flex items-center justify-between gap-4">
-            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-kintsugi-300">
-              {eyebrow}
-            </div>
-            <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-white/25 bg-white/12 font-display text-2xl font-semibold text-white">
-              {kanji}
-            </span>
+          <div className="border-b border-white/14 pb-4 text-[10px] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
+            {eyebrow}
           </div>
-          <h3 className="editorial-module-title mt-5 font-display font-semibold text-white">
+          <h3 className="editorial-module-title mt-5 font-sans font-semibold text-white">
             {title}
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-white/76">{body}</p>

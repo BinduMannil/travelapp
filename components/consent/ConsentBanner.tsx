@@ -36,7 +36,7 @@ export function ConsentBanner() {
         <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl">
           <h2
             id="consent-heading"
-            className="font-display text-xl font-semibold text-sumi-900"
+            className="font-sans text-xl font-semibold text-sumi-900"
           >
             Cookie preferences
           </h2>

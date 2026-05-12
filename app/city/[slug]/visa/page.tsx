@@ -55,7 +55,7 @@ export default async function VisaPage({
         <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
           <aside className="scene-glass h-full rounded-[1.35rem] p-6 sm:p-8">
             <p className="luxury-kicker text-kintsugi-300">Before you book</p>
-            <h2 className="mt-4 max-w-sm font-display text-[clamp(2rem,3.2vw,2.75rem)] font-semibold leading-[1.08] text-white">
+            <h2 className="mt-4 max-w-sm font-sans text-[clamp(2rem,3.2vw,2.75rem)] font-semibold leading-[1.08] text-white">
               Passport first. Everything else after.
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-white/76">

@@ -115,7 +115,7 @@ const DESTINATION_IDENTITIES: Record<string, DestinationIdentity> = {
     label: "Dune amber / dusk heat",
     mood: "Courtyard shade, long road light, dune edges and evening rituals.",
     typographyMood:
-      "Warm serif weight, restrained captions and practical timing notes with strong contrast.",
+      "Warm Montserrat weight, restrained captions and practical timing notes with strong contrast.",
     texture:
       "linear-gradient(135deg, rgba(255,236,198,.08) 0 1px, transparent 1px 14px), radial-gradient(circle at 20% 18%, rgba(198,117,50,.24), transparent 34%), radial-gradient(circle at 78% 10%, rgba(212,167,91,.18), transparent 28%)",
     motion: {
@@ -255,7 +255,7 @@ const DESTINATION_IDENTITIES: Record<string, DestinationIdentity> = {
     label: "Sumi ink / washi / kintsugi",
     mood: "Restraint, seasonality, craft, quiet ritual.",
     typographyMood:
-      "Elegant serif scale, narrow uppercase captions, and measured spacing that keeps the page calm.",
+      "Elegant Montserrat scale, narrow uppercase captions, and measured spacing that keeps the page calm.",
     texture:
       "linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 18px), radial-gradient(circle at 20% 0%, rgba(214,50,73,.16), transparent 32%), radial-gradient(circle at 80% 20%, rgba(216,173,79,.18), transparent 34%)",
     motion: {

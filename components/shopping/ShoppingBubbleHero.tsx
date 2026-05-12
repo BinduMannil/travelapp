@@ -107,13 +107,13 @@ export function ShoppingBubbleHero({
       <div className="mx-auto grid max-w-5xl gap-8 px-6 py-20 sm:grid-cols-[auto_1fr_auto] sm:items-center">
         {/* LEFT — thin intro block */}
         <div className="sm:w-56">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.35em] text-washi-50/60">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-washi-50/60">
             Discover
           </p>
-          <h2 className="mt-3 font-display text-3xl font-semibold leading-tight text-washi-50 sm:text-4xl">
+          <h2 className="mt-3 font-sans text-3xl font-semibold leading-tight text-washi-50 sm:text-4xl">
             Things to buy
           </h2>
-          <p className="mt-3 font-script text-2xl italic text-kintsugi-300">
+          <p className="mt-3 font-sans text-2xl italic text-kintsugi-300">
             Tokyo edit
           </p>
           <p className="mt-5 text-xs leading-relaxed text-washi-50/70">
@@ -181,7 +181,7 @@ export function ShoppingBubbleHero({
                 )}
                 <span
                   aria-hidden
-                  className={`pointer-events-none absolute inset-0 flex items-center justify-center font-display font-bold text-white/85 drop-shadow ${
+                  className={`pointer-events-none absolute inset-0 flex items-center justify-center font-sans font-bold text-white/85 drop-shadow ${
                     offset === 0
                       ? "text-5xl sm:text-6xl"
                       : Math.abs(offset) === 1
@@ -195,7 +195,7 @@ export function ShoppingBubbleHero({
                 {/* Label to the LEFT of the bubble (on desktop only) */}
                 <span className="pointer-events-none absolute right-full top-1/2 mr-5 hidden -translate-y-1/2 whitespace-nowrap text-right sm:block">
                   <span
-                    className={`block font-display font-semibold ${
+                    className={`block font-sans font-semibold ${
                       offset === 0
                         ? "text-xl text-washi-50"
                         : "text-sm text-washi-50/85"
@@ -204,7 +204,7 @@ export function ShoppingBubbleHero({
                     {item.title}
                   </span>
                   <span
-                    className={`block text-[10px] uppercase tracking-[0.22em] ${
+                    className={`block text-[10px] uppercase tracking-[0.12em] ${
                       offset === 0
                         ? "text-kintsugi-300"
                         : "text-washi-50/55"
@@ -238,10 +238,10 @@ export function ShoppingBubbleHero({
 
       {/* Mobile label — shown under the stack on small screens */}
       <div className="px-6 pb-10 text-center sm:hidden">
-        <div className="text-[10px] uppercase tracking-[0.3em] text-kintsugi-300">
+        <div className="text-[10px] uppercase tracking-[0.12em] text-kintsugi-300">
           {activeItem.subtitle}
         </div>
-        <div className="mt-1 font-display text-2xl font-semibold text-washi-50">
+        <div className="mt-1 font-sans text-2xl font-semibold text-washi-50">
           {activeItem.title}
         </div>
       </div>

@@ -1,15 +1,4 @@
-import {
-  AlertTriangle,
-  BadgeCheck,
-  Camera,
-  ChevronDown,
-  FileText,
-  Globe2,
-  Martini,
-  MessageCircle,
-  Pill,
-  ShieldCheck,
-} from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import {
   LEGAL_SOCIAL_RISK_CATEGORY_LABELS,
   type LegalSocialRisk,
@@ -17,55 +6,47 @@ import {
   type LegalSocialRiskLevel,
 } from "@/lib/data/legal-social-risks";
 import { formatLongDate } from "@/lib/legal/constants";
+import { formatSourceLabel } from "@/lib/copy/formatting";
 
 const CATEGORY_COPY: Record<
   LegalSocialRiskCategory,
-  { title: string; short: string; icon: typeof ShieldCheck }
+  { title: string; short: string }
 > = {
   social_media_online_speech: {
     title: "Social media & online speech",
     short: "Posts, reviews, rumours, insults and identifiable people.",
-    icon: MessageCircle,
   },
   alcohol_public_behavior: {
     title: "Alcohol & public conduct",
     short: "Where drinking is normal, where it is not, and when behavior becomes the issue.",
-    icon: Martini,
   },
   public_conduct: {
     title: "Things that can get you in trouble",
     short: "Arguments, gestures, religious-site mistakes, public disruption and venue rules.",
-    icon: AlertTriangle,
   },
   lgbtq_relationships: {
     title: "Relationships & identity context",
     short: "Practical awareness for couples, nightlife, hotels and paperwork expectations.",
-    icon: ShieldCheck,
   },
   drugs_medication_controlled_substances: {
     title: "Medication & restricted items",
     short: "Prescription medicine, CBD/THC, controlled items and airport checks.",
-    icon: Pill,
   },
   police_official_interaction: {
     title: "Police & official interaction",
     short: "Documents to carry, calm stops, interpretation and consular support.",
-    icon: BadgeCheck,
   },
   immigration_entry: {
     title: "Immigration & entry",
     short: "Arrival strictness, proof of funds, onward travel and hotel details.",
-    icon: FileText,
   },
   photography_filming: {
     title: "Photography & filming",
     short: "Police, airports, children, accidents, protests, private venues and drones.",
-    icon: Camera,
   },
   local_sensitivities: {
     title: "Local sensitivities",
     short: "Disasters, memorials, religion, symbols, protests and crisis posts.",
-    icon: Globe2,
   },
 };
 
@@ -119,6 +100,13 @@ function reviewedLabel(risks: LegalSocialRisk[]) {
   return latest ? formatLongDate(latest) : "recently";
 }
 
+function featuredCardClass(level: LegalSocialRiskLevel) {
+  if (level === "critical" || level === "high") {
+    return "sm:col-span-2 lg:col-span-1 lg:row-span-2 lg:min-h-[24rem]";
+  }
+  return "min-h-[18rem]";
+}
+
 function SourceLinks({ risks }: { risks: LegalSocialRisk[] }) {
   const sources = Array.from(
     new Map(risks.map((risk) => [risk.source_url, risk])).values(),
@@ -136,7 +124,7 @@ function SourceLinks({ risks }: { risks: LegalSocialRisk[] }) {
             rel="noopener noreferrer"
             className="rounded-full border border-white/14 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-white/72 transition hover:border-kintsugi-300/70 hover:text-white"
           >
-            {risk.source_label} →
+            {formatSourceLabel(risk.source_label)} →
           </a>
         ))}
       </div>
@@ -175,15 +163,28 @@ export function SocialRiskBriefing({
         className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_18%_8%,rgba(216,173,79,.18),transparent_30%),radial-gradient(circle_at_86%_22%,rgba(90,135,142,.18),transparent_32%),linear-gradient(180deg,rgba(9,9,8,.96),rgba(9,9,8,.88))]"
         aria-hidden
       />
+      <div
+        className="absolute inset-0 -z-10 opacity-[0.14] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:38px_38px]"
+        aria-hidden
+      />
+      <div
+        className="absolute left-1/2 top-28 -z-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-kintsugi-300/10 blur-3xl"
+        aria-hidden
+      />
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-kintsugi-300/35 to-transparent" />
 
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-[linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035)),rgba(0,0,0,.22)] p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8 lg:p-10">
+          <div
+            className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_58%_38%,rgba(216,173,79,.16),transparent_34%),linear-gradient(90deg,transparent,rgba(255,255,255,.05))]"
+            aria-hidden
+          />
+          <div className="relative grid gap-10 lg:grid-cols-[.78fr_1.22fr] lg:items-end">
           <div>
             <p className="luxury-kicker text-kintsugi-300">
               Street-smart traveler briefing
             </p>
-            <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.6rem,5.6vw,5.9rem)] font-semibold leading-[0.95] text-white">
+            <h2 className="mt-4 max-w-3xl font-sans text-[clamp(2.45rem,5vw,5.4rem)] font-semibold leading-[0.96] text-white">
               Know the local line before you cross it.
             </h2>
             <p className="mt-6 max-w-xl text-base leading-8 text-white/72">
@@ -193,7 +194,7 @@ export function SocialRiskBriefing({
             </p>
           </div>
 
-          <div className="scene-glass rounded-[1.35rem] p-6 sm:p-8">
+          <div className="rounded-[1.35rem] border border-white/14 bg-black/28 p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span
                 className={`rounded-full border px-4 py-2 text-sm font-bold ${highest.badge}`}
@@ -209,38 +210,42 @@ export function SocialRiskBriefing({
               {disclaimer}
             </p>
           </div>
+          </div>
         </div>
 
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid auto-rows-fr gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((risk) => {
             const category = CATEGORY_COPY[risk.risk_category];
-            const Icon = category.icon;
             const level = LEVEL_STYLES[risk.risk_level];
 
             return (
               <article
                 key={risk.risk_category}
-                className="relative overflow-hidden rounded-[1.25rem] border border-white/14 bg-white/[0.055] p-5 shadow-editorial-deep"
+                className={`group relative overflow-hidden rounded-[1.35rem] border border-white/14 bg-[linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.035))] p-6 shadow-editorial-deep transition hover:-translate-y-1 hover:border-kintsugi-300/45 hover:bg-white/[0.075] ${featuredCardClass(risk.risk_level)}`}
               >
+                <div
+                  className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/[0.055] blur-2xl transition group-hover:bg-kintsugi-300/[0.08]"
+                  aria-hidden
+                />
                 <span
                   className={`absolute inset-x-0 top-0 h-1 ${level.bar}`}
                   aria-hidden
                 />
-                <div className="flex items-start justify-between gap-4">
-                  <div className="grid h-11 w-11 place-items-center rounded-full border border-white/14 bg-black/28 text-kintsugi-300">
-                    <Icon size={19} strokeWidth={1.8} />
-                  </div>
+                <div className="relative flex items-start justify-between gap-4">
+                  <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-kintsugi-300/86">
+                    Traveler briefing
+                  </p>
                   <span className={`rounded-full border px-3 py-1 text-xs font-bold ${level.badge}`}>
                     {risk.risk_level}
                   </span>
                 </div>
-                <h3 className="mt-5 font-display text-2xl font-semibold leading-tight text-white">
+                <h3 className="relative mt-6 font-sans text-[clamp(1.6rem,2.6vw,2.55rem)] font-semibold leading-tight text-white">
                   {category.title}
                 </h3>
-                <p className="mt-2 text-xs uppercase tracking-[0.16em] text-white/42">
+                <p className="relative mt-2 text-xs uppercase tracking-[0.12em] text-white/42">
                   {LEGAL_SOCIAL_RISK_CATEGORY_LABELS[risk.risk_category]}
                 </p>
-                <p className="mt-4 text-sm leading-7 text-white/72">
+                <p className="relative mt-5 text-sm leading-7 text-white/72">
                   {category.short}
                 </p>
               </article>
@@ -248,24 +253,21 @@ export function SocialRiskBriefing({
           })}
         </div>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <div className="mt-12 grid gap-5 lg:grid-cols-2">
           {expanded.map((risk) => {
             const category = CATEGORY_COPY[risk.risk_category];
-            const Icon = category.icon;
             const level = LEVEL_STYLES[risk.risk_level];
 
             return (
               <details
                 key={`${risk.risk_category}-details`}
-                className="group rounded-[1.2rem] border border-white/14 bg-white/[0.055] p-5 shadow-editorial-deep open:bg-white/[0.075]"
+                className="group rounded-[1.2rem] border border-white/14 bg-black/24 p-5 shadow-editorial-deep transition hover:border-white/24 open:bg-white/[0.075]"
               >
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-5">
                   <span className="flex gap-4">
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/14 bg-black/24 text-kintsugi-300">
-                      <Icon size={18} strokeWidth={1.8} />
-                    </span>
+                    <span className={`mt-2 h-1.5 w-12 shrink-0 rounded-full ${level.bar}`} />
                     <span>
-                      <span className="block font-display text-xl font-semibold leading-tight text-white">
+                      <span className="block font-sans text-xl font-semibold leading-tight text-white">
                         {category.title}
                       </span>
                       <span className="mt-2 block text-sm leading-7 text-white/68">

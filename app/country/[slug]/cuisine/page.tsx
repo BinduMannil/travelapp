@@ -8,9 +8,9 @@ import { getDestinationIdentity } from "@/lib/destination/identity";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Must-try local cuisine",
+    title: "Japan food guide",
     description:
-      "The dishes you should actively seek out — what they're made of, where they were born, and what they resemble globally.",
+      "A Japan food guide to sushi, ramen, tempura, kaiseki, wagyu, street food, regional dishes, vegan notes and dining etiquette.",
   };
 }
 
@@ -51,11 +51,11 @@ const CULTURE_NOTES = [
   },
   {
     title: "Eat with tempo",
-    body: "Ramen is fast, kaiseki is slow, sushi follows the chef's sequence. The rhythm of the dish is part of the dish.",
+    body: "Ramen is quick, kaiseki is slow, and sushi usually follows the chef's sequence. Match your pace to the type of meal.",
   },
   {
     title: "Quiet etiquette",
-    body: "Do not drown sushi in soy, do not linger at a ramen counter, and let the restaurant's ritual guide the room before you photograph it.",
+    body: "Go easy on soy sauce, avoid lingering at busy ramen counters, and ask before taking photos in intimate restaurants.",
   },
 ];
 
@@ -135,7 +135,7 @@ function FeatureDish({
         loading="lazy"
       />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,7,6,.94),rgba(8,7,6,.62)_48%,rgba(8,7,6,.18)),linear-gradient(0deg,rgba(8,7,6,.82),transparent_54%)]" />
-      <div className="absolute left-8 top-8 hidden font-display text-[18rem] font-semibold leading-none text-white/[0.04] lg:block" aria-hidden>
+      <div className="absolute left-8 top-8 hidden font-sans text-[18rem] font-semibold leading-none text-white/[0.04] lg:block" aria-hidden>
         {kanji}
       </div>
       <div className="grid min-h-[46rem] gap-8 p-6 sm:p-10 lg:grid-cols-[.82fr_1.18fr] lg:items-end">
@@ -146,7 +146,7 @@ function FeatureDish({
           <h2 className="luxury-display mt-4 text-[clamp(3.2rem,8vw,7.6rem)] font-semibold text-white">
             {dish.name}
           </h2>
-          <p className="mt-2 font-display text-2xl tracking-[0.28em] text-white/62">
+          <p className="mt-2 font-sans text-2xl tracking-[0.12em] text-white/62">
             {dish.native_script}
           </p>
           <OriginChips dish={dish} countryName={countryName} />
@@ -196,7 +196,7 @@ function SplitDish({
         />
         <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.26)_42%,rgba(0,0,0,.84))]" />
         <div className="absolute bottom-0 p-6 sm:p-8">
-          <div className="font-display text-7xl font-semibold leading-none text-white/18">{kanji}</div>
+          <div className="font-sans text-7xl font-semibold leading-none text-white/18">{kanji}</div>
         </div>
       </div>
       <div className="max-w-xl">
@@ -204,7 +204,7 @@ function SplitDish({
         <h2 className="luxury-display mt-4 text-[clamp(2.7rem,5.5vw,5.8rem)] font-semibold text-white">
           {dish.name}
         </h2>
-        <p className="mt-2 font-display text-xl tracking-[0.24em] text-white/46">{dish.native_script}</p>
+        <p className="mt-2 font-sans text-xl tracking-[0.12em] text-white/46">{dish.native_script}</p>
         <p className="mt-7 text-base leading-8 text-white/74">{dish.made_of}</p>
         <div className="mt-8 rounded-[1.1rem] border border-white/12 bg-white/[0.055] p-5 backdrop-blur">
           <div className="luxury-kicker text-kintsugi-300/82">How to try it</div>
@@ -230,11 +230,11 @@ function SupportingDish({ dish }: { dish: Dish }) {
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/66 to-transparent" />
-        <div className="absolute bottom-3 right-4 font-display text-4xl font-semibold text-white/34">{kanji}</div>
+        <div className="absolute bottom-3 right-4 font-sans text-4xl font-semibold text-white/34">{kanji}</div>
       </div>
       <div>
         <div className="luxury-kicker text-kintsugi-300/78">{dish.romaji}</div>
-        <h3 className="mt-2 font-display text-[clamp(1.6rem,4vw,2.35rem)] font-semibold leading-tight text-white">
+        <h3 className="mt-2 font-sans text-[clamp(1.6rem,4vw,2.35rem)] font-semibold leading-tight text-white">
           {dish.name}
         </h3>
         <p className="mt-3 text-sm leading-7 text-white/64">{dish.made_of}</p>
@@ -303,7 +303,7 @@ export default async function CuisinePage({
             <div className="mt-7 space-y-6">
               {CULTURE_NOTES.map((note) => (
                 <div key={note.title} className="border-l border-white/14 pl-5">
-                  <h2 className="font-display text-2xl font-semibold leading-tight text-white">{note.title}</h2>
+                  <h2 className="font-sans text-2xl font-semibold leading-tight text-white">{note.title}</h2>
                   <p className="mt-2 text-sm leading-7 text-white/62">{note.body}</p>
                 </div>
               ))}

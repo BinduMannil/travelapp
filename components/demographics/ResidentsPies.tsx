@@ -46,11 +46,11 @@ export function ResidentsPies({
           <div className="luxury-kicker text-kintsugi-300">
             Foreign residents
           </div>
-          <h2 className="mt-3 font-display text-[clamp(2rem,5vw,3.6rem)] font-semibold leading-tight text-white">
+          <h2 className="mt-3 font-sans text-[clamp(2rem,5vw,3.6rem)] font-semibold leading-tight text-white">
             Who lives here — by country of origin
           </h2>
         </div>
-        <div className="text-[0.64rem] font-bold uppercase tracking-[0.18em] text-white/46">
+        <div className="text-[0.64rem] font-bold uppercase tracking-[0.12em] text-white/46">
           Source: MOJ · Tokyo bureau
         </div>
       </div>
@@ -102,10 +102,10 @@ export function ResidentsPies({
 function ScopeHeader({ scope }: { scope: ResidentScope }) {
   return (
     <div className="flex items-baseline justify-between gap-2 border-b border-white/12 pb-3">
-      <div className="font-display text-xl font-semibold text-white">
+      <div className="font-sans text-xl font-semibold text-white">
         {scope.name}
       </div>
-      <div className="text-[0.62rem] font-bold uppercase tracking-[0.22em] text-kintsugi-300/70">
+      <div className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300/70">
         Top {scope.slices.length - 1} + other
       </div>
     </div>

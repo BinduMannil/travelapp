@@ -85,14 +85,14 @@ export default async function BeveragesPage({
           <aside className="scene-glass rounded-[1.35rem] p-6 sm:p-8">
             <p className="luxury-kicker text-kintsugi-300">Tea or coffee?</p>
             <div className="mt-5 flex items-end gap-5">
-              <div className="font-display text-[clamp(5rem,13vw,8rem)] font-semibold leading-none text-white">
+              <div className="font-sans text-[clamp(5rem,13vw,8rem)] font-semibold leading-none text-white">
                 {data.tea_or_coffee.verdict === "tea"
                   ? "茶"
                   : data.tea_or_coffee.verdict === "coffee"
                     ? "珈"
                     : "両"}
               </div>
-              <h2 className="pb-3 font-display text-3xl font-semibold leading-tight text-white">
+              <h2 className="pb-3 font-sans text-3xl font-semibold leading-tight text-white">
                 {data.tea_or_coffee.headline}
               </h2>
             </div>

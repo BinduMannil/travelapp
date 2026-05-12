@@ -75,7 +75,7 @@ export function PackingPlanner({
       <form className="rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-6 shadow-editorial-deep">
         <div className="mb-6 border-b border-sumi-900/10 pb-5">
           <p className="luxury-kicker text-enji-600">PLANNER</p>
-          <h2 className="mt-2 font-display text-3xl font-semibold leading-tight text-sumi-900">
+          <h2 className="mt-2 font-sans text-3xl font-semibold leading-tight text-sumi-900">
             Tell Journee the shape of the trip.
           </h2>
         </div>
@@ -83,7 +83,7 @@ export function PackingPlanner({
         <div className="space-y-6">
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Arrive
             </span>
             <input
@@ -94,7 +94,7 @@ export function PackingPlanner({
             />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Depart
             </span>
             <input
@@ -109,7 +109,7 @@ export function PackingPlanner({
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Adults
             </span>
             <input
@@ -122,7 +122,7 @@ export function PackingPlanner({
             />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Children
             </span>
             <input
@@ -137,7 +137,7 @@ export function PackingPlanner({
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Trip style
           </span>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -159,7 +159,7 @@ export function PackingPlanner({
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Planned activities
           </span>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -216,7 +216,7 @@ function PackingOutput({
       <header className="grid gap-4 border-b border-white/12 pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
         <div>
           <p className="luxury-kicker text-kintsugi-300">Live list</p>
-          <h2 className="mt-2 font-display text-3xl font-semibold text-white">
+          <h2 className="mt-2 font-sans text-3xl font-semibold text-white">
             {ctx.nights} nights · {totalCount} items
           </h2>
           <p className="mt-2 text-sm leading-7 text-white/72">

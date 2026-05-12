@@ -203,14 +203,14 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
         <div className="absolute inset-0 -z-10 opacity-30 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.18)_0_1px,transparent_1px_34px),repeating-linear-gradient(0deg,rgba(255,255,255,.09)_0_1px,transparent_1px_48px)]" />
         <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
-            <nav className="text-xs font-bold uppercase tracking-[0.32em] text-orange-100/62">
+            <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/62">
               <Link href="/" className="hover:text-orange-100">Home</Link> ·{" "}
               <Link href="/country/vietnam" className="hover:text-orange-100">Vietnam</Link> · {city.name}
             </nav>
-            <p className="mt-12 text-xs font-black uppercase tracking-[0.34em]" style={{ color: color.accent }}>
+            <p className="mt-12 text-xs font-black uppercase tracking-[0.12em]" style={{ color: color.accent }}>
               {VIETNAM_CITY_REGIONS[city.slug]} · {personality.tempo}
             </p>
-            <h1 className="mt-5 max-w-5xl font-display text-[clamp(3.7rem,13vw,11rem)] font-black leading-[0.84] text-orange-50">
+            <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.7rem,13vw,11rem)] font-black leading-[0.84] text-orange-50">
               {city.name}
             </h1>
             <p className="mt-8 max-w-2xl text-xl leading-9 text-orange-50/82">
@@ -218,13 +218,13 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
             </p>
           </div>
           <aside className="border border-orange-100/20 bg-black/35 p-5 shadow-2xl backdrop-blur-xl sm:p-7">
-            <div className="text-[10px] font-black uppercase tracking-[0.28em] text-orange-50/48">
+            <div className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-50/48">
               First read
             </div>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
               {personality.highlights.map((highlight) => (
                 <div key={highlight} className="border-l px-4 py-3" style={{ borderColor: color.accent, backgroundColor: "rgba(255,255,255,.07)" }}>
-                  <div className="font-display text-2xl font-black text-orange-50">{highlight}</div>
+                  <div className="font-sans text-2xl font-black text-orange-50">{highlight}</div>
                 </div>
               ))}
             </div>
@@ -239,7 +239,7 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
             return (
               <article key={section.title} className="border border-orange-100/16 bg-black/24 p-6 backdrop-blur">
                 <Icon style={{ color: color.accent }} size={28} />
-                <h2 className="mt-5 font-display text-3xl font-black text-orange-50">
+                <h2 className="mt-5 font-sans text-3xl font-black text-orange-50">
                   {section.title}
                 </h2>
                 <p className="mt-3 text-sm leading-7 text-orange-50/68">{section.text}</p>
@@ -253,7 +253,7 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[.95fr_1.05fr]">
           <div className="border border-orange-100/16 bg-black/24 p-6 sm:p-8">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="font-display text-4xl font-black text-orange-50">
+              <h2 className="font-sans text-4xl font-black text-orange-50">
                 City toolkit
               </h2>
               <Smartphone style={{ color: color.accent }} />
@@ -261,7 +261,7 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {VIETNAM_LOCAL_APPS.slice(0, 6).map((app) => (
                 <a key={app.slug} href={app.web_url ?? "#"} className="border border-orange-100/12 bg-white/[0.05] p-4">
-                  <div className="font-display text-2xl font-black text-orange-50">{app.name}</div>
+                  <div className="font-sans text-2xl font-black text-orange-50">{app.name}</div>
                   <p className="mt-2 text-xs leading-5 text-orange-50/62">{app.traveler_notes}</p>
                 </a>
               ))}
@@ -270,7 +270,7 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
 
           <div className="border border-orange-100/16 bg-black/24 p-6 sm:p-8">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="font-display text-4xl font-black text-orange-50">
+              <h2 className="font-sans text-4xl font-black text-orange-50">
                 Activities here
               </h2>
               <Compass style={{ color: color.accent }} />

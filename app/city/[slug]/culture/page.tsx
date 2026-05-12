@@ -130,7 +130,7 @@ export default async function CulturePage({
         <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <aside className="scene-glass top-24 p-6 lg:sticky">
             <p className="luxury-kicker text-kintsugi-300">At a glance</p>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-white">
+            <h2 className="mt-4 font-sans text-4xl font-semibold leading-tight text-white">
               Match the register and Japan becomes easier.
             </h2>
             <p className="mt-5 text-sm leading-7 text-white/70">
@@ -147,10 +147,10 @@ export default async function CulturePage({
                   key={label}
                   className="border-l border-kintsugi-300/45 bg-white/[0.06] px-4 py-3"
                 >
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white/45">
                     {label}
                   </div>
-                  <div className="mt-1 font-display text-2xl font-semibold text-white">
+                  <div className="mt-1 font-sans text-2xl font-semibold text-white">
                     {value}
                   </div>
                 </div>
@@ -161,7 +161,7 @@ export default async function CulturePage({
           <div className="space-y-5">
             <div>
               <p className="luxury-kicker text-kintsugi-300/80">What to expect</p>
-              <h2 className="mt-4 max-w-3xl font-display text-[clamp(2.5rem,5vw,5.2rem)] font-semibold leading-none text-white">
+              <h2 className="mt-4 max-w-3xl font-sans text-[clamp(2.5rem,5vw,5.2rem)] font-semibold leading-none text-white">
                 Politeness is practical infrastructure.
               </h2>
             </div>
@@ -178,7 +178,7 @@ export default async function CulturePage({
                         <Icon size={18} strokeWidth={1.8} />
                       </span>
                       <div>
-                        <h3 className="font-display text-xl font-semibold leading-tight text-sumi-950">
+                        <h3 className="font-sans text-xl font-semibold leading-tight text-sumi-950">
                           {trait.title}
                         </h3>
                         <p className="mt-3 text-sm leading-7 text-sumi-700">
@@ -199,7 +199,7 @@ export default async function CulturePage({
           <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
             <div>
               <p className="luxury-kicker text-kintsugi-300">Dress code</p>
-              <h2 className="mt-4 font-display text-[clamp(2.45rem,5vw,5rem)] font-semibold leading-none text-white">
+              <h2 className="mt-4 font-sans text-[clamp(2.45rem,5vw,5rem)] font-semibold leading-none text-white">
                 What to wear, by context.
               </h2>
               <p className="mt-5 max-w-md text-sm leading-7 text-white/68">
@@ -213,11 +213,11 @@ export default async function CulturePage({
                 <article key={dress.context} className="scene-glass p-5">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="font-display text-2xl font-semibold leading-tight text-white">
+                      <div className="font-sans text-2xl font-semibold leading-tight text-white">
                         {dress.label}
                       </div>
                       <div
-                        className={`mt-3 inline-flex border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${DRESS_TONE[dress.requirement]}`}
+                        className={`mt-3 inline-flex border px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${DRESS_TONE[dress.requirement]}`}
                       >
                         {DRESS_LABEL[dress.requirement] ?? dress.requirement}
                       </div>
@@ -240,7 +240,7 @@ export default async function CulturePage({
             <div className="flex items-start justify-between gap-6">
               <div>
                 <p className="luxury-kicker text-kintsugi-300">Language field</p>
-                <h2 className="mt-4 font-display text-[clamp(2.35rem,5vw,4.8rem)] font-semibold leading-none text-white">
+                <h2 className="mt-4 font-sans text-[clamp(2.35rem,5vw,4.8rem)] font-semibold leading-none text-white">
                   Japanese first, kindness second.
                 </h2>
               </div>
@@ -266,7 +266,7 @@ export default async function CulturePage({
                         style={{ width: `${width}%` }}
                       />
                     </div>
-                    <div className="text-right font-display text-lg text-white">
+                    <div className="text-right font-sans text-lg text-white">
                       {language.speakers_pct.toFixed(
                         language.speakers_pct % 1 ? 1 : 0,
                       )}
@@ -300,7 +300,7 @@ export default async function CulturePage({
               },
             ].map((note) => (
               <article key={note.title} className="border border-washi-200 p-5">
-                <h3 className="font-display text-2xl font-semibold text-sumi-950">
+                <h3 className="font-sans text-2xl font-semibold text-sumi-950">
                   {note.title}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-sumi-700">{note.body}</p>
@@ -314,7 +314,7 @@ export default async function CulturePage({
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-3xl">
             <p className="luxury-kicker text-kintsugi-300">Pocket phrasebook</p>
-            <h2 className="mt-4 font-display text-[clamp(2.7rem,6vw,6rem)] font-semibold leading-none text-white">
+            <h2 className="mt-4 font-sans text-[clamp(2.7rem,6vw,6rem)] font-semibold leading-none text-white">
               Phrases you will actually use.
             </h2>
             <p className="mt-5 text-sm leading-7 text-white/68">
@@ -346,12 +346,12 @@ export default async function CulturePage({
                       </span>
                       <h3
                         id={`phrase-${category}`}
-                        className="font-display text-2xl font-semibold text-white"
+                        className="font-sans text-2xl font-semibold text-white"
                       >
                         {PHRASE_CATEGORY_LABEL[category] ?? category}
                       </h3>
                     </div>
-                    <div className="text-xs uppercase tracking-[0.22em] text-white/38">
+                    <div className="text-xs uppercase tracking-[0.12em] text-white/38">
                       {(phrasesByCategory.get(category) ?? []).length} lines
                     </div>
                   </div>
@@ -362,7 +362,7 @@ export default async function CulturePage({
                         className="grid gap-3 p-5 sm:grid-cols-[1fr_1fr]"
                       >
                         <div>
-                          <div className="font-display text-2xl font-semibold text-white">
+                          <div className="font-sans text-2xl font-semibold text-white">
                             {phrase.ja}
                           </div>
                           <div className="mt-1 text-sm italic text-kintsugi-300/88">

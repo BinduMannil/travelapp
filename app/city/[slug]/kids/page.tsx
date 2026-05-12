@@ -52,10 +52,10 @@ export default async function KidsPage({
       <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20">
         <section className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
           <aside className="rounded-[1.45rem] border border-white/14 bg-[linear-gradient(180deg,rgba(37,30,25,0.94),rgba(13,12,11,0.96))] p-7 shadow-editorial-deep">
-            <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
               Family rhythm
             </p>
-            <h2 className="mt-5 font-display text-[clamp(2.4rem,4.4vw,4.4rem)] font-semibold leading-[0.95] text-white">
+            <h2 className="mt-5 font-sans text-[clamp(2.4rem,4.4vw,4.4rem)] font-semibold leading-[0.95] text-white">
               Fewer stops. Better timing. More room to recover.
             </h2>
             <ul className="mt-8 space-y-4 text-sm leading-7 text-white/78">
@@ -77,15 +77,16 @@ export default async function KidsPage({
                 sizes="(min-width: 1024px) 56vw, 100vw"
                 className="absolute inset-0 h-full w-full object-cover opacity-82"
               />
-              <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.44)_46%,rgba(0,0,0,0.9))]" />
+              <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.36)_40%,rgba(0,0,0,0.94))]" />
+              <span className="absolute inset-x-0 bottom-0 h-[70%] bg-[linear-gradient(0deg,rgba(0,0,0,0.95),rgba(0,0,0,0.72)_52%,rgba(0,0,0,0))]" />
               <div className="relative flex min-h-[540px] flex-col justify-end p-6 sm:p-9">
-                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                   {lead.neighborhood} · {lead.age_range}
                 </p>
-                <h2 className="mt-4 max-w-3xl font-display text-[clamp(3rem,7vw,6.4rem)] font-semibold leading-[0.9] text-white">
+                <h2 className="mt-4 max-w-3xl font-sans text-[clamp(3rem,7vw,6.4rem)] font-semibold leading-[0.9] text-white drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)]">
                   {lead.name}
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/86 sm:text-lg">
+                <p className="mt-5 max-w-2xl text-base leading-8 text-white/92 drop-shadow-[0_2px_10px_rgba(0,0,0,0.75)] sm:text-lg">
                   {lead.body}
                 </p>
                 {lead.url && (
@@ -113,22 +114,23 @@ export default async function KidsPage({
                 sizes="(min-width: 1024px) 52vw, 100vw"
                 className="absolute inset-0 h-full w-full object-cover opacity-76"
               />
-              <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.82),rgba(0,0,0,0.22)_62%,rgba(0,0,0,0.72))]" />
+              <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.76),rgba(0,0,0,0.18)_62%,rgba(0,0,0,0.66))]" />
+              <span className="absolute inset-x-0 bottom-0 h-[72%] bg-[linear-gradient(0deg,rgba(0,0,0,0.94),rgba(0,0,0,0.72)_52%,rgba(0,0,0,0))]" />
               <div className="relative flex min-h-[380px] flex-col justify-end p-6 sm:p-8">
-                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                   {second.neighborhood} · {second.price_band}
                 </p>
-                <h2 className="mt-3 font-display text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[0.94] text-white">
+                <h2 className="mt-3 font-sans text-[clamp(2.5rem,5vw,4.7rem)] font-semibold leading-[0.94] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
                   {second.name}
                 </h2>
-                <p className="mt-4 max-w-2xl text-sm leading-7 text-white/84 sm:text-base">
+                <p className="mt-4 max-w-2xl text-sm leading-7 text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] sm:text-base">
                   {second.body}
                 </p>
               </div>
             </article>
 
             <div className="rounded-[1.35rem] border border-white/12 bg-white/[0.065] p-6 shadow-editorial-deep backdrop-blur">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-200">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                 Useful note
               </p>
               <p className="mt-4 text-lg leading-8 text-white/84">
@@ -152,18 +154,19 @@ export default async function KidsPage({
                 sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                 className="absolute inset-0 h-full w-full object-cover opacity-72"
               />
-              <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.08),rgba(0,0,0,0.48)_42%,rgba(0,0,0,0.92))]" />
+              <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.04),rgba(0,0,0,0.4)_38%,rgba(0,0,0,0.96))]" />
+              <span className="absolute inset-x-0 bottom-0 h-[76%] bg-[linear-gradient(0deg,rgba(0,0,0,0.95),rgba(0,0,0,0.74)_52%,rgba(0,0,0,0))]" />
               <div className="relative flex min-h-[420px] flex-col justify-end p-6">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-kintsugi-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                   {p.neighborhood} · {p.age_range}
                 </p>
-                <h2 className="mt-3 font-display text-4xl font-semibold leading-none text-white">
+                <h2 className="mt-3 font-sans text-4xl font-semibold leading-none text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
                   {p.name}
                 </h2>
-                <p className="mt-4 text-sm leading-7 text-white/82">{p.body}</p>
+                <p className="mt-4 text-sm leading-7 text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)]">{p.body}</p>
                 {p.tip && (
-                  <p className="mt-5 rounded-2xl border border-white/14 bg-white/[0.08] p-4 text-sm leading-6 text-white/78 backdrop-blur">
-                    <span className="font-semibold text-kintsugi-200">Tip:</span>{" "}
+                  <p className="mt-5 rounded-2xl border border-white/20 bg-black/46 p-4 text-sm leading-6 text-white/90 shadow-2xl backdrop-blur-md">
+                    <span className="font-semibold text-kintsugi-100">Tip:</span>{" "}
                     {p.tip}
                   </p>
                 )}

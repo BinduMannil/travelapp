@@ -103,7 +103,7 @@ export default async function ArrivalPage({
         </div>
 
         <section className="mt-4">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Airport → city
           </h2>
           <div className="mt-3 space-y-6">
@@ -123,7 +123,7 @@ export default async function ArrivalPage({
                       key={o.name}
                       className="rounded-lg border border-washi-200 p-4"
                     >
-                      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+                      <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
                         {MODE_LABEL[o.mode] ?? o.mode}
                       </div>
                       <div className="mt-1 font-semibold">{o.name}</div>
@@ -174,7 +174,7 @@ export default async function ArrivalPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Luggage: lockers, bag drop, forwarding
           </h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -183,7 +183,7 @@ export default async function ArrivalPage({
                 key={l.provider}
                 className="rounded-lg border border-washi-200 p-4"
               >
-                <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+                <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
                   {l.kind.replace("_", " ")}
                 </div>
                 <div className="mt-1 font-semibold">{l.provider}</div>
@@ -214,7 +214,7 @@ export default async function ArrivalPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Cash &amp; exchange
           </h2>
           <div className="mt-3 space-y-2">

@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --font-sans: var(--font-sans, ui-sans-serif, system-ui, sans-serif);
-  --font-display: var(--font-display, Georgia, serif);
+  --font-display: var(--font-sans);
+  --font-script: var(--font-sans);
   --journee-ink: #171412;
   --journee-paper: #f8f3e8;
   --journee-paper-soft: #fffdf6;
@@ -22,18 +22,18 @@ body {
   height: 100%;
 }
 
-/* Editorial type scale anchored at ~9pt (13px) Montserrat for body copy.
-   Everything steps up from there so headings feel proportional, not shouty. */
+/* Montserrat is the only JOURNEE typeface. The scale stays cinematic through
+   spacing, weight, line-height, imagery, and composition. */
 html {
-  font-size: 15px; /* base rem — keeps xs/sm utilities readable */
+  font-size: 15px; /* base rem keeps xs/sm utilities readable */
 }
 
 body {
   @apply bg-washi-50 text-sumi-900 antialiased;
-  font-family: var(--font-sans), var(--font-display), system-ui, sans-serif;
-  font-size: 0.933rem; /* 14px editorial body anchor */
+  font-family: var(--font-sans, Montserrat), sans-serif;
+  font-size: 0.933rem; /* 14px product body anchor */
   line-height: 1.6;
-  letter-spacing: 0.005em;
+  letter-spacing: 0;
   font-feature-settings: "ss01", "cv11";
 }
 
@@ -42,24 +42,22 @@ p {
   line-height: 1.72;
 }
 
-/* Every heading uses Fraunces — the Maglite-style display serif — by
-   default. Body / data / numbers stay on Montserrat via the `inherit`
-   chain from <body>. Kanji characters inside a heading still fall
-   through to Noto Serif JP via the font-family stack in tailwind. */
+/* JOURNEE uses Montserrat everywhere. Hierarchy comes from weight,
+   line-height, spacing, imagery, and composition rather than mixed fonts. */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-display), var(--font-jp-serif), Georgia, serif;
-  letter-spacing: -0.005em;
+  font-family: var(--font-sans, Montserrat), sans-serif;
+  letter-spacing: 0;
 }
 
 h1 {
   font-size: 1.75rem; /* ~26px */
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 h2 {
@@ -101,19 +99,67 @@ small {
 }
 
 .luxury-kicker {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.32em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   line-height: 1.25;
   text-transform: uppercase;
 }
 
 .luxury-display {
-  font-family: var(--font-display), var(--font-jp-serif), Georgia, serif;
-  letter-spacing: -0.012em;
-  line-height: 0.96;
+  font-family: var(--font-sans, Montserrat), sans-serif;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.02;
   max-inline-size: 100%;
   text-wrap: balance;
+}
+
+body,
+body * {
+  font-family: var(--font-sans, Montserrat), sans-serif !important;
+}
+
+@keyframes airspace-route {
+  from {
+    stroke-dashoffset: 780;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes airspace-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes rail-route-dash {
+  from {
+    stroke-dashoffset: 920;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.rail-route-line {
+  stroke-dasharray: 14 16;
+  animation: rail-route-dash 9s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(216, 170, 79, 0.82));
+}
+
+.rail-route-line-delay {
+  animation-delay: -3s;
+}
+
+.journey-builder-ui,
+.journey-builder-ui * {
+  font-family: inherit !important;
 }
 
 .editorial-type-container {
@@ -481,4 +527,22 @@ ul.list-disc > li::before {
   top: 0;
   color: #787469; /* ≈ sumi-500 */
   line-height: inherit;
+}
+
+html[dir="rtl"] {
+  text-align: right;
+}
+
+html[dir="rtl"] ul.list-disc > li {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+html[dir="rtl"] ul.list-disc > li::before {
+  left: auto;
+  right: 0;
+}
+
+html[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
 }

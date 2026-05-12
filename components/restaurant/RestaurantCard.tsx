@@ -55,17 +55,17 @@ export function RestaurantCard({
           aspect="3/2"
         />
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.22)_38%,rgba(0,0,0,.84))]" />
-        <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-0.5 font-display text-xs font-semibold text-sumi-900 shadow-sm">
+        <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-0.5 font-sans text-xs font-semibold text-sumi-900 shadow-sm">
           {restaurant.price_band}
         </span>
         {accolade && (
-          <span className="absolute right-3 top-3 rounded-full bg-sumi-900/85 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-kintsugi-300 backdrop-blur-sm">
+          <span className="absolute right-3 top-3 rounded-full bg-sumi-900/85 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-kintsugi-300 backdrop-blur-sm">
             {accolade}
           </span>
         )}
         <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-3 text-white">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.25em] text-white/80">
+            <div className="text-[10px] uppercase tracking-[0.12em] text-white/80">
               {restaurant.neighborhood} · {cuisineLabel}
             </div>
           </div>
@@ -80,7 +80,7 @@ export function RestaurantCard({
       </div>
 
       <div className="p-5 sm:p-6">
-        <h2 className="font-display text-[clamp(1.3rem,4vw,1.85rem)] font-semibold leading-tight text-white group-hover:text-kintsugi-300">
+        <h2 className="font-sans text-[clamp(1.3rem,4vw,1.85rem)] font-semibold leading-tight text-white group-hover:text-kintsugi-300">
           {restaurant.name}
         </h2>
 
@@ -92,7 +92,7 @@ export function RestaurantCard({
 
         <div className="mt-5 flex items-baseline justify-between border-t border-white/12 pt-4 text-xs">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.25em] text-white/42">
+            <div className="text-[10px] uppercase tracking-[0.12em] text-white/42">
               Per person
             </div>
             <div className="mt-1 text-sm font-semibold text-white tabular-nums">
@@ -103,7 +103,7 @@ export function RestaurantCard({
             </div>
           </div>
           <div className="text-right">
-            <div className="text-[10px] uppercase tracking-[0.25em] text-white/42">
+            <div className="text-[10px] uppercase tracking-[0.12em] text-white/42">
               Reviews
             </div>
             <div className="mt-1 text-sm font-semibold text-white tabular-nums">

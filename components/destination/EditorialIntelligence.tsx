@@ -55,7 +55,7 @@ function EditorialDonut({
 
       <div>
         <div className="luxury-kicker text-white/42">{label}</div>
-        <div className="mt-3 font-display text-[clamp(3rem,8vw,5.5rem)] font-semibold leading-none text-white">
+        <div className="mt-3 font-sans text-[clamp(3rem,8vw,5.5rem)] font-semibold leading-none text-white">
           {headline}
         </div>
         <div className="mt-3 max-w-sm text-sm leading-7 text-white/56">
@@ -111,7 +111,7 @@ function ThinBarList({
               }}
             />
           </div>
-          <div className="text-right font-display text-base tabular-nums text-white">
+          <div className="text-right font-sans text-base tabular-nums text-white">
             {bar.value >= 1 ? bar.value.toFixed(bar.value % 1 ? 1 : 0) : bar.value}
             %
           </div>
@@ -138,7 +138,7 @@ export function EditorialIntelligence({
       <div className="absolute inset-0 opacity-80" style={{ backgroundImage: identity.texture }} aria-hidden />
       <AmbientDestinationMotion identity={identity} variant="section" />
       <div
-        className="absolute -right-16 top-12 font-display text-[22rem] font-semibold leading-none opacity-[0.035]"
+        className="absolute -right-16 top-12 font-sans text-[22rem] font-semibold leading-none opacity-[0.035]"
         aria-hidden
       >
         {identity.accents.glyph}
@@ -167,7 +167,7 @@ export function EditorialIntelligence({
                 className="editorial-type-container min-h-40 rounded-[1.15rem] border border-white/12 bg-white/[0.065] p-5 shadow-editorial backdrop-blur-xl"
               >
                 <div className="luxury-kicker text-[0.62rem] text-white/48">{metric.label}</div>
-                <div className="mt-5 font-display text-[clamp(2rem,13cqw,2.65rem)] font-semibold leading-none text-white">
+                <div className="mt-5 font-sans text-[clamp(2rem,13cqw,2.65rem)] font-semibold leading-none text-white">
                   {metric.value}
                 </div>
                 <p className="mt-4 text-xs leading-6 text-white/58">{metric.detail}</p>
@@ -186,11 +186,11 @@ export function EditorialIntelligence({
                 <p className="luxury-kicker" style={{ color: identity.colors.accent }}>
                   Residency mix
                 </p>
-                <h3 className="editorial-module-title mt-2 font-display font-semibold text-white">
+                <h3 className="editorial-module-title mt-2 font-sans font-semibold text-white">
                   {intelligence.nationality.label}
                 </h3>
               </div>
-              <span className="hidden text-right text-xs uppercase tracking-[0.22em] text-white/36 sm:block">
+              <span className="hidden text-right text-xs uppercase tracking-[0.12em] text-white/36 sm:block">
                 {identity.accents.line}
               </span>
             </div>
@@ -209,7 +209,7 @@ export function EditorialIntelligence({
             <p className="luxury-kicker" style={{ color: identity.colors.accent }}>
               Language field
             </p>
-            <h3 className="editorial-module-title mt-2 font-display font-semibold text-white">
+            <h3 className="editorial-module-title mt-2 font-sans font-semibold text-white">
               {intelligence.languages.label}
             </h3>
             <p className="mt-3 text-xs leading-6 text-white/52">{intelligence.languages.note}</p>

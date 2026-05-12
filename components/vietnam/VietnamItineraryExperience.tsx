@@ -103,14 +103,14 @@ export function VietnamItineraryExperience() {
         <img src={VIETNAM_COUNTRY_IMAGES.hero} alt="" className="absolute inset-0 -z-30 h-full w-full object-cover saturate-150" />
         <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(5,16,13,.96),rgba(15,118,110,.7)_48%,rgba(127,29,29,.48)),linear-gradient(0deg,rgba(5,16,13,.98),transparent_62%)]" />
         <div className="mx-auto max-w-7xl px-6 py-24 sm:py-32">
-          <nav className="text-xs font-bold uppercase tracking-[0.32em] text-orange-100/62">
+          <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/62">
             <Link href="/" className="hover:text-orange-100">Home</Link> ·{" "}
             <Link href="/country/vietnam" className="hover:text-orange-100">Vietnam</Link> · Itinerary
           </nav>
-          <p className="mt-12 text-xs font-black uppercase tracking-[0.34em] text-amber-300">
+          <p className="mt-12 text-xs font-black uppercase tracking-[0.12em] text-amber-300">
             Route builder
           </p>
-          <h1 className="mt-5 max-w-5xl font-display text-[clamp(3.7rem,12vw,10rem)] font-black leading-[0.84] text-orange-50">
+          <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.7rem,12vw,10rem)] font-black leading-[0.84] text-orange-50">
             Build Vietnam by region.
           </h1>
           <p className="mt-8 max-w-2xl text-xl leading-9 text-orange-50/80">
@@ -125,7 +125,7 @@ export function VietnamItineraryExperience() {
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[1.05fr_.95fr]">
           <div className="border border-orange-100/16 bg-black/28 p-6 shadow-2xl backdrop-blur sm:p-8">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="font-display text-5xl font-black text-orange-50">Trip inputs</h2>
+              <h2 className="font-sans text-5xl font-black text-orange-50">Trip inputs</h2>
               <CalendarDays className="text-amber-300" size={30} />
             </div>
             <div className="mt-7 grid gap-4 md:grid-cols-3">
@@ -134,7 +134,7 @@ export function VietnamItineraryExperience() {
               <Input label="Days if unknown" type="number" value={String(fallbackDays)} onChange={(value) => setFallbackDays(Math.max(1, Math.min(24, Number(value) || 1)))} />
             </div>
             <div className="mt-8">
-              <div className="text-[10px] font-black uppercase tracking-[0.24em] text-orange-50/48">Interests</div>
+              <div className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-50/48">Interests</div>
               <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                 {INTERESTS.map((interest) => {
                   const active = interests.includes(interest.slug);
@@ -143,7 +143,7 @@ export function VietnamItineraryExperience() {
                       key={interest.slug}
                       type="button"
                       onClick={() => toggleInterest(interest.slug)}
-                      className={`border px-4 py-3 text-left font-display text-xl font-black transition ${
+                      className={`border px-4 py-3 text-left font-sans text-xl font-black transition ${
                         active
                           ? "border-amber-300 bg-amber-300/16 text-orange-50"
                           : "border-orange-100/14 bg-white/[0.04] text-orange-50/62 hover:border-orange-100/35 hover:text-orange-50"
@@ -160,9 +160,9 @@ export function VietnamItineraryExperience() {
           <aside className="border border-orange-100/16 bg-black/28 p-6 shadow-2xl backdrop-blur sm:p-8">
             <div className="flex items-center gap-3 text-amber-300">
               <Route size={28} />
-              <p className="text-xs font-black uppercase tracking-[0.32em]">Best fit</p>
+              <p className="text-xs font-black uppercase tracking-[0.12em]">Best fit</p>
             </div>
-            <h2 className="mt-5 font-display text-[clamp(2.8rem,5vw,5rem)] font-black leading-none text-orange-50">
+            <h2 className="mt-5 font-sans text-[clamp(2.8rem,5vw,5rem)] font-black leading-none text-orange-50">
               {best.title}
             </h2>
             <p className="mt-5 text-sm leading-7 text-orange-50/70">{best.mood}</p>
@@ -179,8 +179,8 @@ export function VietnamItineraryExperience() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <p className="text-xs font-black uppercase tracking-[0.34em] text-amber-300">Ranked routes</p>
-              <h2 className="mt-4 font-display text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
+              <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">Ranked routes</p>
+              <h2 className="mt-4 font-sans text-[clamp(2.7rem,6vw,6rem)] font-black leading-none text-orange-50">
                 Whole-country options.
               </h2>
             </div>
@@ -199,10 +199,10 @@ export function VietnamItineraryExperience() {
                   <img src={route.image} alt="" className="h-full w-full object-cover saturate-150" />
                   <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(5,16,13,.92),transparent_66%)]" />
                   <div className="absolute bottom-0 p-5">
-                    <div className="text-xs font-black uppercase tracking-[0.24em] text-amber-300">
+                    <div className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">
                       {route.days[0]}-{route.days[1]} days
                     </div>
-                    <h3 className="mt-2 font-display text-4xl font-black text-orange-50">{route.title}</h3>
+                    <h3 className="mt-2 font-sans text-4xl font-black text-orange-50">{route.title}</h3>
                   </div>
                 </div>
                 <div className="p-5 sm:p-6">
@@ -240,7 +240,7 @@ function Input({
 }) {
   return (
     <label>
-      <span className="text-[10px] font-black uppercase tracking-[0.24em] text-orange-50/48">{label}</span>
+      <span className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-50/48">{label}</span>
       <input
         type={type}
         value={value}
@@ -256,8 +256,8 @@ function Input({
 function Metric({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="font-display text-4xl font-black text-orange-50">{value}</div>
-      <div className="mt-1 text-[0.65rem] font-black uppercase tracking-[0.24em] text-orange-50/52">
+      <div className="font-sans text-4xl font-black text-orange-50">{value}</div>
+      <div className="mt-1 text-[0.65rem] font-black uppercase tracking-[0.12em] text-orange-50/52">
         {label}
       </div>
     </div>

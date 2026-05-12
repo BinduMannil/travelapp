@@ -158,12 +158,12 @@ function TransitFeature({ option }: { option: TransitOption }) {
         />
         <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(6,5,4,.9),transparent_60%),linear-gradient(90deg,rgba(6,5,4,.55),transparent)]" />
         <div className="relative flex min-h-[28rem] flex-col justify-between p-7 sm:p-10">
-          <span className="w-fit rounded-full border border-kintsugi-300/60 bg-black/34 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-kintsugi-200 backdrop-blur">
+          <span className="w-fit rounded-full border border-kintsugi-300/60 bg-black/34 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em] text-kintsugi-200 backdrop-blur">
             Recommended first move
           </span>
           <div>
             <p className="luxury-kicker text-kintsugi-300">{meta.label}</p>
-            <h2 className="mt-3 max-w-xl font-display text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-none text-white">
+            <h2 className="mt-3 max-w-xl font-sans text-[clamp(2.5rem,6vw,5rem)] font-semibold leading-none text-white">
               {option.name}
             </h2>
             <p className="mt-5 max-w-lg text-base leading-8 text-white/78">
@@ -176,7 +176,7 @@ function TransitFeature({ option }: { option: TransitOption }) {
         <div className="flex items-start gap-4">
           <span
             aria-hidden
-            className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl font-display text-2xl font-bold ${ACCENT_TILE[meta.accent] ?? ACCENT_TILE.sumi}`}
+            className={`grid h-14 w-14 shrink-0 place-items-center rounded-2xl font-sans text-2xl font-bold ${ACCENT_TILE[meta.accent] ?? ACCENT_TILE.sumi}`}
           >
             {meta.kanji}
           </span>
@@ -220,7 +220,7 @@ function TransitModeCard({
         <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(6,5,4,.88),transparent_64%)]" />
         <div className="absolute bottom-5 left-5 right-5">
           <p className="luxury-kicker text-kintsugi-300">{meta.label}</p>
-          <h2 className="mt-2 font-display text-3xl font-semibold leading-tight text-white">
+          <h2 className="mt-2 font-sans text-3xl font-semibold leading-tight text-white">
             {option.name}
           </h2>
         </div>
@@ -249,7 +249,7 @@ function ProsCons({
     <div className={`mt-6 grid gap-5 ${compact ? "" : "sm:grid-cols-2"}`}>
       {option.pros.length > 0 && (
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-emerald-700">
+          <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-700">
             Best for
           </div>
           <ul className="mt-2 space-y-2 text-sm text-sumi-800">
@@ -266,7 +266,7 @@ function ProsCons({
       )}
       {option.cons.length > 0 && (
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-[0.25em] text-rose-700">
+          <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-rose-700">
             Watch for
           </div>
           <ul className="mt-2 space-y-2 text-sm text-sumi-800">
@@ -292,7 +292,7 @@ function TransitFooter({ option }: { option: TransitOption }) {
     <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-sumi-900/10 pt-4">
       {option.payment_methods.length > 0 && (
         <div className="flex flex-wrap items-center gap-1.5 text-xs">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-sumi-700">
+          <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-sumi-700">
             Pays with
           </span>
           {option.payment_methods.slice(0, 4).map((m) => (

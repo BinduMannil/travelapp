@@ -47,27 +47,27 @@ export function FamousCard({ item }: { item: FamousItem }) {
               onAllFailed={() => setAllFailed(true)}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center font-display text-4xl font-bold text-white/90 drop-shadow sm:text-5xl">
+            <div className="absolute inset-0 flex items-center justify-center font-sans text-4xl font-bold text-white/90 drop-shadow sm:text-5xl">
               {kanji}
             </div>
           )}
           <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.18)_38%,rgba(0,0,0,.82))]" />
-          <div className="absolute bottom-4 right-5 font-display text-7xl font-semibold leading-none text-white/26">
+          <div className="absolute bottom-4 right-5 font-sans text-7xl font-semibold leading-none text-white/26">
             {kanji}
           </div>
-          <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/55 px-3 py-1 font-display text-sm text-white backdrop-blur-sm">
+          <div className="absolute left-4 top-4 rounded-full border border-white/18 bg-black/55 px-3 py-1 font-sans text-sm text-white backdrop-blur-sm">
             {kanji}
           </div>
         </div>
 
         <div className="flex min-h-64 flex-col justify-between p-5 sm:p-7">
           <div>
-          <h3 className="font-display text-[clamp(1.65rem,4vw,2.55rem)] font-semibold leading-tight text-white">
+          <h3 className="font-sans text-[clamp(1.65rem,4vw,2.55rem)] font-semibold leading-tight text-white">
             {item.name}
           </h3>
           <p className="mt-4 line-clamp-3 text-sm leading-7 text-white/70">{item.why}</p>
           </div>
-          <div className="mt-8 text-[0.64rem] font-bold uppercase tracking-[0.26em] text-kintsugi-300">
+          <div className="mt-8 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
             {expanded ? "Collapse" : "Where to find it"} →
           </div>
         </div>
@@ -83,7 +83,7 @@ export function FamousCard({ item }: { item: FamousItem }) {
             <p className="text-sm leading-7 text-white/78">{item.why}</p>
             {item.where_to_buy && (
               <p className="mt-4 text-sm leading-7 text-white/72">
-                <span className="mr-2 text-[0.64rem] font-bold uppercase tracking-[0.24em] text-kintsugi-300">
+                <span className="mr-2 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
                   Where
                 </span>
                 {item.where_to_buy}

@@ -32,7 +32,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Hidden gems",
     description:
-      "The alleys, bars, shrines, and shops locals drag you to on your second trip.",
+      "Tokyo hidden gems: jazz kissa, Golden Gai bars, quiet neighborhoods, small shrines, local shops and second-trip ideas.",
   };
 }
 
@@ -60,7 +60,7 @@ export default async function HiddenGemsPage({
         eyebrow="Hidden gems"
         title="Hidden gems"
         subtitle="秘 境"
-        lede="The alleys, bars, shrines, and shops locals drag you to on your second trip."
+        lede="Tokyo hidden gems for a second trip: jazz kissa, pocket bars, quiet neighborhoods, small shrines, local shops and streets worth slowing down for."
         palette="ume"
       />
 
@@ -75,20 +75,21 @@ export default async function HiddenGemsPage({
                 sizes="(min-width: 1024px) 58vw, 100vw"
                 className="absolute inset-0 h-full w-full object-cover opacity-80"
               />
-              <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.82),rgba(0,0,0,0.35)_58%,rgba(0,0,0,0.72))]" />
+              <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.78),rgba(0,0,0,0.28)_58%,rgba(0,0,0,0.66))]" />
+              <span className="absolute inset-x-0 bottom-0 h-[68%] bg-[linear-gradient(0deg,rgba(0,0,0,0.96),rgba(0,0,0,0.82)_48%,rgba(0,0,0,0))]" />
               <div className="relative flex min-h-[520px] flex-col justify-end p-6 sm:p-9">
-                <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                   {lead.neighborhood} · {lead.category}
                 </p>
-                <h2 className="mt-4 max-w-3xl font-display text-[clamp(3rem,7vw,6.25rem)] font-semibold leading-[0.92] text-white">
+                <h2 className="mt-4 max-w-3xl font-sans text-[clamp(3rem,7vw,6.25rem)] font-semibold leading-[0.92] text-white drop-shadow-[0_4px_22px_rgba(0,0,0,0.9)]">
                   {lead.name}
                 </h2>
-                <p className="mt-5 max-w-2xl text-base leading-8 text-white/86 sm:text-lg">
+                <p className="mt-5 max-w-2xl text-base leading-8 text-white/92 drop-shadow-[0_2px_10px_rgba(0,0,0,0.75)] sm:text-lg">
                   {lead.why}
                 </p>
                 {lead.tip && (
-                  <p className="mt-7 max-w-xl rounded-2xl border border-white/18 bg-white/10 p-4 text-sm leading-7 text-white/82 backdrop-blur">
-                    <span className="font-semibold text-kintsugi-200">Tip:</span>{" "}
+                  <p className="mt-7 max-w-xl rounded-2xl border border-white/22 bg-black/48 p-4 text-sm leading-7 text-white/92 shadow-2xl backdrop-blur-md">
+                    <span className="font-semibold text-kintsugi-100">Tip:</span>{" "}
                     {lead.tip}
                   </p>
                 )}
@@ -96,15 +97,15 @@ export default async function HiddenGemsPage({
             </article>
 
             <aside className="rounded-[1.45rem] border border-white/14 bg-[linear-gradient(180deg,rgba(35,29,29,0.92),rgba(12,12,11,0.96))] p-7 shadow-editorial-deep">
-              <p className="text-xs font-semibold uppercase tracking-[0.34em] text-kintsugi-200">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                 Second-trip Tokyo
               </p>
-              <h3 className="mt-5 font-display text-[clamp(2.3rem,4vw,4rem)] font-semibold leading-[0.96] text-white">
-                Trade checklist energy for small discoveries.
+              <h3 className="mt-5 font-sans text-[clamp(2.3rem,4vw,4rem)] font-semibold leading-[0.96] text-white">
+                Leave room for Tokyo&apos;s smaller places.
               </h3>
               <p className="mt-5 text-sm leading-7 text-white/72">
                 These places work best when you stop treating Tokyo like a list.
-                Go later, wander slower, and let a neighborhood pull you sideways.
+                Go later, walk slower, and give one neighborhood enough time to surprise you.
               </p>
               <div className="mt-8 grid gap-3">
                 {data.picks.slice(0, 4).map((g) => (
@@ -112,10 +113,10 @@ export default async function HiddenGemsPage({
                     key={g.slug}
                     className="rounded-2xl border border-white/12 bg-white/[0.06] p-4"
                   >
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-kintsugi-200">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
                       {g.neighborhood}
                     </p>
-                    <p className="mt-1 font-display text-xl font-semibold text-white">
+                    <p className="mt-1 font-sans text-xl font-semibold text-white">
                       {g.name}
                     </p>
                   </div>
@@ -147,22 +148,23 @@ export default async function HiddenGemsPage({
                   }
                   className="absolute inset-0 h-full w-full object-cover opacity-74"
                 />
-                <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.06),rgba(0,0,0,0.5)_45%,rgba(0,0,0,0.92))]" />
+                <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.03),rgba(0,0,0,0.42)_36%,rgba(0,0,0,0.96))]" />
+                <span className="absolute inset-x-0 bottom-0 h-[76%] bg-[linear-gradient(0deg,rgba(0,0,0,0.95),rgba(0,0,0,0.74)_52%,rgba(0,0,0,0))]" />
                 <div className="relative flex min-h-[360px] flex-col justify-end p-6">
-                  <p className="text-xs font-semibold uppercase tracking-[0.32em] text-kintsugi-200">
+                  <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-100 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                     {g.neighborhood} · {g.category}
                   </p>
-                  <h2 className="mt-3 max-w-2xl font-display text-[clamp(2.2rem,4.5vw,4rem)] font-semibold leading-[0.96] text-white">
+                  <h2 className="mt-3 max-w-2xl font-sans text-[clamp(2.2rem,4.5vw,4rem)] font-semibold leading-[0.96] text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.9)]">
                     {g.name}
                   </h2>
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/82 sm:text-base">
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/90 drop-shadow-[0_2px_10px_rgba(0,0,0,0.7)] sm:text-base">
                     {g.why}
                   </p>
                   {(g.tip || g.when) && (
-                    <div className="mt-5 rounded-2xl border border-white/15 bg-white/[0.08] p-4 text-sm leading-6 text-white/78 backdrop-blur">
+                    <div className="mt-5 rounded-2xl border border-white/20 bg-black/46 p-4 text-sm leading-6 text-white/90 shadow-2xl backdrop-blur-md">
                       {g.tip && (
                         <p>
-                          <span className="font-semibold text-kintsugi-200">
+                          <span className="font-semibold text-kintsugi-100">
                             Tip:
                           </span>{" "}
                           {g.tip}

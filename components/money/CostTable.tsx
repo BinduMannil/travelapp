@@ -39,7 +39,7 @@ export function CostTable({ items }: { items: PriceItem[] }) {
               <p className="luxury-kicker text-kintsugi-300">
                 Cost Signal
               </p>
-              <h2 className="mt-4 font-display text-4xl font-semibold leading-none">
+              <h2 className="mt-4 font-sans text-4xl font-semibold leading-none">
                 <PriceDisplay
                   amountMinor={item.amount_minor}
                   currency={item.currency}
@@ -61,7 +61,7 @@ export function CostTable({ items }: { items: PriceItem[] }) {
       <section className="overflow-hidden rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.97))] shadow-editorial-deep">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-sumi-900/10 px-5 py-4 sm:px-6">
           <p className="luxury-kicker text-enji-600">Price Index</p>
-          <span className="rounded-full bg-sumi-900 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-washi-50">
+          <span className="rounded-full bg-sumi-900 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-washi-50">
             Displayed in {currency.toUpperCase()}
           </span>
         </div>
@@ -75,7 +75,7 @@ export function CostTable({ items }: { items: PriceItem[] }) {
             return (
               <div key={group.title} className="grid lg:grid-cols-[14rem_1fr]">
                 <div className="border-b border-sumi-900/10 bg-sumi-900/[0.035] px-5 py-5 lg:border-b-0 lg:border-r sm:px-6">
-                  <h3 className="font-display text-2xl font-semibold text-sumi-900">
+                  <h3 className="font-sans text-2xl font-semibold text-sumi-900">
                     {group.title}
                   </h3>
                   <p className="mt-2 text-xs leading-6 text-sumi-700">

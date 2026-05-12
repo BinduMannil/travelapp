@@ -21,7 +21,7 @@ const COUNTRIES: Record<
     tagline: "日 本",
     primaryCity: "tokyo",
     intro:
-      "A country of quiet ceremony, precise cities, seasonal rituals, rail journeys, mountain edges, island weather, food culture, and tiny etiquette shifts that change the trip.",
+      "A Japan travel guide for first-time planning and deeper returns: cities, rail routes, seasons, food culture, mountain regions, islands and everyday etiquette.",
   },
   vietnam: {
     name: "Vietnam",
@@ -90,7 +90,7 @@ function SectionCard({
         badge={section.ready ? undefined : "Coming soon"}
       />
       <div className="p-4">
-        <div className="font-display text-base font-semibold text-sumi-900">
+        <div className="font-sans text-base font-semibold text-sumi-900">
           {formatNavigationLabel(section.label)}
         </div>
         {section.ready ? (
@@ -130,10 +130,10 @@ function CityDirectory() {
       <div className="mx-auto max-w-7xl border-t border-washi-300 pt-12">
         <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-enji-700">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-enji-700">
               CITY DIRECTORY
             </p>
-            <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-sumi-950 sm:text-5xl">
+            <h2 className="mt-4 font-sans text-4xl font-semibold leading-tight text-sumi-950 sm:text-5xl">
               Every Japan city starts from here.
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-sumi-700">
@@ -151,10 +151,10 @@ function CityDirectory() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-600">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-sumi-600">
                       {city.meta}
                     </div>
-                    <div className="mt-2 font-display text-2xl font-semibold text-sumi-950 group-hover:text-enji-700">
+                    <div className="mt-2 font-sans text-2xl font-semibold text-sumi-950 group-hover:text-enji-700">
                       {formatTitleCase(city.name)}
                     </div>
                   </div>
@@ -162,7 +162,7 @@ function CityDirectory() {
                     →
                   </span>
                 </div>
-                <div className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-sumi-500">
+                <div className="mt-4 text-xs font-semibold uppercase tracking-[0.12em] text-sumi-500">
                   {city.ready ? "Full Guide Live" : "Guide Planned"}
                 </div>
               </Link>
@@ -200,17 +200,17 @@ export default async function CountryPage({
         <div className="absolute inset-0 -z-10 opacity-70" style={{ backgroundImage: identity.texture }} aria-hidden />
         <AmbientDestinationMotion identity={identity} />
         <div className="mx-auto max-w-7xl px-6 py-20 sm:py-28">
-          <nav className="text-xs uppercase tracking-[0.3em] text-washi-50/65">
+          <nav className="text-xs uppercase tracking-[0.12em] text-washi-50/65">
             <Link href="/" className="hover:text-washi-50">
               Home
             </Link>{" "}
             · {country.name}
           </nav>
-          <h1 className="mt-6 font-display text-[clamp(2.75rem,10vw,7.5rem)] font-bold leading-[0.95] tracking-tight">
+          <h1 className="mt-6 font-sans text-[clamp(2.75rem,10vw,7.5rem)] font-bold leading-[0.95] tracking-tight">
             {country.name}.
           </h1>
           <p
-            className="mt-2 font-display text-2xl tracking-[0.3em]"
+            className="mt-2 font-sans text-2xl tracking-[0.12em]"
             style={{ color: identity.colors.accentSoft }}
           >
             {country.tagline}

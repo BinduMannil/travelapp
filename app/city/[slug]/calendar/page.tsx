@@ -70,7 +70,7 @@ export default async function CalendarPage({
       />
       <div className="mx-auto max-w-5xl px-6 py-12">
 <section className="mt-8">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
           Public holidays
         </h2>
         <div className="mt-3 space-y-2">
@@ -81,7 +81,7 @@ export default async function CalendarPage({
             >
               <header className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>
-                  <div className="text-xs uppercase tracking-[0.25em] opacity-80">
+                  <div className="text-xs uppercase tracking-[0.12em] opacity-80">
                     {formatDate(h.date)}
                   </div>
                   <div className="font-semibold">{h.name}</div>
@@ -97,7 +97,7 @@ export default async function CalendarPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
           Festivals &amp; seasonal events
         </h2>
         <div className="mt-3 space-y-3">
@@ -108,7 +108,7 @@ export default async function CalendarPage({
             >
               <header className="flex flex-wrap items-baseline justify-between gap-3">
                 <div>
-                  <div className="text-xs uppercase tracking-[0.25em] opacity-80">
+                  <div className="text-xs uppercase tracking-[0.12em] opacity-80">
                     {formatRange(f.start_date, f.end_date)} · {f.category}
                   </div>
                   <h3 className="text-xl font-semibold">{f.name}</h3>

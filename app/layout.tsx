@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { cookies } from "next/headers";
 import "./globals.css";
-import { fraunces, italianno, montserrat, notoSerifJp } from "./fonts";
+import { montserrat } from "./fonts";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { PreferencesProvider } from "@/lib/preferences/context";
+import { I18nProvider } from "@/lib/i18n/context";
+import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isLocale, isRtlLocale } from "@/lib/i18n/config";
 import { ConsentProvider } from "@/lib/consent/context";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
-import { PreferencesTrigger } from "@/components/consent/PreferencesTrigger";
-import { LEGAL, formatReviewedAt } from "@/lib/legal/constants";
-import { LanguagePicker } from "@/components/layout/LanguagePicker";
 import { AlertBanner } from "@/components/alerts/AlertBanner";
 import { getActiveAlerts } from "@/lib/alerts";
 
@@ -18,7 +17,23 @@ export const metadata: Metadata = {
     template: "%s — Journee",
   },
   description:
-    "Journee — editorial travel companion. Seasons, costs, visas, attractions, restaurants, transit, packing, and more.",
+    "Journee is a cinematic travel companion for destination discovery, trip planning, local intelligence, maps, journals, guides, and practical travel decisions.",
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      ja: "/ja",
+      ar: "/ar",
+      fr: "/fr",
+      es: "/es",
+      de: "/de",
+      "x-default": "/",
+    },
+  },
 };
 
 export default async function RootLayout({
@@ -28,86 +43,28 @@ export default async function RootLayout({
 }) {
   const snapshot = await getFxSnapshot("JPY");
   const rates = snapshotToRates(snapshot);
+  const cookieStore = await cookies();
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE_NAME)?.value;
+  const locale = isLocale(cookieLocale) ? cookieLocale : DEFAULT_LOCALE;
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return (
     <html
-      lang="en"
-      className={`${montserrat.variable} ${fraunces.variable} ${italianno.variable} ${notoSerifJp.variable}`}
+      lang={locale}
+      dir={dir}
+      className={montserrat.variable}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">
-        <ConsentProvider>
-          <PreferencesProvider rates={rates} defaultCurrency="JPY">
-            {/* Travel advisories — war, revolution, natural hazards, etc.
-                Scoped to the current route (global / country / city) and
-                dismissible per session. Rendered at the very top so it
-                sits above the sticky header. */}
-            <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
-            <header className="sticky top-0 z-30 border-b border-sumi-100/60 bg-washi-50/85 backdrop-blur">
-              <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-                <Link href="/" className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-enji-600 to-sumi-900 font-display text-lg font-bold text-white shadow-sm">
-                    旅
-                  </span>
-                  <span className="font-display text-base font-semibold tracking-tight text-sumi-900">
-                    {LEGAL.brand}
-                  </span>
-                </Link>
-                <div className="flex items-center gap-5">
-                  <LanguagePicker />
-                </div>
-              </div>
-            </header>
-            <div className="min-h-[calc(100vh-64px)]">{children}</div>
-            <footer className="mt-10 border-t border-sumi-100 bg-white py-8 text-sumi-700">
-              <div className="mx-auto grid max-w-6xl gap-5 px-6 sm:grid-cols-[1fr_auto] sm:items-start">
-                <div>
-                  <div className="font-display text-sm font-semibold text-sumi-900">
-                    {LEGAL.brand}
-                  </div>
-                  <p className="mt-1 max-w-lg text-[10px] leading-relaxed">
-                    Independent editorial travel guide. Operated by{" "}
-                    {LEGAL.entityName}, registered with{" "}
-                    {LEGAL.tradeLicenseAuthority}. Not a travel agent. Always
-                    verify visa, health, and legal details with official
-                    sources before you travel.
-                  </p>
-                  <p className="mt-3 text-[10px]">
-                    Tokyo Pilot Data · Live Exchange Rates ·{" "}
-                    <span className="whitespace-nowrap">
-                      Reviewed {formatReviewedAt()}
-                    </span>
-                  </p>
-                </div>
-                <nav
-                  aria-label="Legal"
-                  className="flex flex-wrap items-start gap-x-5 gap-y-2 text-xs sm:justify-end"
-                >
-                  <Link href="/legal/terms" className="hover:text-enji-600">
-                    Terms
-                  </Link>
-                  <Link href="/legal/privacy" className="hover:text-enji-600">
-                    Privacy
-                  </Link>
-                  <Link
-                    href="/legal/affiliate-disclosure"
-                    className="hover:text-enji-600"
-                  >
-                    Affiliate disclosure
-                  </Link>
-                  <PreferencesTrigger className="hover:text-enji-600" />
-                  <a
-                    href={`mailto:${LEGAL.supportEmail}`}
-                    className="hover:text-enji-600"
-                  >
-                    Contact
-                  </a>
-                </nav>
-              </div>
-            </footer>
-            <ConsentBanner />
-          </PreferencesProvider>
-        </ConsentProvider>
+      <body className="min-h-screen bg-[#050807] font-sans text-white antialiased">
+        <I18nProvider defaultLocale={locale}>
+          <ConsentProvider>
+            <PreferencesProvider rates={rates} defaultCurrency="JPY">
+              <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
+              {children}
+              <ConsentBanner />
+            </PreferencesProvider>
+          </ConsentProvider>
+        </I18nProvider>
       </body>
     </html>
   );

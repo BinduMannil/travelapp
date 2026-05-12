@@ -41,7 +41,7 @@ const HERO_IMAGES: Record<Palette, string> = {
 };
 
 /**
- * PageHero — dark sumi hero with a kanji accent + editorial-serif title.
+ * PageHero — dark sumi hero with a kanji accent and Montserrat title.
  * Use on every internal city / country page so the product has one voice.
  *
  *  <PageHero
@@ -107,7 +107,7 @@ export function PageHero({
       <AmbientDestinationMotion identity={identity} />
 
       <div className={`mx-auto max-w-6xl px-6 ${padY}`}>
-        <nav className="text-[11px] uppercase tracking-[0.3em] text-washi-50/65">
+        <nav className="text-[11px] uppercase tracking-[0.12em] text-washi-50/65">
           {crumbs.map((c, i) => (
             <span key={i}>
               {i > 0 && <span className="mx-2 text-washi-50/30">·</span>}
@@ -124,7 +124,7 @@ export function PageHero({
 
         <div className="mt-10 grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-end">
           {kanji && (
-            <div className="grid h-20 w-20 place-items-center rounded-[1.1rem] border border-white/18 bg-washi-50/12 font-display text-5xl font-bold text-washi-50 shadow-editorial-deep backdrop-blur-md sm:h-24 sm:w-24 sm:text-6xl">
+            <div className="grid h-20 w-20 place-items-center rounded-[1.1rem] border border-white/18 bg-washi-50/12 font-sans text-5xl font-bold text-washi-50 shadow-editorial-deep backdrop-blur-md sm:h-24 sm:w-24 sm:text-6xl">
               {kanji}
             </div>
           )}
@@ -140,7 +140,7 @@ export function PageHero({
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-3 font-display text-lg tracking-[0.34em] text-kintsugi-300/82 sm:text-xl">
+              <p className="mt-3 font-sans text-lg tracking-[0.12em] text-kintsugi-300/82 sm:text-xl">
                 {subtitle}
               </p>
             )}
