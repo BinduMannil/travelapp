@@ -372,6 +372,12 @@ function HeroSearch() {
 }
 
 function CountryDropdown() {
+  const countryGroups = COUNTRY_OPTIONS.reduce<Record<string, typeof COUNTRY_OPTIONS>>((groups, country) => {
+    groups[country.region] = groups[country.region] ?? [];
+    groups[country.region].push(country);
+    return groups;
+  }, {});
+
   return (
     <div className="relative z-20 mx-auto mt-5 max-w-[980px] px-4 sm:px-5">
       <label className="grid gap-2 rounded-[1.25rem] border border-white/16 bg-black/28 p-4 shadow-xl shadow-black/25 backdrop-blur-xl sm:grid-cols-[auto_1fr] sm:items-center sm:gap-5">
@@ -389,10 +395,14 @@ function CountryDropdown() {
           <option value="" disabled>
             Pick a country to check
           </option>
-          {COUNTRY_OPTIONS.map((country) => (
-            <option key={country.slug} value={country.slug}>
-              {country.name} · {country.status === "live" ? "Live" : "Queued"} · {country.region}
-            </option>
+          {Object.entries(countryGroups).map(([region, countries]) => (
+            <optgroup key={region} label={region}>
+              {countries.map((country) => (
+                <option key={country.slug} value={country.slug}>
+                  {country.name} · {country.status === "live" ? "Live" : "Queued"}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
       </label>
