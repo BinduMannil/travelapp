@@ -395,7 +395,7 @@ export function VietnamCityDetailPage({
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-4 md:grid-cols-3">
             {VIETNAM_LOCAL_APPS.slice(0, 3).map((app) => (
-              <a key={app.slug} href={app.web_url ?? "#"} className="border border-orange-100/14 bg-orange-50/[0.06] p-5">
+              <a key={app.slug} href={app.web_url ?? "/search"} className="border border-orange-100/14 bg-orange-50/[0.06] p-5">
                 <div className="font-sans text-2xl font-black text-orange-50">{app.name}</div>
                 <p className="mt-2 text-sm leading-6 text-orange-50/62">{app.traveler_notes}</p>
               </a>

@@ -73,6 +73,19 @@ const settingsMenu = [
   { label: "Support", note: "Help center and contact", icon: MessageCircleQuestion },
 ];
 
+const settingsMenuHref: Record<string, string> = {
+  Preferences: "/settings",
+  Account: "/profile",
+  "Travel Preferences": "/settings",
+  Notifications: "/alerts",
+  "Privacy & Security": "/legal/privacy",
+  "Payment & Billing": "/booking",
+  Accessibility: "/settings",
+  "Connected Accounts": "/settings",
+  "Data & Storage": "/offline",
+  Support: "/support",
+};
+
 const regionalSettings = [
   {
     label: "Language",
@@ -249,7 +262,7 @@ function LeftSidebar() {
             return (
               <a
                 key={item.label}
-                href="#"
+                href={settingsMenuHref[item.label] ?? "/settings"}
                 className={`flex min-h-[64px] items-center gap-4 rounded-md px-4 py-3 transition ${
                   item.active
                     ? "border-l-2 border-[#f0aa2c] bg-gradient-to-r from-[#b98125]/55 to-[#d8aa4f]/32 text-white shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"
@@ -442,7 +455,7 @@ function RightSidebar() {
           <div className="min-w-0">
             <h3 className="truncate text-base font-semibold text-white">Sarah Johnson</h3>
             <p className="mt-1 truncate text-sm text-white/64">sarah.johnson@example.com</p>
-            <a href="#" className="mt-3 inline-flex text-sm font-semibold text-[#f3b544]">
+            <a href="/profile" className="mt-3 inline-flex text-sm font-semibold text-[#f3b544]">
               View Profile
             </a>
           </div>

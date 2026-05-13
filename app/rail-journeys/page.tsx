@@ -77,6 +77,12 @@ const accountItems: Array<{ label: string; icon: LucideIcon; badge?: string }> =
   { label: "Settings", icon: Settings },
 ];
 
+const accountHref: Record<string, string> = {
+  Alerts: "/alerts",
+  Profile: "/profile",
+  Settings: "/settings",
+};
+
 const routes: RouteCard[] = [
   {
     name: "Glacier Express",
@@ -299,7 +305,7 @@ function Sidebar() {
         {accountItems.map(({ label, icon: Icon, badge }) => (
           <a
             key={label}
-            href="#"
+            href={accountHref[label] ?? "/profile"}
             className="flex items-center gap-3 rounded-lg px-3 py-3 text-[0.82rem] font-medium text-white/76 transition hover:bg-white/[0.05] hover:text-white"
           >
             <Icon className="h-4 w-4" />
@@ -693,7 +699,7 @@ function Panel({
         <h2 className="text-[0.96rem] font-bold uppercase tracking-[0] text-white">{title}</h2>
         {action ? (
           <a
-            href="#"
+            href="/rail-journeys"
             className="ml-auto inline-flex items-center gap-2 text-[0.74rem] font-medium text-[#d8aa4f]"
           >
             {action} <ArrowRight className="h-4 w-4" />

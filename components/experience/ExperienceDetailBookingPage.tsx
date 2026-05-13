@@ -709,7 +709,7 @@ function DetailCards() {
         <h3 className="mt-3 text-sm font-bold text-white">{experience.meetingPoint.title}</h3>
         <p className="mt-1 text-sm text-white/72">{experience.meetingPoint.instructions}</p>
         <Link
-          href={mapHref ?? "#"}
+          href={mapHref ?? "/atlas"}
           className="mt-4 flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-[#f5b21d]/70 text-sm font-bold text-[#f5b21d] transition hover:bg-[#f5b21d] hover:text-[#150f04]"
         >
           <MapPin className="h-4 w-4" />

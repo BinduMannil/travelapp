@@ -898,7 +898,7 @@ export function MobileTravelMode({
             {topApps.map((app) => (
               <a
                 key={app.slug}
-                href={app.web_url ?? "#"}
+                href={app.web_url ?? "/search"}
                 className="block min-h-20 border border-white/12 bg-white/[0.045] p-4"
               >
                 <div className="flex items-center justify-between gap-3">

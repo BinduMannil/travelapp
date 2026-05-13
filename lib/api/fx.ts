@@ -50,10 +50,13 @@ export type FxSnapshot = {
 export async function getFxSnapshot(base: "JPY" = "JPY"): Promise<FxSnapshot> {
   const symbols = SUPPORTED_QUOTES.join(",");
   const url = `https://api.frankfurter.dev/v1/latest?base=${base}&symbols=${symbols}`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 2500);
 
   try {
     const res = await fetch(url, {
       next: { revalidate: 60 * 60 * 24, tags: ["fx:latest"] },
+      signal: controller.signal,
     });
     if (!res.ok) throw new Error(`Frankfurter ${res.status}`);
     const json = (await res.json()) as {
@@ -75,6 +78,8 @@ export async function getFxSnapshot(base: "JPY" = "JPY"): Promise<FxSnapshot> {
       date: new Date().toISOString().slice(0, 10),
       rates: { ...FALLBACK_RATES },
     };
+  } finally {
+    clearTimeout(timeout);
   }
 }
 

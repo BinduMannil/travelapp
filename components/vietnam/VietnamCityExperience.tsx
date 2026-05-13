@@ -310,7 +310,7 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
             </div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {VIETNAM_LOCAL_APPS.slice(0, 6).map((app) => (
-                <a key={app.slug} href={app.web_url ?? "#"} className="border border-orange-100/12 bg-white/[0.05] p-4">
+                <a key={app.slug} href={app.web_url ?? "/search"} className="border border-orange-100/12 bg-white/[0.05] p-4">
                   <div className="font-sans text-2xl font-black text-orange-50">{app.name}</div>
                   <p className="mt-2 text-xs leading-5 text-orange-50/62">{app.traveler_notes}</p>
                 </a>

@@ -452,7 +452,7 @@ function HiddenGems() {
     <section className="mx-auto max-w-[1180px] px-5 pt-16 lg:px-0">
       <div className="flex items-center justify-between gap-4">
         <SectionKicker>Hidden Gems</SectionKicker>
-        <Link href="#" className="inline-flex items-center gap-2 text-xs font-bold text-[#d8aa4f]">
+        <Link href="/city/kyoto/hidden-gems" className="inline-flex items-center gap-2 text-xs font-bold text-[#d8aa4f]">
           See all <ChevronRight className="h-4 w-4" />
         </Link>
       </div>

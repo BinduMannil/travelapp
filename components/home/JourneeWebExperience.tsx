@@ -311,10 +311,15 @@ function HomeHero({ heroImage }: { heroImage: string }) {
           <p className="font-sans text-[0.78rem] font-bold uppercase tracking-[0.44em] text-[#d9a947]">
             NOT JUST A TRIP,
           </p>
-          <h1 className="mt-6 text-balance font-sans text-[clamp(4rem,15vw,7.4rem)] font-semibold leading-[0.9] text-[#fffaf0]">
-            Until it
-            <span className="block">becomes</span>
-            <span className="block italic text-[#d9a947]">a place.</span>
+          <h1
+            aria-label="Until it becomes a place."
+            className="mt-6 text-balance font-sans text-[clamp(4rem,15vw,7.4rem)] font-semibold leading-[0.9] text-[#fffaf0]"
+          >
+            <span aria-hidden="true">
+              Until it
+              <span className="block">becomes</span>
+              <span className="block italic text-[#d9a947]">a place.</span>
+            </span>
           </h1>
           <p className="mt-7 max-w-[470px] font-sans text-base leading-8 text-white/78 sm:text-lg">
             Journee helps you discover meaningful travel experiences, hidden gems and authentic

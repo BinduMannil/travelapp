@@ -242,7 +242,7 @@ export function VietnamBeveragesPage() {
       <section className="px-6 pb-24">
         <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-2">
           {VIETNAM_LOCAL_APPS.slice(0, 4).map((app) => (
-            <a key={app.slug} href={app.web_url ?? "#"} className="border border-orange-100/14 bg-white/[0.045] p-5 transition hover:border-amber-300/70">
+            <a key={app.slug} href={app.web_url ?? "/search"} className="border border-orange-100/14 bg-white/[0.045] p-5 transition hover:border-amber-300/70">
               <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">Useful app</p>
               <h3 className="mt-2 font-sans text-3xl font-black">{app.name}</h3>
               <p className="mt-3 text-sm leading-7 text-orange-50/68">{app.traveler_notes}</p>

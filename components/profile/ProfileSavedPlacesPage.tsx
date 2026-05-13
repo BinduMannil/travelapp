@@ -56,6 +56,20 @@ const menuItems = [
   { label: "Privacy & Security" },
 ];
 
+const profileMenuHref: Record<string, string> = {
+  Overview: "/profile",
+  "Saved Places": "/profile",
+  "Saved Trips": "/trips",
+  Wishlist: "/profile",
+  "Travel History": "/journal",
+  Preferences: "/settings",
+  "Travel Stats": "/profile",
+  "Journal Entries": "/journal",
+  "Account Settings": "/settings",
+  Notifications: "/alerts",
+  "Privacy & Security": "/legal/privacy",
+};
+
 const stats: Stat[] = [
   { label: "Trips", value: "12", note: "3 Upcoming" },
   { label: "Saved Places", value: "48", note: "12 New" },
@@ -206,7 +220,7 @@ function SectionHeader({ title }: { title: string }) {
       <h2 className="font-sans text-[0.98rem] font-semibold tracking-[-0.01em] text-white">
         {title}
       </h2>
-      <a href="#" className="text-xs font-medium text-[#d9a646] transition hover:text-[#f3cd7d]">
+      <a href="/profile" className="text-xs font-medium text-[#d9a646] transition hover:text-[#f3cd7d]">
         View all
       </a>
     </div>
@@ -219,7 +233,7 @@ function ProfileMenu({ compact = false }: { compact?: boolean }) {
       {menuItems.map((item) => (
           <a
             key={item.label}
-            href="#"
+            href={profileMenuHref[item.label] ?? "/profile"}
             className={`flex min-h-10 items-center rounded-[6px] px-3 py-2 text-sm transition ${
               item.active
                 ? "border-l-2 border-[#d9a646] bg-[#d9a646]/14 text-[#e6b85f]"
@@ -456,7 +470,7 @@ function UpcomingTrips() {
     <GlassPanel className="p-5">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-sans text-base font-semibold text-white">Upcoming Trips</h2>
-        <a href="#" className="text-xs text-white/68 transition hover:text-[#d9a646]">
+        <a href="/trips" className="text-xs text-white/68 transition hover:text-[#d9a646]">
           View all
         </a>
       </div>
@@ -488,7 +502,7 @@ function TravelStyle() {
     <GlassPanel className="p-5">
       <div className="mb-5 flex items-center justify-between">
         <h2 className="font-sans text-base font-semibold text-white">Travel Style</h2>
-        <a href="#" className="text-xs text-white/58 transition hover:text-[#d9a646]">
+        <a href="/settings" className="text-xs text-white/58 transition hover:text-[#d9a646]">
           Edit
         </a>
       </div>
@@ -521,7 +535,7 @@ function TravelMap() {
     <GlassPanel className="p-5">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="font-sans text-base font-semibold text-white">Travel Map</h2>
-        <a href="#" className="text-xs text-[#d9a646] transition hover:text-[#f3cd7d]">
+        <a href="/atlas" className="text-xs text-[#d9a646] transition hover:text-[#f3cd7d]">
           View map
         </a>
       </div>

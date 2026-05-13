@@ -64,6 +64,13 @@ const accountItems: Array<{ label: string; icon: LucideIcon; badge?: string }> =
   { label: "Settings", icon: Settings },
 ];
 
+const accountHref: Record<string, string> = {
+  Alerts: "/alerts",
+  Saved: "/profile",
+  Profile: "/profile",
+  Settings: "/settings",
+};
+
 const destinations = [
   {
     name: "Antarctica",
@@ -327,7 +334,7 @@ function Sidebar() {
         {accountItems.map(({ label, icon: Icon, badge }) => (
           <a
             key={label}
-            href="#"
+            href={accountHref[label] ?? "/profile"}
             className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-[0.78rem] font-medium text-white/76 transition hover:bg-white/[0.05] hover:text-white"
           >
             <Icon className="h-4 w-4" />
@@ -694,7 +701,7 @@ function Panel({
       <div className="mb-4 flex items-center gap-4">
         <h2 className="text-[0.96rem] font-bold uppercase tracking-[0] text-white">{title}</h2>
         {action ? (
-          <a href="#" className="ml-auto inline-flex items-center gap-2 text-[0.74rem] font-medium text-[#d8aa4f]">
+          <a href="/expeditions" className="ml-auto inline-flex items-center gap-2 text-[0.74rem] font-medium text-[#d8aa4f]">
             {action} <ArrowRight className="h-4 w-4" />
           </a>
         ) : null}

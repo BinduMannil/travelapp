@@ -292,7 +292,7 @@ function AppNav() {
   return (
     <header className="sticky top-0 z-40 border-b border-white/8 bg-[#020911]/92 px-4 backdrop-blur-2xl md:px-6">
       <div className="mx-auto flex h-16 max-w-[1780px] items-center gap-6">
-        <a href="#" className="flex shrink-0 items-center gap-3 text-white">
+        <a href="/" className="flex shrink-0 items-center gap-3 text-white">
           <svg
             viewBox="0 0 48 48"
             aria-hidden="true"
