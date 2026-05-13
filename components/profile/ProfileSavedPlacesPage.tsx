@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useId, useState } from "react";
 import {
   Bell,
   MoreVertical,
@@ -16,6 +17,16 @@ type Stat = {
   label: string;
   value: string;
   note: string;
+};
+
+type ProfileSummary = {
+  name: string;
+  email: string;
+  location: string;
+  tier: string;
+  status: string;
+  memberSince: string;
+  avatar: string;
 };
 
 type SavedPlace = {
@@ -42,40 +53,51 @@ type JournalEntry = {
 
 const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal", "Profile"];
 
-const menuItems = [
-  { label: "Overview", active: true },
-  { label: "Saved Places" },
-  { label: "Saved Trips" },
-  { label: "Wishlist" },
-  { label: "Travel History" },
-  { label: "Preferences" },
-  { label: "Travel Stats" },
-  { label: "Journal Entries" },
-  { label: "Account Settings" },
-  { label: "Notifications" },
-  { label: "Privacy & Security" },
-];
-
-const profileMenuHref: Record<string, string> = {
-  Overview: "/profile",
-  "Saved Places": "/profile",
-  "Saved Trips": "/trips",
-  Wishlist: "/profile",
-  "Travel History": "/journal",
-  Preferences: "/settings",
-  "Travel Stats": "/profile",
-  "Journal Entries": "/journal",
-  "Account Settings": "/settings",
-  Notifications: "/alerts",
-  "Privacy & Security": "/legal/privacy",
+const profileSummary: ProfileSummary = {
+  name: "Emma Walker",
+  email: "emmawalker@gmail.com",
+  location: "San Francisco, CA",
+  tier: "Explorer",
+  status: "Active",
+  memberSince: "May 12, 2024",
+  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=82",
 };
 
-const stats: Stat[] = [
-  { label: "Trips", value: "12", note: "3 Upcoming" },
-  { label: "Saved Places", value: "48", note: "12 New" },
-  { label: "Wishlist Items", value: "28", note: "4 New" },
+const profileTabs = [
+  "Preferences",
+  "Account",
+  "Travel Preferences",
+  "Notifications",
+  "Privacy & Security",
+  "Payment & Billing",
+  "Accessibility",
+  "Connected Accounts",
+  "Data & Storage",
+] as const;
+
+type ProfileTab = (typeof profileTabs)[number];
+
+const membershipStats: Stat[] = [
+  { label: "Member Since", value: profileSummary.memberSince, note: "Curated traveler profile" },
+  { label: "Loyalty Level", value: profileSummary.tier, note: "Journee membership" },
+  { label: "Account Status", value: profileSummary.status, note: "Concierge ready" },
   { label: "Countries Visited", value: "9", note: "2 This Year" },
-  { label: "Journal Entries", value: "156", note: "22 This Year" },
+  { label: "Saved Journeys", value: "48", note: "12 New" },
+  { label: "Upcoming Trips", value: "3", note: "Next: Kyoto" },
+];
+
+const accountHeroStats: Stat[] = [
+  { label: "Countries", value: "9", note: "Visited" },
+  { label: "Saved journeys", value: "48", note: "Curated" },
+  { label: "Upcoming", value: "3", note: "Trips" },
+];
+
+const preferenceDetails = [
+  { label: "Travel Style", value: "Balanced Explorer" },
+  { label: "Preferred Destinations", value: "Japan, Italy, Alpine escapes" },
+  { label: "Budget Preference", value: "Premium boutique stays" },
+  { label: "Language", value: "English" },
+  { label: "Units & Currency", value: "Miles, USD" },
 ];
 
 const savedPlaces: SavedPlace[] = [
@@ -227,23 +249,77 @@ function SectionHeader({ title }: { title: string }) {
   );
 }
 
-function ProfileMenu({ compact = false }: { compact?: boolean }) {
+function ProfileMenu({
+  activeTab,
+  compact = false,
+  onTabChange,
+}: {
+  activeTab: ProfileTab;
+  compact?: boolean;
+  onTabChange: (tab: ProfileTab) => void;
+}) {
+  const tablistId = useId();
+
+  function focusTab(index: number) {
+    const nextTab = document.getElementById(`${tablistId}-${index}`);
+    nextTab?.focus();
+    onTabChange(profileTabs[index]);
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLButtonElement>, index: number) {
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      event.preventDefault();
+      focusTab((index + 1) % profileTabs.length);
+    }
+
+    if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      event.preventDefault();
+      focusTab((index - 1 + profileTabs.length) % profileTabs.length);
+    }
+
+    if (event.key === "Home") {
+      event.preventDefault();
+      focusTab(0);
+    }
+
+    if (event.key === "End") {
+      event.preventDefault();
+      focusTab(profileTabs.length - 1);
+    }
+  }
+
   return (
-    <nav className={compact ? "grid grid-cols-2 gap-2 sm:grid-cols-3" : "space-y-1"}>
-      {menuItems.map((item) => (
-          <a
-            key={item.label}
-            href={profileMenuHref[item.label] ?? "/profile"}
-            className={`flex min-h-10 items-center rounded-[6px] px-3 py-2 text-sm transition ${
-              item.active
+    <div
+      role="tablist"
+      aria-label="Profile settings"
+      aria-orientation={compact ? "horizontal" : "vertical"}
+      className={compact ? "grid grid-cols-2 gap-2 sm:grid-cols-3" : "space-y-1"}
+    >
+      {profileTabs.map((tab, index) => {
+        const selected = activeTab === tab;
+
+        return (
+          <button
+            key={tab}
+            id={`${tablistId}-${index}`}
+            type="button"
+            role="tab"
+            aria-selected={selected}
+            aria-controls={`profile-tab-panel-${tab.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and")}`}
+            tabIndex={selected ? 0 : -1}
+            onClick={() => onTabChange(tab)}
+            onKeyDown={(event) => handleKeyDown(event, index)}
+            className={`flex min-h-10 w-full items-center rounded-[6px] px-3 py-2 text-left text-sm transition focus:outline-none focus:ring-2 focus:ring-[#d9a646]/55 ${
+              selected
                 ? "border-l-2 border-[#d9a646] bg-[#d9a646]/14 text-[#e6b85f]"
                 : "text-white/82 hover:bg-white/[0.055] hover:text-white"
             }`}
           >
-            <span className="truncate">{item.label}</span>
-          </a>
-        ))}
-    </nav>
+            <span className="truncate">{tab}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -282,8 +358,8 @@ function TopNav() {
           <Bell className="h-5 w-5" />
         </button>
         <Image
-          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
-          alt="Emma Walker"
+          src={profileSummary.avatar}
+          alt={profileSummary.name}
           width={42}
           height={42}
           className="h-10 w-10 rounded-full border-2 border-[#d9a756]/55 object-cover"
@@ -293,49 +369,36 @@ function TopNav() {
   );
 }
 
-function LeftSidebar() {
+function LeftSidebar({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: ProfileTab;
+  onTabChange: (tab: ProfileTab) => void;
+}) {
   return (
-    <aside className="xl:sticky xl:top-[90px] xl:self-start">
+    <aside className="order-2 xl:sticky xl:top-[90px] xl:order-1 xl:self-start">
       <GlassPanel className="overflow-hidden">
-        <div className="px-5 py-7 text-center">
-          <Image
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=82"
-            alt="Emma Walker profile"
-            width={96}
-            height={96}
-            className="mx-auto h-24 w-24 rounded-full border-2 border-[#d9a646] object-cover shadow-[0_0_44px_rgba(217,166,70,.22)]"
-          />
-          <div className="mt-4 flex items-center justify-center gap-2">
-            <h1 className="font-sans text-lg font-semibold tracking-[-0.02em] text-white">
-              Emma Walker
-            </h1>
-            <span className="rounded-[5px] border border-[#d9a646]/45 bg-[#d9a646]/12 px-1.5 py-0.5 text-[0.62rem] font-semibold text-[#e5b65b]">
-              Explorer
-            </span>
-          </div>
-          <p className="mt-2 text-xs text-white/55">emmawalker@gmail.com</p>
-          <p className="mt-3 text-xs text-white/72">
-            San Francisco, CA
+        <div className="px-5 py-5">
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#d9a646]">
+            Profile
           </p>
-          <p className="mx-auto mt-5 max-w-[13rem] text-sm italic leading-6 text-white/70">
-            “Collect moments, not things.”
+          <p className="mt-2 text-sm leading-6 text-white/66">
+            Navigate your saved journeys, preferences and account controls.
           </p>
-          <button className="mt-5 inline-flex h-9 items-center justify-center gap-2 rounded-[6px] border border-white/14 bg-white/[0.035] px-4 text-xs font-medium text-white/86 transition hover:border-[#d9a646]/50 hover:text-[#edc674]">
-            Edit Profile
-          </button>
         </div>
 
         <div className="border-t border-white/10 p-4 lg:block">
           <div className="hidden xl:block">
-            <ProfileMenu />
+            <ProfileMenu activeTab={activeTab} onTabChange={onTabChange} />
           </div>
           <details className="group xl:hidden">
             <summary className="flex cursor-pointer list-none items-center justify-between rounded-[6px] border border-white/12 bg-white/[0.035] px-3 py-2 text-sm font-semibold text-white">
-              Profile Menu
+              {activeTab}
               <span className="text-[#d9a646]">Open</span>
             </summary>
             <div className="mt-3">
-              <ProfileMenu compact />
+              <ProfileMenu activeTab={activeTab} compact onTabChange={onTabChange} />
             </div>
           </details>
         </div>
@@ -358,20 +421,96 @@ function LeftSidebar() {
   );
 }
 
-function StatsGrid() {
+function AccountSummaryHero() {
   return (
-    <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-      {stats.map((stat) => (
+    <GlassPanel className="relative overflow-hidden px-5 py-9 sm:px-8 sm:py-12 lg:px-12">
+      <div className="absolute inset-0 opacity-70">
+        <Image
+          src={savedPlaces[0].image}
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 1280px) 1000px, 100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,7,7,.97),rgba(3,7,7,.86)_48%,rgba(3,7,7,.62)),linear-gradient(180deg,rgba(3,7,7,.22),rgba(3,7,7,.94))]" />
+      </div>
+
+      <div className="relative grid gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(260px,340px)] lg:items-end">
+        <div>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#e1ad52]">
+            Account Summary
+          </p>
+          <div className="mt-7 flex flex-col gap-6 sm:flex-row sm:items-center">
+            <Image
+              src={profileSummary.avatar}
+              alt={`${profileSummary.name} profile`}
+              width={132}
+              height={132}
+              className="h-28 w-28 rounded-full border-2 border-[#d9a646]/80 object-cover shadow-[0_0_56px_rgba(217,166,70,.28)] sm:h-32 sm:w-32"
+            />
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-3">
+                <h1 className="font-sans text-3xl font-semibold leading-none tracking-[-0.03em] text-white sm:text-5xl">
+                  {profileSummary.name}
+                </h1>
+                <span className="rounded-full border border-[#d9a646]/45 bg-[#d9a646]/14 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#edc674]">
+                  {profileSummary.tier}
+                </span>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-white/70">
+                <span>{profileSummary.email}</span>
+                <span>{profileSummary.location}</span>
+              </div>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-white/78">
+                A cinematic travel profile shaped around culture-first journeys, boutique stays and quiet concierge planning.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-[8px] border border-white/10 bg-black/26 p-5 backdrop-blur-md">
+          <p className="text-sm font-semibold text-white">Travel snapshot</p>
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            {accountHeroStats.map((stat) => (
+              <div key={stat.label}>
+                <p className="text-2xl font-semibold leading-none text-white">{stat.value}</p>
+                <p className="mt-2 text-[0.68rem] leading-4 text-white/58">{stat.label}</p>
+                <p className="mt-1 text-[0.64rem] leading-4 text-white/42">{stat.note}</p>
+              </div>
+            ))}
+          </div>
+          <a
+            href="/settings"
+            className="mt-6 inline-flex h-11 w-full items-center justify-center rounded-[6px] bg-gradient-to-r from-[#d7a04a] to-[#f0c571] px-5 text-sm font-bold text-[#211407] shadow-[0_16px_38px_rgba(217,166,70,.22)] transition hover:brightness-110"
+          >
+            Edit Profile
+          </a>
+        </div>
+      </div>
+    </GlassPanel>
+  );
+}
+
+function MembershipStats() {
+  return (
+    <GlassPanel className="p-4 sm:p-5">
+      <SectionHeader title="Quick Stats / Membership" />
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6">
+        {membershipStats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-[8px] border border-white/10 bg-black/16 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.04)]"
+            className="rounded-[8px] border border-white/9 bg-white/[0.028] p-4"
           >
-            <p className="text-2xl font-bold leading-none text-white">{stat.value}</p>
-            <p className="mt-2 text-xs text-white/78">{stat.label}</p>
-            <p className="mt-1 text-[0.7rem] text-white/48">{stat.note}</p>
+            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-white/46">
+              {stat.label}
+            </p>
+            <p className="mt-3 text-lg font-semibold text-white">{stat.value}</p>
+            <p className="mt-1 text-xs leading-5 text-white/54">{stat.note}</p>
           </div>
         ))}
-    </div>
+      </div>
+    </GlassPanel>
   );
 }
 
@@ -465,138 +604,369 @@ function JournalCard({ entry }: { entry: JournalEntry }) {
   );
 }
 
-function UpcomingTrips() {
-  return (
-    <GlassPanel className="p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-sans text-base font-semibold text-white">Upcoming Trips</h2>
-        <a href="/trips" className="text-xs text-white/68 transition hover:text-[#d9a646]">
-          View all
-        </a>
-      </div>
-      <div className="space-y-4">
-        {savedTrips.slice(0, 2).map((trip, index) => (
-          <article key={trip.title} className="flex gap-3">
-            <div className="relative h-[86px] w-[116px] shrink-0 overflow-hidden rounded-[7px] border border-white/10">
-              <Image src={trip.image} alt="" fill sizes="116px" className="object-cover" />
-            </div>
-            <div className="min-w-0 py-1">
-              <h3 className="truncate font-sans text-sm font-semibold text-white">{trip.title}</h3>
-              <p className="mt-2 text-xs text-white/62">{trip.dates}</p>
-              <p className="mt-2 inline-flex rounded-[5px] border border-[#d9a646]/30 bg-[#d9a646]/9 px-2 py-0.5 text-[0.68rem] text-[#d9a646]">
-                In {index === 0 ? 18 : 61} days
-              </p>
-            </div>
-          </article>
-        ))}
-      </div>
-      <button className="mt-5 flex h-10 w-full items-center justify-center gap-2 rounded-[6px] border border-[#d9a646]/55 bg-[#d9a646]/5 text-sm font-medium text-[#e3ad52] transition hover:bg-[#d9a646]/12">
-        New Trip
-      </button>
-    </GlassPanel>
-  );
-}
-
-function TravelStyle() {
-  return (
-    <GlassPanel className="p-5">
-      <div className="mb-5 flex items-center justify-between">
-        <h2 className="font-sans text-base font-semibold text-white">Travel Style</h2>
-        <a href="/settings" className="text-xs text-white/58 transition hover:text-[#d9a646]">
-          Edit
-        </a>
-      </div>
-      <div className="space-y-4">
-        {travelStyle.map((style) => (
-            <div key={style.label} className="grid grid-cols-[88px_1fr_38px] items-center gap-3">
-              <p className="text-sm text-white/84">
-                {style.label}
-              </p>
-              <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-[#c88d39] to-[#e7b965]"
-                  style={{ width: `${style.value}%` }}
-                />
-              </div>
-              <p className="text-right text-xs text-white/78">{style.value}%</p>
-            </div>
-          ))}
-      </div>
-      <div className="mt-6 flex items-center gap-3 rounded-[7px] border border-white/8 bg-white/[0.025] px-3 py-3 text-[#d9a646]">
-        <span className="text-sm font-medium">Balanced Explorer</span>
-        <span className="ml-auto text-white/40">›</span>
-      </div>
-    </GlassPanel>
-  );
-}
-
-function TravelMap() {
-  return (
-    <GlassPanel className="p-5">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="font-sans text-base font-semibold text-white">Travel Map</h2>
-        <a href="/atlas" className="text-xs text-[#d9a646] transition hover:text-[#f3cd7d]">
-          View map
-        </a>
-      </div>
-      <div className="relative h-36 overflow-hidden rounded-[8px] border border-white/8 bg-[#091314]">
-        <div
-          className="absolute inset-0 opacity-[0.34] grayscale"
-          style={{
-            backgroundImage:
-              "url(https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg)",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "105% auto",
-          }}
-        />
-        <div className="absolute left-[18%] top-[48%] h-5 w-12 rotate-12 rounded-full bg-[#d9a646]/55 blur-[1px]" />
-        <div className="absolute left-[47%] top-[37%] h-4 w-8 -rotate-12 rounded-full bg-[#d9a646]/60 blur-[1px]" />
-        <div className="absolute left-[66%] top-[50%] h-5 w-12 rotate-12 rounded-full bg-[#d9a646]/60 blur-[1px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,transparent,rgba(0,0,0,.38))]" />
-      </div>
-      <div className="mt-5 flex items-center justify-between text-sm">
-        <span className="text-white/82">Countries Visited</span>
-        <span className="text-white/72">9 / 50</span>
-      </div>
-      <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-white/12">
-        <div className="h-full w-[18%] rounded-full bg-gradient-to-r from-[#c88d39] to-[#f0c571]" />
-      </div>
-      <div className="mt-5 border-t border-white/10 pt-4 text-sm text-white/74">
-        Next Milestone: Visit 10 countries
-      </div>
-    </GlassPanel>
-  );
-}
-
-function PreferenceSettingsCard() {
+function PersonalizationPreferences() {
   const { t } = useI18n();
 
   return (
     <GlassPanel className="p-5 sm:p-6">
-      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
-        <div className="max-w-2xl">
+      <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#d9a646]">
-            {t("settings.travelPreferences")}
+            Personalization / Preferences
           </p>
-          <h2 className="mt-3 text-2xl font-bold leading-tight text-white sm:text-3xl">
-            {t("settings.currencyAndUnits")}
+          <h2 className="mt-3 text-2xl font-semibold leading-tight text-white">
+            Travel profile signals
           </h2>
-          <p className="mt-3 text-sm leading-6 text-white/66">
-            {t("settings.preferenceDescription")}
-          </p>
         </div>
-        <div className="grid gap-4 rounded-[14px] border border-white/10 bg-white/[0.035] p-4 shadow-inner shadow-white/5">
-          <LanguagePicker />
-          <PreferencesMenu stacked />
-          <p className="text-xs leading-5 text-white/48">{t("settings.savedLocally")}</p>
+        <a href="/settings" className="text-xs font-medium text-[#d9a646] transition hover:text-[#f3cd7d]">
+          Edit preferences
+        </a>
+      </div>
+
+      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(280px,360px)]">
+        <div className="rounded-[8px] border border-white/9 bg-white/[0.026] p-5">
+          <p className="text-sm font-semibold text-white">Travel style</p>
+          <div className="mt-5 space-y-4">
+            {travelStyle.map((style) => (
+              <div key={style.label} className="grid grid-cols-[88px_1fr_38px] items-center gap-3">
+                <p className="text-sm text-white/84">
+                  {style.label}
+                </p>
+                <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-[#c88d39] to-[#e7b965]"
+                    style={{ width: `${style.value}%` }}
+                  />
+                </div>
+                <p className="text-right text-xs text-white/78">{style.value}%</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-[8px] border border-white/9 bg-white/[0.026] p-5">
+          <p className="text-sm font-semibold text-white">Travel preferences</p>
+          <div className="mt-5 divide-y divide-white/[0.07]">
+            {preferenceDetails.map((preference) => (
+              <div key={preference.label} className="py-4 first:pt-0 last:pb-0">
+                <p className="text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-white/42">
+                  {preference.label}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-white/82">{preference.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-4 rounded-[8px] border border-white/8 bg-white/[0.025] p-4 sm:grid-cols-2">
+        <LanguagePicker />
+        <PreferencesMenu stacked />
+        <p className="text-xs leading-5 text-white/48 sm:col-span-2">{t("settings.savedLocally")}</p>
+      </div>
+    </GlassPanel>
+  );
+}
+
+function SavedItemsItineraries() {
+  return (
+    <GlassPanel className="p-4 sm:p-5">
+      <SectionHeader title="Saved Items / Itineraries" />
+      <div className="space-y-7">
+        <div>
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <h3 className="text-sm font-semibold text-white/88">Saved trips</h3>
+            <a href="/trips" className="text-xs font-medium text-[#d9a646] transition hover:text-[#f3cd7d]">
+              View trips
+            </a>
+          </div>
+          <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-4">
+            {savedTrips.map((trip) => (
+              <TripCard key={trip.title} trip={trip} />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <h3 className="text-sm font-semibold text-white/88">Wishlists</h3>
+            <a href="/profile" className="text-xs font-medium text-[#d9a646] transition hover:text-[#f3cd7d]">
+              View all
+            </a>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
+            {savedPlaces.slice(0, 5).map((place) => (
+              <SavedPlaceCard key={place.title} place={place} />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <h3 className="text-sm font-semibold text-white/88">Recently viewed destinations</h3>
+            <a href="/explore" className="text-xs font-medium text-[#d9a646] transition hover:text-[#f3cd7d]">
+              Explore
+            </a>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
+            {journalEntries.slice(0, 5).map((entry) => (
+              <JournalCard key={entry.title} entry={entry} />
+            ))}
+          </div>
         </div>
       </div>
     </GlassPanel>
   );
 }
 
+function SettingsSecurity() {
+  return (
+    <GlassPanel className="p-5 sm:p-6">
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div>
+          <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white/44">
+            Settings / Security
+          </p>
+          <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-white">
+            Account controls
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/62">
+            Manage privacy, notifications, subscription details and saved account preferences after the main travel profile context.
+          </p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <a
+            href="/settings"
+            className="inline-flex h-10 items-center justify-center rounded-[6px] border border-white/14 px-4 text-sm font-medium text-white/82 transition hover:border-[#d9a646]/50 hover:text-[#edc674]"
+          >
+            Account Settings
+          </a>
+          <a
+            href="/legal/privacy"
+            className="inline-flex h-10 items-center justify-center rounded-[6px] border border-white/14 px-4 text-sm font-medium text-white/82 transition hover:border-[#d9a646]/50 hover:text-[#edc674]"
+          >
+            Privacy & Security
+          </a>
+        </div>
+      </div>
+    </GlassPanel>
+  );
+}
+
+function SettingRow({
+  title,
+  description,
+  action,
+}: {
+  title: string;
+  description: string;
+  action: React.ReactNode;
+}) {
+  return (
+    <div className="grid gap-4 border-b border-white/[0.07] px-5 py-4 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-6">
+      <div className="min-w-0">
+        <h3 className="text-sm font-semibold text-white">{title}</h3>
+        <p className="mt-1 text-sm leading-5 text-white/58">{description}</p>
+      </div>
+      <div className="min-w-0">{action}</div>
+    </div>
+  );
+}
+
+function SelectField({ label, value, options }: { label: string; value: string; options: string[] }) {
+  return (
+    <label className="block w-full sm:w-[240px]">
+      <span className="sr-only">{label}</span>
+      <select
+        aria-label={label}
+        defaultValue={value}
+        className="h-11 w-full rounded-[6px] border border-white/12 bg-[#050b0d] px-3 text-sm font-semibold text-white outline-none transition hover:border-[#d9a646]/55 focus:border-[#d9a646] focus:ring-2 focus:ring-[#d9a646]/30"
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function ToggleSetting({ label, checked = false }: { label: string; checked?: boolean }) {
+  const [enabled, setEnabled] = useState(checked);
+
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-label={label}
+      aria-checked={enabled}
+      onClick={() => setEnabled((current) => !current)}
+      className={`flex h-8 w-14 items-center rounded-full border p-1 transition focus:outline-none focus:ring-2 focus:ring-[#d9a646]/40 ${
+        enabled ? "justify-end border-[#d9a646] bg-[#c89131]" : "justify-start border-white/16 bg-white/10"
+      }`}
+    >
+      <span className="h-6 w-6 rounded-full bg-white shadow-[0_4px_12px_rgba(0,0,0,.35)]" />
+    </button>
+  );
+}
+
+function InlineAction({ children }: { children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      className="inline-flex h-10 w-full items-center justify-center rounded-[6px] border border-[#d9a646]/65 px-4 text-sm font-semibold text-[#e6b85f] transition hover:bg-[#d9a646]/12 focus:outline-none focus:ring-2 focus:ring-[#d9a646]/40 sm:w-auto"
+    >
+      {children}
+    </button>
+  );
+}
+
+function EmptyState({ title, description, action }: { title: string; description: string; action: string }) {
+  return (
+    <div className="rounded-[8px] border border-dashed border-white/16 bg-white/[0.025] p-6 text-center">
+      <h3 className="text-base font-semibold text-white">{title}</h3>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-white/62">{description}</p>
+      <div className="mt-5">
+        <InlineAction>{action}</InlineAction>
+      </div>
+    </div>
+  );
+}
+
+function AccountTabContent() {
+  return (
+    <>
+      <GlassPanel className="overflow-hidden">
+        <div className="px-5 pt-5 sm:px-6">
+          <SectionHeader title="Account" />
+        </div>
+        <SettingRow title="Name" description="Shown on your JOURNEE profile and trip collaborations." action={<InlineAction>Edit name</InlineAction>} />
+        <SettingRow title="Email" description={profileSummary.email} action={<InlineAction>Update email</InlineAction>} />
+        <SettingRow title="Location" description={profileSummary.location} action={<InlineAction>Edit location</InlineAction>} />
+        <SettingRow title="Membership" description={`${profileSummary.tier} member since ${profileSummary.memberSince}.`} action={<InlineAction>View benefits</InlineAction>} />
+      </GlassPanel>
+      <MembershipStats />
+    </>
+  );
+}
+
+function NotificationsTabContent() {
+  return (
+    <GlassPanel className="overflow-hidden">
+      <div className="px-5 pt-5 sm:px-6">
+        <SectionHeader title="Notifications" />
+      </div>
+      <SettingRow title="Trip alerts" description="Flight shifts, hotel check-in reminders and itinerary timing changes." action={<ToggleSetting label="Trip alerts" checked />} />
+      <SettingRow title="Destination intelligence" description="Safety, weather and seasonal updates for saved destinations." action={<ToggleSetting label="Destination intelligence" checked />} />
+      <SettingRow title="Editorial updates" description="New guides and culture notes based on your interests." action={<ToggleSetting label="Editorial updates" />} />
+      <SettingRow title="Notification pace" description="Choose how much JOURNEE can send outside essential alerts." action={<SelectField label="Notification pace" value="Balanced" options={["Essential", "Balanced", "All updates"]} />} />
+    </GlassPanel>
+  );
+}
+
+function PrivacySecurityTabContent() {
+  return (
+    <GlassPanel className="overflow-hidden">
+      <div className="px-5 pt-5 sm:px-6">
+        <SectionHeader title="Privacy & Security" />
+      </div>
+      <SettingRow title="Two-step verification" description="Add an extra confirmation step when signing in." action={<ToggleSetting label="Two-step verification" checked />} />
+      <SettingRow title="Profile visibility" description="Control whether collaborators can see your travel style and saved notes." action={<SelectField label="Profile visibility" value="Trip collaborators only" options={["Private", "Trip collaborators only", "Public profile"]} />} />
+      <SettingRow title="Personalization consent" description="Use saved places and trip history to improve recommendations." action={<ToggleSetting label="Personalization consent" checked />} />
+      <SettingRow title="Privacy details" description="Review JOURNEE privacy controls and account protections." action={<InlineAction>Open privacy details</InlineAction>} />
+    </GlassPanel>
+  );
+}
+
+function PaymentBillingTabContent() {
+  return (
+    <GlassPanel className="overflow-hidden">
+      <div className="px-5 pt-5 sm:px-6">
+        <SectionHeader title="Payment & Billing" />
+      </div>
+      <SettingRow title="Plan" description="JOURNEE Pro, renewing May 20, 2025." action={<InlineAction>Manage plan</InlineAction>} />
+      <SettingRow title="Payment method" description="Visa ending in 4242." action={<InlineAction>Update card</InlineAction>} />
+      <SettingRow title="Billing email" description={profileSummary.email} action={<InlineAction>Edit billing</InlineAction>} />
+      <SettingRow title="Invoices" description="Download receipts for recent JOURNEE purchases." action={<InlineAction>View invoices</InlineAction>} />
+    </GlassPanel>
+  );
+}
+
+function AccessibilityTabContent() {
+  return (
+    <GlassPanel className="overflow-hidden">
+      <div className="px-5 pt-5 sm:px-6">
+        <SectionHeader title="Accessibility" />
+      </div>
+      <SettingRow title="Text size" description="Adjust reading comfort across guides, itineraries and profile pages." action={<SelectField label="Text size" value="Standard" options={["Compact", "Standard", "Large"]} />} />
+      <SettingRow title="Reduce motion" description="Limit cinematic movement and animated transitions." action={<ToggleSetting label="Reduce motion" />} />
+      <SettingRow title="High contrast" description="Increase contrast on controls and travel cards." action={<ToggleSetting label="High contrast" />} />
+      <SettingRow title="Keyboard focus" description="Show clearer focus rings while navigating with the keyboard." action={<ToggleSetting label="Keyboard focus" checked />} />
+    </GlassPanel>
+  );
+}
+
+function ConnectedAccountsTabContent() {
+  return (
+    <GlassPanel className="p-5 sm:p-6">
+      <SectionHeader title="Connected Accounts" />
+      <EmptyState
+        title="No accounts connected yet"
+        description="Connect calendar, email or loyalty accounts to make trip planning and reminders more automatic."
+        action="Connect an account"
+      />
+    </GlassPanel>
+  );
+}
+
+function DataStorageTabContent() {
+  return (
+    <GlassPanel className="overflow-hidden">
+      <div className="px-5 pt-5 sm:px-6">
+        <SectionHeader title="Data & Storage" />
+      </div>
+      <SettingRow title="Offline maps" description="Kyoto and Tokyo are available offline for your upcoming journey." action={<InlineAction>Manage offline data</InlineAction>} />
+      <SettingRow title="Saved media" description="Keep journal photos available on this device." action={<ToggleSetting label="Saved media" checked />} />
+      <SettingRow title="Export profile data" description="Download saved places, preferences, trips and journal metadata." action={<InlineAction>Download data</InlineAction>} />
+      <SettingRow title="Storage cleanup" description="Remove cached guides and expired travel alerts." action={<InlineAction>Clean up storage</InlineAction>} />
+    </GlassPanel>
+  );
+}
+
+function ActiveProfileTabContent({ activeTab }: { activeTab: ProfileTab }) {
+  const panelId = `profile-tab-panel-${activeTab.toLowerCase().replaceAll(" ", "-").replaceAll("&", "and")}`;
+
+  return (
+    <section id={panelId} role="tabpanel" aria-label={activeTab} tabIndex={0} className="space-y-4 focus:outline-none">
+      {activeTab === "Preferences" && (
+        <>
+          <MembershipStats />
+          <PersonalizationPreferences />
+          <SavedItemsItineraries />
+          <SettingsSecurity />
+        </>
+      )}
+      {activeTab === "Account" && <AccountTabContent />}
+      {activeTab === "Travel Preferences" && <PersonalizationPreferences />}
+      {activeTab === "Notifications" && <NotificationsTabContent />}
+      {activeTab === "Privacy & Security" && (
+        <>
+          <PrivacySecurityTabContent />
+          <SettingsSecurity />
+        </>
+      )}
+      {activeTab === "Payment & Billing" && <PaymentBillingTabContent />}
+      {activeTab === "Accessibility" && <AccessibilityTabContent />}
+      {activeTab === "Connected Accounts" && <ConnectedAccountsTabContent />}
+      {activeTab === "Data & Storage" && <DataStorageTabContent />}
+    </section>
+  );
+}
+
 export function ProfileSavedPlacesPage() {
+  const [activeTab, setActiveTab] = useState<ProfileTab>("Preferences");
+
   return (
     <main className="min-h-screen bg-[#030707] text-white">
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_48%_0%,rgba(209,158,67,.14),transparent_30%),linear-gradient(120deg,#020505,#071213_46%,#030606)]" />
@@ -604,53 +974,16 @@ export function ProfileSavedPlacesPage() {
 
       <TopNav />
 
-      <div className="mx-auto grid w-full max-w-[1700px] gap-5 px-4 py-5 sm:px-6 xl:grid-cols-[250px_minmax(0,1fr)_320px] xl:px-8">
-        <LeftSidebar />
+      <div className="mx-auto w-full max-w-[1700px] px-4 py-5 sm:px-6 xl:px-8">
+        <AccountSummaryHero />
 
-        <div className="space-y-3">
-          <GlassPanel className="px-5 py-6 sm:px-7">
-            <h1 className="text-3xl font-extrabold leading-tight text-white sm:text-4xl">
-              Welcome back, Emma ✨
-            </h1>
-            <p className="mt-2 text-sm text-white/66">Here&apos;s your travel world at a glance.</p>
-            <StatsGrid />
-          </GlassPanel>
+        <div className="mt-5 grid gap-5 xl:grid-cols-[250px_minmax(0,1fr)]">
+          <LeftSidebar activeTab={activeTab} onTabChange={setActiveTab} />
 
-          <PreferenceSettingsCard />
-
-          <GlassPanel className="p-4 sm:p-5">
-            <SectionHeader title="Saved Places" />
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
-              {savedPlaces.map((place) => (
-                <SavedPlaceCard key={place.title} place={place} />
-              ))}
-            </div>
-          </GlassPanel>
-
-          <GlassPanel className="p-4 sm:p-5">
-            <SectionHeader title="Saved Trips" />
-            <div className="grid gap-3 md:grid-cols-2 2xl:grid-cols-4">
-              {savedTrips.map((trip) => (
-                <TripCard key={trip.title} trip={trip} />
-              ))}
-            </div>
-          </GlassPanel>
-
-          <GlassPanel className="p-4 sm:p-5">
-            <SectionHeader title="Recent Journal Entries" />
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5">
-              {journalEntries.map((entry) => (
-                <JournalCard key={entry.title} entry={entry} />
-              ))}
-            </div>
-          </GlassPanel>
+          <div className="order-1 xl:order-2">
+            <ActiveProfileTabContent activeTab={activeTab} />
+          </div>
         </div>
-
-        <aside className="grid gap-3 lg:grid-cols-2 xl:sticky xl:top-[90px] xl:grid-cols-1 xl:self-start">
-          <UpcomingTrips />
-          <TravelStyle />
-          <TravelMap />
-        </aside>
       </div>
     </main>
   );

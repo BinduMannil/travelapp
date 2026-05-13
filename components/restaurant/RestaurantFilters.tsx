@@ -40,7 +40,7 @@ export function RestaurantFilters({
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <FilterRow label="Price">
         <Pill
           active={active.price === null}
@@ -124,11 +124,11 @@ function FilterRow({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid gap-3 border-b border-white/10 pb-5 last:border-b-0 last:pb-0 sm:grid-cols-[7.5rem_1fr] sm:items-start">
-      <span className="pt-2 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
+    <div className="grid gap-4 border-b border-white/10 pb-7 last:border-b-0 last:pb-0 sm:grid-cols-[8.25rem_1fr] sm:items-start sm:gap-6">
+      <span className="pt-3 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300">
         {label}
       </span>
-      <div className="flex flex-wrap gap-2.5">{children}</div>
+      <div className="flex flex-wrap gap-3 sm:gap-3.5">{children}</div>
     </div>
   );
 }
@@ -148,7 +148,7 @@ function Pill({
       onClick={onClick}
       data-active={active}
       className={cn(
-        "editorial-pill px-4 py-2 text-sm font-semibold leading-none",
+        "editorial-pill px-5 py-2.5 text-sm font-semibold leading-none",
         active && "font-bold",
       )}
     >

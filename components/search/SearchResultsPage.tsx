@@ -289,6 +289,8 @@ const tabToCollection: Record<string, SearchCollection | "all"> = {
 
 export function SearchResultsPage() {
   const [activeTab, setActiveTab] = useState("All");
+  const [query, setQuery] = useState("Tokyo, Japan");
+  const [appliedQuery, setAppliedQuery] = useState("Tokyo, Japan");
   const [selectedFilters, setSelectedFilters] = useState<Record<string, boolean>>({
     "All Results": true,
     "All Budgets": true,
@@ -335,9 +337,13 @@ export function SearchResultsPage() {
     setAppliedCount(Object.values(selectedFilters).filter(Boolean).length);
   }
 
+  function submitSearch() {
+    setAppliedQuery(query.trim() || "All travel");
+  }
+
   return (
     <main className="min-h-screen bg-[#020607] font-sans text-white">
-      <TopNavigation />
+      <TopNavigation query={query} onQueryChange={setQuery} onSearchSubmit={submitSearch} />
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_16%_0%,rgba(213,164,0,.15),transparent_28%),radial-gradient(circle_at_82%_18%,rgba(46,79,115,.2),transparent_32%),linear-gradient(180deg,#020607_0%,#071112_48%,#020607_100%)]" />
       <div className="pointer-events-none fixed inset-0 opacity-[0.055] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:64px_64px]" />
 
@@ -358,8 +364,8 @@ export function SearchResultsPage() {
             onToggle={toggleFilter}
             onApply={applyFilters}
           />
-          <SearchToolbar />
-          <ResultsPanel activeTab={activeTab} setActiveTab={setActiveTab}>
+          <SearchToolbar query={query} onQueryChange={setQuery} onSearchSubmit={submitSearch} />
+          <ResultsPanel activeTab={activeTab} setActiveTab={setActiveTab} query={appliedQuery}>
             {visibleSections.showDestinations && <DestinationFeature />}
             {visibleSections.cards.map((section) => (
               <ResultSection
@@ -388,7 +394,15 @@ export function SearchResultsPage() {
   );
 }
 
-function TopNavigation() {
+function TopNavigation({
+  query,
+  onQueryChange,
+  onSearchSubmit,
+}: {
+  query: string;
+  onQueryChange: (value: string) => void;
+  onSearchSubmit: () => void;
+}) {
   return (
     <header className="fixed inset-x-0 top-0 z-30 border-b border-white/8 bg-[#020506]/90 backdrop-blur-2xl">
       <div className="mx-auto flex h-16 max-w-[1920px] items-center gap-3 px-4 sm:px-6">
@@ -410,10 +424,31 @@ function TopNavigation() {
             />
           ))}
         </nav>
-        <div className="ml-auto hidden min-w-[240px] max-w-[440px] flex-1 items-center rounded-full border border-white/12 bg-white/[0.035] px-4 py-2.5 text-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,.08)] lg:flex 2xl:max-w-[300px]">
-          <Search className="mr-3 h-4 w-4 shrink-0 text-[#f3b544]" />
-          <span className="truncate text-sm font-medium">Search</span>
-        </div>
+        <form
+          role="search"
+          onSubmit={(event) => {
+            event.preventDefault();
+            onSearchSubmit();
+          }}
+          className="ml-auto hidden min-w-[240px] max-w-[440px] flex-1 items-center rounded-full border border-white/12 bg-white/[0.035] px-4 py-2.5 text-white shadow-[inset_0_1px_0_rgba(255,255,255,.08)] focus-within:border-[#f3b544]/70 lg:flex 2xl:max-w-[300px]"
+        >
+          <Search className="pointer-events-none mr-3 h-4 w-4 shrink-0 text-[#f3b544]" aria-hidden />
+          <input
+            type="search"
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                onSearchSubmit();
+              }
+            }}
+            aria-label="Search JOURNEE"
+            placeholder="Search"
+            autoComplete="off"
+            className="min-w-0 flex-1 bg-transparent text-sm font-medium text-white outline-none placeholder:text-white/48"
+          />
+        </form>
         <button
           className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-white/88"
           type="button"
@@ -608,10 +643,25 @@ function MobileFilterDrawer(props: {
   );
 }
 
-function SearchToolbar() {
+function SearchToolbar({
+  query,
+  onQueryChange,
+  onSearchSubmit,
+}: {
+  query: string;
+  onQueryChange: (value: string) => void;
+  onSearchSubmit: () => void;
+}) {
   return (
     <Panel className="sticky top-16 z-20 p-3 lg:static">
-      <div className="flex flex-col gap-3 md:flex-row md:items-center">
+      <form
+        role="search"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSearchSubmit();
+        }}
+        className="flex flex-col gap-3 md:flex-row md:items-center"
+      >
         <button
           type="button"
           className="hidden h-12 w-12 shrink-0 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-white md:grid"
@@ -620,20 +670,38 @@ function SearchToolbar() {
           <ChevronDown className="h-5 w-5 rotate-90" />
         </button>
         <label className="flex min-h-12 min-w-0 flex-1 items-center rounded-full border border-white/12 bg-[#04090a]/82 px-4 text-white shadow-[inset_0_1px_0_rgba(255,255,255,.08)]">
-          <Search className="mr-3 h-5 w-5 shrink-0 text-white/72" />
+          <Search className="pointer-events-none mr-3 h-5 w-5 shrink-0 text-white/72" aria-hidden />
           <input
-            value="Tokyo, Japan"
-            readOnly
+            type="search"
+            value={query}
+            onChange={(event) => onQueryChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault();
+                onSearchSubmit();
+              }
+            }}
+            placeholder="Search destinations, guides, trips..."
+            autoComplete="off"
             className="min-w-0 flex-1 bg-transparent text-base font-medium text-white outline-none placeholder:text-white/40"
             aria-label="Search query"
           />
-          <X className="ml-3 h-5 w-5 shrink-0 text-white/72" />
+          {query ? (
+            <button
+              type="button"
+              onClick={() => onQueryChange("")}
+              className="ml-3 grid h-8 w-8 shrink-0 place-items-center rounded-full text-white/72 transition hover:bg-white/[0.06] hover:text-white"
+              aria-label="Clear search query"
+            >
+              <X className="h-5 w-5" aria-hidden />
+            </button>
+          ) : null}
         </label>
         <div className="grid grid-cols-2 gap-3 md:flex">
           <ToolbarButton icon={Bookmark} label="Save Search" />
           <ToolbarButton icon={Share2} label="Share" />
         </div>
-      </div>
+      </form>
     </Panel>
   );
 }
@@ -653,10 +721,12 @@ function ToolbarButton({ icon: Icon, label }: { icon: typeof Bookmark; label: st
 function ResultsPanel({
   activeTab,
   setActiveTab,
+  query,
   children,
 }: {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  query: string;
   children: React.ReactNode;
 }) {
   return (
@@ -664,7 +734,7 @@ function ResultsPanel({
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div>
           <h1 className="text-xl font-bold leading-tight text-white">
-            Search results for “Tokyo, Japan”
+            Search results for “{query}”
           </h1>
           <p className="mt-1 text-sm font-medium text-white/66">1,200+ results found</p>
         </div>

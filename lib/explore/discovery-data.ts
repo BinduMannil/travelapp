@@ -2,6 +2,7 @@ import {
   CalendarDays,
   Cloud,
   CloudRain,
+  CloudSun,
   Compass,
   Heart,
   Landmark,
@@ -69,11 +70,11 @@ export const moodFilters: MoodFilter[] = [
 ];
 
 export const weatherFilters: WeatherFilter[] = [
-  { label: "sunny", icon: Sun },
-  { label: "mild", icon: Cloud },
-  { label: "cloudy", icon: Cloud },
-  { label: "rainy", icon: CloudRain },
-  { label: "snow", icon: Snowflake },
+  { label: "Sunny", icon: Sun },
+  { label: "Partly Cloudy", icon: CloudSun },
+  { label: "Cloudy", icon: Cloud },
+  { label: "Rainy", icon: CloudRain },
+  { label: "Snowy", icon: Snowflake },
 ];
 
 export const popularSearches = [

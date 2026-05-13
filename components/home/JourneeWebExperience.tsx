@@ -474,9 +474,9 @@ function HeroSearchBar() {
       <form
         action="/search"
         method="get"
-        className="grid gap-3 rounded-[1.65rem] border border-white/20 bg-[#0b1110]/82 p-4 shadow-[0_28px_80px_rgba(0,0,0,.48)] backdrop-blur-2xl md:grid-cols-[1fr_1fr_1fr_auto] md:items-center md:rounded-full md:p-5"
+        className="grid gap-4 rounded-[1.8rem] border border-white/20 bg-[#0b1110]/82 p-5 shadow-[0_28px_80px_rgba(0,0,0,.48)] backdrop-blur-2xl md:grid-cols-[1fr_1fr_1fr_auto] md:items-center md:rounded-full md:p-5"
       >
-        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:bg-transparent md:px-7 md:py-0">
+        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-5 py-4 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:bg-transparent md:px-8 md:py-1">
           <span className="block font-sans text-xs font-semibold text-white/88">Where to?</span>
           <input
             name="q"
@@ -489,7 +489,7 @@ function HeroSearchBar() {
 
         <div
           ref={datePickerRef}
-          className="relative min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0"
+          className="relative min-w-0 rounded-2xl bg-white/[0.035] px-5 py-4 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-8 md:py-1"
         >
           <button
             type="button"
@@ -509,11 +509,11 @@ function HeroSearchBar() {
             <div
               role="dialog"
               aria-label="Choose travel dates"
-              className="absolute left-1/2 top-[calc(100%+1.15rem)] z-50 w-[min(92vw,40rem)] -translate-x-1/2 rounded-[1.4rem] bg-[#07100f]/95 p-4 shadow-[0_34px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.07)_inset] backdrop-blur-2xl sm:p-5 md:left-0 md:-translate-x-1/3 lg:left-1/2 lg:-translate-x-1/2"
+              className="absolute left-1/2 top-[calc(100%+1.35rem)] z-50 w-[min(92vw,42rem)] -translate-x-1/2 rounded-[1.5rem] bg-[#07100f]/95 p-5 shadow-[0_34px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.07)_inset] backdrop-blur-2xl sm:p-6 md:left-0 md:-translate-x-1/3 lg:left-1/2 lg:-translate-x-1/2"
             >
               <div className="absolute inset-0 rounded-[inherit] bg-[radial-gradient(circle_at_20%_0%,rgba(217,169,71,.12),transparent_32%),linear-gradient(180deg,rgba(255,255,255,.045),transparent_48%)]" />
               <div className="relative">
-                <div className="grid gap-2 rounded-full bg-white/[0.045] p-1 sm:grid-cols-3">
+                <div className="grid gap-2.5 rounded-full bg-white/[0.045] p-1.5 sm:grid-cols-3">
                   {[
                     ["exact", "Exact Dates"],
                     ["duration", "Start + Days"],
@@ -523,7 +523,7 @@ function HeroSearchBar() {
                       key={mode}
                       type="button"
                       onClick={() => setDateMode(mode as DatePickerMode)}
-                      className={`rounded-full px-4 py-2.5 font-sans text-sm font-semibold transition ${
+                      className={`rounded-full px-5 py-3 font-sans text-sm font-semibold transition ${
                         dateMode === mode
                           ? "bg-[#d9a947] text-[#171006] shadow-[0_10px_30px_rgba(217,169,71,.18)]"
                           : "text-white/66 hover:bg-white/[0.055] hover:text-white"
@@ -535,13 +535,13 @@ function HeroSearchBar() {
                 </div>
 
                 {dateMode !== "flexible" ? (
-                  <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_.85fr]">
-                    <div className="rounded-[1.15rem] bg-black/18 p-4 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
-                      <div className="mb-4 flex items-center justify-between">
+                  <div className="mt-6 grid gap-6 lg:grid-cols-[1fr_.85fr]">
+                    <div className="rounded-[1.2rem] bg-black/18 p-5 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
+                      <div className="mb-5 flex items-center justify-between">
                         <button
                           type="button"
                           onClick={() => setCalendarMonth((month) => addMonths(month, -1))}
-                          className="grid h-9 w-9 place-items-center rounded-full bg-white/[0.055] text-white/76 transition hover:bg-white/[0.09] hover:text-white"
+                          className="grid h-10 w-10 place-items-center rounded-full bg-white/[0.055] text-white/76 transition hover:bg-white/[0.09] hover:text-white"
                           aria-label="Previous month"
                         >
                           ‹
@@ -552,7 +552,7 @@ function HeroSearchBar() {
                         <button
                           type="button"
                           onClick={() => setCalendarMonth((month) => addMonths(month, 1))}
-                          className="grid h-9 w-9 place-items-center rounded-full bg-white/[0.055] text-white/76 transition hover:bg-white/[0.09] hover:text-white"
+                          className="grid h-10 w-10 place-items-center rounded-full bg-white/[0.055] text-white/76 transition hover:bg-white/[0.09] hover:text-white"
                           aria-label="Next month"
                         >
                           ›
@@ -564,7 +564,7 @@ function HeroSearchBar() {
                           <span key={`${label}-${index}`}>{label}</span>
                         ))}
                       </div>
-                      <div className="mt-2 grid grid-cols-7 gap-1">
+                      <div className="mt-3 grid grid-cols-7 gap-1.5">
                         {getCalendarDays(calendarMonth).map((day) => {
                           const isOutsideMonth = day.getMonth() !== calendarMonth.getMonth();
                           const selected =
@@ -581,7 +581,7 @@ function HeroSearchBar() {
                               key={day.toISOString()}
                               type="button"
                               onClick={() => selectCalendarDay(day)}
-                              className={`h-10 rounded-full font-sans text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
+                              className={`h-11 rounded-full font-sans text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
                                 selected
                                   ? "bg-[#d9a947] font-bold text-[#171006]"
                                   : inRange
@@ -598,17 +598,17 @@ function HeroSearchBar() {
                       </div>
                     </div>
 
-                    <div className="rounded-[1.15rem] bg-white/[0.045] p-4 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
+                    <div className="rounded-[1.2rem] bg-white/[0.045] p-5 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
                       {dateMode === "exact" ? (
                         <>
                           <p className="font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#d9a947]">
                             Exact Dates
                           </p>
-                          <div className="mt-4 grid gap-3">
+                          <div className="mt-5 grid gap-4">
                             <DateSummary label="Start Date" value={startDate ? formatTravelDate(startDate) : "Select a date"} />
                             <DateSummary label="End Date" value={endDate ? formatTravelDate(endDate) : "Select a date"} />
                           </div>
-                          <p className="mt-4 font-sans text-sm leading-6 text-white/55">
+                          <p className="mt-5 font-sans text-sm leading-6 text-white/55">
                             Choose a start date, then choose the final night of the trip.
                           </p>
                         </>
@@ -617,7 +617,7 @@ function HeroSearchBar() {
                           <p className="font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#d9a947]">
                             Start Date + Days
                           </p>
-                          <div className="mt-4 grid gap-3">
+                          <div className="mt-5 grid gap-4">
                             <DateSummary label="Start Date" value={durationStartDate ? formatTravelDate(durationStartDate) : "Select a date"} />
                             <label className="grid gap-2 font-sans text-sm font-semibold text-white/70">
                               Number of days
@@ -627,7 +627,7 @@ function HeroSearchBar() {
                                 max={90}
                                 value={durationDays}
                                 onChange={(event) => setDurationDays(Math.max(1, Number(event.currentTarget.value) || 1))}
-                                className="h-11 rounded-xl bg-black/24 px-3 text-white outline-none shadow-[0_0_0_1px_rgba(255,255,255,.08)_inset] focus:shadow-[0_0_0_1px_rgba(217,169,71,.7)_inset]"
+                                className="h-12 rounded-xl bg-black/24 px-4 text-white outline-none shadow-[0_0_0_1px_rgba(255,255,255,.08)_inset] focus:shadow-[0_0_0_1px_rgba(217,169,71,.7)_inset]"
                               />
                             </label>
                             <DateSummary label="Calculated End" value={durationEndDate ? formatTravelDate(durationEndDate) : "Waiting for start"} />
@@ -637,17 +637,17 @@ function HeroSearchBar() {
                     </div>
                   </div>
                 ) : (
-                  <div className="mt-5 rounded-[1.15rem] bg-black/18 p-4 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
+                  <div className="mt-6 rounded-[1.2rem] bg-black/18 p-5 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
                     <p className="font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#d9a947]">
                       Flexible Timing
                     </p>
-                    <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {flexibleOptions.map((option) => (
                         <button
                           key={option}
                           type="button"
                           onClick={() => setFlexibleTiming(option)}
-                          className={`rounded-2xl px-4 py-3 text-left font-sans text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
+                          className={`rounded-2xl px-5 py-3.5 text-left font-sans text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
                             flexibleTiming === option
                               ? "bg-[#d9a947] text-[#171006]"
                               : "bg-white/[0.045] text-white/72 hover:bg-white/[0.075] hover:text-white"
@@ -660,7 +660,7 @@ function HeroSearchBar() {
                   </div>
                 )}
 
-                <div className="mt-5 flex flex-col gap-3 border-t border-white/[0.075] pt-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-6 flex flex-col gap-4 border-t border-white/[0.075] pt-5 sm:flex-row sm:items-center sm:justify-between">
                   <p className="font-sans text-sm text-white/55">
                     {dateMode === "flexible"
                       ? `Flexible: ${flexibleTiming}`
@@ -670,18 +670,18 @@ function HeroSearchBar() {
                           ? `${formatTravelDate(startDate)} - ${formatTravelDate(endDate)}`
                           : "Choose your timing."}
                   </p>
-                  <div className="flex gap-3">
+                  <div className="flex gap-3.5">
                     <button
                       type="button"
                       onClick={clearDateSelection}
-                      className="rounded-full bg-white/[0.055] px-5 py-2.5 font-sans text-sm font-semibold text-white/72 transition hover:bg-white/[0.09] hover:text-white"
+                      className="rounded-full bg-white/[0.055] px-6 py-3 font-sans text-sm font-semibold text-white/72 transition hover:bg-white/[0.09] hover:text-white"
                     >
                       Clear
                     </button>
                     <button
                       type="button"
                       onClick={applyDateSelection}
-                      className="rounded-full bg-[#d9a947] px-5 py-2.5 font-sans text-sm font-bold text-[#171006] shadow-[0_12px_34px_rgba(217,169,71,.18)] transition hover:bg-[#efc66d]"
+                      className="rounded-full bg-[#d9a947] px-6 py-3 font-sans text-sm font-bold text-[#171006] shadow-[0_12px_34px_rgba(217,169,71,.18)] transition hover:bg-[#efc66d]"
                     >
                       Apply
                     </button>
@@ -692,7 +692,7 @@ function HeroSearchBar() {
           ) : null}
         </div>
 
-        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0">
+        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-5 py-4 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-8 md:py-1">
           <span className="block font-sans text-xs font-semibold text-white/88">Travelers</span>
           <select
             name="travelers"

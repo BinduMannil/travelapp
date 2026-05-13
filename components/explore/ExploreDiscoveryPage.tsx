@@ -136,29 +136,29 @@ function TopNavigation({ onOpenFilters }: { onOpenFilters: () => void }) {
 
 function FiltersPanel({ compact = false }: { compact?: boolean }) {
   return (
-    <Panel className={compact ? "p-5" : "p-5 xl:sticky xl:top-24"}>
+    <Panel className={compact ? "p-6" : "p-6 xl:sticky xl:top-24"}>
       <Kicker>Discover Your Next Journey</Kicker>
 
-      <div className="mt-5 rounded-[10px] border border-[#d99d3f]/80 bg-[linear-gradient(135deg,rgba(242,170,64,.16),rgba(255,255,255,.04))] p-4">
-        <div className="flex items-start gap-3">
+      <div className="mt-6 rounded-[12px] border border-[#d99d3f]/80 bg-[linear-gradient(135deg,rgba(242,170,64,.16),rgba(255,255,255,.04))] p-5">
+        <div className="flex items-start gap-4">
           <Sparkles className="mt-1 h-5 w-5 text-[#f1ac3f]" />
           <div>
             <p className="font-semibold text-[#f6b045]">Where should I go?</p>
-            <p className="mt-0.5 text-xs text-white/64">Smart recommendations</p>
+            <p className="mt-1 text-xs text-white/64">Smart recommendations</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-7 flex items-center justify-between">
+      <div className="mt-9 flex items-center justify-between">
         <Kicker>Filters</Kicker>
         <button type="button" className="text-xs font-medium text-white/62 hover:text-white">
           Clear all
         </button>
       </div>
 
-      <label className="mt-6 block">
+      <label className="mt-7 block">
         <span className="text-sm font-medium text-white/90">Search destinations</span>
-        <span className="mt-3 flex items-center rounded-[9px] border border-white/[0.1] bg-white/[0.045] px-3 py-2.5 text-white/46">
+        <span className="mt-3.5 flex min-h-12 items-center rounded-[11px] border border-white/[0.1] bg-white/[0.045] px-4 py-3 text-white/46">
           <input
             className="w-full bg-transparent text-sm text-white outline-none placeholder:text-white/38"
             placeholder="Search countries, cities..."
@@ -167,22 +167,22 @@ function FiltersPanel({ compact = false }: { compact?: boolean }) {
         </span>
       </label>
 
-      <div className="mt-7">
+      <div className="mt-9">
         <div className="flex items-center justify-between">
           <Kicker>Mood</Kicker>
           <ChevronDown className="h-4 w-4 text-white/44" />
         </div>
-        <p className="mt-2 text-xs text-white/62">How do you feel?</p>
-        <div className="mt-4 grid max-w-full grid-cols-2 gap-2 min-[420px]:grid-cols-3">
+        <p className="mt-2.5 text-xs text-white/62">How do you feel?</p>
+        <div className="mt-5 grid max-w-full grid-cols-2 gap-3">
           {moodFilters.map((mood) => {
             const Icon = mood.icon;
             return (
               <button
                 key={mood.label}
                 type="button"
-                className="flex min-h-[78px] min-w-0 flex-col items-center justify-center overflow-hidden rounded-[8px] border border-white/[0.08] bg-white/[0.055] px-2 py-3 text-center text-xs leading-tight text-white/78 transition hover:border-[#d99d3f]/70 hover:bg-[#d99d3f]/12 hover:text-white"
+                className="flex min-h-[92px] min-w-0 flex-col items-center justify-center overflow-hidden rounded-[10px] border border-white/[0.08] bg-white/[0.055] px-3 py-4 text-center text-xs leading-tight text-white/78 transition hover:border-[#d99d3f]/70 hover:bg-[#d99d3f]/12 hover:text-white"
               >
-                <Icon className="mx-auto mb-2 h-5 w-5 text-[#e4a63f]" />
+                <Icon className="mx-auto mb-3 h-5 w-5 text-[#e4a63f]" />
                 <span className="max-w-full overflow-hidden break-words">{mood.label}</span>
               </button>
             );
@@ -190,7 +190,7 @@ function FiltersPanel({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
 
-      <div className="mt-7">
+      <div className="mt-9">
         <div className="flex items-center justify-between">
           <Kicker>Budget <span className="tracking-normal text-white/50">(Per Day)</span></Kicker>
           <span className="text-sm text-white/80">Any Budget</span>
@@ -200,37 +200,37 @@ function FiltersPanel({ compact = false }: { compact?: boolean }) {
           min="25"
           max="500"
           defaultValue="500"
-          className="mt-5 h-1.5 w-full accent-[#e0a147]"
+          className="mt-6 h-1.5 w-full accent-[#e0a147]"
           aria-label="Budget per day"
         />
-        <div className="mt-2 flex justify-between text-xs text-white/60">
+        <div className="mt-3 flex justify-between text-xs text-white/60">
           <span>$25</span>
           <span>$500+</span>
         </div>
       </div>
 
-      <label className="mt-7 block">
+      <label className="mt-9 block">
         <Kicker>Best Time to Travel</Kicker>
-        <span className="mt-3 flex items-center rounded-[9px] border border-white/[0.1] bg-white/[0.055] px-3 py-2.5 text-sm text-white/86">
+        <span className="mt-3.5 flex min-h-12 items-center rounded-[11px] border border-white/[0.1] bg-white/[0.055] px-4 py-3 text-sm text-white/86">
           Anytime
           <CalendarDays className="ml-auto h-4 w-4 text-white/64" />
         </span>
       </label>
 
-      <div className="mt-7">
+      <div className="mt-9">
         <div className="flex items-center justify-between">
           <Kicker>Weather</Kicker>
           <ChevronDown className="h-4 w-4 text-white/44" />
         </div>
-        <p className="mt-2 text-xs text-white/62">Any Weather</p>
-        <div className="mt-4 grid grid-cols-5 gap-2">
+        <p className="mt-2.5 text-xs text-white/62">Any Weather</p>
+        <div className="mt-5 grid grid-cols-5 gap-2.5">
           {weatherFilters.map((weather) => {
             const Icon = weather.icon;
             return (
               <button
                 key={weather.label}
                 type="button"
-                className="grid h-9 place-items-center rounded-[7px] border border-white/[0.08] bg-white/[0.055] text-white/76 transition hover:border-[#d99d3f]/70 hover:text-[#f4ae3f]"
+                className="grid h-11 place-items-center rounded-[9px] border border-white/[0.08] bg-white/[0.055] text-white/76 transition hover:border-[#d99d3f]/70 hover:text-[#f4ae3f]"
                 aria-label={weather.label}
               >
                 <Icon className="h-4 w-4" />
@@ -245,7 +245,7 @@ function FiltersPanel({ compact = false }: { compact?: boolean }) {
 
       <button
         type="button"
-        className="mt-8 w-full rounded-[9px] bg-[linear-gradient(135deg,#e8a94b,#c7802f)] px-4 py-3.5 text-sm font-semibold text-white shadow-[0_14px_35px_rgba(216,151,61,.25)] transition hover:brightness-110"
+        className="mt-10 w-full rounded-[11px] bg-[linear-gradient(135deg,#e8a94b,#c7802f)] px-5 py-4 text-sm font-semibold text-white shadow-[0_14px_35px_rgba(216,151,61,.25)] transition hover:brightness-110"
       >
         Show 234 Results
       </button>
@@ -255,9 +255,9 @@ function FiltersPanel({ compact = false }: { compact?: boolean }) {
 
 function SelectLike({ label, value }: { label: string; value: string }) {
   return (
-    <label className="mt-7 block">
+    <label className="mt-9 block">
       <Kicker>{label}</Kicker>
-      <span className="mt-3 flex items-center rounded-[9px] border border-white/[0.1] bg-white/[0.055] px-3 py-2.5 text-sm text-white/86">
+      <span className="mt-3.5 flex min-h-12 items-center rounded-[11px] border border-white/[0.1] bg-white/[0.055] px-4 py-3 text-sm text-white/86">
         {value}
         <ChevronDown className="ml-auto h-4 w-4 text-white/64" />
       </span>
@@ -525,11 +525,11 @@ function RightSidebar() {
 
 function MobileFilterChips({ onOpenFilters }: { onOpenFilters: () => void }) {
   return (
-    <div className="mb-5 flex gap-2 overflow-x-auto pb-1 lg:hidden">
+    <div className="mb-6 flex gap-3 overflow-x-auto pb-2 lg:hidden">
       <button
         type="button"
         onClick={onOpenFilters}
-        className="inline-flex shrink-0 items-center gap-2 rounded-full border border-[#d99d3f]/70 bg-[#d99d3f]/14 px-4 py-2 text-sm font-semibold text-[#f4ae3f]"
+        className="inline-flex min-h-11 shrink-0 items-center gap-2.5 rounded-full border border-[#d99d3f]/70 bg-[#d99d3f]/14 px-5 py-2.5 text-sm font-semibold text-[#f4ae3f]"
       >
         <SlidersHorizontal className="h-4 w-4" />
         Filters
@@ -538,7 +538,7 @@ function MobileFilterChips({ onOpenFilters }: { onOpenFilters: () => void }) {
         <button
           key={term}
           type="button"
-          className="shrink-0 rounded-full border border-white/[0.1] bg-white/[0.055] px-4 py-2 text-sm text-white/76"
+          className="min-h-11 shrink-0 rounded-full border border-white/[0.1] bg-white/[0.055] px-5 py-2.5 text-sm text-white/76"
         >
           {term}
         </button>
@@ -555,7 +555,7 @@ export function ExploreDiscoveryPage() {
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_17%_0%,rgba(219,151,56,.16),transparent_30%),radial-gradient(circle_at_86%_13%,rgba(87,141,151,.12),transparent_30%),linear-gradient(180deg,#030808,#071010_46%,#030808)]" />
       <TopNavigation onOpenFilters={() => setFiltersOpen(true)} />
 
-      <div className="relative mx-auto grid max-w-[1920px] gap-5 px-4 py-5 sm:px-6 lg:px-8 xl:grid-cols-[280px_minmax(0,1fr)_320px] 2xl:grid-cols-[305px_minmax(0,1fr)_386px]">
+      <div className="relative mx-auto grid max-w-[1920px] gap-6 px-4 py-6 sm:px-6 lg:px-8 xl:grid-cols-[292px_minmax(0,1fr)_320px] xl:gap-7 2xl:grid-cols-[320px_minmax(0,1fr)_386px]">
         <aside className="hidden lg:block">
           <FiltersPanel />
         </aside>
@@ -579,8 +579,8 @@ export function ExploreDiscoveryPage() {
             aria-label="Close filters"
             onClick={() => setFiltersOpen(false)}
           />
-          <div className="absolute inset-y-0 left-0 w-[min(88vw,360px)] overflow-y-auto border-r border-white/12 bg-[#061010] p-4 shadow-[24px_0_80px_rgba(0,0,0,.55)]">
-            <div className="mb-4 flex items-center justify-between">
+          <div className="absolute inset-y-0 left-0 w-[min(92vw,390px)] overflow-y-auto border-r border-white/12 bg-[#061010] p-5 shadow-[24px_0_80px_rgba(0,0,0,.55)]">
+            <div className="mb-5 flex items-center justify-between">
               <Kicker>Refine Search</Kicker>
               <button
                 type="button"

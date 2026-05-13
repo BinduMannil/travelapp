@@ -33,13 +33,13 @@ export function CategoryTabs({
   );
 
   return (
-    <div className="scene-glass flex flex-wrap gap-2.5 rounded-[1.35rem] p-3">
+    <div className="scene-glass flex flex-wrap gap-3 rounded-[1.35rem] p-4 sm:gap-3.5">
       <button
         type="button"
         onClick={() => select(null)}
         data-active={!activeCategory}
         className={cn(
-          "editorial-pill px-4 py-2 text-sm font-semibold leading-none",
+          "editorial-pill px-5 py-2.5 text-sm font-semibold leading-none",
           !activeCategory && "font-bold",
         )}
       >
@@ -53,7 +53,7 @@ export function CategoryTabs({
           onClick={() => select(t.slug)}
           data-active={activeCategory === t.slug}
           className={cn(
-            "editorial-pill px-4 py-2 text-sm font-semibold leading-none",
+            "editorial-pill px-5 py-2.5 text-sm font-semibold leading-none",
             activeCategory === t.slug && "font-bold",
           )}
         >
