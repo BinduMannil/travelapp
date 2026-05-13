@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { CirclePlay, Search } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { useI18n } from "@/lib/i18n/context";
-import { routes, siteDirectory } from "@/lib/routes";
+import { routes } from "@/lib/routes";
 
 const images = {
   hero:
@@ -202,9 +202,9 @@ const recommended = [
     rating: "4.8",
     reviews: "1,248",
     copyKey: "Street energy, coffee culture, District 1, District 3, Thao Dien, and practical first-arrival rhythm.",
-    image: images.nightCity,
+    image: "https://images.unsplash.com/photo-1748591646636-ad5132fed078?auto=format&fit=crop&w=1400&q=82",
+    imagePosition: "50% 50%",
     href: "/city/ho-chi-minh-city",
-    overlay: "from-black/96 via-black/68 to-transparent",
   },
   {
     countryKey: "Vietnam",
@@ -212,9 +212,9 @@ const recommended = [
     rating: "4.9",
     reviews: "892",
     copyKey: "Old Quarter lanes, French Quarter hotels, Tay Ho routines, egg coffee, and northern food culture.",
-    image: images.culture,
+    image: "https://images.unsplash.com/photo-1758298597219-b48f370675b8?auto=format&fit=crop&w=1400&q=82",
+    imagePosition: "52% 50%",
     href: "/city/hanoi",
-    overlay: "from-black/94 via-black/58 to-transparent",
   },
   {
     countryKey: "Vietnam",
@@ -222,9 +222,9 @@ const recommended = [
     rating: "4.8",
     reviews: "1,124",
     copyKey: "Lantern streets, beach mornings, tailoring, cafes, and a softer Central Vietnam route.",
-    image: images.vietnam,
+    image: "https://images.unsplash.com/photo-1761150285834-7ab9ce6dbfd4?auto=format&fit=crop&w=1400&q=82",
+    imagePosition: "50% 50%",
     href: "/country/vietnam",
-    overlay: "from-black/95 via-black/64 to-transparent",
   },
   {
     countryKey: "Vietnam",
@@ -232,9 +232,9 @@ const recommended = [
     rating: "4.9",
     reviews: "743",
     copyKey: "Northern mountains, rice terraces, karst rivers, boat caves, weather checks, and slower scenic travel.",
-    image: images.nature,
+    image: "https://images.unsplash.com/photo-1741319268910-250e5850553b?auto=format&fit=crop&w=1400&q=82",
+    imagePosition: "50% 52%",
     href: "/country/vietnam/itinerary",
-    overlay: "from-black/92 via-black/54 to-transparent",
   },
 ];
 
@@ -261,14 +261,14 @@ function NavDropdown({
   items: Array<{ label: string; href: string }>;
 }) {
   return (
-    <div className="group relative">
+    <div className="group relative shrink-0">
       <button
         type="button"
-        className="relative py-3 text-sm font-medium tracking-[-0.01em] text-white/82 transition hover:text-white"
+        className="relative py-3 text-sm font-medium tracking-[-0.01em] text-white/82 transition hover:text-white focus-visible:outline-none focus-visible:text-white"
       >
         {label}
       </button>
-      <div className="pointer-events-none absolute left-1/2 top-full w-64 -translate-x-1/2 pt-4 opacity-0 transition duration-200 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+      <div className="pointer-events-none absolute left-1/2 top-full w-64 -translate-x-1/2 translate-y-2 pt-4 opacity-0 transition duration-200 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:translate-y-0 group-focus-within:opacity-100">
         <div className="overflow-hidden rounded-[1rem] border border-white/12 bg-[#0a1010]/88 shadow-2xl shadow-black/45 backdrop-blur-2xl">
           {items.map((item, index) => (
             <Link
@@ -291,13 +291,13 @@ function NavDropdown({
 function HeaderNav() {
   return (
     <header className="absolute inset-x-0 top-0 z-30 px-4 pt-4 sm:px-5 sm:pt-6">
-      <div className="mx-auto flex max-w-[1160px] items-center justify-between border border-white/10 bg-[#020a0b]/34 px-5 py-3 shadow-2xl shadow-black/20 backdrop-blur-2xl sm:px-6">
+      <div className="mx-auto flex max-w-[1160px] flex-wrap items-center justify-between gap-x-6 gap-y-3 border border-white/10 bg-[#020a0b]/34 px-5 py-3 shadow-2xl shadow-black/20 backdrop-blur-2xl sm:px-6 lg:flex-nowrap">
         <Link href="/" className="flex min-w-0 items-center gap-3 text-white">
           <JourneeBrand direction="celestial-route" />
         </Link>
 
-        <nav className="hidden items-center gap-7 font-sans lg:flex">
-          <Link href={routes.home} className="relative py-3 text-sm font-medium text-white">
+        <nav className="order-3 -mx-1 flex w-full items-center gap-6 overflow-x-auto px-1 font-sans [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:order-none lg:mx-0 lg:w-auto lg:justify-center lg:gap-7 lg:overflow-visible lg:px-0">
+          <Link href={routes.home} className="relative shrink-0 py-3 text-sm font-medium text-white">
             Home
             <span className="absolute bottom-1 left-0 h-px w-full bg-[#d8aa4f]" />
           </Link>
@@ -305,19 +305,19 @@ function HeaderNav() {
           <NavDropdown label="Cities" items={cityNavItems} />
           <Link
             href={routes.countrySection("vietnam", "itinerary")}
-            className="py-3 text-sm font-medium text-white/82 transition hover:text-white"
+            className="shrink-0 py-3 text-sm font-medium text-white/82 transition hover:text-white"
           >
             Journeys
           </Link>
           <Link
             href="/guides"
-            className="py-3 text-sm font-medium text-white/82 transition hover:text-white"
+            className="shrink-0 py-3 text-sm font-medium text-white/82 transition hover:text-white"
           >
             Guides
           </Link>
           <Link
             href="/journal"
-            className="py-3 text-sm font-medium text-white/82 transition hover:text-white"
+            className="shrink-0 py-3 text-sm font-medium text-white/82 transition hover:text-white"
           >
             Journal
           </Link>
@@ -325,7 +325,7 @@ function HeaderNav() {
 
         <Link
           href={routes.countrySection("vietnam", "itinerary")}
-          className="hidden border-b border-[#d8aa4f]/70 pb-1 text-sm font-semibold text-white/88 transition hover:border-[#f0c96e] hover:text-white sm:inline-flex"
+          className="border-b border-[#d8aa4f]/70 pb-1 text-sm font-semibold text-white/88 transition hover:border-[#f0c96e] hover:text-white"
         >
           Build the Route
         </Link>
@@ -412,8 +412,8 @@ function DestinationCard({
   reviews,
   copyKey,
   image,
+  imagePosition,
   href,
-  overlay,
 }: (typeof recommended)[number]) {
   const { t } = useI18n();
   const country = countryKey.startsWith("homepage.") ? t(countryKey) : countryKey;
@@ -423,29 +423,35 @@ function DestinationCard({
   return (
     <Link
       href={href}
-      className="group relative min-h-[360px] overflow-hidden rounded-2xl border border-white/16 bg-white/[0.04] shadow-2xl shadow-black/30 sm:min-h-[400px]"
+      className="group relative min-h-[420px] overflow-hidden rounded-[1.75rem] border border-white/12 bg-black shadow-2xl shadow-black/40 sm:min-h-[440px] xl:min-h-[430px]"
     >
       <img
         src={image}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+        alt={`${title}, ${country}`}
+        className="absolute inset-0 h-full w-full object-cover brightness-[0.72] saturate-[0.9] contrast-[1.04] transition duration-700 group-hover:scale-105 group-hover:brightness-[0.78]"
+        style={{ objectPosition: imagePosition }}
       />
-      <span className={`absolute inset-x-0 bottom-0 h-[82%] bg-gradient-to-t ${overlay}`} />
-      <span className="absolute inset-x-0 bottom-0 h-[58%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,.9),rgba(0,0,0,.52)_48%,transparent_78%)]" />
-      <span className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-black/34 to-transparent" />
-      <div className="relative flex h-full min-w-0 flex-col justify-end p-4 sm:p-6">
-        <div className="min-w-0 max-w-full rounded-[1.25rem] border border-white/10 bg-black/[0.18] p-4 shadow-2xl shadow-black/35 backdrop-blur-[2px] sm:rounded-[1.35rem]">
-          <p className="text-[0.65rem] font-bold uppercase tracking-[0.12em] text-white/88 drop-shadow-[0_2px_8px_rgba(0,0,0,.85)]">
+      <span
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.65) 55%, rgba(0,0,0,0.88) 100%)",
+        }}
+      />
+      <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.34),transparent_42%,rgba(0,0,0,.24))]" />
+      <div className="relative flex h-full min-w-0 flex-col justify-end p-4 sm:p-5">
+        <div className="min-w-0 max-w-full rounded-3xl border border-white/10 bg-black/50 p-5 shadow-2xl shadow-black/45 backdrop-blur-xl sm:p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/82 drop-shadow-[0_2px_8px_rgba(0,0,0,.8)]">
             {country}
           </p>
-          <h3 className="mt-3 max-w-full text-wrap break-words pr-3 font-sans text-[clamp(1.72rem,8vw,2.35rem)] font-medium leading-[1.05] text-white drop-shadow-[0_3px_14px_rgba(0,0,0,.92)] md:text-[clamp(1.85rem,3.2vw,2.35rem)] xl:text-[clamp(1.75rem,2.1vw,2.35rem)]">
+          <h3 className="mt-3 max-w-full text-wrap break-words font-sans text-[clamp(2rem,9vw,2.5rem)] font-semibold leading-[0.98] text-white drop-shadow-[0_3px_16px_rgba(0,0,0,.95)] md:text-[clamp(2.05rem,4vw,2.5rem)] xl:text-[clamp(2rem,2.25vw,2.5rem)]">
             {title}
           </h3>
-          <p className="mt-4 inline-flex max-w-full flex-wrap items-center gap-2 rounded-full border border-white/14 bg-black/36 px-3 py-1.5 text-sm font-medium text-white/90 shadow-lg shadow-black/30 backdrop-blur-sm">
+          <p className="mt-4 inline-flex max-w-full flex-wrap items-center gap-1.5 rounded-full border border-white/18 bg-black/45 px-3 py-1 text-[0.78rem] font-medium leading-5 text-white/90 shadow-lg shadow-black/30 backdrop-blur-md">
             <span>{rating}</span>
             <span className="text-white/72">· {reviews} reviews</span>
           </p>
-          <p className="mt-4 max-w-full pr-2 text-base font-medium leading-6 text-white/92 drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]">
+          <p className="mt-4 line-clamp-4 max-w-full text-base font-medium leading-7 text-white/88 drop-shadow-[0_2px_10px_rgba(0,0,0,.88)]">
             {copy}
           </p>
         </div>
@@ -494,51 +500,17 @@ function FeatureStrip() {
   );
 }
 
-function SiteDirectory() {
-  return (
-    <section id="site-directory" className="mx-auto mt-12 max-w-[1160px] px-4 sm:px-5">
-      <div className="border-t border-white/14 py-12 sm:py-16">
-        <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]/88">
-              JOURNEE directory
-            </p>
-            <h2 className="mt-3 font-sans text-[clamp(1.75rem,8vw,2.4rem)] font-medium leading-tight text-white">
-              Connected pages across the platform.
-            </h2>
-          </div>
-          <Link
-            href={routes.countries}
-            className="w-fit border-b border-white/24 pb-1 text-sm font-medium text-white/86 transition hover:text-white"
-          >
-            Browse countries
-          </Link>
-        </div>
+function getHeroTitleParts(prefix: string) {
+  const words = prefix.trim().split(/\s+/);
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {siteDirectory.map((group) => (
-            <div
-              key={group.title}
-              className="rounded-2xl border border-white/12 bg-white/[0.045] p-5 shadow-xl shadow-black/20"
-            >
-              <h3 className="font-sans text-lg font-semibold text-white">{group.title}</h3>
-              <div className="mt-4 grid gap-2">
-                {group.links.map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-xl px-3 py-2 text-sm font-medium text-white/68 transition hover:bg-white/[0.07] hover:text-[#d8aa4f]"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  if (words.length < 2) {
+    return { lead: prefix, anchor: "" };
+  }
+
+  return {
+    lead: words.slice(0, -1).join(" "),
+    anchor: words.at(-1) ?? "",
+  };
 }
 
 export function JourneeWebExperience() {
@@ -546,6 +518,7 @@ export function JourneeWebExperience() {
   const [activeQuoteIndex, setActiveQuoteIndex] = useState(0);
   const { t } = useI18n();
   const activeHero = heroSlides[activeHeroIndex] ?? heroSlides[0];
+  const heroTitle = getHeroTitleParts(t("homepage.hero.titlePrefix"));
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -592,9 +565,12 @@ export function JourneeWebExperience() {
             <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#d8aa4f] sm:text-[0.78rem] tracking-[0.12em] md:text-[0.86rem] tracking-[0.12em]">
               {t("homepage.hero.eyebrow")}
             </p>
-            <h1 className="mt-5 max-w-[650px] text-wrap break-words font-sans text-[clamp(3.2rem,15.5vw,5.4rem)] font-semibold leading-[0.91] tracking-[-0.025em] text-white sm:mt-6 md:text-[clamp(5rem,10vw,6.35rem)] xl:text-[clamp(5.8rem,7.6vw,7.3rem)]">
-              {t("homepage.hero.titlePrefix")}{" "}
-              <span className="block italic text-[#d8aa4f]">{t("homepage.hero.titleAccent")}</span>
+            <h1 className="mt-5 max-w-[660px] text-wrap break-words font-sans text-[clamp(3rem,13vw,4.85rem)] font-extrabold uppercase leading-[0.88] tracking-[-0.04em] text-white sm:mt-6 md:text-[clamp(4.45rem,8.4vw,5.7rem)] xl:text-[clamp(5.05rem,6.35vw,6.35rem)]">
+              <span className="block text-[0.88em] font-extrabold tracking-[-0.035em]">{heroTitle.lead}</span>
+              {heroTitle.anchor ? <span className="block font-black tracking-[-0.045em]">{heroTitle.anchor}</span> : null}
+              <span className="mt-2 block max-w-full normal-case text-[0.58em] font-semibold italic leading-[1.05] tracking-[0.018em] text-[#e4bd68] sm:mt-3">
+                {t("homepage.hero.titleAccent")}
+              </span>
             </h1>
             <p className="mt-6 max-w-[520px] text-base leading-7 text-white/78 sm:mt-7 sm:text-lg sm:leading-8">
               {t("homepage.hero.body")}
@@ -649,21 +625,6 @@ export function JourneeWebExperience() {
           </aside>
         </div>
 
-        <div className="absolute bottom-28 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-2 md:flex">
-          {heroSlides.map((slide, index) => (
-            <button
-              key={slide.label}
-              type="button"
-              aria-label={`Show ${slide.label}, ${slide.place}`}
-              onClick={() => setActiveHeroIndex(index)}
-              className={`h-1.5 rounded-full transition-all duration-500 ${
-                index === activeHeroIndex
-                  ? "w-10 bg-[#d8aa4f]"
-                  : "w-4 bg-white/28 hover:bg-white/52"
-              }`}
-            />
-          ))}
-        </div>
         <div className="absolute bottom-[7.5rem] left-1/2 z-20 hidden -translate-x-1/2 rounded-full border border-white/14 bg-black/22 px-4 py-2 text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white/78 backdrop-blur-md md:block">
           {activeHero.label} · {activeHero.place}
         </div>
@@ -708,7 +669,6 @@ export function JourneeWebExperience() {
         </div>
       </section>
 
-      <SiteDirectory />
       <FeatureStrip />
     </main>
   );

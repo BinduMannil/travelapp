@@ -58,7 +58,7 @@ export default async function RootLayout({
       <body className="min-h-screen bg-[#050807] font-sans text-white antialiased">
         <I18nProvider defaultLocale={locale}>
           <ConsentProvider>
-            <PreferencesProvider rates={rates} defaultCurrency="JPY">
+            <PreferencesProvider rates={rates} defaultCurrency="AED">
               <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
               {children}
               <ConsentBanner />

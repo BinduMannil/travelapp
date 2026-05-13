@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { CityDestinationPage } from "@/components/city/CityDestinationPage";
+import { KYOTO_CITY_DESTINATION } from "@/lib/city/city-destination-data";
 
 export const metadata: Metadata = {
   title: "Kyoto Travel Guide",
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  notFound();
+  return <CityDestinationPage data={KYOTO_CITY_DESTINATION} />;
 }

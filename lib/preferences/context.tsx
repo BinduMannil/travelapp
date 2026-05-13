@@ -73,14 +73,48 @@ type PreferencesValue = {
 
 const Context = createContext<PreferencesValue | null>(null);
 
-const LS_KEYS = {
-  currency: "travelapp:pref:currency",
-  temp: "travelapp:pref:temp",
-  distance: "travelapp:pref:distance",
+const TRAVEL_PREFERENCES_STORAGE_KEY = "journee-travel-preferences";
+
+type StoredTravelPreferences = {
+  currency?: string;
+  temperature?: TempUnit;
+  distance?: DistanceUnit;
 };
 
 function isTravelCurrency(value: string | null): value is TravelCurrency {
   return TRAVEL_CURRENCIES.includes(value as TravelCurrency);
+}
+
+function readStoredTravelPreferences(): StoredTravelPreferences {
+  try {
+    const stored = window.localStorage.getItem(TRAVEL_PREFERENCES_STORAGE_KEY);
+    if (!stored) return {};
+    const parsed = JSON.parse(stored) as StoredTravelPreferences;
+
+    return {
+      currency: isTravelCurrency(parsed.currency ?? null)
+        ? parsed.currency
+        : undefined,
+      temperature:
+        parsed.temperature === "c" || parsed.temperature === "f"
+          ? parsed.temperature
+          : undefined,
+      distance:
+        parsed.distance === "km" || parsed.distance === "mi"
+          ? parsed.distance
+          : undefined,
+    };
+  } catch {
+    return {};
+  }
+}
+
+function writeStoredTravelPreferences(next: StoredTravelPreferences) {
+  const current = readStoredTravelPreferences();
+  window.localStorage.setItem(
+    TRAVEL_PREFERENCES_STORAGE_KEY,
+    JSON.stringify({ ...current, ...next }),
+  );
 }
 
 export function celsiusToFahrenheit(celsius: number) {
@@ -123,27 +157,35 @@ export function PreferencesProvider({
   const [distanceUnit, setDistanceUnitState] = useState<DistanceUnit>("km");
 
   useEffect(() => {
-    const c = window.localStorage.getItem(LS_KEYS.currency);
-    const t = window.localStorage.getItem(LS_KEYS.temp);
-    const d = window.localStorage.getItem(LS_KEYS.distance);
-    if (isTravelCurrency(c)) setCurrencyState(c);
-    if (t === "c" || t === "f") setTempUnitState(t);
-    if (d === "km" || d === "mi") setDistanceUnitState(d);
-  }, []);
+    const stored = readStoredTravelPreferences();
+    const storedCurrency = stored.currency ?? null;
+    if (isTravelCurrency(storedCurrency)) setCurrencyState(storedCurrency);
+    if (stored.temperature) setTempUnitState(stored.temperature);
+    if (stored.distance) setDistanceUnitState(stored.distance);
+    writeStoredTravelPreferences({
+      currency: isTravelCurrency(storedCurrency)
+        ? storedCurrency
+        : isTravelCurrency(defaultCurrency)
+          ? defaultCurrency
+          : "AED",
+      temperature: stored.temperature ?? "c",
+      distance: stored.distance ?? "km",
+    });
+  }, [defaultCurrency]);
 
   const setCurrency = useCallback((c: string) => {
     const next = c.toUpperCase();
     if (!isTravelCurrency(next)) return;
     setCurrencyState(next);
-    window.localStorage.setItem(LS_KEYS.currency, next);
+    writeStoredTravelPreferences({ currency: next });
   }, []);
   const setTempUnit = useCallback((u: TempUnit) => {
     setTempUnitState(u);
-    window.localStorage.setItem(LS_KEYS.temp, u);
+    writeStoredTravelPreferences({ temperature: u });
   }, []);
   const setDistanceUnit = useCallback((u: DistanceUnit) => {
     setDistanceUnitState(u);
-    window.localStorage.setItem(LS_KEYS.distance, u);
+    writeStoredTravelPreferences({ distance: u });
   }, []);
 
   const value = useMemo(
@@ -178,6 +220,10 @@ export function usePreferences() {
     );
   }
   return ctx;
+}
+
+export function useTravelPreferences() {
+  return usePreferences();
 }
 
 // --- Display components ---------------------------------------------------
