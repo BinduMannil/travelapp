@@ -5,18 +5,15 @@ import {
   Accessibility,
   Bell,
   CalendarDays,
-  Check,
   ChevronDown,
   ChevronRight,
   Clock3,
   Cloud,
   CreditCard,
-  Crown,
   Download,
   Globe2,
   Languages,
   LockKeyhole,
-  LogOut,
   MapPin,
   Menu,
   MessageCircleQuestion,
@@ -24,9 +21,7 @@ import {
   Plane,
   Search,
   Settings,
-  ShieldCheck,
   SlidersHorizontal,
-  Trash2,
   UserRound,
   WalletCards,
 } from "lucide-react";
@@ -257,9 +252,7 @@ function LeftSidebar() {
           Settings
         </h2>
         <nav className="space-y-2">
-          {settingsMenu.map((item) => {
-            const Icon = item.icon;
-            return (
+          {settingsMenu.map((item) => (
               <a
                 key={item.label}
                 href={settingsMenuHref[item.label] ?? "/settings"}
@@ -269,22 +262,17 @@ function LeftSidebar() {
                     : "text-white/84 hover:bg-white/[0.055] hover:text-white"
                 }`}
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md bg-white/[0.06]">
-                  <Icon className="h-5 w-5" />
-                </span>
                 <span className="min-w-0">
                   <span className="block text-sm font-semibold">{item.label}</span>
                   <span className="mt-0.5 block truncate text-xs text-white/58">{item.note}</span>
                 </span>
               </a>
-            );
-          })}
+          ))}
         </nav>
       </Panel>
 
       <Panel className="p-6">
         <div className="flex items-center gap-4">
-          <Crown className="h-11 w-11 text-[#f3b544]" />
           <div>
             <h3 className="text-sm font-semibold text-white">JOURNEE Premium</h3>
             <p className="mt-1 text-xs leading-5 text-white/62">
@@ -342,14 +330,9 @@ function SettingsSection({
         </h2>
       </div>
       <div className="divide-y divide-white/[0.07]">
-        {settings.map((item) => {
-          const Icon = item.icon;
-          return (
+        {settings.map((item) => (
             <div key={item.label} className="grid gap-4 px-5 py-4 sm:px-7 2xl:grid-cols-[minmax(260px,1fr)_minmax(320px,0.72fr)] 2xl:items-center">
               <div className="flex min-w-0 items-center gap-4">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-md bg-white/[0.075] text-white/90">
-                  <Icon className="h-5 w-5" />
-                </span>
                 <div className="min-w-0">
                   <h3 className="text-[0.95rem] font-semibold leading-5 text-white">{item.label}</h3>
                   <p className="mt-0.5 text-sm leading-5 text-white/58">{item.help}</p>
@@ -357,8 +340,7 @@ function SettingsSection({
               </div>
               <div className="min-w-0 2xl:justify-self-end">{item.control}</div>
             </div>
-          );
-        })}
+        ))}
       </div>
     </Panel>
   );
@@ -465,9 +447,7 @@ function RightSidebar() {
           <SummaryRow label="Account Type" value="Premium" />
           <div className="flex items-center justify-between gap-4">
             <span className="text-white/62">Account Status</span>
-            <span className="inline-flex items-center gap-2 font-semibold text-emerald-400">
-              <Check className="h-4 w-4" /> Active
-            </span>
+            <span className="font-semibold text-emerald-400">Active</span>
           </div>
         </div>
       </Panel>
@@ -477,7 +457,6 @@ function RightSidebar() {
           Your Subscription
         </h2>
         <div className="mt-5 flex items-center gap-4">
-          <Crown className="h-12 w-12 text-[#f3b544]" />
           <div>
             <h3 className="text-base font-semibold text-white">JOURNEE Premium</h3>
             <p className="mt-1 text-sm text-white/64">Renews on May 20, 2025</p>
@@ -486,7 +465,7 @@ function RightSidebar() {
         <ul className="mt-5 space-y-3 text-sm text-white/80">
           {["Unlimited trip planning", "Premium travel insights", "Exclusive member perks", "Priority support"].map((item) => (
             <li key={item} className="flex items-center gap-3">
-              <Check className="h-4 w-4 text-emerald-400" />
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
               <span>{item}</span>
             </li>
           ))}
@@ -499,7 +478,6 @@ function RightSidebar() {
           Privacy & Security
         </h2>
         <div className="mt-5 flex gap-4">
-          <ShieldCheck className="h-12 w-12 shrink-0 text-[#f3b544]" />
           <p className="text-sm leading-6 text-white/72">
             Your privacy matters. Manage your data, permissions and security settings.
           </p>
@@ -512,9 +490,9 @@ function RightSidebar() {
           Quick Actions
         </h2>
         <div className="mt-4 divide-y divide-white/[0.07]">
-          <ActionRow icon={Download} label="Download Your Data" />
-          <ActionRow icon={Trash2} label="Delete Account" />
-          <ActionRow icon={LogOut} label="Sign Out" />
+          <ActionRow label="Download Your Data" />
+          <ActionRow label="Delete Account" />
+          <ActionRow label="Sign Out" />
         </div>
       </Panel>
     </>
@@ -530,10 +508,9 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function ActionRow({ icon: Icon, label }: { icon: typeof Download; label: string }) {
+function ActionRow({ label }: { label: string }) {
   return (
     <button type="button" className="flex w-full items-center gap-4 py-4 text-left text-sm text-white/84 transition hover:text-[#f3b544]">
-      <Icon className="h-5 w-5 shrink-0" />
       <span className="min-w-0 flex-1">{label}</span>
       <ChevronRight className="h-4 w-4 shrink-0" />
     </button>

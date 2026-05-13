@@ -2,7 +2,8 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, Heart, Search } from "lucide-react";
+import { Bell, Search } from "lucide-react";
+import { useState } from "react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
 import {
@@ -42,12 +43,12 @@ const imageSet = {
 const navItems = mainNavigation.slice(0, 6);
 
 const categories = [
-  { title: "Nature Escapes", count: "124 places", image: imageSet.nature, mark: "mountain" },
-  { title: "Cultural Journeys", count: "98 places", image: imageSet.culture, mark: "columns" },
-  { title: "Hidden Gems", count: "76 places", image: imageSet.hidden, mark: "diamond" },
-  { title: "Adventure", count: "63 places", image: imageSet.adventure, mark: "peak" },
-  { title: "Food & Local", count: "54 places", image: imageSet.food, mark: "bowl" },
-  { title: "Spiritual", count: "48 places", image: imageSet.spiritual, mark: "lotus" },
+  { title: "Nature Escapes", count: "124 places", image: imageSet.nature },
+  { title: "Cultural Journeys", count: "98 places", image: imageSet.culture },
+  { title: "Hidden Gems", count: "76 places", image: imageSet.hidden },
+  { title: "Adventure", count: "63 places", image: imageSet.adventure },
+  { title: "Food & Local", count: "54 places", image: imageSet.food },
+  { title: "Spiritual", count: "48 places", image: imageSet.spiritual },
 ];
 
 const destinations = [
@@ -93,17 +94,14 @@ const features = [
   {
     title: "Curated by locals",
     copy: "Authentic experiences and recommendations from people who call these places home.",
-    mark: "globe",
   },
   {
     title: "Travel with confidence",
     copy: "Safety tips, local insights and 24/7 support for worry-free exploration.",
-    mark: "shield",
   },
   {
     title: "Save & plan your trips",
     copy: "Save places, build itineraries and organize your journey in one place.",
-    mark: "bookmark",
   },
 ];
 
@@ -150,82 +148,6 @@ function buildHomeImageAssignments() {
   return { heroImage, categories: assignedCategories, destinations: assignedDestinations };
 }
 
-function GoldMark({ type, className = "" }: { type: string; className?: string }) {
-  const common = {
-    fill: "none",
-    stroke: "currentColor",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-    strokeWidth: 1.7,
-  };
-
-  if (type === "columns") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <path {...common} d="M5 13h22M7 25h18M8 13v12M14 13v12M20 13v12M26 13v12M16 5l11 8H5l11-8Z" />
-      </svg>
-    );
-  }
-
-  if (type === "diamond") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <path {...common} d="M8 7h16l5 7-13 13L3 14l5-7ZM3 14h26M11 7l5 20M21 7l-5 20" />
-      </svg>
-    );
-  }
-
-  if (type === "bowl") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <path {...common} d="M6 15h20c-.6 6.2-4.3 10-10 10S6.6 21.2 6 15ZM10 25h12M12 9c1.8 1.4 1.8 2.8 0 4M18 7c2.2 1.8 2.2 3.8 0 5.6M23 9c1.8 1.4 1.8 2.8 0 4" />
-      </svg>
-    );
-  }
-
-  if (type === "lotus") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <path {...common} d="M16 25c-5.8-2.7-8.4-6.5-7.8-11.5 4.2.6 6.8 3.2 7.8 7.8 1-4.6 3.6-7.2 7.8-7.8.6 5-2 8.8-7.8 11.5Z" />
-        <path {...common} d="M16 20c-3.3-3.7-3.3-8 0-12 3.3 4 3.3 8.3 0 12ZM5 18c2.8 5 6.5 7.3 11 7M27 18c-2.8 5-6.5 7.3-11 7" />
-      </svg>
-    );
-  }
-
-  if (type === "globe") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <circle {...common} cx="16" cy="16" r="11" />
-        <path {...common} d="M5 16h22M16 5c3 3.1 4.5 6.8 4.5 11S19 23.9 16 27M16 5c-3 3.1-4.5 6.8-4.5 11S13 23.9 16 27" />
-      </svg>
-    );
-  }
-
-  if (type === "shield") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <path {...common} d="M16 4 26 8v7.4c0 6-3.8 10.4-10 12.6C9.8 25.8 6 21.4 6 15.4V8l10-4Z" />
-        <path {...common} d="m11.5 16.2 3.1 3.1 6-7" />
-      </svg>
-    );
-  }
-
-  if (type === "bookmark") {
-    return (
-      <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-        <path {...common} d="M9 5h14v22l-7-4-7 4V5Z" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 32 32" aria-hidden="true" className={className}>
-      <path {...common} d="m4 23 7.5-11 5.2 7.4L21 13l7 10H4Z" />
-      <path {...common} d="m18.8 16.2 2.4 3.2 1.8-2.3" />
-    </svg>
-  );
-}
-
 function HomeNavbar() {
   return (
     <header className="absolute inset-x-0 top-0 z-30 px-4 pt-5 sm:px-6 lg:px-10">
@@ -254,30 +176,32 @@ function HomeNavbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button
-            type="button"
+          <Link
+            href="/search"
             aria-label="Search"
             className="hidden h-12 w-12 place-items-center rounded-full border border-white/18 bg-black/12 text-white backdrop-blur-md transition hover:border-[#d9a947]/70 hover:text-[#d9a947] sm:grid"
           >
             <Search className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
+          </Link>
+          <Link
+            href="/alerts"
             aria-label="Notifications"
             className="relative hidden h-12 w-12 place-items-center rounded-full border border-white/10 bg-black/10 text-white backdrop-blur-md transition hover:border-[#d9a947]/70 hover:text-[#d9a947] sm:grid"
           >
             <Bell className="h-5 w-5" />
             <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-[#d9a947]" />
-          </button>
-          <img
-            src={imageSet.avatar}
-            alt="Profile"
-            className="h-11 w-11 rounded-full border border-white/20 object-cover shadow-xl shadow-black/30"
-          />
+          </Link>
+          <Link href="/settings" aria-label="Open settings">
+            <img
+              src={imageSet.avatar}
+              alt="Profile"
+              className="h-11 w-11 rounded-full border border-white/20 object-cover shadow-xl shadow-black/30"
+            />
+          </Link>
         </div>
       </div>
 
-      <nav className="mx-auto mt-4 flex max-w-[1168px] gap-6 overflow-x-auto border-y border-white/[0.08] bg-black/12 px-1 font-sans backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:hidden">
+      <nav className="mx-auto mt-4 flex max-w-[1168px] gap-4 overflow-x-auto border-y border-white/[0.08] bg-black/12 px-4 font-sans backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-6 lg:hidden">
         {navItems.map((item) => (
           <MainNavLink
             key={item.href}
@@ -328,7 +252,7 @@ function HomeHero({ heroImage }: { heroImage: string }) {
           <div className="mt-9 flex flex-col gap-4 min-[390px]:flex-row min-[390px]:items-center">
             <Link
               href={routes.explore}
-              className="inline-flex h-14 items-center justify-center rounded-2xl bg-[#d9a947] px-7 font-sans text-sm font-bold text-white shadow-[0_18px_45px_rgba(217,169,71,.28)] transition hover:bg-[#efc66d]"
+              className="inline-flex h-14 items-center justify-center rounded-2xl bg-[#d9a947] px-7 font-sans text-sm font-bold text-[#161006] shadow-[0_18px_45px_rgba(217,169,71,.28)] transition hover:bg-[#efc66d]"
             >
               Start Exploring
               <span className="ml-8 text-xl leading-none">→</span>
@@ -360,35 +284,62 @@ function HomeHero({ heroImage }: { heroImage: string }) {
 }
 
 function HeroSearchBar() {
-  const fields = [
-    { label: "Where to?", value: "Anywhere" },
-    { label: "Anytime", value: "Add dates" },
-    { label: "Travelers", value: "Solo traveler" },
-  ];
+  const [destination, setDestination] = useState("");
+  const [date, setDate] = useState("");
+  const [travelers, setTravelers] = useState("solo");
 
   return (
     <div className="relative z-20 mx-auto -mt-16 max-w-[968px] px-5 sm:px-8 lg:px-10 xl:px-0">
-      <div className="grid gap-3 rounded-[1.65rem] border border-white/20 bg-[#0b1110]/82 p-4 shadow-[0_28px_80px_rgba(0,0,0,.48)] backdrop-blur-2xl md:grid-cols-[1fr_1fr_1fr_auto] md:items-center md:rounded-full md:p-5">
-        {fields.map((field, index) => (
-          <button
-            key={field.label}
-            type="button"
-            className={`min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition hover:bg-white/[0.06] md:rounded-none md:bg-transparent md:px-7 md:py-0 ${
-              index > 0 ? "md:border-l md:border-white/12" : ""
-            }`}
+      <form
+        action="/search"
+        method="get"
+        className="grid gap-3 rounded-[1.65rem] border border-white/20 bg-[#0b1110]/82 p-4 shadow-[0_28px_80px_rgba(0,0,0,.48)] backdrop-blur-2xl md:grid-cols-[1fr_1fr_1fr_auto] md:items-center md:rounded-full md:p-5"
+      >
+        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:bg-transparent md:px-7 md:py-0">
+          <span className="block font-sans text-xs font-semibold text-white/88">Where to?</span>
+          <input
+            name="q"
+            value={destination}
+            onChange={(event) => setDestination(event.target.value)}
+            placeholder="Anywhere"
+            className="mt-1 block w-full min-w-0 bg-transparent font-sans text-base text-white outline-none placeholder:text-white/62"
+          />
+        </label>
+
+        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0">
+          <span className="block font-sans text-xs font-semibold text-white/88">Anytime</span>
+          <input
+            name="date"
+            value={date}
+            onChange={(event) => setDate(event.target.value)}
+            placeholder="Add dates"
+            className="mt-1 block w-full min-w-0 bg-transparent font-sans text-base text-white outline-none placeholder:text-white/62"
+          />
+        </label>
+
+        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0">
+          <span className="block font-sans text-xs font-semibold text-white/88">Travelers</span>
+          <select
+            name="travelers"
+            value={travelers}
+            onChange={(event) => setTravelers(event.target.value)}
+            className="mt-1 block w-full min-w-0 appearance-none bg-transparent font-sans text-base text-white/82 outline-none"
           >
-            <span className="block font-sans text-xs font-semibold text-white/88">{field.label}</span>
-            <span className="mt-1 block truncate font-sans text-base text-white/62">{field.value}</span>
-          </button>
-        ))}
+            <option value="solo">Solo traveler</option>
+            <option value="couple">2 travelers</option>
+            <option value="family">Family</option>
+            <option value="group">Group</option>
+          </select>
+        </label>
+
         <button
-          type="button"
+          type="submit"
           aria-label="Search journeys"
-          className="grid h-14 w-full place-items-center rounded-full bg-[#d9a947] text-white shadow-[0_14px_36px_rgba(217,169,71,.28)] transition hover:bg-[#efc66d] md:w-14"
+          className="grid h-14 w-full place-items-center rounded-full bg-[#d9a947] text-[#161006] shadow-[0_14px_36px_rgba(217,169,71,.28)] transition hover:bg-[#efc66d] md:w-14"
         >
           <Search className="h-6 w-6" />
         </button>
-      </div>
+      </form>
     </div>
   );
 }
@@ -428,11 +379,12 @@ function JourneyCategoryRail({ items }: { items: typeof categories }) {
             <span className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/44 to-black/12" />
             <span className="absolute inset-x-0 bottom-0 h-[68%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,.88),rgba(0,0,0,.44)_52%,transparent_78%)]" />
             <span className="relative flex h-full flex-col justify-end p-5">
-              <GoldMark type={category.mark} className="mb-4 h-8 w-8 text-[#d9a947]" />
+              <span className="mb-4 inline-flex w-fit rounded-full border border-[#d9a947]/45 bg-black/28 px-3 py-1 font-sans text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#d9a947]">
+                {category.count}
+              </span>
               <strong className="font-sans text-base font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,.9)]">
                 {category.title}
               </strong>
-              <span className="mt-1 font-sans text-sm text-white/78">{category.count}</span>
             </span>
           </Link>
         ))}
@@ -457,22 +409,20 @@ function RecommendedDestinations({ items }: { items: typeof destinations }) {
               alt={destination.title}
               className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
             />
-            <span className="absolute inset-0 bg-gradient-to-t from-black/96 via-black/55 to-black/8" />
-            <span className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/24 bg-black/28 text-white backdrop-blur-md">
-              <Heart className="h-4 w-4" />
-            </span>
+            <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.28)_0%,rgba(0,0,0,.36)_28%,rgba(0,0,0,.78)_62%,rgba(0,0,0,.98)_100%)]" />
+            <span className="absolute inset-x-0 bottom-0 h-[76%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,.98),rgba(0,0,0,.82)_46%,rgba(0,0,0,.24)_78%,transparent_100%)]" />
             <span className="relative flex h-full flex-col justify-end p-5 sm:p-6">
-              <span className="font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/78">
+              <span className="font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
                 {destination.country}
               </span>
-              <strong className="mt-3 max-w-full text-wrap break-words font-sans text-[clamp(2rem,8vw,2.55rem)] font-medium leading-[0.98] text-[#fffaf0] drop-shadow-[0_3px_14px_rgba(0,0,0,.95)] sm:text-[2.2rem]">
+              <strong className="mt-3 max-w-full text-wrap font-sans text-[clamp(1.55rem,5vw,1.95rem)] font-semibold leading-[1.06] text-[#fffaf0] drop-shadow-[0_4px_18px_rgba(0,0,0,1)]">
                 {destination.title}
               </strong>
-              <span className="mt-5 flex items-center gap-2 font-sans text-sm text-white/86">
+              <span className="mt-5 flex items-center gap-2 font-sans text-sm font-semibold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
                 <span className="text-[#d9a947]">★</span>
-                {destination.rating} <span className="text-white/55">({destination.reviews})</span>
+                {destination.rating} <span className="text-white/82">({destination.reviews})</span>
               </span>
-              <span className="mt-4 max-w-[16rem] font-sans text-sm leading-6 text-white/84">
+              <span className="mt-4 max-w-[16rem] font-sans text-sm font-medium leading-6 text-white/92 drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
                 {destination.copy}
               </span>
             </span>
@@ -493,7 +443,6 @@ function FeatureStrip() {
             className={`p-7 sm:p-9 ${index > 0 ? "border-t border-white/10 md:border-l md:border-t-0" : ""}`}
           >
             <div className="flex gap-6">
-              <GoldMark type={feature.mark} className="mt-1 h-10 w-10 shrink-0 text-[#d9a947]" />
               <div>
                 <h3 className="font-sans text-[1.45rem] font-medium leading-tight text-[#fffaf0]">
                   {feature.title}

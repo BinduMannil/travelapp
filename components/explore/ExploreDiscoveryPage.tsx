@@ -173,17 +173,17 @@ function FiltersPanel({ compact = false }: { compact?: boolean }) {
           <ChevronDown className="h-4 w-4 text-white/44" />
         </div>
         <p className="mt-2 text-xs text-white/62">How do you feel?</p>
-        <div className="mt-4 grid grid-cols-3 gap-2">
+        <div className="mt-4 grid max-w-full grid-cols-2 gap-2 min-[420px]:grid-cols-3">
           {moodFilters.map((mood) => {
             const Icon = mood.icon;
             return (
               <button
                 key={mood.label}
                 type="button"
-                className="min-h-[72px] rounded-[8px] border border-white/[0.08] bg-white/[0.055] px-2 py-3 text-center text-xs text-white/78 transition hover:border-[#d99d3f]/70 hover:bg-[#d99d3f]/12 hover:text-white"
+                className="flex min-h-[78px] min-w-0 flex-col items-center justify-center overflow-hidden rounded-[8px] border border-white/[0.08] bg-white/[0.055] px-2 py-3 text-center text-xs leading-tight text-white/78 transition hover:border-[#d99d3f]/70 hover:bg-[#d99d3f]/12 hover:text-white"
               >
                 <Icon className="mx-auto mb-2 h-5 w-5 text-[#e4a63f]" />
-                {mood.label}
+                <span className="max-w-full overflow-hidden break-words">{mood.label}</span>
               </button>
             );
           })}

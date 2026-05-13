@@ -8,20 +8,9 @@ import {
   ArrowRight,
   Bell,
   Bookmark,
-  Bus,
   CalendarDays,
-  Camera,
   ChevronRight,
-  Coins,
-  CreditCard,
-  Landmark,
   Search,
-  ShieldCheck,
-  Sparkles,
-  Train,
-  Trash2,
-  Utensils,
-  WalletCards,
 } from "lucide-react";
 import { CityMapPreview } from "@/components/atlas/CityMapPreview";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
@@ -46,21 +35,6 @@ import {
 import { primaryNavigation, routes, slugifyRouteSegment } from "@/lib/routes";
 
 const SAVED_TRIPS_STORAGE_KEY = "journee-saved-trips";
-
-const iconMap = {
-  budget: WalletCards,
-  calendar: CalendarDays,
-  camera: Camera,
-  cash: CreditCard,
-  culture: Landmark,
-  etiquette: Sparkles,
-  food: Utensils,
-  safety: ShieldCheck,
-  transport: Train,
-  bus: Bus,
-  tipping: Coins,
-  trash: Trash2,
-} as const;
 
 const compactCurrencies = ["AED", "USD", "EUR", "GBP", "JPY", "SGD"] as const;
 
@@ -443,12 +417,12 @@ function HeroSection({ data, images }: { data: CityDestinationPageData; images: 
           </div>
 
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <button className="inline-flex h-14 items-center justify-center gap-3 rounded-xl px-7 text-sm font-bold text-[#1b1307] shadow-[0_18px_50px_rgba(216,170,79,.24)] transition" style={{ backgroundColor: "var(--destination-primary)" }}>
+            <Link href={`/journey-builder?city=${data.slug}`} className="inline-flex h-14 items-center justify-center gap-3 rounded-xl px-7 text-sm font-bold text-[#1b1307] shadow-[0_18px_50px_rgba(216,170,79,.24)] transition" style={{ backgroundColor: "var(--destination-primary)" }}>
               Plan Your Journey <ArrowRight className="h-4 w-4" />
-            </button>
-            <button className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-white/30 bg-black/22 px-7 text-sm font-semibold text-white backdrop-blur transition hover:border-[var(--destination-card-border)] hover:text-[var(--destination-primary)]">
+            </Link>
+            <Link href={`/trips?save=${data.slug}`} className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-white/30 bg-black/22 px-7 text-sm font-semibold text-white backdrop-blur transition hover:border-[var(--destination-card-border)] hover:text-[var(--destination-primary)]">
               <Bookmark className="h-4 w-4" /> Save Destination
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -478,18 +452,12 @@ function HeroSection({ data, images }: { data: CityDestinationPageData; images: 
             ))}
           </div>
           <div className="mt-5 space-y-4">
-            {data.score.rows.map((row) => {
-              const Icon = iconMap[row.icon];
-              return (
-                <div key={row.label} className="flex items-center justify-between gap-4 text-sm">
-                  <span className="inline-flex items-center gap-3 text-white/78">
-                    <Icon className="h-4 w-4 text-white/68" strokeWidth={1.7} />
-                    {row.label}
-                  </span>
-                  <span className="font-semibold text-white/86">{row.value}</span>
-                </div>
-              );
-            })}
+            {data.score.rows.map((row) => (
+              <div key={row.label} className="flex items-center justify-between gap-4 text-sm">
+                <span className="text-white/78">{row.label}</span>
+                <span className="font-semibold text-white/86">{row.value}</span>
+              </div>
+            ))}
           </div>
         </aside>
       </div>
@@ -501,22 +469,18 @@ function IntelligenceStrip({ data }: { data: CityDestinationPageData }) {
   return (
     <section className="relative z-20 -mt-12 px-5">
       <div className="mx-auto grid max-w-[1180px] gap-3 sm:grid-cols-2 lg:grid-cols-6">
-        {data.intelligence.map(({ title, value, detail, icon }) => {
-          const Icon = iconMap[icon];
-          return (
+        {data.intelligence.map(({ title, value, detail }) => (
             <div
               key={title}
               className="rounded-2xl border border-white/12 bg-[#08110f]/78 p-5 shadow-[0_18px_60px_rgba(0,0,0,.28)] backdrop-blur-2xl"
             >
-              <Icon className="h-6 w-6 text-[#d8aa4f]" strokeWidth={1.45} />
-              <p className="mt-3 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white/45">
+              <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white/45">
                 {title}
               </p>
               <p className="mt-1 text-sm font-bold text-[#fff7e5]">{value}</p>
               <p className="text-xs font-medium text-white/62">{detail}</p>
             </div>
-          );
-        })}
+        ))}
       </div>
     </section>
   );
@@ -702,7 +666,7 @@ function SafetyAndCulture({ data, image }: { data: CityDestinationPageData; imag
           <ul className="mt-6 space-y-2.5 text-sm text-white/76">
             {data.safety.tips.map((tip) => (
               <li key={tip} className="flex gap-3">
-                <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#d8aa4f]" strokeWidth={1.7} />
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#d8aa4f]" />
                 {tip}
               </li>
             ))}
@@ -724,16 +688,12 @@ function SafetyAndCulture({ data, image }: { data: CityDestinationPageData; imag
       <article className="rounded-3xl border border-white/14 bg-[#08100f] p-7 shadow-[0_22px_80px_rgba(0,0,0,.3)]">
         <SectionKicker>Culture & Etiquette</SectionKicker>
         <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {data.culture.map(({ title, copy, icon }) => {
-            const Icon = iconMap[icon];
-            return (
+          {data.culture.map(({ title, copy }) => (
               <div key={title} className="border-white/10 sm:border-l sm:pl-6 first:border-l-0 first:pl-0">
-                <Icon className="h-7 w-7 text-[#d8aa4f]" strokeWidth={1.45} />
-                <h3 className="mt-4 text-base font-bold text-[#fff7e5]">{title}</h3>
+                <h3 className="text-base font-bold text-[#fff7e5]">{title}</h3>
                 <p className="mt-2 text-xs leading-5 text-white/62">{copy}</p>
               </div>
-            );
-          })}
+          ))}
         </div>
       </article>
     </section>
@@ -829,7 +789,7 @@ function BottomCta({ data }: { data: CityDestinationPageData }) {
             aria-label={`See stays in ${data.city}`}
             className="inline-flex h-12 items-center justify-center gap-3 rounded-xl border border-white/16 bg-black/20 px-5 text-sm font-semibold text-white transition hover:border-[#d8aa4f]/60 hover:text-[#f0c96e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8aa4f]"
           >
-            <Landmark className="h-4 w-4 text-[#d8aa4f]" /> See Stays
+            See Stays
           </Link>
           <Link
             href={`${routes.explore}?near=${data.slug}`}

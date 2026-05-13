@@ -3,15 +3,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import {
-  CalendarDays,
-  ChefHat,
-  Globe2,
-  MessageCircle,
-  Sparkles,
-  Star,
-  Wine,
-} from "lucide-react";
-import {
   getPlacesForCountry,
   type CountryContentCard,
   type CountryLink,
@@ -60,8 +51,6 @@ const fallbackLinks = (country: CountryOption): CountryLink[] => [
   { label: "Famous For", href: `/country/${country.slug}/famous-for`, description: `What ${country.name} is known for` },
   { label: "Language", href: `/country/${country.slug}/languages`, description: "Useful travel phrases" },
 ];
-
-const linkIcons = [CalendarDays, ChefHat, Wine, Star, MessageCircle];
 
 function Arrow() {
   return <span aria-hidden className="text-lg leading-none text-[#d8aa4f] transition group-hover:translate-x-1">→</span>;
@@ -216,15 +205,12 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
           Essential links
         </p>
         <div className="mt-4 grid border-y border-white/12 md:grid-cols-5">
-          {essentialLinks.map((item, index) => {
-            const Icon = linkIcons[index] ?? Globe2;
-            return (
+          {essentialLinks.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 className="group flex min-w-0 items-center gap-4 border-white/12 py-4 pr-4 transition hover:bg-white/[0.035] md:border-r md:px-5"
               >
-                <Icon className="h-7 w-7 shrink-0" style={{ color: "var(--destination-primary)" }} strokeWidth={1.4} />
                 <span className="min-w-0 flex-1">
                   <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white">
                     {item.label}
@@ -233,8 +219,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 </span>
                 <Arrow />
               </Link>
-            );
-          })}
+          ))}
         </div>
       </section>
 
@@ -284,7 +269,6 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
           style={{ borderColor: "var(--destination-card-border)" }}
         >
           <span className="flex min-w-0 items-center gap-5">
-            <Sparkles className="h-9 w-9 shrink-0" style={{ color: "var(--destination-primary)" }} strokeWidth={1.3} />
             <span>
               <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--destination-primary)" }}>
                 {country.routeCta?.eyebrow ?? "Route builder"}
