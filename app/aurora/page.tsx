@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import type { Metadata } from "next";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { navigationHref } from "@/lib/routes";
 import {
   Bell,
   ChevronRight,
@@ -259,18 +261,19 @@ export default function AuroraPage() {
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
-              <a
+              <MainNavLink
                 key={item.label}
                 className={`flex h-10 items-center gap-3 rounded-[8px] px-3 text-[0.78rem] font-medium transition ${
                   item.active
                     ? "border border-[#d7a84f]/20 bg-[#d7a84f]/12 text-[#f0c66e]"
                     : "text-white/80 hover:bg-white/10 hover:text-white"
                 }`}
-                href="#"
+                label={item.label}
+                href={navigationHref(item.label)}
               >
                 <Icon className="h-4 w-4" />
                 {item.label}
-              </a>
+              </MainNavLink>
             );
           })}
         </nav>

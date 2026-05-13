@@ -1,7 +1,16 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
-import { getDestinationIdentity } from "@/lib/destination/identity";
+import {
+  DestinationAtmosphereProvider,
+  DestinationMotionLayer,
+  DestinationThemeOverlay,
+  getAtmosphereThemeForRender,
+} from "@/components/destination/DestinationAtmosphere";
+import {
+  getUniqueDestinationImage,
+  inferImageCategoryFromText,
+  resetUsedImagesForPage,
+} from "@/lib/imageRotation";
 
 type Crumb = { label: string; href?: string };
 
@@ -75,7 +84,15 @@ export function PageHero({
   palette?: Palette;
   size?: "sm" | "md" | "lg";
 }) {
-  const identity = getDestinationIdentity("tokyo");
+  const destination = inferDestinationFromCrumbs(crumbs);
+  const atmosphereTheme = getAtmosphereThemeForRender(destination);
+  const heroImage = getUniqueDestinationImage({
+    destinationSlug: destination.destinationSlug,
+    countrySlug: destination.countrySlug,
+    category: inferImageCategoryFromText(`${eyebrow ?? ""} ${title} ${lede ?? ""}`),
+    preferredImage: HERO_IMAGES[palette],
+    usedImages: resetUsedImagesForPage(),
+  });
   const padY =
     size === "lg"
       ? "py-24 sm:py-32"
@@ -90,21 +107,23 @@ export function PageHero({
         : "text-[clamp(2.65rem,5.6vw,5.25rem)]";
 
   return (
+    <DestinationAtmosphereProvider
+      destinationSlug={destination.destinationSlug}
+      destinationType={destination.destinationType}
+      countrySlug={destination.countrySlug}
+    >
     <section className="relative isolate min-h-[27rem] overflow-hidden bg-sumi-900 text-washi-50">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={HERO_IMAGES[palette]}
+        src={heroImage}
         alt=""
         className="image-drift absolute inset-0 -z-30 h-full w-full object-cover opacity-90"
         loading="eager"
       />
-      <div
-        className={`absolute inset-0 -z-20 bg-gradient-to-br ${GRADIENTS[palette]}`}
-        aria-hidden
-      />
+      <div className={`absolute inset-0 -z-30 bg-gradient-to-br ${GRADIENTS[palette]}`} aria-hidden />
+      <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,7,6,.92),rgba(8,7,6,.6)_46%,rgba(8,7,6,.18)),linear-gradient(0deg,rgba(8,7,6,.84),rgba(8,7,6,.2)_48%,transparent_72%)]" />
-      <div className="absolute inset-0 -z-10 opacity-15" style={{ backgroundImage: identity.texture }} />
-      <AmbientDestinationMotion identity={identity} />
+      <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
 
       <div className={`mx-auto max-w-6xl px-6 ${padY}`}>
         <nav className="text-[11px] uppercase tracking-[0.12em] text-washi-50/65">
@@ -130,7 +149,7 @@ export function PageHero({
           )}
           <div className="max-w-4xl">
             {eyebrow && (
-              <p className="luxury-kicker text-kintsugi-300">
+              <p className="luxury-kicker" style={{ color: "var(--destination-primary)" }}>
                 {eyebrow}
               </p>
             )}
@@ -140,7 +159,7 @@ export function PageHero({
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-3 font-sans text-lg tracking-[0.12em] text-kintsugi-300/82 sm:text-xl">
+              <p className="mt-3 font-sans text-lg tracking-[0.12em] sm:text-xl" style={{ color: "var(--destination-primary)" }}>
                 {subtitle}
               </p>
             )}
@@ -156,5 +175,29 @@ export function PageHero({
         {children && <div className="mt-8">{children}</div>}
       </div>
     </section>
+    </DestinationAtmosphereProvider>
   );
+}
+
+function inferDestinationFromCrumbs(crumbs: Crumb[]) {
+  const reversedCrumbs = [...crumbs].reverse();
+  const cityCrumb = reversedCrumbs.find((crumb) => crumb.href?.startsWith("/city/"));
+  const countryCrumb = reversedCrumbs.find((crumb) => crumb.href?.startsWith("/country/"));
+
+  const citySlug = cityCrumb?.href?.split("/city/")[1]?.split("/")[0];
+  const countrySlug = countryCrumb?.href?.split("/country/")[1]?.split("/")[0];
+
+  if (citySlug) {
+    return {
+      destinationSlug: citySlug,
+      destinationType: "city" as const,
+      countrySlug,
+    };
+  }
+
+  return {
+    destinationSlug: countrySlug ?? "japan",
+    destinationType: "country" as const,
+    countrySlug,
+  };
 }

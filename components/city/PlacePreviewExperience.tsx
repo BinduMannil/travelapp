@@ -9,6 +9,17 @@ import {
   getPlacesForCountry,
   type PlaceOption,
 } from "@/lib/destinations/countries";
+import {
+  DestinationAtmosphereProvider,
+  DestinationMotionLayer,
+  DestinationThemeOverlay,
+  getAtmosphereThemeForRender,
+} from "@/components/destination/DestinationAtmosphere";
+import {
+  getUniqueDestinationImage,
+  inferImageCategoryFromText,
+  resetUsedImagesForPage,
+} from "@/lib/imageRotation";
 
 const fallbackImage =
   "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2400&q=86";
@@ -20,11 +31,22 @@ const statusLabel = {
 
 export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
   const country = getCountryOption(place.countrySlug);
+  const atmosphereTheme = getAtmosphereThemeForRender({
+    destinationSlug: place.slug,
+    destinationType: "city",
+    countrySlug: place.countrySlug,
+  });
   const siblings = getPlacesForCountry(place.countrySlug).filter((item) => item.slug !== place.slug);
+  const heroImage = getUniqueDestinationImage({
+    destinationSlug: place.slug,
+    countrySlug: place.countrySlug,
+    category: inferImageCategoryFromText(`${place.kind} ${place.name} ${place.summary}`),
+    preferredImage: place.image ?? country?.image ?? fallbackImage,
+    usedImages: resetUsedImagesForPage(),
+  });
   const [kind, setKind] = useState("all");
   const [status, setStatus] = useState("all");
   const [query, setQuery] = useState("");
-  const accent = country?.accent ?? "#F59E0B";
   const siblingKinds = useMemo(
     () => ["all", ...Array.from(new Set(siblings.map((item) => item.kind))).sort()],
     [siblings],
@@ -49,17 +71,18 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
   }, [kind, query, siblings, status]);
 
   return (
+    <DestinationAtmosphereProvider destinationSlug={place.slug} destinationType="city" countrySlug={place.countrySlug}>
     <main className="min-h-screen bg-[#07120f] text-orange-50">
       <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden">
         <img
-          src={place.image ?? country?.image ?? fallbackImage}
+          src={heroImage}
           alt=""
           className="absolute inset-0 -z-30 h-full w-full object-cover saturate-125"
         />
-        <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(5,16,13,.97),rgba(10,38,34,.78)_50%,rgba(0,0,0,.42)),linear-gradient(0deg,#07120f,transparent_58%)]" />
-        <div className="absolute inset-0 -z-10 opacity-30 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.15)_0_1px,transparent_1px_38px),repeating-linear-gradient(0deg,rgba(255,255,255,.08)_0_1px,transparent_1px_54px)]" />
+        <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
+        <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
 
-        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+        <div className="relative z-10 mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
             <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/62">
               <Link href="/" className="hover:text-orange-100">Home</Link> ·{" "}
@@ -72,7 +95,7 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
               )}{" "}
               · {place.name}
             </nav>
-            <p className="mt-12 text-xs font-black uppercase tracking-[0.12em]" style={{ color: accent }}>
+            <p className="mt-12 text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               {place.kind} · {place.status === "live" ? "Live" : "Build queue"}
             </p>
             <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.6rem,13vw,10rem)] font-black leading-[0.84] text-orange-50">
@@ -83,7 +106,7 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
             </p>
           </div>
           <aside className="border border-orange-100/20 bg-black/35 p-6 shadow-2xl backdrop-blur-xl">
-            <MapPinned style={{ color: accent }} size={34} />
+            <MapPinned style={{ color: "var(--destination-primary)" }} size={34} />
             <h2 className="mt-5 font-sans text-4xl font-black leading-none text-orange-50">
               Place preview
             </h2>
@@ -111,7 +134,7 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
             { title: "Data pack", copy: "The settlement list gives us a checklist so every place moves from queued to live deliberately.", icon: Sparkles },
           ].map(({ title, copy, icon: Icon }) => (
             <article key={title} className="border border-orange-100/16 bg-black/24 p-6 backdrop-blur">
-              <Icon style={{ color: accent }} size={28} />
+              <Icon style={{ color: "var(--destination-primary)" }} size={28} />
               <h2 className="mt-5 font-sans text-3xl font-black text-orange-50">{title}</h2>
               <p className="mt-3 text-sm leading-7 text-orange-50/68">{copy}</p>
             </article>
@@ -122,7 +145,7 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
       {siblings.length ? (
         <section className="px-6 pb-24 sm:pb-32">
           <div className="mx-auto max-w-7xl border-t border-orange-100/14 pt-10">
-            <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: accent }}>
+            <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               More in {country?.name ?? "this country"}
             </p>
             <div className="mt-5 grid gap-3 border border-orange-100/14 bg-black/20 p-4 md:grid-cols-[1fr_12rem_12rem_auto] md:items-end">
@@ -206,5 +229,6 @@ export function PlacePreviewExperience({ place }: { place: PlaceOption }) {
         </section>
       ) : null}
     </main>
+    </DestinationAtmosphereProvider>
   );
 }

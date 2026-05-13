@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { navigationHref } from "@/lib/routes";
 import {
   Bell,
   BriefcaseBusiness,
@@ -222,9 +224,10 @@ function Sidebar() {
       </Link>
       <nav className="mt-10 space-y-2">
         {navItems.map(([item, Icon], index) => (
-          <Link
-            href={item === "Culture Engine" ? "/culture" : "#"}
+          <MainNavLink
             key={item}
+            label={item}
+            href={item === "Culture Engine" ? "/culture" : navigationHref(item)}
             className={`flex h-11 items-center gap-3 rounded-md px-3 text-sm font-medium transition ${
               index === 0
                 ? "border border-[#d8aa4f]/30 bg-[#d8aa4f]/14 text-[#f1ce7f]"
@@ -238,7 +241,7 @@ function Sidebar() {
                 3
               </span>
             ) : null}
-          </Link>
+          </MainNavLink>
         ))}
       </nav>
       <div className="absolute inset-x-4 bottom-6 [@media(max-height:820px)]:hidden">

@@ -23,6 +23,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type GuideCategory = {
   title: string;
@@ -250,18 +251,13 @@ function Header() {
 
         <nav className="hidden items-center gap-8 overflow-visible text-sm font-medium text-white/82 lg:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 transition hover:text-white ${
-                item === "Guides" ? "text-[#f0b84b]" : ""
-              }`}
-            >
-              {item}
-              {item === "Guides" && (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#d99d35]" />
-              )}
-            </Link>
+              label={item}
+              className="relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 transition hover:text-white"
+              activeClassName="text-[#f0b84b]"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#d99d35]"
+            />
           ))}
         </nav>
 

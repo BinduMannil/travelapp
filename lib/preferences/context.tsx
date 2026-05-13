@@ -18,29 +18,23 @@ import { useI18n } from "@/lib/i18n/context";
 
 export type TempUnit = "c" | "f";
 export type DistanceUnit = "km" | "mi";
+export type TemperatureUnit = "celsius" | "fahrenheit";
+export type TravelDistanceUnit = "kilometers" | "miles";
 export type TravelCurrency =
+  | "AED"
   | "USD"
   | "EUR"
   | "GBP"
-  | "AED"
   | "JPY"
-  | "CAD"
-  | "AUD"
-  | "INR"
-  | "SGD"
-  | "CHF";
+  | "SGD";
 
 export const TRAVEL_CURRENCIES: ReadonlyArray<TravelCurrency> = [
+  "AED",
   "USD",
   "EUR",
   "GBP",
-  "AED",
   "JPY",
-  "CAD",
-  "AUD",
-  "INR",
   "SGD",
-  "CHF",
 ];
 
 export const TEMPERATURE_UNITS: ReadonlyArray<{
@@ -64,11 +58,17 @@ export const DISTANCE_UNITS: ReadonlyArray<{
 type PreferencesValue = {
   rates: ReadonlyArray<FxRate>;
   currency: string;
+  selectedCurrency: TravelCurrency;
   setCurrency: (c: string) => void;
+  setSelectedCurrency: (c: TravelCurrency) => void;
   tempUnit: TempUnit;
+  selectedTemperatureUnit: TemperatureUnit;
   setTempUnit: (u: TempUnit) => void;
+  setSelectedTemperatureUnit: (u: TemperatureUnit) => void;
   distanceUnit: DistanceUnit;
+  selectedDistanceUnit: TravelDistanceUnit;
   setDistanceUnit: (u: DistanceUnit) => void;
+  setSelectedDistanceUnit: (u: TravelDistanceUnit) => void;
 };
 
 const Context = createContext<PreferencesValue | null>(null);
@@ -77,6 +77,8 @@ const TRAVEL_PREFERENCES_STORAGE_KEY = "journee-travel-preferences";
 
 type StoredTravelPreferences = {
   currency?: string;
+  temperatureUnit?: TemperatureUnit;
+  distanceUnit?: TravelDistanceUnit;
   temperature?: TempUnit;
   distance?: DistanceUnit;
 };
@@ -90,19 +92,33 @@ function readStoredTravelPreferences(): StoredTravelPreferences {
     const stored = window.localStorage.getItem(TRAVEL_PREFERENCES_STORAGE_KEY);
     if (!stored) return {};
     const parsed = JSON.parse(stored) as StoredTravelPreferences;
+    const legacyTemperature = parsed.temperature;
+    const legacyDistance = parsed.distance;
+    const temperatureUnit =
+      parsed.temperatureUnit === "celsius" || parsed.temperatureUnit === "fahrenheit"
+        ? parsed.temperatureUnit
+        : legacyTemperature === "f"
+          ? "fahrenheit"
+          : legacyTemperature === "c"
+            ? "celsius"
+            : undefined;
+    const distanceUnit =
+      parsed.distanceUnit === "kilometers" || parsed.distanceUnit === "miles"
+        ? parsed.distanceUnit
+        : legacyDistance === "mi"
+          ? "miles"
+          : legacyDistance === "km"
+            ? "kilometers"
+            : undefined;
 
     return {
       currency: isTravelCurrency(parsed.currency ?? null)
         ? parsed.currency
         : undefined,
-      temperature:
-        parsed.temperature === "c" || parsed.temperature === "f"
-          ? parsed.temperature
-          : undefined,
-      distance:
-        parsed.distance === "km" || parsed.distance === "mi"
-          ? parsed.distance
-          : undefined,
+      temperatureUnit,
+      distanceUnit,
+      temperature: temperatureUnitToLegacy(temperatureUnit),
+      distance: distanceUnitToLegacy(distanceUnit),
     };
   } catch {
     return {};
@@ -111,10 +127,46 @@ function readStoredTravelPreferences(): StoredTravelPreferences {
 
 function writeStoredTravelPreferences(next: StoredTravelPreferences) {
   const current = readStoredTravelPreferences();
+  const currency = isTravelCurrency(next.currency ?? current.currency ?? null)
+    ? (next.currency ?? current.currency) as TravelCurrency
+    : "AED";
+  const temperatureUnit =
+    next.temperatureUnit ??
+    (next.temperature ? legacyToTemperatureUnit(next.temperature) : undefined) ??
+    current.temperatureUnit ??
+    "celsius";
+  const distanceUnit =
+    next.distanceUnit ??
+    (next.distance ? legacyToDistanceUnit(next.distance) : undefined) ??
+    current.distanceUnit ??
+    "kilometers";
+
   window.localStorage.setItem(
     TRAVEL_PREFERENCES_STORAGE_KEY,
-    JSON.stringify({ ...current, ...next }),
+    JSON.stringify({
+      currency,
+      temperatureUnit,
+      distanceUnit,
+    }),
   );
+}
+
+function legacyToTemperatureUnit(unit: TempUnit): TemperatureUnit {
+  return unit === "f" ? "fahrenheit" : "celsius";
+}
+
+function temperatureUnitToLegacy(unit?: TemperatureUnit): TempUnit | undefined {
+  if (!unit) return undefined;
+  return unit === "fahrenheit" ? "f" : "c";
+}
+
+function legacyToDistanceUnit(unit: DistanceUnit): TravelDistanceUnit {
+  return unit === "mi" ? "miles" : "kilometers";
+}
+
+function distanceUnitToLegacy(unit?: TravelDistanceUnit): DistanceUnit | undefined {
+  if (!unit) return undefined;
+  return unit === "miles" ? "mi" : "km";
 }
 
 export function celsiusToFahrenheit(celsius: number) {
@@ -125,13 +177,13 @@ export function kilometersToMiles(km: number) {
   return km * 0.621371;
 }
 
-export function formatTemperatureValue(celsius: number, unit: TempUnit) {
-  if (unit === "f") return `${celsiusToFahrenheit(celsius).toFixed(0)}°F`;
+export function formatTemperatureValue(celsius: number, unit: TempUnit | TemperatureUnit) {
+  if (unit === "f" || unit === "fahrenheit") return `${celsiusToFahrenheit(celsius).toFixed(0)}°F`;
   return `${celsius.toFixed(1)}°C`;
 }
 
-export function formatDistanceValue(km: number, unit: DistanceUnit) {
-  if (unit === "mi") return `${kilometersToMiles(km).toFixed(1)} mi`;
+export function formatDistanceValue(km: number, unit: DistanceUnit | TravelDistanceUnit) {
+  if (unit === "mi" || unit === "miles") return `${kilometersToMiles(km).toFixed(1)} mi`;
   return `${km.toFixed(1)} km`;
 }
 
@@ -152,7 +204,8 @@ export function PreferencesProvider({
   defaultCurrency: string;
   children: ReactNode;
 }) {
-  const [currency, setCurrencyState] = useState(defaultCurrency);
+  const fallbackCurrency = isTravelCurrency(defaultCurrency) ? defaultCurrency : "AED";
+  const [currency, setCurrencyState] = useState<TravelCurrency>(fallbackCurrency);
   const [tempUnit, setTempUnitState] = useState<TempUnit>("c");
   const [distanceUnit, setDistanceUnitState] = useState<DistanceUnit>("km");
 
@@ -168,8 +221,8 @@ export function PreferencesProvider({
         : isTravelCurrency(defaultCurrency)
           ? defaultCurrency
           : "AED",
-      temperature: stored.temperature ?? "c",
-      distance: stored.distance ?? "km",
+      temperatureUnit: stored.temperatureUnit ?? "celsius",
+      distanceUnit: stored.distanceUnit ?? "kilometers",
     });
   }, [defaultCurrency]);
 
@@ -179,33 +232,51 @@ export function PreferencesProvider({
     setCurrencyState(next);
     writeStoredTravelPreferences({ currency: next });
   }, []);
+  const setSelectedCurrency = useCallback((c: TravelCurrency) => setCurrency(c), [setCurrency]);
   const setTempUnit = useCallback((u: TempUnit) => {
     setTempUnitState(u);
-    writeStoredTravelPreferences({ temperature: u });
+    writeStoredTravelPreferences({ temperatureUnit: legacyToTemperatureUnit(u) });
+  }, []);
+  const setSelectedTemperatureUnit = useCallback((u: TemperatureUnit) => {
+    setTempUnitState(temperatureUnitToLegacy(u) ?? "c");
+    writeStoredTravelPreferences({ temperatureUnit: u });
   }, []);
   const setDistanceUnit = useCallback((u: DistanceUnit) => {
     setDistanceUnitState(u);
-    writeStoredTravelPreferences({ distance: u });
+    writeStoredTravelPreferences({ distanceUnit: legacyToDistanceUnit(u) });
+  }, []);
+  const setSelectedDistanceUnit = useCallback((u: TravelDistanceUnit) => {
+    setDistanceUnitState(distanceUnitToLegacy(u) ?? "km");
+    writeStoredTravelPreferences({ distanceUnit: u });
   }, []);
 
   const value = useMemo(
     () => ({
       rates,
       currency,
+      selectedCurrency: currency,
       setCurrency,
+      setSelectedCurrency,
       tempUnit,
+      selectedTemperatureUnit: legacyToTemperatureUnit(tempUnit),
       setTempUnit,
+      setSelectedTemperatureUnit,
       distanceUnit,
+      selectedDistanceUnit: legacyToDistanceUnit(distanceUnit),
       setDistanceUnit,
+      setSelectedDistanceUnit,
     }),
     [
       rates,
       currency,
       setCurrency,
+      setSelectedCurrency,
       tempUnit,
       setTempUnit,
+      setSelectedTemperatureUnit,
       distanceUnit,
       setDistanceUnit,
+      setSelectedDistanceUnit,
     ],
   );
 

@@ -10,6 +10,13 @@ export const routes = {
   explore: "/explore",
   discover: "/discover",
   countries: "/countries",
+  atlas: (citySlug?: string, experienceSlug?: string) => {
+    const params = new URLSearchParams();
+    if (citySlug) params.set("city", citySlug);
+    if (experienceSlug) params.set("experience", experienceSlug);
+    const query = params.toString();
+    return query ? `/atlas?${query}` : "/atlas";
+  },
   country: (countrySlug: string) => `/country/${countrySlug}`,
   countryAlias: (countrySlug: string) => `/countries/${countrySlug}`,
   countryCity: (countrySlug: string, citySlug: string) => `/countries/${countrySlug}/${citySlug}`,
@@ -17,6 +24,10 @@ export const routes = {
   city: (citySlug: string) => `/city/${citySlug}`,
   cityAlias: (citySlug: string) => `/cities/${citySlug}`,
   citySection: (citySlug: string, sectionSlug: string) => `/city/${citySlug}/${sectionSlug}`,
+  cityHiddenGem: (citySlug: string, gemSlug: string) =>
+    `/city/${citySlug}/hidden-gems/${gemSlug}`,
+  cityItineraryDay: (citySlug: string, daySlug: string) =>
+    `/city/${citySlug}/itinerary/${daySlug}`,
   countrySection: (countrySlug: string, sectionSlug: string) => `/country/${countrySlug}/${sectionSlug}`,
   experience: (experienceSlug: string) => `/experiences/${experienceSlug}`,
   activity: (activitySlug: string) => `/activities/${activitySlug}`,
@@ -27,19 +38,35 @@ export const routes = {
 export const primaryNavigation = [
   { label: "Home", href: routes.home },
   { label: "Explore", href: routes.explore },
-  { label: "Map", href: "/atlas" },
+  { label: "Map", href: routes.atlas() },
   { label: "Trips", href: "/trips" },
   { label: "Guides", href: "/guides" },
   { label: "Journal", href: "/journal" },
   { label: "Profile", href: "/profile" },
 ] as const;
 
+export const mainNavigation = [
+  { label: "Home", href: routes.home },
+  { label: "Explore", href: routes.explore },
+  { label: "Map", href: routes.atlas() },
+  { label: "Trips", href: "/trips" },
+  { label: "Guides", href: "/guides" },
+  { label: "Journal", href: "/journal" },
+  { label: "Stays", href: "/stays" },
+  { label: "Flights", href: "/flights" },
+  { label: "Visa", href: "/visa" },
+  { label: "Budget", href: "/budget" },
+  { label: "Weather", href: "/weather" },
+  { label: "Currency", href: "/currency" },
+  { label: "Support", href: "/support" },
+] as const;
+
 const NAVIGATION_HREFS: Record<string, string> = {
   Home: routes.home,
   Explore: routes.explore,
   Discover: routes.explore,
-  Map: "/atlas",
-  Atlas: "/atlas",
+  Map: routes.atlas(),
+  Atlas: routes.atlas(),
   "Journey Builder": "/journey-builder",
   Trips: "/trips",
   Guides: "/guides",
@@ -92,6 +119,11 @@ export function navigationHref(label: string) {
   return NAVIGATION_HREFS[label] ?? `/${slugifyRouteSegment(label)}`;
 }
 
+export function isNavigationHrefActive(pathname: string, href: string) {
+  if (href === routes.home) return pathname === routes.home;
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export function getCountryCities(countrySlug: string) {
   return PLACE_OPTIONS.filter((place) => place.countrySlug === countrySlug);
 }
@@ -129,7 +161,7 @@ export const siteDirectory = [
     title: "Core",
     links: [
       { label: "Explore", href: routes.explore },
-      { label: "Atlas", href: "/atlas" },
+      { label: "Atlas", href: routes.atlas() },
       { label: "Journey Builder", href: "/journey-builder" },
       { label: "Trips", href: "/trips" },
       { label: "Guides", href: "/guides" },

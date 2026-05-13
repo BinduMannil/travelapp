@@ -17,6 +17,11 @@ import {
   neighborhoodCover,
   restaurantCover,
 } from "@/components/common/CoverTile";
+import { CityItineraryDayDetail } from "@/components/itinerary/CityItineraryDayDetail";
+import {
+  getAllCityItineraryDayParams,
+  getCityItineraryDay,
+} from "@/lib/city/itinerary-day-data";
 
 export async function generateMetadata({
   params,
@@ -24,6 +29,14 @@ export async function generateMetadata({
   params: Promise<{ slug: string; template: string }>;
 }): Promise<Metadata> {
   const { slug, template } = await params;
+  const day = getCityItineraryDay(slug, template);
+  if (day) {
+    return {
+      title: `${day.city.city} ${day.dayLabel}: ${day.title}`,
+      description: day.overview,
+    };
+  }
+
   if (getPlaceOption(slug)) notFound();
   const t = getItinerary(slug, template);
   if (!t) return { title: "Itinerary" };
@@ -145,6 +158,9 @@ export default async function ItineraryDetailPage({
   params: Promise<{ slug: string; template: string }>;
 }) {
   const { slug, template } = await params;
+  const day = getCityItineraryDay(slug, template);
+  if (day) return <CityItineraryDayDetail itinerary={day} />;
+
   if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const t = getItinerary(slug, template);
@@ -213,5 +229,8 @@ export default async function ItineraryDetailPage({
 
 export function generateStaticParams() {
   const list = getItineraries("tokyo");
-  return list.map((t) => ({ slug: "tokyo", template: t.slug }));
+  return [
+    ...list.map((t) => ({ slug: "tokyo", template: t.slug })),
+    ...getAllCityItineraryDayParams(),
+  ];
 }

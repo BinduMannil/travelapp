@@ -22,6 +22,8 @@ import {
   X,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { mainNavigation } from "@/lib/routes";
 import {
   categoryCards,
   heroImage,
@@ -39,15 +41,7 @@ import {
   type SoloDestination,
 } from "@/lib/explore/discovery-data";
 
-const navItems = [
-  { label: "Home", href: "/" },
-  { label: "Explore", href: "/discover" },
-  { label: "Map", href: "/atlas" },
-  { label: "Trips", href: "/trips" },
-  { label: "Guides", href: "/guides" },
-  { label: "Journal", href: "/journal" },
-  { label: "Profile", href: "/profile" },
-];
+const navItems = mainNavigation.slice(0, 6);
 
 function Panel({
   children,
@@ -84,19 +78,15 @@ function TopNavigation({ onOpenFilters }: { onOpenFilters: () => void }) {
 
         <nav className="ml-6 hidden items-center gap-8 overflow-visible xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item.label}
+              label={item.label}
               href={item.href}
-              aria-current={item.label === "Explore" ? "page" : undefined}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap rounded-full px-1 py-3 text-sm font-semibold transition ${
-                item.label === "Explore" ? "text-[#f4ae3f]" : "text-white/78 hover:text-white"
-              }`}
-            >
-              {item.label}
-              {item.label === "Explore" ? (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f4ae3f]" />
-              ) : null}
-            </Link>
+              className="relative inline-flex min-w-max items-center whitespace-nowrap rounded-full px-1 py-3 text-sm font-semibold transition"
+              activeClassName="text-[#f4ae3f]"
+              inactiveClassName="text-white/78 hover:text-white"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f4ae3f]"
+            />
           ))}
         </nav>
 

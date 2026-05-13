@@ -23,8 +23,10 @@ import {
   Waypoints,
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { mainNavigation } from "@/lib/routes";
 
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
+const navItems = mainNavigation.slice(0, 6);
 
 const images = {
   hero:
@@ -159,13 +161,13 @@ function HeaderNav() {
 
         <nav className="hidden items-center gap-8 text-[0.78rem] font-semibold text-white/86 lg:flex">
           {navItems.map((item) => (
-            <Link
-              key={item}
-              href={item === "Home" ? "/" : item === "Explore" ? "/discover" : "#"}
+            <MainNavLink
+              key={item.label}
+              label={item.label}
+              href={item.href}
               className="transition hover:text-[#f0c96e]"
-            >
-              {item}
-            </Link>
+              activeClassName="text-[#f0c96e]"
+            />
           ))}
         </nav>
 

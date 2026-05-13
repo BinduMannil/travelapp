@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -34,6 +34,7 @@ import {
   Utensils,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type TimeSlot = {
   id: string;
@@ -41,7 +42,19 @@ type TimeSlot = {
   availableSeats: number;
 };
 
-type ExperienceBookingData = {
+type ExperienceIconKey =
+  | "badgeCheck"
+  | "clock"
+  | "languages"
+  | "mapPin"
+  | "navigation"
+  | "sparkles"
+  | "users"
+  | "utensils";
+
+type ExperienceIcon = LucideIcon | ExperienceIconKey;
+
+export type ExperienceBookingData = {
   experience: {
     id: string;
     slug: string;
@@ -63,8 +76,8 @@ type ExperienceBookingData = {
       thumbnails: { id: string; src: string; label: string; type?: "image" | "video" }[];
       remainingPhotos: number;
     };
-    infoStrip: { label: string; value: string; helper: string; icon: LucideIcon }[];
-    featureHighlights: { title: string; copy: string; icon: LucideIcon }[];
+    infoStrip: { label: string; value: string; helper: string; icon: ExperienceIcon }[];
+    featureHighlights: { title: string; copy: string; icon: ExperienceIcon }[];
     included: string[];
     meetingPoint: {
       id: string;
@@ -115,7 +128,27 @@ type ExperienceBookingData = {
   };
 };
 
-export const experienceBookingData: ExperienceBookingData = {
+export type ExperienceDetailPageData = ExperienceBookingData & {
+  breadcrumbs?: Array<{ label: string; href?: string }>;
+  backHref?: string;
+  mapHref?: string;
+  relatedExperiences?: Array<{
+    title: string;
+    href: string;
+    image: string;
+    meta: string;
+  }>;
+};
+
+const ExperienceDetailContext = createContext<ExperienceDetailPageData | null>(null);
+
+function useExperienceDetailData() {
+  const data = useContext(ExperienceDetailContext);
+  if (!data) return experienceBookingData;
+  return data;
+}
+
+export const experienceBookingData: ExperienceDetailPageData = {
   experience: {
     id: "exp_tokyo_shibuya_food_walk",
     slug: "shibuya-food-culture-walk",
@@ -306,72 +339,94 @@ const formatPrice = (value: number) =>
     currency: "USD",
   }).format(value);
 
-export function ExperienceDetailBookingPage() {
+const iconByKey: Record<ExperienceIconKey, LucideIcon> = {
+  badgeCheck: BadgeCheck,
+  clock: Clock3,
+  languages: Languages,
+  mapPin: MapPin,
+  navigation: Navigation,
+  sparkles: Sparkles,
+  users: UsersRound,
+  utensils: Utensils,
+};
+
+function resolveIcon(icon: ExperienceIcon) {
+  return typeof icon === "string" ? iconByKey[icon] : icon;
+}
+
+export function ExperienceDetailBookingPage({
+  data = experienceBookingData,
+}: {
+  data?: ExperienceDetailPageData;
+}) {
   const [selectedSlotId, setSelectedSlotId] = useState(
-    experienceBookingData.availability.timeSlots[0]?.id ?? "",
+    data.availability.timeSlots[0]?.id ?? "",
   );
-  const [guests, setGuests] = useState(experienceBookingData.availability.guestLimit.defaultGuests);
-  const [selectedImage, setSelectedImage] = useState(experienceBookingData.experience.gallery.hero);
+  const [guests, setGuests] = useState(data.availability.guestLimit.defaultGuests);
+  const [selectedImage, setSelectedImage] = useState(data.experience.gallery.hero);
 
   const selectedSlot = useMemo(
     () =>
-      experienceBookingData.availability.timeSlots.find((slot) => slot.id === selectedSlotId) ??
-      experienceBookingData.availability.timeSlots[0],
-    [selectedSlotId],
+      data.availability.timeSlots.find((slot) => slot.id === selectedSlotId) ??
+      data.availability.timeSlots[0],
+    [data.availability.timeSlots, selectedSlotId],
   );
 
-  const totalPrice = guests * experienceBookingData.experience.price.amount;
+  const totalPrice = guests * data.experience.price.amount;
 
   return (
-    <main className="min-h-screen bg-[#02070a] text-white">
-      <TopNavigation />
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(244,178,31,.12),transparent_24%),radial-gradient(circle_at_76%_10%,rgba(68,117,132,.16),transparent_28%),linear-gradient(180deg,#02070a_0%,#061219_46%,#02070a_100%)]" />
-      <div className="relative mx-auto w-full max-w-[1920px] px-4 pb-28 pt-20 sm:px-6 lg:pb-12">
-        <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_490px] 2xl:grid-cols-[minmax(0,1fr)_510px]">
-          <section className="min-w-0 space-y-4">
-            <GlassPanel className="p-4 md:p-5">
-              <Breadcrumb />
-              <div className="mt-5 grid gap-6 2xl:grid-cols-[minmax(0,1.45fr)_minmax(360px,.95fr)]">
-                <Gallery selectedImage={selectedImage} onSelectImage={setSelectedImage} />
-                <HeroSummary />
-              </div>
-            </GlassPanel>
-            <OverviewTabs />
-            <DetailCards />
-            <TrustStrip />
-          </section>
+    <ExperienceDetailContext.Provider value={data}>
+      <main className="min-h-screen bg-[#02070a] text-white">
+        <TopNavigation />
+        <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_22%_0%,rgba(244,178,31,.12),transparent_24%),radial-gradient(circle_at_76%_10%,rgba(68,117,132,.16),transparent_28%),linear-gradient(180deg,#02070a_0%,#061219_46%,#02070a_100%)]" />
+        <div className="relative mx-auto w-full max-w-[1920px] px-4 pb-28 pt-20 sm:px-6 lg:pb-12">
+          <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_490px] 2xl:grid-cols-[minmax(0,1fr)_510px]">
+            <section className="min-w-0 space-y-4">
+              <GlassPanel className="p-4 md:p-5">
+                <Breadcrumb />
+                <div className="mt-5 grid gap-6 2xl:grid-cols-[minmax(0,1.45fr)_minmax(360px,.95fr)]">
+                  <Gallery selectedImage={selectedImage} onSelectImage={setSelectedImage} />
+                  <HeroSummary />
+                </div>
+              </GlassPanel>
+              <OverviewTabs />
+              <DetailCards />
+              <RelatedExperiences />
+              <TrustStrip />
+            </section>
 
-          <aside className="space-y-4 xl:sticky xl:top-20 xl:self-start">
-            <BookingPanel
-              guests={guests}
-              selectedSlotId={selectedSlotId}
-              totalPrice={totalPrice}
-              onSelectSlot={setSelectedSlotId}
-              onGuestsChange={setGuests}
-            />
-            <HelpCard />
-            <ReviewsCard />
-          </aside>
-        </div>
-      </div>
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#02070a]/94 p-3 backdrop-blur-2xl xl:hidden">
-        <div className="mx-auto flex max-w-3xl items-center gap-3">
-          <div className="min-w-0 flex-1">
-            <p className="text-[11px] font-semibold uppercase text-white/54">
-              {selectedSlot?.label} · {guests} guests
-            </p>
-            <p className="text-lg font-bold text-white">{formatPrice(totalPrice)}</p>
+            <aside className="space-y-4 xl:sticky xl:top-20 xl:self-start">
+              <BookingPanel
+                guests={guests}
+                selectedSlotId={selectedSlotId}
+                totalPrice={totalPrice}
+                onSelectSlot={setSelectedSlotId}
+                onGuestsChange={setGuests}
+              />
+              <HelpCard />
+              <ReviewsCard />
+            </aside>
           </div>
-          <button
-            type="button"
-            className="flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-md bg-[#f5b21d] px-5 text-sm font-extrabold text-[#150f04] shadow-[0_16px_42px_rgba(245,178,29,.28)]"
-          >
-            Book Now
-            <ArrowRight className="h-4 w-4" />
-          </button>
         </div>
-      </div>
-    </main>
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-[#02070a]/94 p-3 backdrop-blur-2xl xl:hidden">
+          <div className="mx-auto flex max-w-3xl items-center gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="text-[11px] font-semibold uppercase text-white/54">
+                {selectedSlot?.label} · {guests} guests
+              </p>
+              <p className="text-lg font-bold text-white">{formatPrice(totalPrice)}</p>
+            </div>
+            <button
+              type="button"
+              className="flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-md bg-[#f5b21d] px-5 text-sm font-extrabold text-[#150f04] shadow-[0_16px_42px_rgba(245,178,29,.28)]"
+            >
+              Book Now
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </main>
+    </ExperienceDetailContext.Provider>
   );
 }
 
@@ -385,13 +440,12 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-1 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : item === "Explore" ? "/discover" : `/${item.toLowerCase()}`}
+              label={item}
               className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/[0.055] hover:text-white"
-            >
-              {item}
-            </Link>
+              activeClassName="text-[#f5b21d]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden items-center gap-2 text-sm font-semibold text-[#f5b21d] lg:flex">
@@ -450,16 +504,28 @@ function JourneeMark() {
 }
 
 function Breadcrumb() {
-  const crumbs = ["Explore", "Activities", "Tokyo, Japan", experienceBookingData.experience.title];
+  const data = useExperienceDetailData();
+  const crumbs = data.breadcrumbs ?? [
+    { label: "Explore", href: "/explore" },
+    { label: "Activities", href: "/experiences" },
+    { label: `${data.experience.city}, ${data.experience.country}` },
+    { label: data.experience.title },
+  ];
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-white/76">
-      <button type="button" aria-label="Back" className="mr-2 text-white/90">
+      <Link href={data.backHref ?? "/experiences"} aria-label="Back" className="mr-2 text-white/90">
         <ArrowLeft className="h-5 w-5" />
-      </button>
+      </Link>
       {crumbs.map((crumb, index) => (
-        <span key={crumb} className="flex items-center gap-2">
-          <span className={index === crumbs.length - 1 ? "text-white/90" : ""}>{crumb}</span>
+        <span key={`${crumb.label}-${index}`} className="flex items-center gap-2">
+          {crumb.href && index < crumbs.length - 1 ? (
+            <Link href={crumb.href} className="transition hover:text-[#f5b21d]">
+              {crumb.label}
+            </Link>
+          ) : (
+            <span className={index === crumbs.length - 1 ? "text-white/90" : ""}>{crumb.label}</span>
+          )}
           {index < crumbs.length - 1 ? <ChevronRight className="h-3.5 w-3.5 text-white/52" /> : null}
         </span>
       ))}
@@ -474,7 +540,8 @@ function Gallery({
   selectedImage: string;
   onSelectImage: (image: string) => void;
 }) {
-  const { gallery } = experienceBookingData.experience;
+  const { experience } = useExperienceDetailData();
+  const { gallery } = experience;
 
   return (
     <div className="grid min-h-[360px] gap-3 sm:grid-cols-[150px_minmax(0,1fr)]">
@@ -509,7 +576,7 @@ function Gallery({
         ))}
       </div>
       <div className="relative min-h-[360px] overflow-hidden rounded-md border border-white/10 bg-[#061016]">
-        <img src={selectedImage} alt={experienceBookingData.experience.title} className="h-full min-h-[360px] w-full object-cover" />
+        <img src={selectedImage} alt={experience.title} className="h-full min-h-[360px] w-full object-cover" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.16),transparent_45%),linear-gradient(0deg,rgba(0,0,0,.25),transparent_48%)]" />
         <button
           type="button"
@@ -524,7 +591,7 @@ function Gallery({
 }
 
 function HeroSummary() {
-  const experience = experienceBookingData.experience;
+  const { experience } = useExperienceDetailData();
 
   return (
     <div className="flex min-h-full flex-col justify-center py-1 lg:pl-2">
@@ -552,7 +619,7 @@ function HeroSummary() {
       <div className="my-7 h-px bg-white/10" />
       <div className="grid grid-cols-2 gap-y-5 sm:grid-cols-4">
         {experience.infoStrip.map((item, index) => {
-          const Icon = item.icon;
+          const Icon = resolveIcon(item.icon);
           return (
             <div
               key={`${item.label}-${item.value}`}
@@ -570,7 +637,7 @@ function HeroSummary() {
 }
 
 function OverviewTabs() {
-  const experience = experienceBookingData.experience;
+  const { experience } = useExperienceDetailData();
 
   return (
     <GlassPanel className="overflow-hidden">
@@ -593,7 +660,7 @@ function OverviewTabs() {
         <p className="max-w-6xl text-base leading-8 text-white/78">{experience.overview}</p>
         <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {experience.featureHighlights.map((feature, index) => {
-            const Icon = feature.icon;
+            const Icon = resolveIcon(feature.icon);
             return (
               <div
                 key={feature.title}
@@ -616,7 +683,7 @@ function OverviewTabs() {
 }
 
 function DetailCards() {
-  const experience = experienceBookingData.experience;
+  const { experience, mapHref } = useExperienceDetailData();
 
   return (
     <div className="grid gap-4 lg:grid-cols-2 2xl:grid-cols-4">
@@ -641,13 +708,13 @@ function DetailCards() {
         />
         <h3 className="mt-3 text-sm font-bold text-white">{experience.meetingPoint.title}</h3>
         <p className="mt-1 text-sm text-white/72">{experience.meetingPoint.instructions}</p>
-        <button
-          type="button"
+        <Link
+          href={mapHref ?? "#"}
           className="mt-4 flex min-h-10 w-full items-center justify-center gap-2 rounded-md border border-[#f5b21d]/70 text-sm font-bold text-[#f5b21d] transition hover:bg-[#f5b21d] hover:text-[#150f04]"
         >
           <MapPin className="h-4 w-4" />
           View on Map
-        </button>
+        </Link>
       </GlassPanel>
 
       <GlassPanel className="p-5">
@@ -718,6 +785,48 @@ function TrustStrip() {
   );
 }
 
+function RelatedExperiences() {
+  const { relatedExperiences } = useExperienceDetailData();
+  if (!relatedExperiences?.length) return null;
+
+  return (
+    <GlassPanel className="p-5">
+      <div className="flex items-center justify-between gap-4">
+        <h2 className="text-lg font-bold text-white">Related Experiences</h2>
+        <span className="text-xs font-bold uppercase tracking-[0.12em] text-[#f5b21d]">
+          Hidden gems
+        </span>
+      </div>
+      <div className="mt-4 grid gap-3 md:grid-cols-3">
+        {relatedExperiences.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="group overflow-hidden rounded-md border border-white/12 bg-black/16 transition hover:border-[#f5b21d]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#f5b21d]"
+          >
+            <span className="relative block h-32 overflow-hidden">
+              <img
+                src={item.image}
+                alt=""
+                className="h-full w-full object-cover opacity-78 transition duration-500 group-hover:scale-105"
+              />
+              <span className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+            </span>
+            <span className="block p-3">
+              <span className="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#f5b21d]">
+                {item.meta}
+              </span>
+              <span className="mt-1 block text-sm font-bold leading-5 text-white">
+                {item.title}
+              </span>
+            </span>
+          </Link>
+        ))}
+      </div>
+    </GlassPanel>
+  );
+}
+
 function BookingPanel({
   guests,
   selectedSlotId,
@@ -731,7 +840,7 @@ function BookingPanel({
   onSelectSlot: (slotId: string) => void;
   onGuestsChange: (guests: number) => void;
 }) {
-  const { experience, availability } = experienceBookingData;
+  const { experience, availability } = useExperienceDetailData();
 
   return (
     <GlassPanel className="p-5 md:p-6">
@@ -875,7 +984,7 @@ function HelpCard() {
 }
 
 function ReviewsCard() {
-  const { reviews } = experienceBookingData;
+  const { reviews } = useExperienceDetailData();
 
   return (
     <GlassPanel className="p-5 md:p-6">

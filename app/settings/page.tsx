@@ -13,7 +13,6 @@ import {
   CreditCard,
   Crown,
   Download,
-  Gauge,
   Globe2,
   Languages,
   LockKeyhole,
@@ -27,12 +26,13 @@ import {
   Settings,
   ShieldCheck,
   SlidersHorizontal,
-  Thermometer,
   Trash2,
   UserRound,
   WalletCards,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { TravelPreferencesControls } from "@/components/layout/ProfileTravelPreferencesDropdown";
 
 export const metadata: Metadata = {
   title: "Settings / Preferences",
@@ -81,28 +81,10 @@ const regionalSettings = [
     control: <SelectControl label="Language" value="English" options={["English", "Arabic", "French", "Japanese"]} />,
   },
   {
-    label: "Currency",
-    help: "Select your preferred currency.",
+    label: "Currency, Temperature & Distance",
+    help: "Select the core travel units used across Journee.",
     icon: WalletCards,
-    control: (
-      <SelectControl
-        label="Currency"
-        value="USD - US Dollar"
-        options={["USD - US Dollar", "AED - UAE Dirham", "EUR - Euro", "JPY - Japanese Yen"]}
-      />
-    ),
-  },
-  {
-    label: "Temperature",
-    help: "Choose temperature unit.",
-    icon: Thermometer,
-    control: <SegmentedControl label="Temperature" options={["Celsius", "Fahrenheit"]} active="Celsius" prefix={["°C", "°F"]} />,
-  },
-  {
-    label: "Distance",
-    help: "Choose distance unit.",
-    icon: Gauge,
-    control: <SegmentedControl label="Distance" options={["Kilometers", "Miles"]} active="Kilometers" prefix={["km", "mi"]} />,
+    control: <TravelPreferencesControls variant="settings" />,
   },
   {
     label: "Time Format",
@@ -172,13 +154,6 @@ const contentSettings = [
   },
 ];
 
-function navHref(item: string) {
-  if (item === "Home") return "/";
-  if (item === "Explore") return "/discover";
-  if (item === "Map") return "/atlas";
-  return `/${item.toLowerCase().replaceAll(" ", "-")}`;
-}
-
 export default function SettingsPage() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#020607] text-white">
@@ -202,7 +177,7 @@ export default function SettingsPage() {
             </p>
           </header>
 
-          <SettingsSection title="Regional Preferences" settings={regionalSettings} />
+          <SettingsSection title="Travel Preferences" settings={regionalSettings} />
           <SettingsSection title="Experience Preferences" settings={experienceSettings} />
           <SettingsSection title="Translation & Content" settings={contentSettings} />
         </section>
@@ -227,18 +202,14 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={navHref(item)}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-medium transition ${
-                item === "Settings" ? "text-[#f3b544]" : "text-white/88 hover:text-white"
-              }`}
-            >
-              {item}
-              {item === "Settings" && (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]" />
-              )}
-            </Link>
+              label={item}
+              className="relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-medium transition"
+              activeClassName="text-[#f3b544]"
+              inactiveClassName="text-white/88 hover:text-white"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden min-w-[250px] max-w-[520px] flex-1 items-center rounded-full border border-white/12 bg-white/[0.045] px-4 py-2.5 text-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,.08)] lg:flex">

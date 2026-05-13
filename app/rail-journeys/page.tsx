@@ -27,6 +27,8 @@ import {
   UserRound,
   type LucideIcon,
 } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { navigationHref } from "@/lib/routes";
 
 export const metadata: Metadata = {
   title: "Rail Journeys",
@@ -276,9 +278,10 @@ function Sidebar() {
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
-            <a
+            <MainNavLink
               key={item.label}
-              href="#"
+              label={item.label}
+              href={navigationHref(item.label)}
               className={`flex items-center gap-3 rounded-lg px-3 py-3 text-[0.82rem] font-medium transition ${
                 item.active
                   ? "border border-[#d8aa4f]/25 bg-[#d8aa4f]/18 text-white shadow-[0_16px_40px_rgba(216,170,79,.12)]"
@@ -287,7 +290,7 @@ function Sidebar() {
             >
               <Icon className="h-4 w-4" />
               {item.label}
-            </a>
+            </MainNavLink>
           );
         })}
       </nav>

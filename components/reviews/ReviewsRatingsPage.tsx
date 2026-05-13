@@ -26,6 +26,7 @@ import {
   ThumbsUp,
   UsersRound,
 } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
 
 type ReviewCategory = "stays" | "activities" | "flights" | "guides" | "transport";
@@ -277,13 +278,6 @@ const travelerTypeFilters = [
   ["Business", "67"],
 ];
 
-function navHref(item: string) {
-  if (item === "Home") return "/";
-  if (item === "Explore") return "/discover";
-  if (item === "Map") return "/atlas";
-  return `/${item.toLowerCase()}`;
-}
-
 function Stars({ rating, size = "h-4 w-4" }: { rating: number; size?: string }) {
   return (
     <span className="inline-flex items-center gap-0.5 text-[#f5b21b]" aria-label={`${rating} star rating`}>
@@ -392,13 +386,12 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-0.5 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={navHref(item)}
+              label={item}
               className="px-3 py-5 text-sm font-semibold text-white/88 transition hover:text-[#f3b544]"
-            >
-              {item}
-            </Link>
+              activeClassName="text-[#f3b544]"
+            />
           ))}
         </nav>
         <button

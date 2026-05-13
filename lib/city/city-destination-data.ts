@@ -25,6 +25,11 @@ export type CityDestinationPageData = {
   country: string;
   description: string;
   tags: string[];
+  heroImages?: Array<{
+    src: string;
+    alt: string;
+    mood: string;
+  }>;
   images: {
     hero: string;
     why: string;
@@ -32,7 +37,14 @@ export type CityDestinationPageData = {
   };
   score: {
     overall: string;
-    reviews: string;
+    globalRating: {
+      label: string;
+      description: string;
+    };
+    journeeRating: {
+      label: string;
+      description: string;
+    };
     rows: Array<{ label: string; value: string; icon: IconKey }>;
   };
   intelligence: Array<{
@@ -104,6 +116,284 @@ const sharedImages = {
     "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=900&q=86",
 };
 
+function unsplash(src: string, width = 2600) {
+  return `${src}?auto=format&fit=crop&w=${width}&q=88`;
+}
+
+const cityHeroImages: Record<
+  string,
+  Array<{ src: string; alt: string; mood: string }>
+> = {
+  kyoto: [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1742223626680-a33627c0bccc"),
+      alt: "Kyoto pagoda overlooking the city at sunset",
+      mood: "Sunset",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1528164344705-47542687000d"),
+      alt: "Bamboo forest path in Kyoto",
+      mood: "Bamboo",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1478436127897-769e1b3f0f36"),
+      alt: "Torii gates and shrine atmosphere in Kyoto",
+      mood: "Temples",
+    },
+  ],
+  tokyo: [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1540959733332-eab4deabeeaf"),
+      alt: "Tokyo skyline and dense city streets at night",
+      mood: "Skyline",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1503899036084-c55cdd92da26"),
+      alt: "Tokyo neighborhood street with signs and urban texture",
+      mood: "Street Life",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1536098561742-ca998e48cbcc"),
+      alt: "Tokyo night street with lanterns and cinematic lighting",
+      mood: "Nightlife",
+    },
+  ],
+  "ho-chi-minh-city": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1758533116847-3776b266cbdc"),
+      alt: "Bitexco Financial Tower and Ho Chi Minh City skyline",
+      mood: "Skyline",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1773414001281-7e1cadd04a79"),
+      alt: "Motorbikes moving through a Ho Chi Minh City street",
+      mood: "Motorbikes",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1777287514065-8f974084a78c"),
+      alt: "Coffee shop interior in Ho Chi Minh City",
+      mood: "Coffee",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1702963588830-8ddb8e65ef67"),
+      alt: "District 1 traffic and buildings near central Ho Chi Minh City",
+      mood: "District 1",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1704635329439-165fa6b8eaec"),
+      alt: "Street food cart at night in Ho Chi Minh City",
+      mood: "Street Food",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1768118421950-cf8b6e63fe4f"),
+      alt: "Narrow Ho Chi Minh City street with Vietnamese flags and scooters",
+      mood: "Neighborhoods",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1744950220926-5dc75e67c823"),
+      alt: "Ho Chi Minh City rooftops and skyline at sunset",
+      mood: "Rooftops",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1583417319070-4a69db38a482"),
+      alt: "Ho Chi Minh City urban skyline and river access",
+      mood: "Saigon River",
+    },
+  ],
+  hanoi: [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1509030450996-dd1a26dda07a"),
+      alt: "Hanoi lake and city atmosphere",
+      mood: "Lakes",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1680962201936-e59a519c5bd1"),
+      alt: "Hanoi Old Quarter building with layered street texture",
+      mood: "Old Quarter",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1772166876624-90ed0465fa87"),
+      alt: "Railway tracks running through Hanoi Train Street",
+      mood: "Train Street",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1588776874042-0fbf808e29c8"),
+      alt: "Train moving through Hanoi street life",
+      mood: "Local Rail",
+    },
+  ],
+  "da-nang": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1559592413-7cec4d0cae2b"),
+      alt: "Da Nang coastal skyline and beach",
+      mood: "Coast",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1701396173275-835886dd72ce"),
+      alt: "Dragon Bridge lit at night in Da Nang",
+      mood: "Dragon Bridge",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1540202404-a2f29016b523"),
+      alt: "Vietnam coastal beach atmosphere near Da Nang",
+      mood: "Beach",
+    },
+  ],
+  "hoi-an": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1528127269322-539801943592"),
+      alt: "Hoi An riverside heritage town atmosphere",
+      mood: "Old Town",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1761150285834-7ab9ce6dbfd4"),
+      alt: "Lanterns glowing above a Hoi An street",
+      mood: "Lanterns",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1560113855-2ea616c915ee"),
+      alt: "Hoi An lanterns at sunset",
+      mood: "Sunset",
+    },
+  ],
+  hue: [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1765034841805-8330b54bfdb7"),
+      alt: "Imperial Citadel in Hue Vietnam",
+      mood: "Citadel",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1765034841805-8330b54bfdb7", 1800),
+      alt: "Hue heritage architecture and imperial atmosphere",
+      mood: "Imperial",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1528127269322-539801943592"),
+      alt: "Central Vietnam river and heritage atmosphere",
+      mood: "River",
+    },
+  ],
+  "nha-trang": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1756182027180-9928390b4466"),
+      alt: "Boats floating on the water with Nha Trang skyline in the distance",
+      mood: "Waterfront",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1687025846297-5b19ae9b1363"),
+      alt: "Nha Trang beach with coastal buildings in the background",
+      mood: "Beach",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1584551246679-0daf3d275d0f"),
+      alt: "Nha Trang coastal city and sea atmosphere",
+      mood: "Coast",
+    },
+  ],
+  "da-lat": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1770181280811-f76c9cb5a1c9"),
+      alt: "Misty valley and pine-covered hills in Da Lat",
+      mood: "Highlands",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1770181305921-1f27b914141b"),
+      alt: "Sunlight filtering through a Da Lat pine forest",
+      mood: "Pine Forest",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"),
+      alt: "Cool green landscape near Da Lat Vietnam",
+      mood: "Nature",
+    },
+  ],
+  sapa: [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1758002766412-82897c5e5429"),
+      alt: "Golden rice terraces in Sapa northern Vietnam",
+      mood: "Terraces",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"),
+      alt: "Mountain landscape and mist near Sapa",
+      mood: "Mountains",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1758002766412-82897c5e5429", 1800),
+      alt: "Layered rice fields in the Sapa mountains",
+      mood: "Villages",
+    },
+  ],
+  "phu-quoc": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1709820331725-d0344fdc6bab"),
+      alt: "Palm-lined beach on Phu Quoc island",
+      mood: "Beach",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1551031742-f3099d6c687e"),
+      alt: "Aerial beach view in Phu Quoc Vietnam",
+      mood: "Aerial Coast",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1540202404-a2f29016b523"),
+      alt: "Tropical Vietnam island beach and sea",
+      mood: "Island",
+    },
+  ],
+  "ha-long": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1668000018482-a02acf02b22a"),
+      alt: "Boats at sunset in Ha Long Bay Vietnam",
+      mood: "Bay Sunset",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1771992797585-2fdcf801ca62"),
+      alt: "Ha Long coastal skyline with limestone karsts and boats",
+      mood: "Harbor",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1528127269322-539801943592"),
+      alt: "Northern Vietnam waterway and limestone landscape atmosphere",
+      mood: "Karsts",
+    },
+  ],
+  "ninh-binh": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1775119856738-73551272909a"),
+      alt: "Limestone karsts and rice paddies in Ninh Binh Vietnam",
+      mood: "Karsts",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1776138807307-e769c1f439bd"),
+      alt: "Rowboats moving through limestone cliffs in Ninh Binh",
+      mood: "River Boats",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1706462223549-13ef1e0689d5"),
+      alt: "Boats along Tam Coc in Ninh Binh Vietnam",
+      mood: "Tam Coc",
+    },
+  ],
+  "can-tho": [
+    {
+      src: unsplash("https://images.unsplash.com/photo-1744760654110-c0befa6f57b3"),
+      alt: "Boat vendor at the floating market in Can Tho",
+      mood: "Floating Market",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1528127269322-539801943592"),
+      alt: "Mekong Delta river life and water routes",
+      mood: "River Life",
+    },
+    {
+      src: unsplash("https://images.unsplash.com/photo-1744760654110-c0befa6f57b3", 1800),
+      alt: "Can Tho floating market boat scene",
+      mood: "Dawn Market",
+    },
+  ],
+};
+
 export const KYOTO_CITY_DESTINATION: CityDestinationPageData = {
   slug: "kyoto",
   city: "Kyoto",
@@ -111,6 +401,7 @@ export const KYOTO_CITY_DESTINATION: CityDestinationPageData = {
   description:
     "Timeless temples, serene gardens, and rich traditions woven into every street and season. A Kyoto travel guide for cinematic days, lantern-lit evenings, Kyoto temples, Kyoto food markets, and quieter local rituals.",
   tags: ["Culture", "Temples", "Food", "Hidden Gems", "Solo Female Travel"],
+  heroImages: cityHeroImages.kyoto,
   images: {
     hero:
       "https://images.unsplash.com/photo-1742223626680-a33627c0bccc?auto=format&fit=crop&w=2600&q=90",
@@ -120,7 +411,14 @@ export const KYOTO_CITY_DESTINATION: CityDestinationPageData = {
   },
   score: {
     overall: "4.8",
-    reviews: "1,248 reviews",
+    globalRating: {
+      label: "Global Travel Rating",
+      description: "Based on worldwide traveler reviews",
+    },
+    journeeRating: {
+      label: "JOURNEE Traveler Rating",
+      description: "Based on verified JOURNEE journeys",
+    },
     rows: [
       { label: "Safety", value: "4.7", icon: "safety" },
       { label: "Culture", value: "4.9", icon: "culture" },
@@ -418,7 +716,7 @@ function bestMonths(region: string) {
 }
 
 function vietnamImages(city: VietnamCity, copy: typeof defaultVietnamCopy) {
-  const hero = VIETNAM_CITY_IMAGES[city.slug] ?? sharedImages.lantern;
+  const hero = cityHeroImages[city.slug]?.[0]?.src ?? VIETNAM_CITY_IMAGES[city.slug] ?? sharedImages.lantern;
   const scenic =
     city.slug === "sapa"
       ? sharedImages.mountain
@@ -449,6 +747,25 @@ function buildVietnamDestination(city: VietnamCity): CityDestinationPageData {
   const copy = VIETNAM_COPY[city.slug] ?? defaultVietnamCopy;
   const months = bestMonths(region);
   const images = vietnamImages(city, copy);
+  const heroImages =
+    cityHeroImages[city.slug] ??
+    [
+      {
+        src: images.hero,
+        alt: `${city.name} city skyline and local atmosphere`,
+        mood: "City",
+      },
+      {
+        src: images.why,
+        alt: `${city.name} scenic travel atmosphere`,
+        mood: "Scenery",
+      },
+      {
+        src: images.moods[2],
+        alt: `${city.name} food culture and local streets`,
+        mood: "Food",
+      },
+    ];
 
   return {
     slug: city.slug,
@@ -456,6 +773,7 @@ function buildVietnamDestination(city: VietnamCity): CityDestinationPageData {
     country: "Vietnam",
     description: `${city.summary} This ${city.name} travel guide highlights a practical itinerary, hidden gems, food markets, safety tips, and solo female travel context in one cinematic planning view.`,
     tags: copy.tags,
+    heroImages,
     images: {
       hero: images.hero,
       why: images.why,
@@ -463,7 +781,14 @@ function buildVietnamDestination(city: VietnamCity): CityDestinationPageData {
     },
     score: {
       overall: "4.7",
-      reviews: "JOURNEE field notes",
+      globalRating: {
+        label: "Global Travel Rating",
+        description: "Based on worldwide traveler reviews",
+      },
+      journeeRating: {
+        label: "JOURNEE Traveler Rating",
+        description: "Based on verified JOURNEE journeys",
+      },
       rows: [
         { label: "Safety", value: "4.5", icon: "safety" },
         { label: "Culture", value: "4.7", icon: "culture" },
@@ -559,6 +884,7 @@ export const TOKYO_CITY_DESTINATION: CityDestinationPageData = {
   description:
     "A Tokyo travel guide for neon districts, quiet temples, design stores, food markets, hidden bars, refined stays, and a cinematic first-time Japan itinerary.",
   tags: ["Neighborhoods", "Food", "Temples", "Design", "Night Walks"],
+  heroImages: cityHeroImages.tokyo,
   images: {
     hero:
       "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=2600&q=90",

@@ -29,6 +29,17 @@ import {
   VIETNAM_PRICE_BENCHMARKS,
   type VietnamCity,
 } from "@/lib/vietnam/frontend";
+import {
+  DestinationAtmosphereProvider,
+  DestinationMotionLayer,
+  DestinationThemeOverlay,
+  getAtmosphereThemeForRender,
+} from "@/components/destination/DestinationAtmosphere";
+import {
+  getUniqueDestinationImage,
+  inferImageCategoryFromText,
+  resetUsedImagesForPage,
+} from "@/lib/imageRotation";
 
 export type VietnamCityDetailKind =
   | "apps"
@@ -283,23 +294,35 @@ export function VietnamCityDetailPage({
     .filter(Boolean)
     .slice(0, 7);
   const notes = VIETNAM_INTELLIGENCE_NOTES.slice(0, 5);
-  const image = VIETNAM_CITY_IMAGES[city.slug];
+  const image = getUniqueDestinationImage({
+    destinationSlug: city.slug,
+    countrySlug: "vietnam",
+    category: inferImageCategoryFromText(`${meta.eyebrow} ${meta.title} ${meta.lead(city)}`),
+    preferredImage: VIETNAM_CITY_IMAGES[city.slug],
+    usedImages: resetUsedImagesForPage(),
+  });
+  const atmosphereTheme = getAtmosphereThemeForRender({
+    destinationSlug: city.slug,
+    destinationType: "city",
+    countrySlug: "vietnam",
+  });
 
   return (
+    <DestinationAtmosphereProvider destinationSlug={city.slug} destinationType="city" countrySlug="vietnam">
     <main className="min-h-screen bg-[#07120f] text-orange-50">
       <section className="relative isolate overflow-hidden px-6 pb-16 pt-24 sm:pb-24">
         <img src={image} alt="" className="absolute inset-0 -z-30 h-full w-full object-cover saturate-150" />
-        <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(5,16,13,.97),rgba(15,118,110,.72)_50%,rgba(0,0,0,.42)),linear-gradient(0deg,#07120f,transparent_62%)]" />
-        <div className="absolute inset-0 -z-10 opacity-30 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.14)_0_1px,transparent_1px_36px),repeating-linear-gradient(0deg,rgba(255,255,255,.08)_0_1px,transparent_1px_52px)]" />
+        <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
+        <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
 
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+        <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
             <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/62">
               <Link href="/" className="hover:text-orange-100">Home</Link> ·{" "}
               <Link href="/country/vietnam" className="hover:text-orange-100">Vietnam</Link> ·{" "}
               <Link href={`/city/${city.slug}`} className="hover:text-orange-100">{city.name}</Link>
             </nav>
-            <p className="mt-16 text-xs font-black uppercase tracking-[0.12em] text-amber-300">
+            <p className="mt-16 text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               {VIETNAM_CITY_REGIONS[city.slug]} · {meta.eyebrow}
             </p>
             <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.2rem,10vw,8rem)] font-black leading-[0.88] text-orange-50">
@@ -310,7 +333,7 @@ export function VietnamCityDetailPage({
             </p>
           </div>
           <aside className="border border-orange-100/20 bg-black/35 p-6 shadow-2xl backdrop-blur-xl">
-            <Icon className="text-amber-300" size={34} />
+            <Icon style={{ color: "var(--destination-primary)" }} size={34} />
             <h2 className="mt-5 font-sans text-4xl font-black leading-none text-orange-50">
               {city.name}
             </h2>
@@ -328,7 +351,7 @@ export function VietnamCityDetailPage({
       <section className="px-6 py-16 sm:py-24">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[.9fr_1.1fr]">
           <article className="border border-orange-100/16 bg-black/24 p-6 sm:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">
+            <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               Practical read
             </p>
             <h2 className="mt-4 font-sans text-[clamp(2.2rem,5vw,4.8rem)] font-black leading-none text-orange-50">
@@ -336,7 +359,7 @@ export function VietnamCityDetailPage({
             </h2>
             <div className="mt-8 grid gap-3">
               {notes.map((note) => (
-                <div key={note.intelligence_category} className="border-l border-amber-300/55 bg-white/[0.055] px-4 py-3">
+                <div key={note.intelligence_category} className="border-l bg-white/[0.055] px-4 py-3" style={{ borderColor: "var(--destination-primary)" }}>
                   <div className="text-sm font-black text-orange-50">{note.title}</div>
                   <p className="mt-1 text-sm leading-6 text-orange-50/66">{note.traveler_summary}</p>
                 </div>
@@ -345,7 +368,7 @@ export function VietnamCityDetailPage({
           </article>
 
           <article className="border border-orange-100/16 bg-black/24 p-6 sm:p-8">
-            <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">
+            <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               Useful anchors
             </p>
             <div className="mt-5 grid gap-3 sm:grid-cols-2">
@@ -360,7 +383,7 @@ export function VietnamCityDetailPage({
               {VIETNAM_PRICE_BENCHMARKS.slice(0, 4).map((price) => (
                 <div key={price.benchmark_key} className="flex justify-between gap-4 border-b border-orange-100/10 pb-3 text-sm">
                   <span className="text-orange-50/68">{price.label}</span>
-                  <span className="font-bold text-amber-300">{formatVnd(price.amount_typical_minor)}</span>
+                  <span className="font-bold" style={{ color: "var(--destination-primary)" }}>{formatVnd(price.amount_typical_minor)}</span>
                 </div>
               ))}
             </div>
@@ -380,7 +403,7 @@ export function VietnamCityDetailPage({
           </div>
 
           <div className="mt-12 border-t border-orange-100/14 pt-8">
-            <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">
+            <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               More {city.name}
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
@@ -395,7 +418,8 @@ export function VietnamCityDetailPage({
               ))}
               <Link
                 href="/country/vietnam/itinerary"
-                className="border border-amber-300/50 bg-amber-300 px-4 py-2 text-sm font-black text-slate-950"
+                className="border px-4 py-2 text-sm font-black text-slate-950"
+                style={{ borderColor: "var(--destination-card-border)", backgroundColor: "var(--destination-primary)" }}
               >
                 Build Vietnam route
               </Link>
@@ -406,7 +430,7 @@ export function VietnamCityDetailPage({
             {VIETNAM_PHRASES.slice(0, 6).map((phrase) => (
               <div key={phrase.phrase_key} className="border border-orange-100/10 bg-black/20 p-4">
                 <div className="text-lg font-black text-orange-50">{phrase.translated_text}</div>
-                <div className="mt-1 text-sm text-amber-200">{phrase.transliteration}</div>
+                <div className="mt-1 text-sm" style={{ color: "var(--destination-primary)" }}>{phrase.transliteration}</div>
                 <div className="mt-2 text-xs text-orange-50/58">{phrase.source_text}</div>
               </div>
             ))}
@@ -414,5 +438,6 @@ export function VietnamCityDetailPage({
         </div>
       </section>
     </main>
+    </DestinationAtmosphereProvider>
   );
 }

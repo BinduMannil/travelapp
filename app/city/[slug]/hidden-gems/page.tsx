@@ -5,7 +5,13 @@ import { getPlaceOption } from "@/lib/destinations/countries";
 import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
 import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityHiddenGems } from "@/lib/data/seed";
+import {
+  getUniqueDestinationImage,
+  inferImageCategoryFromText,
+  resetUsedImagesForPage,
+} from "@/lib/imageRotation";
 import { PageHero } from "@/components/layout/PageHero";
+import { routes, slugifyRouteSegment } from "@/lib/routes";
 
 const GEM_IMAGES: Record<string, string> = {
   music:
@@ -53,6 +59,26 @@ export default async function HiddenGemsPage({
   if (!city || !data) notFound();
 
   const [lead, ...rest] = data.picks;
+  const usedImages = resetUsedImagesForPage();
+  const countrySlug = slug === "tokyo" ? "japan" : undefined;
+  const leadImage = lead
+    ? getUniqueDestinationImage({
+        destinationSlug: slug,
+        countrySlug,
+        category: inferImageCategoryFromText(`${lead.category} ${lead.name} ${lead.neighborhood}`),
+        preferredImage: GEM_IMAGES[lead.category] ?? fallbackGemImage,
+        usedImages,
+      })
+    : fallbackGemImage;
+  const restImages = rest.map((gem) =>
+    getUniqueDestinationImage({
+      destinationSlug: slug,
+      countrySlug,
+      category: inferImageCategoryFromText(`${gem.category} ${gem.name} ${gem.neighborhood}`),
+      preferredImage: GEM_IMAGES[gem.category] ?? fallbackGemImage,
+      usedImages,
+    }),
+  );
 
   return (
     <main className="editorial-page">
@@ -75,7 +101,7 @@ export default async function HiddenGemsPage({
           <section className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
             <article className="relative min-h-[520px] overflow-hidden rounded-[1.6rem] border border-white/18 bg-black shadow-editorial-deep">
               <Image
-                src={GEM_IMAGES[lead.category] ?? fallbackGemImage}
+                src={leadImage}
                 alt=""
                 fill
                 sizes="(min-width: 1024px) 58vw, 100vw"
@@ -115,8 +141,9 @@ export default async function HiddenGemsPage({
               </p>
               <div className="mt-8 grid gap-3">
                 {data.picks.slice(0, 4).map((g) => (
-                  <div
+                  <a
                     key={g.slug}
+                    href={routes.cityHiddenGem(slug, slugifyRouteSegment(g.name))}
                     className="rounded-2xl border border-white/12 bg-white/[0.06] p-4"
                   >
                     <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
@@ -125,7 +152,7 @@ export default async function HiddenGemsPage({
                     <p className="mt-1 font-sans text-xl font-semibold text-white">
                       {g.name}
                     </p>
-                  </div>
+                  </a>
                 ))}
               </div>
             </aside>
@@ -136,15 +163,16 @@ export default async function HiddenGemsPage({
           {rest.map((g, index) => {
             const wide = index % 4 === 1;
             return (
-              <article
+              <a
                 key={g.slug}
+                href={routes.cityHiddenGem(slug, slugifyRouteSegment(g.name))}
                 className={[
-                  "relative min-h-[360px] overflow-hidden rounded-[1.35rem] border border-white/16 bg-black shadow-editorial-deep",
+                  "relative min-h-[360px] overflow-hidden rounded-[1.35rem] border border-white/16 bg-black shadow-editorial-deep transition hover:border-kintsugi-200/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-kintsugi-200",
                   wide ? "xl:col-span-7" : "xl:col-span-5",
                 ].join(" ")}
               >
                 <Image
-                  src={GEM_IMAGES[g.category] ?? fallbackGemImage}
+                  src={restImages[index] ?? fallbackGemImage}
                   alt=""
                   fill
                   sizes={
@@ -180,7 +208,7 @@ export default async function HiddenGemsPage({
                     </div>
                   )}
                 </div>
-              </article>
+              </a>
             );
           })}
         </section>

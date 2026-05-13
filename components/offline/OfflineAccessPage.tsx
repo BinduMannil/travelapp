@@ -28,6 +28,7 @@ import {
   User,
   X,
 } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type OfflineMap = {
   id: string;
@@ -334,13 +335,12 @@ export function OfflineAccessPage() {
             <Logo />
             <nav className="hidden min-w-0 flex-1 items-center justify-center gap-6 2xl:flex">
               {navItems.map((item) => (
-                <a
+                <MainNavLink
                   key={item}
-                  href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                  label={item}
                   className="whitespace-nowrap text-sm font-medium text-white transition hover:text-[#f5b400]"
-                >
-                  {item}
-                </a>
+                  activeClassName="text-[#f5b400]"
+                />
               ))}
             </nav>
             <div className="flex shrink-0 items-center gap-4">

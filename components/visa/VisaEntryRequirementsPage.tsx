@@ -22,6 +22,8 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { navigationHref } from "@/lib/routes";
 
 type RequirementField = {
   label: string;
@@ -208,18 +210,14 @@ function Header() {
 
         <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible text-sm font-medium text-white/88 xl:flex">
           {navItems.map((item) => (
-            <Link
-              href={item === "Visa" ? "/visa" : item === "Home" ? "/" : "#"}
+            <MainNavLink
               key={item}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 transition hover:text-white ${
-                item === "Visa" ? "text-[#f0ae36]" : ""
-              }`}
-            >
-              {item}
-              {item === "Visa" && (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f0ae36]" />
-              )}
-            </Link>
+              label={item}
+              href={navigationHref(item)}
+              className="relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 transition hover:text-white"
+              activeClassName="text-[#f0ae36]"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f0ae36]"
+            />
           ))}
         </nav>
 

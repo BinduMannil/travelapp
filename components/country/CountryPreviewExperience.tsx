@@ -17,6 +17,17 @@ import {
   type CountryLink,
   type CountryOption,
 } from "@/lib/destinations/countries";
+import {
+  DestinationAtmosphereProvider,
+  DestinationMotionLayer,
+  DestinationThemeOverlay,
+  getAtmosphereThemeForRender,
+} from "@/components/destination/DestinationAtmosphere";
+import {
+  getUniqueDestinationImage,
+  inferImageCategoryFromText,
+  resetUsedImagesForPage,
+} from "@/lib/imageRotation";
 
 const fallbackOverview = (country: CountryOption): CountryContentCard[] => [
   {
@@ -60,9 +71,10 @@ function ImageCard({ card, large = false }: { card: CountryContentCard; large?: 
   return (
     <Link
       href={card.href}
-      className={`group relative overflow-hidden rounded-lg border border-white/16 bg-white/[0.045] shadow-2xl shadow-black/20 ${
+      className={`group relative overflow-hidden rounded-lg border bg-white/[0.045] shadow-2xl shadow-black/20 ${
         large ? "min-h-[13rem]" : "min-h-[16rem]"
       }`}
+      style={{ borderColor: "var(--destination-card-border)" }}
     >
       <img
         src={card.image}
@@ -71,14 +83,14 @@ function ImageCard({ card, large = false }: { card: CountryContentCard; large?: 
       />
       <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,10,11,.88),rgba(2,10,11,.54)_50%,rgba(2,10,11,.22)),linear-gradient(0deg,rgba(2,10,11,.88),transparent_66%)]" />
       <span className="relative flex h-full min-h-[inherit] flex-col justify-end p-6">
-        <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+        <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
           {card.eyebrow}
         </span>
         <strong className="mt-3 max-w-[16ch] font-sans text-2xl font-medium leading-tight text-white">
           {card.title}
         </strong>
         <span className="mt-3 max-w-md text-sm leading-6 text-white/72">{card.description}</span>
-        <span className="mt-5 inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#d8aa4f]">
+        <span className="mt-5 inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.14em]" style={{ color: "var(--destination-primary)" }}>
           Explore <Arrow />
         </span>
       </span>
@@ -87,8 +99,29 @@ function ImageCard({ card, large = false }: { card: CountryContentCard; large?: 
 }
 
 export function CountryPreviewExperience({ country }: { country: CountryOption }) {
+  const atmosphereTheme = getAtmosphereThemeForRender({
+    destinationSlug: country.slug,
+    destinationType: "country",
+  });
   const places = getPlacesForCountry(country.slug);
-  const overviewCards = country.overviewCards ?? fallbackOverview(country);
+  const usedImages = resetUsedImagesForPage();
+  const heroImage = getUniqueDestinationImage({
+    destinationSlug: country.slug,
+    countrySlug: country.slug,
+    category: "hero",
+    preferredImage: country.image,
+    usedImages,
+  });
+  const overviewCards = (country.overviewCards ?? fallbackOverview(country)).map((card) => ({
+    ...card,
+    image: getUniqueDestinationImage({
+      destinationSlug: country.slug,
+      countrySlug: country.slug,
+      category: inferImageCategoryFromText(`${card.eyebrow} ${card.title} ${card.description}`),
+      preferredImage: card.image,
+      usedImages,
+    }),
+  }));
   const essentialLinks = country.essentialLinks ?? fallbackLinks(country);
   const featuredExperiences =
     country.featuredExperiences ??
@@ -99,30 +132,42 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
       href: `/city/${place.slug}`,
       image: place.image ?? country.image,
     }));
+  const assignedFeaturedExperiences = featuredExperiences.map((card) => ({
+    ...card,
+    image: getUniqueDestinationImage({
+      destinationSlug: country.slug,
+      countrySlug: country.slug,
+      category: inferImageCategoryFromText(`${card.eyebrow} ${card.title} ${card.description}`),
+      preferredImage: card.image,
+      usedImages,
+    }),
+  }));
 
   return (
+    <DestinationAtmosphereProvider destinationSlug={country.slug} destinationType="country">
     <main className="min-h-screen overflow-x-hidden bg-[#020a0b] text-white">
       <section className="relative isolate overflow-hidden">
         <div className="relative min-h-[52rem] overflow-hidden">
           <img
-            src={country.image}
+            src={heroImage}
             alt=""
             className="absolute inset-0 -z-30 h-full w-full object-cover saturate-[1.15]"
           />
-          <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(1,8,9,.94)_0%,rgba(1,8,9,.72)_32%,rgba(1,8,9,.18)_70%,rgba(1,8,9,.36)_100%),linear-gradient(0deg,#020a0b_0%,rgba(2,10,11,.52)_16%,rgba(2,10,11,.02)_58%)]" />
+          <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
+          <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
           <div className="absolute inset-x-0 top-0 z-20 border-b border-white/8 bg-black/10 backdrop-blur-sm">
             <div className="mx-auto flex max-w-[1160px] items-center justify-between gap-6 px-4 py-5 sm:px-5 xl:px-0">
               <Link href="/" className="min-w-0">
                 <span className="block text-2xl font-bold uppercase tracking-[0.22em] text-white">
                   JOURNEE
                 </span>
-                <span className="block text-[0.55rem] font-bold uppercase tracking-[0.28em] text-[#d8aa4f]">
+                <span className="block text-[0.55rem] font-bold uppercase tracking-[0.28em]" style={{ color: "var(--destination-primary)" }}>
                   by Dzeli
                 </span>
               </Link>
               <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/86 lg:flex">
                 {["Destinations", "Journeys", "Yachts", "Rail", "Aurora", "Expeditions", "Experiences", "Concierge"].map((item) => (
-                  <Link key={item} href={item === "Destinations" ? "/discover" : `/${item.toLowerCase()}`} className="transition hover:text-[#d8aa4f]">
+                  <Link key={item} href={item === "Destinations" ? "/discover" : `/${item.toLowerCase()}`} className="transition hover:text-[var(--destination-primary)]">
                     {item}
                   </Link>
                 ))}
@@ -130,7 +175,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
               <Link
                 href="/concierge"
                 className="rounded px-5 py-3 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[#15110a]"
-                style={{ backgroundColor: country.accent }}
+                style={{ backgroundColor: "var(--destination-primary)" }}
               >
                 Join
               </Link>
@@ -139,10 +184,10 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
 
           <div className="mx-auto grid min-h-[52rem] max-w-[1160px] content-center px-4 pb-24 pt-32 sm:px-5 xl:px-0">
             <div className="max-w-xl">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: country.accent }}>
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
                 {country.heroEyebrow ?? country.name}
               </p>
-              <h1 className="mt-5 max-w-[12ch] font-sans text-[clamp(3.1rem,8vw,5.35rem)] font-medium leading-[0.94] text-white">
+              <h1 className="mt-5 max-w-[12ch] font-sans text-[clamp(2.1rem,10vw,3.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-white md:text-[clamp(2.5rem,7vw,4.5rem)] lg:text-[clamp(3rem,6vw,5.5rem)] lg:leading-[0.92]">
                 {country.heroTitle ?? country.name}
               </h1>
               <p className="mt-7 max-w-lg text-base leading-8 text-white/82">
@@ -150,7 +195,8 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
               </p>
               <Link
                 href="#overview"
-                className="mt-8 inline-flex items-center gap-3 border-b border-[#d8aa4f]/60 pb-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#d8aa4f]"
+                className="mt-8 inline-flex items-center gap-3 border-b pb-1 text-[0.72rem] font-bold uppercase tracking-[0.14em]"
+                style={{ borderColor: "var(--destination-card-border)", color: "var(--destination-primary)" }}
               >
                 Explore {country.name} <Arrow />
               </Link>
@@ -166,7 +212,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
       </section>
 
       <section className="mx-auto max-w-[1160px] px-4 py-7 sm:px-5 xl:px-0">
-        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
           Essential links
         </p>
         <div className="mt-4 grid border-y border-white/12 md:grid-cols-5">
@@ -178,7 +224,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 href={item.href}
                 className="group flex min-w-0 items-center gap-4 border-white/12 py-4 pr-4 transition hover:bg-white/[0.035] md:border-r md:px-5"
               >
-                <Icon className="h-7 w-7 shrink-0 text-[#d8aa4f]" strokeWidth={1.4} />
+                <Icon className="h-7 w-7 shrink-0" style={{ color: "var(--destination-primary)" }} strokeWidth={1.4} />
                 <span className="min-w-0 flex-1">
                   <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white">
                     {item.label}
@@ -194,20 +240,21 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
 
       {places.length ? (
         <section id="cities" className="mx-auto max-w-[1160px] px-4 py-10 sm:px-5 xl:px-0">
-          <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
-            City discovery
-          </p>
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
+          City discovery
+        </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {places.slice(0, 8).map((place) => (
               <Link
                 key={place.slug}
                 href={`/city/${place.slug}`}
-                className="group min-h-[11rem] rounded-lg border border-white/14 bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:border-[#d8aa4f]/70 hover:bg-white/[0.075]"
+                className="group min-h-[11rem] rounded-lg border bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:bg-white/[0.075]"
+                style={{ borderColor: "rgba(255,255,255,.14)" }}
               >
-                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#d8aa4f]">
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em]" style={{ color: "var(--destination-primary)" }}>
                   {place.kind}
                 </span>
-                <span className="mt-3 block font-sans text-2xl font-medium leading-tight text-white group-hover:text-[#d8aa4f]">
+                <span className="mt-3 block font-sans text-2xl font-medium leading-tight text-white group-hover:text-[var(--destination-primary)]">
                   {place.name}
                 </span>
                 <span className="mt-3 line-clamp-3 block text-sm leading-6 text-white/62">
@@ -220,11 +267,11 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
       ) : null}
 
       <section className="mx-auto max-w-[1160px] px-4 py-10 sm:px-5 xl:px-0">
-        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
           Featured experiences
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {featuredExperiences.map((card) => (
+          {assignedFeaturedExperiences.map((card) => (
             <ImageCard key={card.title} card={card} />
           ))}
         </div>
@@ -233,12 +280,13 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
       <section className="mx-auto max-w-[1160px] px-4 pb-8 pt-2 sm:px-5 xl:px-0">
         <Link
           href={country.routeCta?.href ?? `/country/${country.slug}/itinerary`}
-          className="group flex flex-col gap-4 rounded-lg border border-[#d8aa4f]/28 bg-white/[0.035] px-5 py-5 shadow-2xl shadow-black/20 sm:flex-row sm:items-center sm:justify-between sm:px-7"
+          className="group flex flex-col gap-4 rounded-lg border bg-white/[0.035] px-5 py-5 shadow-2xl shadow-black/20 sm:flex-row sm:items-center sm:justify-between sm:px-7"
+          style={{ borderColor: "var(--destination-card-border)" }}
         >
           <span className="flex min-w-0 items-center gap-5">
-            <Sparkles className="h-9 w-9 shrink-0 text-[#d8aa4f]" strokeWidth={1.3} />
+            <Sparkles className="h-9 w-9 shrink-0" style={{ color: "var(--destination-primary)" }} strokeWidth={1.3} />
             <span>
-              <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]">
+              <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--destination-primary)" }}>
                 {country.routeCta?.eyebrow ?? "Route builder"}
               </span>
               <span className="mt-1 block font-sans text-xl font-medium leading-snug text-white sm:text-2xl">
@@ -246,11 +294,12 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
               </span>
             </span>
           </span>
-          <span className="inline-flex w-fit items-center gap-3 rounded border border-[#d8aa4f]/50 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[#d8aa4f]">
+          <span className="inline-flex w-fit items-center gap-3 rounded border px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em]" style={{ borderColor: "var(--destination-card-border)", color: "var(--destination-primary)" }}>
             {country.routeCta?.label ?? "Build route"} <Arrow />
           </span>
         </Link>
       </section>
     </main>
+    </DestinationAtmosphereProvider>
   );
 }

@@ -26,6 +26,8 @@ import {
   WalletCards,
   XCircle,
 } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { navigationHref } from "@/lib/routes";
 
 type TripStatus = "Upcoming" | "In Progress" | "Completed" | "Cancelled";
 
@@ -318,18 +320,15 @@ function AppNav() {
 
         <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible xl:flex">
           {navItems.map((item) => (
-            <a
+            <MainNavLink
               key={item}
-              href="#"
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap rounded-[6px] px-1 py-3 text-sm font-medium transition ${
-                item === "Trips" ? "text-[#f6b313]" : "text-white/88 hover:text-white"
-              }`}
-            >
-              {item}
-              {item === "Trips" ? (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f6b313]" />
-              ) : null}
-            </a>
+              label={item}
+              href={navigationHref(item)}
+              className="relative inline-flex min-w-max items-center whitespace-nowrap rounded-[6px] px-1 py-3 text-sm font-medium transition"
+              activeClassName="text-[#f6b313]"
+              inactiveClassName="text-white/88 hover:text-white"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f6b313]"
+            />
           ))}
         </nav>
 

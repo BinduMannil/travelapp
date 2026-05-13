@@ -24,6 +24,7 @@ import {
   X,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type SearchCollection =
   | "destinations"
@@ -399,20 +400,14 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap rounded-full px-1 py-3 text-sm font-semibold transition ${
-                item === "Search"
-                  ? "bg-white/[0.035] text-[#f3b544]"
-                  : "text-white/84 hover:text-white"
-              }`}
-            >
-              {item}
-              {item === "Search" && (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]" />
-              )}
-            </Link>
+              label={item}
+              className="relative inline-flex min-w-max items-center whitespace-nowrap rounded-full px-1 py-3 text-sm font-semibold transition"
+              activeClassName="bg-white/[0.035] text-[#f3b544]"
+              inactiveClassName="text-white/84 hover:text-white"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden min-w-[240px] max-w-[440px] flex-1 items-center rounded-full border border-white/12 bg-white/[0.035] px-4 py-2.5 text-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,.08)] lg:flex 2xl:max-w-[300px]">

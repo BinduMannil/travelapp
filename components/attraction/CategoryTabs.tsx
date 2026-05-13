@@ -26,7 +26,8 @@ export function CategoryTabs({
       if (slug) params.set("category", slug);
       else params.delete("category");
       const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+      const currentPath = pathname ?? "";
+      router.replace(qs ? `${currentPath}?${qs}` : currentPath, { scroll: false });
     },
     [pathname, router, searchParams],
   );

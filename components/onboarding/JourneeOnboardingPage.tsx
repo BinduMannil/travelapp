@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ComponentType, ReactNode } from "react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 import {
   Bell,
   BriefcaseBusiness,
@@ -93,7 +94,7 @@ const onboardingState: OnboardingPreferenceState = {
 
 const navItems = [
   ["Home", "/"],
-  ["Explore", "/discover"],
+  ["Explore", "/explore"],
   ["Map", "/atlas"],
   ["Trips", "/trips"],
   ["Guides", "/guides"],
@@ -267,9 +268,13 @@ function TopNavigation() {
         <Brand />
         <nav className="hidden min-w-0 flex-1 items-center gap-5 overflow-x-auto whitespace-nowrap text-sm font-semibold text-white lg:flex">
           {navItems.map(([label, href]) => (
-            <Link key={label} href={href} className="shrink-0 text-white/92 transition hover:text-[#f7ad10]">
-              {label}
-            </Link>
+            <MainNavLink
+              key={label}
+              label={label}
+              href={href}
+              className="shrink-0 text-white/92 transition hover:text-[#f7ad10]"
+              activeClassName="text-[#f7ad10]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden w-[220px] shrink-0 md:block">

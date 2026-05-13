@@ -26,6 +26,8 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { mainNavigation, navigationHref } from "@/lib/routes";
 
 const avatar =
   "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80";
@@ -58,21 +60,11 @@ type SupportTicket = {
 };
 
 const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "Explore", href: "/discover" },
-  { label: "Map", href: "/atlas" },
-  { label: "Trips", href: "/trips" },
-  { label: "Guides", href: "/guides" },
-  { label: "Journal", href: "/journal" },
+  ...mainNavigation.slice(0, 6),
   { label: "Profile", href: "/profile" },
-  { label: "Stays", href: "/stays" },
-  { label: "Flights", href: "/flights" },
-  { label: "Visa", href: "/visa" },
-  { label: "Budget", href: "/budget" },
-  { label: "Weather", href: "/weather" },
-  { label: "Currency", href: "/currency" },
+  ...mainNavigation.slice(6, 12),
   { label: "Settings", href: "/settings" },
-  { label: "Support", href: "/support" },
+  { label: "Support", href: navigationHref("Support") },
 ];
 
 const supportMenu: SupportMenuItem[] = [
@@ -270,19 +262,15 @@ function TopNavigation() {
 
         <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item.label}
+              label={item.label}
               href={item.href}
-              aria-current={item.label === "Support" ? "page" : undefined}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-semibold transition ${
-                item.label === "Support" ? "text-[#f3b544]" : "text-white/88 hover:text-white"
-              }`}
-            >
-              {item.label}
-              {item.label === "Support" ? (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]" />
-              ) : null}
-            </Link>
+              className="relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-semibold transition"
+              activeClassName="text-[#f3b544]"
+              inactiveClassName="text-white/88 hover:text-white"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]"
+            />
           ))}
         </nav>
 

@@ -508,6 +508,223 @@ body * {
   }
 }
 
+.destination-atmosphere {
+  --destination-primary: #d8aa4f;
+  --destination-secondary: #6c8f8a;
+  --destination-glow: rgba(216, 170, 79, 0.16);
+  --destination-overlay: rgba(2, 10, 11, 0.72);
+  --destination-card-border: rgba(216, 170, 79, 0.32);
+  --destination-image-gradient: linear-gradient(90deg, rgba(1,8,9,.94), rgba(1,8,9,.62) 44%, rgba(1,8,9,.24));
+  --destination-texture: linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+  color: inherit;
+}
+
+.destination-theme-overlay,
+.destination-motion-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.destination-motion-layer {
+  opacity: 0.72;
+  mix-blend-mode: screen;
+}
+
+.destination-motion-layer span {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+}
+
+.destination-motion-layer[data-motion="city-glow"] .destination-motion-a,
+.destination-motion-layer[data-motion="streetlight-shimmer"] .destination-motion-a {
+  left: -15%;
+  right: -15%;
+  bottom: 18%;
+  height: 28%;
+  background: linear-gradient(90deg, transparent, var(--destination-glow), transparent);
+  filter: blur(28px);
+  opacity: 0.48;
+}
+
+.destination-motion-layer[data-motion="city-glow"] .destination-motion-b,
+.destination-motion-layer[data-motion="streetlight-shimmer"] .destination-motion-b {
+  right: 8%;
+  top: 18%;
+  width: 22rem;
+  height: 22rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--destination-glow), transparent 66%);
+  filter: blur(20px);
+  opacity: 0.44;
+}
+
+.destination-motion-layer[data-motion="falling-petals"] .destination-motion-a,
+.destination-motion-layer[data-motion="falling-petals"] .destination-motion-b {
+  top: -18%;
+  width: 18rem;
+  height: 140%;
+  background:
+    radial-gradient(circle, var(--destination-primary) 0 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.55) 0 1px, transparent 1.5px);
+  background-size: 64px 82px, 92px 110px;
+  opacity: 0.2;
+}
+
+.destination-motion-layer[data-motion="falling-petals"] .destination-motion-a {
+  left: 8%;
+}
+
+.destination-motion-layer[data-motion="falling-petals"] .destination-motion-b {
+  right: 10%;
+  opacity: 0.14;
+}
+
+.destination-motion-layer[data-motion="lantern-flicker"] .destination-motion-a,
+.destination-motion-layer[data-motion="lantern-flicker"] .destination-motion-b {
+  border-radius: 999px;
+  background: radial-gradient(circle, var(--destination-glow), transparent 68%);
+  filter: blur(16px);
+}
+
+.destination-motion-layer[data-motion="lantern-flicker"] .destination-motion-a {
+  right: 14%;
+  top: 20%;
+  width: 16rem;
+  height: 16rem;
+}
+
+.destination-motion-layer[data-motion="lantern-flicker"] .destination-motion-b {
+  left: 12%;
+  bottom: 16%;
+  width: 12rem;
+  height: 12rem;
+  opacity: 0.45;
+}
+
+.destination-motion-layer[data-motion="mist"] .destination-motion-a,
+.destination-motion-layer[data-motion="alpine-drift"] .destination-motion-a,
+.destination-motion-layer[data-motion="desert-haze"] .destination-motion-a {
+  left: -20%;
+  right: -20%;
+  top: 12%;
+  height: 42%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.1), var(--destination-glow), transparent);
+  filter: blur(34px);
+  opacity: 0.42;
+}
+
+.destination-motion-layer[data-motion="coastal-shimmer"] .destination-motion-a {
+  left: -10%;
+  right: -10%;
+  bottom: 8%;
+  height: 26%;
+  background: repeating-linear-gradient(100deg, transparent 0 24px, var(--destination-secondary) 25px 26px, transparent 27px 56px);
+  filter: blur(10px);
+  opacity: 0.2;
+}
+
+.destination-motion-layer[data-motion="palm-shadow"] .destination-motion-a {
+  right: -8%;
+  top: -10%;
+  width: 42rem;
+  height: 42rem;
+  background: repeating-linear-gradient(130deg, transparent 0 26px, rgba(255,255,255,.1) 27px 29px, transparent 30px 58px);
+  filter: blur(8px);
+  opacity: 0.22;
+  transform-origin: top right;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .destination-motion-layer[data-motion="city-glow"] .destination-motion-a,
+  .destination-motion-layer[data-motion="streetlight-shimmer"] .destination-motion-a,
+  .destination-motion-layer[data-motion="coastal-shimmer"] .destination-motion-a {
+    animation: destination-pan 16s ease-in-out infinite alternate;
+  }
+
+  .destination-motion-layer[data-motion="city-glow"] .destination-motion-b,
+  .destination-motion-layer[data-motion="streetlight-shimmer"] .destination-motion-b,
+  .destination-motion-layer[data-motion="lantern-flicker"] .destination-motion-a,
+  .destination-motion-layer[data-motion="lantern-flicker"] .destination-motion-b {
+    animation: destination-pulse 7s ease-in-out infinite alternate;
+  }
+
+  .destination-motion-layer[data-motion="falling-petals"] .destination-motion-a {
+    animation: destination-fall 22s linear infinite;
+  }
+
+  .destination-motion-layer[data-motion="falling-petals"] .destination-motion-b {
+    animation: destination-fall 28s linear infinite reverse;
+  }
+
+  .destination-motion-layer[data-motion="mist"] .destination-motion-a,
+  .destination-motion-layer[data-motion="alpine-drift"] .destination-motion-a,
+  .destination-motion-layer[data-motion="desert-haze"] .destination-motion-a {
+    animation: destination-mist 20s ease-in-out infinite alternate;
+  }
+
+  .destination-motion-layer[data-motion="palm-shadow"] .destination-motion-a {
+    animation: destination-palm 18s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes destination-pan {
+  from {
+    transform: translate3d(-4%, 0, 0);
+  }
+  to {
+    transform: translate3d(4%, -1%, 0);
+  }
+}
+
+@keyframes destination-pulse {
+  from {
+    opacity: 0.34;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 0.62;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes destination-fall {
+  from {
+    transform: translate3d(0, -7%, 0) rotate(0deg);
+  }
+  to {
+    transform: translate3d(8%, 9%, 0) rotate(4deg);
+  }
+}
+
+@keyframes destination-mist {
+  from {
+    transform: translate3d(-5%, 0, 0);
+  }
+  to {
+    transform: translate3d(5%, 2%, 0);
+  }
+}
+
+@keyframes destination-palm {
+  from {
+    transform: rotate(-1.5deg) translate3d(-1%, 0, 0);
+  }
+  to {
+    transform: rotate(1.5deg) translate3d(1%, 1%, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .destination-motion-layer span,
+  .image-drift {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 /* Global bullet treatment — hanging bullets aligned with the paragraph
    left edge, wrapped lines indented under the item text. Applies to any
    ul.list-disc (Tailwind utility) anywhere in the app so the rule stays

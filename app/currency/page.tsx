@@ -20,6 +20,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 export const metadata: Metadata = {
   title: "Currency / Travel Money",
@@ -149,18 +150,14 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-medium leading-none transition ${
-                item === "Currency" ? "text-[#f4b330]" : "text-white/86 hover:text-white"
-              }`}
-            >
-              {item}
-              {item === "Currency" && (
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f4b330]" />
-              )}
-            </Link>
+              label={item}
+              className="relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-medium leading-none transition"
+              activeClassName="text-[#f4b330]"
+              inactiveClassName="text-white/86 hover:text-white"
+              underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f4b330]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden min-w-[260px] max-w-[520px] flex-1 items-center rounded-full border border-white/12 bg-white/[0.045] px-4 py-2.5 text-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,.08)] lg:flex">

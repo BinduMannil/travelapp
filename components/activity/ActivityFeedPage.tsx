@@ -22,6 +22,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type ActivityCategory =
   | "trip_updates"
@@ -322,13 +323,12 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-1 xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : item === "Explore" ? "/discover" : `/${item.toLowerCase()}`}
+              label={item}
               className="px-3 py-5 text-sm font-medium text-white/88 transition hover:text-[#f2b21f] 2xl:px-4"
-            >
-              {item}
-            </Link>
+              activeClassName="text-[#f2b21f]"
+            />
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-3">

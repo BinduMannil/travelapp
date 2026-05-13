@@ -1,12 +1,22 @@
-import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { VietnamLanguagesPage } from "@/components/vietnam/VietnamCountryDetailPages";
+import { notFound } from "next/navigation";
+import { CountrySubpageExperience } from "@/components/country/CountrySubpageExperience";
+import { COUNTRY_OPTIONS, getCountryOption } from "@/lib/destinations/countries";
 
-export const metadata: Metadata = {
-  title: "Vietnamese language & phrasebook",
-  description:
-    "Vietnamese language and phrasebook guide for taxis, restaurants, bargaining, transport, cafes, and emergency phrases.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const country = getCountryOption(slug);
+  return {
+    title: country ? `${country.name} language guide` : "Country language",
+    description: country
+      ? `Explore ${country.name} language notes, useful phrases, and travel context.`
+      : "Country language guide.",
+  };
+}
 
 export default async function LanguagesPage({
   params,
@@ -14,6 +24,11 @@ export default async function LanguagesPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug !== "vietnam") notFound();
-  return <VietnamLanguagesPage />;
+  const country = getCountryOption(slug);
+  if (!country) notFound();
+  return <CountrySubpageExperience country={country} kind="languages" />;
+}
+
+export function generateStaticParams() {
+  return COUNTRY_OPTIONS.map((country) => ({ slug: country.slug }));
 }

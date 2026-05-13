@@ -27,8 +27,14 @@ import {
   ZoomOut,
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import {
+  getCityDestinationPageData,
+  type CityDestinationPageData,
+} from "@/lib/city/city-destination-data";
+import { mainNavigation } from "@/lib/routes";
 
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
+const navItems = mainNavigation.slice(0, 6);
 
 const menuItems = [
   { label: "Explore Kyoto", icon: Landmark, active: true },
@@ -200,18 +206,14 @@ function AtlasNav() {
         </Link>
         <nav className="hidden items-center gap-8 lg:flex">
           {navItems.map((item) => (
-            <Link
-              key={item}
-              href={item === "Map" ? "/atlas" : item === "Home" ? "/" : "/discover"}
-              className={`relative text-sm text-white/76 transition hover:text-white ${
-                item === "Map" ? "text-[#e2b965]" : ""
-              }`}
-            >
-              {item}
-              {item === "Map" ? (
-                <span className="absolute -bottom-[23px] left-0 h-px w-full bg-[#d8aa4f]" />
-              ) : null}
-            </Link>
+            <MainNavLink
+              key={item.label}
+              label={item.label}
+              href={item.href}
+              className="relative text-sm text-white/76 transition hover:text-white"
+              activeClassName="text-[#e2b965]"
+              underlineClassName="absolute -bottom-[23px] left-0 h-px w-full bg-[#d8aa4f]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden h-10 w-full max-w-[320px] items-center gap-3 rounded-full border border-white/18 bg-white/[0.035] px-4 text-white/48 shadow-[0_0_28px_rgba(216,170,79,.08)] md:flex">
@@ -237,7 +239,15 @@ function AtlasNav() {
   );
 }
 
-function LeftSidebar() {
+function LeftSidebar({ selectedCity }: { selectedCity?: CityDestinationPageData | null }) {
+  const activeMenuItems = selectedCity
+    ? menuItems.map((item) =>
+        item.label === "Explore Kyoto"
+          ? { ...item, label: `Explore ${selectedCity.city}` }
+          : item,
+      )
+    : menuItems;
+
   return (
     <GlassPanel className="rounded-lg p-5 lg:min-h-[calc(100vh-8rem)]">
       <div>
@@ -245,18 +255,22 @@ function LeftSidebar() {
           Atlas
         </p>
         <div className="mt-3 flex items-end gap-2">
-          <h1 className="font-sans text-3xl leading-none text-white">Japan</h1>
+          <h1 className="font-sans text-3xl leading-none text-white">
+            {selectedCity?.country ?? "Japan"}
+          </h1>
           <ChevronDown className="mb-1 h-4 w-4 text-[#d8aa4f]" />
         </div>
-        <p className="mt-2 text-sm text-white/58">Kansai Region</p>
+        <p className="mt-2 text-sm text-white/58">
+          {selectedCity?.city ?? "Kansai Region"}
+        </p>
         <p className="mt-5 max-w-[24rem] text-sm leading-6 text-white/66">
-          Explore with depth. Discover hidden places, plan meaningful journeys,
-          and see the world like a local.
+          {selectedCity?.atlas.copy ??
+            "Explore with depth. Discover hidden places, plan meaningful journeys, and see the world like a local."}
         </p>
       </div>
 
       <div className="mt-6 space-y-1 border-b border-white/10 pb-5">
-        {menuItems.map(({ label, icon: Icon, active }) => (
+        {activeMenuItems.map(({ label, icon: Icon, active }) => (
           <button
             key={label}
             type="button"
@@ -372,7 +386,13 @@ function RouteSystem() {
   );
 }
 
-function CinematicMap() {
+function CinematicMap({
+  selectedCity,
+  experienceSlug,
+}: {
+  selectedCity?: CityDestinationPageData | null;
+  experienceSlug?: string;
+}) {
   return (
     <div className="relative min-h-[680px] overflow-hidden border border-white/10 bg-[#06100f] shadow-[0_32px_120px_rgba(0,0,0,.5)] lg:min-h-[calc(100vh-8rem)]">
       <div
@@ -400,7 +420,9 @@ function CinematicMap() {
 
       <div className="absolute left-8 top-8 z-10 max-w-[36rem] sm:left-12 sm:top-10">
         <p className="text-sm font-semibold tracking-[0.08em] text-[#e3b861]">
-          Kansai Region
+          {selectedCity
+            ? `${selectedCity.city} Atlas${experienceSlug ? " · Hidden Gem" : ""}`
+            : "Kansai Region"}
         </p>
         <h2 className="mt-3 max-w-[38rem] text-3xl font-extrabold leading-[1.08] text-white sm:text-5xl xl:text-6xl 2xl:text-7xl">
           Explore deeper.
@@ -409,7 +431,9 @@ function CinematicMap() {
           </span>
         </h2>
         <p className="mt-4 max-w-[15rem] text-sm leading-6 text-white/82 sm:max-w-sm sm:text-base sm:leading-7">
-          Cinematic maps. Local secrets. Journeys that stay with you.
+          {selectedCity
+            ? selectedCity.description
+            : "Cinematic maps. Local secrets. Journeys that stay with you."}
         </p>
         <button
           type="button"
@@ -644,7 +668,15 @@ function CategoryRail() {
   );
 }
 
-export function AtlasMapPage() {
+export function AtlasMapPage({
+  citySlug,
+  experienceSlug,
+}: {
+  citySlug?: string;
+  experienceSlug?: string;
+} = {}) {
+  const selectedCity = citySlug ? getCityDestinationPageData(citySlug) : null;
+
   return (
     <main className="min-h-screen bg-[#030706] text-white">
       <AtlasNav />
@@ -655,15 +687,15 @@ export function AtlasMapPage() {
               Atlas filters
               <Layers3 className="h-4 w-4" />
             </summary>
-            <LeftSidebar />
+            <LeftSidebar selectedCity={selectedCity} />
           </details>
           <div className="hidden lg:block">
-            <LeftSidebar />
+            <LeftSidebar selectedCity={selectedCity} />
           </div>
         </div>
 
         <div className="order-1 min-w-0 lg:order-2">
-          <CinematicMap />
+          <CinematicMap selectedCity={selectedCity} experienceSlug={experienceSlug} />
         </div>
 
         <div className="order-3">

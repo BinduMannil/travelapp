@@ -33,7 +33,8 @@ export function RestaurantFilters({
       if (value && params.get(key) !== value) params.set(key, value);
       else params.delete(key);
       const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+      const currentPath = pathname ?? "";
+      router.replace(qs ? `${currentPath}?${qs}` : currentPath, { scroll: false });
     },
     [pathname, router, searchParams],
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
@@ -25,6 +26,8 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { navigationHref } from "@/lib/routes";
 import {
   SEED_SUGGESTIONS,
   SUGGESTION_CATEGORIES,
@@ -246,22 +249,21 @@ export function SuggestionBoard() {
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_24%_0%,rgba(214,161,28,.14),transparent_30%),radial-gradient(circle_at_78%_18%,rgba(30,96,113,.18),transparent_34%),linear-gradient(180deg,#071016_0%,#02090d_100%)]" />
       <header className="sticky top-0 z-30 border-b border-white/10 bg-[#030b10]/86 px-4 backdrop-blur-xl sm:px-6">
         <div className="mx-auto flex min-h-16 max-w-[1880px] items-center gap-5">
-          <a className="flex shrink-0 items-center gap-3" href="#">
+          <Link className="flex shrink-0 items-center gap-3" href="/">
             <Mountain className="h-9 w-9 text-[#f6b900]" strokeWidth={1.7} aria-hidden />
             <span className="text-2xl font-semibold uppercase text-white">JOURNEE</span>
-          </a>
+          </Link>
           <nav className="hidden flex-1 items-center gap-8 overflow-visible xl:flex">
             {navItems.map((item) => (
-              <a
+              <MainNavLink
                 key={item}
-                href="#"
-                className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-semibold transition ${
-                  item === "Ideas" ? "text-[#ffc400]" : "text-white/88 hover:text-[#ffc400]"
-                }`}
-              >
-                {item}
-                {item === "Ideas" && <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#ffc400]" />}
-              </a>
+                label={item}
+                href={item === "Ideas" ? "/community-ideas" : navigationHref(item)}
+                className="relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-semibold transition"
+                activeClassName="text-[#ffc400]"
+                inactiveClassName="text-white/88 hover:text-[#ffc400]"
+                underlineClassName="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#ffc400]"
+              />
             ))}
           </nav>
           <div className="ml-auto hidden h-10 w-60 items-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-4 lg:flex">

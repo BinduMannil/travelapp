@@ -32,6 +32,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type VaultCategory = {
   label: string;
@@ -347,13 +348,12 @@ function TopNavigation() {
 
         <nav className="hidden flex-1 items-center justify-center gap-1 xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+              label={item}
               className="relative px-3 py-5 text-sm font-medium text-white/86 transition hover:text-white 2xl:px-4"
-            >
-              {item}
-            </Link>
+              activeClassName="text-[#f0b64d]"
+            />
           ))}
         </nav>
 

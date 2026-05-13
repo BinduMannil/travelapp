@@ -228,6 +228,17 @@ export const COUNTRY_OPTIONS: CountryOption[] = [
     accent: "#34D399",
   },
   {
+    slug: "france",
+    name: "France",
+    region: "Europe",
+    status: "queued",
+    summary:
+      "Paris, wine regions, Riviera days, alpine towns, markets, museums, rail routes, and slow food-led planning.",
+    image:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2400&q=86",
+    accent: "#D8AA4F",
+  },
+  {
     slug: "greece",
     name: "Greece",
     region: "Europe",
@@ -352,6 +363,11 @@ export const PLACE_OPTIONS: PlaceOption[] = [
   { slug: "venice", countrySlug: "italy", name: "Venice", kind: "city", status: "queued", summary: "Canals, islands, crowds, hotels, boats, and early/late walking routes." },
   { slug: "amalfi-coast", countrySlug: "italy", name: "Amalfi Coast", kind: "region", status: "queued", summary: "Villages, ferries, roads, hotels, beaches, and shoulder-season strategy." },
   { slug: "sicily", countrySlug: "italy", name: "Sicily", kind: "island", status: "queued", summary: "Palermo, beaches, food, ruins, road trips, islands, and summer heat." },
+  { slug: "paris", countrySlug: "france", name: "Paris", kind: "city", status: "queued", summary: "Museums, neighborhoods, markets, cafes, hotels, metro logic, and first-visit pacing." },
+  { slug: "nice", countrySlug: "france", name: "Nice", kind: "city", status: "queued", summary: "Riviera beaches, old town lanes, rail day trips, markets, and Mediterranean timing." },
+  { slug: "lyon", countrySlug: "france", name: "Lyon", kind: "city", status: "queued", summary: "Food culture, traboules, rivers, museums, wine access, and quieter city rhythm." },
+  { slug: "bordeaux", countrySlug: "france", name: "Bordeaux", kind: "city", status: "queued", summary: "Wine routes, riverfront walks, markets, architecture, and Atlantic-side planning." },
+  { slug: "provence", countrySlug: "france", name: "Provence", kind: "region", status: "queued", summary: "Villages, markets, lavender windows, Roman sites, food, and car-aware routing." },
   { slug: "athens", countrySlug: "greece", name: "Athens", kind: "city", status: "queued", summary: "Ruins, neighborhoods, food, ferries, hotels, and city-to-island planning." },
   { slug: "santorini", countrySlug: "greece", name: "Santorini", kind: "island", status: "queued", summary: "Views, crowds, hotels, beaches, ferries, and sunset logistics." },
   { slug: "crete", countrySlug: "greece", name: "Crete", kind: "island", status: "queued", summary: "Road trips, beaches, villages, food, hikes, ruins, and multi-base planning." },

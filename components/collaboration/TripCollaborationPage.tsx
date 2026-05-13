@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type Role = "Owner" | "Editor" | "Viewer" | "Pending";
 
@@ -329,7 +330,7 @@ export const collaborationData: CollaborationData = {
 
 const navItems = [
   { label: "Home", href: "/", icon: Home },
-  { label: "Explore", href: "/discover", icon: Sparkles },
+  { label: "Explore", href: "/explore", icon: Sparkles },
   { label: "Map", href: "/atlas", icon: Map },
   { label: "Trips", href: "/trips", icon: CalendarDays },
   { label: "Guides", href: "/guides", icon: NotebookPen },
@@ -451,13 +452,15 @@ function TopNavigation() {
         </a>
         <nav className="hidden min-w-0 flex-1 items-center justify-center gap-1 2xl:flex">
           {navItems.map((item) => (
-            <a
-              href={item.href}
+            <MainNavLink
               key={item.label}
+              label={item.label}
+              href={item.href}
               className="rounded px-3 py-2 text-[0.82rem] font-semibold text-white/88 transition hover:bg-white/8 hover:text-white"
+              activeClassName="bg-white/8 text-[#ffb400]"
             >
               {item.label}
-            </a>
+            </MainNavLink>
           ))}
         </nav>
         <div className="ml-auto flex items-center gap-3">

@@ -31,6 +31,7 @@ import {
   Wind,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 export const metadata: Metadata = {
   title: "Yachts & Private Escapes",
@@ -271,9 +272,9 @@ const feed = [
 
 const navItems = [
   ["Home", Home, "/"],
-  ["Explore", Compass, "/discover"],
-  ["Atlas", Map, "/guides"],
-  ["Trips", CalendarDays, "/trip-collaboration"],
+  ["Explore", Compass, "/explore"],
+  ["Atlas", Map, "/atlas"],
+  ["Trips", CalendarDays, "/trips"],
   ["Stays", Hotel, "/stays"],
   ["Flights", Plane, "/flights"],
   ["Yachts", Anchor, "/yachts"],
@@ -339,18 +340,17 @@ function LeftRail() {
         {navItems.map(([label, Icon, href]) => {
           const active = label === "Yachts";
           return (
-            <Link
+            <MainNavLink
               key={label}
+              label={label}
               href={href}
-              className={`group flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition ${
-                active
-                  ? "border border-[#d6a94b]/25 bg-[#d6a94b]/14 text-white shadow-[0_18px_50px_rgba(214,169,75,.12)]"
-                  : "text-white/72 hover:bg-white/7 hover:text-white"
-              }`}
+              className="group flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition"
+              activeClassName="border border-[#d6a94b]/25 bg-[#d6a94b]/14 text-white shadow-[0_18px_50px_rgba(214,169,75,.12)]"
+              inactiveClassName="text-white/72 hover:bg-white/7 hover:text-white"
             >
               <Icon className="h-4 w-4" color={active ? gold : "currentColor"} />
               {label}
-            </Link>
+            </MainNavLink>
           );
         })}
       </nav>

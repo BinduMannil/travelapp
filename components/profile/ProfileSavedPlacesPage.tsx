@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { useI18n } from "@/lib/i18n/context";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 import { LanguagePicker } from "@/components/layout/LanguagePicker";
 import { PreferencesMenu } from "@/components/layout/PreferencesMenu";
 
@@ -178,7 +179,7 @@ const travelStyle = [
 
 function routeFor(item: string) {
   if (item === "Home") return "/";
-  if (item === "Explore") return "/discover";
+  if (item === "Explore") return "/explore";
   if (item === "Map") return "/atlas";
   return `/${item.toLowerCase().replaceAll(" ", "-")}`;
 }
@@ -245,18 +246,14 @@ function TopNav() {
 
         <nav className="hidden items-center gap-6 text-[0.82rem] font-medium text-white/84 lg:flex">
           {navItems.map((item) => (
-            <a
-              href={routeFor(item)}
+            <MainNavLink
               key={item}
-              className={`relative py-7 transition hover:text-[#e2ad50] ${
-                item === "Profile" ? "text-[#e2ad50]" : ""
-              }`}
-            >
-              {item}
-              {item === "Profile" ? (
-                <span className="absolute inset-x-0 bottom-0 h-0.5 bg-[#e2ad50]" />
-              ) : null}
-            </a>
+              label={item}
+              href={routeFor(item)}
+              className="relative py-7 transition hover:text-[#e2ad50]"
+              activeClassName="text-[#e2ad50]"
+              underlineClassName="absolute inset-x-0 bottom-0 h-0.5 bg-[#e2ad50]"
+            />
           ))}
         </nav>
 

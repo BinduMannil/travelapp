@@ -30,6 +30,7 @@ import {
   UsersRound,
   Utensils,
 } from "lucide-react";
+import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 export const metadata: Metadata = {
   title: "Booking Checkout",
@@ -240,13 +241,12 @@ function TopNavigation() {
         </Link>
         <nav className="hidden flex-1 items-center justify-center gap-1 2xl:flex">
           {navItems.map((item) => (
-            <Link
+            <MainNavLink
               key={item}
-              href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+              label={item}
               className="rounded-md px-3 py-2 text-sm font-medium text-white/90 transition hover:bg-white/[0.055] hover:text-white"
-            >
-              {item}
-            </Link>
+              activeClassName="text-[#f5b21d]"
+            />
           ))}
         </nav>
         <div className="ml-auto hidden items-center gap-2 text-sm font-medium text-[#84ee78] lg:flex">
