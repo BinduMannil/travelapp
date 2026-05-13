@@ -38,9 +38,9 @@ export default async function ShoppingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="shopping" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const data = getCityShopping(slug);
   if (!city || !data) notFound();

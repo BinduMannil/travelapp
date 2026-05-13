@@ -50,7 +50,7 @@ const HERO_IMAGES: Record<Palette, string> = {
 };
 
 /**
- * PageHero — dark sumi hero with a kanji accent and Montserrat title.
+ * PageHero — dark sumi hero with a kanji accent and Playfair title.
  * Use on every internal city / country page so the product has one voice.
  *
  *  <PageHero
@@ -154,7 +154,7 @@ export function PageHero({
               </p>
             )}
             <h1
-              className={`luxury-display mt-4 font-semibold text-washi-50 ${headingSize}`}
+              className={`heading-editorial mt-4 text-washi-50 ${headingSize}`}
             >
               {title}
             </h1>

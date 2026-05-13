@@ -31,7 +31,7 @@ export const VIETNAM_CITY_IMAGES: Record<string, string> = {
   "da-nang":
     "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=2200&q=84",
   "hoi-an":
-    "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2200&q=84",
+    "https://images.unsplash.com/photo-1560113855-2ea616c915ee?auto=format&fit=crop&w=2200&q=84",
   hue:
     "https://images.unsplash.com/photo-1584441761015-c7447e8ef9cc?auto=format&fit=crop&w=2200&q=84",
   "nha-trang":
@@ -43,11 +43,11 @@ export const VIETNAM_CITY_IMAGES: Record<string, string> = {
   "phu-quoc":
     "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=2200&q=84",
   "ha-long":
-    "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2200&q=84",
+    "https://images.unsplash.com/photo-1669819894338-53ab7afc6958?auto=format&fit=crop&w=2200&q=84",
   "ninh-binh":
-    "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2200&q=84",
+    "https://images.unsplash.com/photo-1690336501870-eab322a6ee2d?auto=format&fit=crop&w=2200&q=84",
   "can-tho":
-    "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2200&q=84",
+    "https://images.unsplash.com/photo-1744760654110-c0befa6f57b3?auto=format&fit=crop&w=2200&q=84",
 };
 
 export const VIETNAM_COUNTRY_IMAGES = {

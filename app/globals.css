@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --font-display: var(--font-sans);
-  --font-script: var(--font-sans);
+  --font-script: var(--font-display);
   --journee-ink: #171412;
   --journee-paper: #f8f3e8;
   --journee-paper-soft: #fffdf6;
@@ -22,8 +21,6 @@ body {
   height: 100%;
 }
 
-/* Montserrat is the only JOURNEE typeface. The scale stays cinematic through
-   spacing, weight, line-height, imagery, and composition. */
 html {
   font-size: 15px; /* base rem keeps xs/sm utilities readable */
 }
@@ -42,42 +39,51 @@ p {
   line-height: 1.72;
 }
 
-/* JOURNEE uses Montserrat everywhere. Hierarchy comes from weight,
-   line-height, spacing, imagery, and composition rather than mixed fonts. */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-sans, Montserrat), sans-serif;
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif;
   letter-spacing: 0;
+  font-weight: 500;
+  text-wrap: balance;
 }
 
 h1 {
-  font-size: 1.75rem; /* ~26px */
-  line-height: 1.2;
-  font-weight: 800;
+  font-size: clamp(2rem, 5vw, 4.6rem);
+  line-height: 0.98;
 }
 
 h2 {
-  font-size: 1.1rem; /* ~17px */
-  line-height: 1.3;
-  font-weight: 600;
+  font-size: clamp(1.55rem, 3vw, 2.8rem);
+  line-height: 1.05;
 }
 
 h3 {
-  font-size: 0.95rem; /* ~14px */
-  line-height: 1.35;
-  font-weight: 600;
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  line-height: 1.12;
 }
 
 h4,
 h5,
 h6 {
-  font-size: 0.8667rem;
-  line-height: 1.35;
-  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.18;
+}
+
+:is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500 !important;
+}
+
+:is(h1, h2, h3, h4, h5, h6)[class*="uppercase"][class*="text-xs"],
+:is(h1, h2, h3, h4, h5, h6)[class*="uppercase"][class*="text-sm"],
+:is(h1, h2, h3, h4, h5, h6)[class*="uppercase"][class*="text-[0."],
+:is(button, label, nav, form, input, select, textarea) :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-sans, Montserrat), sans-serif !important;
+  font-weight: 600 !important;
 }
 
 small {
@@ -99,6 +105,7 @@ small {
 }
 
 .luxury-kicker {
+  font-family: var(--font-sans, Montserrat), sans-serif !important;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.08em;
@@ -107,17 +114,134 @@ small {
 }
 
 .luxury-display {
-  font-family: var(--font-sans, Montserrat), sans-serif;
-  font-weight: 800;
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
   letter-spacing: 0;
-  line-height: 1.02;
+  line-height: 0.96;
   max-inline-size: 100%;
   text-wrap: balance;
 }
 
-body,
-body * {
-  font-family: var(--font-sans, Montserrat), sans-serif !important;
+.heading-display,
+.heading-editorial,
+.heading-cinematic {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.heading-display {
+  line-height: 0.9;
+}
+
+.heading-editorial {
+  line-height: 0.98;
+}
+
+.heading-cinematic {
+  line-height: 1.04;
+}
+
+.heading-emphasis {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.vietnam-editorial {
+  --vietnam-ink: #06120d;
+  --vietnam-emerald: #082a1f;
+  --vietnam-emerald-soft: #0d3b2e;
+  --vietnam-gold: #d9ad5d;
+  --vietnam-lantern: #f08a45;
+  --vietnam-cream: #fff2d8;
+  background:
+    radial-gradient(circle at 13% 12%, rgba(240, 138, 69, 0.18), transparent 28rem),
+    radial-gradient(circle at 86% 18%, rgba(217, 173, 93, 0.14), transparent 30rem),
+    linear-gradient(180deg, #06120d 0%, #081d16 52%, #050b09 100%);
+  color: var(--vietnam-cream);
+}
+
+.vietnam-editorial :is(h1, h2, h3, h4, h5, h6, strong) {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.vietnam-editorial :is(p, a, span, div, label, input, select, button, li) {
+  letter-spacing: 0;
+}
+
+.vietnam-editorial :is(article, aside, [class*="border"], input, select, button) {
+  border-color: rgba(217, 173, 93, 0.2) !important;
+}
+
+.vietnam-editorial :is(article, aside, a, input, select, button) {
+  border-radius: 1rem;
+}
+
+.vietnam-editorial article,
+.vietnam-editorial aside,
+.vietnam-editorial .vietnam-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 242, 216, 0.082), rgba(255, 242, 216, 0.035)),
+    radial-gradient(circle at 18% 0%, rgba(240, 138, 69, 0.1), transparent 21rem) !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.vietnam-editorial .vietnam-chip {
+  border-radius: 999px;
+  background: rgba(217, 173, 93, 0.1) !important;
+}
+
+.vietnam-editorial a {
+  transition-duration: 500ms;
+}
+
+.vietnam-hero-overlay {
+  background:
+    radial-gradient(circle at 18% 28%, rgba(240, 138, 69, 0.18), transparent 24rem),
+    radial-gradient(circle at 78% 22%, rgba(14, 75, 54, 0.44), transparent 34rem),
+    linear-gradient(90deg, rgba(5, 18, 13, 0.96), rgba(7, 34, 25, 0.7) 44%, rgba(6, 18, 14, 0.22) 72%),
+    linear-gradient(0deg, #06120d 0%, rgba(6, 18, 13, 0.92) 10%, rgba(6, 18, 13, 0.52) 44%, transparent 76%);
+}
+
+.vietnam-image-shade {
+  background:
+    radial-gradient(circle at 28% 12%, rgba(240, 138, 69, 0.18), transparent 20rem),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.58) 42%, rgba(0, 0, 0, 0.08) 78%);
+}
+
+.vietnam-fog {
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 18% 82%, rgba(255, 242, 216, 0.16), transparent 26rem),
+    radial-gradient(ellipse at 74% 72%, rgba(255, 242, 216, 0.1), transparent 30rem),
+    linear-gradient(180deg, transparent, rgba(255, 242, 216, 0.08));
+  filter: blur(16px);
+  opacity: 0.76;
+  animation: vietnam-fog-drift 18s ease-in-out infinite alternate;
+}
+
+.vietnam-reflection {
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(180deg, rgba(217, 173, 93, 0.16) 0 1px, transparent 1px 12px),
+    linear-gradient(90deg, transparent, rgba(217, 173, 93, 0.12), transparent);
+  mask-image: linear-gradient(90deg, transparent, black 26%, black 74%, transparent);
+  opacity: 0.42;
+}
+
+@keyframes vietnam-fog-drift {
+  from {
+    transform: translate3d(-2%, 1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, -1%, 0) scale(1.05);
+  }
 }
 
 @keyframes airspace-route {
@@ -167,6 +291,8 @@ body * {
 }
 
 .editorial-card-title {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
   font-size: clamp(1.65rem, 10cqw, 2.75rem);
   line-height: 1.04;
   max-inline-size: 100%;
@@ -175,6 +301,8 @@ body * {
 }
 
 .editorial-panel-title {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
   font-size: clamp(1.28rem, 7.5cqw, 1.85rem);
   line-height: 1.12;
   max-inline-size: 100%;
@@ -183,6 +311,8 @@ body * {
 }
 
 .editorial-module-title {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
   font-size: clamp(1.32rem, 8cqw, 2rem);
   line-height: 1.1;
   max-inline-size: 100%;
@@ -191,6 +321,8 @@ body * {
 }
 
 .editorial-feature-title {
+  font-family: var(--font-display, "Playfair Display"), Georgia, serif !important;
+  font-weight: 500;
   font-size: clamp(1.9rem, 8.5cqw, 3.15rem);
   line-height: 1.02;
   max-inline-size: 100%;

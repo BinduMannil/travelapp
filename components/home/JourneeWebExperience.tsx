@@ -319,12 +319,12 @@ function HomeHero({ heroImage }: { heroImage: string }) {
           </p>
           <h1
             aria-label="Until it becomes a place."
-            className="mt-6 text-balance font-sans text-[clamp(4rem,15vw,7.4rem)] font-semibold leading-[0.9] text-[#fffaf0]"
+            className="heading-display mt-6 text-balance text-[clamp(4rem,15vw,7.4rem)] text-[#fffaf0]"
           >
             <span aria-hidden="true">
               Until it
               <span className="block">becomes</span>
-              <span className="block italic text-[#d9a947]">a place.</span>
+              <span className="block heading-emphasis text-[#d9a947]">a place.</span>
             </span>
           </h1>
           <p className="mt-7 max-w-[470px] font-sans text-base leading-8 text-white/78 sm:text-lg">
@@ -352,8 +352,8 @@ function HomeHero({ heroImage }: { heroImage: string }) {
         </div>
 
         <aside className="hidden rounded-[1.35rem] border border-white/18 bg-[#121713]/64 p-8 shadow-2xl shadow-black/35 backdrop-blur-xl lg:block">
-          <p className="font-sans text-5xl leading-none text-[#d9a947]">“</p>
-          <p className="mt-4 font-sans text-base leading-8 text-white/86">
+          <p className="font-display text-5xl leading-none text-[#d9a947]">“</p>
+          <p className="mt-4 font-display text-xl leading-8 text-white/86">
             The best journeys answer questions that in the beginning you didn’t even think to ask.
           </p>
           <div className="mt-7 border-t border-white/14 pt-5 font-sans text-sm text-white/70">
@@ -722,7 +722,7 @@ function HeroSearchBar() {
 function SectionHeading({ title }: { title: string }) {
   return (
     <div className="mb-5 flex items-center justify-between gap-6">
-      <h2 className="font-sans text-[clamp(1.65rem,5vw,2.05rem)] font-medium leading-tight text-[#fffaf0]">
+      <h2 className="heading-cinematic text-[clamp(1.65rem,5vw,2.05rem)] text-[#fffaf0]">
         {title}
       </h2>
       <Link
@@ -757,7 +757,7 @@ function JourneyCategoryRail({ items }: { items: typeof categories }) {
               <span className="mb-4 inline-flex w-fit rounded-full border border-[#d9a947]/45 bg-black/28 px-3 py-1 font-sans text-[0.62rem] font-bold uppercase tracking-[0.14em] text-[#d9a947]">
                 {category.count}
               </span>
-              <strong className="font-sans text-base font-semibold leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,.9)]">
+              <strong className="font-display text-lg font-medium leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,.9)]">
                 {category.title}
               </strong>
             </span>
@@ -792,7 +792,7 @@ function RecommendedDestinations({ items }: { items: typeof destinations }) {
               <span className="font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
                 {destination.country}
               </span>
-              <strong className="mt-3 max-w-full text-wrap font-sans text-[clamp(1.55rem,5vw,1.95rem)] font-semibold leading-[1.06] text-[#fffaf0] drop-shadow-[0_4px_18px_rgba(0,0,0,1)]">
+              <strong className="mt-3 max-w-full text-wrap font-display text-[clamp(1.55rem,5vw,1.95rem)] font-medium leading-[1.06] text-[#fffaf0] drop-shadow-[0_4px_18px_rgba(0,0,0,1)]">
                 {destination.title}
               </strong>
               <span className="mt-5 flex items-center gap-2 font-sans text-sm font-semibold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
@@ -821,7 +821,7 @@ function FeatureStrip() {
           >
             <div className="flex gap-6">
               <div>
-                <h3 className="font-sans text-[1.45rem] font-medium leading-tight text-[#fffaf0]">
+                <h3 className="font-display text-[1.45rem] font-medium leading-tight text-[#fffaf0]">
                   {feature.title}
                 </h3>
                 <p className="mt-3 max-w-[18rem] font-sans text-sm leading-6 text-white/62">{feature.copy}</p>

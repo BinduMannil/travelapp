@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import "./globals.css";
-import { montserrat } from "./fonts";
+import { montserrat, playfair } from "./fonts";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { PreferencesProvider } from "@/lib/preferences/context";
 import { I18nProvider } from "@/lib/i18n/context";
@@ -53,7 +53,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       dir={dir}
-      className={montserrat.variable}
+      className={`${montserrat.variable} ${playfair.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-[#050807] font-sans text-white antialiased">

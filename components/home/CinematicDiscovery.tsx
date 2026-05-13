@@ -299,7 +299,7 @@ export function CinematicDiscovery() {
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
             <p className="luxury-kicker text-kintsugi-300">JOURNEE GLOBAL TRAVEL DISCOVERY</p>
-            <h1 className="luxury-display mt-5 max-w-[12ch] text-[clamp(3.4rem,8.6vw,8.4rem)] font-semibold leading-[0.9] text-white">
+            <h1 className="heading-display mt-5 max-w-[12ch] text-[clamp(3.4rem,8.6vw,8.4rem)] text-white">
               Where should the world take you next?
             </h1>
             <p className="luxury-lede mt-7 max-w-2xl text-washi-50/88">
@@ -354,7 +354,7 @@ export function CinematicDiscovery() {
         <div className="mx-auto max-w-7xl">
           <div className="max-w-3xl">
             <p className="luxury-kicker text-kintsugi-300">SEARCH BY FEELING</p>
-            <h2 className="mt-4 max-w-[13ch] font-sans text-[clamp(2.55rem,4.25vw,4.65rem)] font-semibold leading-[1] text-white">
+            <h2 className="heading-editorial mt-4 max-w-[13ch] text-[clamp(2.55rem,4.25vw,4.65rem)] text-white">
               Choose the mood, then let the map change.
             </h2>
             <p className="mt-6 max-w-xl text-base leading-8 text-white/72">
@@ -379,7 +379,7 @@ export function CinematicDiscovery() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.28)_42%,rgba(0,0,0,.84)),linear-gradient(90deg,rgba(0,0,0,.54),transparent)]" />
               <div className="absolute bottom-0 max-w-2xl p-7 sm:p-10 lg:p-12">
                 <p className="luxury-kicker text-kintsugi-300/90">{active.eyebrow}</p>
-                <h3 className="mt-3 max-w-xl font-sans text-[clamp(2.35rem,4.2vw,4.7rem)] font-semibold leading-[0.94] text-white">
+                <h3 className="heading-editorial mt-3 max-w-xl text-[clamp(2.35rem,4.2vw,4.7rem)] text-white">
                   {active.headline}
                 </h3>
                 <p className="mt-5 max-w-xl text-base leading-8 text-white/78">{active.body}</p>
@@ -391,7 +391,7 @@ export function CinematicDiscovery() {
                 <div className="flex items-end justify-between gap-5">
                   <div>
                     <p className="luxury-kicker text-kintsugi-300/82">MOOD LENS</p>
-                    <h3 className="mt-3 font-sans text-3xl font-semibold leading-tight text-white">
+                    <h3 className="heading-cinematic mt-3 text-3xl text-white">
                       {active.label}
                     </h3>
                   </div>

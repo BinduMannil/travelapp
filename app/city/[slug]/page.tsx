@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CityDestinationPage } from "@/components/city/CityDestinationPage";
 import { PlacePreviewExperience } from "@/components/city/PlacePreviewExperience";
+import { VietnamCityExperience } from "@/components/vietnam/VietnamCityExperience";
 import {
   getAllCityDestinationSlugs,
   getCityDestinationPageData,
 } from "@/lib/city/city-destination-data";
 import { getPlaceOption } from "@/lib/destinations/countries";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 
 type CityPageParams = {
   params: Promise<{ slug: string }>;
@@ -32,6 +34,9 @@ export async function generateMetadata({ params }: CityPageParams): Promise<Meta
 export default async function CityPage({ params }: CityPageParams) {
   const { slug } = await params;
   const city = getCityDestinationPageData(slug);
+  const vietnamCity = getVietnamCity(slug);
+
+  if (vietnamCity) return <VietnamCityExperience city={vietnamCity} />;
 
   if (city) {
     return <CityDestinationPage data={city} />;

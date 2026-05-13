@@ -41,9 +41,9 @@ export default async function PaymentsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="payments" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();

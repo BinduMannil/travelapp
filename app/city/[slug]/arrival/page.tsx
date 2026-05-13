@@ -65,9 +65,9 @@ export default async function ArrivalPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="arrival" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const arrival = getCityArrival(slug);
   if (!city || !arrival) notFound();

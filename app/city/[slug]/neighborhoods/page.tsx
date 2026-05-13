@@ -52,9 +52,9 @@ export default async function NeighborhoodsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="neighborhoods" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   if (!city) notFound();
 

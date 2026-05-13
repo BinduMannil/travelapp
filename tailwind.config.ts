@@ -83,8 +83,8 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "Montserrat", "sans-serif"],
-        display: ["var(--font-sans)", "Montserrat", "sans-serif"],
-        script: ["var(--font-sans)", "Montserrat", "sans-serif"],
+        display: ["var(--font-display)", "Playfair Display", "serif"],
+        script: ["var(--font-display)", "Playfair Display", "serif"],
       },
       backgroundImage: {
         // Seigaiha — overlapping-wave motif. Classic traditional pattern.

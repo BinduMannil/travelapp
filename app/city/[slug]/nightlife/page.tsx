@@ -43,9 +43,9 @@ export default async function NightlifePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="nightlife" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const data = getCityNightlife(slug);
   if (!city || !data) notFound();

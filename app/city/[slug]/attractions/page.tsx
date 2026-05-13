@@ -52,9 +52,9 @@ export default async function AttractionsPage({
   searchParams: Promise<{ category?: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="attractions" />;
+  if (getPlaceOption(slug)) notFound();
   const { category } = await searchParams;
   const city = getCity(slug);
   if (!city) notFound();

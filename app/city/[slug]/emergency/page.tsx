@@ -20,9 +20,9 @@ export default async function EmergencyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="emergency" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const data = getCityEmergency(slug);
   if (!city || !data) notFound();

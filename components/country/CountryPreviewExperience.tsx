@@ -88,6 +88,7 @@ function ImageCard({ card, large = false }: { card: CountryContentCard; large?: 
 }
 
 export function CountryPreviewExperience({ country }: { country: CountryOption }) {
+  const isVietnam = country.slug === "vietnam";
   const atmosphereTheme = getAtmosphereThemeForRender({
     destinationSlug: country.slug,
     destinationType: "country",
@@ -134,7 +135,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
 
   return (
     <DestinationAtmosphereProvider destinationSlug={country.slug} destinationType="country">
-    <main className="min-h-screen overflow-x-hidden bg-[#020a0b] text-white">
+    <main className={`${isVietnam ? "vietnam-editorial" : ""} min-h-screen overflow-x-hidden bg-[#020a0b] text-white`}>
       <section className="relative isolate overflow-hidden">
         <div className="relative min-h-[52rem] overflow-hidden">
           <img
@@ -144,6 +145,13 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
           />
           <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
           <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
+          {isVietnam ? (
+            <>
+              <div className="vietnam-hero-overlay absolute inset-0 -z-20" />
+              <div className="vietnam-fog absolute inset-x-0 bottom-0 -z-10 h-56" />
+              <div className="vietnam-reflection absolute inset-x-10 bottom-10 -z-10 h-20" />
+            </>
+          ) : null}
           <div className="absolute inset-x-0 top-0 z-20 border-b border-white/8 bg-black/10 backdrop-blur-sm">
             <div className="mx-auto flex max-w-[1160px] items-center justify-between gap-6 px-4 py-5 sm:px-5 xl:px-0">
               <Link href="/" className="min-w-0">
@@ -176,7 +184,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
               <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
                 {country.heroEyebrow ?? country.name}
               </p>
-              <h1 className="mt-5 max-w-[12ch] font-sans text-[clamp(2.1rem,10vw,3.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-white md:text-[clamp(2.5rem,7vw,4.5rem)] lg:text-[clamp(3rem,6vw,5.5rem)] lg:leading-[0.92]">
+              <h1 className="mt-5 max-w-[12ch] font-sans text-[clamp(2.2rem,10vw,3.8rem)] font-semibold leading-[0.98] text-white drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)] md:text-[clamp(2.6rem,7vw,4.8rem)] lg:text-[clamp(3.1rem,6vw,5.8rem)] lg:leading-[0.94]">
                 {country.heroTitle ?? country.name}
               </h1>
               <p className="mt-7 max-w-lg text-base leading-8 text-white/82">

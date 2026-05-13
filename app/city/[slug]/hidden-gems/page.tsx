@@ -51,9 +51,9 @@ export default async function HiddenGemsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="hidden-gems" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const data = getCityHiddenGems(slug);
   if (!city || !data) notFound();

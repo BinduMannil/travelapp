@@ -68,9 +68,9 @@ export default async function WellnessPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="wellness" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const data = getCityWellness(slug);
   if (!city || !data) notFound();

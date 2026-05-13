@@ -129,9 +129,9 @@ export default async function HotelsPage({
   searchParams: Promise<{ tier?: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="hotels" />;
+  if (getPlaceOption(slug)) notFound();
   const { tier } = await searchParams;
   const city = getCity(slug);
   if (!city) notFound();

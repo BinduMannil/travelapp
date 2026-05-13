@@ -2,7 +2,6 @@
 import Link from "next/link";
 import {
   Coffee,
-  Languages,
   MapPinned,
   Shirt,
   Soup,
@@ -125,15 +124,17 @@ function VietnamShell({
   children: React.ReactNode;
 }) {
   return (
-    <main className="min-h-screen bg-[#07110d] text-orange-50">
+    <main className="vietnam-editorial min-h-screen bg-[#07110d] text-orange-50">
       <section className="relative isolate min-h-[72svh] overflow-hidden">
         <img
           src={image}
           alt=""
           className="absolute inset-0 -z-30 h-full w-full object-cover saturate-150"
         />
-        <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(5,16,12,.96),rgba(7,17,13,.64)_48%,rgba(7,17,13,.16)),linear-gradient(0deg,#07110d,transparent_58%)]" />
-        <div className="mx-auto grid min-h-[72svh] max-w-7xl content-end px-6 pb-16 pt-24">
+        <div className="vietnam-hero-overlay absolute inset-0 -z-20" />
+        <div className="vietnam-fog absolute inset-x-0 bottom-0 -z-10 h-44" />
+        <div className="vietnam-reflection absolute inset-x-8 bottom-8 -z-10 h-16" />
+        <div className="mx-auto grid min-h-[72svh] max-w-7xl content-end px-5 pb-14 pt-24 sm:px-6 sm:pb-16">
           <nav className="text-xs font-black uppercase tracking-[0.12em] text-orange-100/60">
             <Link href="/" className="hover:text-orange-100">Home</Link> ·{" "}
             <Link href="/country/vietnam" className="hover:text-orange-100">Vietnam</Link> · {eyebrow}
@@ -141,7 +142,7 @@ function VietnamShell({
           <p className="mt-10 text-xs font-black uppercase tracking-[0.14em] text-amber-300">
             {eyebrow}
           </p>
-          <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.4rem,12vw,9rem)] font-black leading-[0.86]">
+          <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3rem,11vw,8.4rem)] font-black leading-[0.9] drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)]">
             {title}
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-orange-50/78">
@@ -160,7 +161,7 @@ function SectionTitle({ kicker, title }: { kicker: string; title: string }) {
       <p className="text-xs font-black uppercase tracking-[0.14em] text-amber-300">
         {kicker}
       </p>
-      <h2 className="mt-3 font-sans text-[clamp(2rem,6vw,4.25rem)] font-black leading-tight">
+      <h2 className="mt-3 font-sans text-[clamp(2rem,6vw,4.25rem)] font-black leading-[1.02]">
         {title}
       </h2>
     </div>
@@ -183,7 +184,7 @@ export function VietnamCuisinePage() {
               <article key={dish.name} className="overflow-hidden border border-orange-100/14 bg-black/24">
                 <div className="relative min-h-72">
                   <img src={dish.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/82 to-transparent" />
+                  <div className="vietnam-image-shade absolute inset-0" />
                   <div className="absolute bottom-5 left-5">
                     <p className="text-xs font-black uppercase tracking-[0.12em] text-amber-300">{dish.vietnamese}</p>
                     <h2 className="mt-2 font-sans text-4xl font-black">{dish.name}</h2>
@@ -229,7 +230,7 @@ export function VietnamBeveragesPage() {
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {drinks.map((drink) => (
               <article key={drink.name} className="border border-orange-100/14 bg-black/28 p-6">
-                <Coffee className="text-amber-300" />
+                <div className="h-px w-14 bg-amber-300/70" />
                 <p className="mt-6 text-xs font-black uppercase tracking-[0.12em] text-orange-50/48">{drink.category}</p>
                 <h2 className="mt-2 font-sans text-3xl font-black">{drink.name}</h2>
                 <p className="mt-1 text-sm font-bold text-amber-300">{drink.vietnamese}</p>
@@ -267,10 +268,9 @@ export function VietnamFamousForPage() {
           <SectionTitle kicker="Identity markers" title="What travelers remember after leaving." />
           <div className="grid gap-5 md:grid-cols-2">
             {famousFor.map((item) => {
-              const Icon = item.icon;
               return (
                 <article key={item.title} className="border border-orange-100/14 bg-black/24 p-6 sm:p-8">
-                  <Icon className="text-amber-300" size={30} />
+                  <span className="block h-px w-16 bg-amber-300/70" />
                   <h2 className="mt-6 font-sans text-4xl font-black">{item.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-orange-50/68">{item.body}</p>
                 </article>
@@ -284,7 +284,7 @@ export function VietnamFamousForPage() {
           <SectionTitle kicker="Best-fit activities" title="Use the activity layer to choose your route." />
           <div className="flex flex-wrap gap-3">
             {VIETNAM_ACTIVITIES.map((activity) => (
-              <span key={activity.slug} className="border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-black text-orange-50/82">
+              <span key={activity.slug} className="vietnam-chip border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-black text-orange-50/82">
                 {activity.label}
               </span>
             ))}
@@ -311,7 +311,7 @@ export function VietnamLanguagesPage() {
       <section className="px-6 py-20 sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.75fr_1.25fr]">
           <div>
-            <Languages className="text-amber-300" size={34} />
+            <span className="block h-px w-20 bg-amber-300/70" />
             <SectionTitle kicker="Language reality" title="Tone, context, and phone support matter." />
             <div className="grid gap-3">
               {languageNotes.map((note) => (

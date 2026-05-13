@@ -7,7 +7,6 @@ import {
   MapPinned,
   Moon,
   ShieldAlert,
-  Smartphone,
   Train,
   Utensils,
   Waves,
@@ -202,21 +201,23 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
     .filter(Boolean);
 
   return (
-    <main className="min-h-screen text-orange-50" style={{ backgroundColor: color.primary }}>
+    <main className="vietnam-editorial min-h-screen text-orange-50" style={{ backgroundColor: color.primary }}>
       <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden">
         <img
           src={VIETNAM_CITY_IMAGES[city.slug]}
           alt=""
           className="absolute inset-0 -z-30 h-full w-full object-cover saturate-150"
         />
+        <div className="vietnam-hero-overlay absolute inset-0 -z-20" />
         <div
-          className="absolute inset-0 -z-20"
+          className="absolute inset-0 -z-20 opacity-70"
           style={{
-            background: `linear-gradient(90deg, ${color.primary}f5, ${color.secondary ?? "#0F766E"}b8 48%, rgba(0,0,0,.35)), linear-gradient(0deg, ${color.primary}f0, transparent 58%)`,
+            background: `radial-gradient(circle at 72% 30%, ${color.secondary ?? "#0F766E"}66, transparent 32rem), linear-gradient(0deg, ${color.primary}f5, transparent 70%)`,
           }}
         />
-        <div className="absolute inset-0 -z-10 opacity-30 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.18)_0_1px,transparent_1px_34px),repeating-linear-gradient(0deg,rgba(255,255,255,.09)_0_1px,transparent_1px_48px)]" />
-        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+        <div className="vietnam-fog absolute inset-x-0 bottom-0 -z-10 h-52" />
+        <div className="vietnam-reflection absolute inset-x-10 bottom-9 -z-10 h-20" />
+        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-8 px-5 pb-14 pt-24 sm:px-6 sm:pb-16 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
             <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/62">
               <Link href="/" className="hover:text-orange-100">Home</Link> ·{" "}
@@ -225,10 +226,10 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
             <p className="mt-12 text-xs font-black uppercase tracking-[0.12em]" style={{ color: color.accent }}>
               {VIETNAM_CITY_REGIONS[city.slug]} · {personality.tempo}
             </p>
-            <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.7rem,13vw,11rem)] font-black leading-[0.84] text-orange-50">
+            <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.2rem,12vw,10rem)] font-black leading-[0.88] text-orange-50 drop-shadow-[0_6px_30px_rgba(0,0,0,0.58)]">
               {city.name}
             </h1>
-            <p className="mt-8 max-w-2xl text-xl leading-9 text-orange-50/82">
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-orange-50/86 sm:text-xl sm:leading-9">
               {personality.lead}
             </p>
           </div>
@@ -250,10 +251,9 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
       <section className="px-6 py-20 sm:py-28">
         <div className="mx-auto grid max-w-7xl gap-5 lg:grid-cols-3">
           {personality.sections.map((section) => {
-            const Icon = section.icon;
             return (
               <article key={section.title} className="border border-orange-100/16 bg-black/24 p-6 backdrop-blur">
-                <Icon style={{ color: color.accent }} size={28} />
+                <span className="block h-px w-14" style={{ backgroundColor: color.accent }} />
                 <h2 className="mt-5 font-sans text-3xl font-black text-orange-50">
                   {section.title}
                 </h2>
@@ -306,7 +306,7 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
               <h2 className="font-sans text-4xl font-black text-orange-50">
                 City toolkit
               </h2>
-              <Smartphone style={{ color: color.accent }} />
+              <span className="hidden h-px w-16 sm:block" style={{ backgroundColor: color.accent }} />
             </div>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {VIETNAM_LOCAL_APPS.slice(0, 6).map((app) => (
@@ -323,11 +323,11 @@ export function VietnamCityExperience({ city }: { city: VietnamCity }) {
               <h2 className="font-sans text-4xl font-black text-orange-50">
                 Activities here
               </h2>
-              <Compass style={{ color: color.accent }} />
+              <span className="hidden h-px w-16 sm:block" style={{ backgroundColor: color.accent }} />
             </div>
             <div className="mt-6 flex flex-wrap gap-3">
               {mappedActivities.map((activity) => (
-                <span key={activity!.slug} className="border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-bold text-orange-50/82">
+                <span key={activity!.slug} className="vietnam-chip border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-bold text-orange-50/82">
                   {activity!.label}
                 </span>
               ))}

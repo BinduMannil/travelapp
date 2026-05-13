@@ -46,9 +46,9 @@ export default async function NearbyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="nearby" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   if (!city) notFound();
 

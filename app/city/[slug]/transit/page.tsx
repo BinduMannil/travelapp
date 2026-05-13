@@ -94,9 +94,9 @@ export default async function TransitPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="transit" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   if (!city) notFound();
 

@@ -65,9 +65,9 @@ export default async function RestaurantsPage({
   }>;
 }) {
   const { slug } = await params;
-  if (getPlaceOption(slug)) notFound();
   const vietnamCity = getVietnamCity(slug);
   if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="restaurants" />;
+  if (getPlaceOption(slug)) notFound();
   const sp = await searchParams;
   const city = getCity(slug);
   if (!city) notFound();

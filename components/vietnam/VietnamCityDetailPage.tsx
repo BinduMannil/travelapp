@@ -286,7 +286,6 @@ export function VietnamCityDetailPage({
   kind: VietnamCityDetailKind;
 }) {
   const meta = DETAIL_META[kind];
-  const Icon = meta.icon;
   const cityActivities = VIETNAM_ACTIVITY_DESTINATIONS.filter(
     (item) => item.city_slug === city.slug || item.owner_kind === "country",
   )
@@ -309,11 +308,14 @@ export function VietnamCityDetailPage({
 
   return (
     <DestinationAtmosphereProvider destinationSlug={city.slug} destinationType="city" countrySlug="vietnam">
-    <main className="min-h-screen bg-[#07120f] text-orange-50">
+    <main className="vietnam-editorial min-h-screen bg-[#07120f] text-orange-50">
       <section className="relative isolate overflow-hidden px-6 pb-16 pt-24 sm:pb-24">
         <img src={image} alt="" className="absolute inset-0 -z-30 h-full w-full object-cover saturate-150" />
         <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
         <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
+        <div className="vietnam-hero-overlay absolute inset-0 -z-20 mix-blend-multiply" />
+        <div className="vietnam-fog absolute inset-x-0 bottom-0 -z-10 h-44" />
+        <div className="vietnam-reflection absolute inset-x-10 bottom-7 -z-10 h-16" />
 
         <div className="relative z-10 mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
           <div>
@@ -325,21 +327,21 @@ export function VietnamCityDetailPage({
             <p className="mt-16 text-xs font-black uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
               {VIETNAM_CITY_REGIONS[city.slug]} · {meta.eyebrow}
             </p>
-            <h1 className="mt-5 max-w-5xl font-sans text-[clamp(3.2rem,10vw,8rem)] font-black leading-[0.88] text-orange-50">
+            <h1 className="mt-5 max-w-5xl font-sans text-[clamp(2.8rem,9vw,7.2rem)] font-black leading-[0.92] text-orange-50 drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)]">
               {meta.title}
             </h1>
-            <p className="mt-8 max-w-2xl text-xl leading-9 text-orange-50/82">
+            <p className="mt-8 max-w-2xl text-lg leading-8 text-orange-50/86 sm:text-xl sm:leading-9">
               {meta.lead(city)}
             </p>
           </div>
           <aside className="border border-orange-100/20 bg-black/35 p-6 shadow-2xl backdrop-blur-xl">
-            <Icon style={{ color: "var(--destination-primary)" }} size={34} />
+            <span className="block h-px w-16" style={{ backgroundColor: "var(--destination-primary)" }} />
             <h2 className="mt-5 font-sans text-4xl font-black leading-none text-orange-50">
               {city.name}
             </h2>
             <div className="mt-5 flex flex-wrap gap-2">
               {meta.chips.map((chip) => (
-                <span key={chip} className="border border-orange-100/14 bg-white/[0.07] px-3 py-1.5 text-xs font-bold text-orange-50/78">
+                <span key={chip} className="vietnam-chip border border-orange-100/14 bg-white/[0.07] px-3 py-1.5 text-xs font-bold text-orange-50/78">
                   {chip}
                 </span>
               ))}
@@ -411,7 +413,7 @@ export function VietnamCityDetailPage({
                 <Link
                   key={item}
                   href={`/city/${city.slug}/${item}`}
-                  className="border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-bold text-orange-50/76 hover:border-amber-300 hover:text-amber-200"
+                  className="vietnam-chip border border-orange-100/14 bg-white/[0.055] px-4 py-2 text-sm font-bold text-orange-50/76 hover:border-amber-300 hover:text-amber-200"
                 >
                   {DETAIL_META[item].eyebrow}
                 </Link>
