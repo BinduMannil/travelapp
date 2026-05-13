@@ -3,10 +3,10 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Bell, CirclePlay, Search } from "lucide-react";
+import { CirclePlay, Search } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
-import { COUNTRY_OPTIONS } from "@/lib/destinations/countries";
 import { useI18n } from "@/lib/i18n/context";
+import { routes, siteDirectory } from "@/lib/routes";
 
 const images = {
   hero:
@@ -165,7 +165,26 @@ const heroQuotes = [
   "Some places are planned. Others are found.",
 ];
 
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
+const countryNavItems = [
+  { label: "Vietnam", href: routes.country("vietnam") },
+  { label: "Japan", href: routes.country("japan") },
+  { label: "Italy", href: routes.country("italy") },
+  { label: "France", href: routes.country("france") },
+  { label: "Switzerland", href: routes.country("switzerland") },
+  { label: "Indonesia", href: routes.country("indonesia") },
+  { label: "Morocco", href: routes.country("morocco") },
+];
+
+const cityNavItems = [
+  { label: "Ho Chi Minh City", href: routes.city("ho-chi-minh-city") },
+  { label: "Hanoi", href: routes.city("hanoi") },
+  { label: "Da Nang", href: routes.city("da-nang") },
+  { label: "Hoi An", href: routes.city("hoi-an") },
+  { label: "Hue", href: routes.city("hue") },
+  { label: "Sapa", href: routes.city("sapa") },
+  { label: "Phu Quoc", href: routes.city("phu-quoc") },
+  { label: "Can Tho", href: routes.city("can-tho") },
+];
 
 const categories = [
   { titleKey: "homepage.discovery.categories.natureEscapes", countKey: "homepage.discovery.categories.places124", image: images.nature },
@@ -234,100 +253,82 @@ const features = [
   },
 ];
 
-const siteDirectory = [
-  {
-    title: "Vietnam",
-    links: [
-      { label: "Country Guide", href: "/country/vietnam" },
-      { label: "Itinerary", href: "/country/vietnam/itinerary" },
-      { label: "Cuisine", href: "/country/vietnam/cuisine" },
-      { label: "Beverages", href: "/country/vietnam/beverages" },
-      { label: "Famous For", href: "/country/vietnam/famous-for" },
-      { label: "Language", href: "/country/vietnam/languages" },
-    ],
-  },
-  {
-    title: "Cities",
-    links: [
-      { label: "Ho Chi Minh City", href: "/city/ho-chi-minh-city" },
-      { label: "Hanoi", href: "/city/hanoi" },
-      { label: "Da Nang", href: "/city/da-nang" },
-      { label: "Hoi An", href: "/city/hoi-an" },
-      { label: "Hue", href: "/city/hue" },
-      { label: "Sapa", href: "/city/sapa" },
-      { label: "Phu Quoc", href: "/city/phu-quoc" },
-      { label: "Can Tho", href: "/city/can-tho" },
-    ],
-  },
-  {
-    title: "Planning",
-    links: [
-      { label: "Vietnam Route", href: "/country/vietnam/itinerary" },
-      { label: "Food Guide", href: "/country/vietnam/cuisine" },
-      { label: "Coffee & Drinks", href: "/country/vietnam/beverages" },
-      { label: "What Vietnam Is Known For", href: "/country/vietnam/famous-for" },
-      { label: "Vietnamese Phrases", href: "/country/vietnam/languages" },
-    ],
-  },
-];
+function NavDropdown({
+  label,
+  items,
+}: {
+  label: string;
+  items: Array<{ label: string; href: string }>;
+}) {
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        className="relative py-3 text-sm font-medium tracking-[-0.01em] text-white/82 transition hover:text-white"
+      >
+        {label}
+      </button>
+      <div className="pointer-events-none absolute left-1/2 top-full w-64 -translate-x-1/2 pt-4 opacity-0 transition duration-200 ease-out group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+        <div className="overflow-hidden rounded-[1rem] border border-white/12 bg-[#0a1010]/88 shadow-2xl shadow-black/45 backdrop-blur-2xl">
+          {items.map((item, index) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`group/item flex items-center justify-between px-5 py-3.5 text-sm font-medium text-white/72 transition hover:bg-white/[0.055] hover:text-white ${
+                index > 0 ? "border-t border-white/[0.075]" : ""
+              }`}
+            >
+              <span>{item.label}</span>
+              <span className="h-px w-0 bg-[#d8aa4f] transition-all group-hover/item:w-7" />
+            </Link>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function HeaderNav() {
-  const { t } = useI18n();
-  const navLabels: Record<string, string> = {
-    Home: t("navigation.home"),
-    Explore: t("navigation.explore"),
-    Map: t("navigation.map"),
-    Trips: t("navigation.trips"),
-    Guides: t("navigation.guides"),
-    Journal: t("navigation.journal"),
-  };
-
   return (
-    <header className="absolute inset-x-0 top-0 z-30">
-      <div className="mx-auto flex max-w-[1160px] items-center justify-between px-4 py-5 sm:px-5 sm:py-7 xl:px-0">
+    <header className="absolute inset-x-0 top-0 z-30 px-4 pt-4 sm:px-5 sm:pt-6">
+      <div className="mx-auto flex max-w-[1160px] items-center justify-between border border-white/10 bg-[#020a0b]/34 px-5 py-3 shadow-2xl shadow-black/20 backdrop-blur-2xl sm:px-6">
         <Link href="/" className="flex min-w-0 items-center gap-3 text-white">
           <JourneeBrand direction="celestial-route" />
         </Link>
 
-        <nav className="hidden items-center gap-8 text-sm font-medium text-white/86 xl:flex">
-          {navItems.map((item) => (
-            <a
-              key={item}
-              href={item === "Home" ? "#home" : `#${item.toLowerCase()}`}
-              className={`relative transition hover:text-white ${
-                item === "Home" ? "text-white" : ""
-              }`}
-            >
-              {navLabels[item]}
-              {item === "Home" && (
-                <span className="absolute -bottom-5 left-1/2 h-px w-8 -translate-x-1/2 bg-[#d8aa4f]" />
-              )}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-7 font-sans lg:flex">
+          <Link href={routes.home} className="relative py-3 text-sm font-medium text-white">
+            Home
+            <span className="absolute bottom-1 left-0 h-px w-full bg-[#d8aa4f]" />
+          </Link>
+          <NavDropdown label="Countries" items={countryNavItems} />
+          <NavDropdown label="Cities" items={cityNavItems} />
+          <Link
+            href={routes.countrySection("vietnam", "itinerary")}
+            className="py-3 text-sm font-medium text-white/82 transition hover:text-white"
+          >
+            Journeys
+          </Link>
+          <Link
+            href="/guides"
+            className="py-3 text-sm font-medium text-white/82 transition hover:text-white"
+          >
+            Guides
+          </Link>
+          <Link
+            href="/journal"
+            className="py-3 text-sm font-medium text-white/82 transition hover:text-white"
+          >
+            Journal
+          </Link>
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-4">
-          <button
-            type="button"
-            aria-label="Search"
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/18 bg-black/18 text-white backdrop-blur sm:h-12 sm:w-12"
-          >
-            <Search className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            aria-label="Notifications"
-            className="relative hidden h-11 w-11 place-items-center rounded-full text-white sm:grid"
-          >
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[#d8aa4f]" />
-          </button>
-          <img
-            src={images.avatar}
-            alt=""
-            className="h-10 w-10 rounded-full border border-white/20 object-cover sm:h-12 sm:w-12"
-          />
-        </div>
+        <Link
+          href={routes.countrySection("vietnam", "itinerary")}
+          className="hidden border-b border-[#d8aa4f]/70 pb-1 text-sm font-semibold text-white/88 transition hover:border-[#f0c96e] hover:text-white sm:inline-flex"
+        >
+          Build the Route
+        </Link>
       </div>
     </header>
   );
@@ -371,45 +372,6 @@ function HeroSearch() {
   );
 }
 
-function CountryDropdown() {
-  const countryGroups = COUNTRY_OPTIONS.reduce<Record<string, typeof COUNTRY_OPTIONS>>((groups, country) => {
-    groups[country.region] = groups[country.region] ?? [];
-    groups[country.region].push(country);
-    return groups;
-  }, {});
-
-  return (
-    <div className="relative z-20 mx-auto mt-5 max-w-[980px] px-4 sm:px-5">
-      <label className="grid gap-2 rounded-[1.25rem] border border-white/16 bg-black/28 p-4 shadow-xl shadow-black/25 backdrop-blur-xl sm:grid-cols-[auto_1fr] sm:items-center sm:gap-5">
-        <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d8aa4f]">
-          Countries
-        </span>
-        <select
-          defaultValue=""
-          onChange={(event) => {
-            const slug = event.currentTarget.value;
-            if (slug) window.location.assign(`/country/${slug}`);
-          }}
-          className="h-12 w-full border border-white/14 bg-[#07120f] px-4 text-sm font-semibold text-white outline-none transition hover:border-[#d8aa4f]/60 focus:border-[#d8aa4f]"
-        >
-          <option value="" disabled>
-            Pick a country to check
-          </option>
-          {Object.entries(countryGroups).map(([region, countries]) => (
-            <optgroup key={region} label={region}>
-              {countries.map((country) => (
-                <option key={country.slug} value={country.slug}>
-                  {country.name} · {country.status === "live" ? "Live" : "Queued"}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-      </label>
-    </div>
-  );
-}
-
 function CategoryCard({
   titleKey,
   countKey,
@@ -420,8 +382,8 @@ function CategoryCard({
   const count = t(countKey);
 
   return (
-    <a
-      href="#recommended"
+    <Link
+      href={routes.explore}
       className="group relative min-h-[178px] min-w-[172px] snap-start overflow-hidden rounded-2xl border border-white/14 bg-white/[0.04] sm:min-h-[205px] sm:min-w-0"
     >
       <img
@@ -439,7 +401,7 @@ function CategoryCard({
           {count}
         </span>
       </span>
-    </a>
+    </Link>
   );
 }
 
@@ -517,12 +479,12 @@ function FeatureStrip() {
                   {title}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-white/62">{copy}</p>
-                <a
-                  href="#recommended"
+                <Link
+                  href={routes.explore}
                   className="mt-5 inline-flex border-b border-[#d8aa4f]/50 pb-1 text-sm font-semibold text-[#d8aa4f]"
                 >
                   {t("homepage.features.explore")}
-                </a>
+                </Link>
               </div>
             </article>
           );
@@ -539,17 +501,17 @@ function SiteDirectory() {
         <div className="mb-7 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]/88">
-              Vietnam directory
+              JOURNEE directory
             </p>
             <h2 className="mt-3 font-sans text-[clamp(1.75rem,8vw,2.4rem)] font-medium leading-tight text-white">
-              Country and city pages currently live.
+              Connected pages across the platform.
             </h2>
           </div>
           <Link
-            href="/country/vietnam/itinerary"
+            href={routes.countries}
             className="w-fit border-b border-white/24 pb-1 text-sm font-medium text-white/86 transition hover:text-white"
           >
-            Build the route
+            Browse countries
           </Link>
         </div>
 
@@ -708,19 +670,17 @@ export function JourneeWebExperience() {
       </section>
 
       <HeroSearch />
-      <CountryDropdown />
-
       <section id="journeys" className="mx-auto mt-8 max-w-[1160px] px-4 sm:mt-9 sm:px-5">
         <div className="mb-5 flex items-center justify-between gap-4">
           <h2 className="font-sans text-[clamp(1.75rem,8vw,1.95rem)] font-medium leading-tight text-white sm:text-3xl">
             {t("homepage.discovery.title")}
           </h2>
-          <a
-            href="#recommended"
+          <Link
+            href={routes.explore}
             className="hidden border-b border-white/24 pb-1 text-sm font-medium text-white/86 sm:inline-flex"
           >
             {t("homepage.discovery.viewAll")}
-          </a>
+          </Link>
         </div>
         <div className="-mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3 xl:grid-cols-6">
           {categories.map((category) => (
@@ -735,7 +695,7 @@ export function JourneeWebExperience() {
             {t("homepage.recommended.title")}
           </h2>
           <Link
-            href="/country/vietnam"
+            href={routes.country("vietnam")}
             className="hidden border-b border-white/24 pb-1 text-sm font-medium text-white/86 sm:inline-flex"
           >
             {t("homepage.discovery.viewAll")}

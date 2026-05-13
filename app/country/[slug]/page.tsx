@@ -6,7 +6,6 @@ import { CountryPreviewExperience } from "@/components/country/CountryPreviewExp
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { EditorialIntelligence } from "@/components/destination/EditorialIntelligence";
 import { SocialRiskBriefing } from "@/components/legal/SocialRiskBriefing";
-import { VietnamCountryExperience } from "@/components/vietnam/VietnamCountryExperience";
 import { JAPAN_CITY_PINS, JAPAN_OFFSHORE } from "@/lib/country-maps/japan";
 import { formatNavigationLabel, formatTitleCase } from "@/lib/copy/formatting";
 import { getLegalSocialRisksLive } from "@/lib/data/legal-social-risks";
@@ -182,7 +181,6 @@ export default async function CountryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  if (slug === "vietnam") return <VietnamCountryExperience />;
   const countryOption = getCountryOption(slug);
   if (countryOption) return <CountryPreviewExperience country={countryOption} />;
   notFound();

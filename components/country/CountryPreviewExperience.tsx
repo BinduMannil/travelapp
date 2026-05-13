@@ -2,331 +2,254 @@
 
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { useMemo, useState } from "react";
-import { Compass, Globe2, MapPinned, Sparkles } from "lucide-react";
 import {
-  COUNTRY_OPTIONS,
+  CalendarDays,
+  ChefHat,
+  Globe2,
+  MessageCircle,
+  Sparkles,
+  Star,
+  Wine,
+} from "lucide-react";
+import {
   getPlacesForCountry,
+  type CountryContentCard,
+  type CountryLink,
   type CountryOption,
 } from "@/lib/destinations/countries";
 
-const statusLabel = {
-  live: "Live",
-  queued: "Queued",
-};
+const fallbackOverview = (country: CountryOption): CountryContentCard[] => [
+  {
+    eyebrow: country.name,
+    title: "Country Guide",
+    description: country.summary,
+    href: `/country/${country.slug}`,
+    image: country.image,
+  },
+  {
+    eyebrow: "Cities",
+    title: "Explore Cities",
+    description: `Discover the cities, towns, islands, and regions that shape ${country.name}.`,
+    href: "#cities",
+    image: country.image,
+  },
+  {
+    eyebrow: "Planning",
+    title: "Plan Your Journey",
+    description: "Routes, timing, food, language, and practical travel notes in one place.",
+    href: `/country/${country.slug}/itinerary`,
+    image: country.image,
+  },
+];
+
+const fallbackLinks = (country: CountryOption): CountryLink[] => [
+  { label: "Itineraries", href: `/country/${country.slug}/itinerary`, description: "Curated travel ideas" },
+  { label: "Cuisine", href: `/country/${country.slug}/cuisine`, description: `Flavors of ${country.name}` },
+  { label: "Beverages", href: `/country/${country.slug}/beverages`, description: "Local drinks to try" },
+  { label: "Famous For", href: `/country/${country.slug}/famous-for`, description: `What ${country.name} is known for` },
+  { label: "Language", href: `/country/${country.slug}/languages`, description: "Useful travel phrases" },
+];
+
+const linkIcons = [CalendarDays, ChefHat, Wine, Star, MessageCircle];
+
+function Arrow() {
+  return <span aria-hidden className="text-lg leading-none text-[#d8aa4f] transition group-hover:translate-x-1">→</span>;
+}
+
+function ImageCard({ card, large = false }: { card: CountryContentCard; large?: boolean }) {
+  return (
+    <Link
+      href={card.href}
+      className={`group relative overflow-hidden rounded-lg border border-white/16 bg-white/[0.045] shadow-2xl shadow-black/20 ${
+        large ? "min-h-[13rem]" : "min-h-[16rem]"
+      }`}
+    >
+      <img
+        src={card.image}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+      />
+      <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,10,11,.88),rgba(2,10,11,.54)_50%,rgba(2,10,11,.22)),linear-gradient(0deg,rgba(2,10,11,.88),transparent_66%)]" />
+      <span className="relative flex h-full min-h-[inherit] flex-col justify-end p-6">
+        <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+          {card.eyebrow}
+        </span>
+        <strong className="mt-3 max-w-[16ch] font-sans text-2xl font-medium leading-tight text-white">
+          {card.title}
+        </strong>
+        <span className="mt-3 max-w-md text-sm leading-6 text-white/72">{card.description}</span>
+        <span className="mt-5 inline-flex items-center gap-3 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#d8aa4f]">
+          Explore <Arrow />
+        </span>
+      </span>
+    </Link>
+  );
+}
 
 export function CountryPreviewExperience({ country }: { country: CountryOption }) {
   const places = getPlacesForCountry(country.slug);
-  const nextCountries = COUNTRY_OPTIONS.filter((item) => item.slug !== country.slug);
-  const [placeKind, setPlaceKind] = useState("all");
-  const [placeStatus, setPlaceStatus] = useState("all");
-  const [placeQuery, setPlaceQuery] = useState("");
-  const [countryRegion, setCountryRegion] = useState("all");
-  const [countryStatus, setCountryStatus] = useState("all");
-  const [countryQuery, setCountryQuery] = useState("");
-
-  const placeKinds = useMemo(
-    () => ["all", ...Array.from(new Set(places.map((place) => place.kind))).sort()],
-    [places],
-  );
-  const placeStatuses = useMemo(
-    () => ["all", ...Array.from(new Set(places.map((place) => place.status))).sort()],
-    [places],
-  );
-  const countryRegions = useMemo(
-    () => ["all", ...Array.from(new Set(nextCountries.map((item) => item.region))).sort()],
-    [nextCountries],
-  );
-  const countryStatuses = useMemo(
-    () => ["all", ...Array.from(new Set(nextCountries.map((item) => item.status))).sort()],
-    [nextCountries],
-  );
-
-  const filteredPlaces = useMemo(() => {
-    const query = placeQuery.trim().toLowerCase();
-
-    return places.filter((place) => {
-      const matchesKind = placeKind === "all" || place.kind === placeKind;
-      const matchesStatus = placeStatus === "all" || place.status === placeStatus;
-      const matchesQuery =
-        !query ||
-        place.name.toLowerCase().includes(query) ||
-        place.summary.toLowerCase().includes(query);
-
-      return matchesKind && matchesStatus && matchesQuery;
-    });
-  }, [placeKind, placeQuery, placeStatus, places]);
-
-  const filteredCountries = useMemo(() => {
-    const query = countryQuery.trim().toLowerCase();
-
-    return nextCountries.filter((item) => {
-      const matchesRegion = countryRegion === "all" || item.region === countryRegion;
-      const matchesStatus = countryStatus === "all" || item.status === countryStatus;
-      const matchesQuery =
-        !query ||
-        item.name.toLowerCase().includes(query) ||
-        item.summary.toLowerCase().includes(query) ||
-        item.region.toLowerCase().includes(query);
-
-      return matchesRegion && matchesStatus && matchesQuery;
-    });
-  }, [countryQuery, countryRegion, countryStatus, nextCountries]);
-
-  const previewCards = [
-    {
-      title: "Country UI",
-      copy: "Country-level guide, route logic, regions, language, food, money, safety, and seasonal planning.",
-      icon: Compass,
-    },
-    {
-      title: "City UI",
-      copy: "City landing pages and detail routes will attach here as each country data pack comes online.",
-      icon: MapPinned,
-    },
-    {
-      title: "Build queue",
-      copy: "Use the dropdown to review the list and decide which country should receive the next full rollout.",
-      icon: Sparkles,
-    },
-  ];
+  const overviewCards = country.overviewCards ?? fallbackOverview(country);
+  const essentialLinks = country.essentialLinks ?? fallbackLinks(country);
+  const featuredExperiences =
+    country.featuredExperiences ??
+    places.slice(0, 4).map((place) => ({
+      eyebrow: place.kind,
+      title: place.name,
+      description: place.summary,
+      href: `/city/${place.slug}`,
+      image: place.image ?? country.image,
+    }));
 
   return (
-    <main className="min-h-screen bg-[#07120f] text-orange-50">
-      <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden">
-        <img
-          src={country.image}
-          alt=""
-          className="absolute inset-0 -z-30 h-full w-full object-cover saturate-125"
-        />
-        <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(5,16,13,.96),rgba(10,38,34,.78)_48%,rgba(0,0,0,.42)),linear-gradient(0deg,#07120f,transparent_58%)]" />
-        <div className="absolute inset-0 -z-10 opacity-30 [background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.15)_0_1px,transparent_1px_38px),repeating-linear-gradient(0deg,rgba(255,255,255,.08)_0_1px,transparent_1px_54px)]" />
-
-        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl content-end gap-10 px-6 pb-16 pt-24 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
-          <div>
-            <nav className="text-xs font-bold uppercase tracking-[0.12em] text-orange-100/62">
-              <Link href="/" className="hover:text-orange-100">Home</Link> · Countries · {country.name}
-            </nav>
-            <p className="mt-12 text-xs font-black uppercase tracking-[0.12em]" style={{ color: country.accent }}>
-              {country.region} · {country.status === "live" ? "Live" : "Build queue"}
-            </p>
-            <h1 className="mt-5 max-w-5xl font-sans text-[clamp(4rem,14vw,11rem)] font-black leading-[0.84] text-orange-50">
-              {country.name}
-            </h1>
-            <p className="mt-8 max-w-2xl text-xl leading-9 text-orange-50/82">
-              {country.summary}
-            </p>
+    <main className="min-h-screen overflow-x-hidden bg-[#020a0b] text-white">
+      <section className="relative isolate overflow-hidden">
+        <div className="relative min-h-[52rem] overflow-hidden">
+          <img
+            src={country.image}
+            alt=""
+            className="absolute inset-0 -z-30 h-full w-full object-cover saturate-[1.15]"
+          />
+          <div className="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(1,8,9,.94)_0%,rgba(1,8,9,.72)_32%,rgba(1,8,9,.18)_70%,rgba(1,8,9,.36)_100%),linear-gradient(0deg,#020a0b_0%,rgba(2,10,11,.52)_16%,rgba(2,10,11,.02)_58%)]" />
+          <div className="absolute inset-x-0 top-0 z-20 border-b border-white/8 bg-black/10 backdrop-blur-sm">
+            <div className="mx-auto flex max-w-[1160px] items-center justify-between gap-6 px-4 py-5 sm:px-5 xl:px-0">
+              <Link href="/" className="min-w-0">
+                <span className="block text-2xl font-bold uppercase tracking-[0.22em] text-white">
+                  JOURNEE
+                </span>
+                <span className="block text-[0.55rem] font-bold uppercase tracking-[0.28em] text-[#d8aa4f]">
+                  by Dzeli
+                </span>
+              </Link>
+              <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/86 lg:flex">
+                {["Destinations", "Journeys", "Yachts", "Rail", "Aurora", "Expeditions", "Experiences", "Concierge"].map((item) => (
+                  <Link key={item} href={item === "Destinations" ? "/discover" : `/${item.toLowerCase()}`} className="transition hover:text-[#d8aa4f]">
+                    {item}
+                  </Link>
+                ))}
+              </nav>
+              <Link
+                href="/concierge"
+                className="rounded px-5 py-3 text-[0.7rem] font-bold uppercase tracking-[0.1em] text-[#15110a]"
+                style={{ backgroundColor: country.accent }}
+              >
+                Join
+              </Link>
+            </div>
           </div>
-          <aside className="border border-orange-100/20 bg-black/35 p-6 shadow-2xl backdrop-blur-xl">
-            <Globe2 style={{ color: country.accent }} size={34} />
-            <h2 className="mt-5 font-sans text-4xl font-black leading-none text-orange-50">
-              Preview shell
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-orange-50/68">
-              This country is now selectable while its full data pack is built.
-              Vietnam remains the fully live reference experience.
-            </p>
-            <Link
-              href="/country/vietnam"
-              className="mt-6 inline-flex border border-orange-100/16 bg-white/[0.06] px-4 py-2 text-sm font-bold text-orange-50/82 hover:border-amber-300 hover:text-amber-200"
-            >
-              View live Vietnam UI
-            </Link>
-          </aside>
+
+          <div className="mx-auto grid min-h-[52rem] max-w-[1160px] content-center px-4 pb-24 pt-32 sm:px-5 xl:px-0">
+            <div className="max-w-xl">
+              <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: country.accent }}>
+                {country.heroEyebrow ?? country.name}
+              </p>
+              <h1 className="mt-5 max-w-[12ch] font-sans text-[clamp(3.1rem,8vw,5.35rem)] font-medium leading-[0.94] text-white">
+                {country.heroTitle ?? country.name}
+              </h1>
+              <p className="mt-7 max-w-lg text-base leading-8 text-white/82">
+                {country.heroBody ?? country.summary}
+              </p>
+              <Link
+                href="#overview"
+                className="mt-8 inline-flex items-center gap-3 border-b border-[#d8aa4f]/60 pb-1 text-[0.72rem] font-bold uppercase tracking-[0.14em] text-[#d8aa4f]"
+              >
+                Explore {country.name} <Arrow />
+              </Link>
+            </div>
+          </div>
         </div>
+
+        <section id="overview" className="relative z-10 mx-auto -mt-32 grid max-w-[1160px] gap-4 px-4 pb-10 sm:px-5 md:grid-cols-3 xl:px-0">
+          {overviewCards.map((card) => (
+            <ImageCard key={card.title} card={card} large />
+          ))}
+        </section>
       </section>
 
-      <section className="px-6 py-20 sm:py-28">
-        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-3">
-          {previewCards.map(({ title, copy, icon: Icon }) => {
+      <section className="mx-auto max-w-[1160px] px-4 py-7 sm:px-5 xl:px-0">
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+          Essential links
+        </p>
+        <div className="mt-4 grid border-y border-white/12 md:grid-cols-5">
+          {essentialLinks.map((item, index) => {
+            const Icon = linkIcons[index] ?? Globe2;
             return (
-              <article key={title} className="border border-orange-100/16 bg-black/24 p-6 backdrop-blur">
-                <Icon style={{ color: country.accent }} size={28} />
-                <h2 className="mt-5 font-sans text-3xl font-black text-orange-50">{title}</h2>
-                <p className="mt-3 text-sm leading-7 text-orange-50/68">{copy}</p>
-              </article>
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group flex min-w-0 items-center gap-4 border-white/12 py-4 pr-4 transition hover:bg-white/[0.035] md:border-r md:px-5"
+              >
+                <Icon className="h-7 w-7 shrink-0 text-[#d8aa4f]" strokeWidth={1.4} />
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white">
+                    {item.label}
+                  </span>
+                  <span className="mt-1 block truncate text-sm text-white/60">{item.description}</span>
+                </span>
+                <Arrow />
+              </Link>
             );
           })}
         </div>
       </section>
 
       {places.length ? (
-        <section className="px-6 pb-20 sm:pb-28">
-          <div className="mx-auto max-w-7xl">
-            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: country.accent }}>
-                  Rollout checklist
-                </p>
-                <h2 className="mt-3 font-sans text-[clamp(2.4rem,6vw,5.5rem)] font-black leading-none text-orange-50">
-                  Cities, towns, villages, islands.
-                </h2>
-              </div>
-              <div className="text-sm font-bold text-orange-50/58">
-                {filteredPlaces.length} of {places.length} places
-              </div>
-            </div>
-            <div className="mb-8 grid gap-3 border border-orange-100/14 bg-black/24 p-4 md:grid-cols-[1fr_12rem_12rem_auto] md:items-end">
-              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
-                Search places
-                <input
-                  value={placeQuery}
-                  onChange={(event) => setPlaceQuery(event.currentTarget.value)}
-                  placeholder="Name or planning note"
-                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition placeholder:text-orange-50/30 focus:border-amber-300"
-                />
-              </label>
-              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
-                Type
-                <select
-                  value={placeKind}
-                  onChange={(event) => setPlaceKind(event.currentTarget.value)}
-                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
-                >
-                  {placeKinds.map((kind) => (
-                    <option key={kind} value={kind}>
-                      {kind === "all" ? "All types" : kind}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
-                Status
-                <select
-                  value={placeStatus}
-                  onChange={(event) => setPlaceStatus(event.currentTarget.value)}
-                  className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
-                >
-                  {placeStatuses.map((status) => (
-                    <option key={status} value={status}>
-                      {status === "all" ? "All statuses" : statusLabel[status as "live" | "queued"]}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <button
-                type="button"
-                onClick={() => {
-                  setPlaceKind("all");
-                  setPlaceStatus("all");
-                  setPlaceQuery("");
-                }}
-                className="h-11 border border-orange-100/16 px-4 text-sm font-bold text-orange-50/72 transition hover:border-amber-300 hover:text-amber-200"
+        <section id="cities" className="mx-auto max-w-[1160px] px-4 py-10 sm:px-5 xl:px-0">
+          <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+            City discovery
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {places.slice(0, 8).map((place) => (
+              <Link
+                key={place.slug}
+                href={`/city/${place.slug}`}
+                className="group min-h-[11rem] rounded-lg border border-white/14 bg-white/[0.045] p-5 transition hover:-translate-y-1 hover:border-[#d8aa4f]/70 hover:bg-white/[0.075]"
               >
-                Reset
-              </button>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {filteredPlaces.map((place) => (
-                <Link
-                  key={place.slug}
-                  href={`/city/${place.slug}`}
-                  className="group border border-orange-100/14 bg-orange-50/[0.055] p-5 transition hover:-translate-y-1 hover:border-amber-300/70 hover:bg-orange-50/[0.095]"
-                >
-                  <div className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-50/46">
-                    {place.kind} · {place.status}
-                  </div>
-                  <div className="mt-2 font-sans text-2xl font-black leading-none text-orange-50 group-hover:text-amber-200">
-                    {place.name}
-                  </div>
-                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-orange-50/62">
-                    {place.summary}
-                  </p>
-                </Link>
-              ))}
-            </div>
-            {!filteredPlaces.length ? (
-              <div className="mt-5 border border-orange-100/14 bg-orange-50/[0.045] p-5 text-sm font-semibold text-orange-50/64">
-                No places match those filters yet.
-              </div>
-            ) : null}
+                <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#d8aa4f]">
+                  {place.kind}
+                </span>
+                <span className="mt-3 block font-sans text-2xl font-medium leading-tight text-white group-hover:text-[#d8aa4f]">
+                  {place.name}
+                </span>
+                <span className="mt-3 line-clamp-3 block text-sm leading-6 text-white/62">
+                  {place.summary}
+                </span>
+              </Link>
+            ))}
           </div>
         </section>
       ) : null}
 
-      <section className="px-6 pb-24 sm:pb-32">
-        <div className="mx-auto max-w-7xl border-t border-orange-100/14 pt-10">
-          <p className="text-xs font-black uppercase tracking-[0.12em]" style={{ color: country.accent }}>
-            Other countries
-          </p>
-          <div className="mt-5 grid gap-3 border border-orange-100/14 bg-black/20 p-4 md:grid-cols-[1fr_12rem_12rem_auto] md:items-end">
-            <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
-              Search countries
-              <input
-                value={countryQuery}
-                onChange={(event) => setCountryQuery(event.currentTarget.value)}
-                placeholder="Country, region, or focus"
-                className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition placeholder:text-orange-50/30 focus:border-amber-300"
-              />
-            </label>
-            <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
-              Region
-              <select
-                value={countryRegion}
-                onChange={(event) => setCountryRegion(event.currentTarget.value)}
-                className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
-              >
-                {countryRegions.map((region) => (
-                  <option key={region} value={region}>
-                    {region === "all" ? "All regions" : region}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="grid gap-2 text-xs font-bold uppercase tracking-[0.12em] text-orange-50/52">
-              Status
-              <select
-                value={countryStatus}
-                onChange={(event) => setCountryStatus(event.currentTarget.value)}
-                className="h-11 border border-orange-100/14 bg-[#07120f] px-3 text-sm font-semibold normal-case tracking-normal text-orange-50 outline-none transition focus:border-amber-300"
-              >
-                {countryStatuses.map((status) => (
-                  <option key={status} value={status}>
-                    {status === "all" ? "All statuses" : statusLabel[status as "live" | "queued"]}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button
-              type="button"
-              onClick={() => {
-                setCountryRegion("all");
-                setCountryStatus("all");
-                setCountryQuery("");
-              }}
-              className="h-11 border border-orange-100/16 px-4 text-sm font-bold text-orange-50/72 transition hover:border-amber-300 hover:text-amber-200"
-            >
-              Reset
-            </button>
-          </div>
-          <div className="mt-4 text-sm font-bold text-orange-50/50">
-            {filteredCountries.length} of {nextCountries.length} countries
-          </div>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredCountries.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/country/${item.slug}`}
-                className="border border-orange-100/14 bg-orange-50/[0.055] p-5 transition hover:-translate-y-1 hover:border-amber-300/70 hover:bg-orange-50/[0.095]"
-              >
-                <div className="text-[10px] font-black uppercase tracking-[0.12em] text-orange-50/46">
-                  {item.region} · {item.status}
-                </div>
-                <div className="mt-2 font-sans text-3xl font-black text-orange-50">
-                  {item.name}
-                </div>
-                <p className="mt-3 line-clamp-2 text-sm leading-6 text-orange-50/62">
-                  {item.summary}
-                </p>
-              </Link>
-            ))}
-          </div>
-          {!filteredCountries.length ? (
-            <div className="mt-5 border border-orange-100/14 bg-orange-50/[0.045] p-5 text-sm font-semibold text-orange-50/64">
-              No countries match those filters yet.
-            </div>
-          ) : null}
+      <section className="mx-auto max-w-[1160px] px-4 py-10 sm:px-5 xl:px-0">
+        <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#d8aa4f]">
+          Featured experiences
+        </p>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {featuredExperiences.map((card) => (
+            <ImageCard key={card.title} card={card} />
+          ))}
         </div>
+      </section>
+
+      <section className="mx-auto max-w-[1160px] px-4 pb-8 pt-2 sm:px-5 xl:px-0">
+        <Link
+          href={country.routeCta?.href ?? `/country/${country.slug}/itinerary`}
+          className="group flex flex-col gap-4 rounded-lg border border-[#d8aa4f]/28 bg-white/[0.035] px-5 py-5 shadow-2xl shadow-black/20 sm:flex-row sm:items-center sm:justify-between sm:px-7"
+        >
+          <span className="flex min-w-0 items-center gap-5">
+            <Sparkles className="h-9 w-9 shrink-0 text-[#d8aa4f]" strokeWidth={1.3} />
+            <span>
+              <span className="block text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#d8aa4f]">
+                {country.routeCta?.eyebrow ?? "Route builder"}
+              </span>
+              <span className="mt-1 block font-sans text-xl font-medium leading-snug text-white sm:text-2xl">
+                {country.routeCta?.title ?? `Craft your perfect ${country.name} journey.`}
+              </span>
+            </span>
+          </span>
+          <span className="inline-flex w-fit items-center gap-3 rounded border border-[#d8aa4f]/50 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em] text-[#d8aa4f]">
+            {country.routeCta?.label ?? "Build route"} <Arrow />
+          </span>
+        </Link>
       </section>
     </main>
   );

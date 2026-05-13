@@ -227,18 +227,18 @@ function TopNavigation() {
           </span>
           <span className="text-2xl font-semibold uppercase text-white">Journee</span>
         </Link>
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-2 2xl:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {topNav.map((item) => (
             <Link
               href={item === "Admin" ? "/admin" : item === "Home" ? "/" : `/${item.toLowerCase()}`}
               key={item}
               className={cx(
-                "relative px-2 py-7 text-[0.86rem] font-semibold text-white/82 transition hover:text-white",
+                "relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-[0.86rem] font-semibold text-white/82 transition hover:text-white",
                 item === "Admin" && "text-[#f6b800]",
               )}
             >
               {item}
-              {item === "Admin" && <span className="absolute inset-x-2 bottom-0 h-0.5 rounded-full bg-[#f6b800]" />}
+              {item === "Admin" && <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f6b800]" />}
             </Link>
           ))}
         </nav>

@@ -82,19 +82,19 @@ function TopNavigation({ onOpenFilters }: { onOpenFilters: () => void }) {
           <span className="text-2xl font-bold uppercase tracking-[0.12em]">Journee</span>
         </Link>
 
-        <nav className="ml-6 hidden items-center gap-1 xl:flex">
+        <nav className="ml-6 hidden items-center gap-8 overflow-visible xl:flex">
           {navItems.map((item) => (
             <Link
               key={item.label}
               href={item.href}
               aria-current={item.label === "Explore" ? "page" : undefined}
-              className={`relative rounded-full px-4 py-2 text-sm font-semibold transition ${
+              className={`relative inline-flex min-w-max items-center whitespace-nowrap rounded-full px-1 py-3 text-sm font-semibold transition ${
                 item.label === "Explore" ? "text-[#f4ae3f]" : "text-white/78 hover:text-white"
               }`}
             >
               {item.label}
               {item.label === "Explore" ? (
-                <span className="absolute inset-x-4 -bottom-3 h-0.5 rounded-full bg-[#f4ae3f]" />
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f4ae3f]" />
               ) : null}
             </Link>
           ))}

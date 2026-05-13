@@ -250,17 +250,17 @@ export function SuggestionBoard() {
             <Mountain className="h-9 w-9 text-[#f6b900]" strokeWidth={1.7} aria-hidden />
             <span className="text-2xl font-semibold uppercase text-white">JOURNEE</span>
           </a>
-          <nav className="hidden min-w-0 flex-1 items-center gap-1 overflow-x-auto xl:flex">
+          <nav className="hidden flex-1 items-center gap-8 overflow-visible xl:flex">
             {navItems.map((item) => (
               <a
                 key={item}
                 href="#"
-                className={`relative shrink-0 px-3 py-6 text-sm font-semibold transition ${
+                className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-semibold transition ${
                   item === "Ideas" ? "text-[#ffc400]" : "text-white/88 hover:text-[#ffc400]"
                 }`}
               >
                 {item}
-                {item === "Ideas" && <span className="absolute inset-x-3 bottom-0 h-0.5 rounded-full bg-[#ffc400]" />}
+                {item === "Ideas" && <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#ffc400]" />}
               </a>
             ))}
           </nav>

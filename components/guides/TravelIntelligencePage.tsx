@@ -248,18 +248,18 @@ function Header() {
           />
         </Link>
 
-        <nav className="hidden items-center gap-7 text-sm font-medium text-white/82 lg:flex">
+        <nav className="hidden items-center gap-8 overflow-visible text-sm font-medium text-white/82 lg:flex">
           {navItems.map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className={`relative py-7 transition hover:text-white ${
+              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 transition hover:text-white ${
                 item === "Guides" ? "text-[#f0b84b]" : ""
               }`}
             >
               {item}
               {item === "Guides" && (
-                <span className="absolute inset-x-0 bottom-0 mx-auto h-0.5 w-12 bg-[#d99d35]" />
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#d99d35]" />
               )}
             </Link>
           ))}

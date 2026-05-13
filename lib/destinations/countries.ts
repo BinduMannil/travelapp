@@ -8,9 +8,35 @@ export type CountryOption = {
   summary: string;
   image: string;
   accent: string;
+  heroEyebrow?: string;
+  heroTitle?: string;
+  heroBody?: string;
+  overviewCards?: CountryContentCard[];
+  essentialLinks?: CountryLink[];
+  featuredExperiences?: CountryContentCard[];
+  routeCta?: {
+    eyebrow: string;
+    title: string;
+    href: string;
+    label: string;
+  };
 };
 
 export type PlaceBuildStatus = "live" | "queued";
+
+export type CountryLink = {
+  label: string;
+  href: string;
+  description: string;
+};
+
+export type CountryContentCard = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+};
 
 export type PlaceOption = {
   slug: string;
@@ -33,6 +59,107 @@ export const COUNTRY_OPTIONS: CountryOption[] = [
     image:
       "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=86",
     accent: "#F59E0B",
+    heroEyebrow: "Vietnam",
+    heroTitle: "Timeless heritage. Endless discovery.",
+    heroBody:
+      "From ancient traditions to modern vibrance, explore the soul of Vietnam through its landscapes, culture, cuisine, and people.",
+    overviewCards: [
+      {
+        eyebrow: "Vietnam",
+        title: "Country Guide",
+        description:
+          "Discover Vietnam's history, culture, regions, and essential travel insights.",
+        href: "/country/vietnam",
+        image:
+          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1400&q=84",
+      },
+      {
+        eyebrow: "Cities",
+        title: "Explore Cities",
+        description:
+          "From vibrant metropolises to charming ancient towns, explore the best of Vietnam's cities.",
+        href: "#cities",
+        image:
+          "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=84",
+      },
+      {
+        eyebrow: "Planning",
+        title: "Plan Your Journey",
+        description:
+          "Everything you need to plan the perfect trip, from routes to food, phrases, and local tips.",
+        href: "/country/vietnam/itinerary",
+        image:
+          "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1400&q=84",
+      },
+    ],
+    essentialLinks: [
+      {
+        label: "Itineraries",
+        href: "/country/vietnam/itinerary",
+        description: "Curated travel ideas",
+      },
+      {
+        label: "Cuisine",
+        href: "/country/vietnam/cuisine",
+        description: "Flavors of Vietnam",
+      },
+      {
+        label: "Beverages",
+        href: "/country/vietnam/beverages",
+        description: "Local drinks to try",
+      },
+      {
+        label: "Famous For",
+        href: "/country/vietnam/famous-for",
+        description: "What Vietnam is known for",
+      },
+      {
+        label: "Language",
+        href: "/country/vietnam/languages",
+        description: "Vietnamese phrases guide",
+      },
+    ],
+    featuredExperiences: [
+      {
+        eyebrow: "Cruise",
+        title: "Ha Long Bay Cruise",
+        description: "Sail through iconic limestone karsts and emerald waters.",
+        href: "/city/ha-long",
+        image:
+          "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=84",
+      },
+      {
+        eyebrow: "Culture",
+        title: "Hoi An Ancient Town",
+        description: "Wander lantern-lit streets steeped in history.",
+        href: "/city/hoi-an",
+        image:
+          "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=84",
+      },
+      {
+        eyebrow: "Nature",
+        title: "Sapa Mountain Retreat",
+        description:
+          "Discover breathtaking terraced valleys and local traditions.",
+        href: "/city/sapa",
+        image:
+          "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=84",
+      },
+      {
+        eyebrow: "Wellness",
+        title: "Da Nang Beach Escape",
+        description: "Relax on pristine beaches and coastal gateways.",
+        href: "/city/da-nang",
+        image:
+          "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1200&q=84",
+      },
+    ],
+    routeCta: {
+      eyebrow: "Bespoke travel planning",
+      title: "Craft your perfect Vietnam journey with our experts.",
+      href: "/concierge",
+      label: "Contact concierge",
+    },
   },
   {
     slug: "thailand",
@@ -191,6 +318,14 @@ export const COUNTRY_OPTIONS: CountryOption[] = [
 ];
 
 export const PLACE_OPTIONS: PlaceOption[] = [
+  { slug: "ho-chi-minh-city", countrySlug: "vietnam", name: "Ho Chi Minh City", kind: "city", status: "live", summary: "Southern street energy, coffee culture, markets, museums, rooftops, and Mekong access.", image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "hanoi", countrySlug: "vietnam", name: "Hanoi", kind: "city", status: "live", summary: "Old Quarter lanes, lakes, egg coffee, northern food, French-era streets, and capital rhythm.", image: "https://images.unsplash.com/photo-1509030450996-dd1a26dda07a?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "da-nang", countrySlug: "vietnam", name: "Da Nang", kind: "city", status: "live", summary: "Beach mornings, seafood nights, bridges, mountain roads, and easy Hoi An or Hue access.", image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "hoi-an", countrySlug: "vietnam", name: "Hoi An", kind: "town", status: "live", summary: "Lantern streets, tailoring, riverside evenings, food, cafes, and central Vietnam softness.", image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "hue", countrySlug: "vietnam", name: "Hue", kind: "city", status: "live", summary: "Imperial citadel walls, royal tombs, pagodas, Perfume River, and central-region cuisine.", image: "https://images.unsplash.com/photo-1584441761015-c7447e8ef9cc?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "sapa", countrySlug: "vietnam", name: "Sapa", kind: "town", status: "live", summary: "Terraced valleys, mountain weather, trekking, ethnic villages, and misty northern views.", image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "phu-quoc", countrySlug: "vietnam", name: "Phu Quoc", kind: "island", status: "live", summary: "Beaches, snorkeling, seafood, night markets, resorts, and sunset island pacing.", image: "https://images.unsplash.com/photo-1540202404-a2f29016b523?auto=format&fit=crop&w=1200&q=84" },
+  { slug: "can-tho", countrySlug: "vietnam", name: "Can Tho", kind: "city", status: "live", summary: "Mekong Delta mornings, floating markets, fruit gardens, riverside food, and canals.", image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1200&q=84" },
   { slug: "bangkok", countrySlug: "thailand", name: "Bangkok", kind: "city", status: "queued", summary: "Food streets, river ferries, temples, malls, nightlife, and first-arrival logistics." },
   { slug: "chiang-mai", countrySlug: "thailand", name: "Chiang Mai", kind: "city", status: "queued", summary: "Northern temples, cafes, mountains, markets, elephants, and slower stays." },
   { slug: "phuket", countrySlug: "thailand", name: "Phuket", kind: "island", status: "queued", summary: "Beaches, resorts, boat trips, nightlife, rain timing, and island transfers." },

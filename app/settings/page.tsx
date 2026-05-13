@@ -225,18 +225,18 @@ function TopNavigation() {
             JOURNEE
           </span>
         </Link>
-        <nav className="hidden flex-1 items-center justify-center gap-1 2xl:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {navItems.map((item) => (
             <Link
               key={item}
               href={navHref(item)}
-              className={`relative px-3 py-5 text-sm font-medium transition ${
+              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 text-sm font-medium transition ${
                 item === "Settings" ? "text-[#f3b544]" : "text-white/88 hover:text-white"
               }`}
             >
               {item}
               {item === "Settings" && (
-                <span className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-[#f3b544]" />
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]" />
               )}
             </Link>
           ))}

@@ -206,18 +206,18 @@ function Header() {
           <JourneeBrand direction="meridian-pin" className="[&>span:first-child]:h-9 [&>span:first-child]:w-9 [&>span:first-child]:rounded-none [&>span:first-child]:border-0 [&>span:first-child]:bg-transparent [&>span:first-child]:shadow-none [&>span:first-child>svg]:h-8 [&>span:first-child>svg]:w-8 [&>span:last-child]:text-[1.45rem] [&>span:last-child]:tracking-[0.12em]" />
         </Link>
 
-        <nav className="hidden flex-1 items-center justify-center gap-7 text-sm font-medium text-white/88 xl:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible text-sm font-medium text-white/88 xl:flex">
           {navItems.map((item) => (
             <Link
               href={item === "Visa" ? "/visa" : item === "Home" ? "/" : "#"}
               key={item}
-              className={`relative py-7 transition hover:text-white ${
+              className={`relative inline-flex min-w-max items-center whitespace-nowrap px-1 py-3 transition hover:text-white ${
                 item === "Visa" ? "text-[#f0ae36]" : ""
               }`}
             >
               {item}
               {item === "Visa" && (
-                <span className="absolute inset-x-0 bottom-0 mx-auto h-0.5 w-full rounded-full bg-[#f0ae36]" />
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f0ae36]" />
               )}
             </Link>
           ))}

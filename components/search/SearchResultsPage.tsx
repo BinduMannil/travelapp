@@ -397,12 +397,12 @@ function TopNavigation() {
             JOURNEE
           </span>
         </Link>
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 2xl:flex">
+        <nav className="hidden flex-1 items-center justify-center gap-8 overflow-visible 2xl:flex">
           {navItems.map((item) => (
             <Link
               key={item}
               href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-              className={`relative rounded-full px-3 py-2 text-sm font-semibold transition ${
+              className={`relative inline-flex min-w-max items-center whitespace-nowrap rounded-full px-1 py-3 text-sm font-semibold transition ${
                 item === "Search"
                   ? "bg-white/[0.035] text-[#f3b544]"
                   : "text-white/84 hover:text-white"
@@ -410,7 +410,7 @@ function TopNavigation() {
             >
               {item}
               {item === "Search" && (
-                <span className="absolute inset-x-4 -bottom-2 h-0.5 rounded-full bg-[#f3b544]" />
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-8 -translate-x-1/2 rounded-full bg-[#f3b544]" />
               )}
             </Link>
           ))}
