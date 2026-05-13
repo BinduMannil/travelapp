@@ -402,15 +402,17 @@ function RecommendedDestinations({ items }: { items: typeof destinations }) {
           <Link
             key={destination.title}
             href={destination.href}
-            className="group relative min-h-[405px] overflow-hidden rounded-[1.2rem] border border-white/13 bg-white/[0.04] shadow-2xl shadow-black/28 transition duration-300 hover:-translate-y-1 hover:border-[#d9a947]/35 sm:min-h-[440px]"
+            className="group relative min-h-[405px] overflow-hidden rounded-[1.45rem] bg-white/[0.035] shadow-[0_28px_80px_rgba(0,0,0,.34),0_1px_0_rgba(255,255,255,.045)_inset] transition-[transform,box-shadow,filter] duration-700 ease-[cubic-bezier(.19,1,.22,1)] hover:-translate-y-1.5 hover:shadow-[0_34px_110px_rgba(0,0,0,.48),0_0_48px_rgba(217,169,71,.085),0_1px_0_rgba(255,255,255,.08)_inset] sm:min-h-[440px]"
           >
             <img
               src={destination.image}
               alt={destination.title}
-              className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-cover brightness-[0.86] saturate-[0.94] transition-[transform,filter] duration-[1200ms] ease-[cubic-bezier(.19,1,.22,1)] group-hover:scale-[1.03] group-hover:brightness-[0.92] group-hover:saturate-100"
             />
-            <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.28)_0%,rgba(0,0,0,.36)_28%,rgba(0,0,0,.78)_62%,rgba(0,0,0,.98)_100%)]" />
-            <span className="absolute inset-x-0 bottom-0 h-[76%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,.98),rgba(0,0,0,.82)_46%,rgba(0,0,0,.24)_78%,transparent_100%)]" />
+            <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.14)_0%,rgba(0,0,0,.28)_34%,rgba(0,0,0,.68)_68%,rgba(0,0,0,.94)_100%)] transition-opacity duration-700 group-hover:opacity-95" />
+            <span className="absolute inset-x-0 bottom-0 h-[78%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,.96),rgba(0,0,0,.74)_45%,rgba(0,0,0,.24)_76%,transparent_100%)] transition-opacity duration-700 group-hover:opacity-90" />
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,.13),transparent_26%),radial-gradient(circle_at_74%_84%,rgba(217,169,71,.12),transparent_32%)] opacity-45 transition-opacity duration-700 group-hover:opacity-70" />
+            <span className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_rgba(255,255,255,.045),inset_0_1px_24px_rgba(255,255,255,.035),inset_0_-36px_90px_rgba(0,0,0,.38)] transition-shadow duration-700 group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,.075),inset_0_1px_28px_rgba(255,255,255,.055),inset_0_-38px_96px_rgba(0,0,0,.42)]" />
             <span className="relative flex h-full flex-col justify-end p-5 sm:p-6">
               <span className="font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
                 {destination.country}
