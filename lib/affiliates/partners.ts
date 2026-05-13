@@ -2,8 +2,9 @@
 //
 // Each partner has:
 //  - a human-readable name (for the disclosure + the `rel` source attribution)
-//  - the env-var that holds our affiliate ID (copy-paste into Vercel env; the
-//    defaults below are empty strings so the URLs stay functional pre-signup)
+//  - the env-var that holds our affiliate ID (set in whichever host's env
+//    config you end up using; the defaults below are empty strings so the
+//    URLs stay functional pre-signup)
 //  - a `buildUrl(target)` function that takes a raw partner URL and appends
 //    the right tracking parameters — names differ by partner, so each gets
 //    its own builder.
@@ -58,7 +59,8 @@ export const PARTNERS: Record<PartnerKey, Partner> = {
 
 // Public env vars — all NEXT_PUBLIC_ prefixed so the tags are visible client-side.
 // Empty fallback keeps links functional before sign-up; once you register for a
-// program, populate the variable in Vercel → Settings → Environment Variables.
+// program, set the variable in your .env.local (locally) or in whichever
+// hosting provider's env config you eventually deploy with.
 export const PARTNER_IDS: Record<PartnerKey, string> = {
   booking:        process.env.NEXT_PUBLIC_AFF_BOOKING_AID ?? "",
   agoda:          process.env.NEXT_PUBLIC_AFF_AGODA_CID ?? "",

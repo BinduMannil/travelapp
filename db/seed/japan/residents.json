@@ -7,17 +7,50 @@
     "total_label": "3.41 M foreign residents",
     "percent_of_population": 2.75,
     "slices": [
-      { "label": "China", "value": 25.3 },
-      { "label": "Vietnam", "value": 17.1 },
-      { "label": "South Korea", "value": 12.2 },
-      { "label": "Philippines", "value": 9.7 },
-      { "label": "Brazil", "value": 6.3 },
-      { "label": "Nepal", "value": 5.2 },
-      { "label": "Indonesia", "value": 4.1 },
-      { "label": "Myanmar", "value": 2.9 },
-      { "label": "United States", "value": 2.1 },
-      { "label": "Taiwan", "value": 2.0 },
-      { "label": "Other", "value": 13.1 }
+      {
+        "label": "China",
+        "value": 25.3
+      },
+      {
+        "label": "Vietnam",
+        "value": 17.1
+      },
+      {
+        "label": "South Korea",
+        "value": 12.2
+      },
+      {
+        "label": "Philippines",
+        "value": 9.7
+      },
+      {
+        "label": "Brazil",
+        "value": 6.3
+      },
+      {
+        "label": "Nepal",
+        "value": 5.2
+      },
+      {
+        "label": "Indonesia",
+        "value": 4.1
+      },
+      {
+        "label": "Myanmar",
+        "value": 2.9
+      },
+      {
+        "label": "United States",
+        "value": 2.1
+      },
+      {
+        "label": "Taiwan",
+        "value": 2.0
+      },
+      {
+        "label": "Other",
+        "value": 13.1
+      }
     ]
   },
   "city": {
@@ -26,16 +59,146 @@
     "total_label": "593 k foreign residents",
     "percent_of_population": 4.3,
     "slices": [
-      { "label": "China", "value": 39.1 },
-      { "label": "South Korea", "value": 13.6 },
-      { "label": "Vietnam", "value": 7.8 },
-      { "label": "Nepal", "value": 6.2 },
-      { "label": "Philippines", "value": 5.7 },
-      { "label": "United States", "value": 3.3 },
-      { "label": "India", "value": 2.7 },
-      { "label": "Myanmar", "value": 2.1 },
-      { "label": "Taiwan", "value": 1.9 },
-      { "label": "Other", "value": 17.6 }
+      {
+        "label": "China",
+        "value": 39.1
+      },
+      {
+        "label": "South Korea",
+        "value": 13.6
+      },
+      {
+        "label": "Vietnam",
+        "value": 7.8
+      },
+      {
+        "label": "Nepal",
+        "value": 6.2
+      },
+      {
+        "label": "Philippines",
+        "value": 5.7
+      },
+      {
+        "label": "United States",
+        "value": 3.3
+      },
+      {
+        "label": "India",
+        "value": 2.7
+      },
+      {
+        "label": "Myanmar",
+        "value": 2.1
+      },
+      {
+        "label": "Taiwan",
+        "value": 1.9
+      },
+      {
+        "label": "Other",
+        "value": 17.6
+      }
     ]
+  },
+  "demographics": {
+    "country": {
+      "name": "Japan",
+      "total_population": 122440000,
+      "total_population_label": "122.4 M",
+      "median_age": 49.5,
+      "density_per_km2": 333,
+      "urban_percent": 92,
+      "land_area_km2": 364555,
+      "age_groups": [
+        {
+          "label": "0–14",
+          "value": 11.4,
+          "tone": "matcha"
+        },
+        {
+          "label": "15–64",
+          "value": 58.5,
+          "tone": "aizome"
+        },
+        {
+          "label": "65+",
+          "value": 30.1,
+          "tone": "enji"
+        }
+      ],
+      "religion_breakdown": [
+        {
+          "label": "Shinto / Buddhist (often both)",
+          "value": 70.0,
+          "tone": "kintsugi"
+        },
+        {
+          "label": "Non-religious",
+          "value": 25.0,
+          "tone": "washi"
+        },
+        {
+          "label": "Christianity",
+          "value": 1.5,
+          "tone": "ume"
+        },
+        {
+          "label": "Other",
+          "value": 3.5,
+          "tone": "sumi"
+        }
+      ],
+      "metros": [
+        {
+          "name": "Greater Tokyo",
+          "population_m": 37.4
+        },
+        {
+          "name": "Keihanshin (Osaka–Kyoto–Kobe)",
+          "population_m": 19.3
+        },
+        {
+          "name": "Chukyo (Nagoya)",
+          "population_m": 9.5
+        },
+        {
+          "name": "Fukuoka–Kitakyushu",
+          "population_m": 5.6
+        },
+        {
+          "name": "Sapporo",
+          "population_m": 2.6
+        }
+      ]
+    },
+    "city": {
+      "name": "Tokyo",
+      "total_population": 13960000,
+      "total_population_label": "13.96 M (city) · 37.4 M (metro)",
+      "median_age": 47.2,
+      "density_per_km2": 6363,
+      "urban_percent": 100,
+      "land_area_km2": 2194,
+      "age_groups": [
+        {
+          "label": "0–14",
+          "value": 11.0,
+          "tone": "matcha"
+        },
+        {
+          "label": "15–64",
+          "value": 65.7,
+          "tone": "aizome"
+        },
+        {
+          "label": "65+",
+          "value": 23.3,
+          "tone": "enji"
+        }
+      ],
+      "religion_breakdown": null,
+      "metros": null
+    }
   }
 }

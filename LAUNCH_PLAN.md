@@ -55,8 +55,8 @@ final week so everything else is locked down first.
 | 24-25 | **Reviews + votes + follow** — user-generated content on attractions / restaurants / hotels; follow user graph; vote-on-photo |
 | 25-26 | **Blog posts + photo upload** — users can post trip journals; Cloudflare R2 or Supabase Storage for images; moderation queue |
 | 26-27 | **Legal copy** — Terms of Service, Privacy Policy, affiliate disclosure, cookie / CMP banner (required for EU users) |
-| 27-28 | **SEO + performance** — sitemap.ts, JSON-LD (`TouristDestination`, `TouristAttraction`, `Restaurant`), OG images per city via @vercel/og, PWA manifest, Lighthouse pass |
-| 28-29 | **Production deploy** — Vercel prod, custom domain + SSL, Cloudflare DNS, Sentry, PostHog (EU-hosted), a11y scan |
+| 27-28 | **SEO + performance** — sitemap.ts, JSON-LD (`TouristDestination`, `TouristAttraction`, `Restaurant`), dynamic OG images per city, PWA manifest, Lighthouse pass |
+| 28-29 | **Production deploy** — pick a host (decide at launch time), custom domain + SSL, Cloudflare DNS, Sentry, PostHog (EU-hosted), a11y scan |
 | 29-30 | **Beta + bug bash** — 30-50 test users, tighten top 10 complaints, ship. |
 
 ## External decisions I need from you
@@ -64,12 +64,14 @@ final week so everything else is locked down first.
 In priority order — blocks forward motion if not resolved:
 
 1. **Cities list** — I'll draft a 150-city list ranked by international tourism volume. You approve / swap in what matters to your audience. Without this we can't start Tier 2 generation.
-2. **API accounts + billing** — create these on your side, paste the keys into Vercel env vars:
+2. **API accounts + billing** — create these on your side and drop the
+   keys into `.env.local` while developing (and into the host's env
+   config once we pick one):
    - **Supabase** Pro ($25/mo)
    - **Anthropic API** (~$200 one-time for content gen + ongoing for concierge)
    - **Google Places** (~$200-500 one-time for photos + coords)
    - **OpenWeather** (free tier works)
-   - **Vercel** Pro ($20/mo, or free if traffic is small)
+   - Hosting (picked at launch — budget ~$0-25/mo depending on choice)
    - **Cloudflare R2** or **Supabase Storage** for user-uploaded photos (pennies)
 3. **AI-generated content is okay?** Tier 2 cities cannot be hand-written — they will be AI-generated from sources, with a human spot-check before publish. Explicit sign-off here is critical.
 4. **Photography strategy** — fastest ship: **Wikimedia Commons** (CC-BY/public-domain, stable) for hero/attraction images; **Unsplash** as fallback. Longer term: commissioned photos via a photographer network (ignore for v1). Confirm you want to use Wikimedia + Unsplash.
@@ -86,7 +88,7 @@ In priority order — blocks forward motion if not resolved:
 | Image licensing | Wikimedia (free) + Unsplash (free-for-commercial) + explicit attribution. No scraped photos. |
 | API cost overruns | Field-masked Google Places requests, prompt caching on Anthropic, daily caps in Upstash rate limit. |
 | Moderation for user content at launch with a small team | Launch week: only trusted / invited users can post blog / review. Open to all in week 5+ with moderation queue workflow. |
-| SOC 2 / GDPR posture | Supabase + Vercel both SOC 2 Type 2. GDPR export/delete endpoints baked in. Documented in `/security.md`. |
+| SOC 2 / GDPR posture | Supabase is SOC 2 Type 2; pick a SOC 2-compliant host at launch time. GDPR export/delete endpoints baked in. Documented in `/security.md`. |
 
 ## Open work list by priority
 

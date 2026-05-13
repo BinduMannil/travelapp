@@ -1,142 +1,170 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
+  JAPAN_AIRPORTS,
   JAPAN_CITY_PINS,
   JAPAN_ISLANDS,
   JAPAN_MAP_VIEWBOX,
   JAPAN_OFFSHORE,
-  JAPAN_REGIONS,
+  ORIGIN_CITIES,
+  type AirportPin,
   type CityPin,
 } from "@/lib/country-maps/japan";
 
-const REGION_FILL: Record<string, string> = {
-  matcha: "fill-matcha-500/34",
-  aizome: "fill-aizome-500/34",
-  kintsugi: "fill-kintsugi-400/42",
-  enji: "fill-enji-500/30",
-  ume: "fill-sakura-400/38",
-  sumi: "fill-sumi-700/24",
-};
-
-const JAPAN_STATS = [
-  { label: "Population", value: "124M" },
-  { label: "Area", value: "377,975 km²" },
-  { label: "Islands", value: "14,000+" },
-  { label: "Currency", value: "JPY" },
-  { label: "Time zone", value: "UTC+9" },
-  { label: "Major cities", value: `${JAPAN_CITY_PINS.length + JAPAN_OFFSHORE.length}` },
-];
+const LS_ORIGIN = "journee:origin-iata";
 
 /**
- * Editorial interactive country map (Japan today — drop in other
- * countries by adding a data file under `lib/country-maps/`). Clickable
- * pins route to each city page; unpublished cities render as
- * disabled markers so the map keeps visual density while the content
- * backlog catches up.
- *
- * Behaviour:
- *  - Hover a pin → the label expands and the region tint deepens.
- *  - Tap a region label or offshore card → scrolls to that pin (via
- *    focus state) so keyboard users still get feedback.
- *  - Published pins are enji-coloured; planned guides are washi with a
- *    dotted ring, but still link to their city landing page.
+ * City pins that overlap (e.g. Tokyo + Yokohama or Kyoto + Osaka) get
+ * their labels pushed onto staggered sides so they don't stack on top
+ * of each other. Left-side labels are right-aligned and render their
+ * text to the left of the pin; right-side is the default.
+ */
+const LABEL_SIDE: Record<string, "left" | "right"> = {
+  yokohama: "left",
+  osaka: "left",
+};
+
+/**
+ * Interactive country map with toggle between cities and airports.
+ * Labels on overlapping pins are pushed to staggered sides; every
+ * unpublished city is a dashed ring (no persistent "guide soon" text)
+ * with a native hover tooltip.
  */
 export function CountryMap({
   countryName = "Japan",
 }: {
   countryName?: string;
 }) {
-  const [hoveredCity, setHoveredCity] = useState<string | null>(null);
+  const [layer, setLayer] = useState<"cities" | "airports">("cities");
+  const [hovered, setHovered] = useState<string | null>(null);
+  const [selectedAirport, setSelectedAirport] = useState<string | null>(null);
+  const [originIata, setOriginIata] = useState<string>("DXB");
+
+  // Restore the user's previously-picked origin city.
+  useEffect(() => {
+    const saved = window.localStorage.getItem(LS_ORIGIN);
+    if (saved && ORIGIN_CITIES.some((o) => o.iata === saved))
+      setOriginIata(saved);
+  }, []);
+
+  function pickOrigin(iata: string) {
+    setOriginIata(iata);
+    window.localStorage.setItem(LS_ORIGIN, iata);
+  }
+
+  const airports = useMemo(() => JAPAN_AIRPORTS, []);
+  const activeAirport = airports.find((a) => a.iata === selectedAirport);
+  const activeOrigin = ORIGIN_CITIES.find((o) => o.iata === originIata);
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#0b0907] px-4 py-20 text-washi-50 sm:px-6 sm:py-28">
-      <div
-        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_16%_12%,rgba(216,173,79,.18),transparent_32%),radial-gradient(circle_at_86%_48%,rgba(46,79,115,.24),transparent_34%),linear-gradient(180deg,rgba(11,9,7,.96),rgba(22,17,13,.9))]"
-        aria-hidden
-      />
-      <div
-        className="absolute inset-0 -z-10 opacity-[0.16] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:42px_42px]"
-        aria-hidden
-      />
-
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.88fr_1.32fr] lg:items-center xl:gap-16">
+    <section className="relative bg-washi-50">
+      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[1fr_1.2fr] lg:items-center">
         {/* LEFT — editorial kicker */}
-        <div className="rounded-[1.75rem] border border-white/12 bg-white/[0.055] p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8 lg:p-9">
-          <div className="h-px w-16 bg-gradient-to-r from-kintsugi-300 to-transparent" aria-hidden />
-          <p className="luxury-kicker mt-6 text-kintsugi-300">Japan atlas</p>
-          <h2 className="mt-4 max-w-[10ch] font-sans text-[clamp(2.75rem,5.4vw,5.6rem)] font-semibold leading-[0.95] tracking-tight text-white">
-            Discover {countryName}
+        <div>
+          <div className="h-[2px] w-12 bg-aizome-600" aria-hidden />
+          <h2 className="mt-5 text-4xl font-semibold tracking-tight text-aizome-700 sm:text-5xl">
+            Discover
+            <br />
+            {countryName}
           </h2>
-          <p className="mt-6 max-w-md text-sm leading-7 text-washi-50/72 sm:text-base sm:leading-8">
+          <p className="mt-6 max-w-sm text-sm leading-relaxed text-sumi-800 sm:text-base">
             We are travellers at heart, so uncovering the best of{" "}
             {countryName} is something we have written at depth. Tap any
-            city on the map to jump straight into the on-the-ground guide.
+            city on the map to jump into the guide, or flip to the
+            airports layer to see where you can land.
           </p>
 
-          <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {JAPAN_STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl border border-white/10 bg-black/22 px-4 py-4"
-              >
-                <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-washi-50/48">
-                  {stat.label}
-                </div>
-                <div className="mt-1 font-sans text-xl font-semibold text-white">
-                  {stat.value}
-                </div>
-              </div>
-            ))}
+          {/* Layer toggle */}
+          <div className="mt-6 inline-flex rounded-full border border-washi-300 bg-white p-0.5 text-[11px] font-semibold uppercase tracking-[0.2em]">
+            <button
+              type="button"
+              onClick={() => setLayer("cities")}
+              className={`rounded-full px-3 py-1 transition ${
+                layer === "cities"
+                  ? "bg-aizome-600 text-white"
+                  : "text-sumi-700 hover:text-aizome-700"
+              }`}
+            >
+              Cities
+            </button>
+            <button
+              type="button"
+              onClick={() => setLayer("airports")}
+              className={`rounded-full px-3 py-1 transition ${
+                layer === "airports"
+                  ? "bg-aizome-600 text-white"
+                  : "text-sumi-700 hover:text-aizome-700"
+              }`}
+            >
+              Airports
+            </button>
           </div>
 
-          <ul className="mt-8 grid grid-cols-2 gap-3 text-xs">
-            {JAPAN_REGIONS.map((r) => (
-              <li
-                key={r.slug}
-                className="flex min-h-10 items-center gap-3 rounded-full border border-white/10 bg-white/[0.045] px-4 text-washi-50/74"
-              >
-                <span
-                  aria-hidden
-                  className={`inline-block h-2.5 w-2.5 rounded-full ${REGION_FILL[r.accent].replace("/45", "").replace("/55", "").replace("/40", "").replace("/30", "").replace("fill-", "bg-")}`}
-                />
-                <span className="font-semibold uppercase tracking-[0.12em]">
-                  {r.label}
-                </span>
-              </li>
-            ))}
+          {/* Legend */}
+          <ul className="mt-6 space-y-2 text-xs">
+            {layer === "cities" ? (
+              <>
+                <li className="flex items-center gap-3 text-sumi-700">
+                  <span className="inline-block h-2.5 w-2.5 rounded-full bg-enji-600" />
+                  <span>City with a full guide</span>
+                </li>
+                <li className="flex items-center gap-3 text-sumi-700">
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-full border border-dashed border-sumi-400"
+                    aria-hidden
+                  />
+                  <span>Guide rolling out soon</span>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="flex items-center gap-3 text-sumi-700">
+                  <span
+                    className="inline-block h-0 w-0"
+                    style={{
+                      borderLeft: "5px solid transparent",
+                      borderRight: "5px solid transparent",
+                      borderBottom: "8px solid #1f3a5f",
+                    }}
+                    aria-hidden
+                  />
+                  <span>International airport</span>
+                </li>
+                <li className="flex items-center gap-3 text-sumi-700">
+                  <span
+                    className="inline-block h-0 w-0"
+                    style={{
+                      borderLeft: "5px solid transparent",
+                      borderRight: "5px solid transparent",
+                      borderBottom: "8px solid #9fba74",
+                    }}
+                    aria-hidden
+                  />
+                  <span>Domestic airport</span>
+                </li>
+              </>
+            )}
           </ul>
         </div>
 
         {/* RIGHT — the map */}
-        <div className="relative overflow-hidden rounded-[2rem] border border-kintsugi-300/22 bg-[#efe5d1] p-4 shadow-[0_36px_100px_rgba(0,0,0,.42)] sm:p-6 lg:p-8">
-          <div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,.62),transparent_24%),radial-gradient(circle_at_72%_62%,rgba(216,173,79,.18),transparent_28%),linear-gradient(135deg,rgba(255,255,255,.5),rgba(197,174,130,.2))]"
-            aria-hidden
-          />
-          <div
-            className="absolute inset-0 opacity-[0.18] [background-image:linear-gradient(rgba(75,54,33,.18)_1px,transparent_1px),linear-gradient(90deg,rgba(75,54,33,.14)_1px,transparent_1px)] [background-size:28px_28px]"
-            aria-hidden
-          />
+        <div className="relative">
           <svg
             viewBox={JAPAN_MAP_VIEWBOX}
-            className="relative h-auto w-full drop-shadow-[0_24px_38px_rgba(41,30,18,.22)]"
+            className="h-auto w-full"
             role="img"
-            aria-label={`${countryName} — clickable city map`}
+            aria-label={`${countryName} — clickable ${layer} map`}
           >
-            {/* Water / background wash */}
             <defs>
-              <filter id="islandShadow" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="10" stdDeviation="7" floodColor="rgba(43,31,18,.24)" />
-              </filter>
               <pattern
                 id="dots"
-                width="9"
-                height="9"
+                width="6"
+                height="6"
                 patternUnits="userSpaceOnUse"
               >
-                <circle cx="1.5" cy="1.5" r="0.85" fill="rgba(46,79,115,.2)" />
+                <circle cx="1" cy="1" r="0.8" fill="rgba(46,79,115,.22)" />
               </pattern>
             </defs>
 
@@ -146,8 +174,7 @@ export function CountryMap({
                 key={`halo-${i}`}
                 d={island.path}
                 fill="url(#dots)"
-                opacity="0.72"
-                transform="translate(-15 -15) scale(1.1)"
+                transform="translate(-12 -12) scale(1.08)"
               />
             ))}
 
@@ -156,77 +183,162 @@ export function CountryMap({
               <g key={key}>
                 <path
                   d={island.path}
-                  className="fill-[#fff7e7] stroke-[#7b684a]"
-                  filter="url(#islandShadow)"
-                  strokeWidth={1.35}
+                  className="fill-washi-100 stroke-sumi-200"
+                  strokeWidth={1}
                 />
               </g>
             ))}
 
-            {/* Region accent blobs on top */}
-            {JAPAN_REGIONS.map((r) => (
-              <path
-                key={r.slug}
-                d={r.blob}
-                className={`${REGION_FILL[r.accent]} transition duration-300`}
-              />
-            ))}
+            {/* Region accent blobs were retired — they made the dense
+                Honshū corridor read as crowded. The cities + island
+                labels carry the typography load on their own. */}
 
-            {/* Island labels */}
+            {/* Island labels — sentence case so they pair with the city
+                labels below instead of fighting them. */}
             {Object.values(JAPAN_ISLANDS).map((island, i) => (
               <text
                 key={`label-${i}`}
                 x={island.labelAt[0]}
                 y={island.labelAt[1]}
-                className="fill-[#594832]"
-                fontSize="11"
-                fontWeight="700"
-                letterSpacing="0.28em"
+                className="fill-sumi-500"
+                fontSize="10"
+                fontWeight="500"
+                letterSpacing="0.05em"
                 textAnchor="middle"
-                style={{ textTransform: "uppercase", paintOrder: "stroke", stroke: "rgba(255,247,231,.78)", strokeWidth: 3 }}
               >
-                {island.label.toUpperCase()}
+                {island.label}
               </text>
             ))}
 
-            {/* City pins */}
-            {JAPAN_CITY_PINS.map((c) => (
-              <MapPin
-                key={c.slug}
-                city={c}
-                hovered={hoveredCity === c.slug}
-                onHover={setHoveredCity}
-              />
-            ))}
+            {/* Pins — city layer */}
+            {layer === "cities" &&
+              JAPAN_CITY_PINS.map((c) => (
+                <CityMapPin
+                  key={c.slug}
+                  city={c}
+                  hovered={hovered === c.slug}
+                  onHover={setHovered}
+                />
+              ))}
+
+            {/* Pins — airport layer */}
+            {layer === "airports" &&
+              airports.map((a) => (
+                <AirportMapPin
+                  key={a.iata}
+                  airport={a}
+                  hovered={hovered === a.iata || selectedAirport === a.iata}
+                  onHover={setHovered}
+                  onSelect={(iata) =>
+                    setSelectedAirport((cur) => (cur === iata ? null : iata))
+                  }
+                />
+              ))}
           </svg>
 
-          {/* Offshore annotations */}
-          <div className="relative mt-6 grid gap-3 border-t border-[#7b684a]/18 pt-5 sm:grid-cols-2">
-            {JAPAN_OFFSHORE.map((o) => (
-              <Link
-                key={o.slug}
-                href={o.href}
-                className="rounded-2xl border border-[#7b684a]/18 bg-white/58 p-4 text-[#2f271d] shadow-[0_14px_34px_rgba(63,46,28,.1)] backdrop-blur transition hover:-translate-y-0.5 hover:border-enji-500/45 hover:bg-white/78"
-              >
-                <div className="text-[10px] font-black uppercase tracking-[0.12em] text-[#7a5a25]">
-                  {o.note}
+          {/* Offshore annotations (cities layer only) */}
+          {layer === "cities" && (
+            <div className="mt-6 grid gap-2 sm:grid-cols-2">
+              {JAPAN_OFFSHORE.map((o) => (
+                <div
+                  key={o.slug}
+                  className="rounded-xl border border-dashed border-washi-300 bg-white p-3"
+                >
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                    {o.note}
+                  </div>
+                  <div className="mt-0.5 text-base font-semibold text-sumi-900">
+                    {o.name}
+                  </div>
+                  <div className="mt-1 text-[10px] italic text-sumi-600">
+                    City guide rolls out in the next content pass.
+                  </div>
                 </div>
-                <div className="mt-1 font-sans text-lg font-semibold text-[#1c1711]">
-                  {o.name}
+              ))}
+            </div>
+          )}
+
+          {/* Airport-layer footer: origin picker + airport list / panel */}
+          {layer === "airports" && (
+            <div className="mt-6 space-y-4">
+              {/* Origin picker */}
+              <label className="flex flex-wrap items-center gap-3 rounded-xl border border-washi-200 bg-white px-3 py-2 text-xs">
+                <span className="font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                  Flying from
+                </span>
+                <select
+                  value={originIata}
+                  onChange={(e) => pickOrigin(e.target.value)}
+                  className="flex-1 rounded-md border border-washi-300 bg-white px-2 py-1.5 text-sm"
+                >
+                  {ORIGIN_CITIES.map((o) => (
+                    <option key={o.iata} value={o.iata}>
+                      {o.iata} · {o.city}, {o.country}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              {/* Either airport detail panel or the full list */}
+              {activeAirport ? (
+                <AirportPanel
+                  airport={activeAirport}
+                  originIata={originIata}
+                  originCity={activeOrigin?.city ?? ""}
+                  onClose={() => setSelectedAirport(null)}
+                />
+              ) : (
+                <div className="grid gap-1.5 rounded-2xl border border-washi-200 bg-white p-4 text-xs sm:grid-cols-2">
+                  {airports.map((a) => {
+                    const directFromOrigin = a.direct_routes?.[originIata];
+                    return (
+                      <button
+                        key={a.iata}
+                        type="button"
+                        onMouseEnter={() => setHovered(a.iata)}
+                        onMouseLeave={() => setHovered(null)}
+                        onClick={() => setSelectedAirport(a.iata)}
+                        className={`flex items-baseline justify-between rounded px-2 py-1 text-left transition ${
+                          hovered === a.iata
+                            ? "bg-washi-100"
+                            : "hover:bg-washi-100"
+                        }`}
+                      >
+                        <span className="text-sumi-900">
+                          <span className="font-semibold tracking-[0.05em]">
+                            {a.iata}
+                          </span>{" "}
+                          · {a.name}
+                        </span>
+                        <span
+                          className={`text-[10px] uppercase tracking-[0.18em] ${
+                            directFromOrigin
+                              ? "text-matcha-700"
+                              : a.international
+                                ? "text-aizome-600"
+                                : "text-sumi-500"
+                          }`}
+                        >
+                          {directFromOrigin
+                            ? "Direct ✓"
+                            : a.international
+                              ? "Intl"
+                              : "Domestic"}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="mt-2 text-xs leading-5 text-[#5e5140]">
-                  City guide rolls out in the next content pass.
-                </div>
-              </Link>
-            ))}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-function MapPin({
+function CityMapPin({
   city,
   hovered,
   onHover,
@@ -237,6 +349,9 @@ function MapPin({
 }) {
   const [x, y] = city.pos;
   const isPublished = Boolean(city.published);
+  const labelSide = LABEL_SIDE[city.slug] ?? "right";
+  const labelX = labelSide === "right" ? x + 9 : x - 9;
+  const labelAnchor = labelSide === "right" ? "start" : "end";
 
   const dot = (
     <g
@@ -244,69 +359,43 @@ function MapPin({
       onMouseLeave={() => onHover(null)}
       className="cursor-pointer"
     >
-      {/* Pulse halo on published cities */}
       {isPublished && (
         <circle
           cx={x}
           cy={y}
-          r={11}
-          className="fill-kintsugi-400/24"
+          r={10}
+          className="fill-enji-500/20"
           style={{
             animation: "pinPulse 2.2s ease-out infinite",
             transformOrigin: `${x}px ${y}px`,
           }}
         />
       )}
-      {/* Main dot */}
       <circle
         cx={x}
         cy={y}
-        r={hovered ? 6.5 : 5}
+        r={hovered ? 6 : 4.2}
         className={
           isPublished
-            ? "fill-enji-700 stroke-[#fff8e8]"
-            : "fill-[#fff8e8] stroke-[#7b684a]"
+            ? "fill-enji-600 stroke-white"
+            : "fill-washi-50 stroke-sumi-400"
         }
-        strokeWidth={2}
-        strokeDasharray={isPublished ? "0" : "2 2"}
-        style={{
-          transition: "r 150ms",
-          filter: "drop-shadow(0 5px 6px rgba(41,30,18,.24))",
-        }}
+        strokeWidth={1.8}
+        strokeDasharray={isPublished ? "0" : "1.8 1.8"}
+        style={{ transition: "r 150ms" }}
       />
-      {/* Label */}
-      <g transform={`translate(${x + 10}, ${y + 4})`}>
-        <text
-          className={`${
-            hovered ? "fill-enji-800" : "fill-[#2d2419]"
-          } font-semibold`}
-          fontSize={hovered ? 13 : 11}
-          style={{
-            transition: "font-size 150ms",
-            paintOrder: "stroke",
-            stroke: "rgba(255,248,232,.86)",
-            strokeWidth: 4,
-          }}
-        >
-          {city.name}
-        </text>
-      </g>
-      {/* Inline "coming soon" mark */}
-      {!isPublished && (
-        <text
-          x={x + 10}
-          y={y + 18}
-          className="fill-[#7a6a52] italic"
-          fontSize={9}
-          style={{
-            paintOrder: "stroke",
-            stroke: "rgba(255,248,232,.72)",
-            strokeWidth: 3,
-          }}
-        >
-          guide soon
-        </text>
-      )}
+      <text
+        x={labelX}
+        y={y + 3.5}
+        textAnchor={labelAnchor}
+        className={`${
+          hovered ? "fill-enji-700" : "fill-sumi-900"
+        } font-semibold`}
+        fontSize={hovered ? 12 : 10.5}
+        style={{ transition: "font-size 150ms" }}
+      >
+        {city.name}
+      </text>
     </g>
   );
 
@@ -319,10 +408,181 @@ function MapPin({
           100% { transform: scale(2.4); opacity: 0; }
         }
       `}</style>
-      <Link href={city.href} aria-label={`Open ${city.name} guide`}>
-        {dot}
-      </Link>
-      {!isPublished ? <title>{`${city.name} · guide planned`}</title> : null}
+      {isPublished ? (
+        <Link href={city.href} aria-label={`Open ${city.name} guide`}>
+          {dot}
+        </Link>
+      ) : (
+        <g aria-label={`${city.name} guide — coming soon`}>
+          <title>{`${city.name} guide — coming soon`}</title>
+          {dot}
+        </g>
+      )}
     </g>
+  );
+}
+
+function AirportMapPin({
+  airport,
+  hovered,
+  onHover,
+  onSelect,
+}: {
+  airport: (typeof JAPAN_AIRPORTS)[number];
+  hovered: boolean;
+  onHover: (slug: string | null) => void;
+  onSelect: (iata: string) => void;
+}) {
+  const [x, y] = airport.pos;
+  const fill = airport.international ? "#1f3a5f" : "#6e8a49"; // aizome-600 / matcha-600
+  return (
+    <g
+      onMouseEnter={() => onHover(airport.iata)}
+      onMouseLeave={() => onHover(null)}
+      onClick={() => onSelect(airport.iata)}
+      className="cursor-pointer"
+    >
+      <title>
+        {airport.iata} · {airport.name} ({airport.city}){" "}
+        {airport.international ? "— international" : "— domestic"}
+      </title>
+      <polygon
+        points={`${x},${y - 6} ${x - 5},${y + 3} ${x + 5},${y + 3}`}
+        fill={fill}
+        stroke="white"
+        strokeWidth={1}
+        opacity={hovered ? 1 : 0.9}
+      />
+      <text
+        x={x + 8}
+        y={y + 4}
+        className="fill-sumi-900 font-semibold"
+        fontSize={hovered ? 11 : 9.5}
+        letterSpacing="0.05em"
+        style={{ transition: "font-size 150ms" }}
+      >
+        {airport.iata}
+      </text>
+    </g>
+  );
+}
+
+/**
+ * Detail panel that opens below the map when an airport is selected.
+ * Surfaces direct-flight info from the user's chosen origin city,
+ * plus a Skyscanner deep link to compare live fares.
+ */
+function AirportPanel({
+  airport,
+  originIata,
+  originCity,
+  onClose,
+}: {
+  airport: AirportPin;
+  originIata: string;
+  originCity: string;
+  onClose: () => void;
+}) {
+  const direct = airport.direct_routes?.[originIata];
+  const otherOrigins = Object.keys(airport.direct_routes ?? {}).filter(
+    (i) => i !== originIata,
+  );
+  const skyscanner = `https://www.skyscanner.net/transport/flights/${originIata.toLowerCase()}/${airport.iata.toLowerCase()}/`;
+
+  return (
+    <article className="rounded-2xl border border-washi-200 bg-white p-5 text-sm shadow-sm">
+      <header className="flex items-start justify-between gap-3">
+        <div>
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+            {airport.iata} · {airport.city}
+          </div>
+          <h3 className="mt-1 text-xl font-semibold text-sumi-900">
+            {airport.name}
+          </h3>
+          <div
+            className={`mt-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${
+              airport.international ? "text-aizome-600" : "text-matcha-700"
+            }`}
+          >
+            {airport.international
+              ? "International airport"
+              : "Domestic airport"}
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close"
+          className="grid h-7 w-7 place-items-center rounded-full bg-washi-100 text-sumi-700 hover:bg-washi-200"
+        >
+          ×
+        </button>
+      </header>
+
+      <div className="mt-5 rounded-xl border border-washi-200 bg-washi-50 p-4">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+          From {originCity || originIata}
+        </div>
+        {direct ? (
+          <>
+            <div className="mt-1 text-base font-semibold text-matcha-700">
+              Direct flights available ✓
+            </div>
+            <div className="mt-2 grid gap-1 text-xs text-sumi-800 sm:grid-cols-3">
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                  Airlines
+                </span>
+                <div className="mt-0.5">{direct.airlines.join(", ")}</div>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                  Flight time
+                </span>
+                <div className="mt-0.5 tabular-nums">
+                  ~{direct.duration_hours} h
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+                  Frequency
+                </span>
+                <div className="mt-0.5">{direct.frequency}</div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="mt-1 text-base font-semibold text-enji-700">
+            No direct flights from {originCity || originIata}
+          </div>
+        )}
+        <a
+          href={skyscanner}
+          target="_blank"
+          rel="sponsored noopener"
+          className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-sumi-900 px-4 py-2 text-xs font-semibold text-washi-50 transition hover:bg-aizome-700"
+        >
+          Compare fares on Skyscanner →
+        </a>
+      </div>
+
+      {otherOrigins.length > 0 && (
+        <div className="mt-4">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.22em] text-sumi-700">
+            Also flies direct from
+          </div>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {otherOrigins.map((iata) => (
+              <span
+                key={iata}
+                className="rounded-full border border-washi-300 bg-white px-2 py-0.5 text-[11px] font-semibold tracking-[0.05em] text-sumi-700"
+              >
+                {iata}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </article>
   );
 }

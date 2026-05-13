@@ -91,7 +91,7 @@ export default async function NearbyPage({
             <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Within Japan · Same Visa
             </h2>
-            <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-3 grid grid-cols-1 items-stretch gap-4 lg:grid-cols-2">
               {domestic.map((r) => (
                 <NearbyRouteCard key={r.dest_slug} route={r} />
               ))}
@@ -104,7 +104,7 @@ export default async function NearbyPage({
             <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
               International · Check Visa First
             </h2>
-            <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-3 grid grid-cols-1 items-stretch gap-4 lg:grid-cols-2">
               {foreign.map((r) => (
                 <NearbyRouteCard key={r.dest_slug} route={r} />
               ))}

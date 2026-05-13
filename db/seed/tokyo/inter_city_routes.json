@@ -48,9 +48,9 @@
     "kanji": "京",
     "palette": "enji",
     "hero_image_urls": [
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji_the_Golden_Pavilion_in_Kyoto.jpg",
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Fushimi_Inari-taisha_shrine_Kyoto.jpg",
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Arashiyama_bamboo_forest_Kyoto.jpg"
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kinkaku-ji_2015.jpg?width=1200",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Fushimi_Inari-taisha,_Kyoto.jpg?width=1200",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kiyomizu-dera_in_Kyoto-r.jpg?width=1200"
     ]
   },
   {
@@ -92,8 +92,8 @@
     "kanji": "阪",
     "palette": "kintsugi",
     "hero_image_urls": [
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Osaka_Castle_02bs3200.jpg",
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_Osaka_neon_at_night.jpg"
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Osaka_Castle_02bs3200.jpg?width=1200",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Dotonbori_Osaka_Japan01s5.jpg?width=1200"
     ]
   },
   {
@@ -135,8 +135,8 @@
     "kanji": "箱",
     "palette": "matcha",
     "hero_image_urls": [
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Hakone_Lake_Ashi_with_Mt_Fuji.jpg",
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Hakone_Shrine_torii.jpg"
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Lake_Ashi_and_Mt_Fuji.jpg?width=1200",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Hakone_Shrine_Kanagawa_Japan.jpg?width=1200"
     ]
   },
   {
@@ -168,8 +168,8 @@
     "kanji": "光",
     "palette": "forest",
     "hero_image_urls": [
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Toshogu_Shrine_Nikko.jpg",
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Kegon_Falls_Nikko.jpg"
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Nikko_Tōshōgū_Yōmeimon_M3087.jpg?width=1200",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kegon_Falls_02.jpg?width=1200"
     ]
   },
   {
@@ -201,8 +201,8 @@
     "kanji": "鎌",
     "palette": "ume",
     "hero_image_urls": [
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Kamakura_Great_Buddha_Daibutsu.jpg",
-      "https://commons.wikimedia.org/wiki/Special:FilePath/Hasedera_temple_Kamakura.jpg"
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Kamakura_Budda_Daibutsu_front_1885.jpg?width=1200",
+      "https://commons.wikimedia.org/wiki/Special:FilePath/Hasedera_Kamakura.jpg?width=1200"
     ]
   }
 ]

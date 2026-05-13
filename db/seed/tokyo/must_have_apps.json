@@ -90,12 +90,84 @@
     "notes": "Often cheaper and easier than coin lockers, which fill up at popular stations by mid-morning."
   },
   {
+    "name": "Uber / Uber Eats",
+    "purpose": "Food delivery (works as a tourist) + limited ride-hail",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1058959277",
+    "android_url": "https://play.google.com/store/apps/details?id=com.ubercab.eats",
+    "display_order": 11,
+    "notes": "Uber Eats Japan accepts foreign cards and English addresses. For taxis use GO — Uber ride-hail itself is sparse in Tokyo."
+  },
+  {
+    "name": "Demae-can (出前館)",
+    "purpose": "Japan's largest food-delivery marketplace",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id474748764",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.co.dz.demaecan",
+    "display_order": 12,
+    "notes": "Bigger restaurant catalogue than Uber Eats in Japan, including local chains (Yoshinoya, Coco Ichibanya, Hotto Motto bentos). UI is Japanese-first — pair with Google Translate."
+  },
+  {
+    "name": "Wolt",
+    "purpose": "Premium food + groceries delivery (Finnish, widely-trusted English UI)",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id943352990",
+    "android_url": "https://play.google.com/store/apps/details?id=com.wolt.android",
+    "display_order": 13,
+    "notes": "English-first UI, reliable for hotel-room delivery. Covers central wards in Tokyo, Yokohama, Osaka and a handful of other cities."
+  },
+  {
+    "name": "menu",
+    "purpose": "Food delivery with strong coverage in outer Tokyo wards",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1487309183",
+    "android_url": "https://play.google.com/store/apps/details?id=com.menuinc.menu",
+    "display_order": 14,
+    "notes": "Japanese-owned, fills gaps where Uber Eats and Wolt don't deliver. Useful once you're past Shibuya / Shinjuku into residential areas."
+  },
+  {
+    "name": "Amazon.co.jp",
+    "purpose": "Same-day grocery + household goods delivery (Prime)",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id374254473",
+    "android_url": "https://play.google.com/store/apps/details?id=com.amazon.mShop.android.shopping",
+    "display_order": 15,
+    "notes": "Set the language to English in Settings. Prime same-day works across Tokyo; Amazon Fresh handles groceries in central wards. Foreign cards accepted."
+  },
+  {
+    "name": "Rakuten Seiyu Netsuper",
+    "purpose": "Supermarket groceries delivered from Seiyu (Walmart-owned)",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1070525203",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.co.rakuten.rakutennetsuper",
+    "display_order": 16,
+    "notes": "Cheaper grocery baseline than Amazon. Requires a Rakuten account — setup is in Japanese but Google Translate handles it."
+  },
+  {
+    "name": "DiDi",
+    "purpose": "Taxi-hailing alternative to GO",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1482076437",
+    "android_url": "https://play.google.com/store/apps/details?id=com.didiglobal.passenger",
+    "display_order": 17,
+    "notes": "Strong in Osaka and Kyoto; thinner in Tokyo outside Shinjuku / Roppongi. Occasionally cheaper than GO via promo codes."
+  },
+  {
+    "name": "S.RIDE",
+    "purpose": "Tokyo-focused taxi-hailing, one-swipe booking",
+    "free": true,
+    "ios_url": "https://apps.apple.com/app/id1429619911",
+    "android_url": "https://play.google.com/store/apps/details?id=jp.co.sride.user.app",
+    "display_order": 18,
+    "notes": "Launched by Sony + local operators. Fast pickups in central Tokyo, no surge pricing."
+  },
+  {
     "name": "Yamato Takuhaibin",
     "purpose": "Forward heavy luggage between hotels overnight",
     "free": true,
     "ios_url": null,
     "android_url": null,
-    "display_order": 11,
+    "display_order": 19,
     "notes": "Not an app per se — ask at your hotel front desk or a konbini. Typical suitcase forwarding is ¥2,000-¥2,500 and saves you lugging suitcases on crowded trains."
   }
 ]
