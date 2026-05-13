@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { Bell, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
 import {
@@ -104,6 +104,88 @@ const features = [
     copy: "Save places, build itineraries and organize your journey in one place.",
   },
 ];
+
+type DatePickerMode = "exact" | "duration" | "flexible";
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const weekdayLabels = ["M", "T", "W", "T", "F", "S", "S"];
+
+const flexibleOptions = [
+  "This weekend",
+  "Next weekend",
+  "One week",
+  "Two weeks",
+  "Any month",
+  "Summer",
+  "Winter",
+];
+
+function createDate(year: number, month: number, day: number) {
+  return new Date(year, month, day, 12, 0, 0, 0);
+}
+
+function startOfMonth(date: Date) {
+  return createDate(date.getFullYear(), date.getMonth(), 1);
+}
+
+function addDays(date: Date, days: number) {
+  return createDate(date.getFullYear(), date.getMonth(), date.getDate() + days);
+}
+
+function addMonths(date: Date, months: number) {
+  return createDate(date.getFullYear(), date.getMonth() + months, 1);
+}
+
+function isSameDay(left?: Date | null, right?: Date | null) {
+  if (!left || !right) return false;
+  return (
+    left.getFullYear() === right.getFullYear() &&
+    left.getMonth() === right.getMonth() &&
+    left.getDate() === right.getDate()
+  );
+}
+
+function isBeforeDay(left: Date, right: Date) {
+  return createDate(left.getFullYear(), left.getMonth(), left.getDate()).getTime() <
+    createDate(right.getFullYear(), right.getMonth(), right.getDate()).getTime();
+}
+
+function isBetweenDays(day: Date, start?: Date | null, end?: Date | null) {
+  if (!start || !end) return false;
+  const dayTime = createDate(day.getFullYear(), day.getMonth(), day.getDate()).getTime();
+  const startTime = createDate(start.getFullYear(), start.getMonth(), start.getDate()).getTime();
+  const endTime = createDate(end.getFullYear(), end.getMonth(), end.getDate()).getTime();
+  return dayTime > startTime && dayTime < endTime;
+}
+
+function formatTravelDate(date: Date) {
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+}
+
+function getCalendarDays(month: Date) {
+  const first = startOfMonth(month);
+  const mondayOffset = (first.getDay() + 6) % 7;
+  const gridStart = addDays(first, -mondayOffset);
+  return Array.from({ length: 42 }, (_, index) => addDays(gridStart, index));
+}
 
 function destinationSlugFromTitle(title: string) {
   if (/ubud|bali/i.test(title)) return "bali";
@@ -283,10 +365,109 @@ function HomeHero({ heroImage }: { heroImage: string }) {
   );
 }
 
+function DateSummary({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-xl bg-black/24 px-3 py-3 shadow-[0_0_0_1px_rgba(255,255,255,.06)_inset]">
+      <p className="font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/38">
+        {label}
+      </p>
+      <p className="mt-1 font-sans text-sm font-semibold text-white/86">{value}</p>
+    </div>
+  );
+}
+
 function HeroSearchBar() {
   const [destination, setDestination] = useState("");
-  const [date, setDate] = useState("");
   const [travelers, setTravelers] = useState("solo");
+  const datePickerRef = useRef<HTMLDivElement>(null);
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [dateMode, setDateMode] = useState<DatePickerMode>("exact");
+  const [calendarMonth, setCalendarMonth] = useState(() => startOfMonth(new Date()));
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [durationStartDate, setDurationStartDate] = useState<Date | null>(null);
+  const [durationDays, setDurationDays] = useState(7);
+  const [flexibleTiming, setFlexibleTiming] = useState("One week");
+  const [dateSummary, setDateSummary] = useState("");
+  const durationEndDate = useMemo(
+    () => (durationStartDate ? addDays(durationStartDate, Math.max(1, durationDays) - 1) : null),
+    [durationDays, durationStartDate],
+  );
+
+  useEffect(() => {
+    function handlePointerDown(event: MouseEvent) {
+      if (!datePickerRef.current?.contains(event.target as Node)) {
+        setIsDatePickerOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setIsDatePickerOpen(false);
+    }
+
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  function selectCalendarDay(day: Date) {
+    if (dateMode === "duration") {
+      setDurationStartDate(day);
+      return;
+    }
+
+    if (!startDate || (startDate && endDate) || isBeforeDay(day, startDate)) {
+      setStartDate(day);
+      setEndDate(null);
+      return;
+    }
+
+    if (isSameDay(day, startDate)) {
+      setStartDate(day);
+      setEndDate(null);
+      return;
+    }
+
+    setEndDate(day);
+  }
+
+  function applyDateSelection() {
+    if (dateMode === "exact" && startDate && endDate) {
+      setDateSummary(`${formatTravelDate(startDate)} - ${formatTravelDate(endDate)}`);
+      setIsDatePickerOpen(false);
+      return;
+    }
+
+    if (dateMode === "exact" && startDate) {
+      setDateSummary(formatTravelDate(startDate));
+      setIsDatePickerOpen(false);
+      return;
+    }
+
+    if (dateMode === "duration" && durationStartDate) {
+      setDateSummary(`${formatTravelDate(durationStartDate)} for ${Math.max(1, durationDays)} days`);
+      setIsDatePickerOpen(false);
+      return;
+    }
+
+    if (dateMode === "flexible") {
+      setDateSummary(`Flexible: ${flexibleTiming}`);
+      setIsDatePickerOpen(false);
+    }
+  }
+
+  function clearDateSelection() {
+    setStartDate(null);
+    setEndDate(null);
+    setDurationStartDate(null);
+    setDurationDays(7);
+    setFlexibleTiming("One week");
+    setDateSummary("");
+    setIsDatePickerOpen(false);
+  }
 
   return (
     <div className="relative z-20 mx-auto -mt-16 max-w-[968px] px-5 sm:px-8 lg:px-10 xl:px-0">
@@ -306,16 +487,210 @@ function HeroSearchBar() {
           />
         </label>
 
-        <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0">
-          <span className="block font-sans text-xs font-semibold text-white/88">Anytime</span>
-          <input
-            name="date"
-            value={date}
-            onChange={(event) => setDate(event.target.value)}
-            placeholder="Add dates"
-            className="mt-1 block w-full min-w-0 bg-transparent font-sans text-base text-white outline-none placeholder:text-white/62"
-          />
-        </label>
+        <div
+          ref={datePickerRef}
+          className="relative min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0"
+        >
+          <button
+            type="button"
+            aria-haspopup="dialog"
+            aria-expanded={isDatePickerOpen}
+            onClick={() => setIsDatePickerOpen((open) => !open)}
+            className="block w-full min-w-0 text-left outline-none"
+          >
+            <span className="block font-sans text-xs font-semibold text-white/88">Anytime</span>
+            <span className="mt-1 block truncate font-sans text-base text-white/82">
+              {dateSummary || "Add dates"}
+            </span>
+          </button>
+          <input type="hidden" name="date" value={dateSummary} />
+
+          {isDatePickerOpen ? (
+            <div
+              role="dialog"
+              aria-label="Choose travel dates"
+              className="absolute left-1/2 top-[calc(100%+1.15rem)] z-50 w-[min(92vw,40rem)] -translate-x-1/2 rounded-[1.4rem] bg-[#07100f]/95 p-4 shadow-[0_34px_100px_rgba(0,0,0,.58),0_0_0_1px_rgba(255,255,255,.07)_inset] backdrop-blur-2xl sm:p-5 md:left-0 md:-translate-x-1/3 lg:left-1/2 lg:-translate-x-1/2"
+            >
+              <div className="absolute inset-0 rounded-[inherit] bg-[radial-gradient(circle_at_20%_0%,rgba(217,169,71,.12),transparent_32%),linear-gradient(180deg,rgba(255,255,255,.045),transparent_48%)]" />
+              <div className="relative">
+                <div className="grid gap-2 rounded-full bg-white/[0.045] p-1 sm:grid-cols-3">
+                  {[
+                    ["exact", "Exact Dates"],
+                    ["duration", "Start + Days"],
+                    ["flexible", "Flexible"],
+                  ].map(([mode, label]) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      onClick={() => setDateMode(mode as DatePickerMode)}
+                      className={`rounded-full px-4 py-2.5 font-sans text-sm font-semibold transition ${
+                        dateMode === mode
+                          ? "bg-[#d9a947] text-[#171006] shadow-[0_10px_30px_rgba(217,169,71,.18)]"
+                          : "text-white/66 hover:bg-white/[0.055] hover:text-white"
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+
+                {dateMode !== "flexible" ? (
+                  <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_.85fr]">
+                    <div className="rounded-[1.15rem] bg-black/18 p-4 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
+                      <div className="mb-4 flex items-center justify-between">
+                        <button
+                          type="button"
+                          onClick={() => setCalendarMonth((month) => addMonths(month, -1))}
+                          className="grid h-9 w-9 place-items-center rounded-full bg-white/[0.055] text-white/76 transition hover:bg-white/[0.09] hover:text-white"
+                          aria-label="Previous month"
+                        >
+                          ‹
+                        </button>
+                        <p className="font-sans text-sm font-bold text-white">
+                          {monthNames[calendarMonth.getMonth()]} {calendarMonth.getFullYear()}
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setCalendarMonth((month) => addMonths(month, 1))}
+                          className="grid h-9 w-9 place-items-center rounded-full bg-white/[0.055] text-white/76 transition hover:bg-white/[0.09] hover:text-white"
+                          aria-label="Next month"
+                        >
+                          ›
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-7 gap-1 text-center font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white/38">
+                        {weekdayLabels.map((label, index) => (
+                          <span key={`${label}-${index}`}>{label}</span>
+                        ))}
+                      </div>
+                      <div className="mt-2 grid grid-cols-7 gap-1">
+                        {getCalendarDays(calendarMonth).map((day) => {
+                          const isOutsideMonth = day.getMonth() !== calendarMonth.getMonth();
+                          const selected =
+                            dateMode === "exact"
+                              ? isSameDay(day, startDate) || isSameDay(day, endDate)
+                              : isSameDay(day, durationStartDate);
+                          const inRange =
+                            dateMode === "exact"
+                              ? isBetweenDays(day, startDate, endDate)
+                              : Boolean(durationStartDate && durationEndDate && isBetweenDays(day, durationStartDate, durationEndDate));
+
+                          return (
+                            <button
+                              key={day.toISOString()}
+                              type="button"
+                              onClick={() => selectCalendarDay(day)}
+                              className={`h-10 rounded-full font-sans text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
+                                selected
+                                  ? "bg-[#d9a947] font-bold text-[#171006]"
+                                  : inRange
+                                    ? "bg-[#d9a947]/18 text-white"
+                                    : isOutsideMonth
+                                      ? "text-white/22 hover:bg-white/[0.04]"
+                                      : "text-white/72 hover:bg-white/[0.07] hover:text-white"
+                              }`}
+                            >
+                              {day.getDate()}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="rounded-[1.15rem] bg-white/[0.045] p-4 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
+                      {dateMode === "exact" ? (
+                        <>
+                          <p className="font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#d9a947]">
+                            Exact Dates
+                          </p>
+                          <div className="mt-4 grid gap-3">
+                            <DateSummary label="Start Date" value={startDate ? formatTravelDate(startDate) : "Select a date"} />
+                            <DateSummary label="End Date" value={endDate ? formatTravelDate(endDate) : "Select a date"} />
+                          </div>
+                          <p className="mt-4 font-sans text-sm leading-6 text-white/55">
+                            Choose a start date, then choose the final night of the trip.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#d9a947]">
+                            Start Date + Days
+                          </p>
+                          <div className="mt-4 grid gap-3">
+                            <DateSummary label="Start Date" value={durationStartDate ? formatTravelDate(durationStartDate) : "Select a date"} />
+                            <label className="grid gap-2 font-sans text-sm font-semibold text-white/70">
+                              Number of days
+                              <input
+                                type="number"
+                                min={1}
+                                max={90}
+                                value={durationDays}
+                                onChange={(event) => setDurationDays(Math.max(1, Number(event.currentTarget.value) || 1))}
+                                className="h-11 rounded-xl bg-black/24 px-3 text-white outline-none shadow-[0_0_0_1px_rgba(255,255,255,.08)_inset] focus:shadow-[0_0_0_1px_rgba(217,169,71,.7)_inset]"
+                              />
+                            </label>
+                            <DateSummary label="Calculated End" value={durationEndDate ? formatTravelDate(durationEndDate) : "Waiting for start"} />
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="mt-5 rounded-[1.15rem] bg-black/18 p-4 shadow-[0_0_0_1px_rgba(255,255,255,.055)_inset]">
+                    <p className="font-sans text-xs font-bold uppercase tracking-[0.18em] text-[#d9a947]">
+                      Flexible Timing
+                    </p>
+                    <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                      {flexibleOptions.map((option) => (
+                        <button
+                          key={option}
+                          type="button"
+                          onClick={() => setFlexibleTiming(option)}
+                          className={`rounded-2xl px-4 py-3 text-left font-sans text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
+                            flexibleTiming === option
+                              ? "bg-[#d9a947] text-[#171006]"
+                              : "bg-white/[0.045] text-white/72 hover:bg-white/[0.075] hover:text-white"
+                          }`}
+                        >
+                          {option}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-5 flex flex-col gap-3 border-t border-white/[0.075] pt-4 sm:flex-row sm:items-center sm:justify-between">
+                  <p className="font-sans text-sm text-white/55">
+                    {dateMode === "flexible"
+                      ? `Flexible: ${flexibleTiming}`
+                      : dateMode === "duration" && durationStartDate
+                        ? `${formatTravelDate(durationStartDate)} for ${Math.max(1, durationDays)} days`
+                        : startDate && endDate
+                          ? `${formatTravelDate(startDate)} - ${formatTravelDate(endDate)}`
+                          : "Choose your timing."}
+                  </p>
+                  <div className="flex gap-3">
+                    <button
+                      type="button"
+                      onClick={clearDateSelection}
+                      className="rounded-full bg-white/[0.055] px-5 py-2.5 font-sans text-sm font-semibold text-white/72 transition hover:bg-white/[0.09] hover:text-white"
+                    >
+                      Clear
+                    </button>
+                    <button
+                      type="button"
+                      onClick={applyDateSelection}
+                      className="rounded-full bg-[#d9a947] px-5 py-2.5 font-sans text-sm font-bold text-[#171006] shadow-[0_12px_34px_rgba(217,169,71,.18)] transition hover:bg-[#efc66d]"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </div>
 
         <label className="min-w-0 rounded-2xl bg-white/[0.035] px-4 py-3 text-left transition focus-within:bg-white/[0.06] md:rounded-none md:border-l md:border-white/12 md:bg-transparent md:px-7 md:py-0">
           <span className="block font-sans text-xs font-semibold text-white/88">Travelers</span>
@@ -409,9 +784,9 @@ function RecommendedDestinations({ items }: { items: typeof destinations }) {
               alt={destination.title}
               className="absolute inset-0 h-full w-full object-cover brightness-[0.86] saturate-[0.94] transition-[transform,filter] duration-[1200ms] ease-[cubic-bezier(.19,1,.22,1)] group-hover:scale-[1.03] group-hover:brightness-[0.92] group-hover:saturate-100"
             />
-            <span className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.14)_0%,rgba(0,0,0,.28)_34%,rgba(0,0,0,.68)_68%,rgba(0,0,0,.94)_100%)] transition-opacity duration-700 group-hover:opacity-95" />
-            <span className="absolute inset-x-0 bottom-0 h-[78%] bg-[radial-gradient(ellipse_at_bottom_left,rgba(0,0,0,.96),rgba(0,0,0,.74)_45%,rgba(0,0,0,.24)_76%,transparent_100%)] transition-opacity duration-700 group-hover:opacity-90" />
-            <span className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,.13),transparent_26%),radial-gradient(circle_at_74%_84%,rgba(217,169,71,.12),transparent_32%)] opacity-45 transition-opacity duration-700 group-hover:opacity-70" />
+            <span className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.9)_0%,rgba(0,0,0,.76)_22%,rgba(0,0,0,.5)_43%,rgba(0,0,0,.2)_68%,rgba(0,0,0,.04)_100%)] transition-opacity duration-700 group-hover:opacity-95" />
+            <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_18%_86%,rgba(0,0,0,.82)_0%,rgba(0,0,0,.5)_34%,rgba(0,0,0,.16)_58%,transparent_82%),radial-gradient(ellipse_at_50%_105%,rgba(0,0,0,.74)_0%,rgba(0,0,0,.3)_42%,transparent_76%)] transition-opacity duration-700 group-hover:opacity-90" />
+            <span className="absolute inset-0 bg-[radial-gradient(circle_at_24%_18%,rgba(255,255,255,.12),transparent_30%),radial-gradient(circle_at_74%_84%,rgba(217,169,71,.1),transparent_36%),radial-gradient(ellipse_at_center,transparent_45%,rgba(0,0,0,.28)_100%)] opacity-48 transition-opacity duration-700 group-hover:opacity-68" />
             <span className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-[inset_0_0_0_1px_rgba(255,255,255,.045),inset_0_1px_24px_rgba(255,255,255,.035),inset_0_-36px_90px_rgba(0,0,0,.38)] transition-shadow duration-700 group-hover:shadow-[inset_0_0_0_1px_rgba(255,255,255,.075),inset_0_1px_28px_rgba(255,255,255,.055),inset_0_-38px_96px_rgba(0,0,0,.42)]" />
             <span className="relative flex h-full flex-col justify-end p-5 sm:p-6">
               <span className="font-sans text-[0.68rem] font-bold uppercase tracking-[0.16em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
