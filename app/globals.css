@@ -19,10 +19,27 @@
 html,
 body {
   height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 html {
   font-size: 15px; /* base rem keeps xs/sm utilities readable */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+main,
+#__next {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
 }
 
 body {
@@ -92,6 +109,75 @@ small {
 
 ::selection {
   background: rgba(200, 155, 60, 0.28);
+}
+
+.journee-page-frame {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.journee-safe-grid {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.journee-safe-grid > *,
+.journee-card {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.journee-glass-panel {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.journee-map-controls {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: calc(100vw - 2rem);
+}
+
+.journee-cinematic-background {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(216, 170, 79, 0.16), transparent 56%),
+    #020807;
+}
+
+@media (min-width: 1024px) {
+  .journee-map-controls {
+    max-width: calc(100vw - 80px);
+  }
+}
+
+@keyframes journeeCinematicDrift {
+  0%,
+  100% {
+    transform: scale(1.03) translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: scale(1.08) translate3d(-1.5%, 1%, 0);
+  }
+}
+
+@keyframes journeeAuroraFloat {
+  0%,
+  100% {
+    transform: translate3d(-1%, 0, 0) rotate(0deg);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: translate3d(1.5%, -1%, 0) rotate(3deg);
+    opacity: 0.72;
+  }
 }
 
 .atlas-route-draw {

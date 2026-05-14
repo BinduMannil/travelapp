@@ -22,7 +22,10 @@ import {
   X,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { AppContentFrame } from "@/components/layout/AppContentFrame";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { CinematicBackground } from "@/components/visual/CinematicBackground";
+import { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 import { mainNavigation } from "@/lib/routes";
 import {
   categoryCards,
@@ -296,7 +299,7 @@ function HeroBanner() {
                 {index === 2 ? <Heart className="h-4 w-4" /> : null}
                 {index === 3 ? <WalletCards className="h-4 w-4" /> : null}
                 {index === 4 ? <Shield className="h-4 w-4" /> : null}
-                {search}
+                {formatDisplayTitle(search)}
               </button>
             ))}
           </div>
@@ -335,7 +338,7 @@ function DestinationTile({ destination }: { destination: DestinationCard }) {
       <div className="absolute inset-x-0 bottom-0 h-[70%] bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.68)_48%,rgba(0,0,0,.96))]" />
       {destination.badge ? (
         <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-[#d9953e]/95 px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white shadow-[0_8px_24px_rgba(0,0,0,.32)]">
-          {destination.badge}
+          {formatDisplayTitle(destination.badge)}
         </span>
       ) : null}
       <button
@@ -542,7 +545,7 @@ function MobileFilterChips({ onOpenFilters }: { onOpenFilters: () => void }) {
           type="button"
           className="min-h-11 shrink-0 rounded-full border border-white/[0.1] bg-white/[0.055] px-5 py-2.5 text-sm text-white/76"
         >
-          {term}
+          {formatDisplayTitle(term)}
         </button>
       ))}
     </div>
@@ -554,10 +557,10 @@ export function ExploreDiscoveryPage() {
 
   return (
     <main className="min-h-screen bg-[#030808] text-white">
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_17%_0%,rgba(219,151,56,.16),transparent_30%),radial-gradient(circle_at_86%_13%,rgba(87,141,151,.12),transparent_30%),linear-gradient(180deg,#030808,#071010_46%,#030808)]" />
+      <CinematicBackground image={heroImage} className="fixed opacity-50" />
       <TopNavigation onOpenFilters={() => setFiltersOpen(true)} />
 
-      <div className="relative mx-auto grid max-w-[1920px] gap-6 px-4 py-6 sm:px-6 lg:px-8 xl:grid-cols-[292px_minmax(0,1fr)_320px] xl:gap-7 2xl:grid-cols-[320px_minmax(0,1fr)_386px]">
+      <AppContentFrame as="div" variant="flush" className="relative mx-auto grid max-w-[1920px] gap-6 px-4 py-6 sm:px-6 lg:px-8 xl:grid-cols-[292px_minmax(0,1fr)_320px] xl:gap-7 2xl:grid-cols-[320px_minmax(0,1fr)_386px]">
         <aside className="hidden lg:block">
           <FiltersPanel />
         </aside>
@@ -571,7 +574,7 @@ export function ExploreDiscoveryPage() {
         </section>
 
         <RightSidebar />
-      </div>
+      </AppContentFrame>
 
       {filtersOpen ? (
         <div className="fixed inset-0 z-50 lg:hidden">

@@ -6,6 +6,8 @@ import { Bell, Search } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { CinematicBackground } from "@/components/visual/CinematicBackground";
+import { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 import {
   getUniqueDestinationImage,
   inferImageCategoryFromText,
@@ -303,12 +305,7 @@ function HomeNavbar() {
 function HomeHero({ heroImage }: { heroImage: string }) {
   return (
     <section className="relative min-h-[760px] overflow-hidden bg-[#020908] sm:min-h-[820px] lg:min-h-[850px]">
-      <img
-        src={heroImage}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover motion-safe:animate-[journeeHeroDrift_18s_ease-in-out_infinite_alternate]"
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_69%_43%,rgba(217,169,71,.11),transparent_25%),linear-gradient(90deg,rgba(2,8,8,.94)_0%,rgba(2,8,8,.76)_26%,rgba(2,8,8,.22)_58%,rgba(2,8,8,.58)_100%),linear-gradient(180deg,rgba(2,8,8,.66)_0%,rgba(2,8,8,.08)_42%,#020908_100%)]" />
+      <CinematicBackground image={heroImage} />
 
       <HomeNavbar />
 
@@ -653,7 +650,7 @@ function HeroSearchBar() {
                               : "bg-white/[0.045] text-white/72 hover:bg-white/[0.075] hover:text-white"
                           }`}
                         >
-                          {option}
+                          {formatDisplayTitle(option)}
                         </button>
                       ))}
                     </div>
@@ -847,13 +844,139 @@ export function JourneeWebExperience() {
     <main className="min-h-screen overflow-x-hidden bg-[#020908] font-sans text-white">
       <style>
         {`
+          .journee-hero-image {
+            filter: saturate(1.02) contrast(1.08) brightness(0.82);
+            transform-origin: 52% 45%;
+            animation: journeeHeroDrift 34s ease-in-out infinite alternate;
+          }
+
+          .journee-aurora-field {
+            mask-image: radial-gradient(ellipse at 50% 46%, black 0 54%, rgba(0,0,0,.86) 66%, transparent 92%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 46%, black 0 54%, rgba(0,0,0,.86) 66%, transparent 92%);
+            animation: journeeAuroraField 38s ease-in-out infinite alternate;
+          }
+
+          .journee-aurora-blob {
+            position: absolute;
+            display: block;
+            border-radius: 9999px;
+            opacity: 0.8;
+            transform: translate3d(0, 0, 0);
+            mask-image: radial-gradient(circle, black 0 24%, rgba(0,0,0,.74) 45%, transparent 76%);
+            -webkit-mask-image: radial-gradient(circle, black 0 24%, rgba(0,0,0,.74) 45%, transparent 76%);
+          }
+
+          .journee-aurora-blob-a {
+            left: -14%;
+            top: -8%;
+            height: 48rem;
+            width: 58rem;
+            background: radial-gradient(circle at 48% 48%, rgba(216,169,71,.48), rgba(216,169,71,.18) 36%, transparent 72%);
+            animation: journeeAuroraA 31s ease-in-out infinite alternate;
+          }
+
+          .journee-aurora-blob-b {
+            right: -18%;
+            top: 8%;
+            height: 54rem;
+            width: 62rem;
+            background: radial-gradient(circle at 48% 46%, rgba(32,157,167,.46), rgba(48,111,130,.18) 42%, transparent 78%);
+            animation: journeeAuroraB 37s ease-in-out infinite alternate;
+          }
+
+          .journee-aurora-blob-c {
+            left: 18%;
+            bottom: -24%;
+            height: 45rem;
+            width: 66rem;
+            background: radial-gradient(circle at 48% 52%, rgba(141,20,36,.36), rgba(217,169,71,.12) 44%, transparent 78%);
+            animation: journeeAuroraC 42s ease-in-out infinite alternate;
+          }
+
+          .journee-aurora-blob-d {
+            right: 12%;
+            bottom: -18%;
+            height: 40rem;
+            width: 52rem;
+            background: radial-gradient(circle at 50% 50%, rgba(236,207,151,.3), rgba(98,156,150,.14) 42%, transparent 80%);
+            animation: journeeAuroraD 29s ease-in-out infinite alternate;
+          }
+
+          .journee-hero-haze {
+            background:
+              radial-gradient(ellipse at 24% 52%, rgba(255,246,223,.13), transparent 38%),
+              radial-gradient(ellipse at 70% 34%, rgba(180,220,220,.08), transparent 42%),
+              linear-gradient(180deg, rgba(2,9,8,.24), rgba(2,9,8,.06) 36%, rgba(2,9,8,.62) 100%);
+            backdrop-filter: blur(1.5px);
+            mask-image: linear-gradient(180deg, transparent 0%, black 13%, black 88%, transparent 100%);
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 13%, black 88%, transparent 100%);
+            opacity: 0.82;
+            animation: journeeHazeFloat 26s ease-in-out infinite alternate;
+          }
+
+          .journee-hero-grain {
+            background-image:
+              radial-gradient(circle at 20% 30%, rgba(255,255,255,.38) 0 0.8px, transparent 1px),
+              radial-gradient(circle at 72% 64%, rgba(255,255,255,.24) 0 0.7px, transparent 1px),
+              radial-gradient(circle at 42% 82%, rgba(0,0,0,.32) 0 0.9px, transparent 1.1px),
+              repeating-linear-gradient(115deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px);
+            background-size: 84px 84px, 116px 116px, 96px 96px, 220px 220px;
+          }
+
+          .journee-hero-vignette {
+            background:
+              radial-gradient(ellipse at 46% 44%, transparent 0 42%, rgba(2,9,8,.34) 72%, rgba(2,9,8,.88) 100%),
+              linear-gradient(90deg, rgba(2,9,8,.84), rgba(2,9,8,.38) 24%, rgba(2,9,8,.08) 56%, rgba(2,9,8,.52)),
+              linear-gradient(180deg, rgba(2,9,8,.7), transparent 24%, rgba(2,9,8,.88) 100%);
+          }
+
+          .journee-hero-text-glow {
+            background: radial-gradient(ellipse at 38% 45%, rgba(2,9,8,.78), rgba(2,9,8,.46) 42%, transparent 74%);
+            opacity: 0.94;
+            mask-image: radial-gradient(ellipse at 38% 45%, black 0 38%, rgba(0,0,0,.82) 54%, transparent 78%);
+            -webkit-mask-image: radial-gradient(ellipse at 38% 45%, black 0 38%, rgba(0,0,0,.82) 54%, transparent 78%);
+          }
+
           @keyframes journeeHeroDrift {
-            from { transform: scale(1.02) translate3d(0, 0, 0); }
-            to { transform: scale(1.09) translate3d(-1.2%, -0.8%, 0); }
+            from { transform: scale(1.08) translate3d(0, 0, 0); }
+            to { transform: scale(1.14) translate3d(-1.5%, -1%, 0); }
+          }
+          @keyframes journeeAuroraField {
+            from { transform: translate3d(-1.5%, .6%, 0) rotate(-1deg) scale(1); }
+            to { transform: translate3d(1.6%, -1.1%, 0) rotate(1.4deg) scale(1.05); }
+          }
+          @keyframes journeeAuroraA {
+            from { transform: translate3d(-2%, 1%, 0) scale(1); }
+            to { transform: translate3d(9%, 4%, 0) scale(1.14); }
+          }
+          @keyframes journeeAuroraB {
+            from { transform: translate3d(3%, -2%, 0) scale(1.05); }
+            to { transform: translate3d(-8%, 6%, 0) scale(1.16); }
+          }
+          @keyframes journeeAuroraC {
+            from { transform: translate3d(-4%, 3%, 0) scale(1.02); }
+            to { transform: translate3d(6%, -7%, 0) scale(1.12); }
+          }
+          @keyframes journeeAuroraD {
+            from { transform: translate3d(4%, 5%, 0) scale(1); }
+            to { transform: translate3d(-7%, -4%, 0) scale(1.1); }
+          }
+          @keyframes journeeHazeFloat {
+            from { transform: translate3d(-1%, 0, 0) scale(1.02); }
+            to { transform: translate3d(1.2%, -1%, 0) scale(1.06); }
           }
           @keyframes journeeFadeUp {
             from { opacity: 0; transform: translateY(18px); }
             to { opacity: 1; transform: translateY(0); }
+          }
+
+          @media (prefers-reduced-motion: reduce) {
+            .journee-hero-image,
+            .journee-aurora-field,
+            .journee-aurora-blob,
+            .journee-hero-haze {
+              animation: none;
+            }
           }
         `}
       </style>

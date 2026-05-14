@@ -14,7 +14,13 @@ import {
 } from "lucide-react";
 import { CityMapPreview } from "@/components/atlas/CityMapPreview";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import {
+  DestinationPageFrame,
+  DESTINATION_CARD_CLASS,
+  DESTINATION_SAFE_GRID_CLASS,
+} from "@/components/destinations/DestinationPageFrame";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { CinematicBackground } from "@/components/visual/CinematicBackground";
 import {
   DestinationAtmosphereProvider,
   DestinationMotionLayer,
@@ -33,10 +39,14 @@ import {
   resetUsedImagesForPage,
 } from "@/lib/imageRotation";
 import { primaryNavigation, routes, slugifyRouteSegment } from "@/lib/routes";
+import { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 
 const SAVED_TRIPS_STORAGE_KEY = "journee-saved-trips";
 
 const compactCurrencies = ["AED", "USD", "EUR", "GBP", "JPY", "SGD"] as const;
+
+const pageContainerClass =
+  "mx-auto w-full max-w-[1440px] min-w-0 max-w-full px-4 sm:px-6 lg:px-10 2xl:px-14";
 
 type CityImageAssignments = {
   heroImages: NonNullable<CityDestinationPageData["heroImages"]>;
@@ -283,7 +293,7 @@ function HeaderNav({ avatar }: { avatar: string }) {
 
   return (
     <header className="absolute inset-x-0 top-0 z-40">
-      <div className="mx-auto flex max-w-[1180px] items-center justify-between px-5 py-6 xl:px-0">
+      <div className={`${pageContainerClass} flex items-center justify-between py-6`}>
         <Link href="/" aria-label="JOURNEE home">
           <JourneeBrand direction="atlas-aperture" className="[&>span:first-child]:h-8 [&>span:first-child]:w-8 [&>span:first-child]:border-0 [&>span:first-child]:bg-transparent [&>span:first-child]:shadow-none [&>span:first-child_svg]:h-6 [&>span:first-child_svg]:w-6 [&>span:last-child]:text-xl [&>span:last-child]:tracking-[0.12em]" />
         </Link>
@@ -367,6 +377,7 @@ function HeroSection({ data, images }: { data: CityDestinationPageData; images: 
   return (
     <section className="relative isolate min-h-[820px] overflow-hidden bg-[#050807] pt-28 text-white lg:min-h-[660px]">
       <div className="absolute inset-0 z-0 bg-[#050807]">
+        <CinematicBackground image={activeHero.src} />
         {heroImages.map((image, index) => (
           <Image
             key={`${image.src}-${image.mood}`}
@@ -389,77 +400,79 @@ function HeroSection({ data, images }: { data: CityDestinationPageData; images: 
 
       <HeaderNav avatar={data.images.avatar} />
 
-      <div className="relative z-10 mx-auto grid max-w-[1180px] gap-10 px-5 pb-16 pt-24 lg:grid-cols-[1fr_300px] lg:items-center lg:px-0 lg:pt-32">
-        <div className="max-w-2xl">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border bg-black/28 px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] shadow-[0_12px_36px_rgba(0,0,0,.28)] backdrop-blur-md" style={{ borderColor: "var(--destination-card-border)", color: "var(--destination-primary)" }}>
-            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--destination-primary)" }} />
-            {activeHero.mood}
-          </div>
-          <p className="text-xs font-bold uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
-            {data.country}
-          </p>
-          <h1 className="mt-4 font-sans text-[4.8rem] font-extrabold leading-[0.86] text-[#fff7e5] drop-shadow-[0_18px_50px_rgba(0,0,0,.7)] sm:text-[7rem] lg:text-[8rem]">
-            {data.city}
-          </h1>
-          <p className="mt-8 max-w-xl text-base leading-8 text-white/88 sm:text-lg">
-            {data.description}
-          </p>
+      <div className={`${pageContainerClass} relative z-10 pb-16 pt-24 lg:pt-32`}>
+        <div className={`${DESTINATION_SAFE_GRID_CLASS} gap-10 rounded-[2rem] border border-white/10 bg-black/18 p-8 shadow-[0_30px_120px_rgba(0,0,0,.24)] backdrop-blur-[2px] md:p-12 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-center lg:p-16`}>
+          <div className="min-w-0 max-w-2xl">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border bg-black/28 px-3 py-1.5 text-[0.62rem] font-semibold uppercase tracking-[0.12em] shadow-[0_12px_36px_rgba(0,0,0,.28)] backdrop-blur-md" style={{ borderColor: "var(--destination-card-border)", color: "var(--destination-primary)" }}>
+              <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--destination-primary)" }} />
+              {activeHero.mood}
+            </div>
+            <p className="text-xs font-bold uppercase tracking-[0.12em]" style={{ color: "var(--destination-primary)" }}>
+              {data.country}
+            </p>
+            <h1 className="mt-4 font-sans text-[4.8rem] font-extrabold leading-[0.86] text-[#fff7e5] drop-shadow-[0_18px_50px_rgba(0,0,0,.7)] sm:text-[7rem] lg:text-[8rem]">
+              {data.city}
+            </h1>
+            <p className="mt-8 max-w-xl text-base leading-8 text-white/88 sm:text-lg">
+              {data.description}
+            </p>
 
-          <div className="mt-6 flex flex-wrap gap-2.5">
-            {data.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-md border border-white/20 bg-black/28 px-4 py-2 text-[0.72rem] font-semibold text-white/88 shadow-[0_1px_0_rgba(255,255,255,.1)_inset] backdrop-blur"
-              >
-                {tag}
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {data.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-md border border-white/20 bg-black/28 px-4 py-2 text-[0.72rem] font-semibold text-white/88 shadow-[0_1px_0_rgba(255,255,255,.1)_inset] backdrop-blur"
+                >
+                  {formatDisplayTitle(tag)}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <Link href={`/journey-builder?city=${data.slug}`} className="inline-flex h-14 items-center justify-center gap-3 rounded-xl px-7 text-sm font-bold text-[#1b1307] shadow-[0_18px_50px_rgba(216,170,79,.24)] transition" style={{ backgroundColor: "var(--destination-primary)" }}>
+                Plan Your Journey <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href={`/trips?save=${data.slug}`} className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-white/30 bg-black/22 px-7 text-sm font-semibold text-white backdrop-blur transition hover:border-[var(--destination-card-border)] hover:text-[var(--destination-primary)]">
+                <Bookmark className="h-4 w-4" /> Save Destination
+              </Link>
+            </div>
+          </div>
+
+          <aside className={`${DESTINATION_CARD_CLASS} rounded-3xl border border-white/16 bg-[#0a1110]/72 p-6 shadow-[0_24px_90px_rgba(0,0,0,.45)] backdrop-blur-2xl`}>
+            <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white/48">
+              Destination Score
+            </p>
+            <div className="mt-3 flex items-end gap-3">
+              <span className="font-sans text-5xl font-bold text-[#f1c56d]">
+                {data.score.overall}
               </span>
-            ))}
-          </div>
-
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link href={`/journey-builder?city=${data.slug}`} className="inline-flex h-14 items-center justify-center gap-3 rounded-xl px-7 text-sm font-bold text-[#1b1307] shadow-[0_18px_50px_rgba(216,170,79,.24)] transition" style={{ backgroundColor: "var(--destination-primary)" }}>
-              Plan Your Journey <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link href={`/trips?save=${data.slug}`} className="inline-flex h-14 items-center justify-center gap-3 rounded-xl border border-white/30 bg-black/22 px-7 text-sm font-semibold text-white backdrop-blur transition hover:border-[var(--destination-card-border)] hover:text-[var(--destination-primary)]">
-              <Bookmark className="h-4 w-4" /> Save Destination
-            </Link>
-          </div>
+              <span className="pb-2 text-sm font-semibold text-white/70">
+                <span className="block tracking-[0.08em]" style={{ color: "var(--destination-primary)" }}>★★★★★</span>
+                Premium city index
+              </span>
+            </div>
+            <div className="mt-5 space-y-3 border-y border-white/10 py-4">
+              {[data.score.globalRating, data.score.journeeRating].map((rating) => (
+                <div key={rating.label}>
+                  <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white/58">
+                    {formatDisplayTitle(rating.label)}
+                  </p>
+                  <p className="mt-1 text-xs font-medium leading-5 text-white/72">
+                    {rating.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 space-y-4">
+              {data.score.rows.map((row) => (
+                <div key={row.label} className="flex items-center justify-between gap-4 text-sm">
+                  <span className="text-white/78">{formatDisplayTitle(row.label)}</span>
+                  <span className="font-semibold text-white/86">{row.value}</span>
+                </div>
+              ))}
+            </div>
+          </aside>
         </div>
-
-        <aside className="rounded-3xl border border-white/16 bg-[#0a1110]/72 p-6 shadow-[0_24px_90px_rgba(0,0,0,.45)] backdrop-blur-2xl">
-          <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white/48">
-            Destination Score
-          </p>
-          <div className="mt-3 flex items-end gap-3">
-            <span className="font-sans text-5xl font-bold text-[#f1c56d]">
-              {data.score.overall}
-            </span>
-            <span className="pb-2 text-sm font-semibold text-white/70">
-              <span className="block tracking-[0.08em]" style={{ color: "var(--destination-primary)" }}>★★★★★</span>
-              Premium city index
-            </span>
-          </div>
-          <div className="mt-5 space-y-3 border-y border-white/10 py-4">
-            {[data.score.globalRating, data.score.journeeRating].map((rating) => (
-              <div key={rating.label}>
-                <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white/58">
-                  {rating.label}
-                </p>
-                <p className="mt-1 text-xs font-medium leading-5 text-white/72">
-                  {rating.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-5 space-y-4">
-            {data.score.rows.map((row) => (
-              <div key={row.label} className="flex items-center justify-between gap-4 text-sm">
-                <span className="text-white/78">{row.label}</span>
-                <span className="font-semibold text-white/86">{row.value}</span>
-              </div>
-            ))}
-          </div>
-        </aside>
       </div>
     </section>
   );
@@ -467,12 +480,12 @@ function HeroSection({ data, images }: { data: CityDestinationPageData; images: 
 
 function IntelligenceStrip({ data }: { data: CityDestinationPageData }) {
   return (
-    <section className="relative z-20 -mt-12 px-5">
-      <div className="mx-auto grid max-w-[1180px] gap-3 sm:grid-cols-2 lg:grid-cols-6">
+    <section className="relative z-20 -mt-12">
+      <div className={`${pageContainerClass} ${DESTINATION_SAFE_GRID_CLASS} gap-6 sm:grid-cols-2 lg:grid-cols-2`}>
         {data.intelligence.map(({ title, value, detail }) => (
             <div
               key={title}
-              className="rounded-2xl border border-white/12 bg-[#08110f]/78 p-5 shadow-[0_18px_60px_rgba(0,0,0,.28)] backdrop-blur-2xl"
+              className="min-w-0 max-w-full rounded-2xl border border-white/12 bg-[#08110f]/78 p-5 shadow-[0_18px_60px_rgba(0,0,0,.28)] backdrop-blur-2xl"
             >
               <p className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white/45">
                 {title}
@@ -488,8 +501,8 @@ function IntelligenceStrip({ data }: { data: CityDestinationPageData }) {
 
 function WhyCity({ data, image }: { data: CityDestinationPageData; image: string }) {
   return (
-    <section className="mx-auto grid max-w-[1180px] gap-9 px-5 pt-24 lg:grid-cols-[0.42fr_0.58fr] lg:items-center lg:px-0">
-      <div>
+    <section className={`${pageContainerClass} grid gap-8 pt-24 lg:grid-cols-2 lg:items-center`}>
+      <div className="min-w-0 max-w-full">
         <SectionKicker>Why {data.city}</SectionKicker>
         <h2 className="mt-4 font-sans text-4xl font-semibold leading-[1.08] text-[#fff7e5] md:text-6xl">
           {data.why.headline}
@@ -501,7 +514,7 @@ function WhyCity({ data, image }: { data: CityDestinationPageData; image: string
           Explore {data.city} by mood <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
-      <div className="relative min-h-[340px] overflow-hidden rounded-3xl border border-white/12 bg-[#111] shadow-[0_24px_100px_rgba(0,0,0,.4)] md:min-h-[430px]">
+      <div className="relative min-h-[340px] min-w-0 max-w-full overflow-hidden rounded-3xl border border-white/12 bg-[#111] shadow-[0_24px_100px_rgba(0,0,0,.4)] md:min-h-[430px]">
         <ImageBackdrop src={image} alt={`${data.city} atmospheric travel scene`} />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(4,8,7,.72),transparent_44%,rgba(216,170,79,.12)),linear-gradient(0deg,rgba(3,6,5,.45),transparent_55%)]" />
         <div className="absolute left-8 top-8 h-24 w-24 rounded-full bg-[#d8aa4f]/10 blur-3xl" />
@@ -512,13 +525,13 @@ function WhyCity({ data, image }: { data: CityDestinationPageData; image: string
 
 function MoodCards({ data, images }: { data: CityDestinationPageData; images: string[] }) {
   return (
-    <section id="moods" className="mx-auto max-w-[1180px] px-5 pt-16 lg:px-0">
+    <section id="moods" className={`${pageContainerClass} pt-16`}>
       <SectionKicker>Explore {data.city} by Mood</SectionKicker>
-      <div className="mt-5 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="mt-5 grid auto-rows-fr grid-cols-1 gap-6 lg:grid-cols-2">
         {data.moods.map(({ title, count }, index) => (
           <article
             key={title}
-            className="group relative flex min-h-[230px] h-full overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] shadow-[0_22px_80px_rgba(0,0,0,.28)] transition duration-500 hover:-translate-y-1 hover:border-[#d8aa4f]/42"
+            className="group relative flex h-full min-h-[230px] min-w-0 max-w-full overflow-hidden rounded-2xl border border-white/12 bg-white/[0.04] shadow-[0_22px_80px_rgba(0,0,0,.28)] transition duration-500 hover:-translate-y-1 hover:border-[#d8aa4f]/42"
           >
             <ImageBackdrop
               src={images[index] ?? data.images.hero}
@@ -551,15 +564,15 @@ function MoodCards({ data, images }: { data: CityDestinationPageData; images: st
 
 function ItinerarySection({ data, images }: { data: CityDestinationPageData; images: string[] }) {
   return (
-    <section className="mx-auto max-w-[1180px] px-5 pt-16 lg:px-0">
+    <section className={`${pageContainerClass} pt-16`}>
       <SectionKicker>Explore 3-Day {data.city} Itinerary</SectionKicker>
-      <div className="mt-5 grid gap-5 lg:grid-cols-3">
+      <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {data.itinerary.map((day, index) => (
           <Link
             key={day.day}
             href={routes.cityItineraryDay(data.slug, `day-${index + 1}`)}
             aria-label={`Open ${data.city} itinerary ${day.day}: ${day.title}`}
-            className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/12 bg-[#0a1110] transition hover:border-[#d8aa4f]/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8aa4f]"
+            className="group relative min-h-[230px] min-w-0 max-w-full overflow-hidden rounded-2xl border border-white/12 bg-[#0a1110] transition hover:border-[#d8aa4f]/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8aa4f]"
           >
             <ImageBackdrop src={images[index] ?? data.images.hero} alt={day.title} className="brightness-[0.82] saturate-[0.94] contrast-[1.04] transition duration-700 group-hover:brightness-[0.9]" />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_22%,rgba(2,6,6,.06),rgba(2,6,6,.36)_54%,rgba(2,6,6,.76)),linear-gradient(90deg,rgba(2,6,6,.96),rgba(2,6,6,.66)_56%,rgba(2,6,6,.28)),linear-gradient(0deg,rgba(2,6,6,.76),transparent_68%)]" />
@@ -586,12 +599,12 @@ function ItinerarySection({ data, images }: { data: CityDestinationPageData; ima
 
 function AtlasSection({ data }: { data: CityDestinationPageData }) {
   return (
-    <section className="mx-auto max-w-[1180px] px-5 pt-6 lg:px-0">
-      <div className="relative overflow-hidden rounded-3xl border border-white/14 bg-[#07100f] p-6 shadow-[0_26px_90px_rgba(0,0,0,.34)] lg:p-8">
+    <section className={`${pageContainerClass} pt-6`}>
+      <div className="relative min-w-0 max-w-full overflow-hidden rounded-3xl border border-white/14 bg-[#07100f] p-6 shadow-[0_26px_90px_rgba(0,0,0,.34)] lg:p-8">
         <div className="absolute inset-0 opacity-50 [background-image:linear-gradient(rgba(255,255,255,.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] [background-size:44px_44px]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_58%_45%,rgba(80,118,118,.28),transparent_34%),radial-gradient(circle_at_22%_78%,rgba(216,170,79,.16),transparent_32%)]" />
-        <div className="relative z-10 grid gap-8 lg:grid-cols-[0.28fr_0.72fr]">
-          <div>
+        <div className="relative z-10 grid min-w-0 gap-8 lg:grid-cols-2">
+          <div className="min-w-0 max-w-full">
             <SectionKicker>{data.city} Atlas</SectionKicker>
             <h2 className="mt-4 font-sans text-4xl font-semibold leading-[1.04] text-[#fff7e5] md:text-5xl">
               Navigate the city like a local.
@@ -616,19 +629,19 @@ function AtlasSection({ data }: { data: CityDestinationPageData }) {
 
 function HiddenGems({ data, images }: { data: CityDestinationPageData; images: string[] }) {
   return (
-    <section className="mx-auto max-w-[1180px] px-5 pt-16 lg:px-0">
+    <section className={`${pageContainerClass} pt-16`}>
       <div className="flex items-center justify-between gap-4">
         <SectionKicker>Hidden Gems</SectionKicker>
         <Link href={`/city/${data.slug}/hidden-gems`} className="inline-flex items-center gap-2 text-xs font-bold text-[#d8aa4f]">
           See all <ChevronRight className="h-4 w-4" />
         </Link>
       </div>
-      <div className="mt-5 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
+      <div className="mt-5 grid grid-cols-1 gap-6 lg:grid-cols-2">
         {data.hiddenGems.map((gem, index) => (
           <Link
             key={gem.title}
             href={routes.cityHiddenGem(data.slug, slugifyRouteSegment(gem.title))}
-            className="group overflow-hidden rounded-2xl border border-white/12 bg-[#07100f] transition hover:-translate-y-1 hover:border-[#d8aa4f]/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8aa4f]"
+            className="group min-w-0 max-w-full overflow-hidden rounded-2xl border border-white/12 bg-[#07100f] transition hover:-translate-y-1 hover:border-[#d8aa4f]/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8aa4f]"
           >
             <div className="relative h-44 overflow-hidden">
               <ImageBackdrop src={images[index] ?? data.images.hero} alt={gem.title} className="transition duration-700 group-hover:scale-105" />
@@ -648,8 +661,8 @@ function HiddenGems({ data, images }: { data: CityDestinationPageData; images: s
 
 function SafetyAndCulture({ data, image }: { data: CityDestinationPageData; image: string }) {
   return (
-    <section className="mx-auto grid max-w-[1180px] gap-5 px-5 pt-8 lg:grid-cols-[0.48fr_0.52fr] lg:px-0">
-      <article className="relative overflow-hidden rounded-3xl border border-white/14 bg-[#08100f] p-7 shadow-[0_22px_80px_rgba(0,0,0,.3)]">
+    <section className={`${pageContainerClass} grid gap-6 pt-8 lg:grid-cols-2`}>
+      <article className="relative min-w-0 max-w-full overflow-hidden rounded-3xl border border-white/14 bg-[#08100f] p-7 shadow-[0_22px_80px_rgba(0,0,0,.3)]">
         <Image
           src={image}
           alt={`${data.city} night safety context`}
@@ -685,9 +698,9 @@ function SafetyAndCulture({ data, image }: { data: CityDestinationPageData; imag
         </div>
       </article>
 
-      <article className="rounded-3xl border border-white/14 bg-[#08100f] p-7 shadow-[0_22px_80px_rgba(0,0,0,.3)]">
+      <article className="min-w-0 max-w-full rounded-3xl border border-white/14 bg-[#08100f] p-7 shadow-[0_22px_80px_rgba(0,0,0,.3)]">
         <SectionKicker>Culture & Etiquette</SectionKicker>
-        <div className="mt-7 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-7 grid gap-6 sm:grid-cols-2">
           {data.culture.map(({ title, copy }) => (
               <div key={title} className="border-white/10 sm:border-l sm:pl-6 first:border-l-0 first:pl-0">
                 <h3 className="text-base font-bold text-[#fff7e5]">{title}</h3>
@@ -761,9 +774,9 @@ function BottomCta({ data }: { data: CityDestinationPageData }) {
   ];
 
   return (
-    <section className="mx-auto max-w-[1180px] px-5 pb-14 pt-6 lg:px-0">
-      <div className="flex flex-col gap-5 rounded-3xl border border-white/14 bg-[#08100f]/90 p-6 shadow-[0_22px_80px_rgba(0,0,0,.24)] backdrop-blur-xl lg:flex-row lg:items-center lg:justify-between">
-        <div>
+    <section className={`${pageContainerClass} pb-14 pt-6`}>
+      <div className="flex min-w-0 max-w-full flex-col gap-5 rounded-3xl border border-white/14 bg-[#08100f]/90 p-6 shadow-[0_22px_80px_rgba(0,0,0,.24)] backdrop-blur-xl lg:flex-row lg:items-center lg:justify-between">
+        <div className="min-w-0">
           <p className="text-xs font-bold uppercase tracking-[0.12em] text-white/80">
             Plan your {data.city} journey
           </p>
@@ -771,7 +784,7 @@ function BottomCta({ data }: { data: CityDestinationPageData }) {
             Save, compare and personalize your perfect {data.city} itinerary.
           </p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid min-w-0 gap-3 sm:grid-cols-2 lg:grid-cols-2">
           {secondaryCtas.map(({ label, icon: Icon, ariaLabel, onClick, pressed }) => (
             <button
               key={label as string}
@@ -809,12 +822,12 @@ export function CityDestinationPage({ data }: { data: CityDestinationPageData })
 
   return (
     <DestinationAtmosphereProvider destinationSlug={data.slug} destinationType="city" countrySlug={countrySlugFromName(data.country)}>
-    <main className="min-h-screen overflow-hidden bg-[#050807] font-sans text-white">
+    <main className="min-h-screen w-full max-w-full min-w-0 overflow-x-hidden bg-[#050807] font-sans text-white xl:ml-[184px] xl:max-w-[calc(100vw-184px)]">
       <HeroSection data={data} images={images} />
       <div className="relative">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_16%_12%,var(--destination-glow),transparent_28%),radial-gradient(circle_at_80%_34%,rgba(61,118,112,.12),transparent_34%)]" />
         <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "var(--destination-texture)", backgroundSize: "96px 96px" }} />
-        <div className="relative z-10">
+        <DestinationPageFrame className="relative z-10 !max-w-full !px-0">
           <IntelligenceStrip data={data} />
           <WhyCity data={data} image={images.why} />
           <MoodCards data={data} images={images.moods} />
@@ -823,7 +836,7 @@ export function CityDestinationPage({ data }: { data: CityDestinationPageData })
           <HiddenGems data={data} images={images.hiddenGems} />
           <SafetyAndCulture data={data} image={images.safety} />
           <BottomCta data={data} />
-        </div>
+        </DestinationPageFrame>
       </div>
     </main>
     </DestinationAtmosphereProvider>

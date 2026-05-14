@@ -26,6 +26,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { formatDisplayTitle } from "@/lib/copy/formatting";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
 import { mainNavigation, navigationHref } from "@/lib/routes";
 
@@ -81,11 +82,11 @@ const supportMenu: SupportMenuItem[] = [
 ];
 
 const popularSearches = [
-  "Booking change",
-  "Refund status",
-  "Visa requirements",
-  "Trip cancellation",
-  "Travel insurance",
+  "Booking Change",
+  "Refund Status",
+  "Visa Requirements",
+  "Trip Cancellation",
+  "Travel Insurance",
 ];
 
 const helpTopics: HelpTopic[] = [
@@ -419,7 +420,7 @@ function HeroHelpCenter() {
               type="button"
               className="rounded-full border border-white/12 bg-white/[0.055] px-4 py-2 text-xs font-medium text-white/78 transition hover:border-[#e2aa42]/60 hover:text-white"
             >
-              {search}
+              {formatDisplayTitle(search)}
             </button>
           ))}
         </div>

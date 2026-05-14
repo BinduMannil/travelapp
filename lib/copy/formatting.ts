@@ -1,5 +1,6 @@
 const ACRONYMS = new Map<string, string>([
   ["aed", "AED"],
+  ["ai", "AI"],
   ["api", "API"],
   ["atm", "ATM"],
   ["atms", "ATMs"],
@@ -19,8 +20,19 @@ const ACRONYMS = new Map<string, string>([
   ["sim", "SIM"],
   ["sims", "SIMs"],
   ["thc", "THC"],
+  ["uk", "UK"],
+  ["us", "US"],
+  ["usa", "USA"],
   ["wifi", "Wi-Fi"],
   ["wi-fi", "Wi-Fi"],
+]);
+
+const BRAND_NAMES = new Map<string, string>([
+  ["airbnb", "Airbnb"],
+  ["getyourguide", "GetYourGuide"],
+  ["journee", "Journee"],
+  ["teamlab", "teamLab"],
+  ["youtube", "YouTube"],
 ]);
 
 const LOWERCASE_JOINERS = new Set([
@@ -42,12 +54,14 @@ const LOWERCASE_JOINERS = new Set([
   "with",
 ]);
 
-function titleWord(word: string, index: number, total: number) {
+function titleWord(word: string, index: number, total: number, forceTitle = false) {
   const lower = word.toLowerCase();
   const clean = lower.replace(/[^a-z0-9+]/g, "");
+  const brandName = BRAND_NAMES.get(clean) ?? BRAND_NAMES.get(lower);
+  if (brandName) return brandName;
   const acronym = ACRONYMS.get(clean) ?? ACRONYMS.get(lower);
   if (acronym) return acronym;
-  if (index > 0 && index < total - 1 && LOWERCASE_JOINERS.has(lower)) {
+  if (!forceTitle && index > 0 && index < total - 1 && LOWERCASE_JOINERS.has(lower)) {
     return lower;
   }
   return lower.charAt(0).toUpperCase() + lower.slice(1);
@@ -68,6 +82,8 @@ export function formatTitleCase(value: string | number | null | undefined) {
     )
     .join(" ");
 }
+
+export { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 
 export function formatLabel(value: string | number | null | undefined) {
   return formatTitleCase(value);

@@ -38,7 +38,13 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { AppContentFrame } from "@/components/layout/AppContentFrame";
+import {
+  MapOverlayFrame,
+  MAP_CONTROL_ITEM_CLASS,
+} from "@/components/maps/MapOverlayFrame";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { CinematicBackground } from "@/components/visual/CinematicBackground";
 import {
   getCityDestinationPageData,
   type CityDestinationPageData,
@@ -1131,13 +1137,13 @@ function CinematicMap({
 
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_56%_48%,transparent_18%,rgba(2,5,6,.22)_58%,rgba(2,5,6,.72)),linear-gradient(90deg,rgba(2,5,6,.65),transparent_28%,transparent_74%,rgba(2,5,6,.72))]" />
 
-      <div className="pointer-events-none absolute left-8 top-8 z-10 max-w-[36rem] sm:left-12 sm:top-10">
+      <div className="pointer-events-none absolute left-8 top-[17.5rem] z-10 max-w-[27rem] sm:left-12 lg:top-[19rem]">
         <p className="text-sm font-semibold tracking-[0.08em] text-[#e3b861]">
           {selectedCity
             ? `${selectedCity.city} Atlas${experienceSlug ? " · Hidden Gem" : ""}`
             : country.heroLabel}
         </p>
-        <h2 className="mt-3 max-w-[38rem] text-3xl font-extrabold leading-[1.08] text-white sm:text-5xl xl:text-6xl 2xl:text-7xl">
+        <h2 className="mt-3 max-w-[27rem] text-3xl font-extrabold leading-[1.08] text-white sm:text-4xl xl:text-5xl">
           Explore deeper.
           <span className="block">
             <span className="font-extrabold text-[#e9b85e]">Journee</span> further.
@@ -1159,8 +1165,9 @@ function CinematicMap({
         </button>
       </div>
 
-      {selectedMarker ? (
-        <div className="absolute bottom-24 left-5 z-30 w-[min(88%,300px)] rounded-lg border border-[#d8aa4f]/28 bg-[#050807]/82 p-4 shadow-[0_18px_58px_rgba(0,0,0,.42)] backdrop-blur-xl sm:left-8">
+      <MapOverlayFrame
+        preview={selectedMarker ? (
+        <>
           <p className="text-[0.64rem] font-bold uppercase tracking-[0.12em] text-[#d8aa4f]">
             Destination Preview
           </p>
@@ -1175,23 +1182,38 @@ function CinematicMap({
             Explore destination
             <ChevronRight className="h-4 w-4" />
           </Link>
-        </div>
-      ) : null}
-
-      <div className="absolute bottom-6 left-1/2 z-30 grid w-[min(92%,560px)] -translate-x-1/2 grid-cols-5 overflow-hidden rounded-lg border border-white/14 bg-[#050807]/76 shadow-[0_18px_58px_rgba(0,0,0,.42)] backdrop-blur-xl">
+        </>
+        ) : null}
+        routeBadge={(
+          <button
+            type="button"
+            onClick={() => setShowRoutes((current) => !current)}
+            aria-pressed={effectiveShowRoutes}
+            className="text-left"
+          >
+            {effectiveShowRoutes ? "Routes on" : "Routes off"}
+            <span className="block text-[0.62rem] font-medium normal-case tracking-normal text-white/64">
+              {layerState.roads ? activeRoute.label : "Roads layer"}
+            </span>
+          </button>
+        )}
+        controls={(
+          <>
         {modeButtons.map(({ label, icon: Icon, active }) => (
           <button
             key={label}
             type="button"
-            className={`flex min-h-16 flex-col items-center justify-center gap-1 border-r border-white/8 px-1 text-[0.66rem] last:border-r-0 sm:px-2 sm:text-xs ${
+            className={`${MAP_CONTROL_ITEM_CLASS} flex flex-col items-center justify-center gap-1 ${
               active ? "text-[#f1ce7f]" : "text-white/74"
             }`}
           >
             <Icon className="h-5 w-5" strokeWidth={1.55} />
-            <span className="truncate">{label}</span>
+            <span className="whitespace-nowrap">{label}</span>
           </button>
         ))}
-      </div>
+          </>
+        )}
+      />
 
       <div className="absolute right-4 top-[36%] z-30 flex flex-col overflow-hidden rounded-lg border border-white/14 bg-black/46 text-white/84 backdrop-blur-xl sm:right-8">
         <button type="button" aria-label={`Zoom in. Current zoom ${Math.round(zoom * 100)}%`} onClick={() => updateZoom(1)} className="grid h-12 w-12 place-items-center border-b border-white/10 transition hover:bg-white/10 sm:h-14 sm:w-14">
@@ -1219,19 +1241,7 @@ function CinematicMap({
         <span className="absolute top-2 text-[0.65rem] font-semibold text-[#f1ce7f]">N</span>
       </button>
 
-      <button
-        type="button"
-        onClick={() => setShowRoutes((current) => !current)}
-        aria-pressed={effectiveShowRoutes}
-        className="absolute right-4 top-[58%] z-30 rounded-md border border-[#d8aa4f]/35 bg-black/46 px-3 py-2 text-left text-[0.68rem] font-bold uppercase tracking-[0.1em] text-[#f1ce7f] backdrop-blur-xl transition hover:bg-[#d8aa4f]/10 sm:right-8"
-      >
-        {effectiveShowRoutes ? "Routes on" : "Routes off"}
-        <span className="block text-[0.62rem] font-medium normal-case tracking-normal text-white/64">
-          {layerState.roads ? activeRoute.label : "Roads layer"}
-        </span>
-      </button>
-
-      <div className="absolute left-5 top-[62%] z-30 hidden max-w-[15rem] rounded-lg border border-white/12 bg-black/42 px-4 py-3 text-xs leading-5 text-white/68 backdrop-blur-xl xl:block">
+      <div className="absolute bottom-40 left-5 z-30 hidden max-w-[15rem] rounded-lg border border-white/12 bg-black/42 px-4 py-3 text-xs leading-5 text-white/68 backdrop-blur-xl xl:block">
         <span className="block font-bold uppercase tracking-[0.1em] text-[#f1ce7f]">
           {activeRoute.label} route
         </span>
@@ -1562,8 +1572,9 @@ export function AtlasMapPage({
 
   return (
     <main className="min-h-screen bg-[#030706] text-white" data-atlas-country={atlasCountry.slug}>
+      <CinematicBackground image={atlasCountry.backgroundImage} className="fixed opacity-35" />
       <AtlasNav />
-      <div className="mx-auto grid w-full max-w-[1720px] gap-3 px-4 py-3 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)_292px] lg:px-4 xl:grid-cols-[270px_minmax(0,1fr)_304px]">
+      <AppContentFrame as="div" variant="flush" className="relative mx-auto grid w-full max-w-[1720px] gap-3 px-4 py-3 sm:px-6 lg:grid-cols-[260px_minmax(0,1fr)_292px] lg:px-4 xl:grid-cols-[270px_minmax(0,1fr)_304px]">
         <div className="order-2 lg:order-1">
           <details className="group lg:hidden">
             <summary className="mb-3 flex cursor-pointer list-none items-center justify-between rounded-lg border border-white/12 bg-[#07100f]/78 p-4 text-sm font-semibold text-[#f1ce7f] backdrop-blur">
@@ -1608,10 +1619,10 @@ export function AtlasMapPage({
             onChangePanel={setActivePanel}
           />
         </div>
-      </div>
-      <div className="mx-auto w-full max-w-[1720px] px-4 pb-6 sm:px-6 lg:px-4">
+      </AppContentFrame>
+      <AppContentFrame as="div" variant="flush" className="relative mx-auto w-full max-w-[1720px] px-4 pb-6 sm:px-6 lg:px-4">
         <CategoryRail />
-      </div>
+      </AppContentFrame>
     </main>
   );
 }

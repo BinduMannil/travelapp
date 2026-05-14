@@ -24,7 +24,11 @@ import {
   X,
 } from "lucide-react";
 import { JourneeLogoMark } from "@/components/brand/JourneeLogo";
+import { AppContentFrame } from "@/components/layout/AppContentFrame";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
+import { SearchSuggestions } from "@/components/search/SearchSuggestions";
+import { CinematicBackground } from "@/components/visual/CinematicBackground";
+import { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 
 type SearchCollection =
   | "destinations"
@@ -264,17 +268,17 @@ const tabs = [
 const recentSearches = [
   ["Tokyo, Japan", "Just now"],
   ["Bali, Indonesia", "2 hours ago"],
-  ["Budget hotels in Paris", "Yesterday"],
-  ["Things to do in Rome", "2 days ago"],
-  ["Japan visa requirements", "3 days ago"],
+  ["Budget Hotels in Paris", "Yesterday"],
+  ["Things to Do in Rome", "2 days ago"],
+  ["Japan Visa Requirements", "3 days ago"],
 ];
 
 const suggestedSearches = [
-  "Tokyo travel guide",
-  "Top attractions in Tokyo",
-  "Tokyo hotels",
-  "Tokyo itinerary 5 days",
-  "Best time to visit Tokyo",
+  "Tokyo Travel Guide",
+  "Top Attractions in Tokyo",
+  "Tokyo Hotels",
+  "Tokyo Itinerary 5 Days",
+  "Best Time to Visit Tokyo",
 ];
 
 const tabToCollection: Record<string, SearchCollection | "all"> = {
@@ -344,10 +348,10 @@ export function SearchResultsPage() {
   return (
     <main className="min-h-screen bg-[#020607] font-sans text-white">
       <TopNavigation query={query} onQueryChange={setQuery} onSearchSubmit={submitSearch} />
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_16%_0%,rgba(213,164,0,.15),transparent_28%),radial-gradient(circle_at_82%_18%,rgba(46,79,115,.2),transparent_32%),linear-gradient(180deg,#020607_0%,#071112_48%,#020607_100%)]" />
+      <CinematicBackground image={searchData.destinations[0].image} className="fixed opacity-45" />
       <div className="pointer-events-none fixed inset-0 opacity-[0.055] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:64px_64px]" />
 
-      <div className="relative mx-auto grid w-full max-w-[1920px] gap-4 px-3 pb-8 pt-[76px] sm:px-5 xl:grid-cols-[300px_minmax(0,1fr)] 2xl:grid-cols-[300px_minmax(0,1fr)_380px]">
+      <AppContentFrame as="div" variant="flush" className="relative mx-auto grid w-full max-w-[1920px] gap-4 px-3 pb-8 pt-[76px] sm:px-5 xl:grid-cols-[300px_minmax(0,1fr)] 2xl:grid-cols-[300px_minmax(0,1fr)_380px]">
         <aside className="hidden xl:block">
           <FiltersPanel
             selectedFilters={selectedFilters}
@@ -389,7 +393,7 @@ export function SearchResultsPage() {
         <aside className="space-y-4 2xl:sticky 2xl:top-24 2xl:self-start">
           <RightSidebar />
         </aside>
-      </div>
+      </AppContentFrame>
     </main>
   );
 }
@@ -603,7 +607,7 @@ function FilterGroup({
               >
                 {selected && <Check className="h-3 w-3" />}
               </span>
-              <span className="min-w-0 flex-1 whitespace-normal">{label}</span>
+              <span className="min-w-0 flex-1 whitespace-normal">{formatDisplayTitle(label)}</span>
               {count && <span className="ml-2 shrink-0 text-xs font-semibold text-white/72">{count}</span>}
             </button>
           );
@@ -758,7 +762,7 @@ function ResultsPanel({
                 : "text-white/84 hover:bg-white/[0.035] hover:text-white"
             }`}
           >
-            {label} <span className="text-current/75">({count})</span>
+            {formatDisplayTitle(label)} <span className="text-current/75">({count})</span>
           </button>
         ))}
       </div>
@@ -813,7 +817,7 @@ function DestinationFeature() {
             <div className="flex flex-wrap items-center gap-3">
               <h3 className="text-xl font-bold text-white">{destination.title}</h3>
               <span className="rounded-md bg-sky-500/18 px-2.5 py-1 text-xs font-bold text-sky-200">
-                Popular
+                {formatDisplayTitle("Popular")}
               </span>
             </div>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-white/72">
@@ -826,7 +830,7 @@ function DestinationFeature() {
                 key={tag}
                 className="rounded-md border border-white/12 bg-black/12 px-3 py-1.5 text-xs font-semibold text-white/82"
               >
-                {tag}
+                {formatDisplayTitle(tag)}
               </span>
             ))}
           </div>
@@ -891,7 +895,7 @@ function ResultCardItem({ card }: { card: ResultCard }) {
         <div className="flex items-start justify-between gap-3">
           <h3 className="min-h-10 text-base font-bold leading-5 text-white">{card.title}</h3>
           <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.035] px-2 py-1 text-[11px] font-semibold text-white/64">
-            {card.label}
+            {formatDisplayTitle(card.label)}
           </span>
         </div>
         <p className="mt-2 min-h-12 text-sm leading-6 text-white/68">{card.description}</p>
@@ -917,7 +921,7 @@ function RightSidebar() {
             <div key={label} className="flex items-start gap-3">
               <Clock3 className="mt-0.5 h-5 w-5 shrink-0 text-white/76" />
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-white">{label}</p>
+                <p className="truncate text-sm font-semibold text-white">{formatDisplayTitle(label)}</p>
                 <p className="text-xs font-medium text-white/56">{time}</p>
               </div>
               <X className="h-4 w-4 shrink-0 text-white/74" />
@@ -928,24 +932,15 @@ function RightSidebar() {
       <Panel className="p-4">
         <SidebarTitle title="Suggested Searches" />
         <div className="mt-4 space-y-3">
-          {suggestedSearches.map((label) => (
-            <button
-              key={label}
-              type="button"
-              className="flex w-full items-center gap-3 text-left text-sm font-semibold text-white/86 transition hover:text-[#f3b544]"
-            >
-              <Search className="h-4 w-4 shrink-0 text-white/70" />
-              {label}
-            </button>
-          ))}
+          <SearchSuggestions suggestions={suggestedSearches} />
         </div>
       </Panel>
       <Panel className="p-4">
         <SidebarTitle title="Search Insights" />
         <div className="mt-4 space-y-4">
-          <Insight icon={CalendarDays} tone="rose" title="Best time to visit Tokyo" text="Mar-May (Spring) & Sep-Nov (Autumn)" />
-          <Insight icon={Wallet} tone="green" title="Average budget" text="$120 - $250 per day" />
-          <Insight icon={Compass} tone="blue" title="Top reason to visit" text="Culture, Food, Shopping" />
+          <Insight icon={CalendarDays} tone="rose" title="Best Time to Visit Tokyo" text="Mar-May (Spring) & Sep-Nov (Autumn)" />
+          <Insight icon={Wallet} tone="green" title="Average Budget" text="$120 - $250 per day" />
+          <Insight icon={Compass} tone="blue" title="Top Reason to Visit" text="Culture, Food, Shopping" />
         </div>
         <button
           type="button"
@@ -1007,7 +1002,7 @@ function Insight({
         <Icon className="h-5 w-5" />
       </span>
       <div>
-        <p className="text-sm font-semibold text-white">{title}</p>
+        <p className="text-sm font-semibold text-white">{formatDisplayTitle(title)}</p>
         <p className="mt-0.5 text-sm leading-5 text-white/68">{text}</p>
       </div>
     </div>

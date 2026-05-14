@@ -6,7 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
 import { AmbientDestinationMotion } from "@/components/destination/AmbientDestinationMotion";
 import { PreferencesPanel } from "@/components/home/PreferencesPanel";
+import { CinematicBackground } from "@/components/visual/CinematicBackground";
 import { getDestinationIdentity } from "@/lib/destination/identity";
+import { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 
 type DiscoveryMood = {
   id: string;
@@ -57,9 +59,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
       "linear-gradient(90deg, rgba(4,7,8,.9), rgba(19,31,32,.58) 48%, rgba(189,118,52,.2)), linear-gradient(0deg, rgba(5,7,7,.84), transparent 62%)",
     primaryHref: "/discover",
     suggestions: [
-      { label: "Find the right place by budget", href: "/discover?feel=budget-fit" },
-      { label: "Compare visa-easy escapes", href: "/discover?feel=visa-easy-culture" },
-      { label: "Match weather to your mood", href: "/discover?feel=weather-mood" },
+      { label: "Find the Right Place by Budget", href: "/discover?feel=budget-fit" },
+      { label: "Compare Visa-Easy Escapes", href: "/discover?feel=visa-easy-culture" },
+      { label: "Match Weather to Your Mood", href: "/discover?feel=weather-mood" },
     ],
   },
   {
@@ -78,9 +80,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     gradient:
       "linear-gradient(90deg, rgba(4,12,15,.94), rgba(11,50,54,.68) 48%, rgba(178,111,48,.24)), linear-gradient(0deg, rgba(5,8,8,.88), transparent 58%)",
     suggestions: [
-      { label: "Warm islands under $150/day", href: "/discover?feel=warm-islands" },
-      { label: "Easy ferries and beach towns", href: "/discover?feel=island-ferries" },
-      { label: "Dry-season reef escapes", href: "/discover?feel=reef-season" },
+      { label: "Warm Islands Under $150/day", href: "/discover?feel=warm-islands" },
+      { label: "Easy Ferries and Beach Towns", href: "/discover?feel=island-ferries" },
+      { label: "Dry-Season Reef Escapes", href: "/discover?feel=reef-season" },
     ],
   },
   {
@@ -99,9 +101,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     gradient:
       "linear-gradient(90deg, rgba(7,8,11,.95), rgba(16,28,42,.72) 46%, rgba(183,51,88,.28)), linear-gradient(0deg, rgba(4,5,7,.9), transparent 58%)",
     suggestions: [
-      { label: "Cool-weather food cities", href: "/discover?feel=cool-food-cities" },
-      { label: "Visa-easy culture capitals", href: "/discover?feel=visa-easy-culture" },
-      { label: "Transit-rich long weekends", href: "/discover?feel=transit-weekends" },
+      { label: "Cool-Weather Food Cities", href: "/discover?feel=cool-food-cities" },
+      { label: "Visa-Easy Culture Capitals", href: "/discover?feel=visa-easy-culture" },
+      { label: "Transit-Rich Long Weekends", href: "/discover?feel=transit-weekends" },
     ],
   },
   {
@@ -120,9 +122,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     gradient:
       "linear-gradient(90deg, rgba(16,9,6,.95), rgba(74,35,20,.7) 50%, rgba(198,117,50,.28)), linear-gradient(0deg, rgba(8,5,4,.9), transparent 60%)",
     suggestions: [
-      { label: "Desert cities in shoulder season", href: "/discover?feel=desert-shoulder-season" },
-      { label: "Dunes, craft and courtyard stays", href: "/discover?feel=desert-craft" },
-      { label: "Road trips with sunset stops", href: "/discover?feel=desert-road" },
+      { label: "Desert Cities in Shoulder Season", href: "/discover?feel=desert-shoulder-season" },
+      { label: "Dunes, Craft and Courtyard Stays", href: "/discover?feel=desert-craft" },
+      { label: "Road Trips with Sunset Stops", href: "/discover?feel=desert-road" },
     ],
   },
   {
@@ -141,9 +143,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     gradient:
       "linear-gradient(90deg, rgba(5,12,9,.95), rgba(18,52,38,.72) 50%, rgba(105,130,76,.22)), linear-gradient(0deg, rgba(5,8,6,.9), transparent 58%)",
     suggestions: [
-      { label: "Forest lodges with rail access", href: "/discover?feel=forest-rail-lodges" },
-      { label: "Rainy-season places that work", href: "/discover?feel=rainy-season" },
-      { label: "Cool trails and quiet towns", href: "/discover?feel=cool-trail-towns" },
+      { label: "Forest Lodges with Rail Access", href: "/discover?feel=forest-rail-lodges" },
+      { label: "Rainy-Season Places That Work", href: "/discover?feel=rainy-season" },
+      { label: "Cool Trails and Quiet Towns", href: "/discover?feel=cool-trail-towns" },
     ],
   },
   {
@@ -162,9 +164,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     gradient:
       "linear-gradient(90deg, rgba(14,10,7,.95), rgba(58,39,24,.72) 48%, rgba(196,136,66,.24)), linear-gradient(0deg, rgba(7,5,4,.9), transparent 58%)",
     suggestions: [
-      { label: "Quiet villages with rail access", href: "/discover?feel=quiet-rail-villages" },
-      { label: "Craft towns and family stays", href: "/discover?feel=craft-towns" },
-      { label: "Slow food without a car", href: "/discover?feel=slow-food-rail" },
+      { label: "Quiet Villages with Rail Access", href: "/discover?feel=quiet-rail-villages" },
+      { label: "Craft Towns and Family Stays", href: "/discover?feel=craft-towns" },
+      { label: "Slow Food Without a Car", href: "/discover?feel=slow-food-rail" },
     ],
   },
   {
@@ -183,9 +185,9 @@ const DISCOVERY_MOODS: DiscoveryMood[] = [
     gradient:
       "linear-gradient(90deg, rgba(5,10,12,.95), rgba(20,47,55,.72) 48%, rgba(151,196,205,.18)), linear-gradient(0deg, rgba(5,7,8,.9), transparent 58%)",
     suggestions: [
-      { label: "Cool mountain towns by train", href: "/discover?feel=mountain-rail" },
-      { label: "Alpine food and spa weekends", href: "/discover?feel=alpine-food-spa" },
-      { label: "Snow without complex logistics", href: "/discover?feel=easy-snow" },
+      { label: "Cool Mountain Towns by Train", href: "/discover?feel=mountain-rail" },
+      { label: "Alpine Food and Spa Weekends", href: "/discover?feel=alpine-food-spa" },
+      { label: "Snow Without Complex Logistics", href: "/discover?feel=easy-snow" },
     ],
   },
 ];
@@ -269,6 +271,7 @@ export function CinematicDiscovery() {
   return (
     <>
       <section className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden bg-sumi-900 text-white">
+        <CinematicBackground image={heroMood.image} className="-z-40" />
         <KaleidoscopeBackdrop active={heroMood} reduceMotion={reduceMotion} />
         <motion.div
           className="absolute inset-0 -z-20"
@@ -450,7 +453,7 @@ export function CinematicDiscovery() {
                   href={suggestion.href}
                   className="rounded-2xl border border-white/18 bg-white/[0.08] px-5 py-4 text-sm font-semibold text-white/86 transition hover:border-kintsugi-300/70 hover:bg-white/[0.14] hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-kintsugi-300"
                 >
-                  {suggestion.label}
+                  {formatDisplayTitle(suggestion.label)}
                 </Link>
               ))}
             </div>

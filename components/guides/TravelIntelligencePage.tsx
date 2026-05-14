@@ -23,6 +23,7 @@ import {
   WalletCards,
 } from "lucide-react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
+import { formatDisplayTitle } from "@/lib/copy/formatting";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type GuideCategory = {
@@ -99,11 +100,11 @@ const guideMenu = [
 ];
 
 const popularSearches = [
-  "Kyoto safety",
-  "Japan etiquette",
-  "Solo female travel",
-  "JR Pass guide",
-  "What to pack Japan",
+  "Kyoto Safety",
+  "Japan Etiquette",
+  "Solo Female Travel",
+  "JR Pass Guide",
+  "What to Pack Japan",
   "Visa Japan",
 ];
 
@@ -355,7 +356,7 @@ function LeftSidebar() {
                 href="#featured-guides"
                 className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-2 text-xs text-white/70 transition hover:border-[#d8aa4f]/40 hover:text-white"
               >
-                {search}
+                {formatDisplayTitle(search)}
               </a>
             ))}
           </div>

@@ -78,11 +78,11 @@ export const weatherFilters: WeatherFilter[] = [
 ];
 
 export const popularSearches = [
-  "Best places in Japan",
-  "Solo travel in Europe",
-  "Warm places in December",
-  "Budget beaches",
-  "Safe cities for women",
+  "Best Places in Japan",
+  "Solo Travel in Europe",
+  "Warm Places in December",
+  "Budget Beaches",
+  "Safe Cities for Women",
 ];
 
 export const recommendedDestinations: DestinationCard[] = [
@@ -239,14 +239,14 @@ export const travelInsights = [
 ];
 
 export const travelTerms = [
-  "safe cities for solo female travelers",
-  "best places to visit in Japan",
-  "warm places in December",
-  "budget travel destinations",
-  "visa-free travel",
-  "solo travel destinations",
-  "destination discovery",
-  "travel inspiration",
+  "Safe Cities for Solo Female Travelers",
+  "Best Places to Visit in Japan",
+  "Warm Places in December",
+  "Budget Travel Destinations",
+  "Visa-Free Travel",
+  "Solo Travel Destinations",
+  "Destination Discovery",
+  "Travel Inspiration",
 ];
 
 export const heroImage =
