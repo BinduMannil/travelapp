@@ -1,9 +1,6 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown } from "lucide-react";
 import {
   DISTANCE_UNITS,
   TEMPERATURE_UNITS,
@@ -12,14 +9,9 @@ import {
   useTravelPreferences,
 } from "@/lib/preferences/context";
 
-const defaultAvatar =
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80";
-
 export function ProfileTravelPreferencesDropdown({
-  avatarSrc = defaultAvatar,
   className = "",
 }: {
-  avatarSrc?: string;
   className?: string;
 }) {
   const [open, setOpen] = useState(false);
@@ -51,13 +43,9 @@ export function ProfileTravelPreferencesDropdown({
         aria-label="Open travel preferences"
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
-        className="block rounded-full outline-none transition hover:scale-[1.02] focus:ring-2 focus:ring-[#d8aa4f]/65"
+        className="rounded-full border border-[#d8aa4f]/40 bg-[#07100f]/86 px-4 py-2 text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#f3d9a2] shadow-[0_10px_34px_rgba(0,0,0,.34),inset_0_1px_0_rgba(255,255,255,.08)] outline-none backdrop-blur-xl transition hover:border-[#d8aa4f]/70 hover:bg-[#0b1715]/92 focus:ring-2 focus:ring-[#d8aa4f]/55"
       >
-        <img
-          src={avatarSrc}
-          alt="Profile avatar"
-          className="h-10 w-10 rounded-full border border-[#d8aa4f]/55 object-cover shadow-[0_8px_26px_rgba(0,0,0,.32)]"
-        />
+        Preferences
       </button>
 
       {open ? (
@@ -71,7 +59,14 @@ export function ProfileTravelPreferencesDropdown({
                 Currency and units apply across Journee.
               </p>
             </div>
-            <ChevronDown className="mt-0.5 h-4 w-4 rotate-180 text-white/52" />
+            <button
+              type="button"
+              aria-label="Close travel preferences"
+              onClick={() => setOpen(false)}
+              className="rounded-full border border-white/10 px-2 py-1 text-[0.64rem] font-bold uppercase tracking-[0.12em] text-white/60 transition hover:border-white/24 hover:text-white"
+            >
+              Close
+            </button>
           </div>
 
           <div className="space-y-4">
