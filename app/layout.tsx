@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
 };
 
-const avatarSuppressionCss = `
+const globalUiCorrectionsCss = `
   img[alt="Profile"],
   img[alt="Profile avatar"],
   img[alt*="avatar" i],
@@ -47,6 +47,40 @@ const avatarSuppressionCss = `
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
+  }
+
+  header nav {
+    padding-left: clamp(1.25rem, 2vw, 2rem) !important;
+    padding-right: clamp(1.25rem, 2vw, 2rem) !important;
+    gap: clamp(0.75rem, 1.25vw, 1.35rem) !important;
+  }
+
+  header nav a,
+  header nav button {
+    min-height: 2.75rem !important;
+    padding-left: clamp(1rem, 1.45vw, 1.55rem) !important;
+    padding-right: clamp(1rem, 1.45vw, 1.55rem) !important;
+    padding-top: 0.72rem !important;
+    padding-bottom: 0.72rem !important;
+    border-radius: 999px !important;
+  }
+
+  header nav a span,
+  header nav button span {
+    white-space: nowrap !important;
+  }
+
+  @media (max-width: 1023px) {
+    header nav {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    header nav a,
+    header nav button {
+      padding-left: 1.1rem !important;
+      padding-right: 1.1rem !important;
+    }
   }
 `;
 
@@ -70,7 +104,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-[#050807] font-sans text-white antialiased">
-        <style dangerouslySetInnerHTML={{ __html: avatarSuppressionCss }} />
+        <style dangerouslySetInnerHTML={{ __html: globalUiCorrectionsCss }} />
         <I18nProvider defaultLocale={locale}>
           <ConsentProvider>
             <PreferencesProvider rates={rates} defaultCurrency="AED">
