@@ -1,443 +1,539 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Archive,
-  Camera,
-  ChevronRight,
-  Compass,
-  Feather,
-  Heart,
-  Map,
-  Menu,
-  Moon,
-  PenLine,
-  Plus,
-  Route,
-  Sparkle,
-  X,
-} from "lucide-react";
 
-type TripStatus = "In 10 days" | "Confirmed" | "Planning" | "Saved" | "Remembered";
-type TripTab = "Upcoming" | "Past Trips";
+type TripStatus = "Active" | "Upcoming" | "Draft" | "Completed";
+type View = "Overview" | TripStatus | "Memories";
+type Filter = "All" | "Solo" | "Couple" | "Family" | "Friends";
 
 type Trip = {
+  id: string;
   title: string;
-  dates: string;
-  cities: string;
-  description: string;
   status: TripStatus;
-  tab: TripTab;
+  dates: string;
+  route: string;
+  travelers: Filter;
+  mood: string;
+  progress: number;
   image: string;
-  imagePosition?: string;
 };
-
-const navItems = [
-  { label: "My Trips", icon: Route, active: true },
-  { label: "Daily Notes", icon: PenLine },
-  { label: "Photos & Albums", icon: Camera },
-  { label: "Maps & Places", icon: Map },
-  { label: "Saved Moments", icon: Heart },
-  { label: "Reflections", icon: Sparkle },
-  { label: "Mood Tracker", icon: Moon },
-  { label: "Drafts", icon: Archive },
-];
 
 const trips: Trip[] = [
   {
-    title: "Italy Escape",
-    dates: "May 17 - May 26, 2026",
-    cities: "Positano, Rome, Florence",
-    description: "A coastal escape filled with culture, cuisine, and timeless beauty.",
-    status: "In 10 days",
-    tab: "Upcoming",
+    id: "amalfi-active",
+    title: "Amalfi Afterlight",
+    status: "Active",
+    dates: "May 12 - May 19, 2026",
+    route: "Naples, Ravello, Positano",
+    travelers: "Couple",
+    mood: "Lemon groves, cliff dinners, sea-level mornings",
+    progress: 68,
     image:
       "https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?auto=format&fit=crop&w=1500&q=88",
   },
   {
-    title: "Bali Retreat",
-    dates: "Jun 3 - Jun 14, 2026",
-    cities: "Ubud, Canggu, Uluwatu",
-    description: "Wellness, adventure, and serenity in paradise.",
-    status: "Confirmed",
-    tab: "Upcoming",
+    id: "iceland-upcoming",
+    title: "Northern Roads",
+    status: "Upcoming",
+    dates: "Jun 4 - Jun 13, 2026",
+    route: "Reykjavik, Vik, Hofn",
+    travelers: "Friends",
+    mood: "Black sand, glacier light, long-table cabins",
+    progress: 42,
     image:
-      "https://images.unsplash.com/photo-1555400038-63f5ba517a47?auto=format&fit=crop&w=1500&q=88",
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=88",
   },
   {
-    title: "Swiss Getaway",
-    dates: "Sep 10 - Sep 18, 2026",
-    cities: "Lucerne, Interlaken, Zermatt",
-    description: "Crisp air, stunning peaks, and unforgettable views.",
-    status: "Planning",
-    tab: "Upcoming",
+    id: "kyoto-draft",
+    title: "Kyoto in Quiet Rain",
+    status: "Draft",
+    dates: "Flexible autumn window",
+    route: "Gion, Arashiyama, Kurama",
+    travelers: "Solo",
+    mood: "Tea houses, cedar paths, lantern-lit alleys",
+    progress: 24,
     image:
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1500&q=88",
+      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=1500&q=88",
   },
   {
-    title: "Japan Journey",
-    dates: "Apr 5 - Apr 17, 2025",
-    cities: "Tokyo, Kyoto, Osaka",
-    description: "Tradition, innovation, and endless discovery.",
-    status: "Saved",
-    tab: "Past Trips",
-    image:
-      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1500&q=88",
-    imagePosition: "object-[50%_42%]",
-  },
-  {
-    title: "Morocco Afterlight",
+    id: "morocco-completed",
+    title: "Morocco After Dark",
+    status: "Completed",
     dates: "Nov 2 - Nov 11, 2025",
-    cities: "Marrakesh, Fes, Sahara",
-    description: "Lantern-lit riads, desert silence, and color remembered like film.",
-    status: "Remembered",
-    tab: "Past Trips",
+    route: "Marrakech, Fes, Sahara",
+    travelers: "Family",
+    mood: "Riad courtyards, desert silence, brass and spice",
+    progress: 100,
     image:
       "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1500&q=88",
   },
+  {
+    id: "bali-upcoming",
+    title: "Bali Slow Water",
+    status: "Upcoming",
+    dates: "Aug 18 - Aug 28, 2026",
+    route: "Ubud, Sidemen, Uluwatu",
+    travelers: "Couple",
+    mood: "Wellness rituals, private villas, firelit coast",
+    progress: 55,
+    image:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1500&q=88",
+  },
+  {
+    id: "paris-completed",
+    title: "Paris Blue Hour",
+    status: "Completed",
+    dates: "Mar 6 - Mar 12, 2026",
+    route: "Saint-Germain, Marais, Montmartre",
+    travelers: "Solo",
+    mood: "Bookshops, velvet bars, museum mornings",
+    progress: 100,
+    image:
+      "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1500&q=88",
+  },
 ];
 
-const tabs: TripTab[] = ["Upcoming", "Past Trips"];
+const memories = [
+  {
+    title: "Dinner above Positano",
+    trip: "Amalfi Afterlight",
+    image:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=86",
+  },
+  {
+    title: "Dawn in the Sahara",
+    trip: "Morocco After Dark",
+    image:
+      "https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&fit=crop&w=900&q=86",
+  },
+  {
+    title: "Rain on temple stone",
+    trip: "Kyoto in Quiet Rain",
+    image:
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=900&q=86",
+  },
+];
 
-const statusStyles: Record<TripStatus, string> = {
-  "In 10 days": "border-emerald-300/15 bg-emerald-300/12 text-emerald-100",
-  Confirmed: "border-[#d7b16b]/18 bg-[#d7b16b]/14 text-[#f5dca5]",
-  Planning: "border-amber-300/15 bg-amber-300/12 text-amber-100",
-  Saved: "border-sky-200/15 bg-sky-200/12 text-sky-100",
-  Remembered: "border-rose-200/15 bg-rose-200/12 text-rose-100",
+const collaborators = [
+  ["Mina", "Itinerary notes", "Active now"],
+  ["Theo", "Restaurant shortlist", "Reviewed today"],
+  ["Leila", "Hotel options", "2 comments"],
+  ["Arun", "Shared expenses", "Pending review"],
+];
+
+const journalEntries = [
+  ["A first night by the water", "Amalfi Afterlight", "Draft"],
+  ["What the desert sounded like", "Morocco After Dark", "Published"],
+  ["A list of quiet Kyoto doors", "Kyoto in Quiet Rain", "Draft"],
+];
+
+const savedPlaces = [
+  ["Le Sirenuse terrace", "Positano", "Dinner"],
+  ["Camellia tea house", "Kyoto", "Culture"],
+  ["Dar Yacout", "Marrakech", "Food"],
+  ["Blue Lagoon Retreat", "Iceland", "Wellness"],
+];
+
+const views: View[] = ["Overview", "Active", "Upcoming", "Draft", "Completed", "Memories"];
+const filters: Filter[] = ["All", "Solo", "Couple", "Family", "Friends"];
+
+const statusCopy: Record<TripStatus, string> = {
+  Active: "Trips unfolding now, with live plans and open tasks.",
+  Upcoming: "Confirmed journeys that need final polish.",
+  Draft: "Saved journey concepts waiting to be refined.",
+  Completed: "Finished trips, ready for memories and journals.",
 };
 
-function JourneeMark() {
+const statusTone: Record<TripStatus, string> = {
+  Active: "border-emerald-200/18 bg-emerald-200/10 text-emerald-100",
+  Upcoming: "border-[#e8c77b]/22 bg-[#e8c77b]/13 text-[#f8df9c]",
+  Draft: "border-sky-200/18 bg-sky-200/10 text-sky-100",
+  Completed: "border-rose-200/18 bg-rose-200/10 text-rose-100",
+};
+
+export function MyTripsPage() {
+  const [activeView, setActiveView] = useState<View>("Overview");
+  const [activeFilter, setActiveFilter] = useState<Filter>("All");
+  const [selectedTripId, setSelectedTripId] = useState(trips[0].id);
+
+  const visibleTrips = useMemo(() => {
+    return trips.filter((trip) => {
+      const viewMatches = activeView === "Overview" || activeView === "Memories" || trip.status === activeView;
+      const filterMatches = activeFilter === "All" || trip.travelers === activeFilter;
+      return viewMatches && filterMatches;
+    });
+  }, [activeFilter, activeView]);
+
+  const selectedTrip = trips.find((trip) => trip.id === selectedTripId) ?? trips[0];
+
   return (
-    <div className="flex items-center gap-3">
-      <span className="relative grid h-9 w-9 place-items-center rounded-full border border-[#d7b16b]/45 bg-[#d7b16b]/8 shadow-[0_0_34px_rgba(215,177,107,.2)]">
-        <span className="h-5 w-[11px] rounded-full border border-[#e6c37c] [clip-path:polygon(50%_0,100%_38%,82%_100%,18%_100%,0_38%)]" />
-      </span>
-      <span className="font-sans text-[0.88rem] font-medium uppercase tracking-[0.32em] text-[#f7ead0]">
-        Journee
-      </span>
-    </div>
-  );
-}
+    <main className="journee-page-frame min-h-screen bg-[#030504] text-white">
+      <section className="relative isolate overflow-hidden px-4 pb-16 pt-10 sm:px-6 lg:px-10">
+        <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_78%_10%,rgba(232,199,123,.17),transparent_28rem),radial-gradient(circle_at_12%_36%,rgba(91,124,105,.17),transparent_30rem),linear-gradient(145deg,#020303,#07100f_52%,#030504)]" />
+        <div className="absolute inset-x-0 top-0 -z-10 h-[34rem] overflow-hidden opacity-60">
+          <Image
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2400&q=88"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,5,4,.94),rgba(3,5,4,.64)_48%,rgba(3,5,4,.88)),linear-gradient(180deg,rgba(3,5,4,.18),#030504_92%)]" />
+        </div>
 
-function SidebarContent({ onClose }: { onClose?: () => void }) {
-  return (
-    <div className="flex h-full flex-col px-5 py-7 md:px-4 lg:px-6">
-      <div className="flex items-center justify-between gap-4">
-        <JourneeMark />
-        {onClose ? (
-          <button
-            type="button"
-            aria-label="Close navigation"
-            onClick={onClose}
-            className="grid h-10 w-10 place-items-center rounded-full border border-[#d7b16b]/15 bg-white/[0.04] text-[#f8edd7] transition hover:border-[#d7b16b]/45 hover:bg-[#d7b16b]/10"
-          >
-            <X className="h-4 w-4" />
-          </button>
-        ) : null}
-      </div>
+        <div className="mx-auto max-w-7xl">
+          <header className="grid min-h-[32rem] items-end gap-8 pb-8 pt-20 lg:grid-cols-[1fr_auto]">
+            <div>
+              <p className="mb-5 text-xs font-semibold uppercase tracking-[.32em] text-[#e8c77b]">
+                Journee / Trips Dashboard
+              </p>
+              <h1 className="max-w-4xl text-[clamp(3.5rem,8vw,8.5rem)] leading-[.86] text-white">
+                Manage the journeys already in motion.
+              </h1>
+              <p className="mt-7 max-w-2xl text-base leading-8 text-white/74 sm:text-lg">
+                Active plans, saved drafts, completed trips, collaborators, memories, journal links, and places worth returning to.
+              </p>
+            </div>
+            <Link
+              href="/journey-builder"
+              className="group inline-flex w-max items-center justify-center overflow-hidden rounded-2xl bg-[#e8c77b] px-6 py-4 text-sm font-extrabold uppercase tracking-[.22em] text-[#130f0a] shadow-[0_24px_70px_rgba(232,199,123,.3)] transition duration-300 hover:-translate-y-1 hover:bg-white"
+            >
+              <span className="relative">Plan a new journey</span>
+            </Link>
+          </header>
 
-      <nav className="mt-14 space-y-2 md:mt-16">
-        {navItems.map(({ label, icon: Icon, active }) => (
-          <a
-            key={label}
-            href={active ? "/trips" : "#"}
-            className={`group flex h-[52px] items-center gap-4 rounded-[18px] border px-4 py-3 font-sans text-[0.9rem] transition duration-300 md:justify-center md:px-3 lg:justify-start lg:px-4 ${
-              active
-                ? "border-[#d7b16b]/24 bg-[rgba(215,177,107,.17)] text-[#fff4dc] shadow-[0_18px_50px_rgba(215,177,107,.12),inset_0_1px_0_rgba(255,255,255,.08)]"
-                : "border-transparent text-[#d6cbbb]/75 hover:border-[#d7b16b]/14 hover:bg-white/[0.045] hover:text-[#fff7e7]"
-            }`}
-          >
-            <Icon
-              className={`h-[18px] w-[18px] shrink-0 transition duration-300 ${
-                active ? "text-[#f3ca7a]" : "text-[#d6cbbb]/78 group-hover:text-[#f1d18d]"
-              }`}
-              strokeWidth={1.55}
-            />
-            <span className="md:hidden lg:inline">{label}</span>
-          </a>
-        ))}
-      </nav>
+          <section className="grid gap-4 md:grid-cols-4">
+            {(["Active", "Upcoming", "Draft", "Completed"] as TripStatus[]).map((status) => {
+              const count = trips.filter((trip) => trip.status === status).length;
+              return (
+                <button
+                  key={status}
+                  type="button"
+                  onClick={() => setActiveView(status)}
+                  className={[
+                    "min-h-40 rounded-[1.4rem] border p-5 text-left transition duration-300 hover:-translate-y-1",
+                    activeView === status
+                      ? "border-[#e8c77b] bg-[#e8c77b]/16 shadow-[0_24px_70px_rgba(232,199,123,.16)]"
+                      : "border-white/12 bg-white/[.055] hover:border-[#e8c77b]/55 hover:bg-white/[.085]",
+                  ].join(" ")}
+                >
+                  <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${statusTone[status]}`}>
+                    {count} {count === 1 ? "trip" : "trips"}
+                  </span>
+                  <h2 className="mt-5 text-3xl text-white">{status}</h2>
+                  <p className="mt-3 text-sm leading-6 text-white/58">{statusCopy[status]}</p>
+                </button>
+              );
+            })}
+          </section>
+        </div>
+      </section>
 
-      <div className="mt-auto hidden md:block">
-        <div className="h-px bg-gradient-to-r from-transparent via-[#d7b16b]/28 to-transparent" />
-        <div className="mt-6 flex items-center gap-3 md:justify-center lg:justify-start">
-          <div className="relative h-11 w-11 overflow-hidden rounded-full border border-[#d7b16b]/35">
-            <Image
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=180&q=80"
-              alt="Olivia Bennett"
-              fill
-              sizes="44px"
-              className="object-cover"
-            />
+      <section className="px-4 pb-20 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Trip command room</p>
+              <h2 className="mt-3 text-5xl text-white">Your saved travel world.</h2>
+            </div>
+            <div className="flex max-w-full gap-2 overflow-x-auto rounded-full border border-white/10 bg-white/[.045] p-2">
+              {views.map((view) => (
+                <button
+                  key={view}
+                  type="button"
+                  onClick={() => setActiveView(view)}
+                  className={[
+                    "whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition duration-300",
+                    activeView === view ? "bg-[#e8c77b] text-[#130f0a]" : "text-white/68 hover:bg-white/10 hover:text-white",
+                  ].join(" ")}
+                >
+                  {view === "Draft" ? "Saved Draft Journeys" : view}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="min-w-0 md:hidden lg:block">
-            <p className="truncate font-sans text-[0.83rem] text-[#fff8ea]">Olivia Bennett</p>
-            <p className="font-sans text-[0.68rem] uppercase tracking-[0.12em] text-[#c6b58f]/62">
-              Curator
-            </p>
+
+          <div className="mb-7 flex flex-wrap gap-3">
+            {filters.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                className={[
+                  "rounded-full border px-4 py-2 text-sm font-semibold transition duration-300",
+                  activeFilter === filter
+                    ? "border-[#e8c77b] bg-[#e8c77b] text-[#130f0a]"
+                    : "border-white/12 bg-white/[.045] text-white/68 hover:border-[#e8c77b]/60 hover:text-white",
+                ].join(" ")}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`${activeView}-${activeFilter}`}
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -18 }}
+              transition={{ duration: 0.35 }}
+              className="grid gap-6 xl:grid-cols-[1.18fr_.82fr]"
+            >
+              <div className="space-y-5">
+                {(activeView === "Memories" ? trips.filter((trip) => trip.status === "Completed") : visibleTrips).map((trip, index) => (
+                  <TripCard
+                    key={trip.id}
+                    trip={trip}
+                    index={index}
+                    active={selectedTrip.id === trip.id}
+                    onSelect={() => setSelectedTripId(trip.id)}
+                  />
+                ))}
+              </div>
+
+              <aside className="space-y-5 xl:sticky xl:top-6 xl:self-start">
+                <SelectedTripPanel trip={selectedTrip} />
+                <CollaboratorsPanel />
+              </aside>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      <section className="px-4 pb-20 sm:px-6 lg:px-10">
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[.95fr_1.05fr]">
+          <MemoriesPanel />
+          <div className="grid gap-6">
+            <JournalPanel />
+            <SavedPlacesPanel />
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 }
 
-function TripCard({ trip, index }: { trip: Trip; index: number }) {
+function TripCard({
+  trip,
+  index,
+  active,
+  onSelect,
+}: {
+  trip: Trip;
+  index: number;
+  active: boolean;
+  onSelect: () => void;
+}) {
   return (
     <motion.article
       layout
-      initial={{ opacity: 0, y: 34 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      whileHover={{ y: -8 }}
-      className="group relative grid overflow-hidden rounded-[28px] border border-[#ead7a7]/10 bg-[#08100f]/72 shadow-[0_32px_120px_rgba(0,0,0,.42)] backdrop-blur-xl md:grid-cols-[minmax(250px,.68fr)_minmax(0,1fr)]"
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, delay: index * 0.04 }}
+      className={[
+        "group overflow-hidden rounded-[1.75rem] border bg-white/[.05] shadow-[0_28px_90px_rgba(0,0,0,.32)] transition duration-300",
+        active ? "border-[#e8c77b]/70" : "border-white/12 hover:border-[#e8c77b]/45",
+      ].join(" ")}
     >
-      <div className="relative min-h-[270px] overflow-hidden md:min-h-[292px]">
-        <Image
-          src={trip.image}
-          alt={`${trip.title} cinematic travel scene`}
-          fill
-          sizes="(min-width: 1280px) 410px, (min-width: 768px) 42vw, 100vw"
-          className={`object-cover transition duration-[1400ms] ease-out group-hover:scale-110 ${trip.imagePosition ?? ""}`}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.04),rgba(0,0,0,.56)),linear-gradient(180deg,transparent_44%,rgba(0,0,0,.52))]" />
-      </div>
-      <div className="relative flex min-h-[292px] flex-col justify-center px-6 py-8 sm:px-9 lg:px-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(215,177,107,.11),transparent_19rem),linear-gradient(120deg,rgba(255,255,255,.045),transparent_42%)]" />
-        <div className="relative">
-          <div className="flex flex-wrap items-start justify-between gap-5">
-            <h2 className="text-[clamp(1.85rem,4vw,3.15rem)] leading-[1.02] text-[#fff7e7]">
-              {trip.title}
-            </h2>
-            <span
-              className={`rounded-full border px-4 py-2 font-sans text-[0.74rem] font-medium ${statusStyles[trip.status]}`}
-            >
+      <button type="button" onClick={onSelect} className="grid w-full text-left md:grid-cols-[minmax(250px,.58fr)_1fr]">
+        <div className="relative min-h-72 overflow-hidden">
+          <Image
+            src={trip.image}
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 430px, (min-width: 768px) 44vw, 100vw"
+            className="object-cover transition duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-transparent to-transparent" />
+        </div>
+        <div className="p-6 sm:p-8">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${statusTone[trip.status]}`}>
               {trip.status}
             </span>
+            <span className="text-sm font-semibold text-[#e8c77b]">{trip.progress}% complete</span>
           </div>
-
-          <div className="mt-7 grid gap-3 font-sans text-[0.92rem] leading-6 text-[#e7d9c2]/78">
-            <p>{trip.dates}</p>
-            <p>{trip.cities}</p>
+          <h3 className="mt-5 text-4xl text-white">{trip.title}</h3>
+          <p className="mt-4 text-sm font-semibold uppercase tracking-[.18em] text-white/45">{trip.dates}</p>
+          <p className="mt-3 text-base text-white/72">{trip.route}</p>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-white/58">{trip.mood}</p>
+          <div className="mt-7 h-2 overflow-hidden rounded-full bg-white/10">
+            <div className="h-full rounded-full bg-[#e8c77b]" style={{ width: `${trip.progress}%` }} />
           </div>
-          <p className="mt-7 max-w-2xl font-sans text-[1rem] leading-8 text-[#f1e6d3]/78">
-            {trip.description}
-          </p>
         </div>
-        <ChevronRight className="absolute bottom-7 right-7 h-5 w-5 text-[#efd28f]/72 transition duration-300 group-hover:translate-x-1 group-hover:text-[#ffe3a3]" />
-      </div>
+      </button>
     </motion.article>
   );
 }
 
-export function MyTripsPage() {
-  const [activeTab, setActiveTab] = useState<TripTab>("Upcoming");
-  const [menuOpen, setMenuOpen] = useState(false);
-  const visibleTrips = trips.filter((trip) => trip.tab === activeTab);
+function SelectedTripPanel({ trip }: { trip: Trip }) {
+  const [openPanel, setOpenPanel] = useState<"Status" | "Places" | "Journal">("Status");
 
   return (
-    <main className="relative min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-[#030504] font-sans text-[#f8edd7]">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_82%_8%,rgba(215,177,107,.18),transparent_31rem),radial-gradient(circle_at_14%_42%,rgba(71,99,83,.16),transparent_31rem),linear-gradient(145deg,#020303,#07100f_45%,#030504)]" />
-      <motion.div
-        aria-hidden
-        animate={{ opacity: [0.22, 0.36, 0.22], scale: [1, 1.06, 1] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="fixed right-[-12rem] top-[-12rem] -z-10 h-[32rem] w-[32rem] rounded-full bg-[#d7b16b]/10 blur-3xl"
-      />
-
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-[86px] border-r border-[#d7b16b]/12 bg-[#020504]/86 shadow-[24px_0_80px_rgba(0,0,0,.42)] backdrop-blur-2xl md:block lg:w-[252px]">
-        <div className="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-[#d7b16b]/36 to-transparent" />
-        <SidebarContent />
-      </aside>
-
-      <button
-        type="button"
-        aria-label="Open navigation"
-        onClick={() => setMenuOpen(true)}
-        className="fixed left-4 top-4 z-40 grid h-12 w-12 place-items-center rounded-full border border-[#d7b16b]/18 bg-black/42 text-[#fff1d6] shadow-[0_18px_50px_rgba(0,0,0,.36)] backdrop-blur-xl transition hover:border-[#d7b16b]/45 md:hidden"
-      >
-        <Menu className="h-5 w-5" />
-      </button>
-
-      <AnimatePresence>
-        {menuOpen ? (
+    <section className="rounded-[1.5rem] border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.035))] p-6 backdrop-blur-xl">
+      <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Selected trip</p>
+      <h2 className="mt-3 text-4xl text-white">{trip.title}</h2>
+      <div className="mt-5 flex gap-2 rounded-full border border-white/10 bg-black/18 p-1">
+        {(["Status", "Places", "Journal"] as const).map((panel) => (
+          <button
+            key={panel}
+            type="button"
+            onClick={() => setOpenPanel(panel)}
+            className={[
+              "flex-1 rounded-full px-3 py-2 text-xs font-semibold transition",
+              openPanel === panel ? "bg-[#e8c77b] text-[#130f0a]" : "text-white/58 hover:bg-white/10 hover:text-white",
+            ].join(" ")}
+          >
+            {panel}
+          </button>
+        ))}
+      </div>
+      <div className="mt-6 rounded-2xl border border-white/10 bg-black/22 p-5">
+        {openPanel === "Status" ? (
           <>
-            <motion.button
-              type="button"
-              aria-label="Close navigation overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-50 bg-black/68 backdrop-blur-sm md:hidden"
-            />
-            <motion.aside
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-y-0 left-0 z-50 w-[min(86vw,330px)] border-r border-[#d7b16b]/16 bg-[#020504]/96 shadow-[30px_0_90px_rgba(0,0,0,.58)] backdrop-blur-2xl md:hidden"
-            >
-              <SidebarContent onClose={() => setMenuOpen(false)} />
-            </motion.aside>
+            <p className="text-sm text-white/62">Trip status</p>
+            <p className="mt-2 text-2xl text-white">{trip.status}</p>
+            <p className="mt-4 text-sm leading-7 text-white/55">{statusCopy[trip.status]}</p>
           </>
         ) : null}
-      </AnimatePresence>
+        {openPanel === "Places" ? (
+          <>
+            <p className="text-sm text-white/62">Saved places</p>
+            <p className="mt-2 text-2xl text-white">4 linked places</p>
+            <p className="mt-4 text-sm leading-7 text-white/55">Restaurants, stays, viewpoints, and experiences attached to this trip.</p>
+          </>
+        ) : null}
+        {openPanel === "Journal" ? (
+          <>
+            <p className="text-sm text-white/62">Linked journal</p>
+            <p className="mt-2 text-2xl text-white">2 entries</p>
+            <p className="mt-4 text-sm leading-7 text-white/55">Notes and reflections connected to this journey.</p>
+          </>
+        ) : null}
+      </div>
+    </section>
+  );
+}
 
-      <section className="relative min-h-screen max-w-full overflow-hidden md:ml-[86px] md:max-w-[calc(100vw-86px)] lg:ml-[252px] lg:max-w-[calc(100vw-252px)]">
-        <motion.header
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.9 }}
-          className="relative min-h-[78vh] overflow-hidden"
-        >
-          <motion.div
-            aria-hidden
-            animate={{ scale: [1, 1.045, 1], x: [0, -12, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute inset-0"
+function CollaboratorsPanel() {
+  const [selected, setSelected] = useState(collaborators[0][0]);
+
+  return (
+    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-6">
+      <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Collaborators</p>
+      <div className="mt-5 space-y-3">
+        {collaborators.map(([name, role, state]) => (
+          <button
+            key={name}
+            type="button"
+            onClick={() => setSelected(name)}
+            className={[
+              "flex w-full items-center justify-between gap-4 rounded-2xl border p-4 text-left transition",
+              selected === name ? "border-[#e8c77b] bg-[#e8c77b]/12" : "border-white/10 bg-black/12 hover:border-white/25",
+            ].join(" ")}
           >
-            <Image
-              src="https://images.unsplash.com/photo-1633321088355-d0f81134ca3b?auto=format&fit=crop&w=2400&q=88"
-              alt="Amalfi Coast sunset over the sea"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,5,4,.94)_0%,rgba(3,5,4,.66)_34%,rgba(3,5,4,.2)_66%,rgba(3,5,4,.72)_100%),linear-gradient(180deg,rgba(3,5,4,.18)_0%,rgba(3,5,4,.15)_55%,#030504_100%)]" />
-          <div className="absolute inset-0 shadow-[inset_0_0_180px_rgba(0,0,0,.78)]" />
+            <span>
+              <span className="block font-semibold text-white">{name}</span>
+              <span className="block text-sm text-white/54">{role}</span>
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[.14em] text-[#e8c77b]">{state}</span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-          <div className="relative z-10 flex min-h-[78vh] items-center px-6 pb-24 pt-28 sm:px-10 md:px-12 lg:px-16 xl:px-20">
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-4xl rounded-[28px] border border-[#f1d9a2]/10 bg-black/18 p-6 shadow-[0_30px_120px_rgba(0,0,0,.36)] backdrop-blur-md sm:p-8 lg:p-10"
-            >
-              <p className="mb-5 font-sans text-[0.72rem] font-medium uppercase tracking-[0.28em] text-[#e5bf74]/86">
-                Cinematic Travel Journal
-              </p>
-              <h1 className="text-[clamp(4rem,10vw,9.8rem)] leading-[0.86] text-[#fff8ed] drop-shadow-[0_18px_54px_rgba(0,0,0,.62)]">
-                My Trips
-              </h1>
-              <p className="mt-7 max-w-2xl font-sans text-[clamp(1rem,2.2vw,1.45rem)] leading-8 text-[#f2e4cd]/84">
-                Your journeys, beautifully remembered.
-              </p>
-              <motion.button
-                type="button"
-                whileHover={{ y: -3, scale: 1.015 }}
-                whileTap={{ scale: 0.98 }}
-                className="mt-10 inline-flex h-14 items-center gap-3 rounded-[16px] border border-[#f0d391]/28 bg-[rgba(198,154,82,.92)] px-7 font-sans text-[0.94rem] font-medium text-[#150f08] shadow-[0_20px_70px_rgba(198,154,82,.3)] transition hover:bg-[#e3bd76]"
-              >
-                <Plus className="h-5 w-5" strokeWidth={1.7} />
-                New Trip
-              </motion.button>
-            </motion.div>
-          </div>
-        </motion.header>
+function MemoriesPanel() {
+  const [selected, setSelected] = useState(memories[0].title);
 
-        <div className="relative px-5 pb-16 sm:px-8 md:px-10 lg:px-14 xl:px-20">
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="mx-auto -mt-16 max-w-[1180px]"
+  return (
+    <section className="rounded-[1.75rem] border border-white/12 bg-white/[.045] p-5 sm:p-6">
+      <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Trip memories</p>
+      <h2 className="mt-3 text-4xl text-white">Moments worth keeping.</h2>
+      <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+        {memories.map((memory) => (
+          <button
+            key={memory.title}
+            type="button"
+            onClick={() => setSelected(memory.title)}
+            className={[
+              "group overflow-hidden rounded-[1.25rem] border text-left transition duration-300 hover:-translate-y-1",
+              selected === memory.title ? "border-[#e8c77b]" : "border-white/10 hover:border-[#e8c77b]/45",
+            ].join(" ")}
           >
-            <div className="flex gap-10 border-b border-[#d7b16b]/13">
-              {tabs.map((tab) => (
-                <button
-                  key={tab}
-                  type="button"
-                  onClick={() => setActiveTab(tab)}
-                  className={`relative pb-5 font-sans text-[0.95rem] transition duration-300 ${
-                    activeTab === tab ? "text-[#fff4df]" : "text-[#cfc2ac]/62 hover:text-[#f4dfb8]"
-                  }`}
-                >
-                  {tab}
-                  {activeTab === tab ? (
-                    <motion.span
-                      layoutId="trip-tab-underline"
-                      className="absolute inset-x-0 bottom-[-1px] h-px bg-[#e6bd73] shadow-[0_0_18px_rgba(230,189,115,.78)]"
-                    />
-                  ) : null}
-                </button>
-              ))}
+            <div className="relative h-44">
+              <Image src={memory.image} alt="" fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/78 to-transparent" />
             </div>
+            <div className="p-4">
+              <h3 className="text-2xl text-white">{memory.title}</h3>
+              <p className="mt-2 text-sm text-white/55">{memory.trip}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.35 }}
-                className="mt-8 space-y-7 lg:mt-10 lg:space-y-8"
-              >
-                {visibleTrips.map((trip, index) => (
-                  <TripCard key={trip.title} trip={trip} index={index} />
-                ))}
-              </motion.div>
-            </AnimatePresence>
+function JournalPanel() {
+  const [selected, setSelected] = useState(journalEntries[0][0]);
 
-            <motion.section
-              initial={{ opacity: 0, y: 34 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-              className="relative mt-14 overflow-hidden rounded-[30px] border border-[#d7b16b]/14 bg-[#0a0d0b] shadow-[0_36px_130px_rgba(0,0,0,.46)]"
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1800&q=88"
-                alt="Cinematic camera in warm travel light"
-                fill
-                sizes="(min-width: 1024px) 1180px, 100vw"
-                className="object-cover opacity-52"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(5,6,5,.94),rgba(5,6,5,.64)_48%,rgba(5,6,5,.32)),radial-gradient(circle_at_82%_26%,rgba(232,190,109,.28),transparent_22rem)]" />
-              <div className="relative grid min-h-[330px] items-center gap-8 px-7 py-10 sm:px-10 lg:grid-cols-[1fr_auto] lg:px-14">
-                <div>
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full border border-[#d7b16b]/20 bg-[#d7b16b]/10">
-                    <Compass className="h-5 w-5 text-[#f1cf88]" strokeWidth={1.45} />
-                  </div>
-                  <h2 className="max-w-2xl text-[clamp(2.25rem,5vw,4.5rem)] leading-[0.95] text-[#fff8ed]">
-                    Ready for your next adventure?
-                  </h2>
-                  <p className="mt-6 max-w-xl font-sans text-[1rem] leading-8 text-[#eaddc6]/78">
-                    Start planning your next journey and create memories that last a lifetime.
-                  </p>
-                </div>
-                <motion.button
-                  type="button"
-                  whileHover={{ y: -3, scale: 1.015 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="inline-flex h-14 w-max items-center gap-3 rounded-[16px] border border-[#f0d391]/25 bg-[rgba(214,167,96,.92)] px-7 font-sans text-[0.94rem] font-medium text-[#140f08] shadow-[0_22px_70px_rgba(214,167,96,.28)] transition hover:bg-[#e7c27e]"
-                >
-                  <Plus className="h-5 w-5" strokeWidth={1.7} />
-                  New Trip
-                </motion.button>
-              </div>
-            </motion.section>
+  return (
+    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-6">
+      <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Linked journal entries</p>
+      <div className="mt-5 grid gap-3">
+        {journalEntries.map(([title, trip, state]) => (
+          <button
+            key={title}
+            type="button"
+            onClick={() => setSelected(title)}
+            className={[
+              "rounded-2xl border p-4 text-left transition",
+              selected === title ? "border-[#e8c77b] bg-[#e8c77b]/12" : "border-white/10 bg-black/12 hover:border-white/25",
+            ].join(" ")}
+          >
+            <span className="block font-semibold text-white">{title}</span>
+            <span className="mt-1 block text-sm text-white/55">
+              {trip} / {state}
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-            <motion.blockquote
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.9 }}
-              className="mx-auto mt-16 max-w-3xl text-center font-display text-[clamp(1.8rem,4vw,3.8rem)] italic leading-tight text-[#ead6ad]/72"
-            >
-              <Feather className="mx-auto mb-7 h-6 w-6 text-[#d7b16b]/70" strokeWidth={1.35} />
-              Every journey returns first as light, then as memory.
-            </motion.blockquote>
-          </motion.div>
-        </div>
-      </section>
-    </main>
+function SavedPlacesPanel() {
+  const [selected, setSelected] = useState(savedPlaces[0][0]);
+
+  return (
+    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-6">
+      <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Saved places</p>
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        {savedPlaces.map(([place, city, type]) => (
+          <button
+            key={place}
+            type="button"
+            onClick={() => setSelected(place)}
+            className={[
+              "rounded-2xl border p-4 text-left transition",
+              selected === place ? "border-[#e8c77b] bg-[#e8c77b]/12" : "border-white/10 bg-black/12 hover:border-white/25",
+            ].join(" ")}
+          >
+            <span className="block font-semibold text-white">{place}</span>
+            <span className="mt-1 block text-sm text-white/55">
+              {city} / {type}
+            </span>
+          </button>
+        ))}
+      </div>
+    </section>
   );
 }

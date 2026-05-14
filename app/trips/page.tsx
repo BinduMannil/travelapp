@@ -3,9 +3,9 @@ import { MyTripsPage } from "@/components/trips/MyTripsPage";
 import { montserrat } from "@/app/fonts";
 
 export const metadata: Metadata = {
-  title: "My Trips / Journee Journal",
+  title: "Trips Dashboard / Journee",
   description:
-    "Browse cinematic JOURNEE trip cards with journey progress, places, photos, dates, and upcoming travel.",
+    "Manage active, upcoming, drafted, and completed Journee trips with collaborators, memories, journals, saved places, and trip status.",
 };
 
 export default function TripsPage() {
