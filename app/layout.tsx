@@ -50,18 +50,34 @@ const globalUiCorrectionsCss = `
   }
 
   header nav {
-    padding-left: clamp(1.25rem, 2vw, 2rem) !important;
-    padding-right: clamp(1.25rem, 2vw, 2rem) !important;
-    gap: clamp(0.75rem, 1.25vw, 1.35rem) !important;
+    padding-left: clamp(1.5rem, 2.2vw, 2.35rem) !important;
+    padding-right: clamp(1.5rem, 2.2vw, 2.35rem) !important;
+    gap: clamp(0.9rem, 1.35vw, 1.55rem) !important;
+  }
+
+  header > div > nav {
+    min-width: min(44rem, calc(100vw - 24rem)) !important;
+    justify-content: center !important;
+    padding-left: clamp(2.25rem, 3vw, 3.25rem) !important;
+    padding-right: clamp(2.25rem, 3vw, 3.25rem) !important;
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
+  }
+
+  header > div > nav a {
+    min-width: 5.25rem !important;
+    justify-content: center !important;
+    padding-left: clamp(1.35rem, 1.8vw, 1.9rem) !important;
+    padding-right: clamp(1.35rem, 1.8vw, 1.9rem) !important;
   }
 
   header nav a,
   header nav button {
-    min-height: 2.75rem !important;
-    padding-left: clamp(1rem, 1.45vw, 1.55rem) !important;
-    padding-right: clamp(1rem, 1.45vw, 1.55rem) !important;
-    padding-top: 0.72rem !important;
-    padding-bottom: 0.72rem !important;
+    min-height: 2.9rem !important;
+    padding-left: clamp(1.15rem, 1.55vw, 1.7rem) !important;
+    padding-right: clamp(1.15rem, 1.55vw, 1.7rem) !important;
+    padding-top: 0.78rem !important;
+    padding-bottom: 0.78rem !important;
     border-radius: 999px !important;
   }
 
