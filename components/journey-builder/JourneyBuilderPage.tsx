@@ -2,6 +2,10 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { CinematicTopNav } from "@/components/layout/CinematicTopNav";
+import { JourneeGlassPanel } from "@/components/ui/JourneeGlassPanel";
+import { SegmentedTabs } from "@/components/ui/SegmentedTabs";
+import { StatusBadge } from "@/components/ui/StatusBadge";
 
 type Travelers = "Solo" | "Couple" | "Friends" | "Family";
 type Budget = "Budget" | "Balanced" | "Premium" | "Ultra luxury";
@@ -37,6 +41,7 @@ const destinationSuggestions = [
 ];
 
 const travelStyles = ["Luxury", "Adventure", "Culture", "Wellness", "Foodie", "Hidden gems"];
+const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
 const interests = [
   "Boutique hotels",
   "Private guides",
@@ -94,16 +99,6 @@ const savedDrafts = [
   },
 ];
 
-function optionClasses(active: boolean) {
-  return [
-    "rounded-full border px-4 py-2 text-sm font-semibold transition duration-300",
-    "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8c77b]",
-    active
-      ? "border-[#e8c77b] bg-[#e8c77b] text-[#130f0a] shadow-[0_0_28px_rgba(232,199,123,.34)]"
-      : "border-white/15 bg-white/[.06] text-white/78 hover:border-[#e8c77b]/70 hover:bg-white/[.11] hover:text-white",
-  ].join(" ");
-}
-
 export function JourneyBuilderPage() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [destination, setDestination] = useState("Kyoto, Japan");
@@ -155,6 +150,11 @@ export function JourneyBuilderPage() {
 
   return (
     <main className="journee-page-frame min-h-screen bg-[#040605] text-white">
+      <CinematicTopNav
+        navItems={navItems.map((label) => ({ label }))}
+        searchPlaceholder="Search destinations, trips, guides..."
+        avatar={false}
+      />
       <section className="relative isolate min-h-[88vh] overflow-hidden px-4 py-6 sm:px-6 lg:px-10">
         {heroFrames.map((frame, index) => (
           <div
@@ -189,15 +189,15 @@ export function JourneyBuilderPage() {
             </div>
           </div>
 
-          <section className="rounded-[1.75rem] border border-white/14 bg-black/40 p-4 shadow-[0_32px_100px_rgba(0,0,0,.46)] backdrop-blur-xl sm:p-6 lg:p-7">
+          <JourneeGlassPanel className="rounded-[1.75rem] border-white/14 bg-black/40 p-4 shadow-[0_32px_100px_rgba(0,0,0,.46)] sm:p-6 lg:p-7">
             <div className="mb-5 flex items-start justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Begin here</p>
                 <h2 className="mt-2 text-3xl text-white">Journey brief</h2>
               </div>
-              <span className="rounded-full border border-white/12 bg-white/8 px-3 py-1 text-xs text-white/70">
+              <StatusBadge variant="premium" className="border-white/12 bg-white/8 text-white/70">
                 Live draft
-              </span>
+              </StatusBadge>
             </div>
 
             <div className="space-y-5">
@@ -264,13 +264,13 @@ export function JourneyBuilderPage() {
                 />
               </label>
             </div>
-          </section>
+          </JourneeGlassPanel>
         </div>
       </section>
 
       <section className="px-4 pb-20 pt-8 sm:px-6 lg:px-10">
         <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[.78fr_1.22fr]">
-          <aside className="rounded-[1.5rem] border border-[#e8c77b]/18 bg-[linear-gradient(160deg,rgba(232,199,123,.14),rgba(255,255,255,.055)_42%,rgba(255,255,255,.025))] p-6 backdrop-blur-xl lg:sticky lg:top-6 lg:self-start">
+          <JourneeGlassPanel tone="gold" as="aside" className="p-6 lg:sticky lg:top-6 lg:self-start">
             <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Current composition</p>
             <h2 className="mt-3 text-4xl text-white">{selectedDestination}</h2>
             <div className="mt-6 space-y-4 text-sm text-white/70">
@@ -301,17 +301,21 @@ export function JourneyBuilderPage() {
                 </div>
               </div>
             </div>
-          </aside>
+          </JourneeGlassPanel>
 
           <div className="space-y-6">
             <BuilderPanel title="Travelers" kicker="Who is this journey for?">
-              <div className="flex flex-wrap gap-3">
-                {(["Solo", "Couple", "Friends", "Family"] as Travelers[]).map((item) => (
-                  <button key={item} type="button" onClick={() => setTravelers(item)} className={optionClasses(travelers === item)}>
-                    {item}
-                  </button>
-                ))}
-              </div>
+              <SegmentedTabs
+                aria-label="Travelers"
+                items={(["Solo", "Couple", "Friends", "Family"] as Travelers[]).map((item) => ({
+                  value: item,
+                  label: item,
+                }))}
+                value={travelers}
+                onValueChange={setTravelers}
+                className="flex-wrap border-0 bg-transparent p-0"
+                itemClassName="border"
+              />
             </BuilderPanel>
 
             <BuilderPanel title="Travel Style" kicker="Choose the soul of the trip.">
@@ -349,23 +353,31 @@ export function JourneyBuilderPage() {
 
             <div className="grid gap-6 xl:grid-cols-2">
               <BuilderPanel title="Budget Comfort" kicker="Set the level of ease.">
-                <div className="flex flex-wrap gap-3">
-                  {(["Budget", "Balanced", "Premium", "Ultra luxury"] as Budget[]).map((item) => (
-                    <button key={item} type="button" onClick={() => setBudget(item)} className={optionClasses(budget === item)}>
-                      {item}
-                    </button>
-                  ))}
-                </div>
+                <SegmentedTabs
+                  aria-label="Budget comfort"
+                  items={(["Budget", "Balanced", "Premium", "Ultra luxury"] as Budget[]).map((item) => ({
+                    value: item,
+                    label: item,
+                  }))}
+                  value={budget}
+                  onValueChange={setBudget}
+                  className="flex-wrap border-0 bg-transparent p-0"
+                  itemClassName="border"
+                />
               </BuilderPanel>
 
               <BuilderPanel title="Pace" kicker="How should the days move?">
-                <div className="flex flex-wrap gap-3">
-                  {(["Slow", "Balanced", "Fast-paced"] as Pace[]).map((item) => (
-                    <button key={item} type="button" onClick={() => setPace(item)} className={optionClasses(pace === item)}>
-                      {item}
-                    </button>
-                  ))}
-                </div>
+                <SegmentedTabs
+                  aria-label="Pace"
+                  items={(["Slow", "Balanced", "Fast-paced"] as Pace[]).map((item) => ({
+                    value: item,
+                    label: item,
+                  }))}
+                  value={pace}
+                  onValueChange={setPace}
+                  className="flex-wrap border-0 bg-transparent p-0"
+                  itemClassName="border"
+                />
               </BuilderPanel>
             </div>
 
@@ -443,7 +455,7 @@ export function JourneyBuilderPage() {
               ))}
             </div>
 
-            <div className="mt-6 rounded-[1.5rem] border border-white/12 bg-[linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035))] p-5 backdrop-blur-xl sm:p-7">
+            <JourneeGlassPanel tone="dark" className="mt-6 p-5 sm:p-7">
               <div className="grid gap-4 md:grid-cols-3">
                 {["Arrival and orientation", "Immersion and texture", "Slow close and departure"].map((day, index) => (
                   <div key={day} className="rounded-2xl border border-white/10 bg-black/20 p-5">
@@ -457,7 +469,7 @@ export function JourneyBuilderPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </JourneeGlassPanel>
           </div>
         </section>
       ) : null}
@@ -515,10 +527,10 @@ function BuilderPanel({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-5 shadow-[0_22px_70px_rgba(0,0,0,.24)] backdrop-blur-xl sm:p-6">
+    <JourneeGlassPanel className="p-5 sm:p-6">
       <p className="text-xs font-semibold uppercase tracking-[.26em] text-[#e8c77b]">{kicker}</p>
       <h2 className="mt-2 mb-5 text-3xl text-white">{title}</h2>
       {children}
-    </section>
+    </JourneeGlassPanel>
   );
 }

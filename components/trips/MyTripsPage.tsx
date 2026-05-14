@@ -4,6 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { CinematicTopNav } from "@/components/layout/CinematicTopNav";
+import { JourneeGlassPanel } from "@/components/ui/JourneeGlassPanel";
+import { SegmentedTabs } from "@/components/ui/SegmentedTabs";
+import { StatusBadge, type StatusBadgeVariant } from "@/components/ui/StatusBadge";
 
 type TripStatus = "Active" | "Upcoming" | "Draft" | "Completed";
 type View = "Overview" | TripStatus | "Memories";
@@ -139,6 +143,7 @@ const savedPlaces = [
 
 const views: View[] = ["Overview", "Active", "Upcoming", "Draft", "Completed", "Memories"];
 const filters: Filter[] = ["All", "Solo", "Couple", "Family", "Friends"];
+const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
 
 const statusCopy: Record<TripStatus, string> = {
   Active: "Trips unfolding now, with live plans and open tasks.",
@@ -147,11 +152,11 @@ const statusCopy: Record<TripStatus, string> = {
   Completed: "Finished trips, ready for memories and journals.",
 };
 
-const statusTone: Record<TripStatus, string> = {
-  Active: "border-emerald-200/18 bg-emerald-200/10 text-emerald-100",
-  Upcoming: "border-[#e8c77b]/22 bg-[#e8c77b]/13 text-[#f8df9c]",
-  Draft: "border-sky-200/18 bg-sky-200/10 text-sky-100",
-  Completed: "border-rose-200/18 bg-rose-200/10 text-rose-100",
+const statusVariant: Record<TripStatus, StatusBadgeVariant> = {
+  Active: "success",
+  Upcoming: "premium",
+  Draft: "neutral",
+  Completed: "error",
 };
 
 export function MyTripsPage() {
@@ -171,6 +176,11 @@ export function MyTripsPage() {
 
   return (
     <main className="journee-page-frame min-h-screen bg-[#030504] text-white">
+      <CinematicTopNav
+        navItems={navItems.map((label) => ({ label }))}
+        searchPlaceholder="Search trips, places, memories..."
+        avatar={false}
+      />
       <section className="relative isolate overflow-hidden px-4 pb-16 pt-10 sm:px-6 lg:px-10">
         <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_78%_10%,rgba(232,199,123,.17),transparent_28rem),radial-gradient(circle_at_12%_36%,rgba(91,124,105,.17),transparent_30rem),linear-gradient(145deg,#020303,#07100f_52%,#030504)]" />
         <div className="absolute inset-x-0 top-0 -z-10 h-[34rem] overflow-hidden opacity-60">
@@ -221,9 +231,9 @@ export function MyTripsPage() {
                       : "border-white/12 bg-white/[.055] hover:border-[#e8c77b]/55 hover:bg-white/[.085]",
                   ].join(" ")}
                 >
-                  <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${statusTone[status]}`}>
+                  <StatusBadge variant={statusVariant[status]}>
                     {count} {count === 1 ? "trip" : "trips"}
-                  </span>
+                  </StatusBadge>
                   <h2 className="mt-5 text-3xl text-white">{status}</h2>
                   <p className="mt-3 text-sm leading-6 text-white/58">{statusCopy[status]}</p>
                 </button>
@@ -240,40 +250,25 @@ export function MyTripsPage() {
               <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Trip command room</p>
               <h2 className="mt-3 text-5xl text-white">Your saved travel world.</h2>
             </div>
-            <div className="flex max-w-full gap-2 overflow-x-auto rounded-full border border-white/10 bg-white/[.045] p-2">
-              {views.map((view) => (
-                <button
-                  key={view}
-                  type="button"
-                  onClick={() => setActiveView(view)}
-                  className={[
-                    "whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition duration-300",
-                    activeView === view ? "bg-[#e8c77b] text-[#130f0a]" : "text-white/68 hover:bg-white/10 hover:text-white",
-                  ].join(" ")}
-                >
-                  {view === "Draft" ? "Saved Draft Journeys" : view}
-                </button>
-              ))}
-            </div>
+            <SegmentedTabs
+              aria-label="Trip views"
+              items={views.map((view) => ({
+                value: view,
+                label: view === "Draft" ? "Saved Draft Journeys" : view,
+              }))}
+              value={activeView}
+              onValueChange={setActiveView}
+            />
           </div>
 
-          <div className="mb-7 flex flex-wrap gap-3">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                type="button"
-                onClick={() => setActiveFilter(filter)}
-                className={[
-                  "rounded-full border px-4 py-2 text-sm font-semibold transition duration-300",
-                  activeFilter === filter
-                    ? "border-[#e8c77b] bg-[#e8c77b] text-[#130f0a]"
-                    : "border-white/12 bg-white/[.045] text-white/68 hover:border-[#e8c77b]/60 hover:text-white",
-                ].join(" ")}
-              >
-                {filter}
-              </button>
-            ))}
-          </div>
+          <SegmentedTabs
+            aria-label="Traveler filters"
+            items={filters.map((filter) => ({ value: filter, label: filter }))}
+            value={activeFilter}
+            onValueChange={setActiveFilter}
+            className="mb-7 flex-wrap border-0 bg-transparent p-0"
+            itemClassName="border"
+          />
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -353,9 +348,9 @@ function TripCard({
         </div>
         <div className="p-6 sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-3">
-            <span className={`rounded-full border px-3 py-1 text-xs font-semibold ${statusTone[trip.status]}`}>
+            <StatusBadge variant={statusVariant[trip.status]}>
               {trip.status}
-            </span>
+            </StatusBadge>
             <span className="text-sm font-semibold text-[#e8c77b]">{trip.progress}% complete</span>
           </div>
           <h3 className="mt-5 text-4xl text-white">{trip.title}</h3>
@@ -375,24 +370,20 @@ function SelectedTripPanel({ trip }: { trip: Trip }) {
   const [openPanel, setOpenPanel] = useState<"Status" | "Places" | "Journal">("Status");
 
   return (
-    <section className="rounded-[1.5rem] border border-white/12 bg-[linear-gradient(145deg,rgba(255,255,255,.08),rgba(255,255,255,.035))] p-6 backdrop-blur-xl">
+    <JourneeGlassPanel tone="dark" className="p-6">
       <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Selected trip</p>
       <h2 className="mt-3 text-4xl text-white">{trip.title}</h2>
-      <div className="mt-5 flex gap-2 rounded-full border border-white/10 bg-black/18 p-1">
-        {(["Status", "Places", "Journal"] as const).map((panel) => (
-          <button
-            key={panel}
-            type="button"
-            onClick={() => setOpenPanel(panel)}
-            className={[
-              "flex-1 rounded-full px-3 py-2 text-xs font-semibold transition",
-              openPanel === panel ? "bg-[#e8c77b] text-[#130f0a]" : "text-white/58 hover:bg-white/10 hover:text-white",
-            ].join(" ")}
-          >
-            {panel}
-          </button>
-        ))}
-      </div>
+      <SegmentedTabs
+        aria-label="Selected trip panels"
+        items={(["Status", "Places", "Journal"] as const).map((panel) => ({
+          value: panel,
+          label: panel,
+        }))}
+        value={openPanel}
+        onValueChange={setOpenPanel}
+        className="mt-5 bg-black/18 p-1"
+        itemClassName="flex-1 px-3 py-2 text-xs"
+      />
       <div className="mt-6 rounded-2xl border border-white/10 bg-black/22 p-5">
         {openPanel === "Status" ? (
           <>
@@ -416,7 +407,7 @@ function SelectedTripPanel({ trip }: { trip: Trip }) {
           </>
         ) : null}
       </div>
-    </section>
+    </JourneeGlassPanel>
   );
 }
 
@@ -424,7 +415,7 @@ function CollaboratorsPanel() {
   const [selected, setSelected] = useState(collaborators[0][0]);
 
   return (
-    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-6">
+    <JourneeGlassPanel className="p-6">
       <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Collaborators</p>
       <div className="mt-5 space-y-3">
         {collaborators.map(([name, role, state]) => (
@@ -445,7 +436,7 @@ function CollaboratorsPanel() {
           </button>
         ))}
       </div>
-    </section>
+    </JourneeGlassPanel>
   );
 }
 
@@ -453,7 +444,7 @@ function MemoriesPanel() {
   const [selected, setSelected] = useState(memories[0].title);
 
   return (
-    <section className="rounded-[1.75rem] border border-white/12 bg-white/[.045] p-5 sm:p-6">
+    <JourneeGlassPanel className="rounded-[1.75rem] p-5 sm:p-6">
       <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Trip memories</p>
       <h2 className="mt-3 text-4xl text-white">Moments worth keeping.</h2>
       <div className="mt-6 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
@@ -478,7 +469,7 @@ function MemoriesPanel() {
           </button>
         ))}
       </div>
-    </section>
+    </JourneeGlassPanel>
   );
 }
 
@@ -486,7 +477,7 @@ function JournalPanel() {
   const [selected, setSelected] = useState(journalEntries[0][0]);
 
   return (
-    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-6">
+    <JourneeGlassPanel className="p-6">
       <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Linked journal entries</p>
       <div className="mt-5 grid gap-3">
         {journalEntries.map(([title, trip, state]) => (
@@ -506,7 +497,7 @@ function JournalPanel() {
           </button>
         ))}
       </div>
-    </section>
+    </JourneeGlassPanel>
   );
 }
 
@@ -514,7 +505,7 @@ function SavedPlacesPanel() {
   const [selected, setSelected] = useState(savedPlaces[0][0]);
 
   return (
-    <section className="rounded-[1.5rem] border border-white/12 bg-white/[.045] p-6">
+    <JourneeGlassPanel className="p-6">
       <p className="text-xs font-semibold uppercase tracking-[.28em] text-[#e8c77b]">Saved places</p>
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         {savedPlaces.map(([place, city, type]) => (
@@ -534,6 +525,6 @@ function SavedPlacesPanel() {
           </button>
         ))}
       </div>
-    </section>
+    </JourneeGlassPanel>
   );
 }
