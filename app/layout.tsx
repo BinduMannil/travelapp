@@ -11,7 +11,6 @@ import { ConsentBanner } from "@/components/consent/ConsentBanner";
 import { AlertBanner } from "@/components/alerts/AlertBanner";
 import { getActiveAlerts } from "@/lib/alerts";
 import { AppContentFrame } from "@/components/layout/AppContentFrame";
-import { GlobalTravelPreferencesAccess } from "@/components/layout/GlobalTravelPreferencesAccess";
 
 export const metadata: Metadata = {
   title: {
@@ -77,7 +76,6 @@ export default async function RootLayout({
             <PreferencesProvider rates={rates} defaultCurrency="AED">
               <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
               <AppContentFrame variant="flush">{children}</AppContentFrame>
-              <GlobalTravelPreferencesAccess />
               <ConsentBanner />
             </PreferencesProvider>
           </ConsentProvider>
