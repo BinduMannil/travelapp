@@ -38,6 +38,19 @@ export const metadata: Metadata = {
   },
 };
 
+const avatarSuppressionCss = `
+  img[alt="Profile"],
+  img[alt="Profile avatar"],
+  img[alt*="avatar" i],
+  img[src*="photo-1494790108377"],
+  img[src*="photo-1526772662000"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+`;
+
 export default async function RootLayout({
   children,
 }: {
@@ -58,6 +71,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-[#050807] font-sans text-white antialiased">
+        <style dangerouslySetInnerHTML={{ __html: avatarSuppressionCss }} />
         <I18nProvider defaultLocale={locale}>
           <ConsentProvider>
             <PreferencesProvider rates={rates} defaultCurrency="AED">
