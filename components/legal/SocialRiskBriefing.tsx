@@ -113,8 +113,8 @@ function SourceLinks({ risks }: { risks: LegalSocialRisk[] }) {
   );
 
   return (
-    <div className="mt-8 border-t border-white/12 pt-6">
-      <p className="luxury-kicker text-white/48">Official sources</p>
+    <div className="mt-8 border-t border-[#efd9ae]/[0.22] pt-6">
+      <p className="luxury-kicker text-[#d8c6a5]">Official sources</p>
       <div className="mt-4 flex flex-wrap gap-3">
         {sources.map((risk) => (
           <a
@@ -122,7 +122,7 @@ function SourceLinks({ risks }: { risks: LegalSocialRisk[] }) {
             href={risk.source_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-full border border-white/14 bg-white/[0.06] px-4 py-2 text-sm font-semibold text-white/72 transition hover:border-kintsugi-300/70 hover:text-white"
+            className="rounded-full border border-[#efd9ae]/20 bg-[#fff7e7]/[0.07] px-4 py-2 text-sm font-semibold text-[#f0e6d2] transition hover:border-kintsugi-300/70 hover:text-white"
           >
             {formatSourceLabel(risk.source_label)} →
           </a>
@@ -158,23 +158,23 @@ export function SocialRiskBriefing({
     "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.";
 
   return (
-    <section className="relative isolate overflow-hidden bg-[#0b0b0a] px-6 py-20 text-washi-50 sm:py-28">
+    <section className="relative isolate overflow-hidden bg-[#11100d] px-6 py-20 text-[#f6eddb] sm:py-28">
       <div
-        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_18%_8%,rgba(216,173,79,.18),transparent_30%),radial-gradient(circle_at_86%_22%,rgba(90,135,142,.18),transparent_32%),linear-gradient(180deg,rgba(9,9,8,.96),rgba(9,9,8,.88))]"
+        className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_18%_8%,rgba(216,173,79,.1),transparent_30%),radial-gradient(circle_at_86%_22%,rgba(90,135,142,.1),transparent_32%),linear-gradient(180deg,rgba(17,16,13,.98),rgba(17,16,13,.94))]"
         aria-hidden
       />
       <div
-        className="absolute inset-0 -z-10 opacity-[0.14] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:38px_38px]"
+        className="absolute inset-0 -z-10 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:38px_38px]"
         aria-hidden
       />
       <div
-        className="absolute left-1/2 top-28 -z-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-kintsugi-300/10 blur-3xl"
+        className="absolute left-1/2 top-28 -z-10 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-kintsugi-300/[0.055] blur-3xl"
         aria-hidden
       />
       <div className="absolute inset-x-0 top-0 -z-10 h-px bg-gradient-to-r from-transparent via-kintsugi-300/35 to-transparent" />
 
       <div className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-[linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.035)),rgba(0,0,0,.22)] p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8 lg:p-10">
+        <div className="relative overflow-hidden rounded-[2rem] border border-[#efd9ae]/20 bg-[linear-gradient(135deg,rgba(255,247,231,.08),rgba(255,247,231,.035)),rgba(24,20,16,.86)] p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8 lg:p-10">
           <div
             className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_58%_38%,rgba(216,173,79,.16),transparent_34%),linear-gradient(90deg,transparent,rgba(255,255,255,.05))]"
             aria-hidden
@@ -184,29 +184,29 @@ export function SocialRiskBriefing({
             <p className="luxury-kicker text-kintsugi-300">
               Street-smart traveler briefing
             </p>
-            <h2 className="mt-4 max-w-3xl font-sans text-[clamp(2.45rem,5vw,5.4rem)] font-semibold leading-[0.96] text-white">
+            <h2 className="mt-4 max-w-3xl font-sans text-[clamp(2.45rem,5vw,5.4rem)] font-semibold leading-[0.96] text-[#fff8ea]">
               Know the local line before you cross it.
             </h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-white/72">
+            <p className="mt-6 max-w-xl text-base leading-8 text-[#f0e6d2]">
               A calm, source-backed briefing for {destinationName}: practical
               conduct, speech, filming, medication and official-interaction
               awareness without the drama of a warning page.
             </p>
           </div>
 
-          <div className="rounded-[1.35rem] border border-white/14 bg-black/28 p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8">
+          <div className="rounded-[1.35rem] border border-[#efd9ae]/20 bg-[#11100d]/72 p-6 shadow-editorial-deep backdrop-blur-xl sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-4">
               <span
                 className={`rounded-full border px-4 py-2 text-sm font-bold ${highest.badge}`}
               >
                 {highest.label}
               </span>
-              <span className="text-sm text-white/54">
+              <span className="text-sm text-[#d8c6a5]">
                 Reviewed {reviewedLabel(visibleRisks)}
               </span>
             </div>
-            <p className="mt-5 text-lg leading-8 text-white/82">{highest.text}</p>
-            <p className="mt-4 rounded-[1rem] border border-white/12 bg-white/[0.06] p-4 text-sm leading-7 text-white/68">
+            <p className="mt-5 text-lg leading-8 text-[#f6eddb]">{highest.text}</p>
+            <p className="mt-4 rounded-[1rem] border border-[#efd9ae]/[0.18] bg-[#fff7e7]/[0.07] p-4 text-sm leading-7 text-[#eadcc4]">
               {disclaimer}
             </p>
           </div>
@@ -221,10 +221,10 @@ export function SocialRiskBriefing({
             return (
               <article
                 key={risk.risk_category}
-                className={`group relative overflow-hidden rounded-[1.35rem] border border-white/14 bg-[linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.035))] p-6 shadow-editorial-deep transition hover:-translate-y-1 hover:border-kintsugi-300/45 hover:bg-white/[0.075] ${featuredCardClass(risk.risk_level)}`}
+                className={`group relative overflow-hidden rounded-[1.35rem] border border-[#efd9ae]/[0.18] bg-[linear-gradient(145deg,rgba(255,247,231,.08),rgba(255,247,231,.035))] p-6 shadow-editorial-deep transition hover:-translate-y-1 hover:border-kintsugi-300/45 hover:bg-[#fff7e7]/[0.075] ${featuredCardClass(risk.risk_level)}`}
               >
                 <div
-                  className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/[0.055] blur-2xl transition group-hover:bg-kintsugi-300/[0.08]"
+                  className="absolute -right-10 -top-10 h-36 w-36 rounded-full bg-white/[0.035] blur-2xl transition group-hover:bg-kintsugi-300/[0.06]"
                   aria-hidden
                 />
                 <span
@@ -239,13 +239,13 @@ export function SocialRiskBriefing({
                     {risk.risk_level}
                   </span>
                 </div>
-                <h3 className="relative mt-6 font-sans text-[clamp(1.6rem,2.6vw,2.55rem)] font-semibold leading-tight text-white">
+                <h3 className="relative mt-6 font-sans text-[clamp(1.6rem,2.6vw,2.55rem)] font-semibold leading-tight text-[#fff8ea]">
                   {category.title}
                 </h3>
-                <p className="relative mt-2 text-xs uppercase tracking-[0.12em] text-white/42">
+                <p className="relative mt-2 text-xs uppercase tracking-[0.12em] text-[#d8c6a5]">
                   {LEGAL_SOCIAL_RISK_CATEGORY_LABELS[risk.risk_category]}
                 </p>
-                <p className="relative mt-5 text-sm leading-7 text-white/72">
+                <p className="relative mt-5 text-sm leading-7 text-[#f0e6d2]">
                   {category.short}
                 </p>
               </article>
@@ -261,16 +261,16 @@ export function SocialRiskBriefing({
             return (
               <details
                 key={`${risk.risk_category}-details`}
-                className="group rounded-[1.2rem] border border-white/14 bg-black/24 p-5 shadow-editorial-deep transition hover:border-white/24 open:bg-white/[0.075]"
+                className="group rounded-[1.2rem] border border-[#efd9ae]/[0.18] bg-[#11100d]/[0.58] p-5 shadow-editorial-deep transition hover:border-[#efd9ae]/[0.32] open:bg-[#fff7e7]/[0.07]"
               >
                 <summary className="flex cursor-pointer list-none items-start justify-between gap-5">
                   <span className="flex gap-4">
                     <span className={`mt-2 h-1.5 w-12 shrink-0 rounded-full ${level.bar}`} />
                     <span>
-                      <span className="block font-sans text-xl font-semibold leading-tight text-white">
+                      <span className="block font-sans text-xl font-semibold leading-tight text-[#fff8ea]">
                         {category.title}
                       </span>
-                      <span className="mt-2 block text-sm leading-7 text-white/68">
+                      <span className="mt-2 block text-sm leading-7 text-[#f0e6d2]">
                         {risk.traveler_summary}
                       </span>
                     </span>
@@ -279,14 +279,14 @@ export function SocialRiskBriefing({
                     <span className={`hidden rounded-full border px-3 py-1 text-xs font-bold sm:inline-flex ${level.badge}`}>
                       {risk.risk_level}
                     </span>
-                    <ChevronDown className="text-white/48 transition group-open:rotate-180" size={18} />
+                    <ChevronDown className="text-[#d8c6a5] transition group-open:rotate-180" size={18} />
                   </span>
                 </summary>
 
-                <div className="mt-6 grid gap-5 border-t border-white/12 pt-5 md:grid-cols-2">
+                <div className="mt-6 grid gap-5 border-t border-[#efd9ae]/[0.18] pt-5 md:grid-cols-2">
                   <div>
-                    <p className="luxury-kicker text-rose-100/72">What not to do</p>
-                    <ul className="mt-3 space-y-2 text-sm leading-7 text-white/72">
+                    <p className="luxury-kicker text-rose-100">What not to do</p>
+                    <ul className="mt-3 space-y-2 text-sm leading-7 text-[#f0e6d2]">
                       {risk.what_not_to_do.map((item) => (
                         <li key={item} className="flex gap-2">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-rose-200/70" />
@@ -296,8 +296,8 @@ export function SocialRiskBriefing({
                     </ul>
                   </div>
                   <div>
-                    <p className="luxury-kicker text-emerald-100/72">Safer behavior</p>
-                    <ul className="mt-3 space-y-2 text-sm leading-7 text-white/72">
+                    <p className="luxury-kicker text-emerald-100">Safer behavior</p>
+                    <ul className="mt-3 space-y-2 text-sm leading-7 text-[#f0e6d2]">
                       {risk.practical_safe_behavior.map((item) => (
                         <li key={item} className="flex gap-2">
                           <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-200/70" />
@@ -309,9 +309,9 @@ export function SocialRiskBriefing({
                 </div>
 
                 {risk.examples.length ? (
-                  <div className="mt-5 rounded-[1rem] border border-white/12 bg-black/22 p-4">
-                    <p className="luxury-kicker text-kintsugi-300/78">Traveler examples</p>
-                    <ul className="mt-3 space-y-2 text-sm leading-7 text-white/68">
+                  <div className="mt-5 rounded-[1rem] border border-[#efd9ae]/[0.18] bg-[#fff7e7]/[0.06] p-4">
+                    <p className="luxury-kicker text-kintsugi-300">Traveler examples</p>
+                    <ul className="mt-3 space-y-2 text-sm leading-7 text-[#eadcc4]">
                       {risk.examples.map((item) => (
                         <li key={item}>{item}</li>
                       ))}

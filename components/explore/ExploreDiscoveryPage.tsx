@@ -330,26 +330,27 @@ function DestinationGrid() {
 function DestinationTile({ destination }: { destination: DestinationCard }) {
   return (
     <article className="group relative min-h-[255px] overflow-hidden rounded-[14px] border border-white/[0.11] bg-[#101412] shadow-[0_22px_65px_rgba(0,0,0,.34)]">
-      <img src={destination.image} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.24)_38%,rgba(0,0,0,.88))]" />
+      <img src={destination.image} alt="" className="absolute inset-0 h-full w-full object-cover brightness-[0.82] saturate-[0.94] contrast-[1.04] transition duration-700 group-hover:scale-105 group-hover:brightness-[0.9]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(0,0,0,.08),rgba(0,0,0,.34)_52%,rgba(0,0,0,.76)_100%),linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.34)_42%,rgba(0,0,0,.94))]" />
+      <div className="absolute inset-x-0 bottom-0 h-[70%] bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.68)_48%,rgba(0,0,0,.96))]" />
       {destination.badge ? (
-        <span className="absolute left-4 top-4 rounded-full bg-[#d9953e] px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white">
+        <span className="absolute left-4 top-4 rounded-full border border-white/10 bg-[#d9953e]/95 px-3 py-1 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-white shadow-[0_8px_24px_rgba(0,0,0,.32)]">
           {destination.badge}
         </span>
       ) : null}
       <button
         type="button"
-        className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/12 bg-black/34 text-white/78 backdrop-blur transition hover:text-[#f4ae3f]"
+        className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-white/14 bg-black/52 text-white/88 shadow-[0_8px_24px_rgba(0,0,0,.28)] backdrop-blur-md transition hover:text-[#f4ae3f]"
         aria-label={`Save ${destination.name}`}
       >
         <Heart className="h-4 w-4" />
       </button>
-      <div className="relative flex min-h-[255px] flex-col justify-end p-4">
-        <h3 className="text-xl font-semibold text-white">
+      <div className="relative flex min-h-[255px] flex-col justify-end p-5 pt-16">
+        <h3 className="text-xl font-semibold text-white drop-shadow-[0_2px_14px_rgba(0,0,0,.96)]">
           {destination.name}, {destination.country}
         </h3>
         <MetricRow destination={destination} />
-        <p className="mt-3 text-xs text-white/64">{destination.theme}</p>
+        <p className="mt-3 text-xs font-medium leading-5 text-white/78 drop-shadow-[0_1px_10px_rgba(0,0,0,.86)]">{destination.theme}</p>
       </div>
     </article>
   );
@@ -357,7 +358,7 @@ function DestinationTile({ destination }: { destination: DestinationCard }) {
 
 function MetricRow({ destination }: { destination: DestinationCard }) {
   return (
-    <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.72rem] text-white/78">
+    <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.72rem] font-medium text-white/88 drop-shadow-[0_1px_10px_rgba(0,0,0,.88)]">
       <span className="inline-flex items-center gap-1">
         <Sun className="h-3.5 w-3.5 text-[#f2ac3f]" />
         {destination.temperature}
@@ -421,12 +422,13 @@ function CategorySection() {
           const Icon = category.icon;
           return (
             <article key={category.title} className="group relative min-h-[136px] overflow-hidden rounded-[12px] border border-white/[0.1] bg-[#111]">
-              <img src={category.image} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.75))]" />
-              <div className="relative flex min-h-[136px] flex-col justify-end p-4">
-                <Icon className="mb-3 h-5 w-5 text-[#f3ad42]" />
-                <h3 className="text-sm font-semibold text-white">{category.title}</h3>
-                <p className="mt-1 text-xs text-white/62">{category.subtitle}</p>
+              <img src={category.image} alt="" className="absolute inset-0 h-full w-full object-cover brightness-[0.82] saturate-[0.94] transition duration-700 group-hover:scale-105 group-hover:brightness-[0.9]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_16%,rgba(0,0,0,.08),rgba(0,0,0,.34)_58%,rgba(0,0,0,.74)),linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.82))]" />
+              <div className="absolute inset-x-0 bottom-0 h-[74%] bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.7)_48%,rgba(0,0,0,.95))]" />
+              <div className="relative flex min-h-[136px] flex-col justify-end p-4 pt-12">
+                <Icon className="mb-3 h-5 w-5 text-[#f3ad42] drop-shadow-[0_2px_10px_rgba(0,0,0,.9)]" />
+                <h3 className="text-sm font-semibold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,.95)]">{category.title}</h3>
+                <p className="mt-1.5 text-xs font-medium leading-5 text-white/78 drop-shadow-[0_1px_8px_rgba(0,0,0,.88)]">{category.subtitle}</p>
               </div>
             </article>
           );

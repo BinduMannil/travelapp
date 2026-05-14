@@ -561,14 +561,14 @@ function ItinerarySection({ data, images }: { data: CityDestinationPageData; ima
             aria-label={`Open ${data.city} itinerary ${day.day}: ${day.title}`}
             className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/12 bg-[#0a1110] transition hover:border-[#d8aa4f]/55 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d8aa4f]"
           >
-            <ImageBackdrop src={images[index] ?? data.images.hero} alt={day.title} />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,6,.94),rgba(2,6,6,.54)_54%,rgba(2,6,6,.18)),linear-gradient(0deg,rgba(2,6,6,.45),transparent)]" />
+            <ImageBackdrop src={images[index] ?? data.images.hero} alt={day.title} className="brightness-[0.82] saturate-[0.94] contrast-[1.04] transition duration-700 group-hover:brightness-[0.9]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_76%_22%,rgba(2,6,6,.06),rgba(2,6,6,.36)_54%,rgba(2,6,6,.76)),linear-gradient(90deg,rgba(2,6,6,.96),rgba(2,6,6,.66)_56%,rgba(2,6,6,.28)),linear-gradient(0deg,rgba(2,6,6,.76),transparent_68%)]" />
             <div className="relative z-10 p-6">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#d8aa4f]">{day.day}</p>
-              <h3 className="mt-4 max-w-[14rem] font-sans text-2xl font-semibold leading-[1.1] text-[#fff7e5]">
+              <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e8c06a] drop-shadow-[0_1px_10px_rgba(0,0,0,.9)]">{day.day}</p>
+              <h3 className="mt-4 max-w-[14rem] font-sans text-2xl font-semibold leading-[1.1] text-[#fff7e5] drop-shadow-[0_2px_16px_rgba(0,0,0,.96)]">
                 {day.title}
               </h3>
-              <ul className="mt-5 space-y-1.5 text-xs font-medium text-white/74">
+              <ul className="mt-5 space-y-2 text-xs font-medium leading-5 text-white/86 drop-shadow-[0_1px_10px_rgba(0,0,0,.88)]">
                 {day.stops.map((stop) => (
                   <li key={stop} className="flex gap-2">
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#d8aa4f]" />

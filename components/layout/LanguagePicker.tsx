@@ -9,8 +9,8 @@ export function LanguagePicker({ compact = false }: { compact?: boolean }) {
 
   return (
     <label
-      className={`inline-flex min-w-0 items-center gap-2 rounded-full border border-white/16 bg-white/[0.075] text-white shadow-inner shadow-black/20 backdrop-blur ${
-        compact ? "px-3 py-2 text-xs" : "px-4 py-2.5 text-sm"
+      className={`inline-flex w-fit max-w-full min-w-0 items-center justify-start gap-2 rounded-[7px] border border-white/14 bg-white/[0.06] text-white shadow-inner shadow-black/20 backdrop-blur ${
+        compact ? "px-3 py-2 text-xs" : "px-3.5 py-2.5 text-sm"
       }`}
     >
       <span className="sr-only">{t("settings.language")}</span>
@@ -23,7 +23,7 @@ export function LanguagePicker({ compact = false }: { compact?: boolean }) {
         value={locale}
         onChange={(event) => setLocale(event.target.value as typeof locale)}
         aria-label="Language"
-        className="min-w-0 bg-transparent font-semibold text-white outline-none"
+        className="min-w-0 max-w-[11rem] bg-transparent font-semibold text-white outline-none"
       >
         {LOCALE_OPTIONS.map((option) => (
           <option key={option.code} value={option.code}>

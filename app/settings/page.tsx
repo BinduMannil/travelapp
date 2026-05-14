@@ -331,7 +331,7 @@ function SettingsSection({
       </div>
       <div className="divide-y divide-white/[0.07]">
         {settings.map((item) => (
-            <div key={item.label} className="grid gap-4 px-5 py-4 sm:px-7 2xl:grid-cols-[minmax(260px,1fr)_minmax(320px,0.72fr)] 2xl:items-center">
+            <div key={item.label} className="grid gap-5 px-5 py-5 sm:px-7 sm:py-6 2xl:grid-cols-[minmax(260px,1fr)_minmax(360px,0.78fr)] 2xl:items-center">
               <div className="flex min-w-0 items-center gap-4">
                 <div className="min-w-0">
                   <h3 className="text-[0.95rem] font-semibold leading-5 text-white">{item.label}</h3>
@@ -378,7 +378,11 @@ function SegmentedControl({
   prefix?: string[];
 }) {
   return (
-    <div role="radiogroup" aria-label={label} className="grid w-full gap-2 sm:grid-flow-col sm:auto-cols-fr lg:w-[292px]">
+    <div
+      role="radiogroup"
+      aria-label={label}
+      className="flex w-full flex-wrap gap-x-3 gap-y-3 sm:gap-x-3.5 lg:min-w-[360px] lg:max-w-[520px]"
+    >
       {options.map((option, index) => {
         const selected = option === active;
         return (
@@ -386,10 +390,10 @@ function SegmentedControl({
             key={option}
             type="button"
             aria-pressed={selected}
-            className={`min-h-11 rounded-md border px-3 text-sm font-semibold transition ${
+            className={`min-h-12 flex-1 basis-[9.25rem] rounded-full border px-5 py-3 font-sans text-sm font-semibold leading-5 transition ${
               selected
-                ? "border-[#d8aa4f] bg-[#d8aa4f]/16 text-[#f3b544] shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"
-                : "border-white/10 bg-white/[0.035] text-white/78 hover:border-white/20 hover:text-white"
+                ? "border-[#d8aa4f]/70 bg-[linear-gradient(180deg,rgba(216,170,79,.22),rgba(216,170,79,.1))] text-[#f4c05e] shadow-[inset_0_1px_0_rgba(255,255,255,.1)]"
+                : "border-white/10 bg-white/[0.035] text-white/78 hover:border-[#d8aa4f]/35 hover:bg-white/[0.055] hover:text-white"
             }`}
           >
             {prefix?.[index] && <span className="mr-1 text-[#f3b544]">{prefix[index]}</span>}
@@ -419,7 +423,7 @@ function ToggleSwitch({ label, checked }: { label: string; checked?: boolean }) 
 
 function GoldButton({ children }: { children: React.ReactNode }) {
   return (
-    <button type="button" className="h-11 w-full rounded-md border border-[#d8aa4f]/85 px-4 text-sm font-semibold text-[#f3b544] transition hover:bg-[#d8aa4f]/12 lg:w-[190px]">
+    <button type="button" className="min-h-12 w-full rounded-md border border-[#d8aa4f]/85 px-6 py-3 text-sm font-semibold leading-5 text-[#f3b544] transition hover:bg-[#d8aa4f]/12 lg:w-auto lg:min-w-[220px]">
       {children}
     </button>
   );
@@ -428,21 +432,21 @@ function GoldButton({ children }: { children: React.ReactNode }) {
 function RightSidebar() {
   return (
     <>
-      <Panel className="p-6">
+      <Panel className="p-7 sm:p-8">
         <h2 className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#f3b544]">
           Account Summary
         </h2>
-        <div className="mt-5 flex items-center gap-4">
+        <div className="mt-6 flex items-center gap-5">
           <img src={avatar} alt="" className="h-16 w-16 rounded-full border border-[#d8aa4f]/50 object-cover" />
           <div className="min-w-0">
             <h3 className="truncate text-base font-semibold text-white">Sarah Johnson</h3>
-            <p className="mt-1 truncate text-sm text-white/64">sarah.johnson@example.com</p>
-            <a href="/profile" className="mt-3 inline-flex text-sm font-semibold text-[#f3b544]">
+            <p className="mt-2 truncate text-sm leading-6 text-white/64">sarah.johnson@example.com</p>
+            <a href="/profile" className="mt-4 inline-flex text-sm font-semibold text-[#f3b544]">
               View Profile
             </a>
           </div>
         </div>
-        <div className="mt-6 space-y-3 border-t border-white/10 pt-4 text-sm">
+        <div className="mt-8 space-y-4 border-t border-white/10 pt-6 text-sm">
           <SummaryRow label="Member Since" value="May 12, 2024" />
           <SummaryRow label="Account Type" value="Premium" />
           <div className="flex items-center justify-between gap-4">
@@ -452,44 +456,48 @@ function RightSidebar() {
         </div>
       </Panel>
 
-      <Panel className="p-6">
+      <Panel className="p-7 sm:p-8">
         <h2 className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#f3b544]">
           Your Subscription
         </h2>
-        <div className="mt-5 flex items-center gap-4">
+        <div className="mt-7 flex items-center gap-5">
           <div>
-            <h3 className="text-base font-semibold text-white">JOURNEE Premium</h3>
-            <p className="mt-1 text-sm text-white/64">Renews on May 20, 2025</p>
+            <h3 className="text-lg font-semibold leading-7 text-white">JOURNEE Premium</h3>
+            <p className="mt-2 text-sm leading-6 text-white/64">Renews on May 20, 2025</p>
           </div>
         </div>
-        <ul className="mt-5 space-y-3 text-sm text-white/80">
+        <ul className="mt-7 space-y-4 text-sm leading-6 text-white/80">
           {["Unlimited trip planning", "Premium travel insights", "Exclusive member perks", "Priority support"].map((item) => (
-            <li key={item} className="flex items-center gap-3">
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+            <li key={item} className="flex items-start gap-3.5">
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
               <span>{item}</span>
             </li>
           ))}
         </ul>
-        <GoldButton>Manage Subscription</GoldButton>
+        <div className="mt-8">
+          <GoldButton>Manage Subscription</GoldButton>
+        </div>
       </Panel>
 
-      <Panel className="p-6">
+      <Panel className="p-7 sm:p-8">
         <h2 className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#f3b544]">
           Privacy & Security
         </h2>
-        <div className="mt-5 flex gap-4">
-          <p className="text-sm leading-6 text-white/72">
+        <div className="mt-7 flex gap-4">
+          <p className="text-sm leading-7 text-white/72">
             Your privacy matters. Manage your data, permissions and security settings.
           </p>
         </div>
-        <GoldButton>Manage Now</GoldButton>
+        <div className="mt-8">
+          <GoldButton>Manage Now</GoldButton>
+        </div>
       </Panel>
 
-      <Panel className="p-6">
+      <Panel className="p-7 sm:p-8">
         <h2 className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#f3b544]">
           Quick Actions
         </h2>
-        <div className="mt-4 divide-y divide-white/[0.07]">
+        <div className="mt-6 divide-y divide-white/[0.07]">
           <ActionRow label="Download Your Data" />
           <ActionRow label="Delete Account" />
           <ActionRow label="Sign Out" />
@@ -510,7 +518,7 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 
 function ActionRow({ label }: { label: string }) {
   return (
-    <button type="button" className="flex w-full items-center gap-4 py-4 text-left text-sm text-white/84 transition hover:text-[#f3b544]">
+    <button type="button" className="flex w-full items-center gap-4 py-5 text-left text-sm leading-6 text-white/84 transition hover:text-[#f3b544]">
       <span className="min-w-0 flex-1">{label}</span>
       <ChevronRight className="h-4 w-4 shrink-0" />
     </button>

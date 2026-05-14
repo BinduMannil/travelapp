@@ -459,11 +459,11 @@ function TripCard({ trip, featured = false }: { trip: Trip; featured?: boolean }
       <div
         className="relative h-36 bg-cover bg-center"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(2,9,17,.05), rgba(2,9,17,.24) 46%, rgba(2,9,17,.78)), url(${trip.image})`,
+          backgroundImage: `radial-gradient(circle at 50% 18%, rgba(2,9,17,.08), rgba(2,9,17,.34) 52%, rgba(2,9,17,.76)), linear-gradient(180deg, rgba(2,9,17,.18), rgba(2,9,17,.36) 48%, rgba(2,9,17,.92)), url(${trip.image})`,
         }}
       >
         <span
-          className={`absolute left-3 top-3 rounded-[5px] px-2 py-1 text-[11px] font-bold uppercase ${statusClasses(
+          className={`absolute left-3 top-3 rounded-[5px] px-2 py-1 text-[11px] font-bold uppercase shadow-[0_8px_24px_rgba(0,0,0,.34)] backdrop-blur-md ${statusClasses(
             trip.status,
           )}`}
         >

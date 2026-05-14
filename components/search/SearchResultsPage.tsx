@@ -504,7 +504,7 @@ function FiltersPanel({
   onApply: () => void;
 }) {
   return (
-    <Panel className="sticky top-24 flex max-h-[calc(100vh-104px)] flex-col overflow-hidden p-4">
+    <Panel className="sticky top-24 flex max-h-[calc(100vh-104px)] flex-col overflow-hidden p-5">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-bold uppercase tracking-[0.08em] text-[#f3b544]">
           Refine Results
@@ -513,7 +513,7 @@ function FiltersPanel({
           Clear all
         </button>
       </div>
-      <div className="mt-5 min-h-0 flex-1 space-y-5 overflow-y-auto pr-1">
+      <div className="mt-6 min-h-0 flex-1 space-y-6 overflow-y-auto pr-1">
         <FilterGroup
           title="Content Type"
           icon={Globe2}
@@ -571,14 +571,14 @@ function FilterGroup({
   primary?: boolean;
 }) {
   return (
-    <section className="border-b border-white/8 pb-4 last:border-0">
-      <div className="mb-3 flex items-center justify-between">
+    <section className="border-b border-white/8 pb-6 last:border-0">
+      <div className="mb-4 flex items-center justify-between">
         <h3 className="text-xs font-bold uppercase tracking-[0.08em] text-[#f3b544]">
           {title}
         </h3>
         {!primary && <ChevronDown className="h-4 w-4 text-white/64" />}
       </div>
-      <div className="space-y-1.5">
+      <div className="flex flex-wrap gap-x-3 gap-y-3">
         {items.map(([label, count]) => {
           const selected = !!selectedFilters[label];
           return (
@@ -586,31 +586,31 @@ function FilterGroup({
               key={label}
               type="button"
               onClick={() => onToggle(label)}
-              className={`flex min-h-9 w-full items-center gap-3 rounded-md px-2.5 text-left text-sm transition ${
+              className={`flex min-h-12 min-w-0 flex-[1_1_10.75rem] items-center gap-3 rounded-full border px-4 py-3 text-left font-sans text-sm font-semibold leading-5 transition ${
                 selected && primary
-                  ? "bg-[#d5a400]/28 text-white"
+                  ? "border-[#d5a400]/65 bg-[linear-gradient(180deg,rgba(213,164,0,.24),rgba(213,164,0,.1))] text-white shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"
                   : selected
-                    ? "text-white"
-                    : "text-white/82 hover:bg-white/[0.035] hover:text-white"
+                    ? "border-[#d5a400]/55 bg-[#d5a400]/10 text-white"
+                    : "border-white/10 bg-white/[0.035] text-white/82 hover:border-[#d5a400]/35 hover:bg-white/[0.055] hover:text-white"
               }`}
             >
               <span
-                className={`grid h-4 w-4 shrink-0 place-items-center rounded border ${
+                className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border ${
                   selected
-                    ? "border-[#f3b544] bg-[#d5a400] text-[#120d04]"
+                    ? "border-[#f3b544]/80 bg-[#d5a400] text-[#120d04]"
                     : "border-white/36 text-transparent"
                 }`}
               >
                 {selected && <Check className="h-3 w-3" />}
               </span>
-              <span className="min-w-0 flex-1 truncate">{label}</span>
-              {count && <span className="text-xs font-semibold text-white/72">{count}</span>}
+              <span className="min-w-0 flex-1 whitespace-normal">{label}</span>
+              {count && <span className="ml-2 shrink-0 text-xs font-semibold text-white/72">{count}</span>}
             </button>
           );
         })}
       </div>
       {!primary && (
-        <button type="button" className="mt-2 text-xs font-medium text-white/62">
+        <button type="button" className="mt-4 text-xs font-medium text-white/62">
           Show more
         </button>
       )}

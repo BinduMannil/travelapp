@@ -522,12 +522,13 @@ function SavedPlaceCard({ place }: { place: SavedPlace }) {
         alt={place.title}
         fill
         sizes="(min-width: 1280px) 180px, (min-width: 768px) 28vw, 92vw"
-        className="object-cover transition duration-500 group-hover:scale-105"
+        className="object-cover brightness-[0.82] saturate-[0.94] contrast-[1.04] transition duration-500 group-hover:scale-105 group-hover:brightness-[0.88]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.72))]" />
-      <div className="absolute inset-x-0 bottom-0 p-3">
-        <h3 className="truncate font-sans text-sm font-semibold text-white">{place.title}</h3>
-        <p className="mt-1 text-[0.7rem] text-white/76">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(0,0,0,.12),rgba(0,0,0,.42)_58%,rgba(0,0,0,.72)_100%),linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.28)_38%,rgba(0,0,0,.9))]" />
+      <div className="absolute inset-x-0 bottom-0 h-[68%] bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.64)_48%,rgba(0,0,0,.94))]" />
+      <div className="absolute inset-x-0 bottom-0 p-4 pt-12">
+        <h3 className="truncate font-sans text-sm font-semibold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,.95)]">{place.title}</h3>
+        <p className="mt-1.5 text-[0.72rem] font-medium text-white/86 drop-shadow-[0_1px_8px_rgba(0,0,0,.9)]">
           {place.location}
         </p>
       </div>
@@ -543,25 +544,26 @@ function TripCard({ trip }: { trip: SavedTrip }) {
         alt={trip.title}
         fill
         sizes="(min-width: 1280px) 230px, (min-width: 768px) 36vw, 92vw"
-        className="object-cover transition duration-500 group-hover:scale-105"
+        className="object-cover brightness-[0.8] saturate-[0.95] contrast-[1.05] transition duration-500 group-hover:scale-105 group-hover:brightness-[0.87]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.78))]" />
-      <div className="absolute left-3 top-3 rounded-full border border-[#d9a646]/30 bg-black/54 px-2.5 py-1 text-[0.68rem] font-semibold text-[#d9a646] backdrop-blur">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_52%_18%,rgba(0,0,0,.08),rgba(0,0,0,.36)_48%,rgba(0,0,0,.74)_100%),linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.32)_38%,rgba(0,0,0,.92))]" />
+      <div className="absolute inset-x-0 bottom-0 h-[72%] bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.68)_45%,rgba(0,0,0,.96))]" />
+      <div className="absolute left-3 top-3 rounded-full border border-[#d9a646]/40 bg-black/68 px-2.5 py-1 text-[0.68rem] font-semibold text-[#f0c66e] shadow-[0_8px_24px_rgba(0,0,0,.34)] backdrop-blur-md">
         {trip.status}
       </div>
       <button
         aria-label={`More options for ${trip.title}`}
-        className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full bg-black/32 text-white/78 backdrop-blur"
+        className="absolute right-3 top-3 grid h-8 w-8 place-items-center rounded-full border border-white/10 bg-black/48 text-white/86 shadow-[0_8px_24px_rgba(0,0,0,.28)] backdrop-blur-md"
       >
         <MoreVertical className="h-4 w-4" />
       </button>
-      <div className="absolute inset-x-0 bottom-0 p-4">
-        <h3 className="font-sans text-sm font-semibold text-white">{trip.title}</h3>
-        <p className="mt-1 text-[0.72rem] text-white/78">{trip.dates}</p>
-        <p className="mt-2 text-[0.72rem] text-white/72">
+      <div className="absolute inset-x-0 bottom-0 p-4 pt-14">
+        <h3 className="font-sans text-sm font-semibold text-white drop-shadow-[0_2px_14px_rgba(0,0,0,.96)]">{trip.title}</h3>
+        <p className="mt-1.5 text-[0.74rem] font-medium text-white/88 drop-shadow-[0_1px_10px_rgba(0,0,0,.9)]">{trip.dates}</p>
+        <p className="mt-2 text-[0.74rem] font-medium text-white/82 drop-shadow-[0_1px_10px_rgba(0,0,0,.86)]">
           {trip.locations}
         </p>
-        <p className="mt-1 text-[0.72rem] text-white/72">
+        <p className="mt-1 text-[0.74rem] font-medium text-white/82 drop-shadow-[0_1px_10px_rgba(0,0,0,.86)]">
           {trip.length}
         </p>
       </div>
@@ -579,24 +581,25 @@ function JournalCard({ entry }: { entry: JournalEntry }) {
         alt={entry.title}
         fill
         sizes="(min-width: 1280px) 180px, (min-width: 768px) 28vw, 92vw"
-        className="object-cover transition duration-500 group-hover:scale-105"
+        className="object-cover brightness-[0.78] saturate-[0.92] contrast-[1.05] transition duration-500 group-hover:scale-105 group-hover:brightness-[0.86]"
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.82))]" />
-      <div className="absolute left-3 top-3 grid h-10 w-9 place-items-center rounded-[6px] border border-[#d9a646]/35 bg-black/50 text-center text-[#e4b45b] backdrop-blur">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(0,0,0,.12),rgba(0,0,0,.44)_54%,rgba(0,0,0,.76)_100%),linear-gradient(180deg,rgba(0,0,0,.24),rgba(0,0,0,.38)_40%,rgba(0,0,0,.94))]" />
+      <div className="absolute inset-x-0 bottom-0 h-[72%] bg-[linear-gradient(180deg,transparent,rgba(0,0,0,.7)_48%,rgba(0,0,0,.96))]" />
+      <div className="absolute left-3 top-3 grid h-10 w-9 place-items-center rounded-[6px] border border-[#d9a646]/45 bg-black/68 text-center text-[#f0c66e] shadow-[0_8px_24px_rgba(0,0,0,.34)] backdrop-blur-md">
         <span className="block text-[0.58rem] font-bold uppercase leading-none">{month}</span>
         <span className="block text-sm font-semibold leading-none">{day}</span>
       </div>
       <button
         aria-label={`More options for ${entry.title}`}
-        className="absolute right-3 top-3 text-white/74"
+        className="absolute right-3 top-3 rounded-full bg-black/24 p-1 text-white/86 drop-shadow-[0_2px_10px_rgba(0,0,0,.9)]"
       >
         <MoreVertical className="h-4 w-4" />
       </button>
-      <div className="absolute inset-x-0 bottom-0 p-3">
-        <h3 className="line-clamp-2 font-sans text-sm font-semibold leading-5 text-white">
+      <div className="absolute inset-x-0 bottom-0 p-4 pt-12">
+        <h3 className="line-clamp-2 font-sans text-sm font-semibold leading-5 text-white drop-shadow-[0_2px_14px_rgba(0,0,0,.96)]">
           {entry.title}
         </h3>
-        <p className="mt-1 text-[0.7rem] text-white/72">
+        <p className="mt-1.5 text-[0.72rem] font-medium text-white/84 drop-shadow-[0_1px_10px_rgba(0,0,0,.9)]">
           {entry.place}
         </p>
       </div>
@@ -659,9 +662,13 @@ function PersonalizationPreferences() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 rounded-[8px] border border-white/8 bg-white/[0.025] p-4 sm:grid-cols-2">
-        <LanguagePicker />
-        <PreferencesMenu stacked />
+      <div className="mt-6 grid items-start gap-4 rounded-[7px] border border-white/8 bg-white/[0.025] p-4 sm:grid-cols-[minmax(0,max-content)_minmax(0,1fr)] sm:gap-5">
+        <div className="self-start">
+          <LanguagePicker />
+        </div>
+        <div className="min-w-0">
+          <PreferencesMenu stacked />
+        </div>
         <p className="text-xs leading-5 text-white/48 sm:col-span-2">{t("settings.savedLocally")}</p>
       </div>
     </GlassPanel>
@@ -721,29 +728,29 @@ function SavedItemsItineraries() {
 
 function SettingsSecurity() {
   return (
-    <GlassPanel className="p-5 sm:p-6">
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+    <GlassPanel className="p-7 sm:p-8">
+      <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div>
           <p className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white/44">
             Settings / Security
           </p>
-          <h2 className="mt-3 text-xl font-semibold tracking-[-0.02em] text-white">
+          <h2 className="mt-4 text-xl font-semibold tracking-[-0.02em] text-white">
             Account controls
           </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-6 text-white/62">
+          <p className="mt-4 max-w-2xl text-sm leading-7 text-white/62">
             Manage privacy, notifications, subscription details and saved account preferences after the main travel profile context.
           </p>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row">
+        <div className="flex flex-col gap-4 sm:flex-row">
           <a
             href="/settings"
-            className="inline-flex h-10 items-center justify-center rounded-[6px] border border-white/14 px-4 text-sm font-medium text-white/82 transition hover:border-[#d9a646]/50 hover:text-[#edc674]"
+            className="inline-flex min-h-12 items-center justify-center rounded-[6px] border border-white/14 px-6 py-3 text-sm font-medium leading-5 text-white/82 transition hover:border-[#d9a646]/50 hover:text-[#edc674]"
           >
             Account Settings
           </a>
           <a
             href="/legal/privacy"
-            className="inline-flex h-10 items-center justify-center rounded-[6px] border border-white/14 px-4 text-sm font-medium text-white/82 transition hover:border-[#d9a646]/50 hover:text-[#edc674]"
+            className="inline-flex min-h-12 items-center justify-center rounded-[6px] border border-white/14 px-6 py-3 text-sm font-medium leading-5 text-white/82 transition hover:border-[#d9a646]/50 hover:text-[#edc674]"
           >
             Privacy & Security
           </a>
@@ -763,10 +770,10 @@ function SettingRow({
   action: React.ReactNode;
 }) {
   return (
-    <div className="grid gap-4 border-b border-white/[0.07] px-5 py-4 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-6">
+    <div className="grid gap-5 border-b border-white/[0.07] px-6 py-6 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:px-8 sm:py-7">
       <div className="min-w-0">
-        <h3 className="text-sm font-semibold text-white">{title}</h3>
-        <p className="mt-1 text-sm leading-5 text-white/58">{description}</p>
+        <h3 className="text-base font-semibold leading-6 text-white">{title}</h3>
+        <p className="mt-2 text-sm leading-7 text-white/58">{description}</p>
       </div>
       <div className="min-w-0">{action}</div>
     </div>
@@ -815,7 +822,7 @@ function InlineAction({ children }: { children: React.ReactNode }) {
   return (
     <button
       type="button"
-      className="inline-flex h-10 w-full items-center justify-center rounded-[6px] border border-[#d9a646]/65 px-4 text-sm font-semibold text-[#e6b85f] transition hover:bg-[#d9a646]/12 focus:outline-none focus:ring-2 focus:ring-[#d9a646]/40 sm:w-auto"
+      className="inline-flex min-h-12 w-full items-center justify-center rounded-[6px] border border-[#d9a646]/65 px-6 py-3 text-sm font-semibold leading-5 text-[#e6b85f] transition hover:bg-[#d9a646]/12 focus:outline-none focus:ring-2 focus:ring-[#d9a646]/40 sm:w-auto"
     >
       {children}
     </button>
@@ -824,10 +831,10 @@ function InlineAction({ children }: { children: React.ReactNode }) {
 
 function EmptyState({ title, description, action }: { title: string; description: string; action: string }) {
   return (
-    <div className="rounded-[8px] border border-dashed border-white/16 bg-white/[0.025] p-6 text-center">
-      <h3 className="text-base font-semibold text-white">{title}</h3>
-      <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-white/62">{description}</p>
-      <div className="mt-5">
+    <div className="rounded-[8px] border border-dashed border-white/16 bg-white/[0.025] p-8 text-center sm:p-10">
+      <h3 className="text-lg font-semibold leading-7 text-white">{title}</h3>
+      <p className="mx-auto mt-4 max-w-md text-sm leading-7 text-white/62">{description}</p>
+      <div className="mt-8">
         <InlineAction>{action}</InlineAction>
       </div>
     </div>
@@ -909,7 +916,7 @@ function AccessibilityTabContent() {
 
 function ConnectedAccountsTabContent() {
   return (
-    <GlassPanel className="p-5 sm:p-6">
+    <GlassPanel className="p-7 sm:p-8">
       <SectionHeader title="Connected Accounts" />
       <EmptyState
         title="No accounts connected yet"
