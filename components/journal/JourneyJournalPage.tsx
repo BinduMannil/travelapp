@@ -1,471 +1,520 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import {
-  Bell,
+  BarChart3,
   BookOpen,
   Bookmark,
-  Briefcase,
   CalendarDays,
-  Camera,
   ChevronDown,
   FileText,
-  Grid2X2,
-  Heart,
+  GalleryHorizontal,
   Image as ImageIcon,
-  Leaf,
-  List,
   Map,
   MapPin,
+  Menu,
   MoreVertical,
-  Plus,
-  Quote,
+  RotateCcw,
   Search,
-  Smile,
+  SlidersHorizontal,
   Sparkles,
-  Timer,
+  SquarePen,
 } from "lucide-react";
-import { JourneeBrand } from "@/components/brand/JourneeLogo";
-import { MainNavLink } from "@/components/navigation/MainNavLink";
 
 type JournalEntry = {
   title: string;
-  date: string;
-  place: string;
-  summary: string;
-  tags: string[];
+  dateMonth: string;
+  dateDay: string;
+  dateYear: string;
+  location: string;
+  excerpt: string;
+  mood: string;
   photos: number;
-  readTime: string;
   image: string;
 };
 
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
-
-const menuItems = [
-  { label: "All Entries", icon: BookOpen, active: true },
-  { label: "My Trips", icon: Briefcase },
-  { label: "Daily Notes", icon: CalendarDays },
-  { label: "Photos & Albums", icon: ImageIcon },
-  { label: "Maps & Places", icon: Map },
-  { label: "Saved Moments", icon: Heart },
-  { label: "Reflections", icon: Sparkles },
-  { label: "Mood Tracker", icon: Smile },
-  { label: "Drafts", icon: FileText },
+const journalMenu = [
+  { label: "All Entries", href: "/journal/all-entries", icon: BookOpen, active: true },
+  { label: "My Trips", href: "/trips", icon: SquarePen },
+  { label: "Daily Notes", href: "/journal/daily-notes", icon: CalendarDays },
+  { label: "Photos & Albums", href: "/journal/photos", icon: GalleryHorizontal },
+  { label: "Maps & Places", href: "/atlas", icon: Map },
+  { label: "Saved Moments", href: "/profile", icon: Bookmark },
+  { label: "Reflections", href: "/journal/reflections", icon: Sparkles },
+  { label: "Mood Tracker", href: "/journal/mood", icon: BarChart3 },
+  { label: "Drafts", href: "/journal/drafts", icon: FileText },
 ];
 
-const tabs = ["All", "Trips", "Days", "Places", "Tags"];
+const categoryTabs = ["All", "Trips", "Notes", "Places", "Photos", "Reflections"];
 
-const featuredEntry: JournalEntry = {
-  title: "A Rainy Morning in Higashiyama",
-  date: "May 12, 2025",
-  place: "Kyoto, Japan",
-  summary:
-    "Woke up to the sound of rain on rooftops. The streets of Higashiyama were quiet, the air fresh with the scent of cedar and wet earth. Moments like these stay with you forever.",
-  tags: ["Reflection", "Higashiyama"],
-  photos: 12,
-  readTime: "8 min read",
-  image:
-    "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1800&q=88",
-};
-
-const journalEntries: JournalEntry[] = [
+const entries: JournalEntry[] = [
   {
-    title: "Walking Through the Bamboo Forest",
-    date: "May 11, 2025",
-    place: "Arashiyama, Kyoto",
-    summary: "The bamboo swayed gently in the wind. It felt like walking in another world.",
-    tags: ["Nature", "Peaceful"],
-    photos: 18,
-    readTime: "6 min read",
+    title: "Sunrise in the Dolomites",
+    dateMonth: "May",
+    dateDay: "18",
+    dateYear: "2024",
+    location: "Dolomites, Italy",
+    excerpt: "Woke up before dawn to the incredible view. The mountains never fail to leave me speechless.",
+    mood: "Travel",
+    photos: 5,
     image:
-      "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=900&q=86",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1500&q=88",
   },
   {
-    title: "My First Tea Ceremony",
-    date: "May 10, 2025",
-    place: "Gion, Kyoto",
-    summary: "A beautiful introduction to Japanese culture. So much meaning in every movement.",
-    tags: ["Culture"],
+    title: "Exploring Amalfi Coast",
+    dateMonth: "May",
+    dateDay: "16",
+    dateYear: "2024",
+    location: "Amalfi, Italy",
+    excerpt: "Lost in the beauty of colorful villages and endless blue waters.",
+    mood: "Trip",
+    photos: 12,
+    image:
+      "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1500&q=88",
+  },
+  {
+    title: "Lost in the streets of Kyoto",
+    dateMonth: "May",
+    dateDay: "12",
+    dateYear: "2024",
+    location: "Kyoto, Japan",
+    excerpt: "Lanterns, antiques and timeless traditions.",
+    mood: "Thoughtful",
+    photos: 10,
+    image:
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=1500&q=88",
+  },
+  {
+    title: "Safari dreams come true",
+    dateMonth: "May",
+    dateDay: "09",
+    dateYear: "2024",
+    location: "Maasai Mara, Kenya",
+    excerpt: "The wild has a way of making you feel alive.",
+    mood: "Amazed",
+    photos: 8,
+    image:
+      "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1500&q=88",
+  },
+  {
+    title: "Northern lights over Lofoten",
+    dateMonth: "May",
+    dateDay: "05",
+    dateYear: "2024",
+    location: "Lofoten Islands, Norway",
+    excerpt: "Nature's greatest show on earth. I'll never forget this moment.",
+    mood: "Inspired",
     photos: 14,
-    readTime: "7 min read",
     image:
-      "https://images.unsplash.com/photo-1564890369478-c89ca6d9cde9?auto=format&fit=crop&w=900&q=86",
-  },
-  {
-    title: "Thousands of Torii Gates",
-    date: "May 10, 2025",
-    place: "Fushimi Inari, Kyoto",
-    summary: "The walk up was peaceful and powerful. Grateful for this experience.",
-    tags: ["Spiritual", "Grateful"],
-    photos: 22,
-    readTime: "9 min read",
-    image:
-      "https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?auto=format&fit=crop&w=900&q=86",
+      "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1500&q=88",
   },
 ];
 
-const overview = [
-  { label: "Trips", value: "7", icon: Briefcase },
-  { label: "Entries", value: "28", icon: BookOpen },
-  { label: "Photos", value: "156", icon: Camera },
-  { label: "Places", value: "23", icon: MapPin },
+const filterGroups = [
+  { label: "Date", value: "All Time" },
+  { label: "Type", value: "All Types" },
+  { label: "Mood", value: "All Moods" },
+  { label: "Location", value: "All Locations" },
 ];
 
-const moods = [
-  { date: "5/10", value: 42, icon: "☹" },
-  { date: "5/11", value: 52, icon: "☹" },
-  { date: "5/12", value: 70, icon: "☺", best: true },
-  { date: "5/14", value: 52, icon: "◔" },
-  { date: "5/15", value: 42, icon: "☻" },
-  { date: "5/16", value: 58, icon: "◡" },
+const journeyStats = [
+  { label: "Entries", value: "128", icon: BookOpen },
+  { label: "Places", value: "34", icon: MapPin },
+  { label: "Countries", value: "18", icon: Map },
+  { label: "Photos", value: "342", icon: ImageIcon },
+  { label: "Days Traveled", value: "76", icon: CalendarDays },
 ];
 
-const recentEntries = [
-  {
-    title: "A Rainy Morning in Higashiyama",
-    meta: "May 12, 2025 · Kyoto",
-    time: "8 min read",
-    image: featuredEntry.image,
-  },
-  {
-    title: "Walking Through the Bamboo Forest",
-    meta: "May 11, 2025 · Arashiyama",
-    time: "6 min read",
-    image: journalEntries[0].image,
-  },
-  {
-    title: "My First Tea Ceremony",
-    meta: "May 10, 2025 · Gion",
-    time: "7 min read",
-    image: journalEntries[1].image,
-  },
-  {
-    title: "Sunset Views from Kiyomizu-dera",
-    meta: "May 10, 2025 · Kyoto",
-    time: "5 min read",
-    image:
-      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=600&q=84",
-  },
-];
+async function rewriteJournalEntry(rawJournalText: string) {
+  const cleanedText = rawJournalText
+    .trim()
+    .replace(/\s+/g, " ")
+    .replace(/^[\s*•-]+/gm, "");
 
-function GlassPanel({
+  if (!cleanedText) {
+    return "";
+  }
+
+  await new Promise((resolve) => setTimeout(resolve, 420));
+
+  const ending = /[.!?]$/.test(cleanedText) ? "" : ".";
+  const closingLine =
+    cleanedText.length > 140
+      ? "I want to keep it exactly as it felt: unhurried, vivid, and quietly mine."
+      : "It was a small moment, but it stayed with me in a way I do not want to lose.";
+
+  return `Today, I want to remember this with more care: ${cleanedText}${ending} ${closingLine}`;
+}
+
+function ActionButton({
   children,
   className = "",
+  ariaLabel,
+  type = "button",
+  ...buttonProps
 }: {
   children: React.ReactNode;
   className?: string;
-}) {
+  ariaLabel?: string;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <section
-      className={`border border-white/10 bg-[#071011]/80 shadow-[0_22px_70px_rgba(0,0,0,.28)] backdrop-blur-xl ${className}`}
+    <button
+      aria-label={ariaLabel}
+      type={type}
+      className={`transition duration-200 hover:border-[#e8b45a]/60 hover:bg-[#e8b45a]/14 hover:text-[#ffd987] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8b45a] active:scale-[0.98] ${className}`}
+      {...buttonProps}
     >
       {children}
+    </button>
+  );
+}
+
+function JournalPromptCard() {
+  const [isWriting, setIsWriting] = useState(false);
+  const [rawJournalText, setRawJournalText] = useState("");
+  const [rewrittenJournalText, setRewrittenJournalText] = useState("");
+  const [isRewriting, setIsRewriting] = useState(false);
+  const [selectedFinalEntry, setSelectedFinalEntry] = useState("");
+  const [saveMessage, setSaveMessage] = useState("");
+
+  const hasRawText = rawJournalText.trim().length > 0;
+  const hasFinalEntry = selectedFinalEntry.trim().length > 0;
+  const canSave = hasRawText || hasFinalEntry;
+
+  async function handleRewrite() {
+    if (!hasRawText || isRewriting) {
+      return;
+    }
+
+    setSaveMessage("");
+    setIsRewriting(true);
+    const polishedEntry = await rewriteJournalEntry(rawJournalText);
+    setRewrittenJournalText(polishedEntry);
+    setSelectedFinalEntry("");
+    setIsRewriting(false);
+  }
+
+  function handleUseVersion() {
+    setSelectedFinalEntry(rewrittenJournalText);
+    setSaveMessage("Polished version selected.");
+  }
+
+  function handleSaveEntry() {
+    const entryToSave = selectedFinalEntry || rawJournalText.trim();
+
+    if (!entryToSave) {
+      return;
+    }
+
+    setSelectedFinalEntry(entryToSave);
+    setSaveMessage("Entry saved to your journal draft.");
+  }
+
+  return (
+    <section className="rounded-lg border border-white/10 bg-[#071012]/78 p-5 shadow-[0_22px_70px_rgba(0,0,0,.28)]">
+      <p className="text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-[#f1c36f]">Journal Prompt</p>
+      <p className="mt-4 text-[0.96rem] leading-7 text-white/86">
+        What is a moment from today that you never want to forget?
+      </p>
+
+      {!isWriting ? (
+        <ActionButton
+          className="mt-5 rounded-md border border-[#d9a756] bg-[#d9a756] px-5 py-3 text-[0.84rem] font-semibold text-[#111] hover:bg-[#efbf65] hover:text-[#111]"
+          ariaLabel="Open journal writing area"
+          onClick={() => setIsWriting(true)}
+        >
+          Write Now
+        </ActionButton>
+      ) : (
+        <div className="mt-6 space-y-4">
+          <label className="block">
+            <span className="sr-only">Journal notes</span>
+            <textarea
+              value={rawJournalText}
+              onChange={(event) => {
+                setRawJournalText(event.target.value);
+                setRewrittenJournalText("");
+                setSelectedFinalEntry("");
+                setSaveMessage("");
+              }}
+              placeholder="Write your thoughts in any style. Messy notes are welcome."
+              className="min-h-44 w-full resize-y rounded-md border border-white/12 bg-[rgba(0,0,0,0.24)] px-4 py-4 text-[0.92rem] leading-7 text-white/90 outline-none shadow-inner shadow-white/5 transition placeholder:text-white/48 focus:border-[#d9a756]/68 focus:bg-[rgba(0,0,0,0.32)]"
+            />
+          </label>
+
+          <p className="text-[0.76rem] leading-5 text-white/62">
+            Your words stay yours. AI only helps polish the wording.
+          </p>
+
+          <div className="grid gap-3">
+            <ActionButton
+              ariaLabel="Rewrite journal notes with AI"
+              className="min-h-11 w-full rounded-md border border-[#d9a756]/36 bg-[#d9a756]/12 px-4 py-3 text-[0.8rem] font-semibold text-[#f4c66f] disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/[0.035] disabled:text-white/36"
+              disabled={!hasRawText || isRewriting}
+              onClick={handleRewrite}
+            >
+              {isRewriting ? "Rewriting..." : "Rewrite with AI"}
+            </ActionButton>
+            <ActionButton
+              ariaLabel="Save journal entry"
+              className="min-h-11 w-full rounded-md border border-white/12 bg-white/[0.045] px-4 py-3 text-[0.8rem] font-semibold text-white/86 disabled:cursor-not-allowed disabled:text-white/36"
+              disabled={!canSave}
+              onClick={handleSaveEntry}
+            >
+              Save Entry
+            </ActionButton>
+          </div>
+
+          {rewrittenJournalText ? (
+            <div className="rounded-md border border-[#d9a756]/24 bg-[#120f08]/72 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,.05)]">
+              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#f1c36f]">Polished Preview</p>
+              <p className="mt-3 text-[0.92rem] leading-7 text-white/84">{rewrittenJournalText}</p>
+              <ActionButton
+                ariaLabel="Use rewritten journal version"
+                className="mt-4 rounded-md border border-[#d9a756]/32 bg-transparent px-4 py-2.5 text-[0.78rem] font-semibold text-[#f4c66f]"
+                onClick={handleUseVersion}
+              >
+                Use This Version
+              </ActionButton>
+            </div>
+          ) : null}
+
+          {saveMessage ? (
+            <p className="rounded-md border border-white/10 bg-white/[0.035] px-3 py-2 text-[0.76rem] text-white/72">
+              {saveMessage}
+            </p>
+          ) : null}
+        </div>
+      )}
     </section>
   );
 }
 
-function Tag({ children }: { children: React.ReactNode }) {
+function SelectShell({ label, value }: { label: string; value: string }) {
   return (
-    <span className="rounded-full border border-white/15 bg-black/18 px-3 py-1 text-[0.7rem] font-medium text-white/76">
-      {children}
-    </span>
+    <label className="block">
+      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-white/82">{label}</span>
+      <span className="mt-2 flex h-11 items-center justify-between rounded-md border border-white/10 bg-black/18 px-3 text-[0.86rem] text-white/88 transition hover:border-[#d9a756]/45 hover:bg-white/[0.045]">
+        {value}
+        <ChevronDown className="h-4 w-4 text-white/70" />
+      </span>
+    </label>
   );
 }
 
 export function JourneyJournalPage() {
   return (
-    <main className="min-h-screen bg-[#030707] text-white">
-      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_48%_0%,rgba(209,158,67,.15),transparent_30%),linear-gradient(120deg,#020505,#071213_46%,#030606)]" />
-      <div className="fixed inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.028)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.022)_1px,transparent_1px)] bg-[size:56px_56px] opacity-40" />
+    <main className="min-h-screen bg-[#030709] font-sans text-white">
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_60%_0%,rgba(218,166,78,.12),transparent_32rem),linear-gradient(120deg,#030709,#071012_44%,#020405)]" />
+      <div className="fixed inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,.028)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.018)_1px,transparent_1px)] bg-[size:56px_56px] opacity-40" />
 
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#030707]/82 backdrop-blur-2xl">
-        <div className="flex h-[72px] items-center gap-6 px-4 sm:px-6 xl:px-8">
-          <a href="/" aria-label="JOURNEE home">
-            <JourneeBrand
-              direction="atlas-aperture"
-              className="[&>span:first-child]:h-9 [&>span:first-child]:w-9 [&>span:first-child]:rounded-none [&>span:first-child]:border-0 [&>span:first-child]:bg-transparent [&>span:first-child]:shadow-none [&>span:first-child_svg]:h-8 [&>span:first-child_svg]:w-8 [&>span:last-child]:text-2xl [&>span:last-child]:font-medium [&>span:last-child]:tracking-[0.12em]"
-            />
-          </a>
+      <div className="mx-auto grid min-h-screen w-full max-w-[1720px] overflow-x-hidden lg:grid-cols-[230px_minmax(0,1fr)] xl:grid-cols-[230px_minmax(0,1fr)_370px]">
+        <aside className="min-w-0 border-b border-white/10 bg-[#050a0d]/90 lg:border-b-0 lg:border-r lg:border-white/10">
+          <div className="sticky top-0 flex h-full min-w-0 flex-col p-5 max-lg:min-h-0 max-lg:gap-4 lg:min-h-screen">
+            <div className="flex items-center gap-4">
+              <ActionButton ariaLabel="Open navigation" className="grid h-9 w-9 place-items-center rounded-md text-[#e8b45a]">
+                <Menu className="h-5 w-5" />
+              </ActionButton>
+              <a href="/" className="text-[1.02rem] font-semibold uppercase tracking-[0.28em] text-[#f3bc62]">
+                Journee
+              </a>
+            </div>
 
-          <nav className="hidden items-center gap-7 text-[0.82rem] font-medium text-white/84 lg:flex">
-            {navItems.map((item) => (
-              <MainNavLink
-                key={item}
-                label={item}
-                className="relative py-7 transition hover:text-[#e2ad50]"
-                activeClassName="text-[#e2ad50]"
-                underlineClassName="absolute inset-x-0 bottom-0 h-0.5 bg-[#e2ad50]"
-              />
-            ))}
-          </nav>
-
-          <div className="ml-auto hidden min-w-[260px] max-w-[520px] flex-1 items-center rounded-full border border-white/16 bg-white/[0.045] px-4 py-2 text-white/62 shadow-inner shadow-white/5 md:flex">
-            <span className="truncate text-[0.78rem]">Search your journals, places, moments...</span>
-            <Search className="ml-auto h-4 w-4 text-white/82" />
-          </div>
-          <button aria-label="Notifications" className="grid h-10 w-10 place-items-center rounded-full text-white/82 transition hover:bg-white/8 hover:text-[#e2ad50]">
-            <Bell className="h-5 w-5" />
-          </button>
-          <Image
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=120&q=80"
-            alt="Profile avatar"
-            width={42}
-            height={42}
-            className="h-10 w-10 rounded-full border-2 border-[#d9a756]/50 object-cover"
-          />
-        </div>
-      </header>
-
-      <div className="grid gap-5 px-4 py-5 sm:px-6 xl:grid-cols-[260px_minmax(0,1fr)_330px] xl:px-8">
-        <aside className="hidden xl:block">
-          <div className="sticky top-24 space-y-5">
-            <GlassPanel className="rounded-lg p-4">
-              <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e2ad50]">My Journal</p>
-              <div className="space-y-1.5">
-                {menuItems.map(({ label, icon: Icon, active }) => (
-                  <button
+            <nav className="mt-12 max-lg:mt-2">
+              <p className="mb-3 text-[0.68rem] font-medium uppercase tracking-[0.08em] text-white/78">My Journal</p>
+              <div className="flex gap-2 overflow-x-auto pb-2 lg:block lg:space-y-2 lg:overflow-visible lg:pb-0">
+                {journalMenu.map(({ label, href, icon: Icon, active }) => (
+                  <a
                     key={label}
-                    className={`flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-[0.82rem] transition ${
+                    href={href}
+                    className={`flex min-w-max items-center gap-3 rounded-md border px-3 py-3 text-[0.86rem] transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e8b45a] active:scale-[0.99] lg:w-full ${
                       active
-                        ? "border border-[#d9a756]/26 bg-[#d9a756]/14 text-[#f3c46e]"
-                        : "text-white/82 hover:bg-white/[0.06] hover:text-white"
+                        ? "border-[#d9a756]/80 bg-[#d9a756]/10 text-[#f4c66f]"
+                        : "border-transparent text-white/76 hover:border-white/12 hover:bg-white/[0.045] hover:text-white"
                     }`}
                   >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </button>
+                    <Icon className="h-[18px] w-[18px]" />
+                    <span>{label}</span>
+                  </a>
                 ))}
               </div>
-            </GlassPanel>
+            </nav>
 
-            <GlassPanel className="rounded-lg p-4">
-              <p className="mb-3 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e2ad50]">Current Trip</p>
-              <div className="relative h-24 overflow-hidden rounded-md">
-                <Image
-                  src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=700&q=84"
-                  alt="Kyoto sunset pagoda"
-                  fill
-                  sizes="230px"
-                  className="object-cover"
-                />
+            <div className="mt-auto hidden border-t border-white/10 pt-5 lg:block">
+              <div className="flex items-center gap-3">
+                <div className="relative h-12 w-12 overflow-hidden rounded-full border border-[#d9a756]/55">
+                  <Image
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=160&q=80"
+                    alt="Alex Mercer"
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-[0.82rem] text-white">Alex Mercer</p>
+                  <p className="text-[0.74rem] text-white/55">Explorer</p>
+                </div>
+                <ChevronDown className="ml-auto h-4 w-4 text-white/70" />
               </div>
-              <h2 className="mt-3 font-sans text-xl text-white">Kyoto, Japan</h2>
-              <p className="mt-1 text-[0.75rem] text-white/68">May 10 - May 16, 2025</p>
-              <p className="mt-2 flex items-center gap-2 text-[0.75rem] text-white/74">
-                <CalendarDays className="h-3.5 w-3.5 text-[#e2ad50]" /> 7 Days
-              </p>
-              <button className="mt-4 flex w-full items-center justify-between rounded-md border border-[#d9a756]/28 bg-[#d9a756]/13 px-4 py-2.5 text-[0.78rem] font-semibold text-[#f2bf65] transition hover:bg-[#d9a756]/20">
-                View Trip <span aria-hidden>›</span>
-              </button>
-            </GlassPanel>
-
-            <GlassPanel className="rounded-lg p-5">
-              <Quote className="h-6 w-6 fill-[#d9a756]/22 text-[#d9a756]/42" />
-              <blockquote className="mt-3 font-sans text-[1.02rem] italic leading-7 text-white/84">
-                The world is a book and those who do not travel read only one page.
-              </blockquote>
-              <p className="mt-4 text-[0.76rem] font-medium text-[#e2ad50]">- Saint Augustine</p>
-            </GlassPanel>
+            </div>
           </div>
         </aside>
 
-        <section className="min-w-0">
-          <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <section className="min-w-0 px-5 py-8 sm:px-8 lg:px-9 xl:py-12">
+          <div className="flex flex-col gap-5 2xl:flex-row 2xl:items-start 2xl:justify-between">
             <div>
-              <h1 className="font-sans text-[2.35rem] font-semibold leading-none text-white sm:text-[2.75rem]">
-                My Travel Journal
-              </h1>
-              <p className="mt-2 text-[0.92rem] text-white/72">Your memories. Your story. Your journey.</p>
+              <div role="heading" aria-level={1} className="text-[2.65rem] font-semibold leading-none text-white sm:text-[3.2rem]">
+                All Entries
+              </div>
+              <p className="mt-2 max-w-2xl text-[0.98rem] text-white/70">
+                A timeline of your thoughts, adventures and memories.
+              </p>
             </div>
-            <button className="inline-flex w-max items-center gap-2 rounded-md border border-[#d9a756]/32 bg-[#d9a756]/15 px-4 py-2.5 text-[0.82rem] font-semibold text-[#f3c46e] shadow-[0_14px_38px_rgba(217,167,86,.12)] transition hover:bg-[#d9a756]/22">
-              <Plus className="h-4 w-4" /> New Entry <ChevronDown className="h-4 w-4" />
-            </button>
+            <div className="grid gap-3 sm:grid-cols-[minmax(260px,1fr)_auto] 2xl:min-w-[540px]">
+              <label className="flex h-11 items-center gap-3 rounded-md border border-white/12 bg-black/22 px-4 text-white/66 shadow-inner shadow-white/5 transition-colors focus-within:border-[#d9a756]/65">
+                <Search className="h-5 w-5 text-white/88" />
+                <input
+                  aria-label="Search entries"
+                  placeholder="Search entries, places, notes..."
+                  className="min-w-0 flex-1 bg-transparent text-[0.86rem] text-white outline-none placeholder:text-white/58"
+                />
+              </label>
+              <ActionButton className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-white/12 bg-black/22 px-5 text-[0.86rem] text-white/88">
+                <SlidersHorizontal className="h-4 w-4" />
+                Filter
+              </ActionButton>
+            </div>
           </div>
 
-          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex overflow-hidden rounded-full border border-white/12 bg-black/24 p-0.5">
-              {tabs.map((tab) => (
-                <button
+          <div className="mt-7 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex gap-3 overflow-x-auto pb-1">
+              {categoryTabs.map((tab) => (
+                <ActionButton
                   key={tab}
-                  className={`min-w-16 px-4 py-2 text-[0.8rem] transition ${
-                    tab === "All" ? "rounded-full bg-[#dca94f] text-black" : "text-white/70 hover:text-white"
+                  className={`min-w-max rounded-full px-5 py-2 text-[0.84rem] ${
+                    tab === "All"
+                      ? "border border-[#e6ad52] bg-[#e6ad52] text-[#111]"
+                      : "border border-white/8 bg-white/[0.045] text-white/82"
                   }`}
                 >
                   {tab}
-                </button>
+                </ActionButton>
               ))}
             </div>
-            <div className="hidden overflow-hidden rounded-md border border-white/12 bg-black/24 sm:flex">
-              <button aria-label="Grid view" className="grid h-10 w-12 place-items-center border-r border-white/10 text-white/72">
-                <Grid2X2 className="h-4 w-4" />
-              </button>
-              <button aria-label="List view" className="grid h-10 w-12 place-items-center text-white/86">
-                <List className="h-4 w-4" />
-              </button>
-            </div>
+            <ActionButton className="inline-flex h-10 w-max items-center gap-2 rounded-md border border-white/10 bg-black/20 px-4 text-[0.82rem] text-white/86">
+              Sort: Newest
+              <ChevronDown className="h-4 w-4" />
+            </ActionButton>
           </div>
 
-          <GlassPanel className="relative overflow-hidden rounded-lg border-[#d9a756]/28">
-            <Image
-              src={featuredEntry.image}
-              alt={featuredEntry.title}
-              fill
-              priority
-              sizes="(min-width: 1280px) 760px, 100vw"
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,7,7,.96)_0%,rgba(3,7,7,.76)_34%,rgba(3,7,7,.18)_68%),linear-gradient(0deg,rgba(3,7,7,.82),transparent_50%)]" />
-            <div className="relative min-h-[360px] p-6 sm:p-8">
-              <div className="flex flex-wrap items-center gap-5 text-[0.75rem] text-white/78">
-                <span className="text-[#f3c46e]">{featuredEntry.date}</span>
-                <span className="flex items-center gap-1.5">
-                  <MapPin className="h-3.5 w-3.5 text-white/72" /> {featuredEntry.place}
-                </span>
-                <button aria-label="Entry options" className="ml-auto grid h-9 w-9 place-items-center rounded-full bg-black/40 text-white">
-                  <MoreVertical className="h-4 w-4" />
-                </button>
-              </div>
-              <h2 className="mt-5 max-w-md font-sans text-[2rem] font-medium leading-tight text-white sm:text-[2.25rem]">
-                {featuredEntry.title}
-              </h2>
-              <p className="mt-4 max-w-sm text-[0.9rem] leading-7 text-white/80">{featuredEntry.summary}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {featuredEntry.tags.map((tag) => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </div>
-              <div className="mt-9 flex flex-wrap items-center gap-6 text-[0.78rem] text-white/78">
-                <span className="flex items-center gap-2">
-                  <ImageIcon className="h-4 w-4" /> {featuredEntry.photos} Photos
-                </span>
-                <span className="flex items-center gap-2">
-                  <Timer className="h-4 w-4" /> {featuredEntry.readTime}
-                </span>
-                <button className="ml-auto flex items-center gap-2 text-[0.82rem] font-semibold text-[#f2bf65]">
-                  Read Entry <span aria-hidden>→</span>
-                </button>
-              </div>
+          <div className="mt-4 grid grid-cols-[76px_minmax(0,1fr)] gap-5 max-lg:pointer-events-none sm:grid-cols-[96px_minmax(0,1fr)]">
+            <div className="pointer-events-none relative">
+              <div className="absolute right-0 top-0 h-full w-px bg-[#d9a756]/40" />
             </div>
-          </GlassPanel>
-
-          <div className="mt-4 space-y-3.5">
-            {journalEntries.map((entry) => (
-              <GlassPanel key={entry.title} className="overflow-hidden rounded-lg">
-                <article className="grid gap-4 p-3 sm:grid-cols-[240px_minmax(0,1fr)] sm:items-center">
-                  <div className="relative h-40 overflow-hidden rounded-md sm:h-[142px]">
-                    <Image src={entry.image} alt={entry.title} fill sizes="260px" className="object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
+            <div className="space-y-4 max-lg:pointer-events-auto">
+              {entries.map((entry) => (
+                <article key={entry.title} className="relative grid gap-0 md:grid-cols-[minmax(280px,0.96fr)_minmax(250px,0.94fr)]">
+                  <div className="absolute -left-[101px] top-7 hidden w-24 text-right sm:block">
+                    <p className="text-[0.82rem] uppercase tracking-[0.08em] text-white/78">{entry.dateMonth}</p>
+                    <p className="text-[2.2rem] font-medium leading-none text-white">{entry.dateDay}</p>
+                    <p className="text-[0.86rem] text-white/82">{entry.dateYear}</p>
                   </div>
-                  <div className="min-w-0 px-1 py-1 sm:px-0">
+                  <span className="absolute -left-[26px] top-8 h-2.5 w-2.5 rounded-full bg-[#d9a756] shadow-[0_0_0_5px_rgba(217,167,86,.13)]" />
+                  <div className="relative h-[230px] overflow-hidden rounded-t-lg border border-white/10 md:h-[190px] md:rounded-l-lg md:rounded-r-none">
+                    <Image src={entry.image} alt={entry.title} fill sizes="(min-width: 1280px) 520px, 100vw" className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
+                    <div className="absolute left-4 top-4 rounded-md bg-black/55 px-3 py-2 text-left backdrop-blur sm:hidden">
+                      <p className="text-[0.7rem] uppercase text-white/78">{entry.dateMonth}</p>
+                      <p className="text-xl font-medium leading-none text-white">{entry.dateDay}</p>
+                      <p className="text-[0.72rem] text-white/78">{entry.dateYear}</p>
+                    </div>
+                  </div>
+                  <div className="flex min-h-[190px] flex-col rounded-b-lg border border-t-0 border-white/10 bg-[#071012]/82 p-5 shadow-[0_20px_80px_rgba(0,0,0,.25)] md:rounded-l-none md:rounded-r-lg md:border-l-0 md:border-t">
                     <div className="flex items-start gap-3">
                       <div className="min-w-0">
-                        <p className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[0.68rem] text-white/62">
-                          <span>{entry.date}</span>
-                          <span className="flex items-center gap-1.5">
-                            <MapPin className="h-3 w-3 text-white/50" /> {entry.place}
-                          </span>
+                        <div role="heading" aria-level={2} className="text-[1.34rem] font-semibold leading-tight text-white">
+                          {entry.title}
+                        </div>
+                        <p className="mt-2 flex items-center gap-1.5 text-[0.8rem] text-white/68">
+                          <MapPin className="h-3.5 w-3.5 text-white/72" />
+                          {entry.location}
                         </p>
-                        <h3 className="mt-2 truncate font-sans text-[1.35rem] font-medium text-white">{entry.title}</h3>
-                        <p className="mt-1 line-clamp-2 text-[0.78rem] leading-5 text-white/68">{entry.summary}</p>
                       </div>
-                      <button aria-label={`Save ${entry.title}`} className="ml-auto mt-5 text-[#e2ad50]">
-                        <Bookmark className="h-4 w-4" />
-                      </button>
-                      <button aria-label={`Options for ${entry.title}`} className="mt-5 text-white/64">
-                        <MoreVertical className="h-4 w-4" />
-                      </button>
+                      <ActionButton ariaLabel={`Save ${entry.title}`} className="ml-auto grid h-9 w-9 place-items-center rounded-md border border-transparent text-[#e8b45a]">
+                        <Bookmark className="h-5 w-5" />
+                      </ActionButton>
+                      <ActionButton ariaLabel={`More actions for ${entry.title}`} className="grid h-9 w-9 place-items-center rounded-md border border-transparent text-white/64">
+                        <MoreVertical className="h-5 w-5" />
+                      </ActionButton>
                     </div>
-                    <div className="mt-3 flex flex-wrap items-center gap-3 text-[0.72rem] text-white/68">
-                      {entry.tags.map((tag) => (
-                        <Tag key={tag}>{tag}</Tag>
-                      ))}
-                      <span className="ml-auto flex items-center gap-1.5">
-                        <ImageIcon className="h-3.5 w-3.5" /> {entry.photos} Photos
+                    <p className="mt-3 max-w-[34rem] text-[0.88rem] leading-6 text-white/70">{entry.excerpt}</p>
+                    <div className="mt-auto flex items-center gap-4 pt-4">
+                      <span className="rounded-md border border-[#d9a756]/34 bg-[#d9a756]/8 px-2.5 py-1 text-[0.76rem] text-[#f2c469]">
+                        {entry.mood}
                       </span>
-                      <span className="flex items-center gap-1.5">
-                        <Timer className="h-3.5 w-3.5" /> {entry.readTime}
+                      <span className="ml-auto flex items-center gap-1.5 text-[0.82rem] text-white/76">
+                        <ImageIcon className="h-4 w-4" />
+                        {entry.photos}
                       </span>
                     </div>
                   </div>
                 </article>
-              </GlassPanel>
-            ))}
+              ))}
+            </div>
           </div>
         </section>
 
-        <aside className="space-y-4 xl:col-span-1">
-          <GlassPanel className="rounded-lg p-5">
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e2ad50]">Journey Overview</p>
-            <div className="mt-4 grid grid-cols-2 border-t border-white/10">
-              {overview.map(({ label, value, icon: Icon }) => (
-                <div key={label} className="flex items-center gap-4 border-b border-white/10 p-4 odd:border-r odd:border-white/10">
-                  <Icon className="h-6 w-6 text-[#e2ad50]" />
-                  <div>
-                    <p className="font-sans text-2xl leading-none text-white">{value}</p>
-                    <p className="mt-1 text-[0.74rem] text-white/64">{label}</p>
-                  </div>
+        <aside className="relative z-10 min-w-0 space-y-5 border-t border-white/10 px-5 py-8 sm:px-8 xl:border-l xl:border-t-0 xl:border-white/10 xl:px-6 xl:py-12">
+          <JournalPromptCard />
+
+          <section className="rounded-lg border border-white/10 bg-[#071012]/78 p-5 shadow-[0_22px_70px_rgba(0,0,0,.28)]">
+            <div role="heading" aria-level={2} className="text-[1.25rem] font-semibold text-white">
+              Filter Entries
+            </div>
+            <div className="mt-5 space-y-4">
+              {filterGroups.map((filter) => (
+                <SelectShell key={filter.label} label={filter.label} value={filter.value} />
+              ))}
+              <ActionButton className="flex h-10 w-full items-center justify-center gap-2 rounded-md border border-[#d9a756]/18 bg-[#d9a756]/5 text-[0.8rem] font-medium text-[#f1bd63]">
+                <RotateCcw className="h-4 w-4" />
+                Reset Filters
+              </ActionButton>
+            </div>
+          </section>
+
+          <section className="rounded-lg border border-white/10 bg-[#071012]/78 p-5 shadow-[0_22px_70px_rgba(0,0,0,.28)]">
+            <div role="heading" aria-level={2} className="text-[1.25rem] font-semibold text-white">
+              Your Journey
+            </div>
+            <div className="mt-5 space-y-3">
+              {journeyStats.map(({ label, value, icon: Icon }) => (
+                <div key={label} className="flex items-center gap-3 text-[0.88rem] text-white/76">
+                  <Icon className="h-[18px] w-[18px] text-[#e8b45a]" />
+                  <span>{label}</span>
+                  <span className="ml-auto text-white">{value}</span>
                 </div>
               ))}
             </div>
-          </GlassPanel>
+          </section>
 
-          <GlassPanel className="rounded-lg p-5">
-            <div className="flex items-center justify-between">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e2ad50]">Mood Tracker</p>
-              <span className="text-[0.72rem] text-white/62">This Trip</span>
+          <section className="relative min-h-[360px] overflow-hidden rounded-lg border border-[#d9a756]/16 shadow-[0_22px_70px_rgba(0,0,0,.28)]">
+            <Image
+              src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=88"
+              alt="Traveler overlooking a cinematic mountain valley"
+              fill
+              sizes="360px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(22,11,5,.28),rgba(22,11,5,.52)),linear-gradient(90deg,rgba(0,0,0,.58),transparent)]" />
+            <div className="relative flex min-h-[360px] flex-col justify-center p-7">
+              <blockquote className="max-w-[15rem] text-[1.32rem] font-medium italic leading-8 text-white">
+                The world is a book and those who do not travel read only one page.
+              </blockquote>
+              <p className="mt-5 text-[0.82rem] font-medium text-white/82">- St. Augustine</p>
             </div>
-            <div className="mt-4 grid grid-cols-6 items-end gap-3">
-              {moods.map((mood) => (
-                <div key={mood.date} className="flex flex-col items-center gap-2">
-                  <span
-                    className={`grid h-7 w-7 place-items-center rounded-full border text-sm ${
-                      mood.best ? "border-[#e2ad50] text-[#e2ad50]" : "border-white/14 text-white/34"
-                    }`}
-                  >
-                    {mood.icon}
-                  </span>
-                  <div className="flex h-24 items-end">
-                    <div
-                      className={`w-6 rounded-t-md ${mood.best ? "bg-[#dda84f]" : "bg-white/13"}`}
-                      style={{ height: `${mood.value}%` }}
-                    />
-                  </div>
-                  <span className={`text-[0.7rem] ${mood.best ? "text-white" : "text-white/54"}`}>{mood.date}</span>
-                </div>
-              ))}
-            </div>
-          </GlassPanel>
-
-          <GlassPanel className="rounded-lg p-5">
-            <div className="flex items-center justify-between">
-              <p className="text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e2ad50]">Recent Entries</p>
-              <button className="text-[0.72rem] text-white/62">View all</button>
-            </div>
-            <div className="mt-4 space-y-3">
-              {recentEntries.map((entry) => (
-                <article key={entry.title} className="grid grid-cols-[72px_minmax(0,1fr)] gap-3">
-                  <div className="relative h-16 overflow-hidden rounded-md">
-                    <Image src={entry.image} alt="" fill sizes="72px" className="object-cover" />
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="truncate font-sans text-[0.78rem] font-semibold text-white">{entry.title}</h3>
-                    <p className="mt-1 truncate text-[0.68rem] text-white/56">{entry.meta}</p>
-                    <p className="mt-1 text-[0.68rem] text-white/76">{entry.time}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </GlassPanel>
-
-          <GlassPanel className="rounded-lg p-5">
-            <p className="flex items-center gap-2 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-[#e2ad50]">
-              <Leaf className="h-4 w-4" /> Journal Prompt
-            </p>
-            <p className="mt-4 text-[0.88rem] leading-6 text-white/76">
-              What is a moment from today that you never want to forget?
-            </p>
-            <button className="mt-5 w-full rounded-md bg-[#dda84f] px-4 py-2.5 text-[0.82rem] font-semibold text-black transition hover:bg-[#efbf65] sm:w-auto sm:min-w-28">
-              Write Now
-            </button>
-          </GlassPanel>
+          </section>
         </aside>
       </div>
     </main>

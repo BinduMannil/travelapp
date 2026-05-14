@@ -7,6 +7,6 @@ export const metadata: Metadata = {
     "Browse every JOURNEE journal entry in a cinematic travel timeline with filters, photos, moods, and memories.",
 };
 
-export default function JournalPage() {
+export default function JournalAllEntriesPage() {
   return <JourneyJournalPage />;
 }

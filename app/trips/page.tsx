@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { JourneyBuilderPage } from "@/components/trips/JourneyBuilderPage";
+import { MyTripsPage } from "@/components/trips/MyTripsPage";
 import { montserrat } from "@/app/fonts";
 
 export const metadata: Metadata = {
-  title: "My Trips",
+  title: "My Trips / Journee Journal",
   description:
-    "Manage upcoming trips, itineraries, bookings, expenses, documents, and checklists in JOURNEE.",
+    "Browse cinematic JOURNEE trip cards with journey progress, places, photos, dates, and upcoming travel.",
 };
 
 export default function TripsPage() {
   return (
     <div className={montserrat.className}>
-      <JourneyBuilderPage />
+      <MyTripsPage />
     </div>
   );
 }
