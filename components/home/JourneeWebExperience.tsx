@@ -16,10 +16,6 @@ import {
 import { mainNavigation, routes } from "@/lib/routes";
 
 const imageSet = {
-  hero:
-    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2600&q=88",
-  avatar:
-    "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&w=200&q=80",
   nature:
     "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=84",
   culture:
@@ -41,6 +37,51 @@ const imageSet = {
   lofoten:
     "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=1200&q=86",
 };
+
+type HeroSlide = {
+  image: string;
+  eyebrow: string;
+  quote: string;
+  byline: string;
+};
+
+const heroSlides: HeroSlide[] = [
+  {
+    image:
+      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2600&q=88",
+    eyebrow: "Alpine quiet",
+    quote: "Some places do not ask to be conquered. They ask you to arrive slowly.",
+    byline: "Swiss Alps",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2600&q=88",
+    eyebrow: "Tropical ritual",
+    quote: "The day opens differently when the road is lined with palms and temple bells.",
+    byline: "Ubud, Indonesia",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=2600&q=88",
+    eyebrow: "Old city light",
+    quote: "A city becomes intimate when you stop chasing the map and follow the lanterns.",
+    byline: "Kyoto, Japan",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2600&q=88",
+    eyebrow: "Island drift",
+    quote: "The sea has a way of making every plan feel lighter in your hands.",
+    byline: "Indian Ocean",
+  },
+  {
+    image:
+      "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2600&q=88",
+    eyebrow: "Northern edge",
+    quote: "At the edge of the world, even silence feels like a destination.",
+    byline: "Lofoten, Norway",
+  },
+];
 
 const navItems = mainNavigation.slice(0, 6);
 
@@ -202,13 +243,15 @@ function countrySlugFromLabel(country: string) {
 
 function buildHomeImageAssignments() {
   const usedImages = resetUsedImagesForPage();
-  const heroImage = getUniqueDestinationImage({
-    destinationSlug: "switzerland",
-    countrySlug: "switzerland",
-    category: "hero",
-    preferredImage: imageSet.hero,
-    usedImages,
-  });
+  const assignedHeroSlides = heroSlides.map((slide) => ({
+    ...slide,
+    image: getUniqueDestinationImage({
+      destinationSlug: slide.byline,
+      category: "hero",
+      preferredImage: slide.image,
+      usedImages,
+    }),
+  }));
   const assignedCategories = categories.map((category) => ({
     ...category,
     image: getUniqueDestinationImage({
@@ -229,7 +272,7 @@ function buildHomeImageAssignments() {
     }),
   }));
 
-  return { heroImage, categories: assignedCategories, destinations: assignedDestinations };
+  return { heroSlides: assignedHeroSlides, categories: assignedCategories, destinations: assignedDestinations };
 }
 
 function HomeNavbar() {
@@ -275,13 +318,6 @@ function HomeNavbar() {
             <Bell className="h-5 w-5" />
             <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-[#d9a947]" />
           </Link>
-          <Link href="/settings" aria-label="Open settings">
-            <img
-              src={imageSet.avatar}
-              alt="Profile"
-              className="h-11 w-11 rounded-full border border-white/20 object-cover shadow-xl shadow-black/30"
-            />
-          </Link>
         </div>
       </div>
 
@@ -302,17 +338,29 @@ function HomeNavbar() {
   );
 }
 
-function HomeHero({ heroImage }: { heroImage: string }) {
+function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const activeHeroSlide = heroSlides[activeSlide] ?? heroSlides[0];
+  const heroImages = heroSlides.map((slide) => slide.image);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveSlide((slide) => (slide + 1) % heroSlides.length);
+    }, 6500);
+
+    return () => window.clearInterval(interval);
+  }, [heroSlides.length]);
+
   return (
     <section className="relative min-h-[760px] overflow-hidden bg-[#020908] sm:min-h-[820px] lg:min-h-[850px]">
-      <CinematicBackground image={heroImage} />
+      <CinematicBackground images={heroImages} activeImageIndex={activeSlide} />
 
       <HomeNavbar />
 
       <div className="relative z-10 mx-auto grid min-h-[760px] max-w-[1168px] items-center gap-8 px-5 pb-24 pt-40 sm:min-h-[820px] sm:px-8 sm:pt-44 lg:min-h-[850px] lg:grid-cols-[1fr_330px] lg:px-10 lg:pb-28 xl:px-0">
         <div className="max-w-[610px] motion-safe:animate-[journeeFadeUp_.9s_ease-out_both]">
           <p className="font-sans text-[0.78rem] font-bold uppercase tracking-[0.44em] text-[#d9a947]">
-            NOT JUST A TRIP,
+            {activeHeroSlide.eyebrow}
           </p>
           <h1
             aria-label="Until it becomes a place."
@@ -351,10 +399,26 @@ function HomeHero({ heroImage }: { heroImage: string }) {
         <aside className="hidden rounded-[1.35rem] border border-white/18 bg-[#121713]/64 p-8 shadow-2xl shadow-black/35 backdrop-blur-xl lg:block">
           <p className="font-display text-5xl leading-none text-[#d9a947]">“</p>
           <p className="mt-4 font-display text-xl leading-8 text-white/86">
-            The best journeys answer questions that in the beginning you didn’t even think to ask.
+            {activeHeroSlide.quote}
           </p>
           <div className="mt-7 border-t border-white/14 pt-5 font-sans text-sm text-white/70">
-            —&nbsp; Unknown
+            —&nbsp; {activeHeroSlide.byline}
+          </div>
+          <div className="mt-6 flex items-center gap-2" aria-label="Choose hero slide">
+            {heroSlides.map((slide, index) => (
+              <button
+                key={slide.byline}
+                type="button"
+                aria-label={`Show ${slide.eyebrow} hero slide`}
+                aria-current={index === activeSlide}
+                onClick={() => setActiveSlide(index)}
+                className={`h-2.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
+                  index === activeSlide
+                    ? "w-8 bg-[#d9a947]"
+                    : "w-2.5 bg-white/28 hover:bg-white/58"
+                }`}
+              />
+            ))}
           </div>
         </aside>
       </div>
@@ -980,7 +1044,7 @@ export function JourneeWebExperience() {
           }
         `}
       </style>
-      <HomeHero heroImage={homeImages.heroImage} />
+      <HomeHero heroSlides={homeImages.heroSlides} />
       <HeroSearchBar />
       <JourneyCategoryRail items={homeImages.categories} />
       <RecommendedDestinations items={homeImages.destinations} />
