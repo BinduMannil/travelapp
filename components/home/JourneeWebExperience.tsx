@@ -74,7 +74,7 @@ const heroAtmospheres: HeroAtmosphere[] = [
 ];
 
 const globalHeroSlides: HeroSlide[] = [
-  { destination: "Tokyo", country: "Japan", image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=2600&q=88", eyebrow: "Neon crossing", quote: "The city moves like a current, and somehow makes room for your own rhythm.", byline: "Tokyo, Japan" },
+  { destination: "Tokyo", country: "Japan", image: "https://images.unsplash.com/photo-1542051841857-5f90071e7989?auto=format&fit=crop&w=2600&q=90", eyebrow: "Neon crossing", quote: "The city moves like a current, and somehow makes room for your own rhythm.", byline: "Tokyo, Japan" },
   { destination: "Kyoto", country: "Japan", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=2600&q=88", eyebrow: "Temple hush", quote: "Old streets teach you to listen before you decide where to go next.", byline: "Kyoto, Japan" },
   { destination: "Osaka", country: "Japan", image: "https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&w=2600&q=88", eyebrow: "Night market glow", quote: "Some cities introduce themselves through steam, laughter and a late table.", byline: "Osaka, Japan" },
   { destination: "Hokkaido", country: "Japan", image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2600&q=88", eyebrow: "Snow country", quote: "The farther north you travel, the softer the world seems to speak.", byline: "Hokkaido, Japan" },
@@ -350,8 +350,9 @@ function getHeroAtmosphere(slide: HeroSlide): HeroAtmosphere {
   const scene = `${slide.destination} ${slide.country} ${slide.eyebrow} ${slide.byline}`.toLowerCase();
 
   if (/iceland|norway|lofoten|reykjavik|oslo|bergen/.test(scene)) return "aurora";
+  if (/tokyo/.test(scene)) return "city";
   if (/kyoto/.test(scene)) return "lantern";
-  if (/japan|tokyo|osaka/.test(scene)) return /hokkaido/.test(scene) ? "snow" : "sakura";
+  if (/japan|osaka/.test(scene)) return /hokkaido/.test(scene) ? "snow" : "sakura";
   if (/morocco|marrakech|casablanca/.test(scene)) return "dust";
   if (/london|dublin|edinburgh|bergen|amsterdam/.test(scene)) return "rain";
   if (/dubai|abu dhabi|riyadh|alula|jeddah|doha|muscat|cairo|luxor|las vegas|desert|cappadocia/.test(scene)) return "desert";
@@ -480,6 +481,15 @@ function HomeNavbar() {
             <Search className="h-5 w-5" />
           </Link>
           <Link
+            href="/profile"
+            className="hidden h-12 items-center gap-2.5 whitespace-nowrap rounded-full border border-[#d9a947]/34 bg-[#030504]/58 px-4 font-sans text-[0.76rem] font-bold tracking-[0.08em] text-[#f7e5b4] shadow-[0_18px_48px_rgba(0,0,0,.32),0_0_0_1px_rgba(255,255,255,.05)_inset] backdrop-blur-xl transition hover:border-[#efc66d]/72 hover:bg-black/70 hover:text-[#ffe3a0] sm:inline-flex"
+          >
+            <span>My Journee</span>
+            <span className="grid h-7 min-w-7 place-items-center rounded-full border border-[#d9a947]/46 bg-[#d9a947]/12 px-1.5 text-[0.64rem] uppercase tracking-[0.12em] text-[#f2c768]">
+              BM
+            </span>
+          </Link>
+          <Link
             href="/alerts"
             aria-label="Notifications"
             className="relative hidden h-12 w-12 place-items-center rounded-full border border-white/10 bg-black/10 text-white backdrop-blur-md transition hover:border-[#d9a947]/70 hover:text-[#d9a947] sm:grid"
@@ -526,15 +536,22 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
 
   return (
     <section className="relative min-h-[760px] overflow-hidden bg-[#020908] sm:min-h-[820px] lg:min-h-[850px]">
-      <CinematicBackground images={heroImages} activeImageIndex={activeSlide} />
+      <CinematicBackground
+        images={heroImages}
+        activeImageIndex={activeSlide}
+        imageClassName="journee-hero-image"
+        overlayTone="rich"
+      />
       <HeroSceneColorLayers atmosphere={activeAtmosphere} />
       <HeroAtmosphereLayers atmosphere={activeAtmosphere} />
-      <div className="journee-hero-grain pointer-events-none absolute inset-0 z-[4] opacity-[0.12] mix-blend-soft-light" aria-hidden />
+      <div className="journee-hero-vignette pointer-events-none absolute inset-0 z-[4]" aria-hidden />
+      <div className="journee-hero-grain pointer-events-none absolute inset-0 z-[5] opacity-[0.055] mix-blend-soft-light" aria-hidden />
 
       <HomeNavbar />
 
       <div className="relative z-10 mx-auto grid min-h-[760px] max-w-[1168px] items-center gap-12 px-5 pb-24 pt-36 sm:min-h-[820px] sm:px-8 sm:pt-40 lg:min-h-[850px] lg:grid-cols-[minmax(0,620px)_minmax(320px,370px)] lg:justify-between lg:gap-16 lg:px-10 lg:pb-28 lg:pt-44 xl:gap-24 xl:px-0">
-        <div className="max-w-[620px] motion-safe:animate-[journeeFadeUp_.9s_ease-out_both]">
+        <div className="relative max-w-[620px] motion-safe:animate-[journeeFadeUp_.9s_ease-out_both]">
+          <div className="journee-hero-text-glow pointer-events-none absolute -inset-x-16 -inset-y-20 -z-10" aria-hidden />
           <p
             key={`label-${activeSlide}`}
             className="font-sans text-[0.58rem] font-bold uppercase tracking-[0.42em] text-white/42 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
@@ -1086,7 +1103,7 @@ export function JourneeWebExperience() {
       <style>
         {`
           .journee-hero-image {
-            filter: saturate(1.02) contrast(1.08) brightness(0.82);
+            filter: saturate(1.22) contrast(1.18) brightness(0.78);
             transform-origin: 52% 45%;
             animation: journeeHeroDrift 34s ease-in-out infinite alternate;
           }
@@ -1145,13 +1162,13 @@ export function JourneeWebExperience() {
 
           .journee-hero-haze {
             background:
-              radial-gradient(ellipse at 24% 52%, rgba(255,246,223,.13), transparent 38%),
-              radial-gradient(ellipse at 70% 34%, rgba(180,220,220,.08), transparent 42%),
-              linear-gradient(180deg, rgba(2,9,8,.24), rgba(2,9,8,.06) 36%, rgba(2,9,8,.62) 100%);
-            backdrop-filter: blur(1.5px);
+              radial-gradient(ellipse at 24% 52%, rgba(255,246,223,.07), transparent 38%),
+              radial-gradient(ellipse at 70% 34%, rgba(180,220,220,.045), transparent 42%),
+              linear-gradient(180deg, rgba(2,9,8,.14), rgba(2,9,8,.035) 36%, rgba(2,9,8,.42) 100%);
+            backdrop-filter: blur(.75px);
             mask-image: linear-gradient(180deg, transparent 0%, black 13%, black 88%, transparent 100%);
             -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 13%, black 88%, transparent 100%);
-            opacity: 0.82;
+            opacity: 0.42;
             animation: journeeHazeFloat 26s ease-in-out infinite alternate;
           }
 
@@ -1175,7 +1192,7 @@ export function JourneeWebExperience() {
           }
 
           .journee-scene-grade-active {
-            opacity: 0.88;
+            opacity: 0.48;
           }
 
           .journee-scene-grade-aurora { background: radial-gradient(ellipse at 50% 8%, rgba(93,220,203,.32), transparent 34%), linear-gradient(180deg, rgba(5,18,28,.24), rgba(1,8,14,.72)); }
@@ -1186,7 +1203,7 @@ export function JourneeWebExperience() {
           .journee-scene-grade-ocean { background: radial-gradient(ellipse at 58% 42%, rgba(55,188,196,.22), transparent 38%), linear-gradient(180deg, rgba(2,32,37,.16), rgba(2,8,10,.76)); }
           .journee-scene-grade-desert { background: radial-gradient(ellipse at 58% 30%, rgba(236,170,82,.32), transparent 38%), linear-gradient(180deg, rgba(64,33,9,.18), rgba(10,7,4,.82)); }
           .journee-scene-grade-snow { background: radial-gradient(ellipse at 46% 22%, rgba(215,235,255,.24), transparent 40%), linear-gradient(180deg, rgba(8,18,26,.16), rgba(2,8,10,.78)); }
-          .journee-scene-grade-city { background: radial-gradient(ellipse at 62% 22%, rgba(217,169,71,.18), transparent 34%), linear-gradient(180deg, rgba(4,12,16,.18), rgba(2,8,10,.8)); }
+          .journee-scene-grade-city { background: radial-gradient(ellipse at 62% 22%, rgba(217,169,71,.16), transparent 34%), radial-gradient(ellipse at 30% 30%, rgba(32,190,210,.12), transparent 40%), linear-gradient(180deg, rgba(1,7,10,.12), rgba(0,3,5,.82)); }
           .journee-scene-grade-garden { background: radial-gradient(ellipse at 45% 32%, rgba(115,167,107,.24), transparent 38%), linear-gradient(180deg, rgba(8,30,18,.16), rgba(3,9,7,.78)); }
 
           .journee-scene-glow {
@@ -1198,7 +1215,7 @@ export function JourneeWebExperience() {
           }
 
           .journee-scene-glow-active {
-            opacity: 0.58;
+            opacity: 0.32;
           }
 
           .journee-scene-glow-aurora { background: radial-gradient(ellipse at 30% 18%, rgba(71,213,186,.44), transparent 34%), radial-gradient(ellipse at 72% 28%, rgba(102,95,220,.28), transparent 36%); }
@@ -1209,7 +1226,7 @@ export function JourneeWebExperience() {
           .journee-scene-glow-ocean { background: radial-gradient(ellipse at 66% 42%, rgba(67,201,207,.32), transparent 40%), radial-gradient(ellipse at 24% 20%, rgba(217,169,71,.16), transparent 36%); }
           .journee-scene-glow-desert { background: radial-gradient(ellipse at 60% 28%, rgba(242,166,69,.46), transparent 38%), radial-gradient(ellipse at 24% 48%, rgba(172,72,42,.22), transparent 40%); }
           .journee-scene-glow-snow { background: radial-gradient(ellipse at 52% 18%, rgba(190,224,255,.3), transparent 40%), radial-gradient(ellipse at 24% 42%, rgba(217,169,71,.12), transparent 36%); }
-          .journee-scene-glow-city { background: radial-gradient(ellipse at 70% 22%, rgba(217,169,71,.28), transparent 34%), radial-gradient(ellipse at 28% 40%, rgba(68,142,154,.2), transparent 40%); }
+          .journee-scene-glow-city { background: radial-gradient(ellipse at 72% 20%, rgba(217,169,71,.28), transparent 34%), radial-gradient(ellipse at 28% 38%, rgba(40,202,224,.26), transparent 40%), radial-gradient(ellipse at 52% 62%, rgba(205,44,92,.16), transparent 42%); }
           .journee-scene-glow-garden { background: radial-gradient(ellipse at 44% 28%, rgba(116,178,108,.32), transparent 40%), radial-gradient(ellipse at 72% 46%, rgba(217,169,71,.16), transparent 38%); }
 
           .journee-atmosphere-wrap {
@@ -1229,7 +1246,7 @@ export function JourneeWebExperience() {
           }
 
           .journee-atmosphere-active {
-            opacity: 0.48;
+            opacity: 0.28;
           }
 
           .journee-atmosphere-aurora::before,
@@ -1342,15 +1359,15 @@ export function JourneeWebExperience() {
             content: "";
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse at 68% 30%, rgba(255,255,255,.08), transparent 32%);
+            background: radial-gradient(ellipse at 68% 30%, rgba(255,255,255,.05), transparent 32%);
             animation: journeeLightSweep 48s ease-in-out infinite alternate;
           }
 
           .journee-hero-vignette {
             background:
-              radial-gradient(ellipse at 46% 44%, transparent 0 42%, rgba(2,9,8,.34) 72%, rgba(2,9,8,.88) 100%),
-              linear-gradient(90deg, rgba(2,9,8,.84), rgba(2,9,8,.38) 24%, rgba(2,9,8,.08) 56%, rgba(2,9,8,.52)),
-              linear-gradient(180deg, rgba(2,9,8,.7), transparent 24%, rgba(2,9,8,.88) 100%);
+              radial-gradient(ellipse at 52% 42%, transparent 0 45%, rgba(0,4,5,.26) 74%, rgba(0,0,0,.82) 100%),
+              linear-gradient(90deg, rgba(0,3,4,.76), rgba(0,4,5,.34) 25%, rgba(0,4,5,.03) 57%, rgba(0,3,4,.42)),
+              linear-gradient(180deg, rgba(0,3,4,.54), transparent 25%, rgba(0,2,3,.82) 100%);
           }
 
           .journee-hero-text-glow {
@@ -1402,8 +1419,8 @@ export function JourneeWebExperience() {
             100% { transform: translate3d(0, 0, 0); }
           }
           @keyframes journeeGlowBreathe {
-            from { transform: translate3d(-1%, 0, 0) scale(1); opacity: .54; }
-            to { transform: translate3d(1.3%, -1%, 0) scale(1.04); opacity: .78; }
+            from { transform: translate3d(-1%, 0, 0) scale(1); opacity: .28; }
+            to { transform: translate3d(1.3%, -1%, 0) scale(1.04); opacity: .4; }
           }
           @keyframes journeeAuroraVeil {
             from { transform: translate3d(-1%, 0, 0) skewY(-2deg) scaleY(.92); opacity: .32; }
