@@ -30,7 +30,7 @@ export function CinematicBackground({
           key={backgroundImage}
           src={backgroundImage}
           alt=""
-          className={`absolute inset-0 h-full w-full scale-[1.03] object-cover saturate-[1.12] transition-opacity duration-[1800ms] ease-[cubic-bezier(.19,1,.22,1)] motion-reduce:transition-none motion-safe:animate-[journeeCinematicDrift_36s_ease-in-out_infinite] ${
+          className={`absolute inset-0 h-full w-full scale-[1.03] object-cover saturate-[1.12] transition-opacity duration-[3200ms] ease-[cubic-bezier(.19,1,.22,1)] motion-reduce:transition-none motion-safe:animate-[journeeCinematicDrift_36s_ease-in-out_infinite] ${
             index === activeImageIndex ? "opacity-90" : "opacity-0"
           }`}
         />
