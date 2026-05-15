@@ -1,0 +1,53 @@
+---
+description: Permanent Journee design governance rules
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+# Journee Design Governance Rules
+
+These rules are permanent agent instructions for the Journee repository.
+
+The canonical design authority is:
+
+`docs/JOURNEE_MASTER_LOCK_SPEC.md`
+
+Never override JOURNEE_MASTER_LOCK_SPEC.md unless the user explicitly requests modification of the master specification itself.
+
+## Mandatory Agent Instructions
+
+- Read and enforce `docs/JOURNEE_MASTER_LOCK_SPEC.md` before changing UI, layout, motion, typography, navigation, profile, homepage, imagery, or shared visual primitives.
+- Treat the master spec as mandatory. It is not guidance, preference, or optional style direction.
+- Preserve cinematic behavior across all Journee surfaces.
+- Preserve homepage timing, including the 60000 ms hero rotation interval and the slow cross-fade transition behavior.
+- Preserve atmosphere behavior, including destination-aware scene treatments and environmental layers.
+- Preserve typography, including cinematic display scale, editorial hierarchy, uppercase micro-labels, and restrained sans controls.
+- Preserve navigation spacing, warm hover states, glassy controls, and the "My Journee" profile affordance.
+- Preserve profile behavior as a cinematic traveler profile, not a generic account portal.
+- Preserve image rotation behavior and unique destination image selection.
+- Prevent future UI drift by using established Journee primitives, tokens, spacing, overlays, and motion patterns.
+- Prevent accidental redesigns. Do not replace established Journee screens with new visual systems unless the user explicitly requests a master spec modification.
+- Prevent visible slideshow UI. Do not add carousel dots, arrows, thumbnails, slide counters, progress bars, pause/play controls, or any visible hero slideshow mechanism.
+- Prevent SaaS/dashboard styling. Do not introduce generic admin dashboards, CRM shells, analytics surfaces, sterile white app layouts, or productivity-tool styling.
+- Keep operational surfaces travel-native, cinematic, dark, atmospheric, image-led, and warm-accented.
+
+## Conflict Rule
+
+If a user request conflicts with `docs/JOURNEE_MASTER_LOCK_SPEC.md`, stop and ask whether the user wants to modify the master specification itself. Do not silently override the lock.
+
+## Review Checklist
+
+Before finishing any UI change, confirm:
+
+- `docs/JOURNEE_MASTER_LOCK_SPEC.md` was followed.
+- Homepage hero timing remains locked when touched.
+- Cinematic background behavior remains intact when touched.
+- Atmosphere layers remain destination-aware when touched.
+- Typography hierarchy remains cinematic when touched.
+- Navigation spacing and profile entry remain intact when touched.
+- Profile behavior remains travel-native when touched.
+- Image rotation remains meaningful and non-repetitive when touched.
+- No visible slideshow UI was added.
+- No SaaS/dashboard styling was introduced.
+
