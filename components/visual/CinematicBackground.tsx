@@ -42,7 +42,7 @@ export function CinematicBackground({
       ))}
       <div
         className={`absolute inset-[-24%] blur-[110px] mix-blend-screen [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_72%)] motion-safe:animate-[journeeAuroraFloat_32s_ease-in-out_infinite] ${
-          isRichOverlay ? "opacity-35" : "opacity-60"
+          isRichOverlay ? "opacity-[0.18]" : "opacity-60"
         }`}
       >
         <span className="absolute left-[4%] top-[8%] h-[44rem] w-[44rem] rounded-full bg-[radial-gradient(circle,rgba(216,170,79,.34),transparent_68%)]" />
@@ -52,20 +52,20 @@ export function CinematicBackground({
       <div
         className={
           isRichOverlay
-            ? "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_50%_28%,transparent_0%,rgba(0,0,0,.1)_46%,rgba(0,0,0,.72)_100%)]"
+            ? "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_54%_34%,transparent_0%,transparent_50%,rgba(0,0,0,.2)_78%,rgba(0,0,0,.62)_100%)]"
             : "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_50%_28%,transparent_0%,rgba(0,0,0,.18)_44%,rgba(0,0,0,.62)_100%)]"
         }
       />
       <div
         className={
           isRichOverlay
-            ? "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.12),rgba(2,6,7,.1)_38%,rgba(2,6,7,.78)_100%)]"
+            ? "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.06),rgba(2,6,7,.015)_42%,rgba(2,6,7,.5)_100%)]"
             : "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.2),rgba(2,6,7,.18)_38%,rgba(2,6,7,.86)_100%)]"
         }
       />
       <div
         className={`absolute inset-0 mix-blend-soft-light [background-image:radial-gradient(circle_at_25%_15%,rgba(255,255,255,.8)_0_1px,transparent_1px),radial-gradient(circle_at_75%_65%,rgba(255,255,255,.55)_0_1px,transparent_1px)] [background-size:36px_36px,52px_52px] ${
-          isRichOverlay ? "opacity-[0.045]" : "opacity-[0.09]"
+          isRichOverlay ? "opacity-[0.025]" : "opacity-[0.09]"
         }`}
       />
       <div className={overlayClassName} />

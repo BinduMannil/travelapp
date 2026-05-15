@@ -545,7 +545,7 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
       <HeroSceneColorLayers atmosphere={activeAtmosphere} />
       <HeroAtmosphereLayers atmosphere={activeAtmosphere} />
       <div className="journee-hero-vignette pointer-events-none absolute inset-0 z-[4]" aria-hidden />
-      <div className="journee-hero-grain pointer-events-none absolute inset-0 z-[5] opacity-[0.055] mix-blend-soft-light" aria-hidden />
+      <div className="journee-hero-grain pointer-events-none absolute inset-0 z-[5] opacity-[0.035] mix-blend-soft-light" aria-hidden />
 
       <HomeNavbar />
 
@@ -1103,7 +1103,7 @@ export function JourneeWebExperience() {
       <style>
         {`
           .journee-hero-image {
-            filter: saturate(1.22) contrast(1.18) brightness(0.78);
+            filter: saturate(1.2) contrast(1.14) brightness(0.94);
             transform-origin: 52% 45%;
             animation: journeeHeroDrift 34s ease-in-out infinite alternate;
           }
@@ -1162,13 +1162,13 @@ export function JourneeWebExperience() {
 
           .journee-hero-haze {
             background:
-              radial-gradient(ellipse at 24% 52%, rgba(255,246,223,.07), transparent 38%),
-              radial-gradient(ellipse at 70% 34%, rgba(180,220,220,.045), transparent 42%),
-              linear-gradient(180deg, rgba(2,9,8,.14), rgba(2,9,8,.035) 36%, rgba(2,9,8,.42) 100%);
-            backdrop-filter: blur(.75px);
+              radial-gradient(ellipse at 24% 52%, rgba(255,246,223,.035), transparent 40%),
+              radial-gradient(ellipse at 70% 34%, rgba(180,220,220,.025), transparent 44%),
+              linear-gradient(180deg, rgba(2,9,8,.08), rgba(2,9,8,.018) 38%, rgba(2,9,8,.28) 100%);
+            backdrop-filter: none;
             mask-image: linear-gradient(180deg, transparent 0%, black 13%, black 88%, transparent 100%);
             -webkit-mask-image: linear-gradient(180deg, transparent 0%, black 13%, black 88%, transparent 100%);
-            opacity: 0.42;
+            opacity: 0.24;
             animation: journeeHazeFloat 26s ease-in-out infinite alternate;
           }
 
@@ -1184,15 +1184,15 @@ export function JourneeWebExperience() {
 
           .journee-scene-grade {
             background:
-              radial-gradient(ellipse at 46% 34%, rgba(255,255,255,.08), transparent 36%),
-              linear-gradient(180deg, rgba(2,9,8,.08), rgba(2,9,8,.34) 58%, rgba(2,9,8,.84));
+              radial-gradient(ellipse at 46% 34%, rgba(255,255,255,.035), transparent 38%),
+              linear-gradient(180deg, rgba(2,9,8,.025), rgba(2,9,8,.16) 60%, rgba(2,9,8,.52));
             mix-blend-mode: soft-light;
             opacity: 0;
             transition: opacity 3200ms cubic-bezier(.19,1,.22,1);
           }
 
           .journee-scene-grade-active {
-            opacity: 0.48;
+            opacity: 0.26;
           }
 
           .journee-scene-grade-aurora { background: radial-gradient(ellipse at 50% 8%, rgba(93,220,203,.32), transparent 34%), linear-gradient(180deg, rgba(5,18,28,.24), rgba(1,8,14,.72)); }
@@ -1215,7 +1215,7 @@ export function JourneeWebExperience() {
           }
 
           .journee-scene-glow-active {
-            opacity: 0.32;
+            opacity: 0.2;
           }
 
           .journee-scene-glow-aurora { background: radial-gradient(ellipse at 30% 18%, rgba(71,213,186,.44), transparent 34%), radial-gradient(ellipse at 72% 28%, rgba(102,95,220,.28), transparent 36%); }
@@ -1246,7 +1246,7 @@ export function JourneeWebExperience() {
           }
 
           .journee-atmosphere-active {
-            opacity: 0.28;
+            opacity: 0.16;
           }
 
           .journee-atmosphere-aurora::before,
@@ -1365,16 +1365,16 @@ export function JourneeWebExperience() {
 
           .journee-hero-vignette {
             background:
-              radial-gradient(ellipse at 52% 42%, transparent 0 45%, rgba(0,4,5,.26) 74%, rgba(0,0,0,.82) 100%),
-              linear-gradient(90deg, rgba(0,3,4,.76), rgba(0,4,5,.34) 25%, rgba(0,4,5,.03) 57%, rgba(0,3,4,.42)),
-              linear-gradient(180deg, rgba(0,3,4,.54), transparent 25%, rgba(0,2,3,.82) 100%);
+              radial-gradient(ellipse at 58% 42%, transparent 0 46%, rgba(0,4,5,.14) 74%, rgba(0,0,0,.68) 100%),
+              linear-gradient(90deg, rgba(0,3,4,.84) 0%, rgba(0,4,5,.58) 18%, rgba(0,4,5,.2) 38%, rgba(0,4,5,.02) 66%, rgba(0,3,4,.26) 100%),
+              linear-gradient(180deg, rgba(0,3,4,.38) 0%, transparent 30%, rgba(0,2,3,.64) 100%);
           }
 
           .journee-hero-text-glow {
-            background: radial-gradient(ellipse at 38% 45%, rgba(2,9,8,.78), rgba(2,9,8,.46) 42%, transparent 74%);
-            opacity: 0.94;
-            mask-image: radial-gradient(ellipse at 38% 45%, black 0 38%, rgba(0,0,0,.82) 54%, transparent 78%);
-            -webkit-mask-image: radial-gradient(ellipse at 38% 45%, black 0 38%, rgba(0,0,0,.82) 54%, transparent 78%);
+            background: radial-gradient(ellipse at 38% 45%, rgba(0,4,5,.82), rgba(0,4,5,.48) 42%, transparent 76%);
+            opacity: 0.82;
+            mask-image: radial-gradient(ellipse at 38% 45%, black 0 34%, rgba(0,0,0,.78) 54%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at 38% 45%, black 0 34%, rgba(0,0,0,.78) 54%, transparent 80%);
           }
 
           @keyframes journeeHeroDrift {
@@ -1419,8 +1419,8 @@ export function JourneeWebExperience() {
             100% { transform: translate3d(0, 0, 0); }
           }
           @keyframes journeeGlowBreathe {
-            from { transform: translate3d(-1%, 0, 0) scale(1); opacity: .28; }
-            to { transform: translate3d(1.3%, -1%, 0) scale(1.04); opacity: .4; }
+            from { transform: translate3d(-1%, 0, 0) scale(1); opacity: .16; }
+            to { transform: translate3d(1.3%, -1%, 0) scale(1.04); opacity: .25; }
           }
           @keyframes journeeAuroraVeil {
             from { transform: translate3d(-1%, 0, 0) skewY(-2deg) scaleY(.92); opacity: .32; }
