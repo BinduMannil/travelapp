@@ -5,7 +5,9 @@ export const CINEMATIC_BACKGROUND_CLASS =
   "journee-cinematic-background pointer-events-none absolute inset-0 isolate overflow-hidden bg-[#020807]";
 
 type CinematicBackgroundProps = {
-  image: string;
+  image?: string;
+  images?: string[];
+  activeImageIndex?: number;
   children?: ReactNode;
   className?: string;
   overlayClassName?: string;
@@ -13,17 +15,26 @@ type CinematicBackgroundProps = {
 
 export function CinematicBackground({
   image,
+  images,
+  activeImageIndex = 0,
   children,
   className = "",
   overlayClassName = "",
 }: CinematicBackgroundProps) {
+  const backgroundImages = images?.length ? images : image ? [image] : [];
+
   return (
     <div className={`${CINEMATIC_BACKGROUND_CLASS} ${className}`.trim()} aria-hidden>
-      <img
-        src={image}
-        alt=""
-        className="absolute inset-0 h-full w-full scale-[1.03] object-cover opacity-90 saturate-[1.12] motion-safe:animate-[journeeCinematicDrift_36s_ease-in-out_infinite]"
-      />
+      {backgroundImages.map((backgroundImage, index) => (
+        <img
+          key={backgroundImage}
+          src={backgroundImage}
+          alt=""
+          className={`absolute inset-0 h-full w-full scale-[1.03] object-cover saturate-[1.12] transition-opacity duration-[1800ms] ease-[cubic-bezier(.19,1,.22,1)] motion-reduce:transition-none motion-safe:animate-[journeeCinematicDrift_36s_ease-in-out_infinite] ${
+            index === activeImageIndex ? "opacity-90" : "opacity-0"
+          }`}
+        />
+      ))}
       <div className="absolute inset-[-24%] opacity-60 blur-[110px] mix-blend-screen [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_72%)] motion-safe:animate-[journeeAuroraFloat_32s_ease-in-out_infinite]">
         <span className="absolute left-[4%] top-[8%] h-[44rem] w-[44rem] rounded-full bg-[radial-gradient(circle,rgba(216,170,79,.34),transparent_68%)]" />
         <span className="absolute right-[4%] top-[16%] h-[48rem] w-[48rem] rounded-full bg-[radial-gradient(circle,rgba(72,142,150,.26),transparent_70%)]" />
