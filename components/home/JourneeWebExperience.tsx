@@ -363,7 +363,7 @@ function getHeroSupportingParagraph(slide: HeroSlide, atmosphere: HeroAtmosphere
     garden: "Journee leans into green edges, open air and grounded rituals that make a destination feel lived in.",
   };
 
-  return `${slide.destination} sets the scene. ${atmosphereCopy[atmosphere]}`;
+  return `${slide.destination} shifts the mood. ${atmosphereCopy[atmosphere]}`;
 }
 
 function getHeroLocationLabel(slide: HeroSlide, atmosphere: HeroAtmosphere) {
@@ -380,7 +380,15 @@ function getHeroLocationLabel(slide: HeroSlide, atmosphere: HeroAtmosphere) {
     garden: "Green Hour",
   };
 
-  return `${labelByAtmosphere[atmosphere]} / ${slide.destination}`;
+  if (slide.destination === "Kyoto") return "Kyoto After Dark";
+  if (slide.destination === "Lofoten") return "Northern Edge";
+  if (slide.destination === "Reykjavik") return "Aurora Latitude";
+  if (slide.destination === "AlUla") return "Desert Horizon";
+  if (slide.destination === "Zermatt" || slide.destination === "Lauterbrunnen") {
+    return "Alpine Stillness";
+  }
+
+  return labelByAtmosphere[atmosphere];
 }
 
 function HeroAtmosphereLayer({ atmosphere }: { atmosphere: HeroAtmosphere }) {
@@ -491,14 +499,6 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
     return () => window.clearInterval(interval);
   }, [totalSlides]);
 
-  function showPreviousScene() {
-    setActiveSlide((slide) => (slide - 1 + totalSlides) % totalSlides);
-  }
-
-  function showNextScene() {
-    setActiveSlide((slide) => (slide + 1) % totalSlides);
-  }
-
   return (
     <section className="relative min-h-[760px] overflow-hidden bg-[#020908] sm:min-h-[820px] lg:min-h-[850px]">
       <CinematicBackground images={heroImages} activeImageIndex={activeSlide} />
@@ -515,11 +515,11 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
 
       <HomeNavbar />
 
-      <div className="relative z-10 mx-auto grid min-h-[760px] max-w-[1168px] items-center gap-8 px-5 pb-24 pt-40 sm:min-h-[820px] sm:px-8 sm:pt-44 lg:min-h-[850px] lg:grid-cols-[1fr_330px] lg:px-10 lg:pb-28 xl:px-0">
-        <div className="max-w-[610px] motion-safe:animate-[journeeFadeUp_.9s_ease-out_both]">
+      <div className="relative z-10 mx-auto grid min-h-[760px] max-w-[1168px] items-center gap-12 px-5 pb-24 pt-36 sm:min-h-[820px] sm:px-8 sm:pt-40 lg:min-h-[850px] lg:grid-cols-[minmax(0,620px)_minmax(320px,370px)] lg:justify-between lg:gap-16 lg:px-10 lg:pb-28 lg:pt-44 xl:gap-24 xl:px-0">
+        <div className="max-w-[620px] motion-safe:animate-[journeeFadeUp_.9s_ease-out_both]">
           <p
             key={`label-${activeSlide}`}
-            className="font-sans text-[0.66rem] font-bold uppercase tracking-[0.34em] text-white/60 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
+            className="font-sans text-[0.58rem] font-bold uppercase tracking-[0.42em] text-white/42 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
           >
             {locationLabel}
           </p>
@@ -563,40 +563,19 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
               Watch Journee
             </Link>
           </div>
-          <div className="mt-8 flex flex-wrap items-center gap-4 font-sans text-xs font-bold uppercase tracking-[0.16em] text-white/62 sm:gap-5">
-            <button
-              type="button"
-              onClick={showPreviousScene}
-              className="transition hover:text-[#d9a947] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70"
-            >
-              Previous Scene
-            </button>
-            <span className="h-px w-8 bg-white/24" />
-            <span>
-              Scene {activeSlide + 1} of {totalSlides}
-            </span>
-            <span className="h-px w-8 bg-white/24" />
-            <button
-              type="button"
-              onClick={showNextScene}
-              className="transition hover:text-[#d9a947] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70"
-            >
-              Next Scene
-            </button>
-          </div>
         </div>
 
-        <aside className="hidden rounded-[1.35rem] border border-white/18 bg-[#121713]/64 p-8 shadow-2xl shadow-black/35 backdrop-blur-xl transition-colors duration-[3200ms] lg:block">
-          <p className="font-display text-5xl leading-none text-[#d9a947]">“</p>
+        <aside className="relative hidden overflow-hidden rounded-[1.75rem] border border-white/12 bg-[#050807]/52 p-9 shadow-[0_34px_120px_rgba(0,0,0,.42)] backdrop-blur-3xl transition-colors duration-[3200ms] before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(ellipse_at_28%_0%,rgba(255,255,255,.12),transparent_44%),linear-gradient(180deg,rgba(255,255,255,.06),transparent_58%)] before:opacity-70 lg:block xl:p-10">
+          <p className="relative font-display text-5xl leading-none text-[#d9a947]/82">“</p>
           <p
             key={`quote-${activeSlide}`}
-            className="mt-4 font-display text-xl leading-8 text-white/86 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
+            className="relative mt-5 font-display text-xl leading-8 text-white/82 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
           >
             {activeHeroSlide.quote}
           </p>
           <div
             key={`byline-${activeSlide}`}
-            className="mt-7 border-t border-white/14 pt-5 font-sans text-sm text-white/70 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
+            className="relative mt-8 border-t border-white/10 pt-5 font-sans text-sm text-white/58 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
           >
             —&nbsp; {activeHeroSlide.byline}
           </div>
