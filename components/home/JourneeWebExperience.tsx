@@ -11,6 +11,7 @@ import { formatDisplayTitle } from "@/lib/ui/formatDisplayTitle";
 import {
   getUniqueDestinationImage,
   inferImageCategoryFromText,
+  markImageAsUsed,
   resetUsedImagesForPage,
 } from "@/lib/imageRotation";
 import { mainNavigation, routes } from "@/lib/routes";
@@ -39,48 +40,100 @@ const imageSet = {
 };
 
 type HeroSlide = {
+  destination: string;
+  country: string;
   image: string;
   eyebrow: string;
   quote: string;
   byline: string;
 };
 
-const heroSlides: HeroSlide[] = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2600&q=88",
-    eyebrow: "Alpine quiet",
-    quote: "Some places do not ask to be conquered. They ask you to arrive slowly.",
-    byline: "Swiss Alps",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2600&q=88",
-    eyebrow: "Tropical ritual",
-    quote: "The day opens differently when the road is lined with palms and temple bells.",
-    byline: "Ubud, Indonesia",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=2600&q=88",
-    eyebrow: "Old city light",
-    quote: "A city becomes intimate when you stop chasing the map and follow the lanterns.",
-    byline: "Kyoto, Japan",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2600&q=88",
-    eyebrow: "Island drift",
-    quote: "The sea has a way of making every plan feel lighter in your hands.",
-    byline: "Indian Ocean",
-  },
-  {
-    image:
-      "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2600&q=88",
-    eyebrow: "Northern edge",
-    quote: "At the edge of the world, even silence feels like a destination.",
-    byline: "Lofoten, Norway",
-  },
+const globalHeroSlides: HeroSlide[] = [
+  { destination: "Tokyo", country: "Japan", image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=2600&q=88", eyebrow: "Neon crossing", quote: "The city moves like a current, and somehow makes room for your own rhythm.", byline: "Tokyo, Japan" },
+  { destination: "Kyoto", country: "Japan", image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=2600&q=88", eyebrow: "Temple hush", quote: "Old streets teach you to listen before you decide where to go next.", byline: "Kyoto, Japan" },
+  { destination: "Osaka", country: "Japan", image: "https://images.unsplash.com/photo-1590559899731-a382839e5549?auto=format&fit=crop&w=2600&q=88", eyebrow: "Night market glow", quote: "Some cities introduce themselves through steam, laughter and a late table.", byline: "Osaka, Japan" },
+  { destination: "Hokkaido", country: "Japan", image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2600&q=88", eyebrow: "Snow country", quote: "The farther north you travel, the softer the world seems to speak.", byline: "Hokkaido, Japan" },
+  { destination: "Seoul", country: "South Korea", image: "https://images.unsplash.com/photo-1538485399081-7191377e8241?auto=format&fit=crop&w=2600&q=88", eyebrow: "After-dark skyline", quote: "A bright city can still feel personal when you find your corner of it.", byline: "Seoul, South Korea" },
+  { destination: "Busan", country: "South Korea", image: "https://images.unsplash.com/photo-1535189043414-47a3c49a0bed?auto=format&fit=crop&w=2600&q=88", eyebrow: "Harbor morning", quote: "The coast changes the tempo, turning every arrival into a breath.", byline: "Busan, South Korea" },
+  { destination: "Shanghai", country: "China", image: "https://images.unsplash.com/photo-1548919973-5cef591cdbc9?auto=format&fit=crop&w=2600&q=88", eyebrow: "River of towers", quote: "Glass, water and light keep rewriting the city in front of you.", byline: "Shanghai, China" },
+  { destination: "Beijing", country: "China", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=2600&q=88", eyebrow: "Imperial scale", quote: "History feels different when it stretches beyond the edge of your sight.", byline: "Beijing, China" },
+  { destination: "Hong Kong", country: "China", image: "https://images.unsplash.com/photo-1536599018102-9f803c140fc1?auto=format&fit=crop&w=2600&q=88", eyebrow: "Vertical harbor", quote: "The skyline rises fast, but the best moments still happen at street level.", byline: "Hong Kong, China" },
+  { destination: "Bangkok", country: "Thailand", image: "https://images.unsplash.com/photo-1508009603885-50cf7c579365?auto=format&fit=crop&w=2600&q=88", eyebrow: "Golden heat", quote: "The city opens in layers of incense, traffic, river light and spice.", byline: "Bangkok, Thailand" },
+  { destination: "Chiang Mai", country: "Thailand", image: "https://images.unsplash.com/photo-1528181304800-259b08848526?auto=format&fit=crop&w=2600&q=88", eyebrow: "Mountain temples", quote: "Some mornings begin with bells and end above a valley of blue smoke.", byline: "Chiang Mai, Thailand" },
+  { destination: "Phuket", country: "Thailand", image: "https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?auto=format&fit=crop&w=2600&q=88", eyebrow: "Andaman blue", quote: "The sea keeps a slower clock, and it invites you to borrow it.", byline: "Phuket, Thailand" },
+  { destination: "Hanoi", country: "Vietnam", image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=2600&q=88", eyebrow: "Old quarter rain", quote: "A thousand small rituals can make one city feel endlessly new.", byline: "Hanoi, Vietnam" },
+  { destination: "Ho Chi Minh City", country: "Vietnam", image: "https://images.unsplash.com/photo-1583417319070-4a69db38a482?auto=format&fit=crop&w=2600&q=88", eyebrow: "Electric evening", quote: "Momentum becomes beautiful when the whole street seems to move together.", byline: "Ho Chi Minh City, Vietnam" },
+  { destination: "Da Nang", country: "Vietnam", image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2600&q=88", eyebrow: "Coastal bridge", quote: "Between mountains and sea, even the road feels like part of the view.", byline: "Da Nang, Vietnam" },
+  { destination: "Bali", country: "Indonesia", image: "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=2600&q=88", eyebrow: "Ritual green", quote: "The island asks you to notice what is offered, not only what is seen.", byline: "Bali, Indonesia" },
+  { destination: "Jakarta", country: "Indonesia", image: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?auto=format&fit=crop&w=2600&q=88", eyebrow: "Capital surge", quote: "A city this alive turns movement itself into a kind of weather.", byline: "Jakarta, Indonesia" },
+  { destination: "Singapore", country: "Singapore", image: "https://images.unsplash.com/photo-1525625293386-3f8f99389edd?auto=format&fit=crop&w=2600&q=88", eyebrow: "Garden skyline", quote: "The future feels warmer when it grows beside trees and night air.", byline: "Singapore" },
+  { destination: "Kuala Lumpur", country: "Malaysia", image: "https://images.unsplash.com/photo-1596422846543-75c6fc197f11?auto=format&fit=crop&w=2600&q=88", eyebrow: "Twin tower gleam", quote: "At dusk, the city gathers its reflections and becomes cinematic.", byline: "Kuala Lumpur, Malaysia" },
+  { destination: "Penang", country: "Malaysia", image: "https://images.unsplash.com/photo-1585036156171-384164a8c675?auto=format&fit=crop&w=2600&q=88", eyebrow: "Heritage coast", quote: "The best streets give you color first, then history, then appetite.", byline: "Penang, Malaysia" },
+  { destination: "Dubai", country: "UAE", image: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2600&q=88", eyebrow: "Desert futurism", quote: "Here, ambition catches the light and throws it back across the sand.", byline: "Dubai, UAE" },
+  { destination: "Abu Dhabi", country: "UAE", image: "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?auto=format&fit=crop&w=2600&q=88", eyebrow: "Marble calm", quote: "Grandeur feels gentler when it is wrapped in courtyards and quiet water.", byline: "Abu Dhabi, UAE" },
+  { destination: "Riyadh", country: "Saudi Arabia", image: "https://images.unsplash.com/photo-1586724237569-f3d0c1dee8c6?auto=format&fit=crop&w=2600&q=88", eyebrow: "Desert capital", quote: "The horizon is wide enough here to make tomorrow feel visible.", byline: "Riyadh, Saudi Arabia" },
+  { destination: "AlUla", country: "Saudi Arabia", image: "https://images.unsplash.com/photo-1608096299210-db7e38487075?auto=format&fit=crop&w=2600&q=88", eyebrow: "Sandstone theater", quote: "Rock and silence can hold a story longer than any city street.", byline: "AlUla, Saudi Arabia" },
+  { destination: "Jeddah", country: "Saudi Arabia", image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&w=2600&q=88", eyebrow: "Red Sea air", quote: "Salt, coral and old balconies make the coast feel remembered.", byline: "Jeddah, Saudi Arabia" },
+  { destination: "Doha", country: "Qatar", image: "https://images.unsplash.com/photo-1551041777-ed277b8dd348?auto=format&fit=crop&w=2600&q=88", eyebrow: "Pearl skyline", quote: "The bay turns architecture into a reflection you can walk beside.", byline: "Doha, Qatar" },
+  { destination: "Muscat", country: "Oman", image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2601&q=88", eyebrow: "Mountain harbor", quote: "White walls, old forts and sea wind keep the city beautifully grounded.", byline: "Muscat, Oman" },
+  { destination: "Istanbul", country: "Turkey", image: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&w=2600&q=88", eyebrow: "Two-continent light", quote: "Every ferry crossing feels like moving between chapters of the same poem.", byline: "Istanbul, Turkey" },
+  { destination: "Cappadocia", country: "Turkey", image: "https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=2600&q=88", eyebrow: "Balloon dawn", quote: "The morning rises with you, soft and impossible above the stone.", byline: "Cappadocia, Turkey" },
+  { destination: "Paris", country: "France", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=2600&q=88", eyebrow: "Midnight icon", quote: "The familiar becomes magic again when the city turns on its lights.", byline: "Paris, France" },
+  { destination: "Nice", country: "France", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2601&q=88", eyebrow: "Riviera blue", quote: "The shore makes elegance feel easy, sunlit and close enough to touch.", byline: "Nice, France" },
+  { destination: "Provence", country: "France", image: "https://images.unsplash.com/photo-1499002238440-d264edd596ec?auto=format&fit=crop&w=2600&q=88", eyebrow: "Lavender hour", quote: "The countryside slows the light until it feels almost handmade.", byline: "Provence, France" },
+  { destination: "Rome", country: "Italy", image: "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=2600&q=88", eyebrow: "Ancient gold", quote: "A city built in layers lets every walk become a small excavation.", byline: "Rome, Italy" },
+  { destination: "Venice", country: "Italy", image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=2600&q=88", eyebrow: "Canal dusk", quote: "Water changes everything, including the way memory enters a street.", byline: "Venice, Italy" },
+  { destination: "Florence", country: "Italy", image: "https://images.unsplash.com/photo-1541370976299-4d24ebbc9077?auto=format&fit=crop&w=2600&q=88", eyebrow: "Renaissance light", quote: "Beauty feels practical here, as if every stone knows its purpose.", byline: "Florence, Italy" },
+  { destination: "Amalfi Coast", country: "Italy", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=2600&q=88", eyebrow: "Cliffside blue", quote: "The coast turns every curve of road into a reveal.", byline: "Amalfi Coast, Italy" },
+  { destination: "Barcelona", country: "Spain", image: "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=2600&q=88", eyebrow: "Mosaic city", quote: "Color becomes architecture, and architecture becomes a reason to wander.", byline: "Barcelona, Spain" },
+  { destination: "Madrid", country: "Spain", image: "https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=2600&q=88", eyebrow: "Late-night plazas", quote: "Some capitals save their warmth for after sunset.", byline: "Madrid, Spain" },
+  { destination: "Seville", country: "Spain", image: "https://images.unsplash.com/photo-1559564477-6e858227cbc7?auto=format&fit=crop&w=2600&q=88", eyebrow: "Andalusian flame", quote: "Orange trees, tilework and song make the evening feel alive.", byline: "Seville, Spain" },
+  { destination: "Lisbon", country: "Portugal", image: "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=2600&q=88", eyebrow: "Atlantic hills", quote: "The city climbs toward the light, then gives you the river.", byline: "Lisbon, Portugal" },
+  { destination: "Porto", country: "Portugal", image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=2600&q=88", eyebrow: "Blue-tile river", quote: "Every bridge feels like an invitation to see the city twice.", byline: "Porto, Portugal" },
+  { destination: "Athens", country: "Greece", image: "https://images.unsplash.com/photo-1555993539-1732b0258235?auto=format&fit=crop&w=2600&q=88", eyebrow: "Marble horizon", quote: "The old world still knows how to catch the last light.", byline: "Athens, Greece" },
+  { destination: "Santorini", country: "Greece", image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=2601&q=88", eyebrow: "Caldera glow", quote: "White walls, blue domes and a horizon that refuses to end.", byline: "Santorini, Greece" },
+  { destination: "Zurich", country: "Switzerland", image: "https://images.unsplash.com/photo-1515488764276-beab7607c1e6?auto=format&fit=crop&w=2600&q=88", eyebrow: "Lake precision", quote: "A clear morning can make even a city feel freshly drawn.", byline: "Zurich, Switzerland" },
+  { destination: "Lauterbrunnen", country: "Switzerland", image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2600&q=88", eyebrow: "Waterfall valley", quote: "Some landscapes do not need drama; they are already full of it.", byline: "Lauterbrunnen, Switzerland" },
+  { destination: "Zermatt", country: "Switzerland", image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=2601&q=88", eyebrow: "Matterhorn air", quote: "The mountain holds the horizon steady while everything else falls quiet.", byline: "Zermatt, Switzerland" },
+  { destination: "Vienna", country: "Austria", image: "https://images.unsplash.com/photo-1516550893923-42d28e5677af?auto=format&fit=crop&w=2600&q=88", eyebrow: "Imperial evening", quote: "Music seems to linger in the stone long after the hall empties.", byline: "Vienna, Austria" },
+  { destination: "Salzburg", country: "Austria", image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2600&q=88", eyebrow: "Alpine baroque", quote: "The hills arrive at the edge of town like a quiet chorus.", byline: "Salzburg, Austria" },
+  { destination: "London", country: "UK", image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=2600&q=88", eyebrow: "River capital", quote: "The city feels endless because every neighborhood keeps its own weather.", byline: "London, UK" },
+  { destination: "Edinburgh", country: "UK", image: "https://images.unsplash.com/photo-1506377585622-bedcbb027afc?auto=format&fit=crop&w=2600&q=88", eyebrow: "Castle weather", quote: "Stone, mist and stories make the climb feel worth every step.", byline: "Edinburgh, UK" },
+  { destination: "Dublin", country: "Ireland", image: "https://images.unsplash.com/photo-1549918864-48ac978761a4?auto=format&fit=crop&w=2600&q=88", eyebrow: "Literary rain", quote: "The best evenings begin with a doorway, a song and no strict plan.", byline: "Dublin, Ireland" },
+  { destination: "Amsterdam", country: "Netherlands", image: "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?auto=format&fit=crop&w=2600&q=88", eyebrow: "Canal geometry", quote: "Reflections make the city feel doubled, softer and more secret.", byline: "Amsterdam, Netherlands" },
+  { destination: "Oslo", country: "Norway", image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=2600&q=88", eyebrow: "Nordic harbor", quote: "Clean lines and cold water give the city its quiet confidence.", byline: "Oslo, Norway" },
+  { destination: "Bergen", country: "Norway", image: "https://images.unsplash.com/photo-1518623489648-a173ef7824f3?auto=format&fit=crop&w=2600&q=88", eyebrow: "Fjord gateway", quote: "Rain belongs here, turning color and timber into something cinematic.", byline: "Bergen, Norway" },
+  { destination: "Lofoten", country: "Norway", image: "https://images.unsplash.com/photo-1483347756197-71ef80e95f73?auto=format&fit=crop&w=2600&q=88", eyebrow: "Northern edge", quote: "At the edge of the world, even silence feels like a destination.", byline: "Lofoten, Norway" },
+  { destination: "Reykjavik", country: "Iceland", image: "https://images.unsplash.com/photo-1504829857797-ddff29c27927?auto=format&fit=crop&w=2600&q=88", eyebrow: "Volcanic light", quote: "The landscape feels newly made, as if the earth is still deciding.", byline: "Reykjavik, Iceland" },
+  { destination: "New York", country: "USA", image: "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=2600&q=88", eyebrow: "Avenue cinema", quote: "The city gives you scale first, then dares you to find intimacy.", byline: "New York, USA" },
+  { destination: "Los Angeles", country: "USA", image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2601&q=88", eyebrow: "Pacific haze", quote: "Sunset turns ambition soft, gold and almost believable.", byline: "Los Angeles, USA" },
+  { destination: "San Francisco", country: "USA", image: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=2600&q=88", eyebrow: "Bay fog", quote: "The fog arrives like theater, changing the city without moving it.", byline: "San Francisco, USA" },
+  { destination: "Miami", country: "USA", image: "https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=2600&q=88", eyebrow: "Tropical deco", quote: "Color, heat and ocean air make the night feel wide awake.", byline: "Miami, USA" },
+  { destination: "Las Vegas", country: "USA", image: "https://images.unsplash.com/photo-1605833556294-ea5c7a74f57d?auto=format&fit=crop&w=2600&q=88", eyebrow: "Desert neon", quote: "The city glows because the desert around it is so dark.", byline: "Las Vegas, USA" },
+  { destination: "Honolulu", country: "USA", image: "https://images.unsplash.com/photo-1507876466758-bc54f384809c?auto=format&fit=crop&w=2600&q=88", eyebrow: "Island capital", quote: "The horizon stays close enough to change the shape of your day.", byline: "Honolulu, USA" },
+  { destination: "Toronto", country: "Canada", image: "https://images.unsplash.com/photo-1517935706615-2717063c2225?auto=format&fit=crop&w=2600&q=88", eyebrow: "Lake skyline", quote: "A northern city can feel vast and neighborly in the same glance.", byline: "Toronto, Canada" },
+  { destination: "Vancouver", country: "Canada", image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?auto=format&fit=crop&w=2600&q=88", eyebrow: "Mountain glass", quote: "The city looks best when the mountains appear to be listening.", byline: "Vancouver, Canada" },
+  { destination: "Banff", country: "Canada", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2600&q=88", eyebrow: "Glacial blue", quote: "The lake is so clear it feels like a promise kept by the mountains.", byline: "Banff, Canada" },
+  { destination: "Mexico City", country: "Mexico", image: "https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?auto=format&fit=crop&w=2600&q=88", eyebrow: "Highland metropolis", quote: "History, art and appetite meet at the same crowded table.", byline: "Mexico City, Mexico" },
+  { destination: "Tulum", country: "Mexico", image: "https://images.unsplash.com/photo-1504731231146-c0f65dc6a950?auto=format&fit=crop&w=2600&q=88", eyebrow: "Caribbean ruins", quote: "Stone and sea share the same edge, both older than your plans.", byline: "Tulum, Mexico" },
+  { destination: "Rio de Janeiro", country: "Brazil", image: "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=2600&q=88", eyebrow: "Mountain beach", quote: "The city does not separate landscape from life; it lets them dance.", byline: "Rio de Janeiro, Brazil" },
+  { destination: "São Paulo", country: "Brazil", image: "https://images.unsplash.com/photo-1543059080-f9b1272213d5?auto=format&fit=crop&w=2600&q=88", eyebrow: "Endless city", quote: "Scale becomes exciting when every block has another reason to stay.", byline: "São Paulo, Brazil" },
+  { destination: "Buenos Aires", country: "Argentina", image: "https://images.unsplash.com/photo-1589909202802-8f4aadce1849?auto=format&fit=crop&w=2600&q=88", eyebrow: "Boulevard romance", quote: "The city moves between melancholy and elegance without choosing one.", byline: "Buenos Aires, Argentina" },
+  { destination: "Patagonia", country: "Argentina", image: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2601&q=88", eyebrow: "Southern vastness", quote: "Distance becomes beautiful when the wind is the only schedule.", byline: "Patagonia, Argentina" },
+  { destination: "Cusco", country: "Peru", image: "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=2600&q=88", eyebrow: "Andean stone", quote: "Altitude makes every doorway feel earned and every view ceremonial.", byline: "Cusco, Peru" },
+  { destination: "Lima", country: "Peru", image: "https://images.unsplash.com/photo-1531968455001-5c5272a41129?auto=format&fit=crop&w=2600&q=88", eyebrow: "Pacific table", quote: "The coast brings fog, flavor and a city that rewards curiosity.", byline: "Lima, Peru" },
+  { destination: "Marrakech", country: "Morocco", image: "https://images.unsplash.com/photo-1597212720415-f8a6c2f6cc95?auto=format&fit=crop&w=2600&q=88", eyebrow: "Medina pulse", quote: "Color leads first, then scent, then the feeling you have crossed a threshold.", byline: "Marrakech, Morocco" },
+  { destination: "Casablanca", country: "Morocco", image: "https://images.unsplash.com/photo-1548018560-c7196548e84d?auto=format&fit=crop&w=2600&q=88", eyebrow: "Atlantic facade", quote: "The ocean gives the city its edge, its breeze and its old film mood.", byline: "Casablanca, Morocco" },
+  { destination: "Cairo", country: "Egypt", image: "https://images.unsplash.com/photo-1572252009286-268acec5ca0a?auto=format&fit=crop&w=2600&q=88", eyebrow: "Desert monument", quote: "Some silhouettes are so ancient they make the present feel brief.", byline: "Cairo, Egypt" },
+  { destination: "Luxor", country: "Egypt", image: "https://images.unsplash.com/photo-1568322445389-f64ac2515020?auto=format&fit=crop&w=2600&q=88", eyebrow: "Nile gold", quote: "The river carries the light past temples that still know how to astonish.", byline: "Luxor, Egypt" },
+  { destination: "Cape Town", country: "South Africa", image: "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=2600&q=88", eyebrow: "Table mountain", quote: "The city is held between ocean and rock, and both refuse to be background.", byline: "Cape Town, South Africa" },
+  { destination: "Johannesburg", country: "South Africa", image: "https://images.unsplash.com/photo-1577948000111-9c970dfe3743?auto=format&fit=crop&w=2600&q=88", eyebrow: "Highveld energy", quote: "The city carries its history loudly, then turns it into motion.", byline: "Johannesburg, South Africa" },
+  { destination: "Nairobi", country: "Kenya", image: "https://images.unsplash.com/photo-1489392191049-fc10c97e64b6?auto=format&fit=crop&w=2600&q=88", eyebrow: "Savanna threshold", quote: "The wild feels close enough here to change the meaning of morning.", byline: "Nairobi, Kenya" },
+  { destination: "Maasai Mara", country: "Kenya", image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=2600&q=88", eyebrow: "Golden migration", quote: "The horizon moves, and the whole plain seems to breathe with it.", byline: "Maasai Mara, Kenya" },
+  { destination: "Sydney", country: "Australia", image: "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=2600&q=88", eyebrow: "Harbor icon", quote: "The city knows its best angle and still manages to surprise you.", byline: "Sydney, Australia" },
+  { destination: "Melbourne", country: "Australia", image: "https://images.unsplash.com/photo-1514395462725-fb4566210144?auto=format&fit=crop&w=2600&q=88", eyebrow: "Laneway mood", quote: "The finest discoveries hide behind coffee, brick and a turn you nearly missed.", byline: "Melbourne, Australia" },
+  { destination: "Queenstown", country: "New Zealand", image: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=2601&q=88", eyebrow: "Alpine lake", quote: "Adventure feels calmer when the water mirrors every peak.", byline: "Queenstown, New Zealand" },
+  { destination: "Auckland", country: "New Zealand", image: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=2600&q=88", eyebrow: "Sail city", quote: "Two harbors make every departure feel possible.", byline: "Auckland, New Zealand" },
 ];
 
 const navItems = mainNavigation.slice(0, 6);
@@ -243,15 +296,8 @@ function countrySlugFromLabel(country: string) {
 
 function buildHomeImageAssignments() {
   const usedImages = resetUsedImagesForPage();
-  const assignedHeroSlides = heroSlides.map((slide) => ({
-    ...slide,
-    image: getUniqueDestinationImage({
-      destinationSlug: slide.byline,
-      category: "hero",
-      preferredImage: slide.image,
-      usedImages,
-    }),
-  }));
+  const assignedHeroSlides = globalHeroSlides;
+  assignedHeroSlides.forEach((slide) => markImageAsUsed(slide.image, usedImages));
   const assignedCategories = categories.map((category) => ({
     ...category,
     image: getUniqueDestinationImage({
@@ -342,14 +388,15 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const activeHeroSlide = heroSlides[activeSlide] ?? heroSlides[0];
   const heroImages = heroSlides.map((slide) => slide.image);
+  const totalSlides = heroSlides.length;
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      setActiveSlide((slide) => (slide + 1) % heroSlides.length);
-    }, 6500);
+      setActiveSlide((slide) => (slide + 1) % totalSlides);
+    }, 60000);
 
     return () => window.clearInterval(interval);
-  }, [heroSlides.length]);
+  }, [totalSlides]);
 
   return (
     <section className="relative min-h-[760px] overflow-hidden bg-[#020908] sm:min-h-[820px] lg:min-h-[850px]">
@@ -404,22 +451,9 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
           <div className="mt-7 border-t border-white/14 pt-5 font-sans text-sm text-white/70">
             —&nbsp; {activeHeroSlide.byline}
           </div>
-          <div className="mt-6 flex items-center gap-2" aria-label="Choose hero slide">
-            {heroSlides.map((slide, index) => (
-              <button
-                key={slide.byline}
-                type="button"
-                aria-label={`Show ${slide.eyebrow} hero slide`}
-                aria-current={index === activeSlide}
-                onClick={() => setActiveSlide(index)}
-                className={`h-2.5 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d9a947]/70 ${
-                  index === activeSlide
-                    ? "w-8 bg-[#d9a947]"
-                    : "w-2.5 bg-white/28 hover:bg-white/58"
-                }`}
-              />
-            ))}
-          </div>
+          <p className="mt-6 font-sans text-sm font-semibold uppercase tracking-[0.14em] text-white/54">
+            Scene {activeSlide + 1} of {totalSlides}
+          </p>
         </aside>
       </div>
     </section>
