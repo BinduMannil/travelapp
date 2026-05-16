@@ -62,6 +62,8 @@ Current local validation after the lock work:
 - Visible slideshow UI ban patterns.
 - `CinematicBackground` cross-fade and image-treatment primitives.
 - Canonical route helpers for singular country and city detail routes.
+- Migration ordering, non-empty SQL files, seed JSON parsing, and core
+  Japan/Vietnam/Tokyo seed shapes.
 
 ## Current Known Local Artifacts
 
@@ -76,8 +78,8 @@ Current local validation after the lock work:
 - CI uses Node 22 while Netlify config uses Node 20. This is acceptable under
   the current `>=20` engine policy, but a single deployment/runtime version
   should be chosen before launch.
-- Database migrations and seed imports are not yet covered by automated
-  migration validation.
+- Database migrations and seed JSON are covered by lightweight static tests.
+  Full Supabase migration application is not yet automated.
 
 ## Agent Rules
 
