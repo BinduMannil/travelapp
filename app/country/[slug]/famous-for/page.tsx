@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CountrySubpageExperience } from "@/components/country/CountrySubpageExperience";
+import { VietnamFamousForPage } from "@/components/vietnam/VietnamCountryDetailPages";
 import { COUNTRY_OPTIONS, getCountryOption } from "@/lib/destinations/countries";
 
 export async function generateMetadata({
@@ -9,6 +10,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === "vietnam") {
+    return {
+      title: "What Vietnam is famous for",
+      description:
+        "Vietnam travel identity guide covering coffee culture, tailoring, motorbike rhythm, coastline, karst landscapes, and activity choices.",
+    };
+  }
   const country = getCountryOption(slug);
   return {
     title: country ? `What ${country.name} is famous for` : "Country famous for",
@@ -26,6 +34,7 @@ export default async function FamousForPage({
   const { slug } = await params;
   const country = getCountryOption(slug);
   if (!country) notFound();
+  if (slug === "vietnam") return <VietnamFamousForPage />;
   return <CountrySubpageExperience country={country} kind="famous-for" />;
 }
 

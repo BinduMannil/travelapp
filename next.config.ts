@@ -36,6 +36,21 @@ const nextConfig: NextConfig = {
         destination: "/atlas",
         permanent: true,
       },
+      {
+        source: "/countries/:slug/:city",
+        destination: "/city/:city",
+        permanent: true,
+      },
+      {
+        source: "/countries/:slug",
+        destination: "/country/:slug",
+        permanent: true,
+      },
+      {
+        source: "/cities/:slug",
+        destination: "/city/:slug",
+        permanent: true,
+      },
     ];
   },
 };

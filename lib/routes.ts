@@ -18,11 +18,11 @@ export const routes = {
     return query ? `/atlas?${query}` : "/atlas";
   },
   country: (countrySlug: string) => `/country/${countrySlug}`,
-  countryAlias: (countrySlug: string) => `/countries/${countrySlug}`,
-  countryCity: (countrySlug: string, citySlug: string) => `/countries/${countrySlug}/${citySlug}`,
+  countryAlias: (countrySlug: string) => `/country/${countrySlug}`,
+  countryCity: (_countrySlug: string, citySlug: string) => `/city/${citySlug}`,
   cities: "/cities",
   city: (citySlug: string) => `/city/${citySlug}`,
-  cityAlias: (citySlug: string) => `/cities/${citySlug}`,
+  cityAlias: (citySlug: string) => `/city/${citySlug}`,
   citySection: (citySlug: string, sectionSlug: string) => `/city/${citySlug}/${sectionSlug}`,
   cityHiddenGem: (citySlug: string, gemSlug: string) =>
     `/city/${citySlug}/hidden-gems/${gemSlug}`,

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { CountrySubpageExperience } from "@/components/country/CountrySubpageExperience";
+import { VietnamItineraryExperience } from "@/components/vietnam/VietnamItineraryExperience";
 import { COUNTRY_OPTIONS, getCountryOption } from "@/lib/destinations/countries";
 
 export async function generateMetadata({
@@ -9,6 +10,13 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === "vietnam") {
+    return {
+      title: "Vietnam itinerary builder",
+      description:
+        "Build a Vietnam-wide route from dates, regional weather, transport, and travel activities.",
+    };
+  }
   const country = getCountryOption(slug);
   return {
     title: country ? `${country.name} itinerary planner` : "Country itinerary",
@@ -26,6 +34,7 @@ export default async function CountryItineraryPage({
   const { slug } = await params;
   const country = getCountryOption(slug);
   if (!country) notFound();
+  if (slug === "vietnam") return <VietnamItineraryExperience />;
   return <CountrySubpageExperience country={country} kind="itinerary" />;
 }
 
