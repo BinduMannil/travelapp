@@ -16,7 +16,7 @@
           { "time": "10:30", "title": "Nakamise-dōri snacks",      "note": "Ningyō-yaki, agemanjū, matcha soft-serve.",                 "attraction_slug": "senso-ji" },
           { "time": "13:00", "title": "Walk to Skytree",            "note": "15-min river walk across Sumida.",                          "attraction_slug": "tokyo-skytree" },
           { "time": "14:00", "title": "Tokyo Skytree observation",  "note": "Timed-entry ticket booked ahead.",                          "attraction_slug": "tokyo-skytree" },
-          { "time": "18:00", "title": "Dinner — Gonpachi Nishi-Azabu","note": "The 'Kill Bill' restaurant; 2F tatami.",                  "restaurant_slug": "gonpachi-nishi-azabu" }
+          { "time": "18:00", "title": "Dinner — Gonpachi Nishi-Azabu","note": "The \u0027Kill Bill\u0027 restaurant; 2F tatami.",                  "restaurant_slug": "gonpachi-nishi-azabu" }
         ]
       },
       {
@@ -96,11 +96,11 @@
       ]},
       { "day": 2, "title": "Day 2 · Michelin starters", "blocks": [
         { "time": "12:00", "title": "Tempura Kondo lunch (much cheaper)", "restaurant_slug": "tempura-kondo" },
-        { "time": "15:00", "title": "Depachika stroll at Mitsukoshi Ginza", "note": "Ginza's basement food hall is world-class; sample and snack.","neighborhood_slug": "ginza" },
+        { "time": "15:00", "title": "Depachika stroll at Mitsukoshi Ginza", "note": "Ginza\u0027s basement food hall is world-class; sample and snack.","neighborhood_slug": "ginza" },
         { "time": "19:30", "title": "Tsuta ramen (Bib Gourmand)", "restaurant_slug": "tsuta" }
       ]},
       { "day": 3, "title": "Day 3 · Budget + Vegan", "blocks": [
-        { "time": "07:00", "title": "T's Tantan vegan ramen", "restaurant_slug": "ts-tantan-tokyo-station" },
+        { "time": "07:00", "title": "T\u0027s Tantan vegan ramen", "restaurant_slug": "ts-tantan-tokyo-station" },
         { "time": "13:00", "title": "Tonkatsu Maisen",       "restaurant_slug": "tonkatsu-maisen-aoyama" },
         { "time": "19:00", "title": "Ain Soph. Journey dinner","restaurant_slug": "ain-soph-journey" }
       ]},
@@ -117,7 +117,7 @@
     "trip_type_slugs": ["family"],
     "best_for": ["Parents with kids 5-12", "Multi-generation trips"],
     "pace": "Gentle",
-    "summary": "Shorter walking days, kid-friendly food, and breathing room in the afternoon. Skip tight reservations; add Disneyland or DisneySea if you're staying longer.",
+    "summary": "Shorter walking days, kid-friendly food, and breathing room in the afternoon. Skip tight reservations; add Disneyland or DisneySea if you\u0027re staying longer.",
     "sections": [
       { "day": 1, "title": "Day 1 · Arrival + Odaiba", "blocks": [
         { "time": "14:00", "title": "Odaiba Gundam + DiverCity", "neighborhood_slug": "odaiba" },

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { cookies } from "next/headers";
 import "./globals.css";
-import { fraunces, italianno, montserrat, notoSerifJp } from "./fonts";
+import { montserrat, playfair } from "./fonts";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { PreferencesProvider } from "@/lib/preferences/context";
+import { I18nProvider } from "@/lib/i18n/context";
+import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isLocale, isRtlLocale } from "@/lib/i18n/config";
 import { ConsentProvider } from "@/lib/consent/context";
 import { ConsentBanner } from "@/components/consent/ConsentBanner";
-import { PreferencesTrigger } from "@/components/consent/PreferencesTrigger";
-import { LEGAL, formatReviewedAt } from "@/lib/legal/constants";
-import { LanguagePicker } from "@/components/layout/LanguagePicker";
 import { AlertBanner } from "@/components/alerts/AlertBanner";
 import { getActiveAlerts } from "@/lib/alerts";
+import { AppContentFrame } from "@/components/layout/AppContentFrame";
 
 export const metadata: Metadata = {
   title: {
@@ -18,8 +18,87 @@ export const metadata: Metadata = {
     template: "%s — Journee",
   },
   description:
-    "Journee — editorial travel companion. Seasons, costs, visas, attractions, restaurants, transit, packing, and more.",
+    "Journee is a cinematic travel companion for destination discovery, trip planning, local intelligence, maps, journals, guides, and practical travel decisions.",
+  icons: {
+    icon: "/icon",
+    apple: "/apple-icon",
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      en: "/",
+      ja: "/ja",
+      ar: "/ar",
+      fr: "/fr",
+      es: "/es",
+      de: "/de",
+      "x-default": "/",
+    },
+  },
 };
+
+const globalUiCorrectionsCss = `
+  img[alt="Profile"],
+  img[alt="Profile avatar"],
+  img[alt*="avatar" i],
+  img[src*="photo-1494790108377"],
+  img[src*="photo-1526772662000"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  header nav {
+    padding-left: clamp(1.5rem, 2.2vw, 2.35rem) !important;
+    padding-right: clamp(1.5rem, 2.2vw, 2.35rem) !important;
+    gap: clamp(0.9rem, 1.35vw, 1.55rem) !important;
+  }
+
+  header > div > nav {
+    min-width: min(44rem, calc(100vw - 24rem)) !important;
+    justify-content: center !important;
+    padding-left: clamp(2.25rem, 3vw, 3.25rem) !important;
+    padding-right: clamp(2.25rem, 3vw, 3.25rem) !important;
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
+  }
+
+  header > div > nav a {
+    min-width: 5.25rem !important;
+    justify-content: center !important;
+    padding-left: clamp(1.35rem, 1.8vw, 1.9rem) !important;
+    padding-right: clamp(1.35rem, 1.8vw, 1.9rem) !important;
+  }
+
+  header nav a,
+  header nav button {
+    min-height: 2.9rem !important;
+    padding-left: clamp(1.15rem, 1.55vw, 1.7rem) !important;
+    padding-right: clamp(1.15rem, 1.55vw, 1.7rem) !important;
+    padding-top: 0.78rem !important;
+    padding-bottom: 0.78rem !important;
+    border-radius: 999px !important;
+  }
+
+  header nav a span,
+  header nav button span {
+    white-space: nowrap !important;
+  }
+
+  @media (max-width: 1023px) {
+    header nav {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+
+    header nav a,
+    header nav button {
+      padding-left: 1.1rem !important;
+      padding-right: 1.1rem !important;
+    }
+  }
+`;
 
 export default async function RootLayout({
   children,
@@ -28,100 +107,29 @@ export default async function RootLayout({
 }) {
   const snapshot = await getFxSnapshot("JPY");
   const rates = snapshotToRates(snapshot);
+  const cookieStore = await cookies();
+  const cookieLocale = cookieStore.get(LOCALE_COOKIE_NAME)?.value;
+  const locale = isLocale(cookieLocale) ? cookieLocale : DEFAULT_LOCALE;
+  const dir = isRtlLocale(locale) ? "rtl" : "ltr";
 
   return (
     <html
-      lang="en"
-      className={`${montserrat.variable} ${fraunces.variable} ${italianno.variable} ${notoSerifJp.variable}`}
+      lang={locale}
+      dir={dir}
+      className={`${montserrat.variable} ${playfair.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-washi-50 font-sans text-sumi-900 antialiased">
-        <ConsentProvider>
-          <PreferencesProvider rates={rates} defaultCurrency="JPY">
-            {/* Travel advisories — war, revolution, natural hazards, etc.
-                Scoped to the current route (global / country / city) and
-                dismissible per session. Rendered at the very top so it
-                sits above the sticky header. */}
-            <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
-            <header className="sticky top-0 z-30 border-b border-sumi-100/60 bg-washi-50/85 backdrop-blur">
-              <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-                <Link href="/" className="flex items-center gap-3">
-                  <span className="grid h-9 w-9 place-items-center rounded-lg bg-gradient-to-br from-enji-600 to-sumi-900 font-display text-lg font-bold text-white shadow-sm">
-                    旅
-                  </span>
-                  <span className="font-display text-base font-semibold tracking-tight text-sumi-900">
-                    {LEGAL.brand}
-                  </span>
-                </Link>
-                <div className="flex items-center gap-5">
-                  <nav className="hidden gap-6 text-sm font-medium text-sumi-700 sm:flex">
-                    <Link
-                      href="/country/japan"
-                      className="transition hover:text-enji-600"
-                    >
-                      Japan
-                    </Link>
-                    <Link
-                      href="/city/tokyo"
-                      className="transition hover:text-enji-600"
-                    >
-                      Tokyo
-                    </Link>
-                  </nav>
-                  <LanguagePicker />
-                </div>
-              </div>
-            </header>
-            <div className="min-h-[calc(100vh-64px)]">{children}</div>
-            <footer className="mt-16 border-t border-sumi-100 bg-white py-10 text-sumi-700">
-              <div className="mx-auto grid max-w-6xl gap-6 px-6 sm:grid-cols-[1fr_auto]">
-                <div>
-                  <div className="font-display text-sm font-semibold text-sumi-900">
-                    {LEGAL.brand}
-                  </div>
-                  <p className="mt-1 max-w-lg text-[10px] leading-relaxed">
-                    Independent editorial travel guide. Operated by{" "}
-                    {LEGAL.entityName}, registered with{" "}
-                    {LEGAL.tradeLicenseAuthority}. Not a travel agent. Always
-                    verify visa, health, and legal details with official
-                    sources before you travel.
-                  </p>
-                  <p className="mt-3 text-[10px]">
-                    Seed data for the Tokyo pilot · rates live from Frankfurter ·{" "}
-                    <span className="whitespace-nowrap">
-                      Reviewed {formatReviewedAt()}
-                    </span>
-                  </p>
-                </div>
-                <nav
-                  aria-label="Legal"
-                  className="flex flex-wrap items-start gap-x-5 gap-y-2 text-xs sm:justify-end"
-                >
-                  <Link href="/legal/terms" className="hover:text-enji-600">
-                    Terms
-                  </Link>
-                  <Link href="/legal/privacy" className="hover:text-enji-600">
-                    Privacy
-                  </Link>
-                  <Link
-                    href="/legal/affiliate-disclosure"
-                    className="hover:text-enji-600"
-                  >
-                    Affiliate disclosure
-                  </Link>
-                  <PreferencesTrigger className="hover:text-enji-600" />
-                  <a
-                    href={`mailto:${LEGAL.supportEmail}`}
-                    className="hover:text-enji-600"
-                  >
-                    Contact
-                  </a>
-                </nav>
-              </div>
-            </footer>
-            <ConsentBanner />
-          </PreferencesProvider>
-        </ConsentProvider>
+      <body className="min-h-screen bg-[#050807] font-sans text-white antialiased">
+        <style dangerouslySetInnerHTML={{ __html: globalUiCorrectionsCss }} />
+        <I18nProvider defaultLocale={locale}>
+          <ConsentProvider>
+            <PreferencesProvider rates={rates} defaultCurrency="AED">
+              <AlertBanner alerts={getActiveAlerts({ now: new Date() })} />
+              <AppContentFrame variant="flush">{children}</AppContentFrame>
+              <ConsentBanner />
+            </PreferencesProvider>
+          </ConsentProvider>
+        </I18nProvider>
       </body>
     </html>
   );

@@ -1,15 +1,16 @@
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 /**
- * CoverTile — a country-rooted visual placeholder for entity cards.
+ * CoverTile — a country-rooted visual treatment for editorial entity cards.
  *
  * Uses:
  *  - an `imageUrl` (preferred) wrapped in a soft overlay, OR
  *  - a named palette gradient tuned to Japan's traditional colours
  *    (enji crimson, aizome indigo, sakura pink, matcha, sumi black,
  *    washi cream, kintsugi gold),
- *  - an optional kanji character as a typographic focal point — no
- *    emoji. Characters are pulled from the mapping helpers below.
+ *  - imagery and palette treatments only; decorative symbol marks are
+ *    intentionally suppressed so cards stay photo-led and editorial.
  */
 
 type Palette =
@@ -37,23 +38,10 @@ const GRADIENTS: Record<Palette, string> = {
   forest: "from-matcha-500 via-matcha-700 to-aizome-700",
 };
 
-const DEFAULT_TEXT_CLASS: Record<Palette, string> = {
-  enji: "text-white/85",
-  aizome: "text-white/85",
-  sakura: "text-white",
-  matcha: "text-white/90",
-  kintsugi: "text-white/90",
-  sumi: "text-white/80",
-  washi: "text-sumi-900/70",
-  ume: "text-white",
-  ocean: "text-white/85",
-  forest: "text-white/90",
-};
-
 export function CoverTile({
   palette,
-  kanji,
   imageUrl,
+  imageAlt = "",
   badge,
   className,
   aspect = "16/9",
@@ -61,9 +49,11 @@ export function CoverTile({
   palette: Palette;
   kanji?: string;
   imageUrl?: string;
+  imageAlt?: string;
   badge?: string;
   className?: string;
   aspect?: "16/9" | "4/3" | "1/1" | "3/2";
+  treatment?: "editorial" | "symbol";
 }) {
   const aspectClass =
     aspect === "4/3"
@@ -80,6 +70,7 @@ export function CoverTile({
         "relative overflow-hidden rounded-xl bg-gradient-to-br",
         GRADIENTS[palette],
         aspectClass,
+        imageUrl && "luxury-image",
         className,
       )}
       aria-hidden
@@ -91,8 +82,8 @@ export function CoverTile({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={imageUrl}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
+          alt={imageAlt}
+          className="absolute inset-0 h-full w-full object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
           loading="lazy"
         />
       )}
@@ -115,20 +106,8 @@ export function CoverTile({
           backgroundSize: "64px 32px",
         }}
       />
-      {kanji && (
-        <div
-          className={cn(
-            "absolute inset-0 flex items-center justify-center font-display font-bold leading-none tracking-tighter",
-            DEFAULT_TEXT_CLASS[palette],
-            imageUrl ? "text-[12vw] sm:text-[8vw] lg:text-7xl" : "text-[22vw] sm:text-[14vw] lg:text-[10rem]",
-            "drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)]",
-          )}
-        >
-          {kanji}
-        </div>
-      )}
       {imageUrl && (
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/5" />
       )}
       {badge && (
         <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-0.5 text-xs font-semibold tracking-wide text-sumi-900 shadow-sm">
@@ -136,6 +115,106 @@ export function CoverTile({
         </span>
       )}
     </div>
+  );
+}
+
+export function EditorialCard({
+  href,
+  imageUrl,
+  imageAlt,
+  eyebrow,
+  title,
+  body,
+  meta,
+  palette = "sumi",
+  kanji,
+  className,
+  aspect = "4/3",
+  variant = "panel",
+}: {
+  href: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  meta?: string;
+  palette?: Palette;
+  kanji?: string;
+  className?: string;
+  aspect?: "16/9" | "4/3" | "1/1" | "3/2";
+  variant?: "panel" | "overlay";
+}) {
+  if (variant === "overlay") {
+    return (
+      <Link
+        href={href}
+        className={cn(
+          "editorial-type-container group relative block min-h-[30rem] overflow-hidden rounded-[1.35rem] border border-white/12 bg-sumi-900 text-white shadow-editorial-deep transition duration-300 hover:-translate-y-1 hover:border-kintsugi-300/55",
+          className,
+        )}
+      >
+        <CoverTile
+          palette={palette}
+          kanji={kanji}
+          imageUrl={imageUrl}
+          imageAlt={imageAlt}
+          aspect={aspect}
+          className="absolute inset-0 h-full rounded-none"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.26)_36%,rgba(0,0,0,.86)),linear-gradient(90deg,rgba(0,0,0,.32),transparent)]" />
+        <div className="relative flex min-h-[30rem] flex-col justify-end p-5 sm:p-7">
+          <div className="max-w-[34rem] rounded-[1rem] border border-white/16 bg-black/30 p-5 backdrop-blur-xl sm:p-6">
+            {eyebrow && (
+              <div className="luxury-kicker text-kintsugi-300">{eyebrow}</div>
+            )}
+            <h3 className="editorial-card-title mt-2 font-sans font-semibold text-white">
+              {title}
+            </h3>
+            {body && <p className="mt-5 max-w-md text-sm leading-7 text-white/72">{body}</p>}
+            {meta && (
+              <div className="mt-5 border-t border-white/14 pt-3 text-[0.68rem] font-bold uppercase tracking-[0.12em] text-white/64">
+                {meta}
+              </div>
+            )}
+          </div>
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group block overflow-hidden rounded-[1.15rem] luxury-card luxury-card-hover",
+        "editorial-type-container",
+        className,
+      )}
+    >
+      <CoverTile
+        palette={palette}
+        kanji={kanji}
+        imageUrl={imageUrl}
+        imageAlt={imageAlt}
+        aspect={aspect}
+        className="rounded-none"
+      />
+      <div className="p-5 sm:p-6">
+        {eyebrow && (
+          <div className="luxury-kicker text-sumi-700/70">{eyebrow}</div>
+        )}
+        <h3 className="editorial-panel-title mt-2 font-sans font-semibold text-sumi-900 group-hover:text-enji-700">
+          {title}
+        </h3>
+        {body && <p className="mt-3 text-sm text-sumi-700">{body}</p>}
+        {meta && (
+          <div className="mt-5 border-t border-sumi-900/10 pt-3 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-sumi-700/70">
+            {meta}
+          </div>
+        )}
+      </div>
+    </Link>
   );
 }
 

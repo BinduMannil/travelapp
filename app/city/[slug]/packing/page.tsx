@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getClimate } from "@/lib/data/seed";
 import { DEFAULT_RULES } from "@/lib/packing/rules";
 import { PackingPlanner } from "@/components/packing/PackingPlanner";
@@ -11,7 +14,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Packing list",
     description:
-      "A packing list computed from your travel dates, trip style, and planned activities — tuned to Tokyo's climate and culture.",
+      "A Vietnam packing guide tuned to heat, rain, temples, beaches, city days, and regional travel.",
   };
 }
 
@@ -21,13 +24,16 @@ export default async function PackingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="packing" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   if (!city) notFound();
 
   const climate = getClimate(slug);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -42,7 +48,7 @@ export default async function PackingPage({
         palette="ume"
       />
 
-      <section className="mx-auto max-w-6xl px-6 py-12">
+      <section className="mx-auto max-w-6xl px-6 py-20">
         <PackingPlanner climate={climate} rules={DEFAULT_RULES} />
 
         <div className="mt-10 grid gap-3 sm:grid-cols-2">

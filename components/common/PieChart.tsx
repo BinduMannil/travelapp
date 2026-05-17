@@ -74,11 +74,11 @@ export function PieChart({
         {(center !== undefined || donut) && (
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
             {label && (
-              <div className="text-[9px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
+              <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-sumi-700">
                 {label}
               </div>
             )}
-            <div className="font-display text-lg font-semibold text-sumi-900">
+            <div className="font-sans text-lg font-semibold text-sumi-900">
               {center ?? total.toLocaleString()}
             </div>
           </div>

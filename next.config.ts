@@ -17,6 +17,8 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  devIndicators: false,
+  distDir: process.env.NEXT_DIST_DIR ?? ".next",
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
@@ -26,6 +28,30 @@ const nextConfig: NextConfig = {
   },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
+  },
+  async redirects() {
+    return [
+      {
+        source: "/map",
+        destination: "/atlas",
+        permanent: true,
+      },
+      {
+        source: "/countries/:slug/:city",
+        destination: "/city/:city",
+        permanent: true,
+      },
+      {
+        source: "/countries/:slug",
+        destination: "/country/:slug",
+        permanent: true,
+      },
+      {
+        source: "/cities/:slug",
+        destination: "/city/:slug",
+        permanent: true,
+      },
+    ];
   },
 };
 

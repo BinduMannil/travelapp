@@ -1,0 +1,162 @@
+{
+  "activities": [
+    {
+      "slug": "temples-shrines",
+      "label": "Temples & shrines",
+      "activity_group": "culture",
+      "description": "Religious and historical sites, etiquette-led visits, gardens, and festival context.",
+      "traveler_types": ["cultural", "family", "solo", "couple"],
+      "intensity": "low",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 10
+    },
+    {
+      "slug": "food-crawls",
+      "label": "Food crawls",
+      "activity_group": "food",
+      "description": "Ramen, sushi, depachika, izakaya alleys, markets, cafes, and specialty dining.",
+      "traveler_types": ["food", "solo", "couple", "budget"],
+      "intensity": "moderate",
+      "indoor": null,
+      "family_friendly": true,
+      "display_order": 20
+    },
+    {
+      "slug": "museums-galleries",
+      "label": "Museums & galleries",
+      "activity_group": "culture",
+      "description": "Major museums, small specialist collections, contemporary galleries, and immersive art.",
+      "traveler_types": ["cultural", "family", "solo"],
+      "intensity": "low",
+      "indoor": true,
+      "family_friendly": true,
+      "display_order": 30
+    },
+    {
+      "slug": "shopping-design",
+      "label": "Shopping & design",
+      "activity_group": "shopping",
+      "description": "Department stores, stationery, vintage, craft, fashion, knives, and concept stores.",
+      "traveler_types": ["luxury", "couple", "solo", "food"],
+      "intensity": "moderate",
+      "indoor": null,
+      "family_friendly": true,
+      "display_order": 40
+    },
+    {
+      "slug": "nightlife-bars",
+      "label": "Nightlife & bars",
+      "activity_group": "nightlife",
+      "description": "Izakaya, listening bars, cocktail counters, clubs, LGBTQ+ nightlife, and late-night districts.",
+      "traveler_types": ["solo", "couple", "food", "luxury"],
+      "intensity": "moderate",
+      "indoor": true,
+      "family_friendly": false,
+      "display_order": 50
+    },
+    {
+      "slug": "onsen-wellness",
+      "label": "Onsen & wellness",
+      "activity_group": "wellness",
+      "description": "Hot springs, sento, head spas, massage, bathing etiquette, and recovery days.",
+      "traveler_types": ["wellness", "couple", "solo", "luxury"],
+      "intensity": "low",
+      "indoor": true,
+      "family_friendly": true,
+      "display_order": 60
+    },
+    {
+      "slug": "city-walks",
+      "label": "City walks",
+      "activity_group": "outdoors",
+      "description": "Neighborhood wandering, architecture, parks, side streets, rivers, and station-to-station walks.",
+      "traveler_types": ["budget", "solo", "couple", "cultural"],
+      "intensity": "moderate",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 70
+    },
+    {
+      "slug": "day-trips",
+      "label": "Day trips",
+      "activity_group": "nearby",
+      "description": "Short rail trips to nearby heritage towns, mountain areas, seaside cities, and onsen regions.",
+      "traveler_types": ["adventure", "family", "couple", "cultural"],
+      "intensity": "moderate",
+      "indoor": false,
+      "family_friendly": true,
+      "display_order": 80
+    }
+  ],
+  "destination_map": [
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "activity_slug": "temples-shrines",
+      "relevance_level": "signature",
+      "seasonality": ["year_round", "new_year", "festival_season"],
+      "notes": "A core Japan travel experience; etiquette and photography rules vary by site.",
+      "display_order": 10
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "japan",
+      "activity_slug": "food-crawls",
+      "relevance_level": "signature",
+      "seasonality": ["year_round"],
+      "notes": "Works across every budget, from convenience-store snacks to Michelin dining.",
+      "display_order": 20
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "activity_slug": "museums-galleries",
+      "relevance_level": "recommended",
+      "seasonality": ["rainy_days", "summer_heat", "winter"],
+      "notes": "Tokyo is especially strong for rainy-day museums, immersive art, and small specialist collections.",
+      "display_order": 30
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "activity_slug": "shopping-design",
+      "relevance_level": "signature",
+      "seasonality": ["year_round"],
+      "notes": "Tokyo rewards specialist shopping: stationery, vintage, knives, craft, fashion, audio, and character goods.",
+      "display_order": 40
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "activity_slug": "nightlife-bars",
+      "relevance_level": "recommended",
+      "seasonality": ["year_round"],
+      "notes": "Best for travelers who prefer small bars, food alleys, listening rooms, and late trains or taxis.",
+      "display_order": 50
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "activity_slug": "city-walks",
+      "relevance_level": "signature",
+      "seasonality": ["spring", "autumn", "winter_clear_days"],
+      "notes": "Tokyo is built for neighborhood walking, but summer heat and humidity change pacing.",
+      "display_order": 60
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "activity_slug": "day-trips",
+      "relevance_level": "recommended",
+      "seasonality": ["spring", "autumn", "clear_winter_days"],
+      "notes": "Hakone, Kamakura, Nikko, Yokohama, and Kawagoe are practical rail day trips.",
+      "display_order": 70
+    }
+  ]
+}

@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import {
   getCity,
   getCountryConnectivity,
@@ -50,7 +53,7 @@ const AVAILABILITY_META: Record<
     kanji: "発",
   },
   airport_pickup: {
-    label: "Reserve · collect on arrival",
+    label: "Reserve · Collect on Arrival",
     tint: "bg-kintsugi-300/25 text-enji-700 ring-kintsugi-400/50",
     kanji: "着",
   },
@@ -60,7 +63,7 @@ const AVAILABILITY_META: Record<
     kanji: "内",
   },
   on_site: {
-    label: "Free · no purchase",
+    label: "Free · No Purchase",
     tint: "bg-washi-200 text-sumi-800 ring-washi-300",
     kanji: "無",
   },
@@ -80,6 +83,9 @@ export default async function ConnectivityPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="connectivity" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();
@@ -91,7 +97,7 @@ export default async function ConnectivityPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -121,8 +127,8 @@ export default async function ConnectivityPage({
         return (
           <section className="mt-6 grid gap-3 sm:grid-cols-2">
             <div className="rounded-2xl border border-matcha-400/40 bg-matcha-100/70 p-4">
-              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-matcha-700">
-                <span className="font-display text-lg leading-none">発</span>
+              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-matcha-700">
+                <span className="font-sans text-lg leading-none">発</span>
                 Buy before you fly
               </div>
               <p className="mt-2 text-sm text-sumi-900">
@@ -132,9 +138,9 @@ export default async function ConnectivityPage({
               </p>
             </div>
             <div className="rounded-2xl border border-kintsugi-400/50 bg-kintsugi-300/15 p-4">
-              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-enji-700">
-                <span className="font-display text-lg leading-none">着</span>
-                Reserve · collect on arrival
+              <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-enji-700">
+                <span className="font-sans text-lg leading-none">着</span>
+                Reserve · Collect on Arrival
               </div>
               <p className="mt-2 text-sm text-sumi-900">
                 {pickup.length > 0
@@ -163,7 +169,7 @@ export default async function ConnectivityPage({
               <header className="flex items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sumi-700">
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-sumi-700">
                       {OPTION_LABEL[o.option] ?? o.option}
                     </span>
                     <span className="rounded-full border border-washi-300 bg-washi-100 px-2 py-0.5 text-[10px] font-medium text-sumi-700">
@@ -179,9 +185,9 @@ export default async function ConnectivityPage({
                   {o.availability && AVAILABILITY_META[o.availability] && (
                     <div className="mt-2 flex flex-wrap items-center gap-2">
                       <span
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ring-1 ${AVAILABILITY_META[o.availability].tint}`}
+                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ring-1 ${AVAILABILITY_META[o.availability].tint}`}
                       >
-                        <span className="font-display text-sm leading-none">
+                        <span className="font-sans text-sm leading-none">
                           {AVAILABILITY_META[o.availability].kanji}
                         </span>
                         {AVAILABILITY_META[o.availability].label}
@@ -206,7 +212,7 @@ export default async function ConnectivityPage({
 
               <div className="mt-4 grid gap-4 sm:grid-cols-2">
                 <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-700">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-emerald-700">
                     Pros
                   </div>
                   <ul className="mt-1.5 space-y-1.5 text-sm text-sumi-800">
@@ -224,7 +230,7 @@ export default async function ConnectivityPage({
                   </ul>
                 </div>
                 <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-rose-700">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-rose-700">
                     Cons
                   </div>
                   <ul className="mt-1.5 space-y-1.5 text-sm text-sumi-800">
@@ -260,7 +266,7 @@ export default async function ConnectivityPage({
 
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
         <article className="rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Plugs &amp; power
           </h3>
           <div className="mt-2 space-y-1 text-sm">
@@ -289,7 +295,7 @@ export default async function ConnectivityPage({
         </article>
 
         <article className="rounded-lg border border-washi-200 p-5">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             VPN
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{payload.vpn_note}</p>

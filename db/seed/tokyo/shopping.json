@@ -1,5 +1,5 @@
 {
-  "summary": "Tokyo rewards the specialist. Instead of one mall, dozens of focused worlds: twelve floors of stationery, a block of vintage denim, a basement dedicated to depachika sweets. Here's how to navigate by what you're after.",
+  "summary": "Tokyo rewards the specialist. Instead of one mall, dozens of focused worlds: twelve floors of stationery, a block of vintage denim, a basement dedicated to depachika sweets. Here\u0027s how to navigate by what you\u0027re after.",
   "categories": [
     {
       "slug": "stationery",
@@ -27,15 +27,15 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Stationery_section.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Itoya_Ginza_Tokyo.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Stationery_section.jpg?width=1200"
       ]
     },
     {
       "slug": "knives",
       "title": "Japanese knives",
       "kanji": "刃",
-      "body": "Sakai and Seki have forged blades for 600+ years. Kappabashi is Tokyo's kitchen-ware district; many shops engrave your name in kanji for free.",
+      "body": "Sakai and Seki have forged blades for 600+ years. Kappabashi is Tokyo\u0027s kitchen-ware district; many shops engrave your name in kanji for free.",
       "picks": [
         {
           "name": "Kama-asa Shoten",
@@ -57,20 +57,20 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Kappabashi_kitchen_street.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Kappabashi_kitchen_street.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Japanese_kitchen_knives.jpg?width=1200"
       ]
     },
     {
       "slug": "vintage",
       "title": "Vintage + thrift",
       "kanji": "古",
-      "body": "Shimokitazawa is the beating heart. Koenji is Shimokita's grungier cousin. Daikanyama Hillside and Omotesando for curated vintage at designer prices.",
+      "body": "Shimokitazawa is the beating heart. Koenji is Shimokita\u0027s grungier cousin. Daikanyama Hillside and Omotesando for curated vintage at designer prices.",
       "picks": [
         {
           "name": "Flamingo (Shimokitazawa)",
           "neighborhood": "Shimokitazawa",
-          "body": "Chain for 70s-90s American vintage — Levi's, Carhartt, graphic tees — at fair prices."
+          "body": "Chain for 70s-90s American vintage — Levi\u0027s, Carhartt, graphic tees — at fair prices."
         },
         {
           "name": "Chicago Harajuku",
@@ -84,7 +84,7 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Shimokitazawa_vintage_store.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shimokitazawa_vintage_store.jpg?width=1200"
       ]
     },
     {
@@ -110,8 +110,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Mandarake_Akihabara.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_at_night.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Mandarake_Akihabara.jpg?width=1200"
       ]
     },
     {
@@ -137,8 +137,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Yodobashi_Camera_Akiba.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Yodobashi_Camera_Akiba.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Akihabara_Electric_Town.jpg?width=1200"
       ]
     },
     {
@@ -150,7 +150,7 @@
         {
           "name": "Isetan Shinjuku",
           "neighborhood": "Shinjuku",
-          "body": "Tokyo's best depachika — basement 1 is pure theatre. Try the Ginza Sembikiya fruit sandos."
+          "body": "Tokyo\u0027s best depachika — basement 1 is pure theatre. Try the Ginza Sembikiya fruit sandos."
         },
         {
           "name": "Mitsukoshi Ginza",
@@ -164,7 +164,7 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Isetan_Shinjuku_depachika.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Isetan_Shinjuku_depachika.jpg?width=1200"
       ]
     },
     {
@@ -176,12 +176,12 @@
         {
           "name": "Omotesando Hills + flagships",
           "neighborhood": "Omotesando",
-          "body": "Prada (Herzog & de Meuron), Dior (SANAA), Louis Vuitton (Jun Aoki), Tod's (Toyo Ito). Walk the avenue even if you buy nothing."
+          "body": "Prada (Herzog & de Meuron), Dior (SANAA), Louis Vuitton (Jun Aoki), Tod\u0027s (Toyo Ito). Walk the avenue even if you buy nothing."
         },
         {
           "name": "Comme des Garçons Aoyama",
           "neighborhood": "Aoyama",
-          "body": "Rei Kawakubo's flagship plus Trading Museum — the conceptual side of Japanese fashion."
+          "body": "Rei Kawakubo\u0027s flagship plus Trading Museum — the conceptual side of Japanese fashion."
         },
         {
           "name": "Ginza Six",
@@ -190,8 +190,8 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_at_night.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ginza_at_night.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Omotesando_Hills.jpg?width=1200"
       ]
     },
     {
@@ -217,7 +217,7 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Ozu_Washi_paper_shop.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Ozu_Washi_paper_shop.jpg?width=1200"
       ]
     },
     {
@@ -264,21 +264,21 @@
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Midtown.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_Scramble_Square.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Roppongi_Hills.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Tokyo_Midtown.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Shibuya_Scramble_Square.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Roppongi_Hills.jpg?width=1200"
       ]
     },
     {
       "slug": "boutiques",
       "title": "Boutiques + concept stores",
       "kanji": "店",
-      "body": "Where Tokyo sets the global agenda. Single-floor select shops for menswear, lifestyle goods, and Japanese designers you won't find at home.",
+      "body": "Where Tokyo sets the global agenda. Single-floor select shops for menswear, lifestyle goods, and Japanese designers you won\u0027t find at home.",
       "picks": [
         {
           "name": "Beams Japan",
           "neighborhood": "Shinjuku",
-          "body": "Six floors of Japan-only collaborations: tenugui, denim, ceramics, food. The flagship to bring home gifts you won't see again.",
+          "body": "Six floors of Japan-only collaborations: tenugui, denim, ceramics, food. The flagship to bring home gifts you won\u0027t see again.",
           "url": "https://www.beams.co.jp/global/en/shop/japan/"
         },
         {
@@ -296,7 +296,7 @@
         {
           "name": "A Bathing Ape (Bape Store Harajuku)",
           "neighborhood": "Harajuku",
-          "body": "Streetwear pilgrimage. Limited drops sell out fast — go on release Saturdays only if you're committed.",
+          "body": "Streetwear pilgrimage. Limited drops sell out fast — go on release Saturdays only if you\u0027re committed.",
           "url": "https://bape.com/"
         },
         {
@@ -308,16 +308,16 @@
         {
           "name": "Dover Street Market Ginza",
           "neighborhood": "Ginza",
-          "body": "Rei Kawakubo's seven-floor temple of luxury streetwear; everything from Comme des Garçons to Supreme drops in one elevator.",
+          "body": "Rei Kawakubo\u0027s seven-floor temple of luxury streetwear; everything from Comme des Garçons to Supreme drops in one elevator.",
           "url": "https://ginza.doverstreetmarket.com/"
         }
       ],
       "hero_image_urls": [
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Beams_flagship_Harajuku.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/United_Arrows_Harajuku.jpg",
-        "https://commons.wikimedia.org/wiki/Special:FilePath/Daikanyama_T-Site.jpg"
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Beams_flagship_Harajuku.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/United_Arrows_Harajuku.jpg?width=1200",
+        "https://commons.wikimedia.org/wiki/Special:FilePath/Daikanyama_T-Site.jpg?width=1200"
       ]
     }
   ],
-  "tax_free_note": "Most shops displaying the \"Japan. Tax-free Shop\" logo refund 8-10% consumption tax if you spend ≥¥5,500 and show your passport at checkout. From 2026 the system is moving to a refund-on-departure model — keep receipts intact, don't open sealed bags until you've left Japan."
+  "tax_free_note": "Most shops displaying the \"Japan. Tax-free Shop\" logo refund 8-10% consumption tax if you spend ≥¥5,500 and show your passport at checkout. From 2026 the system is moving to a refund-on-departure model — keep receipts intact, don\u0027t open sealed bags until you\u0027ve left Japan."
 }

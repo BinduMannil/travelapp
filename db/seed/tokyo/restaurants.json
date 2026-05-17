@@ -11,7 +11,7 @@
     "avg_price_per_person_minor": 5500,
     "currency": "JPY",
     "signature_dishes": [
-      "Chef's omakase set",
+      "Chef\u0027s omakase set",
       "Uni gunkan",
       "Fatty tuna (otoro)"
     ],
@@ -163,7 +163,7 @@
     "lgbtq_friendly": true,
     "kid_friendly": false,
     "wheelchair_accessible": false,
-    "notes": "Run by Jiro Ono's younger son Takashi. The famed Ginza main branch stopped taking new reservations in 2019 — Roppongi is the accessible path to the Jiro experience. Reserve through your hotel concierge or online.",
+    "notes": "Run by Jiro Ono\u0027s younger son Takashi. The famed Ginza main branch stopped taking new reservations in 2019 — Roppongi is the accessible path to the Jiro experience. Reserve through your hotel concierge or online.",
     "source": "seed"
   },
   {
@@ -201,7 +201,7 @@
   },
   {
     "slug": "ts-tantan-tokyo-station",
-    "name": "T's Tantan (Tokyo Station)",
+    "name": "T\u0027s Tantan (Tokyo Station)",
     "neighborhood": "Marunouchi",
     "cuisine": [
       "ramen",
@@ -270,12 +270,12 @@
     "lgbtq_friendly": true,
     "kid_friendly": false,
     "wheelchair_accessible": true,
-    "notes": "Long-standing World's 50 Best entry. Tasting menu built around 'Innovative Satoyama' cuisine — foraged Japanese ingredients. Plan 90 days ahead.",
+    "notes": "Long-standing World\u0027s 50 Best entry. Tasting menu built around \u0027Innovative Satoyama\u0027 cuisine — foraged Japanese ingredients. Plan 90 days ahead.",
     "source": "seed"
   },
   {
     "slug": "gonpachi-nishi-azabu",
-    "name": "Gonpachi Nishi-Azabu (The 'Kill Bill' restaurant)",
+    "name": "Gonpachi Nishi-Azabu (The \u0027Kill Bill\u0027 restaurant)",
     "neighborhood": "Nishi-Azabu",
     "cuisine": [
       "izakaya",
@@ -304,7 +304,7 @@
     "lgbtq_friendly": true,
     "kid_friendly": true,
     "wheelchair_accessible": false,
-    "notes": "The Edo-period warehouse interior inspired Tarantino's 'House of Blue Leaves' scene. Touristy but fun for a group; reserve the 2F tatami for the view.",
+    "notes": "The Edo-period warehouse interior inspired Tarantino\u0027s \u0027House of Blue Leaves\u0027 scene. Touristy but fun for a group; reserve the 2F tatami for the view.",
     "source": "seed"
   },
   {

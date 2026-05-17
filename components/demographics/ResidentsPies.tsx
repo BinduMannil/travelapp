@@ -40,25 +40,25 @@ export function ResidentsPies({
   source: string;
 }) {
   return (
-    <section className="mt-8 rounded-2xl border border-washi-200 bg-white p-5 shadow-sm">
+    <section className="scene-glass mt-12 rounded-[1.45rem] p-6 sm:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div>
-          <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="luxury-kicker text-kintsugi-300">
             Foreign residents
           </div>
-          <h2 className="mt-1 font-display text-xl font-semibold text-sumi-900">
+          <h2 className="mt-3 font-sans text-[clamp(2rem,5vw,3.6rem)] font-semibold leading-tight text-white">
             Who lives here — by country of origin
           </h2>
         </div>
-        <div className="text-[10px] uppercase tracking-[0.15em] text-sumi-700">
+        <div className="text-[0.64rem] font-bold uppercase tracking-[0.12em] text-white/46">
           Source: MOJ · Tokyo bureau
         </div>
       </div>
 
-      <div className="mt-5 grid gap-8 md:grid-cols-2">
+      <div className="mt-8 grid gap-8 md:grid-cols-2">
         <div>
           <ScopeHeader scope={country} />
-          <div className="mt-3">
+          <div className="mt-5 rounded-[1.15rem] bg-white/[0.04] p-4 [&_.bg-washi-100]:bg-white/10 [&_.text-sumi-700]:text-white/48 [&_.text-sumi-900]:text-white">
             <PieChart
               slices={tint(country.slices)}
               donut
@@ -67,7 +67,7 @@ export function ResidentsPies({
               center={`${country.percent_of_population.toFixed(1)}%`}
             />
           </div>
-          <div className="mt-2 text-[11px] text-sumi-700">
+          <div className="mt-3 text-xs leading-6 text-white/62">
             {country.total_label} ·{" "}
             {country.percent_of_population.toFixed(1)}% of the resident
             population
@@ -76,7 +76,7 @@ export function ResidentsPies({
 
         <div>
           <ScopeHeader scope={city} />
-          <div className="mt-3">
+          <div className="mt-5 rounded-[1.15rem] bg-white/[0.04] p-4 [&_.bg-washi-100]:bg-white/10 [&_.text-sumi-700]:text-white/48 [&_.text-sumi-900]:text-white">
             <PieChart
               slices={tint(city.slices)}
               donut
@@ -85,14 +85,14 @@ export function ResidentsPies({
               center={`${city.percent_of_population.toFixed(1)}%`}
             />
           </div>
-          <div className="mt-2 text-[11px] text-sumi-700">
+          <div className="mt-3 text-xs leading-6 text-white/62">
             {city.total_label} ·{" "}
             {city.percent_of_population.toFixed(1)}% of the city population
           </div>
         </div>
       </div>
 
-      <p className="mt-5 border-t border-washi-200 pt-3 text-[11px] leading-relaxed text-sumi-700">
+      <p className="mt-6 border-t border-white/12 pt-4 text-xs leading-6 text-white/50">
         {source}
       </p>
     </section>
@@ -101,11 +101,11 @@ export function ResidentsPies({
 
 function ScopeHeader({ scope }: { scope: ResidentScope }) {
   return (
-    <div className="flex items-baseline justify-between gap-2 border-b border-washi-200 pb-2">
-      <div className="font-display text-base font-semibold text-sumi-900">
+    <div className="flex items-baseline justify-between gap-2 border-b border-white/12 pb-3">
+      <div className="font-sans text-xl font-semibold text-white">
         {scope.name}
       </div>
-      <div className="text-[10px] uppercase tracking-[0.2em] text-sumi-700">
+      <div className="text-[0.62rem] font-bold uppercase tracking-[0.12em] text-kintsugi-300/70">
         Top {scope.slices.length - 1} + other
       </div>
     </div>

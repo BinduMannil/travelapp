@@ -10,8 +10,8 @@
   "hazards": [
     {
       "type": "earthquake",
-      "title": "Earthquakes",
-      "body": "Small quakes are felt several times a month. Larger ones are rare but possible. Buildings in Japan are engineered for this.",
+      "title": "Earthquake Safety",
+      "body": "Small earthquakes are common in Japan. Major earthquakes are rare but possible, and buildings are designed with seismic safety in mind.",
       "what_to_do": "If you feel shaking, drop, cover under a sturdy table, and hold on. Do not run outside during the shake — falling debris is the bigger risk. Afterwards, leave gas and electricity alone and wait for the NERV Disaster Prevention app or local PA announcements."
     },
     {
@@ -35,8 +35,8 @@
     {
       "type": "crime",
       "title": "Crime & scams",
-      "body": "Street theft is rare; violent crime against tourists is very rare. Be cautious of touts in Roppongi and Kabukicho who lure visitors into overpriced bars — walk past, don't follow.",
-      "what_to_do": "Stick to venues you looked up in advance. If your wallet or phone is lost, go to the nearest kōban (neighborhood police box) — Japan has one of the world's best lost-and-found rates."
+      "body": "Street theft is rare; violent crime against tourists is very rare. Be cautious of touts in Roppongi and Kabukicho who lure visitors into overpriced bars — walk past, don\u0027t follow.",
+      "what_to_do": "Stick to venues you looked up in advance. If your wallet or phone is lost, go to the nearest kōban (neighborhood police box) — Japan has one of the world\u0027s best lost-and-found rates."
     }
   ],
   "prohibited_meds": {
@@ -49,12 +49,12 @@
       "CBD products not made from approved extract"
     ],
     "allowed_without_cert": "Up to 1 month supply of most OTC and prescription medicines (2 months for prescriptions if not on the watchlist).",
-    "yakkan_shoumei_note": "If you need a larger supply, insulin injectors, CPAP, or any watchlist drug, apply for a Yakkan Shoumei import certificate at least 2-3 weeks before travel. It's free.",
+    "yakkan_shoumei_note": "If you need a larger supply, insulin injectors, CPAP, or any watchlist drug, apply for a Yakkan Shoumei import certificate at least 2-3 weeks before travel. It\u0027s free.",
     "source_url": "https://www.mhlw.go.jp/english/topics/importduty/index.html"
   },
   "pharmacies": [
     { "name": "Matsumoto Kiyoshi", "hours": "10:00-22:00 typical", "notes": "Largest drugstore chain; many have prescription counters.", "url": null },
-    { "name": "Welcia / Tomod's",   "hours": "Varies",             "notes": "Stocks Western-brand OTC pain relievers (Tylenol, Advil).", "url": null },
+    { "name": "Welcia / Tomod\u0027s",   "hours": "Varies",             "notes": "Stocks Western-brand OTC pain relievers (Tylenol, Advil).", "url": null },
     { "name": "AMDA International Medical Information Center", "hours": "Weekdays 09:00-17:00", "notes": "English-speaking hotline to find English-friendly clinics. Phone: 03-6233-9266.", "url": "https://eng.amda-imic.com/" }
   ],
   "tap_water": "Tap water is safe throughout Japan. Public drinking fountains are common in parks and stations. Refill bottles at konbini ice machines or temple water pavilions.",
@@ -71,10 +71,10 @@
     { "country": "South Korea",        "address": "1-2-5 Minami-Azabu, Minato-ku",    "phone": "03-3452-7611", "after_hours_phone": "03-3452-7611",         "url": "https://overseas.mofa.go.kr/jp-en/" }
   ],
   "lgbtq": {
-    "country_legal_status": "Same-sex relationships are legal. Same-sex marriage is not yet recognised nationally, but many Tokyo wards and 300+ municipalities issue 'partnership certificates' with limited rights.",
+    "country_legal_status": "Same-sex relationships are legal. Same-sex marriage is not yet recognised nationally, but many Tokyo wards and 300+ municipalities issue \u0027partnership certificates\u0027 with limited rights.",
     "city_tolerance": "Tokyo is one of the most LGBTQ-comfortable cities in East Asia. Public displays of affection from any couple are uncommon across the board — keep things low-key in general.",
     "tolerance_score": 4,
-    "safe_neighborhoods": ["Shinjuku Ni-chome (Asia's densest queer nightlife district)", "Shibuya", "Ni-chome side streets toward Shinjuku-Sanchome"],
+    "safe_neighborhoods": ["Shinjuku Ni-chome (Asia\u0027s densest queer nightlife district)", "Shibuya", "Ni-chome side streets toward Shinjuku-Sanchome"],
     "resources": [
       { "label": "Tokyo Rainbow Pride (Yoyogi Park, late April)", "url": "https://tokyorainbowpride.com/en/" },
       { "label": "OCCUR (advocacy group, helpline)",              "url": "https://www.occur.or.jp/" },

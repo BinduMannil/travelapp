@@ -10,32 +10,35 @@ import {
   type ReactNode,
 } from "react";
 
-// Four standardised cookie categories used by the CMP banner. Matches the
-// IAB TCF v2 top-level framing without the legal-vendor overhead.
-export type ConsentCategory = "essential" | "preferences" | "analytics" | "marketing";
+// Four standardised cookie categories used by the CMP banner.
+export type ConsentCategory = "necessary" | "analytics" | "affiliate" | "personalization";
+export type ConsentStatus = "accepted" | "rejected" | "custom" | null;
 
 export type Consent = {
-  essential: true; // always on — strictly required cookies
-  preferences: boolean;
+  status: ConsentStatus;
+  necessary: true; // always on — strictly required cookies
   analytics: boolean;
-  marketing: boolean;
-  recordedAt: string | null; // ISO timestamp of the last decision, null = not decided
+  affiliate: boolean;
+  personalization: boolean;
+  updatedAt: string | null; // ISO timestamp of the last decision, null = not decided
 };
 
 const DEFAULT_CONSENT: Consent = {
-  essential: true,
-  preferences: true,
+  status: null,
+  necessary: true,
   analytics: false,
-  marketing: false,
-  recordedAt: null,
+  affiliate: false,
+  personalization: false,
+  updatedAt: null,
 };
 
-const LS_KEY = "travelapp:consent";
+const LS_KEY = "journee-cookie-consent";
+const LEGACY_LS_KEY = "travelapp:consent";
 
 type Value = {
   consent: Consent;
   decided: boolean;
-  setConsent: (next: Partial<Omit<Consent, "essential" | "recordedAt">>) => void;
+  setConsent: (next: Partial<Omit<Consent, "necessary" | "updatedAt">>) => void;
   acceptAll: () => void;
   rejectAll: () => void;
   openPreferences: () => void;
@@ -54,7 +57,28 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       const raw = window.localStorage.getItem(LS_KEY);
       if (raw) {
         const parsed = JSON.parse(raw) as Consent;
-        setConsentState({ ...DEFAULT_CONSENT, ...parsed, essential: true });
+        setConsentState({ ...DEFAULT_CONSENT, ...parsed, necessary: true });
+        return;
+      }
+
+      const legacyRaw = window.localStorage.getItem(LEGACY_LS_KEY);
+      if (legacyRaw) {
+        const legacy = JSON.parse(legacyRaw) as {
+          analytics?: boolean;
+          marketing?: boolean;
+          preferences?: boolean;
+          recordedAt?: string | null;
+        };
+        if (legacy.recordedAt) {
+          setConsentState({
+            status: legacy.analytics || legacy.marketing || legacy.preferences ? "custom" : "rejected",
+            necessary: true,
+            analytics: Boolean(legacy.analytics),
+            affiliate: Boolean(legacy.marketing),
+            personalization: Boolean(legacy.preferences),
+            updatedAt: legacy.recordedAt,
+          });
+        }
       }
     } catch {
       // ignore parse errors; fall back to default
@@ -74,12 +98,14 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     (partial) => {
       const now = new Date().toISOString();
       persist({
-        essential: true,
-        preferences: partial.preferences ?? consent.preferences,
+        status: partial.status ?? "custom",
+        necessary: true,
         analytics: partial.analytics ?? consent.analytics,
-        marketing: partial.marketing ?? consent.marketing,
-        recordedAt: now,
+        affiliate: partial.affiliate ?? consent.affiliate,
+        personalization: partial.personalization ?? consent.personalization,
+        updatedAt: now,
       });
+      setPreferencesOpen(false);
     },
     [consent, persist],
   );
@@ -87,23 +113,27 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   const acceptAll = useCallback(() => {
     const now = new Date().toISOString();
     persist({
-      essential: true,
-      preferences: true,
+      status: "accepted",
+      necessary: true,
       analytics: true,
-      marketing: true,
-      recordedAt: now,
+      affiliate: true,
+      personalization: true,
+      updatedAt: now,
     });
+    setPreferencesOpen(false);
   }, [persist]);
 
   const rejectAll = useCallback(() => {
     const now = new Date().toISOString();
     persist({
-      essential: true,
-      preferences: false,
+      status: "rejected",
+      necessary: true,
       analytics: false,
-      marketing: false,
-      recordedAt: now,
+      affiliate: false,
+      personalization: false,
+      updatedAt: now,
     });
+    setPreferencesOpen(false);
   }, [persist]);
 
   const openPreferences = useCallback(() => setPreferencesOpen(true), []);
@@ -112,7 +142,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   const value = useMemo<Value>(
     () => ({
       consent,
-      decided: consent.recordedAt !== null,
+      decided: consent.status !== null,
       setConsent,
       acceptAll,
       rejectAll,

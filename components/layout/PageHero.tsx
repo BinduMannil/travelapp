@@ -1,5 +1,16 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import {
+  DestinationAtmosphereProvider,
+  DestinationMotionLayer,
+  DestinationThemeOverlay,
+  getAtmosphereThemeForRender,
+} from "@/components/destination/DestinationAtmosphere";
+import {
+  getUniqueDestinationImage,
+  inferImageCategoryFromText,
+  resetUsedImagesForPage,
+} from "@/lib/imageRotation";
 
 type Crumb = { label: string; href?: string };
 
@@ -26,8 +37,20 @@ const GRADIENTS: Record<Palette, string> = {
   forest: "from-matcha-500/60 via-matcha-700 to-aizome-900",
 };
 
+const HERO_IMAGES: Record<Palette, string> = {
+  sumi: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=2200&q=84",
+  enji: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=2200&q=84",
+  aizome: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=2200&q=84",
+  matcha: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=2200&q=84",
+  ume: "https://images.unsplash.com/photo-1536098561742-ca998e48cbcc?auto=format&fit=crop&w=2200&q=84",
+  kintsugi: "https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=2200&q=84",
+  sakura: "https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=2200&q=84",
+  ocean: "https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&fit=crop&w=2200&q=84",
+  forest: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=2200&q=84",
+};
+
 /**
- * PageHero — dark sumi hero with a kanji accent + editorial-serif title.
+ * PageHero — dark sumi hero with a kanji accent and Playfair title.
  * Use on every internal city / country page so the product has one voice.
  *
  *  <PageHero
@@ -61,38 +84,49 @@ export function PageHero({
   palette?: Palette;
   size?: "sm" | "md" | "lg";
 }) {
+  const destination = inferDestinationFromCrumbs(crumbs);
+  const atmosphereTheme = getAtmosphereThemeForRender(destination);
+  const heroImage = getUniqueDestinationImage({
+    destinationSlug: destination.destinationSlug,
+    countrySlug: destination.countrySlug,
+    category: inferImageCategoryFromText(`${eyebrow ?? ""} ${title} ${lede ?? ""}`),
+    preferredImage: HERO_IMAGES[palette],
+    usedImages: resetUsedImagesForPage(),
+  });
   const padY =
     size === "lg"
-      ? "py-20 sm:py-28"
+      ? "py-24 sm:py-32"
       : size === "sm"
-        ? "py-12 sm:py-14"
-        : "py-16 sm:py-20";
+        ? "py-14 sm:py-20"
+        : "py-16 sm:py-24";
   const headingSize =
     size === "lg"
-      ? "text-[clamp(2.5rem,9vw,6rem)]"
+      ? "text-[clamp(3.2rem,8vw,7rem)]"
       : size === "sm"
-        ? "text-[clamp(2rem,6vw,3.25rem)]"
-        : "text-[clamp(2.25rem,7vw,4.5rem)]";
+        ? "text-[clamp(2.45rem,5vw,4rem)]"
+        : "text-[clamp(2.65rem,5.6vw,5.25rem)]";
 
   return (
-    <section className="relative isolate overflow-hidden bg-sumi-900 text-washi-50">
-      <div
-        className={`absolute inset-0 -z-10 bg-gradient-to-br ${GRADIENTS[palette]}`}
-        aria-hidden
+    <DestinationAtmosphereProvider
+      destinationSlug={destination.destinationSlug}
+      destinationType={destination.destinationType}
+      countrySlug={destination.countrySlug}
+    >
+    <section className="relative isolate min-h-[27rem] overflow-hidden bg-sumi-900 text-washi-50">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={heroImage}
+        alt=""
+        className="image-drift absolute inset-0 -z-30 h-full w-full object-cover opacity-90"
+        loading="eager"
       />
-      {/* seigaiha wave texture */}
-      <div
-        className="absolute inset-0 -z-10 opacity-[0.08]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 50% 100%, rgba(255,255,255,.85) 0 26%, transparent 27%), radial-gradient(circle at 0% 100%, rgba(255,255,255,.85) 0 26%, transparent 27%), radial-gradient(circle at 100% 100%, rgba(255,255,255,.85) 0 26%, transparent 27%)",
-          backgroundSize: "56px 28px",
-        }}
-        aria-hidden
-      />
+      <div className={`absolute inset-0 -z-30 bg-gradient-to-br ${GRADIENTS[palette]}`} aria-hidden />
+      <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(8,7,6,.92),rgba(8,7,6,.6)_46%,rgba(8,7,6,.18)),linear-gradient(0deg,rgba(8,7,6,.84),rgba(8,7,6,.2)_48%,transparent_72%)]" />
+      <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
 
       <div className={`mx-auto max-w-6xl px-6 ${padY}`}>
-        <nav className="text-[11px] uppercase tracking-[0.3em] text-washi-50/65">
+        <nav className="text-[11px] uppercase tracking-[0.12em] text-washi-50/65">
           {crumbs.map((c, i) => (
             <span key={i}>
               {i > 0 && <span className="mx-2 text-washi-50/30">·</span>}
@@ -107,25 +141,25 @@ export function PageHero({
           ))}
         </nav>
 
-        <div className="mt-6 grid gap-6 sm:grid-cols-[auto_1fr] sm:items-end">
+        <div className="mt-10 grid gap-8 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-end">
           {kanji && (
-            <div className="grid h-20 w-20 place-items-center rounded-2xl bg-washi-50/10 font-display text-5xl font-bold text-washi-50 backdrop-blur-md sm:h-24 sm:w-24 sm:text-6xl">
+            <div className="grid h-20 w-20 place-items-center rounded-[1.1rem] border border-white/18 bg-washi-50/12 font-sans text-5xl font-bold text-washi-50 shadow-editorial-deep backdrop-blur-md sm:h-24 sm:w-24 sm:text-6xl">
               {kanji}
             </div>
           )}
-          <div>
+          <div className="max-w-4xl">
             {eyebrow && (
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-sakura-200">
+              <p className="luxury-kicker" style={{ color: "var(--destination-primary)" }}>
                 {eyebrow}
               </p>
             )}
             <h1
-              className={`mt-2 font-display font-bold leading-[0.95] tracking-tight text-washi-50 ${headingSize}`}
+              className={`heading-editorial mt-4 text-washi-50 ${headingSize}`}
             >
               {title}
             </h1>
             {subtitle && (
-              <p className="mt-2 font-display text-lg tracking-[0.3em] text-sakura-200 sm:text-xl">
+              <p className="mt-3 font-sans text-lg tracking-[0.12em] sm:text-xl" style={{ color: "var(--destination-primary)" }}>
                 {subtitle}
               </p>
             )}
@@ -133,7 +167,7 @@ export function PageHero({
         </div>
 
         {lede && (
-          <p className="mt-8 max-w-3xl text-lg leading-relaxed text-washi-50/85 sm:text-xl">
+          <p className="mt-8 max-w-3xl text-lg leading-9 text-washi-50/82 sm:text-xl">
             {lede}
           </p>
         )}
@@ -141,5 +175,29 @@ export function PageHero({
         {children && <div className="mt-8">{children}</div>}
       </div>
     </section>
+    </DestinationAtmosphereProvider>
   );
+}
+
+function inferDestinationFromCrumbs(crumbs: Crumb[]) {
+  const reversedCrumbs = [...crumbs].reverse();
+  const cityCrumb = reversedCrumbs.find((crumb) => crumb.href?.startsWith("/city/"));
+  const countryCrumb = reversedCrumbs.find((crumb) => crumb.href?.startsWith("/country/"));
+
+  const citySlug = cityCrumb?.href?.split("/city/")[1]?.split("/")[0];
+  const countrySlug = countryCrumb?.href?.split("/country/")[1]?.split("/")[0];
+
+  if (citySlug) {
+    return {
+      destinationSlug: citySlug,
+      destinationType: "city" as const,
+      countrySlug,
+    };
+  }
+
+  return {
+    destinationSlug: countrySlug ?? "japan",
+    destinationType: "country" as const,
+    countrySlug,
+  };
 }

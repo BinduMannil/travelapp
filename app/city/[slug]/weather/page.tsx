@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { MonthGrid } from "@/components/city/MonthGrid";
 import { getCity, getClimate } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
@@ -18,6 +21,9 @@ export default async function WeatherPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="weather" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   if (!city) notFound();
 
@@ -26,7 +32,7 @@ export default async function WeatherPage({
   const off = rows.filter((r) => r.season_label === "off").map((r) => r.month);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },

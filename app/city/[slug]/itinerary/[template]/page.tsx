@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import {
   getAttraction,
   getCity,
@@ -16,6 +17,11 @@ import {
   neighborhoodCover,
   restaurantCover,
 } from "@/components/common/CoverTile";
+import { CityItineraryDayDetail } from "@/components/itinerary/CityItineraryDayDetail";
+import {
+  getAllCityItineraryDayParams,
+  getCityItineraryDay,
+} from "@/lib/city/itinerary-day-data";
 
 export async function generateMetadata({
   params,
@@ -23,6 +29,15 @@ export async function generateMetadata({
   params: Promise<{ slug: string; template: string }>;
 }): Promise<Metadata> {
   const { slug, template } = await params;
+  const day = getCityItineraryDay(slug, template);
+  if (day) {
+    return {
+      title: `${day.city.city} ${day.dayLabel}: ${day.title}`,
+      description: day.overview,
+    };
+  }
+
+  if (getPlaceOption(slug)) notFound();
   const t = getItinerary(slug, template);
   if (!t) return { title: "Itinerary" };
   return { title: t.name, description: t.summary };
@@ -93,7 +108,7 @@ function BlockLine({
       className={`relative grid h-14 w-14 shrink-0 place-items-center overflow-hidden rounded-xl bg-gradient-to-br shadow-sm sm:h-16 sm:w-16 ${gradient}`}
       aria-hidden
     >
-      <span className="font-display text-2xl font-bold text-white/90 drop-shadow sm:text-3xl">
+      <span className="font-sans text-2xl font-bold text-white/90 drop-shadow sm:text-3xl">
         {kanji}
       </span>
       <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-white/15" />
@@ -101,34 +116,34 @@ function BlockLine({
   );
 
   return (
-    <li className="flex items-start gap-4">
-      <div className="w-12 shrink-0 pt-2 text-right font-mono text-xs tabular-nums text-sumi-700 sm:w-14 sm:text-sm">
+    <li className="flex items-start gap-4 rounded-2xl border border-transparent p-2 transition">
+      <div className="w-12 shrink-0 pt-2 text-right font-sans text-xs font-semibold tabular-nums text-enji-700 sm:w-14 sm:text-sm">
         {block.time}
       </div>
       {linkHref ? (
         <Link
           href={linkHref}
-          className="group flex flex-1 items-start gap-3 rounded-lg p-1 transition hover:bg-washi-100"
+          className="group flex flex-1 items-start gap-4 rounded-2xl p-2 transition hover:bg-washi-100 focus:outline-none focus:ring-2 focus:ring-kintsugi-400"
         >
           {thumb}
           <div className="flex-1 pt-1">
-            <div className="font-display font-semibold text-sumi-900 group-hover:text-enji-700">
+            <div className="font-sans text-lg font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
               {block.title}
             </div>
             {block.note && (
-              <p className="mt-0.5 text-sumi-700">{block.note}</p>
+              <p className="mt-1.5 text-sm leading-6 text-sumi-800">{block.note}</p>
             )}
           </div>
         </Link>
       ) : (
-        <div className="flex flex-1 items-start gap-3 p-1">
+        <div className="flex flex-1 items-start gap-4 p-2">
           {thumb}
           <div className="flex-1 pt-1">
-            <div className="font-display font-semibold text-sumi-900">
+            <div className="font-sans text-lg font-semibold leading-tight text-sumi-950">
               {block.title}
             </div>
             {block.note && (
-              <p className="mt-0.5 text-sumi-700">{block.note}</p>
+              <p className="mt-1.5 text-sm leading-6 text-sumi-800">{block.note}</p>
             )}
           </div>
         </div>
@@ -143,12 +158,16 @@ export default async function ItineraryDetailPage({
   params: Promise<{ slug: string; template: string }>;
 }) {
   const { slug, template } = await params;
+  const day = getCityItineraryDay(slug, template);
+  if (day) return <CityItineraryDayDetail itinerary={day} />;
+
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const t = getItinerary(slug, template);
   if (!city || !t) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -163,19 +182,26 @@ export default async function ItineraryDetailPage({
         lede={t.summary}
         palette="matcha"
       />
-      <div className="mx-auto max-w-4xl px-6 py-12">
-      <p className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        Best for: {t.best_for.join(", ")}
-      </p>
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <div className="rounded-[1.25rem] border border-white/12 bg-black/25 p-5 shadow-editorial-deep sm:p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-300">
+          Best for
+        </p>
+        <p className="mt-3 max-w-3xl text-base leading-7 text-white/86">
+          {t.best_for.join(", ")}
+        </p>
+      </div>
 
       <section className="mt-8 space-y-8">
         {t.sections.map((sec) => (
           <article
             key={sec.day}
-            className="rounded-lg border border-washi-200 p-6"
+            className="rounded-[1.4rem] border border-white/15 bg-[linear-gradient(180deg,rgba(255,253,246,0.99),rgba(247,240,225,0.96))] p-5 shadow-editorial-deep sm:p-7"
           >
-            <h2 className="text-lg font-semibold">{sec.title}</h2>
-            <ul className="mt-4 space-y-4">
+            <h2 className="font-sans text-2xl font-semibold leading-tight text-sumi-950 sm:text-3xl">
+              {sec.title}
+            </h2>
+            <ul className="mt-6 space-y-3">
               {sec.blocks.map((b, i) => (
                 <BlockLine key={i} citySlug={slug} block={b} />
               ))}
@@ -184,13 +210,13 @@ export default async function ItineraryDetailPage({
         ))}
       </section>
 
-      <section className="mt-10 rounded-lg border border-dashed border-washi-200 bg-washi-100 p-5 text-sm text-sumi-700">
-        <strong className="text-sumi-900">Heads-up:</strong> Reservations
+      <section className="mt-10 rounded-[1.2rem] border border-kintsugi-500/35 bg-[linear-gradient(180deg,rgba(35,26,19,0.96),rgba(18,16,12,0.96))] p-6 text-sm leading-7 text-white/82 shadow-editorial-deep">
+        <strong className="text-kintsugi-200">Heads-up:</strong> Reservations
         marked &ldquo;book ahead&rdquo; or &ldquo;T-30 days&rdquo; really do sell
         out that early. See{" "}
         <Link
           href={`/city/${slug}/calendar`}
-          className="text-brand-600 underline"
+          className="font-semibold text-kintsugi-200 underline decoration-kintsugi-400/60 underline-offset-4 hover:text-white"
         >
           holidays &amp; festivals
         </Link>{" "}
@@ -203,5 +229,8 @@ export default async function ItineraryDetailPage({
 
 export function generateStaticParams() {
   const list = getItineraries("tokyo");
-  return list.map((t) => ({ slug: "tokyo", template: t.slug }));
+  return [
+    ...list.map((t) => ({ slug: "tokyo", template: t.slug })),
+    ...getAllCityItineraryDayParams(),
+  ];
 }

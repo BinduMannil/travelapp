@@ -1033,11 +1033,43 @@ export type ResidentScope = {
   percent_of_population: number;
   slices: ResidentSlice[];
 };
+
+export type DemographicSlice = {
+  label: string;
+  value: number;
+  tone:
+    | "enji"
+    | "aizome"
+    | "matcha"
+    | "kintsugi"
+    | "sakura"
+    | "ume"
+    | "sumi"
+    | "washi";
+};
+export type Metro = { name: string; population_m: number };
+export type DemographicScope = {
+  name: string;
+  total_population: number;
+  total_population_label: string;
+  median_age: number;
+  density_per_km2: number;
+  urban_percent: number;
+  land_area_km2: number;
+  age_groups: DemographicSlice[];
+  religion_breakdown: DemographicSlice[] | null;
+  metros: Metro[] | null;
+};
+
 export type ResidentsPayload = {
   source: string;
   reviewed_at: string;
   country: ResidentScope;
   city: ResidentScope;
+  demographics?: {
+    country: DemographicScope;
+    city: DemographicScope;
+  };
 };
 
 const COUNTRY_RESIDENTS: Record<string, ResidentsPayload> = {
@@ -1092,6 +1124,7 @@ export type HiddenGem = {
   why: string;
   tip?: string;
   when?: string;
+  hero_image_urls?: string[];
 };
 export type HiddenGemsPayload = { summary: string; picks: HiddenGem[] };
 

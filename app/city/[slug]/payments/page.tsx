@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { FxCardCta } from "@/components/affiliate/AffiliateCtas";
 import { AffiliateDisclosure } from "@/components/affiliate/AffiliateDisclosure";
 import { PageHero } from "@/components/layout/PageHero";
@@ -28,7 +31,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Payments & cards",
     description:
-      "Can I pay by Apple Pay at a ramen shop? Yes/Often/Sometimes/Rarely across 11 methods × 9 venue types.",
+      "Vietnam payments guide for cash, cards, ATMs, QR habits, app payments, and small-shop planning.",
   };
 }
 
@@ -38,6 +41,9 @@ export default async function PaymentsPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="payments" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const countrySlug = getCountryForCity(slug);
   if (!city || !countrySlug) notFound();
@@ -46,7 +52,7 @@ export default async function PaymentsPage({
   if (!payments) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -113,20 +119,20 @@ export default async function PaymentsPage({
 
         return (
           <section>
-            <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Acceptance by method
             </h2>
 
             {carry && (
               <div className="mt-3 flex items-center gap-3 rounded-2xl border border-matcha-400/40 bg-matcha-100/70 p-4">
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-display text-lg font-bold text-matcha-700 shadow-sm">
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white font-sans text-lg font-bold text-matcha-700 shadow-sm">
                   ¥
                 </span>
                 <div>
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-matcha-700">
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-matcha-700">
                     What to carry
                   </div>
-                  <div className="font-display text-sumi-900">{carry}</div>
+                  <div className="font-sans text-sumi-900">{carry}</div>
                 </div>
               </div>
             )}
@@ -138,7 +144,7 @@ export default async function PaymentsPage({
                   <div key={tier}>
                     <div className="flex items-baseline justify-between border-b border-washi-200 pb-2">
                       <div>
-                        <div className="font-display text-base font-semibold text-sumi-900">
+                        <div className="font-sans text-base font-semibold text-sumi-900">
                           {meta.label}
                         </div>
                         <div className="mt-0.5 text-xs text-sumi-700">
@@ -156,7 +162,7 @@ export default async function PaymentsPage({
                         >
                           <BrandTile mkey={m.key} label={m.label} />
                           <div className="min-w-0 flex-1">
-                            <div className="font-display text-sm font-semibold text-sumi-900">
+                            <div className="font-sans text-sm font-semibold text-sumi-900">
                               {m.label}
                             </div>
                             {m.notes && (
@@ -175,7 +181,7 @@ export default async function PaymentsPage({
       })()}
 
       <section className="mt-10">
-        <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
           Method × venue matrix
         </h2>
         <p className="mt-1 text-xs text-sumi-700">
@@ -228,13 +234,13 @@ export default async function PaymentsPage({
 
       <section className="mt-10 grid gap-4 sm:grid-cols-2">
         <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             ATMs for foreign cards
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{payments.atm_notes}</p>
         </article>
         <article className="rounded-lg border border-washi-200 p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Tax-free shopping
           </h3>
           <p className="mt-2 text-sm text-sumi-800">{payments.tax_refund_note}</p>
@@ -272,7 +278,7 @@ function BrandTile({ mkey, label }: { mkey: string; label: string }) {
   return (
     <span
       aria-hidden
-      className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl font-display text-base font-bold ring-1 ${meta.tint}`}
+      className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl font-sans text-base font-bold ring-1 ${meta.tint}`}
     >
       {meta.mark}
     </span>

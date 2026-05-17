@@ -1,0 +1,343 @@
+{
+  "events": [
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "event_key": "tet-lunar-new-year",
+      "name": "Tet (Vietnamese Lunar New Year)",
+      "event_kind": "holiday",
+      "starts_on": "2026-02-17",
+      "ends_on": "2026-02-22",
+      "recurrence_note": "Annual lunar holiday; official public holiday length and exact dates vary by year.",
+      "date_note": "2026 dates are an operational planning window and should be verified against official holiday notices before travel.",
+      "traveler_summary": "Tet is Vietnam's most important holiday and can affect transport, restaurants, shops, banking, tours, and hotel availability.",
+      "cultural_context": "Families gather, homes are cleaned and decorated, ancestors are honored, and many people travel before and after the holiday.",
+      "practical_guidance": [
+        "Book trains, domestic flights, sleeper buses, and hotels well ahead of the holiday period.",
+        "Carry extra cash before closures, because banks and some small businesses may close.",
+        "Check restaurant and tour availability directly for the days before, during, and after Tet."
+      ],
+      "etiquette_notes": [
+        "Avoid negative comments about family traditions or holiday spending.",
+        "Be patient with slower service and reduced hours.",
+        "Respect private family gatherings and home rituals."
+      ],
+      "public_closure_level": "major",
+      "tourism_surge_level": "major",
+      "transport_impact_level": "major",
+      "crowd_level": "extreme",
+      "risk_level": "moderate",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://vietnam.travel/things-to-do/tet-vietnamese-new-year",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 10,
+      "metadata": {
+        "traveler_use_cases": ["closures", "transport_impact", "cash_planning", "family_observance"]
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "event_key": "reunification-day",
+      "name": "Reunification Day",
+      "event_kind": "national_celebration",
+      "starts_on": "2026-04-30",
+      "ends_on": "2026-04-30",
+      "recurrence_note": "Annual public holiday on April 30.",
+      "date_note": "Often connects with International Labour Day on May 1 for a longer domestic travel period.",
+      "traveler_summary": "Reunification Day can create national holiday crowds, public events, and heavier domestic travel, especially around major cities and beaches.",
+      "cultural_context": "The day marks the end of the war in 1975 and is connected to national memory and reunification narratives.",
+      "practical_guidance": [
+        "Expect heavier travel demand around April 30 and May 1.",
+        "Keep comments around war history factual and respectful.",
+        "Avoid protests, political gatherings, or heated public debate."
+      ],
+      "etiquette_notes": [
+        "Treat flags, ceremonies, and public commemorations respectfully.",
+        "Avoid joking about war history or national symbols."
+      ],
+      "public_closure_level": "moderate",
+      "tourism_surge_level": "major",
+      "transport_impact_level": "major",
+      "crowd_level": "high",
+      "risk_level": "moderate",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://vietnam.travel/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 20,
+      "metadata": {
+        "traveler_use_cases": ["national_celebration", "transport_impact", "historical_sensitivity"]
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "event_key": "national-day",
+      "name": "National Day",
+      "event_kind": "national_celebration",
+      "starts_on": "2026-09-02",
+      "ends_on": "2026-09-02",
+      "recurrence_note": "Annual public holiday on September 2.",
+      "date_note": "Official holiday arrangements can create adjacent days off depending on the year.",
+      "traveler_summary": "National Day can bring fireworks, ceremonies, domestic trips, crowding, and some public-service schedule changes.",
+      "cultural_context": "The holiday commemorates Vietnam's declaration of independence and is a national pride moment.",
+      "practical_guidance": [
+        "Expect crowds around central squares, fireworks viewpoints, and waterfront areas.",
+        "Plan extra time for taxis and ride-hailing near major events.",
+        "Treat national symbols and official ceremonies respectfully."
+      ],
+      "etiquette_notes": [
+        "Do not climb on monuments, flags, or official decorations.",
+        "Avoid sarcastic or insulting public posts about the holiday or national symbols."
+      ],
+      "public_closure_level": "moderate",
+      "tourism_surge_level": "moderate",
+      "transport_impact_level": "moderate",
+      "crowd_level": "high",
+      "risk_level": "low",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://vietnam.travel/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 30,
+      "metadata": {
+        "traveler_use_cases": ["national_pride", "crowds", "public_events"]
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "event_key": "mid-autumn-festival",
+      "name": "Mid-Autumn Festival",
+      "event_kind": "festival",
+      "starts_on": null,
+      "ends_on": null,
+      "recurrence_note": "Annual lunar festival, usually in September or October.",
+      "date_note": "Confirm the lunar date each year.",
+      "traveler_summary": "The Mid-Autumn Festival brings lantern displays, family activities, mooncakes, and evening crowds in many cities.",
+      "cultural_context": "In Vietnam, the festival is closely associated with children, lanterns, family gatherings, and traditional performances.",
+      "practical_guidance": [
+        "Expect evening crowds in old quarters, pedestrian streets, and riverside areas.",
+        "Book restaurants earlier around popular viewing districts.",
+        "Be careful photographing children and families; ask or avoid close-up images without consent."
+      ],
+      "etiquette_notes": [
+        "Do not push through lantern processions or children's performances.",
+        "Keep photography respectful around families and religious offerings."
+      ],
+      "public_closure_level": "none",
+      "tourism_surge_level": "moderate",
+      "transport_impact_level": "limited",
+      "crowd_level": "high",
+      "risk_level": "low",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://www.vietnam.travel/things-to-do/vietnams-magical-mid-autumn-festival",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "display_order": 40,
+      "metadata": {
+        "traveler_use_cases": ["festival", "photography_consent", "family_culture"]
+      }
+    },
+    {
+      "owner_kind": "city",
+      "country_slug": "vietnam",
+      "city_slug": "hoi-an",
+      "event_key": "hoi-an-lantern-festival",
+      "name": "Hoi An Lantern Festival",
+      "event_kind": "regional_celebration",
+      "starts_on": null,
+      "ends_on": null,
+      "recurrence_note": "Usually associated with full-moon evenings in Hoi An Ancient Town.",
+      "date_note": "Confirm monthly dates locally before planning around it.",
+      "traveler_summary": "Hoi An's lantern evenings can create dense foot traffic around the old town and riverside.",
+      "cultural_context": "Lantern traditions are tied to Hoi An's trading history and local heritage identity.",
+      "practical_guidance": [
+        "Arrive early if you want riverside photos or restaurant seating.",
+        "Expect walking-only or controlled access in parts of the old town.",
+        "Keep belongings close in dense crowds."
+      ],
+      "etiquette_notes": [
+        "Avoid blocking narrow lanes for long photo sessions.",
+        "Respect religious offerings and private homes in heritage streets."
+      ],
+      "public_closure_level": "limited",
+      "tourism_surge_level": "major",
+      "transport_impact_level": "limited",
+      "crowd_level": "extreme",
+      "risk_level": "low",
+      "source_label": "Vietnam Airlines Travel Guide",
+      "source_url": "https://www.vietnamairlines.com/vn/en/useful-information/travel-guide/lantern-festival-hoi-an",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 50,
+      "metadata": {
+        "traveler_use_cases": ["city_festival", "crowd_spike", "heritage_behavior"]
+      }
+    }
+  ],
+  "sensitivity_notes": [
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "note_key": "war-history-awareness",
+      "sensitivity_category": "conflict_war_history",
+      "title": "War History Awareness",
+      "traveler_summary": "War history is visible in museums, memorials, tours, and family memories; travelers should keep the tone respectful and factual.",
+      "why_it_matters": "The same events may be described differently depending on national, family, and international context.",
+      "avoid": [
+        "Making jokes or staged content at war museums, tunnels, cemeteries, or memorials.",
+        "Arguing with guides, staff, or locals about terminology in public settings.",
+        "Filming grieving visitors, veterans, or ceremonies without consent."
+      ],
+      "practical_safe_behavior": [
+        "Use neutral, factual language when discussing history in public.",
+        "Listen first when guides or locals explain their perspective.",
+        "Keep sensitive debates private and away from memorial spaces."
+      ],
+      "examples": [
+        "At the War Remnants Museum, avoid performative photos and keep commentary measured.",
+        "On a Cu Chi tunnel tour, ask questions respectfully rather than challenging the guide in front of a group."
+      ],
+      "risk_level": "moderate",
+      "source_label": "War Remnants Museum",
+      "source_url": "https://baotangchungtichchientranh.vn/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 10,
+      "metadata": {
+        "ui_group": "Historical Sensitivity"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "note_key": "political-protest-sensitivity",
+      "sensitivity_category": "protest_sensitivity",
+      "title": "Political Gatherings and Protest Sensitivity",
+      "traveler_summary": "Travelers should avoid demonstrations, political gatherings, and filming police or security activity.",
+      "why_it_matters": "Crowds connected to political issues can draw official attention and may move quickly from ordinary public activity to a sensitive situation.",
+      "avoid": [
+        "Joining or lingering near protests or political gatherings.",
+        "Filming police, military, checkpoints, government buildings, or security incidents.",
+        "Posting real-time commentary that frames local authorities or public events in inflammatory terms."
+      ],
+      "practical_safe_behavior": [
+        "Leave the area calmly if a crowd becomes political or tense.",
+        "Follow police or security instructions without arguing.",
+        "Check official travel advice before travel and during major events."
+      ],
+      "examples": [
+        "If a march blocks a street, take a different route rather than recording from the front line.",
+        "If stopped near a government building, stay calm, show documents if requested, and avoid jokes or arguments."
+      ],
+      "risk_level": "moderate",
+      "source_label": "U.S. Department of State Travel Advisory",
+      "source_url": "https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/vietnam-travel-advisory.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 20,
+      "metadata": {
+        "ui_group": "Political and Protest Sensitivity"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "note_key": "religious-site-etiquette",
+      "sensitivity_category": "religious_site_behavior",
+      "title": "Temples, Pagodas, and Religious Sites",
+      "traveler_summary": "Temples, pagodas, shrines, and family altars should be treated as active spiritual spaces.",
+      "why_it_matters": "Dress, photography, noise, and body language can affect worshippers and caretakers.",
+      "avoid": [
+        "Pointing feet at altars, statues, monks, or offerings.",
+        "Touching offerings, statues, bells, or ritual objects without permission.",
+        "Taking close-up photos of worshippers or monks without consent."
+      ],
+      "practical_safe_behavior": [
+        "Dress modestly and cover shoulders or knees where requested.",
+        "Remove shoes or hats where posted or when locals do so.",
+        "Keep voices low and step aside for worshippers."
+      ],
+      "examples": [
+        "At a pagoda, stand to the side rather than directly in front of someone praying.",
+        "If shoes are lined outside a hall, remove yours before entering."
+      ],
+      "risk_level": "low",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://vietnam.travel/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 30,
+      "metadata": {
+        "ui_group": "Religious Site Behavior"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "note_key": "face-saving-and-bargaining",
+      "sensitivity_category": "local_behavioral_expectations",
+      "title": "Face-Saving, Bargaining, and Public Disagreement",
+      "traveler_summary": "Keeping interactions calm and polite is important in markets, taxis, hotels, restaurants, and public spaces.",
+      "why_it_matters": "Public anger, humiliation, or aggressive bargaining can escalate a small disagreement and make help less likely.",
+      "avoid": [
+        "Shouting, pointing aggressively, or filming someone during a dispute.",
+        "Calling a person a scammer or liar in public without stepping back first.",
+        "Refusing to move aside when staff are trying to resolve a queue or payment issue."
+      ],
+      "practical_safe_behavior": [
+        "Use a calm tone and simple language when negotiating.",
+        "Step aside from crowds before resolving payment or booking issues.",
+        "Use hotel staff, app support, or written receipts when communication breaks down."
+      ],
+      "examples": [
+        "If a market price feels too high, smile, decline, and walk away rather than arguing.",
+        "If a ride price changes, compare the app or written quote calmly before deciding."
+      ],
+      "risk_level": "low",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://vietnam.travel/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 40,
+      "metadata": {
+        "ui_group": "Local Behavioral Expectations"
+      }
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "note_key": "national-symbols-and-pride",
+      "sensitivity_category": "national_pride",
+      "title": "National Symbols and Pride",
+      "traveler_summary": "Flags, monuments, leaders, independence history, and national celebrations should be treated respectfully.",
+      "why_it_matters": "Careless jokes or insulting content about national symbols can offend locals and attract unwanted attention.",
+      "avoid": [
+        "Climbing on monuments, official decorations, or war memorials.",
+        "Using flags, uniforms, or official symbols as props for jokes.",
+        "Posting insulting or mocking comments about national holidays or symbols."
+      ],
+      "practical_safe_behavior": [
+        "Observe ceremonies from an appropriate distance.",
+        "Keep social posts factual and respectful around national topics.",
+        "Follow posted rules at monuments, museums, and government areas."
+      ],
+      "examples": [
+        "At a public square on National Day, do not climb barriers or decorations for photos.",
+        "At a museum, summarize exhibits neutrally rather than using mocking captions."
+      ],
+      "risk_level": "moderate",
+      "source_label": "Vietnam Tourism",
+      "source_url": "https://vietnam.travel/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "display_order": 50,
+      "metadata": {
+        "ui_group": "National Pride Topics"
+      }
+    }
+  ]
+}

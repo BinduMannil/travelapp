@@ -4,7 +4,7 @@
     "voltage": 100,
     "frequency": "50 Hz (east, incl. Tokyo) / 60 Hz (west, incl. Osaka)",
     "converter_needed_from": ["UK (Type G)", "EU / Schuko (Type C/F)", "Australia/NZ (Type I)", "South Africa (Type M)"],
-    "notes": "Most phone, laptop, and camera chargers accept 100-240 V — check the 'INPUT' label; if it says 100-240V you only need a plug adapter. Hair dryers and straighteners often don't: run low-heat at 100 V or leave them home."
+    "notes": "Most phone, laptop, and camera chargers accept 100-240 V — check the \u0027INPUT\u0027 label; if it says 100-240V you only need a plug adapter. Hair dryers and straighteners often don\u0027t: run low-heat at 100 V or leave them home."
   },
   "connectivity": [
     {
@@ -30,7 +30,7 @@
       "availability": "pre_arrival",
       "pre_arrival_note": "Buy online, receive the QR by email, install before takeoff.",
       "pros": ["Unlimited data", "Fast support", "Hotspot allowed on most plans"],
-      "cons": ["Pricier than capped eSIMs if you're light on data"],
+      "cons": ["Pricier than capped eSIMs if you\u0027re light on data"],
       "url": "https://esim.holafly.com/esim-japan/"
     },
     {

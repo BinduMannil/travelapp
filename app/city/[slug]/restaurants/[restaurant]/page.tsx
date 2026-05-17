@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
 import {
   CUISINE_LABELS,
   DIETARY_LABELS,
@@ -49,6 +50,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string; restaurant: string }>;
 }): Promise<Metadata> {
   const { slug, restaurant } = await params;
+  if (getPlaceOption(slug)) notFound();
   const r = getRestaurant(slug, restaurant);
   if (!r) return { title: "Restaurant" };
   return {
@@ -65,6 +67,7 @@ export default async function RestaurantDetailPage({
   params: Promise<{ slug: string; restaurant: string }>;
 }) {
   const { slug, restaurant } = await params;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const r = getRestaurant(slug, restaurant);
   if (!city || !r) notFound();
@@ -81,7 +84,7 @@ export default async function RestaurantDetailPage({
   ].filter(Boolean) as string[];
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -100,12 +103,12 @@ export default async function RestaurantDetailPage({
         }
         palette="enji"
       />
-      <div className="mx-auto max-w-4xl px-6 py-12">
-      <div className="flex flex-wrap gap-1 text-xs">
+      <div className="mx-auto max-w-5xl px-6 py-16 sm:py-20">
+      <div className="flex flex-wrap gap-2 text-xs">
         {r.cuisine.map((c) => (
           <span
             key={c}
-            className="rounded-full bg-washi-100 px-2.5 py-1 text-sumi-800"
+            className="rounded-full border border-white/18 bg-white/12 px-3 py-1 font-semibold text-white/86 backdrop-blur"
           >
             {CUISINE_LABELS[c] ?? c}
           </span>
@@ -120,7 +123,7 @@ export default async function RestaurantDetailPage({
           <CurrencySelector currencies={DISPLAY_CURRENCIES} />
         </div>
 
-        <section className="mt-4 grid grid-cols-2 gap-3 rounded-lg border border-washi-200 bg-washi-100 p-4 text-sm sm:grid-cols-4">
+        <section className="mt-6 grid grid-cols-2 gap-3 rounded-[1.25rem] border border-washi-200 bg-washi-100 p-4 text-sm shadow-editorial-deep sm:grid-cols-4">
           <Fact label="Per person">
             <PriceDisplay
               amountMinor={r.avg_price_per_person_minor}
@@ -143,29 +146,31 @@ export default async function RestaurantDetailPage({
           </Fact>
         </section>
 
-        <section className="mt-6">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <section className="mt-8 rounded-[1.25rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-5 shadow-editorial-deep">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
             Signature dishes
           </h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sumi-900">
+          <ul className="mt-3 grid gap-2 text-sumi-900 sm:grid-cols-3">
             {r.signature_dishes.map((d) => (
-              <li key={d}>{d}</li>
+              <li key={d} className="rounded-full border border-sumi-900/10 bg-white/70 px-3 py-2 text-sm font-semibold">
+                {d}
+              </li>
             ))}
           </ul>
         </section>
 
         {r.notes && (
           <section className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-900">
-            <div className="text-xs font-semibold uppercase tracking-[0.25em]">
+            <div className="text-xs font-semibold uppercase tracking-[0.12em]">
               Good to know
             </div>
             <p className="mt-1 text-sm leading-relaxed">{r.notes}</p>
           </section>
         )}
 
-        <section className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+        <section className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Hours
             </h3>
             <p className="mt-2 text-sm text-sumi-900">{r.opening_hours}</p>
@@ -178,8 +183,8 @@ export default async function RestaurantDetailPage({
               </p>
             )}
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Dietary
             </h3>
             {r.dietary.length === 0 ? (
@@ -199,8 +204,8 @@ export default async function RestaurantDetailPage({
               </ul>
             )}
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Accessibility
             </h3>
             <p className="mt-2 text-sm text-sumi-900">
@@ -209,8 +214,8 @@ export default async function RestaurantDetailPage({
                 : "Not wheelchair accessible"}
             </p>
           </div>
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <div className="rounded-[1.2rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Inclusive
             </h3>
             <ul className="mt-2 space-y-1 text-sm text-sumi-900">
@@ -221,8 +226,8 @@ export default async function RestaurantDetailPage({
         </section>
 
         {r.reservation_url && (
-          <section className="mt-8 rounded-lg border border-washi-200 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <section className="mt-8 rounded-[1.25rem] border border-washi-200 bg-washi-100 p-5 shadow-editorial-deep">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.12em] text-enji-600">
               Book
             </h3>
             <a
@@ -256,7 +261,7 @@ function Fact({
 }) {
   return (
     <div>
-      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+      <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
         {label}
       </div>
       <div className="mt-0.5 font-semibold tabular-nums">{children}</div>

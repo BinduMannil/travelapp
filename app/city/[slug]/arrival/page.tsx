@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityArrival } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { formatLongDate } from "@/lib/legal/constants";
@@ -52,7 +55,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Arrival & logistics",
     description:
-      "Narita and Haneda → central Tokyo transfers, luggage storage, takuhaibin forwarding, and where to get yen.",
+      "Vietnam city arrival logistics, transfers, luggage, cash, SIM setup, and first-hour planning.",
   };
 }
 
@@ -62,6 +65,9 @@ export default async function ArrivalPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="arrival" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const arrival = getCityArrival(slug);
   if (!city || !arrival) notFound();
@@ -70,7 +76,7 @@ export default async function ArrivalPage({
   const rates = snapshotToRates(snapshot);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -103,7 +109,7 @@ export default async function ArrivalPage({
         </div>
 
         <section className="mt-4">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Airport → city
           </h2>
           <div className="mt-3 space-y-6">
@@ -123,7 +129,7 @@ export default async function ArrivalPage({
                       key={o.name}
                       className="rounded-lg border border-washi-200 p-4"
                     >
-                      <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+                      <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
                         {MODE_LABEL[o.mode] ?? o.mode}
                       </div>
                       <div className="mt-1 font-semibold">{o.name}</div>
@@ -174,7 +180,7 @@ export default async function ArrivalPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Luggage: lockers, bag drop, forwarding
           </h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
@@ -183,7 +189,7 @@ export default async function ArrivalPage({
                 key={l.provider}
                 className="rounded-lg border border-washi-200 p-4"
               >
-                <div className="text-xs uppercase tracking-[0.25em] text-sumi-700">
+                <div className="text-xs uppercase tracking-[0.12em] text-sumi-700">
                   {l.kind.replace("_", " ")}
                 </div>
                 <div className="mt-1 font-semibold">{l.provider}</div>
@@ -214,7 +220,7 @@ export default async function ArrivalPage({
         </section>
 
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <h2 className="text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Cash &amp; exchange
           </h2>
           <div className="mt-3 space-y-2">

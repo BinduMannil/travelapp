@@ -9,21 +9,22 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        · Legal · Privacy Policy
-      </nav>
-      <h1 className="mt-4 text-4xl font-semibold tracking-tight text-sumi-900">
-        Privacy Policy
-      </h1>
-      <p className="mt-3 text-sm text-sumi-700">
-        Last reviewed: {formatReviewedAt()}
-      </p>
+    <main className="legal-page">
+      <article className="legal-reader">
+        <nav className="legal-breadcrumb">
+          <Link href="/">
+            Home
+          </Link>{" "}
+          · Legal · Privacy Policy
+        </nav>
+        <h1 className="legal-title">
+          Privacy Policy
+        </h1>
+        <p className="legal-meta">
+          Last reviewed: {formatReviewedAt()}
+        </p>
 
-      <div className="prose mt-8 max-w-none text-sumi-900 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mt-10 [&_h2]:mb-3 [&_h3]:font-semibold [&_h3]:mt-5 [&_h3]:mb-2 [&_p]:leading-relaxed [&_p]:text-sm [&_li]:text-sm [&_ul]:list-none [&_ul]:pl-0 [&_ul]:space-y-1.5 [&_ul>li]:relative [&_ul>li]:pl-4 [&_ul>li]:before:content-['•'] [&_ul>li]:before:absolute [&_ul>li]:before:left-0 [&_ul>li]:before:top-0 [&_ul>li]:before:text-sumi-500 [&_table]:text-sm [&_th]:text-left [&_th]:font-semibold [&_th]:py-2 [&_th]:pr-4 [&_td]:py-2 [&_td]:pr-4 [&_td]:align-top">
+        <div className="legal-content">
         <p>
           This Privacy Policy explains how {LEGAL.entityName}{" "}
           (&ldquo;<strong>we</strong>&rdquo;, &ldquo;<strong>us</strong>&rdquo;,
@@ -256,7 +257,13 @@ export default function PrivacyPage() {
           .
         </p>
 
-        <h2 id="jurisdictions">5. Jurisdiction-specific notices</h2>
+        <h2 id="jurisdictions">5. Global privacy rights and regional notices</h2>
+        <p>
+          These notices are part of a worldwide platform policy. They are not
+          tied to any destination currently featured on {LEGAL.brand}; they
+          describe additional privacy rights that may apply based on where you
+          live or where applicable law protects you.
+        </p>
 
         <h3>5.1 European Economic Area &amp; United Kingdom (GDPR / UK GDPR)</h3>
         <ul>
@@ -365,10 +372,10 @@ export default function PrivacyPage() {
 
         <h3>5.6 Japan (APPI)</h3>
         <p>
-          Japan&rsquo;s Act on the Protection of Personal Information applies
-          to personal data about Japanese residents. You have rights of
-          disclosure, correction, addition, deletion, suspension of use, and
-          suspension of third-party provision under Articles 28–30 APPI.
+          Where Japan&rsquo;s Act on the Protection of Personal Information
+          applies, you may request disclosure, correction, addition, deletion,
+          suspension of use, and suspension of third-party provision as
+          provided by law.
         </p>
 
         <h3>5.7 Singapore (PDPA)</h3>
@@ -695,7 +702,8 @@ export default function PrivacyPage() {
           </a>
           .
         </p>
-      </div>
+        </div>
+      </article>
     </main>
   );
 }

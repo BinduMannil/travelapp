@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { formatTag } from "@/lib/copy/formatting";
 import { cn } from "@/lib/utils";
 
 export type CategoryTab = { slug: string; label: string; count: number };
@@ -25,40 +26,39 @@ export function CategoryTabs({
       if (slug) params.set("category", slug);
       else params.delete("category");
       const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname);
+      const currentPath = pathname ?? "";
+      router.replace(qs ? `${currentPath}?${qs}` : currentPath, { scroll: false });
     },
     [pathname, router, searchParams],
   );
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="scene-glass flex flex-wrap gap-3 rounded-[1.35rem] p-4 sm:gap-3.5">
       <button
         type="button"
         onClick={() => select(null)}
+        data-active={!activeCategory}
         className={cn(
-          "rounded-full border px-3 py-1 text-sm",
-          !activeCategory
-            ? "border-brand-500 bg-brand-50 text-brand-800"
-            : "border-washi-200 bg-white text-sumi-800 hover:border-washi-300",
+          "editorial-pill px-5 py-2.5 text-sm font-semibold leading-none",
+          !activeCategory && "font-bold",
         )}
       >
         All
-        <span className="ml-1 text-xs text-sumi-700">{total}</span>
+        <span className={cn("ml-1 text-xs", !activeCategory ? "text-sumi-800" : "text-sumi-600")}>{total}</span>
       </button>
       {tabs.map((t) => (
         <button
           key={t.slug}
           type="button"
           onClick={() => select(t.slug)}
+          data-active={activeCategory === t.slug}
           className={cn(
-            "rounded-full border px-3 py-1 text-sm",
-            activeCategory === t.slug
-              ? "border-brand-500 bg-brand-50 text-brand-800"
-              : "border-washi-200 bg-white text-sumi-800 hover:border-washi-300",
+            "editorial-pill px-5 py-2.5 text-sm font-semibold leading-none",
+            activeCategory === t.slug && "font-bold",
           )}
         >
-          {t.label}
-          <span className="ml-1 text-xs text-sumi-700">{t.count}</span>
+          {formatTag(t.label)}
+          <span className={cn("ml-1 text-xs", activeCategory === t.slug ? "text-sumi-800" : "text-sumi-600")}>{t.count}</span>
         </button>
       ))}
     </div>

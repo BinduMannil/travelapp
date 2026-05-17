@@ -21,8 +21,8 @@ const PALETTE_GRADIENT: Record<string, string> = {
  * Magazine-style hero:
  *  - Full-bleed featured attraction in the background (gradient + kanji
  *    ghost if no photo; a subtle zoom + pan loop creates motion).
- *  - Editorial left column: "Discover" kicker, giant Fraunces title,
- *    short lede, Explore → button, Italianno script accent.
+ *  - Cinematic left column: "Discover" kicker, large Montserrat title,
+ *    short lede, and Explore button.
  *  - Right column: horizontal card carousel for the next ~6 attractions.
  *    Arrow-key support + prev/next buttons + dot strip.
  */
@@ -95,7 +95,7 @@ export function AttractionHeroCarousel({
         {/* giant ghost kanji behind */}
         <div
           key={`ghost-${active.slug}`}
-          className="pointer-events-none absolute -right-24 -bottom-32 select-none font-display text-[min(60vw,520px)] font-bold leading-none text-washi-50/[0.06] drop-shadow-xl transition-transform duration-[4000ms] sm:-right-16"
+          className="pointer-events-none absolute -right-24 -bottom-32 select-none font-sans text-[min(60vw,520px)] font-bold leading-none text-washi-50/[0.06] drop-shadow-xl transition-transform duration-[4000ms] sm:-right-16"
           aria-hidden
           style={{
             animation: "heroDrift 14s ease-in-out infinite alternate",
@@ -130,13 +130,13 @@ export function AttractionHeroCarousel({
             />
           </div>
 
-          <p className="text-[11px] font-semibold uppercase tracking-[0.35em] text-washi-50/70">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-washi-50/70">
             Discover
           </p>
-          <h1 className="mt-3 font-display text-[clamp(2.75rem,8vw,6rem)] font-bold uppercase leading-[0.88] tracking-tight text-washi-50">
+          <h1 className="mt-3 font-sans text-[clamp(2.75rem,8vw,6rem)] font-bold uppercase leading-[0.88] tracking-tight text-washi-50">
             {active.name}
           </h1>
-          <div className="mt-2 font-script text-3xl italic text-kintsugi-300 sm:text-4xl">
+          <div className="mt-2 font-sans text-3xl italic text-kintsugi-300 sm:text-4xl">
             {cityName.toLowerCase()}
           </div>
 
@@ -152,7 +152,7 @@ export function AttractionHeroCarousel({
               Explore
               <span aria-hidden className="text-base">→</span>
             </Link>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.3em] text-washi-50/60">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-washi-50/60">
               {String(index + 1).padStart(2, "0")}{" "}
               <span className="text-washi-50/30">
                 / {String(picks.length).padStart(2, "0")}
@@ -190,22 +190,22 @@ export function AttractionHeroCarousel({
                       className={`absolute inset-0 bg-gradient-to-br ${g}`}
                     />
                     <div
-                      className="pointer-events-none absolute inset-0 flex items-center justify-center font-display text-[6rem] font-bold text-white/25"
+                      className="pointer-events-none absolute inset-0 flex items-center justify-center font-sans text-[6rem] font-bold text-white/25"
                       aria-hidden
                     >
                       {cover.kanji}
                     </div>
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
                     <div className="absolute inset-x-3 bottom-3 text-left">
-                      <div className="text-[9px] font-semibold uppercase tracking-[0.2em] text-washi-50/75">
+                      <div className="text-[9px] font-semibold uppercase tracking-[0.12em] text-washi-50/75">
                         {a.neighborhood}
                       </div>
-                      <div className="mt-1 font-display text-sm font-semibold leading-tight text-washi-50">
+                      <div className="mt-1 font-sans text-sm font-semibold leading-tight text-washi-50">
                         {a.name}
                       </div>
                     </div>
                     {a.importance >= 4 && (
-                      <span className="absolute right-3 top-3 rounded-full bg-kintsugi-300/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.15em] text-sumi-900">
+                      <span className="absolute right-3 top-3 rounded-full bg-kintsugi-300/90 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-sumi-900">
                         Top pick
                       </span>
                     )}
@@ -255,7 +255,7 @@ export function AttractionHeroCarousel({
       </div>
 
       {/* Bottom corner watermark */}
-      <div className="absolute bottom-4 left-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-washi-50/40">
+      <div className="absolute bottom-4 left-6 text-[10px] font-semibold uppercase tracking-[0.12em] text-washi-50/40">
         Journee · {cityName}
       </div>
     </section>

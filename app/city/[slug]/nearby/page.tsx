@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getInterCityRoutes } from "@/lib/data/seed";
 import { getFxSnapshot, snapshotToRates } from "@/lib/api/fx";
 import { formatLongDate } from "@/lib/legal/constants";
@@ -33,7 +36,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Nearby cities",
     description:
-      "Travel options to nearby cities with all modes compared — Shinkansen, bus, flight, rental — durations and prices in your currency.",
+      "Travel options to nearby Vietnam cities and regions with flight, rail, bus, car, boat, and transfer planning.",
   };
 }
 
@@ -43,6 +46,9 @@ export default async function NearbyPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="nearby" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   if (!city) notFound();
 
@@ -53,7 +59,7 @@ export default async function NearbyPage({
   const foreign = routes.filter((r) => !r.in_same_country);
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -82,10 +88,10 @@ export default async function NearbyPage({
 
         {domestic.length > 0 && (
           <section className="mt-6">
-            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-              Within Japan · same visa
+            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
+              Within Japan · Same Visa
             </h2>
-            <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-3 grid grid-cols-1 items-stretch gap-4 lg:grid-cols-2">
               {domestic.map((r) => (
                 <NearbyRouteCard key={r.dest_slug} route={r} />
               ))}
@@ -95,10 +101,10 @@ export default async function NearbyPage({
 
         {foreign.length > 0 && (
           <section className="mt-8">
-            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-              International · check visa first
+            <h2 className="px-6 text-sm font-semibold uppercase tracking-[0.12em] text-sumi-700">
+              International · Check Visa First
             </h2>
-            <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="mt-3 grid grid-cols-1 items-stretch gap-4 lg:grid-cols-2">
               {foreign.map((r) => (
                 <NearbyRouteCard key={r.dest_slug} route={r} />
               ))}

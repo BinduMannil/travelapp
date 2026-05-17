@@ -1,0 +1,239 @@
+{
+  "risks": [
+    {
+      "country_slug": "japan",
+      "risk_category": "social_media_online_speech",
+      "risk_level": "moderate",
+      "traveler_summary": "Japan is generally open for everyday online expression, but defamatory posts, abusive comments, discriminatory speech, and filming or sharing sensitive incidents can create practical trouble with police, venues, employers, or private people.",
+      "what_not_to_do": [
+        "Do not post accusations that a person or business is corrupt, fake, unsafe, or scam-like unless you can verify it carefully.",
+        "Do not repost rumours about accidents, crimes, crises, or named individuals.",
+        "Do not film police activity, emergency scenes, airport security, or private people in a way that interferes with officials or identifies people without a clear reason."
+      ],
+      "practical_safe_behavior": [
+        "Keep critical reviews factual, specific, and calm.",
+        "Avoid naming private people in negative posts.",
+        "For incidents or emergencies, rely on official sources and avoid speculation."
+      ],
+      "examples": [
+        "A calm restaurant review about your own experience is lower risk than calling the venue a scam.",
+        "Posting a blurry street scene is different from posting an identifiable person in distress."
+      ],
+      "source_label": "National Police Agency: online defamation countermeasures",
+      "source_url": "https://www.npa.go.jp/bureau/cyber/countermeasures/defamation.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 10
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "alcohol_public_behavior",
+      "risk_level": "moderate",
+      "traveler_summary": "Alcohol is legal and widely available in Japan, but drunk driving, disorderly behavior, harassment, damaging property, or disturbing hotels and venues can quickly become a police or venue issue.",
+      "what_not_to_do": [
+        "Do not drive after drinking alcohol.",
+        "Do not argue loudly, harass staff, block streets, or damage property while intoxicated.",
+        "Do not assume a hotel, restaurant, train, shrine, or event will tolerate visible drunken behavior."
+      ],
+      "practical_safe_behavior": [
+        "Use trains, taxis, rideshare/taxi apps, or a sober driver after drinking.",
+        "Keep drinking low-key in public areas and follow venue rules.",
+        "During festivals or local observances, watch what locals are doing and follow posted restrictions."
+      ],
+      "examples": [
+        "A quiet drink in an izakaya is normal; shouting on a late train is not.",
+        "Open alcohol may be tolerated in some festival contexts but inappropriate at religious sites or formal venues."
+      ],
+      "source_label": "National Police Agency: traffic and alcohol-impaired driving",
+      "source_url": "https://www.npa.go.jp/bureau/traffic/insyu/info.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 20
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "public_conduct",
+      "risk_level": "low",
+      "traveler_summary": "Most visitors have no issues, but loud arguments, queue-jumping, intrusive photography, poor conduct at religious sites, and ignoring venue rules can cause trouble with staff, police, or local people.",
+      "what_not_to_do": [
+        "Do not shout, swear at staff, or escalate public disagreements.",
+        "Do not ignore signs at shrines, temples, museums, onsens, trains, or private venues.",
+        "Do not photograph people, private interiors, or religious rituals when signs or staff indicate restrictions."
+      ],
+      "practical_safe_behavior": [
+        "Keep voices low on public transport and in residential areas.",
+        "Queue carefully and follow station flow.",
+        "At religious sites, avoid blocking worshippers and follow posted photography rules."
+      ],
+      "examples": [
+        "Standing to the side before checking a map is better than stopping in a station bottleneck.",
+        "At a shrine or temple, follow local movement patterns and posted signs before taking photos."
+      ],
+      "source_label": "Japan National Tourism Organization: travel manners and etiquette",
+      "source_url": "https://www.japan.travel/en/plan/etiquette/",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 30
+    },
+    {
+      "country_slug": "japan",
+      "city_slug": "tokyo",
+      "risk_category": "lgbtq_relationships",
+      "risk_level": "low",
+      "traveler_summary": "Same-sex relationships are legal in Japan, and Tokyo has official partnership recognition systems, but national same-sex marriage recognition remains limited. Most travelers face low practical risk, while hotel or paperwork expectations can still be heteronormative.",
+      "what_not_to_do": [
+        "Do not assume every hotel, ryokan, or official form will handle same-sex couples smoothly.",
+        "Do not escalate a room or check-in disagreement at the desk; ask calmly for a manager or alternate wording.",
+        "Do not treat partnership certificates as equivalent to national marriage recognition."
+      ],
+      "practical_safe_behavior": [
+        "Book hotels with clear couple-friendly policies or international guest experience.",
+        "Use calm, practical language such as 'one room, one bed' when confirming reservations.",
+        "In nightlife areas, follow the same personal-safety habits you would in any major city."
+      ],
+      "examples": [
+        "Tokyo's Ni-chome nightlife is visible and well-known, but a rural ryokan may be less familiar with same-sex couple requests.",
+        "A partnership system can help residents; it does not automatically solve every travel or immigration scenario."
+      ],
+      "source_label": "Tokyo Metropolitan Government: Partnership Oath System",
+      "source_url": "https://www.soumu.metro.tokyo.lg.jp/10jinken/sesaku/sonchou/partnership/partnership01",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 40
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "drugs_medication_controlled_substances",
+      "risk_level": "high",
+      "traveler_summary": "Japan strictly controls drugs and some medicines that may be common elsewhere. Cannabis, THC products, stimulants, some psychotropics, and certain prescription or over-the-counter medicines can create serious airport or police risk.",
+      "what_not_to_do": [
+        "Do not bring cannabis, THC products, recreational drugs, or unverified CBD products.",
+        "Do not assume a home-country prescription makes a medicine legal to import.",
+        "Do not mail medicines or controlled substances to yourself in Japan without checking the rules."
+      ],
+      "practical_safe_behavior": [
+        "Check Japan Customs and MHLW guidance before packing medicine.",
+        "Carry medicine in original packaging with prescriptions and doctor letters where relevant.",
+        "Apply for required import permission before travel if your medicine or quantity requires it."
+      ],
+      "examples": [
+        "Some cold medicines, ADHD medicines, sleep medicines, and opioid pain medicines need careful pre-checking.",
+        "CBD rules are strict around THC content and product composition; do not bring uncertain products."
+      ],
+      "source_label": "Japan Customs: passenger clearance and restricted goods",
+      "source_url": "https://www.customs.go.jp/english/summary/passenger.htm",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 50
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "police_official_interaction",
+      "risk_level": "moderate",
+      "traveler_summary": "Police interactions are usually calm, but visitors should be polite, patient, and ready to identify themselves. Carry your passport or residence card as applicable; a copy may not satisfy an officer.",
+      "what_not_to_do": [
+        "Do not argue aggressively, walk away from a stop, or physically resist.",
+        "Do not rely on a passport photo or photocopy as your only identity document.",
+        "Do not sign documents you do not understand without asking for interpretation or consular help."
+      ],
+      "practical_safe_behavior": [
+        "Stay calm, keep hands visible, and ask for interpretation if needed.",
+        "Carry your passport when out as a short-term visitor.",
+        "Contact your embassy or consulate if detained or if the situation is serious."
+      ],
+      "examples": [
+        "If stopped near nightlife districts, answer basic questions calmly and avoid jokes about drugs or weapons.",
+        "If a hotel asks to copy your passport, that is common for foreign guests."
+      ],
+      "source_label": "U.S. Department of State: Japan country information",
+      "source_url": "https://travel.state.gov/en/international-travel/International-Travel-Country-Information-Pages/Japan.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 60
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "immigration_entry",
+      "risk_level": "moderate",
+      "traveler_summary": "Most eligible visitors enter smoothly, but immigration can ask about purpose, onward travel, funds, accommodation, previous overstays, and visa or eVisa conditions.",
+      "what_not_to_do": [
+        "Do not arrive with unclear accommodation, no onward plan, or inconsistent answers about your trip purpose.",
+        "Do not work remotely or locally in a way that conflicts with your visa status.",
+        "Do not ignore eVisa, residence-based, or passport-type conditions."
+      ],
+      "practical_safe_behavior": [
+        "Keep hotel bookings, return/onward tickets, insurance details, and funds access easy to show.",
+        "Answer entry questions briefly and consistently.",
+        "Check official visa rules for your citizenship and residence before travel."
+      ],
+      "examples": [
+        "A tourist with a clear hotel booking and return ticket is usually easier to process than a vague open-ended stay.",
+        "Visa-free entry does not mean permission to work."
+      ],
+      "source_label": "Ministry of Foreign Affairs of Japan: visa information",
+      "source_url": "https://www.mofa.go.jp/j_info/visit/visa/index.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 70
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "photography_filming",
+      "risk_level": "moderate",
+      "traveler_summary": "Photography is generally easy in Japan, but airports, security areas, police activity, military or government facilities, drones, private venues, children, accidents, protests, and religious sites need extra caution.",
+      "what_not_to_do": [
+        "Do not fly drones near airports, government facilities, defense sites, or other restricted areas without checking permission rules.",
+        "Do not film security screening, police activity, accidents, or private people in distress.",
+        "Do not ignore no-photo signs in temples, shrines, museums, restaurants, or shops."
+      ],
+      "practical_safe_behavior": [
+        "Ask before photographing identifiable people, especially children or staff.",
+        "Follow posted signs and stop filming immediately if staff or police ask.",
+        "Check MLIT and police drone rules before bringing or flying a drone."
+      ],
+      "examples": [
+        "Street architecture is usually fine; filming a medical emergency or police stop is much more sensitive.",
+        "A drone flight that seems harmless can be restricted near airports, defense facilities, or major event sites."
+      ],
+      "source_label": "National Police Agency: Drone Act",
+      "source_url": "https://www.npa.go.jp/english/uas/uas.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "high",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 80
+    },
+    {
+      "country_slug": "japan",
+      "risk_category": "local_sensitivities",
+      "risk_level": "low",
+      "traveler_summary": "Japan is generally tolerant of visitors, but sensitive topics include disasters, war memory, national symbols, religion, imperial sites, local political disputes, and content that mocks people affected by crises.",
+      "what_not_to_do": [
+        "Do not make jokes or speculative posts about earthquakes, accidents, attacks, or disasters while events are unfolding.",
+        "Do not touch or disrespect national, religious, or memorial symbols.",
+        "Do not join or film protests or disputes without understanding the context and police instructions."
+      ],
+      "practical_safe_behavior": [
+        "Treat memorials, shrines, temples, imperial sites, and disaster areas quietly.",
+        "If a crisis occurs, follow official alerts and avoid posting rumours.",
+        "When unsure, observe local behavior first."
+      ],
+      "examples": [
+        "Taking a respectful photo at a memorial is different from posing loudly or joking there.",
+        "Sharing official alert links is safer than reposting unverified claims during an earthquake or typhoon."
+      ],
+      "source_label": "Japan Meteorological Agency: disaster and weather information",
+      "source_url": "https://www.jma.go.jp/jma/indexe.html",
+      "reviewed_at": "2026-05-10",
+      "confidence_level": "medium",
+      "legal_disclaimer": "This is practical traveler risk awareness, not legal advice. Laws and enforcement can change; check official sources before travel.",
+      "display_order": 90
+    }
+  ]
+}

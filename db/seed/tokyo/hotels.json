@@ -16,7 +16,7 @@
   },
   {
     "slug": "ks-house-tokyo",
-    "name": "K's House Tokyo (Hostel)",
+    "name": "K\u0027s House Tokyo (Hostel)",
     "tier": "hostel",
     "neighborhood": "Asakusa",
     "price_night_min_minor": 3800,
@@ -146,7 +146,7 @@
     "kid_friendly": true,
     "wheelchair_accessible": true,
     "lgbtq_friendly": true,
-    "notes": "Iconic hotel from 'Lost in Translation'. 52nd-floor New York Bar has unchanged views; reopens after a long refurbishment in 2026.",
+    "notes": "Iconic hotel from \u0027Lost in Translation\u0027. 52nd-floor New York Bar has unchanged views; reopens after a long refurbishment in 2026.",
     "display_order": 10
   },
   {
@@ -176,7 +176,7 @@
     "kid_friendly": true,
     "wheelchair_accessible": true,
     "lgbtq_friendly": true,
-    "notes": "Ian Schrager's Tokyo address. Dress-up lobby scene, Blue Room bar on 31F with Tokyo Tower views, and the best jazz programming of any Tokyo hotel.",
+    "notes": "Ian Schrager\u0027s Tokyo address. Dress-up lobby scene, Blue Room bar on 31F with Tokyo Tower views, and the best jazz programming of any Tokyo hotel.",
     "display_order": 12
   }
 ]

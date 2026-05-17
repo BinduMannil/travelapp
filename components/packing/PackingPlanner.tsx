@@ -24,12 +24,12 @@ const TRIP_TYPES: Array<{ slug: string; label: string }> = [
 
 const ACTIVITIES: Array<{ slug: string; label: string }> = [
   { slug: "hiking", label: "Hiking / Mt. Takao" },
-  { slug: "onsen", label: "Onsen / hot springs" },
-  { slug: "pool", label: "Pool / beach" },
-  { slug: "vegan", label: "Vegan / vegetarian diet" },
-  { slug: "halal", label: "Halal diet" },
-  { slug: "gluten_free", label: "Gluten-free diet" },
-  { slug: "allergy", label: "Other food allergy" },
+  { slug: "onsen", label: "Onsen / Hot Springs" },
+  { slug: "pool", label: "Pool / Beach" },
+  { slug: "vegan", label: "Vegan / Vegetarian Diet" },
+  { slug: "halal", label: "Halal Diet" },
+  { slug: "gluten_free", label: "Gluten-Free Diet" },
+  { slug: "allergy", label: "Other Food Allergy" },
 ];
 
 function todayPlus(days: number) {
@@ -71,11 +71,19 @@ export function PackingPlanner({
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[360px_1fr]">
-      <form className="space-y-5 rounded-lg border border-washi-200 bg-washi-100 p-5">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[24rem_minmax(0,1fr)] lg:items-start">
+      <form className="rounded-[1.35rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(247,240,225,.96))] p-6 shadow-editorial-deep">
+        <div className="mb-6 border-b border-sumi-900/10 pb-5">
+          <p className="luxury-kicker text-enji-600">PLANNER</p>
+          <h2 className="mt-2 font-sans text-3xl font-semibold leading-tight text-sumi-900">
+            Tell Journee the shape of the trip.
+          </h2>
+        </div>
+
+        <div className="space-y-6">
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Arrive
             </span>
             <input
@@ -86,7 +94,7 @@ export function PackingPlanner({
             />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Depart
             </span>
             <input
@@ -101,7 +109,7 @@ export function PackingPlanner({
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Adults
             </span>
             <input
@@ -114,7 +122,7 @@ export function PackingPlanner({
             />
           </label>
           <label className="block">
-            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
               Children
             </span>
             <input
@@ -129,7 +137,7 @@ export function PackingPlanner({
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Trip style
           </span>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -151,7 +159,7 @@ export function PackingPlanner({
         </div>
 
         <div>
-          <span className="text-xs font-semibold uppercase tracking-[0.25em] text-sumi-700">
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-sumi-700">
             Planned activities
           </span>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -171,9 +179,10 @@ export function PackingPlanner({
             ))}
           </div>
         </div>
+        </div>
       </form>
 
-      <section>
+      <section className="min-w-0">
         {result ? (
           <PackingOutput items={result.items} ctx={result.ctx} />
         ) : (
@@ -203,41 +212,45 @@ function PackingOutput({
   );
 
   return (
-    <div>
-      <header className="flex flex-wrap items-baseline justify-between gap-3">
-        <div className="text-sm text-sumi-700">
-          <strong className="text-sumi-900">{ctx.nights}</strong> nights ·
-          averages{" "}
-          <strong className="text-sumi-900">
-            {ctx.tempCMax.toFixed(0)}° / {ctx.tempCMin.toFixed(0)}°C
-          </strong>{" "}
-          · expected precipitation{" "}
-          <strong className="text-sumi-900">
-            {ctx.precipMm.toFixed(0)} mm
-          </strong>
+    <div className="rounded-[1.35rem] border border-white/14 bg-black/22 p-5 shadow-editorial-deep backdrop-blur-sm sm:p-6">
+      <header className="grid gap-4 border-b border-white/12 pb-5 sm:grid-cols-[1fr_auto] sm:items-end">
+        <div>
+          <p className="luxury-kicker text-kintsugi-300">Live list</p>
+          <h2 className="mt-2 font-sans text-3xl font-semibold text-white">
+            {ctx.nights} nights · {totalCount} items
+          </h2>
+          <p className="mt-2 text-sm leading-7 text-white/72">
+            Averages {ctx.tempCMax.toFixed(0)}° / {ctx.tempCMin.toFixed(0)}°C ·
+            expected precipitation {ctx.precipMm.toFixed(0)} mm
+          </p>
         </div>
-        <div className="text-xs text-sumi-700">
-          {totalCount} items ({essentialCount} essential)
+        <div className="rounded-full bg-kintsugi-300 px-4 py-2 text-sm font-bold text-sumi-900">
+          {essentialCount} essential
         </div>
       </header>
 
-      <div className="mt-4 space-y-6">
+      <div className="mt-6 space-y-8">
         {CATEGORY_ORDER.map((cat) => {
           const list = items.get(cat);
           if (!list || list.length === 0) return null;
           return (
             <section key={cat}>
-              <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-sumi-700">
-                {CATEGORY_LABEL[cat]}
-              </h3>
-              <ul className="mt-2 space-y-2">
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="luxury-kicker text-kintsugi-300">
+                  {CATEGORY_LABEL[cat]}
+                </h3>
+                <span className="text-xs font-semibold text-white/54">
+                  {list.length} items
+                </span>
+              </div>
+              <ul className="mt-3 divide-y divide-sumi-900/10 overflow-hidden rounded-[1.1rem] border border-sumi-900/10 bg-[linear-gradient(180deg,rgba(255,253,246,.99),rgba(246,239,224,.97))]">
                 {list.map((item) => (
                   <li
                     key={item.key}
-                    className="rounded-md border border-washi-200 bg-white p-3"
+                    className="p-4"
                   >
-                    <div className="flex items-baseline justify-between gap-3">
-                      <div className="text-sm font-medium">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="min-w-0 text-sm font-semibold text-sumi-900">
                         {item.quantity > 1 && (
                           <span className="mr-1 tabular-nums text-sumi-700">
                             {item.quantity}×
@@ -246,7 +259,7 @@ function PackingOutput({
                         {item.label}
                       </div>
                       {item.essential && (
-                        <span className="rounded bg-rose-50 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-rose-800">
+                        <span className="shrink-0 rounded-full bg-rose-50 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-rose-800">
                           Essential
                         </span>
                       )}

@@ -38,7 +38,7 @@
     "dress_code": "modest",
     "dress_notes": "Shoulders covered is respectful at the main hall; no strict requirement outside.",
     "best_time_notes": "Arrive before 08:00 or after 18:00 to beat crowds. Kaminarimon lantern is lit at night.",
-    "summary": "Tokyo's oldest Buddhist temple (founded 645) with the iconic Kaminarimon gate and the buzzing Nakamise shopping street leading to it.",
+    "summary": "Tokyo\u0027s oldest Buddhist temple (founded 645) with the iconic Kaminarimon gate and the buzzing Nakamise shopping street leading to it.",
     "description": "Sensō-ji is dedicated to Kannon, the Bodhisattva of compassion. The giant red paper lantern at Kaminarimon gate is a Tokyo icon. Nakamise-dōri, the 250m approach, has been selling pilgrim snacks and souvenirs for centuries — try ningyō-yaki (doll-shaped sponge cakes). The temple grounds are free and open 24/7; the main hall is lit until 23:00.",
     "official_url": "https://www.senso-ji.jp/about/index_e.html",
     "reseller_urls": {
@@ -87,7 +87,7 @@
     "dress_code": "modest",
     "dress_notes": "No photography inside the inner hall during services. Respectful attire appreciated.",
     "best_time_notes": "Early morning for quiet forest paths. Watch for Shinto weddings on weekends (outer courtyard).",
-    "summary": "Tokyo's grandest Shinto shrine, set in a hand-planted 70-hectare forest next to Harajuku Station.",
+    "summary": "Tokyo\u0027s grandest Shinto shrine, set in a hand-planted 70-hectare forest next to Harajuku Station.",
     "description": "Dedicated to Emperor Meiji and Empress Shōken, the shrine opened in 1920. Stroll the forested approach through massive torii gates — many donated sake barrels (kazaridaru) line the path. The adjacent Gyoen inner garden (¥500) has a photogenic iris pond in June.",
     "official_url": "https://www.meijijingu.or.jp/en/",
     "reseller_urls": {},
@@ -130,8 +130,8 @@
     "dress_code": "casual",
     "dress_notes": null,
     "best_time_notes": "Clear winter mornings give the best Mt. Fuji sightings. Tembo Galleria sunset slots sell out first.",
-    "summary": "At 634 m, the world's tallest free-standing tower, with two observation decks and on clear days a view of Mt. Fuji.",
-    "description": "Opened in 2012 to replace Tokyo Tower as the city's broadcasting mast. The Tembo Deck (350 m) is the standard stop; Tembo Galleria (450 m) is an extra, spiralling glass ramp. Book online for a timed slot that skips the ticket queue entirely. The base has a large shopping complex (Solamachi) and an aquarium.",
+    "summary": "At 634 m, the world\u0027s tallest free-standing tower, with two observation decks and on clear days a view of Mt. Fuji.",
+    "description": "Opened in 2012 to replace Tokyo Tower as the city\u0027s broadcasting mast. The Tembo Deck (350 m) is the standard stop; Tembo Galleria (450 m) is an extra, spiralling glass ramp. Book online for a timed slot that skips the ticket queue entirely. The base has a large shopping complex (Solamachi) and an aquarium.",
     "official_url": "https://www.tokyo-skytree.jp/en/",
     "reseller_urls": {
       "klook": "https://www.klook.com/en-US/activity/4446-tokyo-skytree-ticket/",
@@ -177,8 +177,8 @@
     "dress_code": "casual",
     "dress_notes": null,
     "best_time_notes": "Most dramatic at night or during rain (umbrellas everywhere). Best photo spot: 2F Starbucks, or Shibuya Sky at dusk.",
-    "summary": "The world's busiest pedestrian crossing — up to 3,000 people step off the curb on a single green light.",
-    "description": "Stand outside Shibuya Station's Hachikō exit and watch the choreography, then cross yourself. For the bird's-eye shot, head up to Starbucks on the second floor of Tsutaya (free if you buy a drink) or book Shibuya Sky on top of Shibuya Scramble Square for a paid 360° view.",
+    "summary": "The world\u0027s busiest pedestrian crossing — up to 3,000 people step off the curb on a single green light.",
+    "description": "Stand outside Shibuya Station\u0027s Hachikō exit and watch the choreography, then cross yourself. For the bird\u0027s-eye shot, head up to Starbucks on the second floor of Tsutaya (free if you buy a drink) or book Shibuya Sky on top of Shibuya Scramble Square for a paid 360° view.",
     "official_url": null,
     "reseller_urls": {},
     "source": "seed"
@@ -361,9 +361,9 @@
     "photography_allowed": false,
     "dress_code": "casual",
     "dress_notes": "Indoor photography is prohibited; phones must be put away inside the galleries.",
-    "best_time_notes": "Tickets open on the 10th of the preceding month at 10:00 JST on Lawson's Loppi. They sell out within hours, especially summer and weekends.",
-    "summary": "Studio Ghibli's whimsical museum designed by Hayao Miyazaki himself — a must-book-ahead pilgrimage for animation fans.",
-    "description": "A strictly timed-entry, photography-free museum that feels like a ride through Ghibli's imagination. Expect an exclusive short film (rotates monthly), hand-drawn animation rigs, a giant Laputa robot on the rooftop, and a winding staircase themed around Catbus. Ticketing is notoriously tricky — Lawson Loppi in Japan, or JTB abroad.",
+    "best_time_notes": "Tickets open on the 10th of the preceding month at 10:00 JST on Lawson\u0027s Loppi. They sell out within hours, especially summer and weekends.",
+    "summary": "Studio Ghibli\u0027s whimsical museum designed by Hayao Miyazaki himself — a must-book-ahead pilgrimage for animation fans.",
+    "description": "A strictly timed-entry, photography-free museum that feels like a ride through Ghibli\u0027s imagination. Expect an exclusive short film (rotates monthly), hand-drawn animation rigs, a giant Laputa robot on the rooftop, and a winding staircase themed around Catbus. Ticketing is notoriously tricky — Lawson Loppi in Japan, or JTB abroad.",
     "official_url": "https://www.ghibli-museum.jp/en/",
     "reseller_urls": {
       "jtb": "https://www.jtbgmt.com/ghibli-museum/"
@@ -407,7 +407,7 @@
     "dress_code": "casual",
     "dress_notes": "No flash. Some special exhibitions are photo-free — watch for signage.",
     "best_time_notes": "Open Tue-Sun; closed Mon (or Tue if Mon is a holiday). Weekday mornings are calmest.",
-    "summary": "Japan's oldest and largest museum, with unrivalled collections of samurai armour, Buddhist sculpture, tea ceremony objects, and ukiyo-e prints.",
+    "summary": "Japan\u0027s oldest and largest museum, with unrivalled collections of samurai armour, Buddhist sculpture, tea ceremony objects, and ukiyo-e prints.",
     "description": "Six buildings in Ueno Park, each with a different focus. Start with the Honkan (Japanese Gallery) for a greatest-hits run, then cross to the Heiseikan for archaeology, and the Tōyōkan for wider Asian art. Free under-18 entry; general admission covers the permanent collection — special exhibitions are separately priced.",
     "official_url": "https://www.tnm.jp/?lang=en",
     "reseller_urls": {},
@@ -499,7 +499,7 @@
     "dress_notes": "Maid cafés and some shops restrict in-store photography — ask first.",
     "best_time_notes": "Main street (Chuo-dori) is pedestrianised Sundays 13:00-18:00 (April-September) and 13:00-17:00 the rest of the year.",
     "summary": "Neon-lit district for anime, manga, retro games, and hobby electronics — eight stories of vending-machine curiosities and claw machines.",
-    "description": "Base your visit around Chuo-dori and its side streets. Super Potato (retro games), Mandarake Complex (used manga / figures), Yodobashi-Akiba (mega-electronics store), and the countless 'gachapon' capsule-toy floors are the greatest-hits stops. Stop at a themed café if you are curious, but stick to reputable ones — some entrance-fee scams exist.",
+    "description": "Base your visit around Chuo-dori and its side streets. Super Potato (retro games), Mandarake Complex (used manga / figures), Yodobashi-Akiba (mega-electronics store), and the countless \u0027gachapon\u0027 capsule-toy floors are the greatest-hits stops. Stop at a themed café if you are curious, but stick to reputable ones — some entrance-fee scams exist.",
     "official_url": null,
     "reseller_urls": {
       "getyourguide": "https://www.getyourguide.com/akihabara-l66028/"
@@ -546,7 +546,7 @@
     "dress_notes": null,
     "best_time_notes": "Sunset over Rainbow Bridge is the headline. The driverless Yurikamome from Shimbashi is itself a ride.",
     "summary": "A man-made island in Tokyo Bay with the Rainbow Bridge view, a giant Gundam statue, shopping malls, and onsen/sento options.",
-    "description": "A relaxed half-day for families or a sunset evening for couples. DiverCity Tokyo Plaza has the life-size Unicorn Gundam statue (free), Odaiba Beach is the photo spot for Rainbow Bridge, and Palette Town's giant Ferris wheel has been replaced by new developments — check current openings before you go.",
+    "description": "A relaxed half-day for families or a sunset evening for couples. DiverCity Tokyo Plaza has the life-size Unicorn Gundam statue (free), Odaiba Beach is the photo spot for Rainbow Bridge, and Palette Town\u0027s giant Ferris wheel has been replaced by new developments — check current openings before you go.",
     "official_url": "https://www.tokyo-odaiba.net/en/",
     "reseller_urls": {},
     "source": "seed"

@@ -29,21 +29,22 @@ export default function AffiliateDisclosurePage() {
   };
 
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
-      <nav className="text-xs uppercase tracking-[0.25em] text-sumi-700">
-        <Link href="/" className="hover:text-enji-600">
-          Home
-        </Link>{" "}
-        · Legal · Affiliate Disclosure
-      </nav>
-      <h1 className="mt-4 text-4xl font-semibold tracking-tight text-sumi-900">
-        Affiliate Disclosure
-      </h1>
-      <p className="mt-3 text-sm text-sumi-700">
-        Last reviewed: {formatReviewedAt()}
-      </p>
+    <main className="legal-page">
+      <article className="legal-reader">
+        <nav className="legal-breadcrumb">
+          <Link href="/">
+            Home
+          </Link>{" "}
+          · Legal · Affiliate Disclosure
+        </nav>
+        <h1 className="legal-title">
+          Affiliate Disclosure
+        </h1>
+        <p className="legal-meta">
+          Last reviewed: {formatReviewedAt()}
+        </p>
 
-      <div className="prose mt-8 max-w-none text-sumi-900 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:mt-8 [&_h2]:mb-3 [&_p]:leading-relaxed [&_p]:text-sm [&_li]:text-sm [&_ul]:list-none [&_ul]:pl-0 [&_ul]:space-y-1.5 [&_ul>li]:relative [&_ul>li]:pl-4 [&_ul>li]:before:content-['•'] [&_ul>li]:before:absolute [&_ul>li]:before:left-0 [&_ul>li]:before:top-0 [&_ul>li]:before:text-sumi-500">
+        <div className="legal-content">
         <h2>How we make money</h2>
         <p>
           {LEGAL.brand} is free to read. To cover the cost of building it,
@@ -90,9 +91,9 @@ export default function AffiliateDisclosurePage() {
             they are never purchased or incentivised.
           </li>
           <li>
-            Hotel listings are not ranked by commission. Attraction rankings
-            reflect our view of importance; restaurant rankings are driven by
-            a published composite of Google, Tabelog, and Michelin signals.
+            Hotel listings are not ranked by commission. Attraction and
+            restaurant rankings reflect editorial judgement, transparent
+            quality signals, and traveler usefulness.
           </li>
         </ul>
 
@@ -145,7 +146,8 @@ export default function AffiliateDisclosurePage() {
             {LEGAL.legalEmail}
           </a>
         </p>
-      </div>
+        </div>
+      </article>
     </main>
   );
 }

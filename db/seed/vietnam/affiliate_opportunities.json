@@ -1,0 +1,76 @@
+{
+  "opportunities": [
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "opportunity_key": "vietnam-hotels",
+      "category": "hotels",
+      "traveler_need": "Compare hotels, guesthouses, homestays, beach resorts, and boutique stays across Vietnam's major route cities.",
+      "recommended_partner_keys": ["booking", "agoda"],
+      "placement_context": ["city hubs", "itinerary builder", "neighborhood guides", "weather season warnings"],
+      "priority": "high",
+      "notes": "Hotel availability and quality vary sharply by city, season, noise, and air-conditioning expectations.",
+      "display_order": 10
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "opportunity_key": "vietnam-tours-activities",
+      "category": "tours",
+      "traveler_need": "Book food tours, Cu Chi/Mekong trips, Ha Long cruises, Hoi An cooking classes, Sapa trekking, Ninh Binh boat tours, caves, and city walks.",
+      "recommended_partner_keys": ["klook", "getyourguide", "viator"],
+      "placement_context": ["activity pages", "itineraries", "city day trips", "risk-aware motorbike alternatives"],
+      "priority": "high",
+      "notes": "Tour quality varies; use review freshness, group size, pickup clarity, and cancellation policy as ranking signals.",
+      "display_order": 20
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "opportunity_key": "vietnam-esim",
+      "category": "esim",
+      "traveler_need": "Arrive with mobile data ready for maps, ride-hailing, Zalo, translation, and hotel coordination.",
+      "recommended_partner_keys": ["airalo", "holafly"],
+      "placement_context": ["arrival guide", "connectivity guide", "apps directory", "airport pages"],
+      "priority": "high",
+      "notes": "Useful before airport arrivals, late-night transfers, and first Grab setup.",
+      "display_order": 30
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "opportunity_key": "vietnam-airport-transfers",
+      "category": "transfers",
+      "traveler_need": "Prebook airport transfers where late arrival, family luggage, resort distance, or taxi anxiety matters.",
+      "recommended_partner_keys": ["welcomepickups", "klook"],
+      "placement_context": ["arrival pages", "hotel confirmation flows", "family itineraries", "island resorts"],
+      "priority": "medium",
+      "notes": "Especially relevant for Phu Quoc resorts, late HCMC/Hanoi arrivals, and Da Nang-Hoi An transfers.",
+      "display_order": 40
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "opportunity_key": "vietnam-buses-trains",
+      "category": "buses_trains",
+      "traveler_need": "Compare sleeper buses, trains, limousines, and intercity transfers between Vietnam route cities.",
+      "recommended_partner_keys": ["kiwi"],
+      "placement_context": ["nearby routes", "itinerary builder", "train journey activity", "budget planning"],
+      "priority": "medium",
+      "notes": "Future partner list should include Vietnam-specific bus/train aggregators where affiliate terms allow.",
+      "display_order": 50
+    },
+    {
+      "owner_kind": "country",
+      "country_slug": "vietnam",
+      "opportunity_key": "vietnam-insurance-motorbike",
+      "category": "insurance",
+      "traveler_need": "Prompt travelers to check medical, motorbike, trekking, diving, and activity coverage before booking risky activities.",
+      "recommended_partner_keys": ["safetywing", "heymondo"],
+      "placement_context": ["motorbike travel", "trekking", "diving", "legal/social risk", "packing"],
+      "priority": "high",
+      "notes": "Do not imply coverage; link placement must tell users to read policy wording for licenses and exclusions.",
+      "display_order": 60
+    }
+  ]
+}

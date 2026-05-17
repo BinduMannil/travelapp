@@ -1,30 +1,183 @@
 {
   "holidays": [
-    { "date": "2026-01-01", "name": "New Year's Day (Ganjitsu)",           "impact": "major",    "notes": "Most small shops, restaurants, and some attractions close Jan 1-3. Shrines get huge crowds for hatsumōde (first shrine visit). Trains still run." },
-    { "date": "2026-01-12", "name": "Coming of Age Day (Seijin no Hi)",    "impact": "moderate", "notes": "Second Monday of January. Celebrates 20-year-olds; ceremonies bring festive kimono crowds to major shrines." },
-    { "date": "2026-02-11", "name": "National Foundation Day",             "impact": "low",      "notes": "A quiet public holiday. Most things open as normal." },
-    { "date": "2026-02-23", "name": "Emperor's Birthday",                  "impact": "low",      "notes": "Imperial Palace inner grounds open for public greeting." },
-    { "date": "2026-03-20", "name": "Vernal Equinox Day (Shunbun no Hi)",  "impact": "low",      "notes": "Falls on or near the first day of spring. Parks busy with early sakura viewing." },
-    { "date": "2026-04-29", "name": "Shōwa Day (start of Golden Week)",    "impact": "major",    "notes": "Golden Week kicks off. Domestic travel spikes; Shinkansen, flights, and top hotels sell out 2-4 weeks ahead. Prices peak." },
-    { "date": "2026-05-03", "name": "Constitution Memorial Day",           "impact": "major",    "notes": "Middle of Golden Week. Expect crowds everywhere; museums can be packed." },
-    { "date": "2026-05-04", "name": "Greenery Day",                        "impact": "major",    "notes": "Part of Golden Week." },
-    { "date": "2026-05-05", "name": "Children's Day",                      "impact": "major",    "notes": "Last day of Golden Week. Carp streamers (koinobori) fly across the city." },
-    { "date": "2026-07-20", "name": "Marine Day (Umi no Hi)",              "impact": "moderate", "notes": "Third Monday of July. Beach towns crowd up." },
-    { "date": "2026-08-11", "name": "Mountain Day (Yama no Hi)",           "impact": "moderate", "notes": "Introduced in 2016; Mt. Takao and other trails get busier." },
-    { "date": "2026-09-21", "name": "Respect for the Aged Day",            "impact": "low",      "notes": "Third Monday of September." },
-    { "date": "2026-09-23", "name": "Autumnal Equinox Day",                "impact": "low" },
-    { "date": "2026-10-12", "name": "Sports Day (Taiiku no Hi)",           "impact": "moderate", "notes": "Second Monday of October. Schools and community events flood parks." },
-    { "date": "2026-11-03", "name": "Culture Day",                         "impact": "moderate", "notes": "Free admission at many museums and palaces — plan early." },
-    { "date": "2026-11-23", "name": "Labour Thanksgiving Day",             "impact": "low" },
-    { "date": "2026-12-29", "name": "New Year shutdown begins (not official)", "impact": "major", "notes": "Many small businesses close Dec 29 - Jan 3. Department stores stay open until Dec 30 or 31; konbini never close." }
+    {
+      "date": "2026-01-01",
+      "name": "New Year's Day (Ganjitsu)",
+      "impact": "major",
+      "notes": "Most small shops, restaurants, and some attractions close Jan 1-3. Shrines get huge crowds for hatsumōde (first shrine visit). Trains still run."
+    },
+    {
+      "date": "2026-01-12",
+      "name": "Coming of Age Day (Seijin no Hi)",
+      "impact": "moderate",
+      "notes": "Second Monday of January. Celebrates 20-year-olds; ceremonies bring festive kimono crowds to major shrines."
+    },
+    {
+      "date": "2026-02-11",
+      "name": "National Foundation Day",
+      "impact": "low",
+      "notes": "A quiet public holiday. Most things open as normal."
+    },
+    {
+      "date": "2026-02-23",
+      "name": "Emperor's Birthday",
+      "impact": "low",
+      "notes": "Imperial Palace inner grounds open for public greeting."
+    },
+    {
+      "date": "2026-03-20",
+      "name": "Vernal Equinox Day (Shunbun no Hi)",
+      "impact": "low",
+      "notes": "Falls on or near the first day of spring. Parks busy with early sakura viewing."
+    },
+    {
+      "date": "2026-04-29",
+      "name": "Shōwa Day (start of Golden Week)",
+      "impact": "major",
+      "notes": "Golden Week kicks off. Domestic travel spikes; Shinkansen, flights, and top hotels sell out 2-4 weeks ahead. Prices peak."
+    },
+    {
+      "date": "2026-05-03",
+      "name": "Constitution Memorial Day",
+      "impact": "major",
+      "notes": "Middle of Golden Week. Expect crowds everywhere; museums can be packed."
+    },
+    {
+      "date": "2026-05-04",
+      "name": "Greenery Day",
+      "impact": "major",
+      "notes": "Part of Golden Week."
+    },
+    {
+      "date": "2026-05-05",
+      "name": "Children's Day",
+      "impact": "major",
+      "notes": "Last day of Golden Week. Carp streamers (koinobori) fly across the city."
+    },
+    {
+      "date": "2026-07-20",
+      "name": "Marine Day (Umi no Hi)",
+      "impact": "moderate",
+      "notes": "Third Monday of July. Beach towns crowd up."
+    },
+    {
+      "date": "2026-08-11",
+      "name": "Mountain Day (Yama no Hi)",
+      "impact": "moderate",
+      "notes": "Introduced in 2016; Mt. Takao and other trails get busier."
+    },
+    {
+      "date": "2026-09-21",
+      "name": "Respect for the Aged Day",
+      "impact": "low",
+      "notes": "Third Monday of September."
+    },
+    {
+      "date": "2026-09-23",
+      "name": "Autumnal Equinox Day",
+      "impact": "low"
+    },
+    {
+      "date": "2026-10-12",
+      "name": "Sports Day (Taiiku no Hi)",
+      "impact": "moderate",
+      "notes": "Second Monday of October. Schools and community events flood parks."
+    },
+    {
+      "date": "2026-11-03",
+      "name": "Culture Day",
+      "impact": "moderate",
+      "notes": "Free admission at many museums and palaces — plan early."
+    },
+    {
+      "date": "2026-11-23",
+      "name": "Labour Thanksgiving Day",
+      "impact": "low"
+    },
+    {
+      "date": "2026-12-29",
+      "name": "New Year shutdown begins (not official)",
+      "impact": "major",
+      "notes": "Many small businesses close Dec 29 - Jan 3. Department stores stay open until Dec 30 or 31; konbini never close."
+    }
   ],
   "festivals": [
-    { "name": "Cherry blossom season (Sakura)", "start_date": "2026-03-20", "end_date": "2026-04-10", "category": "nature", "body": "Tokyo's sakura forecast peaks around the last week of March. Top viewing: Ueno Park, Shinjuku Gyoen, Chidorigafuchi (boat rentals), Meguro River (night illumination). Picnic tarps go down at dawn for evening parties.", "price_impact": "major",    "url": "https://sakura.weathermap.jp/en.php" },
-    { "name": "Sanja Matsuri",                    "start_date": "2026-05-15", "end_date": "2026-05-17", "category": "festival", "body": "Asakusa's biggest festival — 100+ portable shrines (mikoshi) parade around Sensō-ji. Streets are packed shoulder-to-shoulder.", "price_impact": "moderate", "url": "https://www.gotokyo.org/en/" },
-    { "name": "Sumida River Fireworks",          "start_date": "2026-07-25", "end_date": "2026-07-25", "category": "festival", "body": "Tokyo's oldest and biggest fireworks display — ~20,000 rockets. Asakusa / Skytree area closed to traffic; best viewpoints rooftop bookings sell out months ahead.", "price_impact": "moderate", "url": "https://sumidagawa-hanabi.com/" },
-    { "name": "Obon",                            "start_date": "2026-08-13", "end_date": "2026-08-16", "category": "observance", "body": "Ancestor-remembering holiday period; domestic travel rivals Golden Week. Many businesses shut for 3-4 days. Bon Odori folk dances light up local plazas.", "price_impact": "major",    "url": null },
-    { "name": "Autumn colours (Kōyō)",           "start_date": "2026-11-10", "end_date": "2026-12-05", "category": "nature",   "body": "Tokyo's peak foliage lands around late November. Best spots: Rikugien Garden (night illumination), Mt. Takao, Meiji Jingu Gaien, Ichō Namiki ginkgo avenue near Aoyama.", "price_impact": "moderate", "url": "https://www.rikugien.jp/" },
-    { "name": "Winter illuminations",            "start_date": "2026-11-20", "end_date": "2027-02-14", "category": "seasonal", "body": "Millions of LEDs light up Marunouchi, Omotesando, Roppongi Hills, Tokyo Midtown, and Caretta Shiodome. Free to wander; Starbucks at prime corners fills early.", "price_impact": "low",      "url": null },
-    { "name": "Comiket (summer)",                "start_date": "2026-08-14", "end_date": "2026-08-16", "category": "conference","body": "World's largest fan-comics convention at Tokyo Big Sight. Hotels in Odaiba / Tokyo Bay sell out; taxi queues for cosplayers stretch for blocks.", "price_impact": "major",   "url": "https://www.comiket.co.jp/info-a/Genre/C109.html" }
+    {
+      "name": "Cherry blossom season (Sakura)",
+      "start_date": "2026-03-20",
+      "end_date": "2026-04-10",
+      "category": "nature",
+      "body": "Tokyo's sakura forecast peaks around the last week of March. Top viewing: Ueno Park, Shinjuku Gyoen, Chidorigafuchi (boat rentals), Meguro River (night illumination). Picnic tarps go down at dawn for evening parties.",
+      "price_impact": "major",
+      "url": "https://sakura.weathermap.jp/en.php",
+      "significance": "The single most iconic moment in the Japanese calendar — short, ephemeral, and bound up with a national philosophy of mono no aware (the gentle sadness of impermanence). Schools, companies, and families turn out for hanami (flower-viewing parties) under the trees.",
+      "how_to_join": "Pick a riverside park (Meguro-gawa, Chidorigafuchi, Sumida) and bring a small picnic blanket — no booking required. Buy bento + canned chu-hai at any konbini. Arrive late afternoon for sakura by daylight, stay through yozakura (night blossoms) when paper lanterns light up. Etiquette: don't pick or shake the branches."
+    },
+    {
+      "name": "Sanja Matsuri",
+      "start_date": "2026-05-15",
+      "end_date": "2026-05-17",
+      "category": "festival",
+      "body": "Asakusa's biggest festival — 100+ portable shrines (mikoshi) parade around Sensō-ji. Streets are packed shoulder-to-shoulder.",
+      "price_impact": "moderate",
+      "url": "https://www.gotokyo.org/en/",
+      "significance": "Asakusa's biggest festival and one of the rowdiest in Tokyo — three days celebrating the founders of Sensō-ji Temple. Expect 100+ portable shrines (mikoshi) carried through the streets by chanting teams, plus the only public outing of Tokyo's traditional irezumi tattoos on yakuza-affiliated participants.",
+      "how_to_join": "Just show up around Sensō-ji on the festival weekend (third weekend of May) — there's no ticket. Best vantage points: the alleyways off Nakamise-dōri on Sunday morning when the three main mikoshi leave the temple. Stand back when a shrine goes past; it's heavy and the crowd is dense."
+    },
+    {
+      "name": "Sumida River Fireworks",
+      "start_date": "2026-07-25",
+      "end_date": "2026-07-25",
+      "category": "festival",
+      "body": "Tokyo's oldest and biggest fireworks display — ~20,000 rockets. Asakusa / Skytree area closed to traffic; best viewpoints rooftop bookings sell out months ahead.",
+      "price_impact": "moderate",
+      "url": "https://sumidagawa-hanabi.com/",
+      "significance": "Japan's oldest continuous fireworks festival (since 1733) and the spiritual ancestor of every summer hanabi event in the country. Traditionally it's the night Tokyoites wear yukata for the first time of the year.",
+      "how_to_join": "Last Saturday of July, ~19:00–20:30. Free to watch from anywhere along the Sumida River between Asakusa and Ryōgoku — but the riverbank fills up by mid-afternoon. Grab a yukata rental from a shop in Asakusa (¥4,000–8,000 with hair styling), buy konbini food, sit on the embankment. Paid stadium seats are sold via 7-Eleven from June."
+    },
+    {
+      "name": "Obon",
+      "start_date": "2026-08-13",
+      "end_date": "2026-08-16",
+      "category": "observance",
+      "body": "Ancestor-remembering holiday period; domestic travel rivals Golden Week. Many businesses shut for 3-4 days. Bon Odori folk dances light up local plazas.",
+      "price_impact": "major",
+      "url": null,
+      "significance": "A Buddhist festival to honour returning ancestral spirits — effectively Japan's national homecoming. Most workplaces close for the week and domestic travel peaks; in rural villages, families light lanterns to guide spirits home and dance the bon-odori in town squares.",
+      "how_to_join": "Stay in Tokyo if you're flying into Japan that week — domestic Shinkansen and flights are 2-3× normal price and packed. To experience Obon properly, head to a neighbourhood bon-odori festival (every ward holds one — look for posters at your local station). Anyone is welcome to join the circular dance; copy the people in front of you."
+    },
+    {
+      "name": "Autumn colours (Kōyō)",
+      "start_date": "2026-11-10",
+      "end_date": "2026-12-05",
+      "category": "nature",
+      "body": "Tokyo's peak foliage lands around late November. Best spots: Rikugien Garden (night illumination), Mt. Takao, Meiji Jingu Gaien, Ichō Namiki ginkgo avenue near Aoyama.",
+      "price_impact": "moderate",
+      "url": "https://www.rikugien.jp/",
+      "significance": "The autumn equivalent of cherry blossoms — momiji (maple) and ginkgo trees turn red, orange, and gold across the country. Less internationally famous than sakura but equally beloved domestically; entire weekend trips are planned around peak colour windows.",
+      "how_to_join": "Track JMA's koyo zensen (autumn-front) updates from late October. Day trips from Tokyo: Mt Takao, Showa Memorial Park, the Meiji Jingu Gaien ginkgo avenue. Free, anytime — no booking. Combine with an onsen visit for the maximally Japanese experience."
+    },
+    {
+      "name": "Winter illuminations",
+      "start_date": "2026-11-20",
+      "end_date": "2027-02-14",
+      "category": "seasonal",
+      "body": "Millions of LEDs light up Marunouchi, Omotesando, Roppongi Hills, Tokyo Midtown, and Caretta Shiodome. Free to wander; Starbucks at prime corners fills early.",
+      "price_impact": "low",
+      "url": null,
+      "significance": "Japan's compensation for not really doing Christmas — millions of LED light installations from late November through February. KFC and strawberry shortcake are the actual Christmas tradition; illuminations are the romantic backdrop, often booked as a couple's date.",
+      "how_to_join": "Free to visit. Major Tokyo displays: Roppongi Hills Keyakizaka, Marunouchi Naka-dōri, Shibuya Aoiro, Yebisu Garden Place, Tokyo Dome City. Some (Caretta Shiodome, Tokyo Mega Illumi) charge a small entry. Arrive after sunset (~17:00 in winter); peak crowds 19:00–21:00 on weekends."
+    },
+    {
+      "name": "Comiket (summer)",
+      "start_date": "2026-08-14",
+      "end_date": "2026-08-16",
+      "category": "conference",
+      "body": "World's largest fan-comics convention at Tokyo Big Sight. Hotels in Odaiba / Tokyo Bay sell out; taxi queues for cosplayers stretch for blocks.",
+      "price_impact": "major",
+      "url": "https://www.comiket.co.jp/info-a/Genre/C109.html",
+      "significance": "The world's largest doujinshi (self-published comics) fair, held twice yearly in the Tokyo Big Sight convention complex. Half a million visitors, 35,000+ small-press circles, and the de-facto stage for Japan's underground manga and cosplay culture.",
+      "how_to_join": "Free entry but you'll need to buy the Catalog (~¥2,500, online from June) to navigate. Doors open ~10:30; queue from 06:00 if you want sought-after debut publications. Expect 40°C+ heat outside — bring water, a hand-held fan, and salt tablets. Cosplay is welcome but only inside the designated Cosplay Hiroba; change there, not on the train."
+    }
   ]
 }

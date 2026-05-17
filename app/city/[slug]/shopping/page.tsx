@@ -1,5 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getPlaceOption } from "@/lib/destinations/countries";
+import { VietnamCityDetailPage } from "@/components/vietnam/VietnamCityDetailPage";
+import { getVietnamCity } from "@/lib/vietnam/frontend";
 import { getCity, getCityShopping } from "@/lib/data/seed";
 import { PageHero } from "@/components/layout/PageHero";
 import { ShoppingBubbleHero } from "@/components/shopping/ShoppingBubbleHero";
@@ -25,7 +28,7 @@ export function generateMetadata(): Metadata {
   return {
     title: "Shopping",
     description:
-      "Where to buy Japanese knives, stationery, vintage, retro games, craft, and everything else worth carrying home.",
+      "Vietnam shopping guide for coffee, textiles, tailoring, ceramics, lacquerware, markets, and design finds.",
   };
 }
 
@@ -35,12 +38,15 @@ export default async function ShoppingPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const vietnamCity = getVietnamCity(slug);
+  if (vietnamCity) return <VietnamCityDetailPage city={vietnamCity} kind="shopping" />;
+  if (getPlaceOption(slug)) notFound();
   const city = getCity(slug);
   const data = getCityShopping(slug);
   if (!city || !data) notFound();
 
   return (
-    <main>
+    <main className="editorial-page">
       <PageHero
         crumbs={[
           { label: "Home", href: "/" },
@@ -70,20 +76,20 @@ export default async function ShoppingPage({
         }))}
       />
 
-      <div className="mx-auto max-w-5xl px-6 py-12">
-<nav className="mt-6 flex flex-wrap gap-2 text-xs">
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20">
+<nav className="flex flex-wrap gap-3 text-xs">
         {data.categories.map((c) => (
           <a
             key={c.slug}
             href={`#cat-${c.slug}`}
-            className="rounded-full border border-washi-200 bg-white px-3 py-1 font-medium text-sumi-700 hover:border-enji-400 hover:text-enji-700"
+            className="rounded-full border border-white/20 bg-white/[0.08] px-4 py-2 font-semibold text-white/82 backdrop-blur transition hover:border-kintsugi-300 hover:bg-kintsugi-300 hover:text-sumi-950"
           >
             {c.title}
           </a>
         ))}
       </nav>
 
-      <div className="mt-10 space-y-14">
+      <div className="mt-12 space-y-20">
         {data.categories.map((c) => {
           const palette = CATEGORY_PALETTE[c.slug] ?? "aizome";
           return (
@@ -93,37 +99,37 @@ export default async function ShoppingPage({
               className="scroll-mt-20"
             >
               {/* Section header — single clean line, no side-by-side tile */}
-              <header className="flex items-baseline justify-between gap-4 border-b border-washi-200 pb-3">
-                <div className="flex items-baseline gap-3">
+              <header className="grid gap-6 rounded-[1.4rem] border border-white/14 bg-[linear-gradient(180deg,rgba(35,31,26,0.9),rgba(14,13,12,0.94))] p-6 shadow-editorial-deep md:grid-cols-[0.9fr_1.1fr]">
+                <div className="flex items-start gap-4">
                   <span
                     aria-hidden
-                    className={`font-display text-2xl font-semibold ${
+                    className={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl border border-white/22 bg-white/[0.08] font-sans text-4xl font-semibold ${
                       palette === "sumi"
-                        ? "text-sumi-900"
+                        ? "text-white"
                         : palette === "matcha"
-                          ? "text-matcha-700"
+                          ? "text-matcha-200"
                           : palette === "aizome" || palette === "ocean"
-                            ? "text-aizome-600"
+                            ? "text-aizome-100"
                             : palette === "kintsugi"
-                              ? "text-kintsugi-500"
-                              : "text-enji-600"
+                              ? "text-kintsugi-200"
+                              : "text-sakura-100"
                     }`}
                   >
                     {c.kanji}
                   </span>
-                  <h2 className="font-display text-xl font-semibold tracking-tight text-sumi-900 sm:text-2xl">
-                    {c.title}
-                  </h2>
+                  <div>
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
+                      {c.picks.length} {c.picks.length === 1 ? "pick" : "picks"}
+                    </p>
+                    <h2 className="mt-2 font-sans text-[clamp(2.4rem,5vw,4.7rem)] font-semibold leading-[0.95] text-white">
+                      {c.title}
+                    </h2>
+                  </div>
                 </div>
-                <div className="shrink-0 text-[10px] uppercase tracking-[0.2em] text-sumi-700">
-                  {c.picks.length}{" "}
-                  {c.picks.length === 1 ? "pick" : "picks"}
-                </div>
+                <p className="max-w-2xl self-end text-sm leading-7 text-white/76 sm:text-base">
+                  {c.body}
+                </p>
               </header>
-
-              <p className="mt-3 max-w-3xl text-sm leading-relaxed text-sumi-700">
-                {c.body}
-              </p>
 
               {/* Optional cover strip — spans full width, calmer than a
                   side tile. Only shown when we have real images. */}
@@ -138,19 +144,19 @@ export default async function ShoppingPage({
                 </div>
               )}
 
-              <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {c.picks.map((p) => (
                   <article
                     key={p.name}
-                    className="group flex flex-col rounded-xl border border-washi-200 bg-white p-4 transition hover:-translate-y-0.5 hover:border-enji-300 hover:shadow-md"
+                    className="group flex flex-col rounded-[1.15rem] border border-white/14 bg-[linear-gradient(180deg,rgba(255,253,246,0.98),rgba(239,231,215,0.96))] p-5 text-sumi-950 shadow-editorial transition hover:-translate-y-0.5 hover:border-kintsugi-500 hover:shadow-editorial-deep"
                   >
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sumi-700">
+                    <div className="text-[10px] font-semibold uppercase tracking-[0.12em] text-enji-700">
                       {p.neighborhood}
                     </div>
-                    <h3 className="mt-1 text-base font-semibold leading-snug text-sumi-900 group-hover:text-enji-700">
+                    <h3 className="mt-2 font-sans text-2xl font-semibold leading-tight text-sumi-950 group-hover:text-enji-700">
                       {p.name}
                     </h3>
-                    <p className="mt-2 flex-1 text-sm leading-relaxed text-sumi-700">
+                    <p className="mt-3 flex-1 text-sm leading-7 text-sumi-800">
                       {p.body}
                     </p>
                     {p.url && (
@@ -158,7 +164,7 @@ export default async function ShoppingPage({
                         href={p.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-3 inline-block text-xs font-semibold text-enji-600 hover:underline"
+                        className="mt-5 inline-block text-sm font-semibold text-enji-700 underline decoration-enji-300 underline-offset-4 hover:text-sumi-950"
                       >
                         Website →
                       </a>
@@ -171,8 +177,8 @@ export default async function ShoppingPage({
         })}
       </div>
 
-      <aside className="mt-14 rounded-2xl border border-kintsugi-300/50 bg-kintsugi-300/10 p-5 text-sm text-sumi-900">
-        <div className="text-xs font-semibold uppercase tracking-[0.25em] text-kintsugi-600">
+      <aside className="mt-16 rounded-[1.25rem] border border-kintsugi-300/35 bg-[linear-gradient(180deg,rgba(35,29,20,0.94),rgba(15,13,11,0.96))] p-6 text-sm leading-7 text-white/82 shadow-editorial-deep">
+        <div className="text-xs font-semibold uppercase tracking-[0.12em] text-kintsugi-200">
           Tax-free shopping
         </div>
         <p className="mt-2">{data.tax_free_note}</p>

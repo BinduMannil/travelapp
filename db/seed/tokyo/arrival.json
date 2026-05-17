@@ -6,7 +6,7 @@
       "options": [
         {
           "mode": "train_express",
-          "name": "JR Narita Express (N'EX)",
+          "name": "JR Narita Express (N\u0027EX)",
           "duration_minutes": 60,
           "price_min_minor": 3120,
           "price_max_minor": 3120,

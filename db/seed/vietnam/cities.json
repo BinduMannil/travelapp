@@ -1,0 +1,122 @@
+[
+  {
+    "country_slug": "vietnam",
+    "slug": "ho-chi-minh-city",
+    "name": "Ho Chi Minh City",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 10.7769,
+    "lon": 106.7009,
+    "default_currency": "VND",
+    "summary": "Vietnam's fast, hot southern metropolis: motorbike energy, coffee shops, rooftop bars, markets, museums, street food, and easy Mekong Delta access."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "hanoi",
+    "name": "Hanoi",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 21.0278,
+    "lon": 105.8342,
+    "default_currency": "VND",
+    "summary": "Vietnam's capital: old-quarter lanes, lakes, French-era architecture, political institutions, northern food, craft streets, and a strong café rhythm."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "da-nang",
+    "name": "Da Nang",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 16.0544,
+    "lon": 108.2022,
+    "default_currency": "VND",
+    "summary": "A central-coast beach city with bridges, seafood, mountain passes, Son Tra peninsula, airport convenience, and quick access to Hoi An and Hue."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "hoi-an",
+    "name": "Hoi An",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 15.8801,
+    "lon": 108.338,
+    "default_currency": "VND",
+    "summary": "A lantern-lit heritage town known for tailoring, riverside evenings, cooking classes, cycling, beaches, and a compact old town that gets busy after sunset."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "hue",
+    "name": "Hue",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 16.4637,
+    "lon": 107.5909,
+    "default_currency": "VND",
+    "summary": "Vietnam's former imperial capital: citadel walls, royal tombs, Buddhist pagodas, Perfume River, slower pacing, and central-region cuisine."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "nha-trang",
+    "name": "Nha Trang",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 12.2388,
+    "lon": 109.1967,
+    "default_currency": "VND",
+    "summary": "A resort-oriented south-central beach city with islands, diving, seafood, mud baths, nightlife pockets, and a more developed waterfront feel."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "da-lat",
+    "name": "Da Lat",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 11.9404,
+    "lon": 108.4583,
+    "default_currency": "VND",
+    "summary": "A cool Central Highlands retreat known for pine forests, waterfalls, flowers, coffee farms, colonial villas, lake walks, and mild-weather escapes."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "sapa",
+    "name": "Sapa",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 22.3364,
+    "lon": 103.8438,
+    "default_currency": "VND",
+    "summary": "A mountain trekking base in Lao Cai province: terraced rice fields, ethnic minority villages, misty views, cold winters, and weather-dependent trails."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "phu-quoc",
+    "name": "Phu Quoc",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 10.2899,
+    "lon": 103.984,
+    "default_currency": "VND",
+    "summary": "Vietnam's major island resort destination: beaches, snorkeling, seafood, night markets, national park, resorts, and a distinct island-entry context."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "ha-long",
+    "name": "Ha Long",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 20.9712,
+    "lon": 107.0448,
+    "default_currency": "VND",
+    "summary": "Gateway to Ha Long Bay and Bai Tu Long Bay: limestone karsts, cruises, caves, seafood, bay weather, and transport links from Hanoi."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "ninh-binh",
+    "name": "Ninh Binh",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 20.2506,
+    "lon": 105.9745,
+    "default_currency": "VND",
+    "summary": "A northern countryside base for limestone landscapes, boat rides, temples, cycling, viewpoints, and easy Hanoi rail or road access."
+  },
+  {
+    "country_slug": "vietnam",
+    "slug": "can-tho",
+    "name": "Can Tho",
+    "timezone": "Asia/Ho_Chi_Minh",
+    "lat": 10.0452,
+    "lon": 105.7469,
+    "default_currency": "VND",
+    "summary": "The Mekong Delta's main city: floating markets, river life, fruit gardens, southern food, bridges, canals, and humid lowland pacing."
+  }
+]
