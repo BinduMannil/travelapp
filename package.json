@@ -11,6 +11,7 @@
     "test": "vitest run --pool=forks",
     "test:watch": "vitest",
     "e2e": "playwright test",
+    "db:migrations:test": "bash db/scripts/test-migrations.sh",
     "seed": "tsx db/seed/import.ts"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 # Journee Lock Status
 
-Last updated: 16 May 2026
+Last updated: 17 May 2026
 
 This file records the current lock state for the repo. The design authority
 remains `docs/JOURNEE_MASTER_LOCK_SPEC.md`; this file tracks what is currently
@@ -37,15 +37,24 @@ npm run typecheck
 npm run lint
 npm test
 npm run build
+npm run e2e
+```
+
+When a disposable Supabase/Postgres database is available, also run:
+
+```bash
+JOURNEE_MIGRATION_TEST_DATABASE_URL="postgresql://..." npm run db:migrations:test
 ```
 
 Current local validation after the lock work:
 
 - `npm run lint` passed.
-- `npm test` passed with 27 tests.
+- `npm test` passed with 35 tests.
 - `npm run typecheck` passed.
 - `npm run build` passed from a clean local `.next` state.
-- `npm run e2e` covers canonical route smoke checks.
+- `npm run e2e` passed and covers canonical route smoke checks.
+- `npm run db:migrations:test` is available for disposable database
+  migration-application checks.
 
 ## Enforced Tests
 
@@ -75,11 +84,9 @@ Current local validation after the lock work:
 
 ## Open Decisions
 
-- CI uses Node 22 while Netlify config uses Node 20. This is acceptable under
-  the current `>=20` engine policy, but a single deployment/runtime version
-  should be chosen before launch.
 - Database migrations and seed JSON are covered by lightweight static tests.
-  Full Supabase migration application is not yet automated.
+  Full migration application can now be tested against a disposable
+  Supabase/Postgres database with `npm run db:migrations:test`.
 
 ## Agent Rules
 
