@@ -53,8 +53,8 @@ Current local validation after the lock work:
 - `npm run typecheck` passed.
 - `npm run build` passed from a clean local `.next` state.
 - `npm run e2e` passed and covers canonical route smoke checks.
-- `npm run db:migrations:test` is available for disposable database
-  migration-application checks.
+- `npm run db:migrations:test` passed against a temporary local PostgreSQL 16
+  database with all 14 migrations applied in order.
 
 ## Enforced Tests
 
