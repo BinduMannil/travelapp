@@ -36,8 +36,8 @@ npm install
 # 2. Copy environment variables and fill in secrets
 cp .env.example .env.local
 
-# 3. (Once Supabase is wired) apply the initial database migration
-# In the Supabase SQL editor, paste db/migrations/0001_init.sql.
+# 3. (Once Supabase is wired) apply the database migrations
+# Apply db/migrations/*.sql in filename order to the Supabase project.
 
 # 4. (Once Supabase is wired) seed the pilot country + city
 npm run seed
@@ -66,11 +66,26 @@ commits) see [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 | `npm run dev` | Start the Next.js dev server |
 | `npm run build` | Production build |
 | `npm start` | Run the production build |
-| `npm run lint` | ESLint via `next lint` |
+| `npm run lint` | ESLint flat-config lint |
 | `npm run typecheck` | TypeScript type-check |
 | `npm test` | Vitest unit tests |
 | `npm run e2e` | Playwright end-to-end tests |
+| `npm run db:migrations:test` | Apply all migrations to a disposable Postgres/Supabase database |
 | `npm run seed` | Seed countries + cities from `db/seed/` |
+
+## Database Migration Test
+
+Use a disposable database. Do not point this at production.
+
+```bash
+JOURNEE_MIGRATION_TEST_DATABASE_URL="postgresql://..." npm run db:migrations:test
+```
+
+The migration test applies every `db/migrations/*.sql` file in filename order,
+then checks for representative tables from the major data layers. When run
+against plain Postgres instead of Supabase, the script creates minimal `auth`
+schema, `auth.users`, `auth.uid()`, `anon`, and `authenticated` compatibility
+stubs before applying the migrations.
 
 ## Directory layout
 

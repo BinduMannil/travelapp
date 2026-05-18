@@ -76,6 +76,21 @@ describe("data layer lock", () => {
     });
   });
 
+  it("keeps the disposable database migration application script wired", () => {
+    const packageJson = readJson<{ scripts: Record<string, string> }>("package.json");
+    const scriptPath = path.join(repoRoot, "db/scripts/test-migrations.sh");
+    const script = readFileSync(scriptPath, "utf8");
+
+    expect(packageJson.scripts["db:migrations:test"]).toBe("bash db/scripts/test-migrations.sh");
+    expect(script).toContain("JOURNEE_MIGRATION_TEST_DATABASE_URL");
+    expect(script).toContain("auth.users");
+    expect(script).toContain("auth.uid()");
+    expect(script).toContain("db/migrations");
+    expect(script).toContain("relrowsecurity");
+    expect(script).toContain("pg_policies");
+    expect(script).toContain("to_regprocedure");
+  });
+
   it("parses every seed JSON file", () => {
     const seedRoot = path.join(repoRoot, "db/seed");
     const folders = readdirSync(seedRoot, { withFileTypes: true }).filter((entry) =>
