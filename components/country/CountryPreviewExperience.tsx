@@ -70,7 +70,7 @@ function ImageCard({ card, large = false }: { card: CountryContentCard; large?: 
         alt=""
         className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
       />
-      <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,10,11,.88),rgba(2,10,11,.54)_50%,rgba(2,10,11,.22)),linear-gradient(0deg,rgba(2,10,11,.88),transparent_66%)]" />
+      <span className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,10,11,.7),rgba(2,10,11,.38)_52%,rgba(2,10,11,.1)),linear-gradient(0deg,rgba(2,10,11,.72),transparent_68%)]" />
       <span className="relative flex h-full min-h-[inherit] flex-col justify-end p-6">
         <span className="text-[0.68rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
           {card.eyebrow}
@@ -141,7 +141,7 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
           <img
             src={heroImage}
             alt=""
-            className="absolute inset-0 -z-30 h-full w-full object-cover saturate-[1.15]"
+            className="absolute inset-0 -z-30 h-full w-full object-cover brightness-[1.06] contrast-[1.08] saturate-[1.32]"
           />
           <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
           <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
@@ -181,13 +181,18 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
 
           <div className="mx-auto grid min-h-[52rem] max-w-[1160px] content-center px-4 pb-24 pt-32 sm:px-5 xl:px-0">
             <div className="max-w-xl">
-              <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
-                {country.heroEyebrow ?? country.name}
+              <p className="text-[0.76rem] font-bold uppercase tracking-[0.1em] drop-shadow-[0_2px_14px_rgba(0,0,0,.75)] sm:tracking-[0.16em]" style={{ color: "var(--destination-primary)" }}>
+                {country.heroEyebrow ?? "Country guide"}
               </p>
-              <h1 className="mt-5 max-w-[12ch] font-sans text-[clamp(2.2rem,10vw,3.8rem)] font-semibold leading-[0.98] text-white drop-shadow-[0_6px_28px_rgba(0,0,0,0.55)] md:text-[clamp(2.6rem,7vw,4.8rem)] lg:text-[clamp(3.1rem,6vw,5.8rem)] lg:leading-[0.94]">
-                {country.heroTitle ?? country.name}
+              <h1 className="mt-4 max-w-[11ch] font-sans text-[clamp(3.6rem,20vw,6.6rem)] font-semibold leading-[0.82] text-white drop-shadow-[0_12px_38px_rgba(0,0,0,0.72)] sm:mt-5 md:text-[clamp(4.6rem,10vw,7.8rem)] lg:text-[clamp(5.4rem,8vw,8.8rem)] lg:leading-[0.82]">
+                {country.name}
               </h1>
-              <p className="mt-7 max-w-lg text-base leading-8 text-white/82">
+              {country.heroTitle && country.heroTitle !== country.name ? (
+                <p className="mt-5 max-w-[13ch] font-sans text-[clamp(2rem,8vw,3.4rem)] font-semibold leading-[0.92] text-[#fff2d8] drop-shadow-[0_8px_30px_rgba(0,0,0,.72)] sm:text-[clamp(2.3rem,5vw,4rem)]">
+                  {country.heroTitle}
+                </p>
+              ) : null}
+              <p className="mt-6 max-w-lg text-base leading-7 text-white/88 drop-shadow-[0_3px_18px_rgba(0,0,0,.7)] sm:mt-7 sm:leading-8">
                 {country.heroBody ?? country.summary}
               </p>
               <Link

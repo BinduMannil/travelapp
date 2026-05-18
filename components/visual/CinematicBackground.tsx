@@ -35,8 +35,8 @@ export function CinematicBackground({
           key={backgroundImage}
           src={backgroundImage}
           alt=""
-          className={`absolute inset-0 h-full w-full scale-[1.03] object-cover saturate-[1.12] transition-opacity duration-[3200ms] ease-[cubic-bezier(.19,1,.22,1)] motion-reduce:transition-none motion-safe:animate-[journeeCinematicDrift_36s_ease-in-out_infinite] ${imageClassName} ${
-            index === activeImageIndex ? (isRichOverlay ? "opacity-100" : "opacity-90") : "opacity-0"
+          className={`absolute inset-0 h-full w-full scale-[1.03] object-cover brightness-[1.04] contrast-[1.08] saturate-[1.28] transition-opacity duration-[3200ms] ease-[cubic-bezier(.19,1,.22,1)] motion-reduce:transition-none motion-safe:animate-[journeeCinematicDrift_36s_ease-in-out_infinite] ${imageClassName} ${
+            index === activeImageIndex ? "opacity-100" : "opacity-0"
           }`}
         />
       ))}
@@ -52,15 +52,15 @@ export function CinematicBackground({
       <div
         className={
           isRichOverlay
-            ? "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_54%_34%,transparent_0%,transparent_50%,rgba(0,0,0,.2)_78%,rgba(0,0,0,.62)_100%)]"
-            : "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_50%_28%,transparent_0%,rgba(0,0,0,.18)_44%,rgba(0,0,0,.62)_100%)]"
+            ? "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_54%_34%,transparent_0%,transparent_56%,rgba(0,0,0,.14)_82%,rgba(0,0,0,.46)_100%)]"
+            : "absolute inset-[-8%] bg-[radial-gradient(ellipse_at_50%_28%,transparent_0%,rgba(0,0,0,.1)_50%,rgba(0,0,0,.46)_100%)]"
         }
       />
       <div
         className={
           isRichOverlay
-            ? "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.06),rgba(2,6,7,.015)_42%,rgba(2,6,7,.5)_100%)]"
-            : "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.2),rgba(2,6,7,.18)_38%,rgba(2,6,7,.86)_100%)]"
+            ? "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.025),rgba(2,6,7,0)_44%,rgba(2,6,7,.34)_100%)]"
+            : "absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,7,.12),rgba(2,6,7,.08)_38%,rgba(2,6,7,.68)_100%)]"
         }
       />
       <div
