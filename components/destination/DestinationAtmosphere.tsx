@@ -66,11 +66,11 @@ export function DestinationThemeOverlay({
   return (
     <div className={`destination-theme-overlay ${className}`} aria-hidden>
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 opacity-75"
         style={{ background: theme.imageGradient }}
       />
       <div
-        className="absolute inset-0 opacity-70"
+        className="absolute inset-0 opacity-55"
         style={{
           background:
             `radial-gradient(circle at 72% 28%, ${theme.ambientGlow}, transparent 34%), ` +

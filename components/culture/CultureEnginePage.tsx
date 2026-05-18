@@ -16,7 +16,6 @@ import {
   HandCoins,
   Handshake,
   Headphones,
-  Map,
   MapPin,
   Menu,
   MessageCircle,
@@ -83,7 +82,6 @@ const images = {
 const navItems = [
   ["Culture Engine", Compass],
   ["Explore", Globe2],
-  ["Atlas", Map],
   ["Trips", BriefcaseBusiness],
   ["Stays", Moon],
   ["Flights", Plane],

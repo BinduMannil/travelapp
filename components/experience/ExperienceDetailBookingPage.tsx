@@ -307,7 +307,6 @@ export const experienceBookingData: ExperienceDetailPageData = {
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

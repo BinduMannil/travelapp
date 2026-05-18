@@ -82,7 +82,7 @@ const images = {
     "https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=500&q=84",
 };
 
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
+const navItems = ["Home", "Explore", "Trips", "Guides", "Journal"];
 
 const guideMenu = [
   { label: "All Guides", icon: Map },

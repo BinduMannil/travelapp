@@ -63,7 +63,6 @@ const images = {
 const navItems = [
   ["Home", "/"],
   ["Explore", "/explore"],
-  ["Map", "/atlas"],
   ["Trips", "/trips"],
   ["Guides", "/guides"],
   ["Journal", "/journal"],

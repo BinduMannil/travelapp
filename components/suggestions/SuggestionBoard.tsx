@@ -42,7 +42,6 @@ const VOTED_KEY = "journee:user-suggestion-votes:v2";
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

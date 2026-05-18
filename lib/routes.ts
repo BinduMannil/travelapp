@@ -38,7 +38,6 @@ export const routes = {
 export const primaryNavigation = [
   { label: "Home", href: routes.home },
   { label: "Explore", href: routes.explore },
-  { label: "Map", href: routes.atlas() },
   { label: "Trips", href: "/trips" },
   { label: "Guides", href: "/guides" },
   { label: "Journal", href: "/journal" },
@@ -48,7 +47,6 @@ export const primaryNavigation = [
 export const mainNavigation = [
   { label: "Home", href: routes.home },
   { label: "Explore", href: routes.explore },
-  { label: "Map", href: routes.atlas() },
   { label: "Trips", href: "/trips" },
   { label: "Guides", href: "/guides" },
   { label: "Journal", href: "/journal" },
@@ -65,8 +63,6 @@ const NAVIGATION_HREFS: Record<string, string> = {
   Home: routes.home,
   Explore: routes.explore,
   Discover: routes.explore,
-  Map: routes.atlas(),
-  Atlas: routes.atlas(),
   "Journey Builder": "/journey-builder",
   Trips: "/trips",
   Guides: "/guides",
@@ -161,7 +157,6 @@ export const siteDirectory = [
     title: "Core",
     links: [
       { label: "Explore", href: routes.explore },
-      { label: "Atlas", href: routes.atlas() },
       { label: "Journey Builder", href: "/journey-builder" },
       { label: "Trips", href: "/trips" },
       { label: "Guides", href: "/guides" },

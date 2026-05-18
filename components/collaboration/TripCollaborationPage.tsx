@@ -16,7 +16,6 @@ import {
   Home,
   Hotel,
   Link2,
-  Map,
   MapPin,
   MessageCircle,
   MoreVertical,
@@ -331,7 +330,6 @@ export const collaborationData: CollaborationData = {
 const navItems = [
   { label: "Home", href: "/", icon: Home },
   { label: "Explore", href: "/explore", icon: Sparkles },
-  { label: "Map", href: "/atlas", icon: Map },
   { label: "Trips", href: "/trips", icon: CalendarDays },
   { label: "Guides", href: "/guides", icon: NotebookPen },
   { label: "Journal", href: "/journal", icon: FileText },

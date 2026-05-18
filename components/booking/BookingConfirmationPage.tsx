@@ -84,7 +84,6 @@ type ConfirmationData = {
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

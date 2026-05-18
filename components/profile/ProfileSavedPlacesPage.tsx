@@ -51,7 +51,7 @@ type JournalEntry = {
   image: string;
 };
 
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal", "Profile"];
+const navItems = ["Home", "Explore", "Trips", "Guides", "Journal", "Profile"];
 
 const profileSummary: ProfileSummary = {
   name: "Emma Walker",
@@ -216,7 +216,6 @@ const travelStyle = [
 function routeFor(item: string) {
   if (item === "Home") return "/";
   if (item === "Explore") return "/explore";
-  if (item === "Map") return "/atlas";
   return `/${item.toLowerCase().replaceAll(" ", "-")}`;
 }
 

@@ -105,7 +105,6 @@ type BookingCheckoutState = {
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

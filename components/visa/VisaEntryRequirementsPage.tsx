@@ -76,7 +76,6 @@ type VisaProfile = {
 const navItems = [
   "Home",
   "Explore",
-  "Atlas",
   "Trips",
   "Guides",
   "Journal",

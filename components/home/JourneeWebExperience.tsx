@@ -554,13 +554,13 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
           <div className="journee-hero-text-glow pointer-events-none absolute -inset-x-16 -inset-y-20 -z-10" aria-hidden />
           <p
             key={`label-${activeSlide}`}
-            className="font-sans text-[0.58rem] font-bold uppercase tracking-[0.42em] text-white/42 motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
+            className="font-sans text-[0.62rem] font-bold uppercase tracking-[0.22em] text-white/58 motion-safe:animate-[journeeSceneText_3.2s_ease_both] sm:tracking-[0.34em]"
           >
             {locationLabel}
           </p>
           <p
             key={`eyebrow-${activeSlide}`}
-            className="mt-4 font-sans text-[0.78rem] font-bold uppercase tracking-[0.44em] text-[#d9a947] motion-safe:animate-[journeeSceneText_3.2s_ease_both]"
+            className="mt-3 font-sans text-[0.82rem] font-bold uppercase tracking-[0.2em] text-[#f0bf5f] motion-safe:animate-[journeeSceneText_3.2s_ease_both] sm:mt-4 sm:tracking-[0.34em]"
           >
             {activeHeroSlide.eyebrow}
           </p>
@@ -576,7 +576,7 @@ function HomeHero({ heroSlides }: { heroSlides: HeroSlide[] }) {
           </h1>
           <p
             key={`copy-${activeSlide}`}
-            className="mt-7 max-w-[500px] font-sans text-base leading-8 text-white/78 motion-safe:animate-[journeeSceneText_3.2s_ease_both] sm:text-lg"
+            className="mt-6 max-w-[500px] font-sans text-base leading-7 text-white/86 motion-safe:animate-[journeeSceneText_3.2s_ease_both] sm:mt-7 sm:text-lg sm:leading-8"
           >
             {supportingParagraph}
           </p>

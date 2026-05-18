@@ -261,6 +261,7 @@ export function CountrySubpageExperience({
   country: CountryOption;
   kind: CountrySubpageKind;
 }) {
+  const isVietnam = country.slug === "vietnam";
   const atmosphereTheme = getAtmosphereThemeForRender({
     destinationSlug: country.slug,
     destinationType: "country",
@@ -292,12 +293,12 @@ export function CountrySubpageExperience({
 
   return (
     <DestinationAtmosphereProvider destinationSlug={country.slug} destinationType="country">
-    <main className="min-h-screen overflow-x-hidden bg-[#020a0b] text-white">
+    <main className={`${isVietnam ? "vietnam-editorial" : ""} min-h-screen overflow-x-hidden bg-[#020a0b] text-white`}>
       <section className="relative isolate min-h-[34rem] overflow-hidden">
         <img
           src={heroImage}
           alt=""
-          className="absolute inset-0 -z-30 h-full w-full object-cover saturate-[1.12]"
+          className="absolute inset-0 -z-30 h-full w-full object-cover brightness-[1.06] contrast-[1.08] saturate-[1.28]"
         />
         <DestinationThemeOverlay theme={atmosphereTheme} className="-z-20" />
         <DestinationMotionLayer theme={atmosphereTheme} className="-z-10" />
@@ -306,9 +307,6 @@ export function CountrySubpageExperience({
             <Link href="/" className="min-w-0">
               <span className="block text-2xl font-bold uppercase tracking-[0.22em] text-white">
                 JOURNEE
-              </span>
-              <span className="block text-[0.55rem] font-bold uppercase tracking-[0.28em]" style={{ color: "var(--destination-primary)" }}>
-                by Dzeli
               </span>
             </Link>
             <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/86 lg:flex">
@@ -329,20 +327,20 @@ export function CountrySubpageExperience({
         </div>
 
         <div className="mx-auto grid min-h-[34rem] max-w-[1160px] content-end px-4 pb-16 pt-28 sm:px-5 xl:px-0">
-          <nav className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white/62">
+          <nav className="text-[0.68rem] font-bold uppercase tracking-[0.08em] text-white/72 sm:tracking-[0.14em]">
             <Link href="/" className="hover:text-white">Home</Link> ·{" "}
             <Link href={`/country/${country.slug}`} className="hover:text-white">{country.name}</Link> · {meta.nav}
           </nav>
           <div className="mt-9 flex max-w-3xl items-center gap-4">
             <Icon className="hidden h-9 w-9 shrink-0 sm:block" style={{ color: "var(--destination-primary)" }} strokeWidth={1.4} />
-            <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--destination-primary)" }}>
+            <p className="text-[0.76rem] font-bold uppercase tracking-[0.1em] drop-shadow-[0_2px_14px_rgba(0,0,0,.75)] sm:tracking-[0.16em]" style={{ color: "var(--destination-primary)" }}>
               {meta.eyebrow}
             </p>
           </div>
-          <h1 className="mt-5 max-w-[13ch] font-sans text-[clamp(2.1rem,10vw,3.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-white md:text-[clamp(2.5rem,7vw,4.5rem)] lg:text-[clamp(3rem,6vw,5.5rem)] lg:leading-[0.92]">
+          <h1 className="mt-4 max-w-[11ch] font-sans text-[clamp(3.05rem,14vw,5.2rem)] font-semibold leading-[0.86] tracking-[-0.02em] text-white drop-shadow-[0_12px_38px_rgba(0,0,0,0.72)] md:text-[clamp(3.8rem,8vw,6.4rem)] lg:text-[clamp(4.6rem,7vw,7.6rem)] lg:leading-[0.84]">
             {meta.title(country)}
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-white/78">
+          <p className="mt-6 max-w-[40rem] font-display text-[1.25rem] leading-[1.45] text-[#fff2d8]/92 drop-shadow-[0_3px_18px_rgba(0,0,0,.7)] sm:text-[1.45rem] sm:leading-[1.42]">
             {meta.body(country)}
           </p>
         </div>
