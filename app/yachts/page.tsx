@@ -14,7 +14,6 @@ import {
   Headphones,
   Home,
   Hotel,
-  Map,
   Menu,
   Palmtree,
   Plane,
@@ -273,7 +272,6 @@ const feed = [
 const navItems = [
   ["Home", Home, "/"],
   ["Explore", Compass, "/explore"],
-  ["Atlas", Map, "/atlas"],
   ["Trips", CalendarDays, "/trips"],
   ["Stays", Hotel, "/stays"],
   ["Flights", Plane, "/flights"],

@@ -39,7 +39,6 @@ const journalMenu = [
   { label: "My Trips", href: "/trips", icon: SquarePen },
   { label: "Daily Notes", href: "/journal/daily-notes", icon: CalendarDays },
   { label: "Photos & Albums", href: "/journal/photos", icon: GalleryHorizontal },
-  { label: "Maps & Places", href: "/atlas", icon: Map },
   { label: "Saved Moments", href: "/profile", icon: Bookmark },
   { label: "Reflections", href: "/journal/reflections", icon: Sparkles },
   { label: "Mood Tracker", href: "/journal/mood", icon: BarChart3 },

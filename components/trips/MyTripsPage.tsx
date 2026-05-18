@@ -143,7 +143,7 @@ const savedPlaces = [
 
 const views: View[] = ["Overview", "Active", "Upcoming", "Draft", "Completed", "Memories"];
 const filters: Filter[] = ["All", "Solo", "Couple", "Family", "Friends"];
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
+const navItems = ["Home", "Explore", "Trips", "Guides", "Journal"];
 
 const statusCopy: Record<TripStatus, string> = {
   Active: "Trips unfolding now, with live plans and open tasks.",

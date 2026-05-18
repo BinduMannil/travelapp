@@ -66,7 +66,6 @@ type Reminder = {
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

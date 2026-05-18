@@ -41,7 +41,7 @@ const destinationSuggestions = [
 ];
 
 const travelStyles = ["Luxury", "Adventure", "Culture", "Wellness", "Foodie", "Hidden gems"];
-const navItems = ["Home", "Explore", "Map", "Trips", "Guides", "Journal"];
+const navItems = ["Home", "Explore", "Trips", "Guides", "Journal"];
 const interests = [
   "Boutique hotels",
   "Private guides",

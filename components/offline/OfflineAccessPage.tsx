@@ -66,7 +66,6 @@ type DownloadQueueItem = {
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

@@ -36,7 +36,6 @@ type Priority = "High" | "Medium" | "Low";
 const topNav = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",

@@ -59,7 +59,6 @@ const avatar =
 const navItems = [
   "Home",
   "Explore",
-  "Map",
   "Trips",
   "Guides",
   "Journal",
