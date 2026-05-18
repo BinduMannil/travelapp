@@ -158,9 +158,6 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 <span className="block text-2xl font-bold uppercase tracking-[0.22em] text-white">
                   JOURNEE
                 </span>
-                <span className="block text-[0.55rem] font-bold uppercase tracking-[0.28em]" style={{ color: "var(--destination-primary)" }}>
-                  by Dzeli
-                </span>
               </Link>
               <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/86 lg:flex">
                 {["Destinations", "Journeys", "Yachts", "Rail", "Aurora", "Expeditions", "Experiences", "Concierge"].map((item) => (
@@ -188,11 +185,11 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 {country.name}
               </h1>
               {country.heroTitle && country.heroTitle !== country.name ? (
-                <p className="mt-5 max-w-[13ch] font-sans text-[clamp(2rem,8vw,3.4rem)] font-semibold leading-[0.92] text-[#fff2d8] drop-shadow-[0_8px_30px_rgba(0,0,0,.72)] sm:text-[clamp(2.3rem,5vw,4rem)]">
+                <p className="mt-5 max-w-[12ch] font-sans text-[clamp(2rem,8vw,3.4rem)] font-semibold leading-[1.04] text-[#fff2d8] drop-shadow-[0_8px_30px_rgba(0,0,0,.72)] sm:text-[clamp(2.3rem,5vw,4rem)] sm:leading-[1.02]">
                   {country.heroTitle}
                 </p>
               ) : null}
-              <p className="mt-6 max-w-lg text-base leading-7 text-white/88 drop-shadow-[0_3px_18px_rgba(0,0,0,.7)] sm:mt-7 sm:leading-8">
+              <p className="mt-7 max-w-[24rem] font-display text-[1.25rem] leading-[1.45] text-[#fff2d8]/92 drop-shadow-[0_3px_18px_rgba(0,0,0,.7)] sm:mt-8 sm:text-[1.45rem] sm:leading-[1.42]">
                 {country.heroBody ?? country.summary}
               </p>
               <Link
