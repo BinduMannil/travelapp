@@ -86,6 +86,9 @@ describe("data layer lock", () => {
     expect(script).toContain("auth.users");
     expect(script).toContain("auth.uid()");
     expect(script).toContain("db/migrations");
+    expect(script).toContain("relrowsecurity");
+    expect(script).toContain("pg_policies");
+    expect(script).toContain("to_regprocedure");
   });
 
   it("parses every seed JSON file", () => {
