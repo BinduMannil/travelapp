@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { Bell, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { JourneeBrand } from "@/components/brand/JourneeLogo";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
@@ -27,7 +27,7 @@ const imageSet = {
   hidden:
     "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=84",
   adventure:
-    "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=84",
+    "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=84",
   food:
     "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=84",
   spiritual:
@@ -267,21 +267,7 @@ function HomeNavbar() {
           >
             <Search className="h-5 w-5" />
           </Link>
-          <Link
-            href="/alerts"
-            aria-label="Notifications"
-            className="relative hidden h-12 w-12 place-items-center rounded-full border border-white/10 bg-black/10 text-white backdrop-blur-md transition hover:border-[#d9a947]/70 hover:text-[#d9a947] sm:grid"
-          >
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-3 top-3 h-2 w-2 rounded-full bg-[#d9a947]" />
-          </Link>
-          <Link href="/settings" aria-label="Open settings">
-            <img
-              src={imageSet.avatar}
-              alt="Profile"
-              className="h-11 w-11 rounded-full border border-white/20 object-cover shadow-xl shadow-black/30"
-            />
-          </Link>
+
         </div>
       </div>
 
@@ -338,12 +324,9 @@ function HomeHero({ heroImage }: { heroImage: string }) {
             </Link>
             <Link
               href="#recommended"
-              className="inline-flex h-14 items-center gap-3 font-sans text-sm font-semibold text-white"
+              className="inline-flex h-14 items-center justify-center rounded-2xl border border-white/28 px-7 font-sans text-sm font-semibold text-white transition hover:border-[#d9a947]/70 hover:text-[#f0c66e]"
             >
-              <span className="grid h-11 w-11 place-items-center rounded-full border border-white/28 bg-black/20 backdrop-blur-md">
-                <span className="ml-0.5 h-0 w-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-white" />
-              </span>
-              Watch Journee
+              View recommendations
             </Link>
           </div>
         </div>

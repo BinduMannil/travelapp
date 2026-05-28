@@ -1,16 +1,14 @@
-import { Montserrat, Playfair_Display } from "next/font/google";
+const fontClassNames = {
+  sans: "font-sans",
+  display: "font-display",
+};
 
-export const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700", "800"],
-});
+export const montserrat = {
+  className: fontClassNames.sans,
+  variable: "[--font-sans:Montserrat]",
+};
 
-export const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-  style: ["normal", "italic"],
-});
+export const playfair = {
+  className: fontClassNames.display,
+  variable: "[--font-display:'Playfair_Display']",
+};

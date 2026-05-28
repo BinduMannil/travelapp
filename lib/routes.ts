@@ -65,9 +65,11 @@ const NAVIGATION_HREFS: Record<string, string> = {
   Home: routes.home,
   Explore: routes.explore,
   Discover: routes.explore,
+  Destinations: routes.countries,
   Map: routes.atlas(),
   Atlas: routes.atlas(),
   "Journey Builder": "/journey-builder",
+  Journeys: "/trips",
   Trips: "/trips",
   Guides: "/guides",
   Visa: "/visa",
@@ -103,6 +105,9 @@ const NAVIGATION_HREFS: Record<string, string> = {
   Documents: "/documents",
   Concierge: "/concierge",
   Suggestions: "/suggestions",
+  Saved: "/profile",
+  Ideas: "/community-ideas",
+  Airspace: "/airspace",
 };
 
 export function slugifyRouteSegment(value: string) {

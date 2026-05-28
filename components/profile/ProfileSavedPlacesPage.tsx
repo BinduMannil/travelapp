@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useId, useState } from "react";
 import {
-  Bell,
   MoreVertical,
   Search,
 } from "lucide-react";
@@ -26,7 +26,6 @@ type ProfileSummary = {
   tier: string;
   status: string;
   memberSince: string;
-  avatar: string;
 };
 
 type SavedPlace = {
@@ -60,7 +59,6 @@ const profileSummary: ProfileSummary = {
   tier: "Explorer",
   status: "Active",
   memberSince: "May 12, 2024",
-  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=220&q=82",
 };
 
 const profileTabs = [
@@ -351,19 +349,12 @@ function TopNav() {
           <Search className="h-4 w-4 text-white/72" />
           <span className="truncate text-[0.78rem]">Search destinations, places, guides...</span>
         </div>
-        <button
-          aria-label="Notifications"
-          className="grid h-10 w-10 place-items-center rounded-full text-white/84 transition hover:bg-white/8 hover:text-[#e2ad50]"
+        <Link
+          href="/alerts"
+          className="hidden rounded-full border border-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/74 transition hover:border-[#e2ad50]/60 hover:text-[#e2ad50] sm:inline-flex"
         >
-          <Bell className="h-5 w-5" />
-        </button>
-        <Image
-          src={profileSummary.avatar}
-          alt={profileSummary.name}
-          width={42}
-          height={42}
-          className="h-10 w-10 rounded-full border-2 border-[#d9a756]/55 object-cover"
-        />
+          Alerts
+        </Link>
       </div>
     </header>
   );
@@ -442,13 +433,10 @@ function AccountSummaryHero() {
             Account Summary
           </p>
           <div className="mt-7 flex flex-col gap-6 sm:flex-row sm:items-center">
-            <Image
-              src={profileSummary.avatar}
-              alt={`${profileSummary.name} profile`}
-              width={132}
-              height={132}
-              className="h-28 w-28 rounded-full border-2 border-[#d9a646]/80 object-cover shadow-[0_0_56px_rgba(217,166,70,.28)] sm:h-32 sm:w-32"
-            />
+            <div className="rounded-[1.25rem] border border-[#d9a646]/35 bg-black/24 px-5 py-4 shadow-[0_0_56px_rgba(217,166,70,.16)]">
+              <p className="text-[0.66rem] font-bold uppercase tracking-[0.18em] text-[#e1ad52]">Traveler file</p>
+              <p className="mt-2 text-sm leading-6 text-white/72">Private profile overview</p>
+            </div>
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
                 <h1 className="font-sans text-3xl font-semibold leading-none tracking-[-0.03em] text-white sm:text-5xl">

@@ -37,13 +37,13 @@ type JournalEntry = {
 const journalMenu = [
   { label: "All Entries", href: "/journal/all-entries", icon: BookOpen, active: true },
   { label: "My Trips", href: "/trips", icon: SquarePen },
-  { label: "Daily Notes", href: "/journal/daily-notes", icon: CalendarDays },
-  { label: "Photos & Albums", href: "/journal/photos", icon: GalleryHorizontal },
+  { label: "Daily Notes", href: "/journal/all-entries", icon: CalendarDays },
+  { label: "Photos & Albums", href: "/journal/all-entries", icon: GalleryHorizontal },
   { label: "Maps & Places", href: "/atlas", icon: Map },
   { label: "Saved Moments", href: "/profile", icon: Bookmark },
-  { label: "Reflections", href: "/journal/reflections", icon: Sparkles },
-  { label: "Mood Tracker", href: "/journal/mood", icon: BarChart3 },
-  { label: "Drafts", href: "/journal/drafts", icon: FileText },
+  { label: "Reflections", href: "/journal/all-entries", icon: Sparkles },
+  { label: "Mood Tracker", href: "/journal/all-entries", icon: BarChart3 },
+  { label: "Drafts", href: "/journal/all-entries", icon: FileText },
 ];
 
 const categoryTabs = ["All", "Trips", "Notes", "Places", "Photos", "Reflections"];

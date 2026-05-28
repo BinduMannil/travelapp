@@ -12,7 +12,6 @@ import {
   Landmark,
   LineChart,
   LockKeyhole,
-  Menu,
   Search,
   ShieldCheck,
   TrendingDown,
@@ -45,9 +44,6 @@ type QuickTool = {
   title: string;
   icon: typeof WalletCards;
 };
-
-const avatar =
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80";
 
 const navItems = [
   "Home",
@@ -165,13 +161,7 @@ function TopNavigation() {
           <span className="truncate text-sm font-normal">Search currencies or countries...</span>
           <Search className="ml-auto h-4 w-4 shrink-0 text-white/48" />
         </div>
-        <button className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-white/88" type="button" aria-label="Notifications">
-          <Bell className="h-5 w-5" />
-        </button>
-        <img src={avatar} alt="" className="h-10 w-10 shrink-0 rounded-full border border-[#d8aa4f]/55 object-cover" />
-        <button className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 text-white/86 2xl:hidden" type="button" aria-label="Open menu">
-          <Menu className="h-5 w-5" />
-        </button>
+        <Link href="/alerts" className="hidden rounded-full border border-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/74 transition hover:border-[#d8aa4f]/60 hover:text-[#f3b544] sm:inline-flex">Alerts</Link>
       </div>
     </header>
   );

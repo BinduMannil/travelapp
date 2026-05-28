@@ -15,7 +15,6 @@ import {
   Languages,
   LockKeyhole,
   MapPin,
-  Menu,
   MessageCircleQuestion,
   Palette,
   Plane,
@@ -34,9 +33,6 @@ export const metadata: Metadata = {
   description:
     "Manage JOURNEE account preferences, regional settings, travel style, translations, privacy, notifications, accessibility, and billing.",
 };
-
-const avatar =
-  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=160&q=80";
 
 const navItems = [
   "Home",
@@ -224,13 +220,7 @@ function TopNavigation() {
           <Search className="mr-3 h-4 w-4 shrink-0 text-white/48" />
           <span className="truncate text-sm">Search destinations or anything...</span>
         </div>
-        <button className="grid h-10 w-10 shrink-0 place-items-center rounded-full text-white/88" type="button" aria-label="Notifications">
-          <Bell className="h-5 w-5" />
-        </button>
-        <img src={avatar} alt="" className="h-10 w-10 shrink-0 rounded-full border border-[#d8aa4f]/55 object-cover" />
-        <button className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 text-white/86 2xl:hidden" type="button" aria-label="Open menu">
-          <Menu className="h-5 w-5" />
-        </button>
+        <Link href="/alerts" className="hidden rounded-full border border-white/12 px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white/74 transition hover:border-[#d8aa4f]/60 hover:text-[#f3b544] sm:inline-flex">Alerts</Link>
       </div>
     </header>
   );
@@ -253,20 +243,20 @@ function LeftSidebar() {
         </h2>
         <nav className="space-y-2">
           {settingsMenu.map((item) => (
-              <a
-                key={item.label}
-                href={settingsMenuHref[item.label] ?? "/settings"}
-                className={`flex min-h-[64px] items-center gap-4 rounded-md px-4 py-3 transition ${
-                  item.active
-                    ? "border-l-2 border-[#f0aa2c] bg-gradient-to-r from-[#b98125]/55 to-[#d8aa4f]/32 text-white shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"
-                    : "text-white/84 hover:bg-white/[0.055] hover:text-white"
-                }`}
-              >
-                <span className="min-w-0">
-                  <span className="block text-sm font-semibold">{item.label}</span>
-                  <span className="mt-0.5 block truncate text-xs text-white/58">{item.note}</span>
-                </span>
-              </a>
+            <a
+              key={item.label}
+              href={settingsMenuHref[item.label] ?? "/settings"}
+              className={`flex min-h-[64px] items-center gap-4 rounded-md px-4 py-3 transition ${
+                item.active
+                  ? "border-l-2 border-[#f0aa2c] bg-gradient-to-r from-[#b98125]/55 to-[#d8aa4f]/32 text-white shadow-[inset_0_1px_0_rgba(255,255,255,.08)]"
+                  : "text-white/84 hover:bg-white/[0.055] hover:text-white"
+              }`}
+            >
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold">{item.label}</span>
+                <span className="mt-0.5 block truncate text-xs text-white/58">{item.note}</span>
+              </span>
+            </a>
           ))}
         </nav>
       </Panel>
@@ -293,9 +283,9 @@ function MobileSettingsMenu() {
     <Panel className="p-3 xl:hidden">
       <div className="flex gap-2 overflow-x-auto pb-1">
         {settingsMenu.map((item) => (
-          <button
-            type="button"
+          <a
             key={item.label}
+            href={settingsMenuHref[item.label] ?? "/settings"}
             className={`shrink-0 rounded-md border px-3 py-2 text-xs font-semibold ${
               item.active
                 ? "border-[#d8aa4f] bg-[#d8aa4f]/18 text-[#f3b544]"
@@ -303,7 +293,7 @@ function MobileSettingsMenu() {
             }`}
           >
             {item.label}
-          </button>
+          </a>
         ))}
       </div>
     </Panel>
@@ -436,8 +426,8 @@ function RightSidebar() {
         <h2 className="text-sm font-extrabold uppercase tracking-[0.16em] text-[#f3b544]">
           Account Summary
         </h2>
-        <div className="mt-6 flex items-center gap-5">
-          <img src={avatar} alt="" className="h-16 w-16 rounded-full border border-[#d8aa4f]/50 object-cover" />
+        <div className="mt-6 flex items-start gap-5">
+          <div className="rounded-[1rem] border border-[#d8aa4f]/30 bg-white/[0.04] px-4 py-3 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#f3b544]">Account</div>
           <div className="min-w-0">
             <h3 className="truncate text-base font-semibold text-white">Sarah Johnson</h3>
             <p className="mt-2 truncate text-sm leading-6 text-white/64">sarah.johnson@example.com</p>

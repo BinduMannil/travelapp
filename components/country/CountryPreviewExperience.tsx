@@ -163,8 +163,17 @@ export function CountryPreviewExperience({ country }: { country: CountryOption }
                 </span>
               </Link>
               <nav className="hidden items-center gap-8 text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/86 lg:flex">
-                {["Destinations", "Journeys", "Yachts", "Rail", "Aurora", "Expeditions", "Experiences", "Concierge"].map((item) => (
-                  <Link key={item} href={item === "Destinations" ? "/discover" : `/${item.toLowerCase()}`} className="transition hover:text-[var(--destination-primary)]">
+                {[
+                  ["Destinations", "/countries"],
+                  ["Journeys", "/trips"],
+                  ["Yachts", "/yachts"],
+                  ["Rail", "/rail"],
+                  ["Aurora", "/aurora"],
+                  ["Expeditions", "/expeditions"],
+                  ["Experiences", "/experiences"],
+                  ["Concierge", "/concierge"],
+                ].map(([item, href]) => (
+                  <Link key={item} href={href} className="transition hover:text-[var(--destination-primary)]">
                     {item}
                   </Link>
                 ))}

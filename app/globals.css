@@ -1184,3 +1184,96 @@ html[dir="rtl"] ul.list-disc > li::before {
 html[dir="rtl"] .rtl-flip {
   transform: scaleX(-1);
 }
+
+@layer base {
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary {
+    min-width: 0;
+  }
+
+  button,
+  [role="button"],
+  a[href],
+  summary {
+    touch-action: manipulation;
+  }
+
+  :where(button, a[href], input, select, textarea, summary):focus-visible {
+    outline: 2px solid rgba(232, 199, 123, 0.9);
+    outline-offset: 3px;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .journee-page-frame :where(section, article, aside, header, footer, nav, div) {
+    min-width: 0;
+  }
+
+  .journee-page-frame :where(p, li, dd, blockquote) {
+    color: inherit;
+    overflow-wrap: anywhere;
+  }
+
+  .journee-page-frame :where(input, select, textarea) {
+    min-height: 2.75rem;
+    color: inherit;
+  }
+
+  .journee-page-frame :where(button, a[href], summary) {
+    min-height: 2.5rem;
+  }
+
+  .journee-page-frame :where(article, aside, section)[class*="border"] {
+    overflow-wrap: anywhere;
+  }
+
+  .journee-page-frame :where(.grid) > * {
+    min-width: 0;
+  }
+
+  .journee-page-frame :where([class*="rounded"])[class*="border"][class*="bg-"] {
+    background-clip: padding-box;
+  }
+
+  .journee-page-frame :where([class*="overflow-x-auto"]) {
+    overscroll-behavior-inline: contain;
+    scrollbar-gutter: stable both-edges;
+  }
+
+  .journee-page-frame :where([class*="tracking-[0.2"], [class*="tracking-[0.3"], [class*="tracking-[0.4"]) {
+    line-height: 1.45;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --journee-section: clamp(4rem, 16vw, 6rem);
+  }
+
+  body {
+    font-size: 0.96rem;
+  }
+
+  .journee-page-frame {
+    text-size-adjust: 100%;
+  }
+
+  .journee-page-frame :where(section, header, footer) {
+    scroll-margin-top: 5rem;
+  }
+
+  .journee-page-frame :where(h1) {
+    line-height: 0.98;
+  }
+}

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Bell, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { MainNavLink } from "@/components/navigation/MainNavLink";
 import { TopNavSearch } from "@/components/search/TopNavSearch";
@@ -74,18 +74,15 @@ export function CinematicTopNav({
         </div>
 
         {notifications === false ? null : notifications ?? (
-          <button
-            className="relative grid h-10 w-10 shrink-0 place-items-center rounded-full text-white/88"
-            type="button"
-            aria-label="Notifications"
-          >
-            <Bell className="h-5 w-5" />
-            {notificationCount ? (
-              <span className="absolute right-1.5 top-1 h-4 min-w-4 rounded-full bg-[#f3b544] px-1 text-[10px] font-bold leading-4 text-[#120d04]">
-                {notificationCount}
-              </span>
-            ) : null}
-          </button>
+          notificationCount ? (
+            <Link
+              href="/alerts"
+              className="relative inline-flex h-10 min-w-10 shrink-0 items-center justify-center rounded-full border border-white/12 px-3 text-xs font-bold text-[#120d04] bg-[#f3b544]"
+              aria-label={`${notificationCount} active travel alerts`}
+            >
+              {notificationCount}
+            </Link>
+          ) : null
         )}
 
         {avatar === false ? null : avatar ?? (
